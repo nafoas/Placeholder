@@ -1,0 +1,1949 @@
+shared_focus = { 
+	id = JAP_politics_start
+	icon = GFX_focus_jap_pacific_guardian
+	cost = 4
+	x = 7
+	y = 0
+	completion_reward = {
+		add_political_power = 100
+	}
+}
+shared_focus = {
+	id = JAP_rescue_democracy
+	icon = GFX_focus_generic_the_giant_wakes
+	cost = 4
+	prerequisite = {
+		focus = JAP_politics_start
+	}	
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = JAP_fading_democracy
+			add_idea = JAP_fading_democracy_A
+		}
+	}	
+	x = 7
+	y = 1
+}
+shared_focus = {
+	id = JAP_deal_with_militarists
+	icon = GFX_goal_tfv_saf_anti_colonialist_crusade
+	cost = 4
+	prerequisite = {
+		focus = JAP_rescue_democracy
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = JAP_rising_militarism
+			add_idea = JAP_rising_militarism_A
+		}	
+	}	
+	x = 4
+	y = 2
+}
+shared_focus = { 
+	id = JAP_handle_reformist_bureaucrats
+	icon = GFX_focus_Lock_Them_Up
+	cost = 4
+	prerequisite = {
+		focus = JAP_rescue_democracy
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = JAP_fading_democracy_A
+			add_idea = JAP_fading_democracy_B
+		}	
+	}
+	x = 7
+	y = 2
+}	
+shared_focus = {
+	id = JAP_deal_with_leftists
+	icon = GFX_focus_ger_bulwark_against_bolshevism
+	cost = 4
+	prerequisite = {
+		focus = JAP_rescue_democracy
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = JAP_social_anxiety
+			add_idea = JAP_social_anxiety_A
+		}	
+	}
+	x = 10
+	y = 2
+}
+shared_focus = {
+	id = JAP_prevent_coup_attempts
+	icon = GFX_focus_Crush_Resistance
+	cost = 4
+	prerequisite = {
+		focus = JAP_deal_with_militarists
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_rising_militarism_A
+			}
+			swap_ideas = { remove_idea = JAP_rising_militarism_A add_idea = JAP_rising_militarism_AB }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_rising_militarism_AC
+			}
+			swap_ideas = { remove_idea = JAP_rising_militarism_AC add_idea = JAP_rising_militarism_ABC }
+		}
+	}	
+	x = 1
+	y = 3
+}
+shared_focus = {
+	id = JAP_continue_investigation
+	icon = GFX_focus_Study_Japanese_Rifles
+	cost = 4
+	prerequisite = {
+		focus = JAP_deal_with_militarists
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_rising_militarism_A
+			}
+			swap_ideas = { remove_idea = JAP_rising_militarism_A add_idea = JAP_rising_militarism_AC }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_rising_militarism_AB
+			}
+			swap_ideas = { remove_idea = JAP_rising_militarism_AB add_idea = JAP_rising_militarism_ABC }
+		}
+	}
+	x = 4
+	y = 3
+}
+shared_focus = {
+	id = JAP_encourage_new_bureaucrats
+	icon = GFX_focus_generic_self_management
+	cost = 4
+	prerequisite = {
+		focus = JAP_handle_reformist_bureaucrats
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = JAP_fading_democracy_B
+			add_idea = JAP_fading_democracy_C
+		}	
+	}	
+	x = 7
+	y = 3
+}
+shared_focus = {
+	id = JAP_purge_leftists_from_judiciary
+	icon = GFX_focus_Communist_Discourse
+	cost = 4
+	prerequisite = {
+		focus = JAP_deal_with_leftists
+	}
+completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_social_anxiety_A
+			}
+			swap_ideas = { remove_idea = JAP_social_anxiety_A add_idea = JAP_social_anxiety_AB }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_social_anxiety_AC
+			}
+			swap_ideas = { remove_idea = JAP_social_anxiety_AC add_idea = JAP_social_anxiety_ABC }
+		}
+		add_to_variable = {
+			var = JAP_Hiranuma_Points
+			value = 2
+		}
+		custom_effect_tooltip = JAP_Hiranuma_Gain_2
+	}
+	x = 10
+	y = 3
+}	
+shared_focus = {
+	id = JAP_remove_communists_from_education
+	icon = GFX_focus_Communist_Scientists
+	cost = 4
+	prerequisite = {
+		focus = JAP_deal_with_leftists
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_social_anxiety_A
+			}
+			swap_ideas = { remove_idea = JAP_social_anxiety_A add_idea = JAP_social_anxiety_AC }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_social_anxiety_AB
+			}
+			swap_ideas = { remove_idea = JAP_social_anxiety_AB add_idea = JAP_social_anxiety_ABC }
+		}
+	}
+	x = 13
+	y = 3
+}
+shared_focus = {
+	id = JAP_accept_supriority_of_military
+	icon = GFX_focus_Military_Government
+	cost = 4
+	available = {
+		has_country_flag = JAP_military_gostop
+	}	
+	prerequisite = {
+		focus = JAP_prevent_coup_attempts
+	}
+	prerequisite = {
+		focus = JAP_continue_investigation
+	}	
+	mutually_exclusive = {
+		focus = JAP_mediate_between_army_and_ministers
+	}
+	mutually_exclusive = {
+		focus = JAP_victory_of_bureaucrats
+	}
+	completion_reward = {
+		hidden_effect = {
+			remove_ideas = {
+				JAP_rising_militarism_ABC
+				JAP_fading_democracy_C
+			}
+			add_ideas = {
+				JAP_bent_to_military
+			}	
+		}
+		custom_effect_tooltip = JAP_miliary_won
+		add_to_variable = {
+			var = JAP_Toseiha_Points
+			value = 20
+		}
+		subtract_from_variable = {
+			var = JAP_Kodoha_Points
+			value = 20
+		}
+		add_to_variable = {
+			var = JAP_Konoe_Points
+			value = 3
+		}
+		add_to_variable = {
+			var = JAP_Hiranuma_Points
+			value = 2
+		}
+		#custom_effect_tooltip = JAP_Toseiha_Gain_20
+		#custom_effect_tooltip = JAP_Kodoha_Lose_20
+		custom_effect_tooltip = JAP_Konoe_Gain_3
+		custom_effect_tooltip = JAP_Hiranuma_Gain_2
+		
+	}
+	x = 1
+	y = 4
+}
+shared_focus = {
+	id = JAP_mediate_between_army_and_ministers
+	icon = GFX_goal_generic_military_deal
+	cost = 4
+	available = {
+		has_country_flag = JAP_mediation_gostop
+	}
+	prerequisite = {
+		focus = JAP_prevent_coup_attempts
+	}
+	prerequisite = {
+		focus = JAP_continue_investigation
+	}
+	prerequisite = {
+		focus = JAP_encourage_new_bureaucrats
+	}
+	mutually_exclusive = {
+		focus = JAP_accept_supriority_of_military
+	}
+	mutually_exclusive = {
+		focus = JAP_victory_of_bureaucrats
+	}
+	completion_reward = {
+		hidden_effect = {
+			remove_ideas = {
+				JAP_rising_militarism_ABC
+				JAP_fading_democracy_C
+			}
+			add_ideas = {
+				JAP_army_minister_mediation
+			}	
+		}
+		custom_effect_tooltip = JAP_mediation_success
+		add_to_variable = {
+			var = JAP_Hirota_Points
+			value = 2
+		}
+		add_to_variable = {
+			var = JAP_Konoe_Points
+			value = 1
+		}
+		add_to_variable = {
+			var = JAP_Hiranuma_Points
+			value = 1
+		}	
+		custom_effect_tooltip = JAP_Hirota_Gain_2
+		custom_effect_tooltip = JAP_Konoe_Gain_1
+		custom_effect_tooltip = JAP_Hiranuma_Gain_1
+	}
+	x = 4
+	y = 4
+}
+shared_focus = {
+	id = JAP_victory_of_bureaucrats
+	icon = GFX_focus_Torch_of_Freedom
+	cost = 4
+	available = {
+		has_country_flag = JAP_bureaucracy_gostop
+	}	
+	prerequisite = {
+		focus = JAP_continue_investigation
+	}
+	prerequisite = {
+		focus = JAP_encourage_new_bureaucrats
+	}
+	mutually_exclusive = {
+		focus = JAP_accept_supriority_of_military
+	}
+	mutually_exclusive = {
+		focus = JAP_mediate_between_army_and_ministers
+	}
+	completion_reward = {
+		hidden_effect = {
+			remove_ideas = {
+				JAP_rising_militarism_ABC
+				JAP_fading_democracy_C
+			}
+			add_ideas = {
+				JAP_bureaucratic_victory
+			}	
+		}
+		custom_effect_tooltip = JAP_bureaucracy_won
+		add_to_variable = {
+			var = JAP_Hirota_Points
+			value = 4
+		}
+		add_to_variable = {
+			var = JAP_Konoe_Points
+			value = 2
+		}
+		add_to_variable = {
+			var = JAP_Hiranuma_Points
+			value = 1
+		}
+		add_to_variable = {
+			var = JAP_Kodoha_Points
+			value = 20
+		}
+		add_to_variable = {
+			var = JAP_Toseiha_Points
+			value = 20
+		}	
+		custom_effect_tooltip = JAP_Hirota_Gain_4
+		custom_effect_tooltip = JAP_Konoe_Gain_2
+		custom_effect_tooltip = JAP_Hiranuma_Gain_1
+		#custom_effect_tooltip = JAP_Kodoha_Gain_20
+		#custom_effect_tooltip = JAP_Toseiha_lose_20
+	}
+	x = 7
+	y = 4
+}
+shared_focus = {
+	id = JAP_bureaucratic_subdivision_act
+	icon = GFX_focus_Parliament
+	cost = 4
+	prerequisite = {
+		focus = JAP_encourage_new_bureaucrats
+	}
+	prerequisite = {	
+		focus = JAP_purge_leftists_from_judiciary
+	}
+	prerequisite = {
+		focus = JAP_remove_communists_from_education
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_social_anxiety_ABC
+			}
+			swap_ideas = { remove_idea = JAP_social_anxiety_ABC add_idea = JAP_social_anxiety_D }
+		}
+		if = {
+			limit = {
+				has_idea = JAP_social_anxiety_E
+			}
+			swap_ideas = { remove_idea = JAP_social_anxiety_E add_idea = JAP_social_anxiety_DE }
+		}
+		add_to_variable = {
+			var = JAP_Hiranuma_Points
+			value = 1
+		}
+		custom_effect_tooltip = JAP_Hiranuma_Gain_1
+		add_political_power = 15
+	}		
+	x = 10
+	y = 4
+}
+shared_focus = {
+	id = JAP_revise_library_act
+	icon = GFX_focus_Revise_Library_Act
+	cost = 4
+	prerequisite = {
+		focus = JAP_purge_leftists_from_judiciary
+	}	
+	prerequisite = {
+		focus = JAP_remove_communists_from_education
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_social_anxiety_ABC
+			}
+			swap_ideas = { remove_idea = JAP_social_anxiety_ABC add_idea = JAP_social_anxiety_E }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_social_anxiety_D
+			}
+			swap_ideas = { remove_idea = JAP_social_anxiety_D add_idea = JAP_social_anxiety_DE }
+		}
+	}
+	x = 13
+	y = 4
+}
+shared_focus = {
+	id = JAP_technocrat_officers
+	icon = GFX_focus_Technocrat_Officers
+	cost = 4
+	prerequisite = {
+		focus = JAP_accept_supriority_of_military
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_bent_to_military
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military add_idea = JAP_bent_to_military_A }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_bent_to_military_B
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military_B add_idea = JAP_bent_to_military_AB }
+		}
+		add_to_variable = {
+			var = JAP_Toseiha_Points
+			value = 10
+		}
+		subtract_from_variable = {
+			var = JAP_Kodoha_Points
+			value = 10
+		}
+		#custom_effect_tooltip = JAP_Toseiha_Gain_10
+		#custom_effect_tooltip = JAP_Kodoha_Lose_10
+	}
+	x = 1
+	y = 5
+}
+shared_focus = {
+	id = JAP_expand_kempeitai
+	icon = GFX_focus_Expand_Kempeitai
+	cost = 4
+	prerequisite = {
+		focus = JAP_accept_supriority_of_military
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_bent_to_military
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military add_idea = JAP_bent_to_military_B }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_bent_to_military_A
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military_A add_idea = JAP_bent_to_military_AB }
+		}
+		add_stability = 0.05
+		add_political_power = -30
+	}
+	x = 3
+	y = 5
+}
+shared_focus = {
+	id = JAP_bulwark_of_status_quo
+	icon = GFX_goal_generic_neutrality_focus
+	cost = 4
+	prerequisite = {
+		focus = JAP_mediate_between_army_and_ministers
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation add_idea = JAP_army_minister_mediation_A }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation_B
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation_B add_idea = JAP_army_minister_mediation_AB }
+		}
+	}
+	x = 5
+	y = 5
+}
+shared_focus = {
+	id = JAP_get_support_of_Jyushin
+	icon = GFX_focus_Get_Support_of_Jyushin
+	cost = 4
+	prerequisite = {
+		focus = JAP_mediate_between_army_and_ministers
+		focus = JAP_victory_of_bureaucrats
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation add_idea = JAP_army_minister_mediation_B }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation_A
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation_A add_idea = JAP_army_minister_mediation_AB }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_bureaucratic_victory
+			}
+			swap_ideas = { remove_idea = JAP_bureaucratic_victory add_idea = JAP_bureaucratic_victory_A }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_bureaucratic_victory_B
+			}
+			swap_ideas = { remove_idea = JAP_bureaucratic_victory_B add_idea = JAP_bureaucratic_victory_AB }
+		}
+	}
+	x = 7
+	y = 5
+}
+shared_focus = {
+	id = JAP_innovative_bureaucrats
+	icon = GFX_focus_Innovative_Bureaucrats
+	cost = 4
+	prerequisite = {
+		focus = JAP_victory_of_bureaucrats
+	}
+	prerequisite = {
+		focus = JAP_bureaucratic_subdivision_act
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_bureaucratic_victory
+			}
+			swap_ideas = { remove_idea = JAP_bureaucratic_victory add_idea = JAP_bureaucratic_victory_B }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_bureaucratic_victory_A
+			}
+			swap_ideas = { remove_idea = JAP_bureaucratic_victory_A add_idea = JAP_bureaucratic_victory_AB }
+		}
+		add_to_variable = {
+			var = JAP_Konoe_Points
+			value = 3
+		}
+		add_to_variable = {
+			var = JAP_Hirota_Points
+			value = 1
+		}
+		subtract_from_variable = {
+			var = JAP_Hiranuma_Points
+			value = 2
+		}
+		custom_effect_tooltip = JAP_Konoe_Gain_3
+		custom_effect_tooltip = JAP_Hirota_Gain_1
+		custom_effect_tooltip = JAP_Hiranuma_Lose_2
+	}	
+	x = 9
+	y = 5
+}
+shared_focus = {
+	id = JAP_ideological_correctness
+	icon = GFX_focus_generic_support_the_left_right
+	cost = 4
+	prerequisite = {
+		focus = JAP_bureaucratic_subdivision_act
+	}
+	prerequisite = {
+		focus = JAP_revise_library_act
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_social_anxiety_DE
+			}
+			swap_ideas = { remove_idea = JAP_social_anxiety_DE add_idea = JAP_social_anxiety_F }
+		}
+		if = {
+			limit = {
+				has_idea = JAP_social_anxiety_G
+			}
+			remove_ideas = JAP_social_anxiety_G
+		}
+		add_to_variable = {
+			var = JAP_Hiranuma_Points
+			value = 2
+		}
+		add_to_variable = {
+			var = JAP_Konoe_Points
+			value = 1
+		}
+		custom_effect_tooltip = JAP_Hiranuma_Gain_2
+		custom_effect_tooltip = JAP_Konoe_Gain_1
+	}
+	x = 11
+	y = 5
+}
+shared_focus = { 
+	id = JAP_crush_the_communist_party
+	icon = GFX_goal_anti_comintern_pact
+	cost = 4
+	prerequisite = {
+		focus = JAP_bureaucratic_subdivision_act
+	}	
+	prerequisite = {
+		focus = JAP_revise_library_act
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_social_anxiety_DE
+			}
+			swap_ideas = { remove_idea = JAP_social_anxiety_DE add_idea = JAP_social_anxiety_G }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_social_anxiety_F
+			}
+			remove_ideas = JAP_social_anxiety_F
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.05
+		}
+		add_to_variable = {
+			var = JAP_Hiranuma_Points
+			value = 1
+		}	
+	}
+	x = 13
+	y = 5
+}
+shared_focus = {
+	id = JAP_seperate_the_role
+	icon = GFX_focus_seperate_the_role
+	cost = 4
+	prerequisite = {
+		focus = JAP_technocrat_officers
+	}
+	prerequisite = {
+		focus = JAP_expand_kempeitai
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_bent_to_military_AB
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military_AB add_idea = JAP_bent_to_military_C }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_bent_to_military_D
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military_D add_idea = JAP_bent_to_military_CD }
+		}
+		add_political_power = 30
+	}
+	x = 2
+	y = 6
+}	
+shared_focus = {
+	id = JAP_stablize_society
+	icon = GFX_focus_Party_Politics
+	cost = 4
+	prerequisite = {
+		focus = JAP_technocrat_officers
+		focus = JAP_bulwark_of_status_quo
+	}
+	prerequisite = {
+		focus = JAP_expand_kempeitai
+		focus = JAP_get_support_of_Jyushin
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_bent_to_military_AB
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military_AB add_idea = JAP_bent_to_military_D }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_bent_to_military_C
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military_C add_idea = JAP_bent_to_military_CD }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation_AB
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation_AB add_idea = JAP_army_minister_mediation_C }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation_D
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation_D add_idea = JAP_army_minister_mediation_CD }
+		}
+		add_stability = 0.03
+	}
+	x = 4
+	y = 6
+}	
+shared_focus = {
+	id = JAP_fight_against_corruption
+	icon = GFX_focus_Investigate_Corruption
+	cost = 4
+	prerequisite = {
+		focus = JAP_bulwark_of_status_quo
+		focus = JAP_get_support_of_Jyushin
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation_AB
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation_AB add_idea = JAP_army_minister_mediation_C }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation_C
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation_C add_idea = JAP_army_minister_mediation_CD }
+		}
+		add_stability = 0.03
+		add_political_power = -50
+	}	
+	x = 6
+	y = 6
+}	
+shared_focus = {
+	id = JAP_seek_administrative_solution
+	icon = GFX_focus_Seek_Administrative_Solution
+	cost = 4
+	prerequisite = {
+		focus = JAP_get_support_of_Jyushin
+	}
+	prerequisite = {
+		focus = JAP_innovative_bureaucrats
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_bureaucratic_victory_AB
+			}
+			swap_ideas = { remove_idea = JAP_bureaucratic_victory_AB add_idea = JAP_bureaucratic_victory_C }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_bureaucratic_victory_D
+			}
+			swap_ideas = { remove_idea = JAP_bureaucratic_victory_D add_idea = JAP_bureaucratic_victory_CD }
+		}
+	}
+	x = 9
+	y = 6
+}
+shared_focus = {
+	id = JAP_negotiate_with_workers
+	icon = GFX_goal_Degrade_Working_Conditions
+	cost = 4
+	prerequisite = {
+		focus = JAP_innovative_bureaucrats
+	}
+	prerequisite = {
+		focus = JAP_ideological_correctness
+	}	
+	prerequisite = {
+		focus = JAP_crush_the_communist_party
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_bureaucratic_victory_AB
+			}
+			swap_ideas = { remove_idea = JAP_bureaucratic_victory_AB add_idea = JAP_bureaucratic_victory_D }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_bureaucratic_victory_C
+			}
+			swap_ideas = { remove_idea = JAP_bureaucratic_victory_C add_idea = JAP_bureaucratic_victory_CD }
+		}
+		add_stability = 0.02
+		add_political_power = -50
+	}
+	x = 11
+	y = 6
+}
+shared_focus = {
+	id = JAP_japanese_red_scare
+	icon = GFX_focus_Anti_Communist
+	cost = 4
+	prerequisite = {
+		focus = JAP_crush_the_communist_party
+	}
+	completion_reward = {
+		add_stability = 0.05
+		add_war_support = 0.05
+		add_political_power = 100
+		add_to_variable = {
+			var = JAP_Hiranuma_Points
+			value = 3
+		}
+		custom_effect_tooltip = JAP_Hiranuma_Gain_3
+	}	
+	x = 13
+	y = 6
+}
+shared_focus = {
+	id = JAP_cultivate_patriotism
+	icon = GFX_focus_Japanese_Spirit
+	cost = 4
+	prerequisite = {
+		focus = JAP_seperate_the_role
+	}
+	prerequisite = {
+		focus = JAP_stablize_society
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_bent_to_military_CD
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military_CD add_idea = JAP_bent_to_military_E }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_bent_to_military_F
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military_F add_idea = JAP_bent_to_military_EF }
+		}
+		add_political_power = -30
+		add_war_support = 0.03
+	}
+	x = 3
+	y = 7
+}
+shared_focus = {
+	id = JAP_stop_social_unrest
+	icon = GFX_focus_Give_Democracy
+	cost = 4
+	prerequisite = {
+		focus = JAP_stablize_society
+	}
+	prerequisite = {
+		focus = JAP_seperate_the_role
+		focus = JAP_fight_against_corruption
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_bent_to_military_CD
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military_CD add_idea = JAP_bent_to_military_F }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_bent_to_military_E
+			}
+			swap_ideas = { remove_idea = JAP_bent_to_military_E add_idea = JAP_bent_to_military_EF }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation_CD
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation_CD add_idea = JAP_army_minister_mediation_E }
+		}
+		else_if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation_F
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation_F add_idea = JAP_army_minister_mediation_EF }
+		}
+		add_stability = 0.03
+	}
+	x = 5
+	y = 7
+}
+shared_focus = {
+	id = JAP_restore_confidence_of_people
+	icon = GFX_focus_Compassionaite_Politics
+	cost = 4
+	prerequisite = {
+		focus = JAP_fight_against_corruption
+	}
+	available = {
+		has_completed_focus = JAP_ideological_correctness
+		has_completed_focus = JAP_crush_the_communist_party
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation_CD
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation_CD add_idea = JAP_army_minister_mediation_E }
+		}
+		if = {
+			limit = {
+				has_idea = JAP_army_minister_mediation_F
+			}
+			swap_ideas = { remove_idea = JAP_army_minister_mediation_F add_idea = JAP_army_minister_mediation_EF }
+		}
+		if = {
+			limit = {
+				has_government = neutrality
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+		}
+		if = {
+			limit = {
+			has_government = social_liberalism
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.05
+			}
+		}
+	}	
+	x = 7
+	y = 7
+}
+shared_focus = {
+	id = JAP_the_worst_is_over
+	icon = GFX_focus_Rich_Focus
+	cost = 4
+	prerequisite = {
+		focus = JAP_seek_administrative_solution
+	}
+	prerequisite = {
+		focus = JAP_negotiate_with_workers
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = JAP_bureaucratic_victory_CD add_idea = JAP_bureaucratic_victory_E }
+		add_political_power = -50
+	}
+	x = 10
+	y = 7
+}
+shared_focus = {
+	id = JAP_a_stable_governance
+	icon = GFX_goal_generic_major_alliance
+	cost = 4
+	prerequisite = {
+		focus = JAP_cultivate_patriotism
+	}
+	prerequisite = {
+		focus = JAP_stop_social_unrest
+	}
+	available = {
+		has_completed_focus = JAP_accept_supriority_of_military
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = JAP_bent_to_military_EF add_idea = JAP_bent_to_military_G }
+	}	
+	x = 4
+	y = 8
+}
+shared_focus = {
+	id = JAP_a_successful_government
+	icon = GFX_focus_Protect_Government
+	cost = 4
+	prerequisite = {
+		focus = JAP_stop_social_unrest
+	}	
+	prerequisite = {
+		focus = JAP_restore_confidence_of_people
+	}
+	available = {
+		has_completed_focus = JAP_mediate_between_army_and_ministers
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = JAP_army_minister_mediation_EF add_idea = JAP_army_minister_mediation_G }
+	}	
+	x = 7
+	y = 8
+}
+shared_focus = {
+	id = JAP_the_bureaucratic_control
+	icon = GFX_manage_administration
+	cost = 4
+	prerequisite = {
+		focus = JAP_the_worst_is_over
+	}
+	available = {
+		has_completed_focus = JAP_victory_of_bureaucrats
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = JAP_bureaucratic_victory_E add_idea = JAP_bureaucratic_victory_F }
+	}
+	x = 10
+	y = 8
+}	
+shared_focus = {
+	id = JAP_Japanese_Keyenes
+	icon = GFX_focus_japanese_keynes
+	completion_reward = {
+		add_political_power = 100
+	}	
+	cost = 4
+	x = 22
+	y = 0
+}
+shared_focus = { 
+	id = JAP_devalue_the_yen
+	icon = GFX_focus_devalue_the_yen
+	cost = 4
+	prerequisite = {
+		focus = JAP_Japanese_Keyenes
+	}	
+	completion_reward = {
+		subtract_from_variable = { JAP_showa_cg = 0.02 }
+	}
+	x = 21
+	y = 1
+}
+shared_focus = {
+	id = JAP_reintroduce_countercyclical_policy
+	icon = GFX_focus_reintroduce_countercyclical_policy
+	cost = 4
+	prerequisite = {
+		focus = JAP_Japanese_Keyenes
+	}
+	completion_reward = {
+		add_to_variable = { JAP_showa_fe = 0.02 }	
+		add_to_variable = { JAP_showa_bs = 0.01 }	
+		add_to_variable = { JAP_showa_fc = 0.01 }	
+		add_to_variable = { JAP_showa_dc = 0.01 }	
+	}	
+	x = 23
+	y = 1
+}
+shared_focus = {
+	id = JAP_undertake_deficit_spending
+	icon = GFX_focus_Capitalist_Systems
+	cost = 4
+	prerequisite = {
+		focus = JAP_devalue_the_yen
+	}
+	prerequisite = {
+		focus = JAP_reintroduce_countercyclical_policy
+	}
+	completion_reward = {
+		add_to_variable = { JAP_showa_fe = 0.03 }
+		add_to_variable = { JAP_showa_bs = 0.02 }
+		add_to_variable = { JAP_showa_fc = 0.01 }
+		add_to_variable = { JAP_showa_dc = 0.01 }
+	}	
+	x = 20
+	y = 2
+}
+shared_focus = {
+	id = JAP_foreign_exchange_control_act
+	icon = GFX_focus_foreign_exchange_control_act
+	cost = 4
+	prerequisite = {
+		focus = JAP_devalue_the_yen
+	}
+	prerequisite = {
+		focus = JAP_reintroduce_countercyclical_policy
+	}
+	completion_reward = {
+		add_to_variable = { JAP_showa_pp = 0.03 }
+		add_to_variable = { JAP_showa_fc = 0.01 }
+	}	
+	x = 22
+	y = 2
+}
+shared_focus = {
+	id = JAP_expediate_the_economy
+	icon = GFX_focus_Progressive_Taxation
+	cost = 4
+	prerequisite = {
+		focus = JAP_reintroduce_countercyclical_policy
+	}
+	prerequisite = {
+		focus = JAP_reintroduce_countercyclical_policy
+	}
+	completion_reward = {
+		subtract_from_variable = { JAP_showa_cg = 0.01 }
+		add_to_variable = { JAP_showa_fe = 0.02 }
+		add_to_variable = { JAP_showa_bs = 0.03 }
+		add_to_variable = { JAP_showa_pp = 0.01 }
+		add_to_variable = { JAP_showa_fc = 0.02 }
+		add_to_variable = { JAP_showa_dc = 0.01 }
+	}	
+	x = 24
+	y = 2
+}
+shared_focus = {
+	id = JAP_the_crisis_is_over
+	icon = GFX_focus_Extravagance
+	cost = 1
+	prerequisite = {
+		focus = JAP_undertake_deficit_spending
+	}
+	prerequisite = {
+		focus = JAP_foreign_exchange_control_act
+	}
+	prerequisite = {
+		focus = JAP_expediate_the_economy
+	}
+	completion_reward = {
+		#TODO
+	}				
+	x = 22
+	y = 3
+}	
+shared_focus = {
+	id = JAP_maintain_agreesive_economic_policy
+	icon = GFX_focus_Economic_Stimulus
+	cost = 2
+	prerequisite = {
+		focus = JAP_the_crisis_is_over
+	}
+	mutually_exclusive = {
+		focus = JAP_start_moderate_fiscal_policy
+		focus = JAP_step_back_to_conservative_measures
+	}
+	ai_will_do = {
+		base = 0
+	}
+	completion_reward = {
+		add_to_variable = {
+			var = JAP_Konoe_Points
+			value = 3
+		}
+		custom_effect_tooltip = JAP_Konoe_Gain_3
+		set_variable = { JAP_econ_fbs = 0 }
+		set_variable = { JAP_showa_ex = 0 }
+		remove_dynamic_modifier = {
+			modifier = JAP_showa_crisis
+		}
+		add_dynamic_modifier = {
+			modifier = JAP_agg_econ_policy
+		}
+	}	
+	x = 19
+	y = 4
+}
+shared_focus = {
+	id = JAP_start_moderate_fiscal_policy
+	icon = GFX_focus_Deregulation
+	cost = 2
+	prerequisite = {
+		focus = JAP_the_crisis_is_over
+	}
+	mutually_exclusive = {
+		focus = JAP_maintain_agreesive_economic_policy
+		focus = JAP_step_back_to_conservative_measures
+	}
+	ai_will_do = {
+		base = 0
+	}
+	completion_reward = {
+		add_to_variable = {
+			var = JAP_Hirota_Points
+			value = 3
+		}
+		custom_effect_tooltip = JAP_Hirota_Gain_3
+		set_variable = { JAP_econ_fbs = 0 }
+		remove_dynamic_modifier = {
+			modifier = JAP_showa_crisis
+		}
+		add_dynamic_modifier = {
+			modifier = JAP_mod_econ_policy
+		}
+	}
+	x = 22
+	y = 4
+}
+shared_focus = {
+	id = JAP_step_back_to_conservative_measures
+	icon = GFX_focus_Collaborate_with_Local_Elites
+	cost = 2
+	prerequisite = {
+		focus = JAP_the_crisis_is_over
+	}
+	mutually_exclusive = {
+		focus = JAP_maintain_agreesive_economic_policy
+		focus = JAP_start_moderate_fiscal_policy
+	}
+	completion_reward = {
+		add_to_variable = {
+			var = JAP_Hiranuma_Points
+			value = 3
+		}
+		custom_effect_tooltip = JAP_Hiranuma_Gain_3
+		set_variable = { JAP_econ_fbs = 0 }
+		set_variable = { JAP_econ_dbs = 0 }
+		remove_dynamic_modifier = {
+			modifier = JAP_showa_crisis
+		}
+		add_dynamic_modifier = {
+			modifier = JAP_cons_econ_policy
+		}
+	}
+	x = 25
+	y = 4
+}
+shared_focus = {
+	id = JAP_absorb_money
+	icon = GFX_focus_Grab_Money
+	cost = 4
+	prerequisite = {
+		focus = JAP_start_moderate_fiscal_policy
+		focus = JAP_step_back_to_conservative_measures
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_showa_fe = 0.02
+		}
+		set_temp_variable = { production_factory_max_efficiency_factor = 0.02 }
+		custom_effect_tooltip = japshowaecoeffi_tt
+	}
+	x = 25
+	y = 5
+}
+shared_focus = {
+	id = JAP_collaborate_with_zaibatsu
+	icon = GFX_focus_collaborate_with_the_zaibatsus
+	cost = 4
+	prerequisite = {
+		focus = JAP_step_back_to_conservative_measures
+	}
+	completion_reward = {
+		subtract_from_variable  = { 
+			JAP_showa_pp = 0.04
+		}
+		add_to_variable  = { 
+			JAP_showa_bs = 0.05
+		}
+		add_to_variable = {
+			JAP_showa_fc = 0.02
+		}
+		add_ideas = JAP_collaborate_zaibatsus
+	}
+	x = 27
+	y = 5
+}
+shared_focus = {
+	id = JAP_reduce_debt_monetization
+	icon = GFX_focus_Cancel_Debts
+	cost = 4
+	prerequisite = {
+		focus = JAP_absorb_money
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_showa_pp = 0.05
+		}
+		add_to_variable = {
+			JAP_showa_fc = 0.01
+		}
+		set_temp_variable = { political_power_factor = 0.05 }
+		custom_effect_tooltip = japshowaecopp_tt
+	}
+	x = 25
+	y = 6
+}
+shared_focus = {
+	id = JAP_implement_cooperative_method
+	icon = GFX_focus_Corporatism
+	cost = 4
+	prerequisite = {
+		focus = JAP_collaborate_with_zaibatsu
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_showa_fc = 0.05
+		}
+		add_to_variable  = { 
+			JAP_showa_bs = 0.10
+		}
+		add_to_variable = { 
+			JAP_showa_pp = 0.02
+		}
+		set_temp_variable = { industrial_capacity_factory = 0.05 }
+		custom_effect_tooltip = japshowaecocapacity_tt
+		add_stability = 0.05
+	}
+	x = 27
+	y = 6
+}
+shared_focus = {
+	id = JAP_national_defense_fund_drive
+	icon = GFX_focus_Fascist_Trade_Union
+	cost = 4
+	prerequisite = {
+		focus = JAP_reduce_debt_monetization
+	}
+	prerequisite = {
+		focus = JAP_implement_cooperative_method
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_econ_fbs = 0.05
+		}
+		set_temp_variable = { production_speed_arms_factory = 0.05 }
+		custom_effect_tooltip = japshowaecomil_tt
+	}
+	x = 26
+	y = 7
+}
+
+shared_focus = {
+	id = JAP_adjust_military_expense
+	icon = GFX_goal_generic_military_deal
+	cost = 4
+	prerequisite = {
+		focus = JAP_maintain_agreesive_economic_policy
+		focus = JAP_start_moderate_fiscal_policy
+	}
+	mutually_exclusive = {
+		focus = JAP_ready_for_the_next_war
+	}	
+	completion_reward = {
+		subtract_from_variable = { 
+			JAP_econ_fbs = 0.05
+		}
+		# set_temp_variable = { production_speed_arms_factory = -0.05 }
+		# custom_effect_tooltip = japshowaecomil_tt
+		if = {
+			limit = {
+				has_idea = very_high_research_spending
+			}
+			swap_ideas = {
+				remove_idea = very_high_research_spending
+				add_idea = low_research_spending
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = high_research_spending
+			}
+			swap_ideas = {
+				remove_idea = high_research_spending
+				add_idea = low_research_spending
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = moderate_research_spending
+			}
+			swap_ideas = {
+				remove_idea = moderate_research_spending
+				add_idea = low_research_spending
+			}
+		}
+	}
+	x = 21
+	y = 5
+}
+shared_focus = {
+	id = JAP_ready_for_the_next_war
+	icon = GFX_focus_Military_Intervention
+	cost = 4
+	available = {
+		has_war = no
+	}
+	prerequisite = {
+		focus = JAP_start_moderate_fiscal_policy
+		focus = JAP_step_back_to_conservative_measures
+	}
+	mutually_exclusive = {
+		focus = JAP_adjust_military_expense
+	}	
+	completion_reward = {
+		add_ideas = JAP_prepare_for_next_war
+		if = {
+			limit = {
+				has_idea = volunteer_only
+			}
+			swap_ideas = {
+				remove_idea = volunteer_only
+				add_idea = limited_conscription
+			}
+		}
+		if = {
+			limit = {
+				has_idea = limited_conscription
+			}
+			swap_ideas = {
+				remove_idea = limited_conscription
+				add_idea = extensive_conscription
+			}
+		}
+		if = {
+			limit = {
+				has_idea = no_research_spending
+			}
+			swap_ideas = {
+				remove_idea = no_research_spending
+				add_idea = moderate_research_spending
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = minimal_research_spending
+			}
+			swap_ideas = {
+				remove_idea = minimal_research_spending
+				add_idea = moderate_research_spending
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = low_research_spending
+			}
+			swap_ideas = {
+				remove_idea = low_research_spending
+				add_idea = moderate_research_spending
+			}
+		}
+	}
+	x = 23
+	y = 5
+}
+shared_focus = {
+	id = JAP_stablize_the_monetary_value
+	icon = GFX_focus_hol_abandon_the_gold_standard
+	cost = 4
+	prerequisite = {
+		focus = JAP_maintain_agreesive_economic_policy
+		focus = JAP_start_moderate_fiscal_policy
+	}
+	completion_reward = {
+		add_to_variable  = { 
+			JAP_showa_fc = 0.03
+		}
+		add_stability = 0.02
+		set_temp_variable = { industrial_capacity_factory = 0.03 }
+		custom_effect_tooltip = japshowaecocapacity_tt
+	}
+	x = 19
+	y = 5
+}
+shared_focus = {
+	id = JAP_oppress_zaibatsu
+	icon = GFX_focus_opress_the_zaibatsus
+	cost = 4
+	prerequisite = {
+		focus = JAP_maintain_agreesive_economic_policy
+	}
+	completion_reward = {
+		add_political_power = -200
+		add_to_variable  = { 
+			JAP_showa_pp = 0.05
+		}
+		add_ideas = JAP_control_the_zaibatsus
+	}
+	x = 17
+	y = 5
+}
+shared_focus = {
+	id = JAP_enhance_state_capitalism
+	icon = GFX_focus_Capitalist_Rule
+	cost = 4
+	prerequisite = {
+		focus = JAP_oppress_zaibatsu
+	}
+	completion_reward = {
+		set_variable = { 
+			JAP_consumer_goods = 0.05
+		}
+		add_to_variable  = { 
+			JAP_showa_bs = 0.10
+		}
+		set_temp_variable = { consumer_goods_factor = 0.05 }
+		custom_effect_tooltip = japshowaecocons_tt
+	}
+	x = 17
+	y = 6
+}
+shared_focus = {
+	id = JAP_conquering_the_inflation
+	icon = GFX_focus_conquering_the_inflation
+	cost = 4
+	prerequisite = {
+		focus = JAP_stablize_the_monetary_value
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_showa_fc = 0.03
+		}
+		set_temp_variable = { industrial_capacity_factory = 0.03 }
+		custom_effect_tooltip = japshowaecocapacity_tt
+		add_stability = 0.03
+		add_political_power = 30
+	}
+	x = 19
+	y = 6
+}
+shared_focus = {
+	id = JAP_expand_government_control
+	icon = GFX_focus_Seek_Administrative_Solution
+	cost = 4
+	prerequisite = {
+		focus = JAP_adjust_military_expense
+	}
+	completion_reward = {
+		add_to_variable = { 
+			JAP_showa_pp = 0.05
+		}
+		set_temp_variable = { political_power_factor = 0.03 }
+		custom_effect_tooltip = japshowaecopp_tt
+	}
+	x = 21
+	y = 6
+}
+shared_focus = {
+	id = JAP_accept_japanist_policies
+	icon = GFX_focus_chi_collaboration_with_the_japanese
+	cost = 1
+	prerequisite = {
+		focus = JAP_ready_for_the_next_war
+	}
+	completion_reward = {
+		add_to_variable = { 
+			JAP_econ_fbs = 0.02
+		}
+		add_to_variable = { 
+			JAP_showa_pp = 0.03
+		}
+		set_temp_variable = { production_speed_arms_factory = 0.02 }
+		custom_effect_tooltip = japshowaecomil_tt
+	}
+	x = 23
+	y = 6
+}
+
+shared_focus = {
+	id = JAP_protect_labor_unions
+	icon = GFX_focus_Trade_Union_Focus
+	cost = 4
+	prerequisite = {
+		focus = JAP_enhance_state_capitalism
+	}
+	prerequisite = {
+		focus = JAP_conquering_the_inflation
+	}
+	completion_reward = {
+		add_political_power = -50
+		add_to_variable = {
+			JAP_showa_fc = 0.02
+		}
+		set_temp_variable = { industrial_capacity_factory = 0.02 }
+		custom_effect_tooltip = japshowaecocapacity_tt
+	}
+	
+	x = 18
+	y = 7
+}
+shared_focus = {
+	id = JAP_intervene_in_wage_market
+	icon = GFX_focus_intervene_in_wage_market
+	cost = 4
+	prerequisite = {
+		focus = JAP_conquering_the_inflation
+	}
+	prerequisite = {
+		focus = JAP_expand_government_control
+		focus = JAP_accept_japanist_policies
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_showa_bs = 0.05
+		}
+		add_to_variable = { 
+			JAP_showa_pp = 0.03
+		}
+		set_temp_variable = { production_speed_buildings = 0.05 }
+		custom_effect_tooltip = japshowaeco_tt
+	}
+	x = 20
+	y = 7
+}
+shared_focus = {
+	id = JAP_establish_nippon_seitetsu
+	icon = GFX_focus_generic_steel
+	cost = 2
+	prerequisite = {
+		focus = JAP_expand_government_control
+		focus = JAP_accept_japanist_policies
+	}
+	completion_reward = {
+		532 = {
+			add_resource = {
+				type = steel
+				amount = 14
+			}
+		}
+	}
+	x = 22
+	y = 7
+}
+shared_focus = { 
+	id = JAP_control_major_industries
+	icon = GFX_focus_Industrial_Council
+	cost = 4
+	prerequisite = {
+		focus = JAP_expand_government_control
+		focus = JAP_accept_japanist_policies
+	}
+	prerequisite = {
+		focus = JAP_reduce_debt_monetization
+	}
+	completion_reward = {
+		add_political_power = -130
+	
+		random_owned_state = {
+			limit = {
+				is_core_of = JAP
+				state_population > 1000000
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				is_core_of = JAP
+				state_population > 1000000
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				is_core_of = JAP
+				state_population > 1000000
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+	x = 24
+	y = 7
+}
+shared_focus = {
+	id = JAP_establish_the_investment_bank
+	icon = GFX_focus_found_the_investment_bank
+	cost = 4
+	prerequisite = {
+		focus = JAP_protect_labor_unions
+	}
+	prerequisite = {
+		focus = JAP_intervene_in_wage_market
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_showa_fe = 0.03
+		}
+		set_temp_variable = { production_factory_max_efficiency_factor = 0.03 }
+		custom_effect_tooltip = japshowaecoeffi_tt
+	}
+	x = 19
+	y = 8
+}
+shared_focus = {
+	id = JAP_encourage_small_businesses
+	icon = GFX_focus_strengthen_small_production
+	cost = 4
+	prerequisite = {
+		focus = JAP_intervene_in_wage_market
+	}
+	prerequisite = {
+		focus = JAP_establish_nippon_seitetsu
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_showa_fe = 0.04
+		}
+		set_temp_variable = { production_factory_max_efficiency_factor = 0.04 }
+		custom_effect_tooltip = japshowaecoeffi_tt
+		random_owned_state = {
+			limit = {
+				is_core_of = JAP
+				state_population > 1000000
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				is_core_of = JAP
+				state_population > 1000000
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}	
+	}
+	x = 21
+	y = 8
+}
+shared_focus = {
+	id = JAP_petroleum_industrial_law
+	icon = GFX_goal_generic_oil_refinery
+	cost = 1
+	prerequisite = {
+		focus = JAP_establish_nippon_seitetsu
+	}
+	prerequisite = {
+		focus = JAP_control_major_industries
+	}
+	completion_reward = {
+		# 282 = {
+		# 	add_resource = {
+		# 		type = oil
+		# 		amount = 6
+		# 	}
+		# }
+	}
+	x = 23
+	y = 8
+}
+shared_focus = {
+	id = JAP_escape_from_the_market_economy
+	icon = GFX_focus_escape_from_the_market_economy
+	cost = 3
+	prerequisite = {
+		focus = JAP_control_major_industries
+	}
+	prerequisite = {
+		focus = JAP_national_defense_fund_drive
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = limited_exports
+			}
+			add_political_power = 20
+		}
+		else_if = {
+			limit = {
+				has_idea = export_focus
+			}
+			swap_ideas = {
+				remove_idea = export_focus
+				add_idea = limited_exports
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = free_trade
+			}
+			swap_ideas = {
+				remove_idea = free_trade
+				add_idea = limited_exports
+			}
+		}
+	}
+	x = 25
+	y = 8	
+}
+shared_focus = {
+	id = JAP_economic_self_reliance
+	icon = GFX_focus_Economic_Self_Reliance
+	cost = 4
+	prerequisite = {
+		focus = JAP_establish_the_investment_bank
+	}
+	prerequisite = {
+		focus = JAP_encourage_small_businesses
+	}
+	completion_reward = {
+		subtract_from_variable = {
+			JAP_showa_ex = 0.05
+		}
+		add_to_variable = {
+			JAP_showa_rp = 0.05
+		}
+		if = {
+			limit = {
+				has_idea = free_trade
+			}
+			swap_ideas = {
+				remove_idea = free_trade
+				add_idea = limited_exports
+			}
+		}
+		if = {
+			limit = {
+				has_idea = export_focus
+			}
+			swap_ideas = {
+				remove_idea = export_focus
+				add_idea = limited_exports
+			}
+		}
+	}
+	x = 19
+	y = 9
+}
+shared_focus = {
+	id = JAP_balance_between_extreme
+	icon = GFX_focus_balance_between_extreme
+	cost = 4
+	prerequisite = {
+		focus = JAP_encourage_small_businesses
+	}
+	prerequisite = {
+		focus = JAP_petroleum_industrial_law
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_showa_bs = 0.03
+		}
+		add_to_variable = { 
+			JAP_showa_pp = 0.05
+		}
+		set_temp_variable = { production_speed_buildings = 0.03 }
+		custom_effect_tooltip = japshowaeco_tt
+	}
+	
+	x = 22
+	y = 9
+}
+shared_focus = {
+	id = JAP_heavy_industrialize_drive
+	icon = GFX_focus_Industrialization
+	cost = 4
+	prerequisite = {
+		focus = JAP_petroleum_industrial_law
+	}
+	prerequisite = {
+		focus = JAP_escape_from_the_market_economy
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_econ_dbs = 0.05
+		}
+		set_temp_variable = { production_speed_dockyard_factor = 0.05 }
+		custom_effect_tooltip = japshowaecodock_tt
+		random_owned_state = {
+			limit = {
+				is_core_of = JAP
+				state_population > 1000000
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				is_core_of = JAP
+				state_population > 1000000
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+	x = 25
+	y = 9
+}

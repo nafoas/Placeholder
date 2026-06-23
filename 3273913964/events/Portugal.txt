@@ -1,0 +1,818 @@
+add_namespace = POR_naval_revolt
+
+### The Naval Revolt starts
+country_event = {
+	id = POR_naval_revolt.1
+	title = POR_naval_revolt.1.t
+	desc = POR_naval_revolt.1.desc
+	picture = GFX_report_event_ast_navy
+
+	# mean_time_to_happen = {
+	# 	days = 40
+	# 	modifier = {
+	# 		factor = 0.5
+	# 		has_global_flag = POR_intervene_SCW
+	# 	}
+	# }
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		original_tag = POR
+		scw_in_progress = yes
+		OR = {
+			country_exists = SPR
+			country_exists = SPC
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { country_exists = SPC }
+				set_variable = { transfer_revolt_ships_target = SPC }
+			} else = {
+				set_variable = { transfer_revolt_ships_target = SPR }
+			}
+		}
+	}
+
+	## Dont do anything
+	option = {
+		name = POR_naval_revolt.1.a
+
+		ai_chance = {
+			base = 0
+		}
+
+		add_political_power = 80 #pp trap
+
+		hidden_effect = {
+
+			set_variable = { POR_ships_in_revolt = 4 }  #More ships join the revolt if the Admiralty doesnt do anything
+			set_variable = { POR_ships_escape = 0 }
+
+			##This estimates the amount of aditional ships to join the revolt
+			random_list = {
+				20 = {
+				}
+				80 = {
+					add_to_variable = { POR_ships_in_revolt = 1 } 
+
+					random_list = {
+						30 = {
+						}
+						70 = {
+							add_to_variable = { POR_ships_in_revolt = 1 } 
+						}
+					}
+				}
+			}
+
+			## This calculates the chances of success of the mutiny ##
+			if = {
+				limit = {
+					check_variable = { POR_ships_in_revolt = 4 } 
+				}
+				random_list = {
+					30 = {
+					}
+
+					70 = {
+						add_to_variable = { POR_ships_escape = 1 }
+					}
+				}
+				random_list = {
+					30 = {
+					}
+
+					70 = {
+						add_to_variable = { POR_ships_escape = 1 }
+					}
+				}
+				random_list = {
+					35 = {
+					}
+
+					65 = {
+						add_to_variable = { POR_ships_escape = 1 }
+					}
+				}
+				random_list = {
+					35 = {
+					}
+
+					65 = {
+						add_to_variable = { POR_ships_escape = 1 }
+					}
+				}
+
+				if = {
+					limit = {
+						check_variable = { POR_ships_in_revolt = 5 }
+					}
+					random_list = {
+						25 = {
+						}
+
+						75 = {
+							add_to_variable = { POR_ships_escape = 1 }
+						}
+					}
+
+					if = {
+						limit = {
+							check_variable = { POR_ships_in_revolt = 6 }
+						}
+						random_list = {
+							20 = {
+							}
+
+							80 = {
+								add_to_variable = { POR_ships_escape = 1 }
+							}
+						}
+					}
+				}
+			}
+
+			##Calcualtes the number of sailors, each ship has 135 sailors 
+			set_variable = { POR_sailors_var = 0 }
+			if = {
+				limit = {
+					check_variable = { POR_ships_escape = 0 }  #Number of Sailors that were arrested if no one escaped
+				}
+				set_variable = { POR_sailors_var = POR_ships_in_revolt }
+				multiply_variable = {POR_sailors_var = 135}
+
+				#Amount of manpower to subtract
+				set_variable = { POR_sailors_manpower = POR_sailors_var }
+				multiply_variable = { POR_sailors_manpower = -1 }
+
+				#Number of sailors arrested minus casualties (for event loc)
+				set_variable = { POR_sailors_dead = 6 }
+				multiply_variable = { POR_sailors_dead = POR_ships_in_revolt }
+				subtract_from_variable = { POR_sailors_var = POR_sailors_dead }
+			}
+			if = {
+				limit = {
+					check_variable = { POR_ships_escape = POR_ships_in_revolt }
+				}
+				set_variable = { POR_sailors_var = POR_ships_escape } #Number of sailors lost if all ships escaped
+				multiply_variable = {POR_sailors_var = -135}
+			}
+			if = { #If some ships escape and the rest dont
+				limit = {
+					check_variable = {
+						var = POR_ships_escape
+						value = 0
+						compare = not_equals
+					}
+					check_variable = {
+						var = POR_ships_escape
+						value = POR_ships_in_revolt
+						compare = not_equals
+					}
+				}
+				set_variable = { POR_sailors_var = POR_ships_in_revolt } #Total manpower lost. Arrested sailors + sailors that escaped
+				multiply_variable = { POR_sailors_var = 135}
+
+				#Amount of manpower to subtract
+				set_variable = { POR_sailors_manpower = POR_sailors_var }
+				multiply_variable = { POR_sailors_manpower = -1 }
+
+				set_variable = { POR_sailors_arrested = POR_ships_in_revolt } 
+				subtract_from_variable = { POR_sailors_arrested = POR_ships_escape }
+				set_variable = { POR_ships_stoped = POR_sailors_arrested }  ## Nº of ships that did not make it.
+				#Number of arrested sailors minus casualties (This is only for event loc)
+				multiply_variable = { POR_sailors_arrested = 135 } 
+				set_variable = { POR_sailors_dead = 6 }
+				multiply_variable = { POR_sailors_dead = POR_ships_in_revolt }
+				subtract_from_variable = { POR_sailors_arrested = POR_sailors_dead }
+				
+			}
+			country_event = { id = POR_naval_revolt.4 days = 1 }
+		}
+	}
+
+	## Dispatch a boat
+	option = {
+		name = POR_naval_revolt.1.b
+
+		ai_chance = {
+			base = 100
+		}
+
+		hidden_effect = {
+
+			random_list = {
+
+				########################################
+				##The sailors lure the officers aboard##
+				########################################
+				25 = { 
+					set_variable = { POR_ships_in_revolt = 2 }  #The Dão and the Alfonso de Albuquerque always revolt
+					set_variable = { POR_ships_escape = 0 }
+
+					##This estimates how many ships (if any) join the revolt, not including the Dão and the Alfonso ##
+					set_temp_variable = { fail_participation_prob = 100 } 
+					set_temp_variable = {ship_participation_prob = 25}
+
+					if = {
+						limit = {
+							check_variable = {
+								var = POR.stability
+								value = 65
+								compare = less_than
+							}
+						}
+						add_to_temp_variable = { ship_participation_prob = 8 }
+					}
+
+					subtract_from_temp_variable = { fail_participation_prob = ship_participation_prob }
+
+					#Probabilities: success = 25% fail = 75% ; Prob if less than 65 stability: success = 33% fail = 67%
+					random_list = {
+						temp_var:fail_participation_prob = {
+						}
+						temp_var:ship_participation_prob = {
+
+							add_to_variable = { POR_ships_in_revolt = 2 }
+
+							set_temp_variable = { fail_participation_prob = 100 }
+							subtract_from_temp_variable = { ship_participation_prob = 10 }
+							subtract_from_temp_variable = { fail_participation_prob = ship_participation_prob }
+
+							#Probabilities: success = 15% fail = 85% ; Prob if less than 65 stability: success = 23% fail = 77%
+							random_list = {
+								temp_var:fail_participation_prob = {
+								}
+								temp_var:ship_participation_prob = {
+									add_to_variable = { POR_ships_in_revolt = 2 } 
+								}
+							}
+						}
+					}
+
+					## This calculates the chances of success of the mutiny ##
+					if = {
+						limit = {
+							check_variable = { POR_ships_in_revolt > 1 } #only the Dão and Alfonso
+						}
+						random_list = {
+							75 = {
+							}
+
+							#If only the Dão and the Alfonso revolt, there will be a 25% chance of them escaping
+							#If 4 boats revolt, there will be a 35% chance of the Dão and Alfonso escaping
+							#If 6 boats revolt, there will be a 45% chance ofthe Dão and Alfonso escaping
+							25 = {
+								add_to_variable = { POR_ships_escape = 2 }
+								modifier = {
+									factor = 1.616
+									check_variable = {
+										POR_ships_in_revolt > 2
+									}
+								}
+								modifier = {
+									factor = 1.5189
+									check_variable = {
+										POR_ships_in_revolt > 4
+									}
+								}
+							}
+						}
+					}
+
+					if = {
+						limit = {
+							check_variable = { POR_ships_in_revolt > 2 }
+						}
+						random_list = {
+							65 = {
+							}
+
+							#If 4 boats revolt, there is a 35% chance of 1 of them escaping
+							#If 6 boats revolt, there is a 45% chance of 1 of them escaping
+							35 = {
+								add_to_variable = { POR_ships_escape = 2 }
+								modifier = {
+									factor = 1.519
+									check_variable = {
+										POR_ships_in_revolt > 4
+									}
+								}
+							}
+						}
+					}
+
+					#If 6 boats revolt, there is a 30% chance of 1 of them escaping
+					if = {
+						limit = {
+							check_variable = { POR_ships_in_revolt > 4 }
+						}
+						random_list = {
+							70 = {
+							}
+
+							30 = {
+								add_to_variable = { POR_ships_escape = 1 }
+							}
+						}
+					}
+
+					#If 6 boats revolt, there is another 30% chance of 1 of them escaping
+					if = {
+						limit = {
+							check_variable = { POR_ships_in_revolt > 5 }
+						}
+						random_list = {
+							70 = {
+							}
+
+							30 = {
+								add_to_variable = { POR_ships_escape = 1 }
+							}
+						}
+					}
+
+					set_country_flag = POR_lured_them_in
+					country_event = { id = POR_naval_revolt.2 days = 1}
+				}
+
+				##############################################
+				##The crews fail to lure the officers aboard## 
+				##############################################
+				75 = {
+					#Only the Dão and the Alfonso revolt, since most of the Portuguese sailors realized their plot had been discovered and chose not to revolt.
+					set_variable = { POR_ships_in_revolt = 2 }
+					set_variable = { POR_ships_escape = 0 }
+
+					random_list = {
+						20 = {
+							add_to_variable = { POR_ships_escape = 2 }
+						}
+
+						80 = {
+						}
+					}
+					set_country_flag = POR_lure_failed
+					country_event = { id = POR_naval_revolt.3 days = 1}
+				}
+			}
+
+			##Calcualtes the number of sailors, each ship has 135 sailors
+			set_variable = { POR_sailors_var = 0 }
+			if = {
+				limit = {
+					check_variable = { POR_ships_escape = 0 }  #Number of Sailors that were arrested if no one escaped
+				}
+				set_variable = { POR_sailors_var = POR_ships_in_revolt }
+				multiply_variable = {POR_sailors_var = 135}
+
+				#Amount of manpower to subtract
+				set_variable = { POR_sailors_manpower = POR_sailors_var }
+				multiply_variable = { POR_sailors_manpower = -1 }
+
+				#Number of sailors arrested minus casualties (for event loc)
+				set_variable = { POR_sailors_dead = 6 }
+				multiply_variable = { POR_sailors_dead = POR_ships_in_revolt }
+				subtract_from_variable = { POR_sailors_var = POR_sailors_dead }
+			}
+			if = {
+				limit = {
+					check_variable = { POR_ships_escape = POR_ships_in_revolt }
+				}
+				set_variable = { POR_sailors_var = POR_ships_escape } #Number of sailors lost if all ships escaped
+				multiply_variable = {POR_sailors_var = -135}
+			}
+			if = { #If some ships escape and the rest dont
+				limit = {
+					check_variable = {
+						var = POR_ships_escape
+						value = 0
+						compare = not_equals
+					}
+					check_variable = {
+						var = POR_ships_escape
+						value = POR_ships_in_revolt
+						compare = not_equals
+					}
+				}
+			}
+		}
+	}
+}
+
+### Aftermath of the mutiny, lured officers
+country_event = {
+	id = POR_naval_revolt.2
+	title = POR_naval_revolt.2.t
+	# Desc when no one escapes
+	desc = {
+		text = POR_naval_revolt.2.desc
+		trigger = {
+			check_variable = { POR_ships_escape = 0 }	
+		}
+	}
+	# Desc when only some ships escape
+	desc = {
+		text = POR_naval_revolt_some_escaped.2.desc
+		trigger = {
+			check_variable = { POR_ships_escape > 0 }
+			NOT = { check_variable = { POR_ships_escape = POR_ships_in_revolt } }	
+		}
+	}
+	#Desc when all ships escape
+	desc = {
+		text = POR_naval_revolt_all_scaped.2.desc
+		trigger = {
+			check_variable = { POR_ships_escape > 0 }
+			check_variable = { POR_ships_escape = POR_ships_in_revolt }
+		}
+	}
+	picture = GFX_report_event_portugal_navy_mutiny_prisoners
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = POR_revolt_hapened
+			if = { 
+				limit = { 
+					check_variable = { POR_ships_escape > 0 }
+				}
+				var:transfer_revolt_ships_target = { country_event = { id = POR_naval_revolt.5 } }
+				set_country_flag = POR_naval_revolt_success_flag
+				transfer_ship = {
+					prefer_name = "NRP Alfonso de Albuquerque"
+				    type = light_cruiser
+				    target = var:transfer_revolt_ships_target
+				}
+				if = {
+					limit = {
+						check_variable = { POR_ships_escape > 1 }
+					}
+					transfer_ship = {
+						prefer_name = "NRP Dão"
+					    type = destroyer
+					    target = var:transfer_revolt_ships_target
+					}
+					if = {
+						limit = {
+							check_variable = { POR_ships_escape > 2 }
+						}
+						transfer_ship = {
+						    prefer_name = "NRP Tejo"
+						    type = destroyer
+						    target = var:transfer_revolt_ships_target
+						}
+						if = {
+							limit = {
+								check_variable = { POR_ships_escape > 3 }
+							}
+							transfer_ship = {
+							    prefer_name = "NRP Douro"
+							    type = destroyer
+							    target = var:transfer_revolt_ships_target
+							}
+							if = {
+								limit = {
+									check_variable = { POR_ships_escape > 4 }
+								}
+								transfer_ship = {
+								    prefer_name = "NRP Bartolomeu Dias"
+								    type = light_cruiser
+								    target = var:transfer_revolt_ships_target
+								}
+								if = {
+									limit = {
+										check_variable = { POR_ships_escape > 5 }
+									}
+									transfer_ship = {
+										prefer_name = "NRP Lima"
+										type = destroyer
+										target = var:transfer_revolt_ships_target
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {
+				set_country_flag = POR_naval_revolt_failed_flag
+			}
+			if = {
+				limit = { check_variable = { POR_ships_escape > 0} }
+				set_variable = { opposition_resistance_var = 0.1 }
+				if = {
+					limit = { check_variable = { POR_ships_escape < 7 } }
+					set_variable = { commie_opposition_var = 0.05 }
+					set_variable = { democ_oposition_var = 0.05 }
+					if = {
+						limit = { check_variable = { POR_ships_escape < 5 } }
+						set_variable = { commie_opposition_var = 0.03 }
+						set_variable = { democ_oposition_var = 0.03 }
+						if = {
+							limit = { check_variable = { POR_ships_escape < 3 } }
+							set_variable = { commie_opposition_var = 0.01 }
+							set_variable = { democ_oposition_var = 0.01 }
+						}
+					}
+				}
+			}
+
+			set_variable = { POR_sailors_var = POR_ships_in_revolt } #Total manpower lost. Arrested sailors + sailors that escaped
+			multiply_variable = { POR_sailors_var = 135}
+
+			#Amount of manpower to subtract
+			set_variable = { POR_sailors_manpower = POR_sailors_var }
+			multiply_variable = { POR_sailors_manpower = -1 }
+
+			if = {
+				limit = {
+					check_variable = { POR_ships_escape = 0}
+				}
+				set_temp_variable = { POR_sailors_arrested = POR_sailors_var }
+				set_temp_variable = { POR_sailors_dead = 6 }
+				multiply_temp_variable = { POR_sailors_dead = POR_ships_in_revolt }
+				subtract_from_temp_variable = { POR_sailors_arrested = POR_sailors_dead }
+			}
+
+			if = {
+				limit = {
+					check_variable = { POR_ships_escape > 0}
+					check_variable = { POR_ships_in_revolt > POR_ships_escape }
+				}
+				set_temp_variable = { POR_sailors_arrested = POR_ships_in_revolt } 
+				subtract_from_temp_variable = { POR_sailors_arrested = POR_ships_escape }
+				set_temp_variable = { POR_ships_stoped = POR_sailors_arrested }  ## Nº of ships that did not make it.
+				#Number of arrested sailors minus casualties (This is only for event loc)
+				multiply_temp_variable = { POR_sailors_arrested = 135 } 
+				set_temp_variable = { POR_sailors_dead = 6 }
+				multiply_temp_variable = { POR_sailors_dead = POR_ships_in_revolt }
+				subtract_from_variable = { POR_sailors_arrested = POR_sailors_dead }
+			}
+		}
+	}
+
+	option = { 
+		name = POR_naval_revolt.2.a
+		trigger = {
+			has_country_flag = POR_naval_revolt_success_flag
+		}
+		add_manpower = var:POR_sailors_manpower
+	}
+	option = {
+		name = POR_naval_revolt.2.b
+		trigger = {
+			has_country_flag = POR_naval_revolt_failed_flag
+		}
+		add_manpower = var:POR_sailors_manpower
+	}
+}
+
+##Aftermath of the mutiny, failed to lure officers
+country_event = {
+	id = POR_naval_revolt.3
+	title = POR_naval_revolt.3.t
+	#The mutiny was a success
+	desc = {
+		text = POR_naval_revolt.3_s_desc
+		trigger = {
+			has_country_flag = POR_naval_revolt_success_flag
+		}
+	}
+	#They mutiny failed
+	desc = {
+		text = POR_naval_revolt.3_f_desc
+		trigger = {
+			has_country_flag = POR_naval_revolt_failed_flag
+		}
+	}
+	picture = GFX_report_event_ast_navy
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = POR_revolt_hapened
+			if = {
+				limit = {
+					check_variable = { POR_ships_escape = 2 }
+				}
+				set_country_flag = POR_naval_revolt_success_flag
+				transfer_ship = {
+					prefer_name = "NRP Alfonso de Albuquerque"
+				    type = light_cruiser
+				    target = var:transfer_revolt_ships_target
+				}
+				transfer_ship = {
+					prefer_name = "NRP Dão"
+					type = destroyer
+					target = var:transfer_revolt_ships_target
+				}
+
+				var:transfer_revolt_ships_target = { country_event = { id = POR_naval_revolt.5 } }
+				set_variable = { opposition_resistance_var = 0.1 }
+				set_variable = { commie_opposition_var = 0.01 }
+				set_variable = { democ_oposition_var = 0.01 }
+			}
+			else = {
+				set_country_flag = POR_naval_revolt_failed_flag
+			}
+
+			set_variable = { POR_sailors_var = POR_ships_in_revolt } #Number of sailors in total
+			multiply_variable = { POR_sailors_var = 135}
+
+			#Amount of manpower to subtract
+			set_variable = { POR_sailors_manpower = POR_sailors_var }
+			multiply_variable = { POR_sailors_manpower = -1 }
+
+			#If the mutiny fails and they are arrested
+			set_temp_variable = { POR_sailors_arrested = POR_sailors_var }  
+			set_temp_variable = { POR_sailors_dead = 12 }
+			subtract_from_temp_variable = { POR_sailors_arrested = POR_sailors_dead }
+		}
+	}
+
+	option = {
+		name = POR_naval_revolt.3.a
+		trigger = {
+			has_country_flag = POR_naval_revolt_success_flag
+		}
+		add_manpower = var:POR_sailors_manpower
+	}
+
+	option = {
+		name = POR_naval_revolt.3.b
+		trigger = {
+			has_country_flag = POR_naval_revolt_failed_flag
+		}
+		add_manpower = var:POR_sailors_manpower
+	}
+}
+
+#Aftermath of the mutiny, decided to do nothing
+country_event = {
+	id = POR_naval_revolt.4
+	title = POR_naval_revolt.4.t
+	#One ship escaped 
+	desc = {
+		text = POR_naval_revolt.4_one_desc
+		trigger = {
+			check_variable = { POR_ships_escape = 1 }
+		}
+	}
+	#At least more than one ship escaped
+	desc = {
+		text = POR_naval_revolt.4_s_desc
+		trigger = {
+			check_variable = { POR_ships_escape > 1 }
+		}
+	}
+	#They mutiny failed
+	desc = {
+		text = POR_naval_revolt.4_f_desc
+		trigger = {
+			has_country_flag = POR_naval_revolt_failed_flag
+		}
+	}
+	picture = GFX_report_event_ast_navy
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = POR_revolt_hapened
+			if = {
+				limit = { country_exists = SPC }
+				set_temp_variable = { transfer_revolt_ships_target = SPC }
+			} else = {
+				set_temp_variable = { transfer_revolt_ships_target = SPR }
+			}
+			if = { 
+				limit = { 
+					check_variable = { POR_ships_escape > 0 }
+				}
+				var:transfer_revolt_ships_target = { country_event = { id = POR_naval_revolt.5 } }
+				set_country_flag = POR_naval_revolt_success_flag
+				transfer_ship = {
+					prefer_name = "NRP Alfonso de Albuquerque"
+				    type = light_cruiser
+				    target = var:transfer_revolt_ships_target
+				}
+				if = {
+					limit = {
+						check_variable = { POR_ships_escape > 1 }
+					}
+					transfer_ship = {
+						prefer_name = "NRP Dão"
+					    type = destroyer
+					    target = var:transfer_revolt_ships_target
+					}
+					if = {
+						limit = {
+							check_variable = { POR_ships_escape > 2 }
+						}
+						transfer_ship = {
+						    prefer_name = "NRP Tejo"
+						    type = destroyer
+						    target = var:transfer_revolt_ships_target
+						}
+						if = {
+							limit = {
+								check_variable = { POR_ships_escape > 3 }
+							}
+							transfer_ship = {
+							    prefer_name = "NRP Douro"
+							    type = destroyer
+							    target = var:transfer_revolt_ships_target
+							}
+							if = {
+								limit = {
+									check_variable = { POR_ships_escape > 4 }
+								}
+								transfer_ship = {
+								    prefer_name = "NRP Bartolomeu Dias"
+								    type = light_cruiser
+								    target = var:transfer_revolt_ships_target
+								}
+								if = {
+									limit = {
+										check_variable = { POR_ships_escape > 5 }
+									}
+									transfer_ship = {
+										prefer_name = "NRP Lima"
+										type = destroyer
+										target = var:transfer_revolt_ships_target
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {
+				set_country_flag = POR_naval_revolt_failed_flag
+			}
+
+			if = {
+				limit = { check_variable = { POR_ships_escape > 0} }
+				set_variable = { opposition_resistance_var = 0.1 }
+				if = {
+					limit = { check_variable = { POR_ships_escape < 7 } }
+					set_variable = { commie_opposition_var = 0.05 }
+					set_variable = { democ_oposition_var = 0.05 }
+					if = {
+						limit = { check_variable = { POR_ships_escape < 5 } }
+						set_variable = { commie_opposition_var = 0.03 }
+						set_variable = { democ_oposition_var = 0.03 }
+						if = {
+							limit = { check_variable = { POR_ships_escape < 3 } }
+							set_variable = { commie_opposition_var = 0.01 }
+							set_variable = { democ_oposition_var = 0.01 }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = POR_naval_revolt.4.a
+		trigger = {
+			check_variable = { POR_ships_escape > 0 }
+		}
+		add_manpower = var:POR_sailors_manpower
+	}
+
+	option = {
+		name = POR_naval_revolt.4.b
+		trigger = {
+			check_variable = { POR_ships_escape = 0 }
+		}
+		add_manpower = var:POR_sailors_manpower
+	}
+}
+
+
+# Republicans recive the ships, Event for Republicans/Communists
+country_event = {
+	id = POR_naval_revolt.5
+	title = POR_naval_revolt.5.t
+	desc = POR_naval_revolt.5.desc
+	picture = GFX_report_event_ast_navy
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { 
+		name = POR_naval_revolt.5.a
+	}
+}

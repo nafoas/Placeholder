@@ -1,0 +1,193 @@
+
+RFP_contribute_in_far_east = {
+	allowed = {
+		OR = {
+			tag = RFP
+			tag = FER
+		}
+	}
+	enable = {
+		has_global_flag = Russian_Civil_War
+		has_war_with = SOV
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		strategic_region = 148
+		strategic_region = 151
+
+		value = 100
+	}
+}
+
+SOV_focus_less_on_siberia = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		has_global_flag = Russian_Civil_War
+		has_war_with = SBR
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		area = trans_urals
+
+		value = -80
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = siberia
+
+		value = -200
+	}
+}
+
+SOV_focus_more_on_europe = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			has_war_with = RUS
+			has_war_with = UKR
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		area = europe
+
+		value = 80
+	}
+}
+
+SOV_front_belarus = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		has_global_flag = Russian_Civil_War
+		has_war_with = BLR
+	}
+	abort = {
+		surrender_progress > 0.7
+	}
+
+	ai_strategy = {
+		type = front_control
+
+		tag = BLR
+		ordertype = front
+	}
+}
+
+BLR_less_aggressive = {
+	allowed = {
+		tag = BLR
+	}
+	enable = {
+		has_global_flag = Russian_Civil_War
+		has_war_with = SOV
+	}
+	abort = {
+		surrender_progress > 0.5
+	}
+
+	ai_strategy = {
+		type = front_control
+
+		tag = SOV
+		ordertype = front
+		execution_type = careful
+		manual_attack = no
+	}
+}
+
+UZB_defense_plan = {
+	allowed = {
+		tag = UZB
+	}
+	enable = {
+		has_global_flag = Russian_Civil_War
+		has_war_with = SOV
+	}
+	abort = {
+		surrender_progress > 0.5
+	}
+
+	ai_strategy = {
+		type = front_control
+
+		tag = SOV
+		ordertype = front
+		execution_type = careful
+	}
+}
+
+RUS_dont_care_siberia = {
+	allowed = {
+		tag = RUS
+	}
+	enable = {
+		has_global_flag = Russian_Civil_War
+		has_war_with = SOV
+		country_exists = SBR
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = SBR
+		value = 500
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = SBR
+
+		value = -200
+	}
+
+}
+
+UKR_no_frontlines_with_friends = {
+	allowed = {
+		tag = UKR
+	}
+	enable = {
+		has_global_flag = Russian_Civil_War
+		has_war_with = SOV
+		OR = {
+			country_exists = BLR
+			country_exists = RUS
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				AND = {
+					tag = BLR
+					NOT = { has_war_with = BLR }
+				}
+				AND = {
+					tag = RUS
+					NOT = { has_war_with = RUS }
+				}
+			}
+		}
+
+		value = -200
+	}
+}

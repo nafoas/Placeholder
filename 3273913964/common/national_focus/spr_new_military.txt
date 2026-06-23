@@ -1,0 +1,1149 @@
+
+	shared_focus = {
+		id = SPR_new_armed_forces
+		icon = GFX_focus_support_republican_spain
+		cost = 7 
+		x = 34
+		y = 0
+		ai_will_do = {
+			factor = 5
+		}
+		available = {
+			tag = SPR
+			has_country_flag = won_scw
+			if = {
+				limit = { has_focus_tree = spain_recovery_tree_left }
+				has_completed_focus = SPR_rein_in_militias
+			}
+		}
+		completion_reward = {
+			add_war_support = 0.1
+		}
+	}
+	
+	shared_focus = {
+		id = SPR_the_fare
+		icon = GFX_focus_SPR_air_force
+		cost = 5
+		x = -10
+		y = 1
+		prerequisite = {
+			focus = SPR_new_armed_forces
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			air_experience = 30
+			add_political_power = 20
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_aereonautica_naval
+		icon = GFX_goal_generic_air_naval_bomber
+		cost = 5
+		x = -10
+		y = 2
+		prerequisite = {
+			focus = SPR_the_fare
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 1.0
+				uses = 2
+				category = naval_air			
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_reintegrate_dca
+		icon = GFX_Generic_Anti_Aircraft_Artillery
+		cost = 5
+		x = -10
+		y = 4
+		prerequisite = {
+			focus = SPR_aereonautica_naval
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 1.0
+				uses = 1
+				category = cat_anti_air 			
+			}
+			add_ideas = SPR_defensa_c_a
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_arma_aviacion
+		icon = GFX_focus_Aerial_Fleet
+		cost = 5
+		x = -12
+		y = 2
+		prerequisite = {
+			focus = SPR_the_fare
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine			
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_servicios_instruccion
+		icon = GFX_goal_generic_air_doctrine
+		cost = 5
+		x = -13
+		y = 3
+		prerequisite = {
+			focus = SPR_arma_aviacion
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine			
+			}
+			air_experience = 20
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+
+	shared_focus = { #Bruh
+		id = SPR_aereodromo_llanos
+		icon = GFX_focus_Airports
+		cost = 5
+		x = -11
+		y = 3
+		prerequisite = {
+			focus = SPR_arma_aviacion
+		}
+		available = {
+			controls_state = 168
+		}
+		completion_reward = {
+			168 = {
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+			air_experience = 15
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_promote_hidalgo_cisneros
+		icon = GFX_focus_Republican_Mission
+		cost = 5
+		x = -12
+		y = 4
+		prerequisite = {
+			focus = SPR_aereodromo_llanos
+		}
+		prerequisite = {
+			focus = SPR_servicios_instruccion
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine			
+			}
+			air_experience = 30
+			if = {
+				limit = {
+					NOT = { has_idea_with_trait = coaf }
+				}
+				add_ideas = CAF_hidalgo 
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_subsecretaria_aviacion
+		icon = GFX_manage_administration
+		cost = 5
+		x = -8
+		y = 2
+		prerequisite = {
+			focus = SPR_the_fare
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_equipment			
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_hispano_suiza_focus
+		icon = GFX_goal_generic_air_fighter
+		cost = 5
+		x = -9
+		y = 3
+		prerequisite = {
+			focus = SPR_subsecretaria_aviacion
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 1.0
+				uses = 2
+				category = fighter_techs			
+			}
+			if = {
+				limit = {
+					controls_state = 165
+				}
+				165 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_servicio_af
+		icon = GFX_goal_generic_air_production
+		cost = 5
+		x = -7
+		y = 3
+		prerequisite = {
+			focus = SPR_subsecretaria_aviacion
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_ideas = SPR_saf_idea
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_restore_casa
+		icon = GFX_goal_generic_air_bomber
+		cost = 5
+		x = -8
+		y = 4
+		prerequisite = {
+			focus = SPR_servicio_af
+		}
+		prerequisite = {
+			focus = SPR_hispano_suiza_focus
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 1.0
+				uses = 2
+				category = tactical_bomber			
+			}
+			if = {
+				limit = {
+					controls_state = 41
+				}
+				41 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_the_popular_army_rep
+		icon = GFX_focus_People_Army
+		cost = 5
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = SPR_new_armed_forces
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			army_experience = 30
+			add_political_power = 20
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_rely_career_officers
+		icon = GFX_focus_Republican_Officer
+		cost = 5
+		x = -4
+		y = 2
+		prerequisite = {
+			focus = SPR_the_popular_army_rep
+		}
+		mutually_exclusive = {
+			focus = SPR_rely_militia_leaders
+		}
+		completion_reward = {
+			every_unit_leader = {
+				limit = {
+					OR = {
+						has_id = 1936
+						has_id = 1937
+						has_id = 1938
+						has_id = 1492
+						has_id = 1941
+						has_id = 1942
+						has_id = 1943
+						has_id = 1944
+					}
+				}
+				add_planning = 1
+				add_logistics = 1
+			}
+			add_political_power = 30
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_promote_vicente_rojo
+		icon = GFX_focus_The_Big_Push
+		cost = 5
+		x = -4
+		y = 3
+		prerequisite = {
+			focus = SPR_rely_career_officers
+		}
+		completion_reward = {
+			random_unit_leader = {
+				limit = {
+					has_id = 1937
+				}
+				add_unit_leader_trait = meticulous 
+				add_unit_leader_trait = skilled_staffer 
+				add_attack = 1
+			}
+			add_political_power = 20
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_ejercito_maniobra
+		icon = GFX_goal_generic_position_armies
+		cost = 5
+		x = -4
+		y = 4
+		prerequisite = {
+			focus = SPR_promote_vicente_rojo
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = cat_grand_battle_plan
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_limited_amnesty
+		icon = GFX_focus_Pacifist_State
+		cost = 5
+		x = -6
+		y = 4
+		prerequisite = {
+			focus = SPR_promote_vicente_rojo
+		}
+		completion_reward = {
+			add_stability = 0.08
+			add_war_support = 0.05
+			army_experience = 50
+			add_political_power = -50
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_empower_estado_mayor
+		icon = GFX_focus_Flexible_chain_of_command
+		cost = 5
+		x = -5
+		y = 5
+		prerequisite = {
+			focus = SPR_limited_amnesty
+		}
+		prerequisite = {
+			focus = SPR_ejercito_maniobra
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = cat_grand_battle_plan
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_alphabetic_war_plans
+		icon = GFX_focus_Long_Planning
+		cost = 5
+		x = -5
+		y = 6
+		prerequisite = {
+			focus = SPR_empower_estado_mayor
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = cat_grand_battle_plan
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_rely_militia_leaders
+		icon = GFX_focus_Peasant_Militias
+		cost = 5
+		x = 4
+		y = 2
+		prerequisite = {
+			focus = SPR_the_popular_army_rep
+		}
+		mutually_exclusive = {
+			focus = SPR_rely_career_officers
+		}
+		completion_reward = {
+			every_unit_leader = {
+				limit = {
+					NOT = {
+					OR = {
+						has_id = 1936
+						has_id = 1937
+						has_id = 1938
+						has_id = 1940
+						has_id = 1941
+						has_id = 1942
+						has_id = 1943
+						has_id = 1944
+					}
+					}
+				}
+				add_defense = 1
+				add_attack = 1
+			}
+			add_war_support = 0.03
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_promote_juan_modesto
+		icon = GFX_focus_Communist_Loyalty
+		cost = 5
+		x = 4
+		y = 3
+		prerequisite = {
+			focus = SPR_rely_militia_leaders
+		}
+		completion_reward = {
+			random_unit_leader = {
+				limit = {
+					has_id = 1493
+				}
+				add_unit_leader_trait = fortress_buster  
+				add_unit_leader_trait = skirmisher  
+				add_attack = 2
+				add_defense = 2
+			}
+			add_political_power = 20
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_mandatory_military_training
+		icon = GFX_focus_Into_the_Flames_of_Glory
+		cost = 5
+		x = 4
+		y = 4
+		prerequisite = {
+			focus = SPR_promote_juan_modesto
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = cat_mass_assault
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_accelerate_officer_training
+		icon = GFX_focus_generic_military_mission
+		cost = 5
+		x = 6
+		y = 4
+		prerequisite = {
+			focus = SPR_promote_juan_modesto
+		}
+		completion_reward = {
+			add_stability = 0.03
+			add_war_support = 0.05
+			army_experience = 25
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_quinto_model
+		icon = GFX_focus_SPR_army
+		cost = 5
+		x = 5
+		y = 5
+		prerequisite = {
+			focus = SPR_accelerate_officer_training
+		}
+		prerequisite = {
+			focus = SPR_mandatory_military_training
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = cat_mass_assault
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_expand_the_comissariat
+		icon = GFX_focus_Espionage
+		cost = 5
+		x = 5
+		y = 6
+		prerequisite = {
+			focus = SPR_quinto_model
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = cat_mass_assault
+			}
+			add_stability = 0.05
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_promote_jose_miaja
+		icon = GFX_focus_Foreign_Diplomacy
+		cost = 5
+		x = 0
+		y = 3
+		prerequisite = {
+			focus = SPR_rely_militia_leaders
+			focus = SPR_rely_career_officers
+		}
+		completion_reward = {
+			random_unit_leader = {
+				limit = {
+					has_id = 1936
+				}
+				promote_leader = yes
+				add_unit_leader_trait = expert_delegator 
+				add_defense = 2
+			}
+			add_political_power = 20
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_remobilization_plan
+		icon = GFX_focus_Recruitment_Drive
+		cost = 5
+		x = 0
+		y = 4
+		prerequisite = {
+			focus = SPR_promote_jose_miaja
+		}
+		completion_reward = {
+			add_ideas = SPR_rem_plan
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_labora
+		icon = GFX_focus_Firearms
+		cost = 5
+		x = 2
+		y = 4
+		prerequisite = {
+			focus = SPR_promote_jose_miaja
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_weapons_bonus
+				bonus = 1.5
+				uses = 2
+				category = infantry_weapons
+			}
+			if = {
+				limit = {
+					controls_state = 165
+				}
+				165 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_reinosa
+		icon = GFX_goal_generic_army_artillery
+		cost = 5
+		x = 1
+		y = 5
+		prerequisite = {
+			focus = SPR_labora
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = artillery
+			}
+			if = {
+				limit = {
+					controls_state = 1169
+				}
+				1169 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_ingenieros
+		icon = GFX_goal_generic_construction2
+		cost = 5
+		x = 3
+		y = 5
+		prerequisite = {
+			focus = SPR_labora
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = secret_bonus
+				bonus = 1.0
+				uses = 1
+				category = engineers_tech
+			}
+			add_political_power = 50
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_diversify_trubia
+		icon = GFX_focus_Anti-Tank
+		cost = 5
+		x = 2
+		y = 6
+		prerequisite = {
+			focus = SPR_ingenieros
+		}
+		prerequisite = {
+			focus = SPR_reinosa
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = cat_anti_air 
+			}
+			add_tech_bonus = {
+				name = artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = cat_anti_tank
+			}
+			if = {
+				limit = {
+					controls_state = 826
+				}
+				826 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_form_first_armored
+		icon = GFX_focus_army_tanks
+		cost = 5
+		x = -2
+		y = 4
+		prerequisite = {
+			focus = SPR_promote_jose_miaja
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1.0
+				uses = 1
+				category = armor
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_develop_unl
+		icon = GFX_focus_Motorization_Effort
+		cost = 5
+		x = -3
+		y = 5
+		prerequisite = {
+			focus = SPR_form_first_armored
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1.0
+				uses = 1
+				category = armoured_car_research	
+			}
+			add_tech_bonus = {
+				name = motorized_bonus
+				bonus = 1.25
+				technology = motorised_infantry
+			}
+			if = {
+				limit = {
+					controls_state = 167
+				}
+				167 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_develop_trubia
+		icon = GFX_focus_Light_Tanks
+		cost = 5
+		x = -1
+		y = 5
+		prerequisite = {
+			focus = SPR_form_first_armored
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1.0
+				uses = 2
+				category = armor	
+			}
+			if = {
+				limit = {
+					controls_state = 826
+				}
+				826 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_merge_armored_schools
+		icon = GFX_focus_generic_military_academy
+		cost = 5
+		x = -2
+		y = 6
+		prerequisite = {
+			focus = SPR_develop_trubia
+		}
+		prerequisite = {
+			focus = SPR_develop_unl
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = land_doctrine
+			}
+			army_experience = 30
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_marina_de_guerra
+		icon = GFX_focus_capital_ships
+		cost = 5
+		x = 10
+		y = 1
+		prerequisite = {
+			focus = SPR_new_armed_forces
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			navy_experience = 30
+			add_political_power = 20
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_integrate_mgae
+		icon = GFX_focus_naval_reform
+		cost = 5
+		x = 10
+		y = 2
+		prerequisite = {
+			focus = SPR_marina_de_guerra
+		}
+		available = {
+			controls_state = 752
+		}
+		completion_reward = {
+			hidden_effect = {
+				load_oob = SPR_euzkadi_mtg
+			}
+			custom_effect_tooltip = SPR_mgae_appear
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_modern_carrier
+		icon = GFX_focus_Carrier_Focus
+		cost = 10
+		x = 10
+		y = 4
+		prerequisite = {
+			focus = SPR_integrate_mgae
+		}
+		completion_reward = {
+			navy_experience = 50
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = cv_tech
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_escuela_naval_popular
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		cost = 5
+		x = 8
+		y = 2
+		prerequisite = {
+			focus = SPR_marina_de_guerra
+		}
+		completion_reward = {
+			navy_experience = 30
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_remove_political_delegates
+		icon = GFX_focus_Naval_Purges
+		cost = 5
+		x = 7
+		y = 3
+		prerequisite = {
+			focus = SPR_escuela_naval_popular
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_fill_cuerpo_general
+		icon = GFX_focus_Bluewater_Navy
+		cost = 5
+		x = 9
+		y = 3
+		prerequisite = {
+			focus = SPR_escuela_naval_popular
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_promote_buiza
+		icon = GFX_focus_admiralty
+		cost = 5
+		x = 8
+		y = 4
+		prerequisite = {
+			focus = SPR_fill_cuerpo_general
+		}
+		prerequisite = {
+			focus = SPR_remove_political_delegates
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+			if = {
+				limit = {
+					NOT = { has_idea_with_trait = con  }
+				}
+				add_ideas = CN_buiza  
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_base_naval_malaga
+		icon = GFX_goal_generic_construct_naval_dockyard
+		cost = 5
+		x = 12
+		y = 2
+		prerequisite = {
+			focus = SPR_marina_de_guerra
+		}
+		available = {
+			controls_state = 173
+		}
+		completion_reward = {
+			173 = {
+				add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+				add_building_construction = {
+					type = naval_base
+					province = 9979
+					level = 5
+					instant_build = yes
+				}
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_defensa_antisubmarina
+		icon = GFX_goal_generic_navy_anti_submarine
+		cost = 5
+		x = 11
+		y = 3
+		prerequisite = {
+			focus = SPR_base_naval_malaga
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 3
+				category = dd_tech
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_secn_exp
+		icon = GFX_focus_spain_secn
+		cost = 5
+		x = 13
+		y = 3
+		prerequisite = {
+			focus = SPR_base_naval_malaga
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_idea = SPR_cte }
+					NOT = { has_idea = SPR_casa_company  }
+				}
+				add_ideas = SPR_secn_company   
+			}
+		}
+		relative_position_id = SPR_new_armed_forces
+	}
+	
+	shared_focus = {
+		id = SPR_resume_battleship_production
+		icon = GFX_focus_Battleship
+		cost = 5
+		x = 12
+		y = 4
+		prerequisite = {
+			focus = SPR_secn_exp
+		}
+		prerequisite = {
+			focus = SPR_defensa_antisubmarina
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = bb_tech
+			}
+			navy_experience = 50
+		}
+		relative_position_id = SPR_new_armed_forces
+	}

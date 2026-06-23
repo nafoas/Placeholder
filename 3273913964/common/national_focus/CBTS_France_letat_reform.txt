@@ -1,0 +1,464 @@
+######################
+## Refome de l'Etat ##
+######################
+
+focus_tree = {
+	id = CBTS_France_letat_reform
+	country = {
+		factor = 0
+		modifier = {
+			add = 0
+			tag = FRA
+		}
+	}
+	shared_focus = FRA_lessons_great_war
+	shared_focus = FRA_london_conference
+	shared_focus = FRA_deflationary_policies
+	shared_focus = FRA_marine_nationale
+	shared_focus = FRA_create_armee_air
+	default = no
+	continuous_focus_position = { x = 50 y = 1475 }
+
+	focus = {
+		id = FRA_reform_de_letat
+		icon = GFX_focus_Political_reform_2
+		cost = 3
+		x = 2
+		y = 0
+
+		completion_reward = {
+			add_political_power = 200
+			add_ideas = FRA_letat_reform0
+			activate_mission = FRA_mission_reform_letat
+			custom_effect_tooltip = FRA_letat_debate_tt
+			set_country_flag = reform_de_letat
+		}
+	}
+
+	focus = {
+		id = FRA_remove_senatorial_veto
+		icon = GFX_focus_Remove_Senatorial_Veto
+		cost = 5
+		available = { has_country_flag = reform_de_letat }
+		prerequisite = { focus = FRA_reform_de_letat }
+		relative_position_id = FRA_reform_de_letat 
+		x = 0
+		y = 1
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			custom_effect_tooltip = FRA_disble_senate_tt
+			effect_tooltip = {
+				letat_reform = yes
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_automatic_dissolution
+		icon = GFX_focus_Parliament
+		cost = 2
+		available = { has_country_flag = reform_de_letat }
+		mutually_exclusive = { focus = FRA_executive_dissolution }
+		prerequisite = { focus = FRA_remove_senatorial_veto }
+		relative_position_id = FRA_reform_de_letat 
+		x = -1
+		y = 2
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			custom_effect_tooltip = FRA_automatic_dissolution_tt
+		}
+	}
+
+	focus = {
+		id = FRA_guarantee_parliament_power
+		icon = GFX_focus_Ensure_Discipline_Parliament
+		cost = 2
+		available = { has_country_flag = reform_de_letat }
+		prerequisite = { focus = FRA_automatic_dissolution }
+		relative_position_id = FRA_reform_de_letat 
+		x = -1
+		y = 3
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+			    add_political_power = 100
+			}
+			add_days_mission_timeout = {
+				mission = FRA_mission_reform_letat
+				days = 80
+			}
+		    custom_effect_tooltip = FRA_guarantee_parliament_power_tt
+		}
+	}
+
+
+	focus = {
+		id = FRA_executive_dissolution
+		icon = GFX_focus_Empower_President
+		cost = 2
+		available = { has_country_flag = reform_de_letat }
+		prerequisite = { focus = FRA_remove_senatorial_veto }
+		relative_position_id = FRA_reform_de_letat 
+		x = 1
+		y = 2
+
+		mutually_exclusive = { focus = FRA_automatic_dissolution }
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+		    custom_effect_tooltip = FRA_executive_dissolution_tt
+		}
+	}
+
+	focus = {
+		id = FRA_circumventary_refendums
+		icon = GFX_focus_Elections_2
+		cost = 2
+		available = { has_country_flag = reform_de_letat }
+		prerequisite = { focus = FRA_executive_dissolution }
+		relative_position_id = FRA_reform_de_letat 
+		x = 1
+		y = 3
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			custom_effect_tooltip = FRA_executive_referendum_tt
+		}
+	}
+
+	focus = {
+		id = FRA_executive_financial_powers
+		icon = GFX_focus_Planned_Economy
+		cost = 2
+		available = { has_country_flag = reform_de_letat }
+		prerequisite = { focus = FRA_guarantee_parliament_power focus = FRA_circumventary_refendums }
+		relative_position_id = FRA_reform_de_letat 
+		x = 0
+		y = 4
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				letat_reform = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = FRA_create_prime_minister
+		icon = GFX_focus_Create_Position_Prime_Minister
+		cost = 2
+		available = { has_country_flag = reform_de_letat }
+		prerequisite = { focus = FRA_executive_financial_powers }
+		relative_position_id = FRA_reform_de_letat 
+		x = -2
+		y = 5
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				letat_reform = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = FRA_proportional_suffrage
+		icon = GFX_focus_Proportional_Suffrage
+		cost = 2
+		available = { has_country_flag = reform_de_letat }
+		prerequisite = { focus = FRA_executive_financial_powers }
+		relative_position_id = FRA_reform_de_letat 
+		x = 0
+		y = 5
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				letat_reform = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = FRA_limit_num_ministers
+		icon = GFX_focus_Limit_Number_Ministers
+		cost = 2
+		available = { has_country_flag = reform_de_letat }
+		prerequisite = { focus = FRA_executive_financial_powers }
+		relative_position_id = FRA_reform_de_letat 
+		x = 2
+		y = 5
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				letat_reform = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = FRA_vote_for_women
+		icon = GFX_focus_Female_vote
+		cost = 2
+		available = { has_country_flag = reform_de_letat }
+		prerequisite = { focus = FRA_create_prime_minister }
+		prerequisite = { focus = FRA_proportional_suffrage }
+		prerequisite = { focus = FRA_limit_num_ministers }
+		relative_position_id = FRA_reform_de_letat 
+		x = 0
+		y = 6
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				letat_reform = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = FRA_elect_president
+		icon = GFX_focus_French_Call_Election
+		cost = 3
+		available = {
+			has_country_flag = FRA_letat_reforms_passed_1
+		}
+		prerequisite = { focus = FRA_vote_for_women }
+		relative_position_id = FRA_reform_de_letat 
+		x = 0
+		y = 7
+
+		completion_reward = {
+			country_event = {
+				id = france.23
+				hours = 1
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	focus = {
+		id = FRA_dissolve_parliament
+		icon = GFX_focus_Electoral_Thresholds
+		cost = 3
+		prerequisite = { focus = FRA_elect_president }
+		relative_position_id = FRA_reform_de_letat 
+		x = 0
+		y = 8
+
+		available = {
+			has_country_flag = FRA_election_reform
+		}
+
+		completion_reward = {
+			#custom_effect_tooltip = FRA_reshuffle_parliament_tt
+
+			set_country_flag = FRA_letat_reforms_passed
+
+			set_variable = { total_seats = 610 }
+			set_variable = { half_seats = 306 }
+
+			set_variable = { communist_seats = 72 }
+			set_variable = { demsoc_seats = 155 }
+			set_variable = { socdem_seats = 29 }
+			set_variable = { soclib_seats = 130 }
+			set_variable = { marlib_seats = 82 }
+			set_variable = { centre_seats = 29 }
+			set_variable = { cons_seats = 113 }
+
+			set_coalition_seats = yes
+			calculate_nonid_seats = yes
+
+			# hidden_effect = {
+			# 	retire_ideology_leader = communism
+			# 	retire_ideology_leader = authoritarian_socialism
+			# 	retire_ideology_leader = socialism
+			# 	retire_ideology_leader = social_democracy
+			# 	retire_ideology_leader = social_liberalism
+			# }
+
+			if = {
+				limit = {
+					has_country_leader = {
+						name = "Albert Lebrun"
+						ruling_only = yes
+					}
+				}
+				retire_character = FRA_albert_lebrun
+			}
+			else_if = {
+				limit = {
+					has_country_leader = {
+						name = "Jules Jeanneney"
+						ruling_only = yes
+					}
+				}
+				retire_character = FRA_jules_jeanneney
+			}
+			else = {
+				retire_country_leader = yes
+			}
+
+			if = {
+				limit = {
+					has_country_flag = FRA_reynaud
+				}
+				add_country_leader_role = {
+					character = "FRA_paul_reynaud"
+					promote_leader = yes
+					country_leader = {
+						ideology = market_liberal
+						expire = "1965.1.1.1"
+						traits = {
+						}
+					}
+				}
+				add_country_leader_role = {
+					character = "FRA_paul_reynaud"
+					promote_leader = yes
+					country_leader = {
+						ideology = french_radicalism
+						expire = "1965.1.1.1"
+						traits = {
+						}
+					}
+				}
+				add_country_leader_role = {
+					character = "FRA_paul_reynaud"
+					promote_leader = yes
+					country_leader = {
+						ideology = dem_socialism
+						expire = "1965.1.1.1"
+						traits = {
+						}
+					}
+				}
+				add_country_leader_role = {
+					character = "FRA_paul_reynaud"
+					promote_leader = yes
+					country_leader = {
+						ideology = blumism
+						expire = "1965.1.1.1"
+						traits = {
+						}
+					}
+				}
+				add_country_leader_role = {
+					character = "FRA_paul_reynaud"
+					promote_leader = yes
+					country_leader = {
+						ideology = centrist_marxism
+						expire = "1965.1.1.1"
+						traits = {
+						}
+					}
+				}
+				clr_country_flag = FRA_reynaud
+			}
+			else = {
+				add_country_leader_role = {
+					character = "FRA_andre_tardieu"
+					promote_leader = yes
+					country_leader = {
+						ideology = market_liberal
+						expire = "1965.1.1.1"
+						traits = {
+						}
+					}
+				}
+				add_country_leader_role = {
+					character = "FRA_andre_tardieu"
+					promote_leader = yes
+					country_leader = {
+						ideology = french_radicalism
+						expire = "1965.1.1.1"
+						traits = {
+						}
+					}
+				}
+				add_country_leader_role = {
+					character = "FRA_andre_tardieu"
+					promote_leader = yes
+					country_leader = {
+						ideology = dem_socialism
+						expire = "1965.1.1.1"
+						traits = {
+						}
+					}
+				}
+				add_country_leader_role = {
+					character = "FRA_andre_tardieu"
+					promote_leader = yes
+					country_leader = {
+						ideology = blumism
+						expire = "1965.1.1.1"
+						traits = {
+						}
+					}
+				}
+				add_country_leader_role = {
+					character = "FRA_andre_tardieu"
+					promote_leader = yes
+					country_leader = {
+						ideology = centrist_marxism
+						expire = "1965.1.1.1"
+						traits = {
+						}
+					}
+				}
+				clr_country_flag = FRA_tardieu
+			}
+
+			set_country_flag = AD_right_wing
+			
+			remove_mission = FRA_mission_liquidity
+
+			load_focus_tree = {
+				tree = CBTS_France_DA
+				keep_completed = yes
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+}

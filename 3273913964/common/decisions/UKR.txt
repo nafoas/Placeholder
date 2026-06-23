@@ -1,0 +1,429 @@
+UKR_2RCW_decs = {
+	UKR_Claim_Greater_Ukraine = {
+		icon = GFX_decision_generic_prepare_civil_war
+		visible = {
+			tag = UKR
+			NOT = {
+				is_in_faction_with = RUS
+			}
+			#has_global_flag = Russian_Civil_War
+		}
+		allowed = {
+			tag = UKR
+			#has_global_flag = Russian_Civil_War
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = UKR_oun_40
+				check_variable = {
+					UKR_oun_influence > 39.99
+				}
+				all_state = {
+					OR = {
+						NOT = {
+							is_core_of = UKR
+						}
+						NOT = {
+							is_owned_by = SOV
+						}
+						is_controlled_by = UKR
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		cost = 125
+		days_remove = 0
+		remove_effect = {
+		}
+		complete_effect = {
+			add_stability = -0.10
+			add_war_support = -0.10
+			add_state_claim = 137
+			add_state_claim = 218
+			add_state_claim = 245
+			add_state_claim = 234
+			every_country = {
+				limit = {
+					any_state = {
+						is_owned_by = PREV
+						is_claimed_by = UKR
+					}
+					NOT = {
+						has_war_with = UKR
+						tag = UKR
+						tag = POL
+						is_in_faction_with = UKR
+					}
+				}
+				UKR = {
+					declare_war_on = {
+						target = PREV
+						type = annex_everything
+					}
+				}
+			}
+			custom_effect_tooltip = UKR_greater_ukraine_tt
+			set_variable = {
+				UKR_add_influence_value = 15
+			}
+			UKR_add_influence_oun = yes
+			custom_effect_tooltip = UKR_oun_gain_15
+		}
+	}
+}
+
+Transnistria_Escalation = {
+	TS_attack_Transnistria = { #1056
+		icon = border_war
+		allowed = {
+			tag = ROM	
+		}
+		state_target = yes
+		targets = { state = 1056 }
+		target_root_trigger = {
+			has_global_flag = Russian_Civil_War
+			has_capitulated = no
+			hidden_trigger = {
+				NOT = { has_country_flag = TS_conflict_escalate }
+			}
+			1056 = {
+				controller = {
+					NOT = {
+						has_war_with = ROM
+					}
+				}
+			}
+		}
+		target_trigger = {
+			FROM = {
+				NOT = {
+					is_controlled_by = ROM
+					is_owned_by = ROM
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_border_war_between = {
+					attacker = 1051
+					defender = 1056
+				}
+			}
+		}
+		highlight_states = {
+			state = 1056
+		}
+		ai_will_do = {
+			base = 300
+			modifier = {
+				1056 = {
+					controller = {
+						has_war = no
+						OR = {
+							tag = SOV
+							tag = RUS
+						}
+					}
+				}
+				factor = 0
+			}
+			modifier = {
+				check_variable = { TS_tension = 75 }
+				1056 = {
+					controller = {
+						OR = {
+							tag = SOV
+							tag = RUS
+						}
+					}
+				}
+				factor = 0
+			}
+			modifier = {
+				1056 = {
+					controller = {
+						is_in_faction = yes
+					}
+				}
+				factor = 0
+			}
+			modifier = {
+				check_variable = { TS_tension > 75 }
+				factor = 0
+			}
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 30
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			custom_effect_tooltip = add_25_esc
+			add_to_variable = { TS_tension = 25 }
+			clamp_variable = {
+				var = TS_tension
+				min = 0
+				max = 100
+			}
+			if = {
+				limit = {
+					check_variable = {
+						var = TS_tension
+						value = 100
+						compare = greater_than_or_equals
+					}
+				}
+				
+				1056 = {
+					owner = {
+						save_global_event_target_as = TS_escalator
+					}
+				}
+				activate_mission = TS_start_war
+			}
+		}
+		remove_effect = {
+
+			if = {
+				limit = {
+					controls_state = 1051
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 1051
+						num_provinces = 3
+						on_win = ukr_civil_war.28 #offensive victory TS
+						on_lose = ukr_civil_war.29 #offensive loss
+						leader_score = { #score for selecting a leader
+							base = 1
+							modifier = {
+								attack_skill_level > 4
+								add = 10
+							}
+							modifier = {
+								attack_skill_level > 3
+								add = 5
+							}
+						}
+					}
+					defender = {
+						state = 1056
+						num_provinces = 4
+						on_win = ukr_civil_war.28 #defensive victory
+						on_lose = ukr_civil_war.30 #defensive loss
+						leader_score = { #score for selecting a leader
+							base = 1
+							modifier = {
+								is_assigned = no
+								add = 10
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					controls_state = 78
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 78
+						num_provinces = 2
+						on_win = ukr_civil_war.28 #offensive victory TS
+						on_lose = ukr_civil_war.29 #offensive loss
+						leader_score = { #score for selecting a leader
+							base = 1
+							modifier = {
+								attack_skill_level > 4
+								add = 10
+							}
+							modifier = {
+								attack_skill_level > 3
+								add = 5
+							}
+						}
+					}
+					defender = {
+						state = 1056
+						num_provinces = 4
+						on_win = ukr_civil_war.28 #defensive victory
+						on_lose = ukr_civil_war.30 #defensive loss
+						leader_score = { #score for selecting a leader
+							base = 1
+							modifier = {
+								is_assigned = no
+								add = 10
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					controls_state = 198
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 198
+						num_provinces = 2
+						on_win = ukr_civil_war.28 #offensive victory TS
+						on_lose = ukr_civil_war.29 #offensive loss
+						leader_score = { #score for selecting a leader
+							base = 1
+							modifier = {
+								attack_skill_level > 4
+								add = 10
+							}
+							modifier = {
+								attack_skill_level > 3
+								add = 5
+							}
+						}
+					}
+					defender = {
+						state = 1056
+						num_provinces = 4
+						on_win = ukr_civil_war.28 #defensive victory
+						on_lose = ukr_civil_war.30 #defensive loss
+						leader_score = { #score for selecting a leader
+							base = 1
+							modifier = {
+								is_assigned = no
+								add = 10
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					controls_state = 1055
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 1055
+						num_provinces = 1
+						on_win = ukr_civil_war.28 #offensive victory TS
+						on_lose = ukr_civil_war.29 #offensive loss
+						leader_score = { #score for selecting a leader
+							base = 1
+							modifier = {
+								attack_skill_level > 4
+								add = 10
+							}
+							modifier = {
+								attack_skill_level > 3
+								add = 5
+							}
+						}
+					}
+					defender = {
+						state = 1056
+						num_provinces = 4
+						on_win = ukr_civil_war.28 #defensive victory
+						on_lose = ukr_civil_war.30 #defensive loss
+						leader_score = { #score for selecting a leader
+							base = 1
+							modifier = {
+								is_assigned = no
+								add = 10
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					controls_state = 192
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 192
+						num_provinces = 1
+						on_win = ukr_civil_war.28 #offensive victory TS
+						on_lose = ukr_civil_war.29 #offensive loss
+						leader_score = { #score for selecting a leader
+							base = 1
+							modifier = {
+								attack_skill_level > 4
+								add = 10
+							}
+							modifier = {
+								attack_skill_level > 3
+								add = 5
+							}
+						}
+					}
+					defender = {
+						state = 1056
+						num_provinces = 4
+						on_win = ukr_civil_war.28 #defensive victory
+						on_lose = ukr_civil_war.30 #defensive loss
+						leader_score = { #score for selecting a leader
+							base = 1
+							modifier = {
+								is_assigned = no
+								add = 10
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	TS_start_war = {
+		icon = generic_ignite_civil_war
+		allowed = {
+			tag = ROM
+		}
+		available = {
+			OR = {
+				controls_state = 1056
+				NOT = {
+					has_border_war_between = {
+						attacker = 1051
+						defender = 1056
+					}
+				}
+			}
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 15
+		fire_only_once = yes
+		war_with_on_timeout = event_target:TS_escalator
+		complete_effect = {
+			clear_variable = TS_tension
+			clear_global_event_target = TS_escalator
+		}
+		timeout_effect = {
+			set_country_flag = TS_conflict_escalate
+			clear_variable = TS_tension
+			event_target:TS_escalator = {
+				declare_war_on = {
+					target = ROM
+				}
+			}
+			clear_global_event_target = TS_escalator
+		}
+	}
+}

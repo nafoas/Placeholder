@@ -1,0 +1,450 @@
+﻿##########################
+# Azerbaijan Events
+###########################
+
+add_namespace = azr_internal
+add_namespace = azr_elections
+add_namespace = azr_external
+add_namespace = azr_civil_war #handles path changes and revolts. Other things go in internal
+add_namespace = azr_flavor
+add_namespace = azr_test
+add_namespace = azr_ai
+
+country_event = { #Intro, SOV declares war
+	id = azr_civil_war.1
+	title = azr_civil_war.1.t
+	desc = azr_civil_war.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Azerbaijann_Republic
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			# RUS = {
+			# 	country_event = {
+			# 		id = rus_civil_war.39 #informed of thing
+			# 		days = 1
+			# 	}
+			# }
+			country_event = {
+				id = azr_internal.2 #Controversial Play
+				days = 50
+			}
+		}
+	}
+	option = {
+		name = azr_civil_war.1.a
+	}
+}
+country_event = { #Baku CC
+	id = azr_civil_war.2
+	title = azr_civil_war.2.t
+	desc = azr_civil_war.2.d
+	picture = GFX_event_Sixteenth_Congress
+	is_triggered_only = yes
+	option = {
+		name = azr_civil_war.2.a
+		set_country_flag = AZR_Baku_CC
+		add_war_support = -0.06
+	}
+}
+country_event = { #Conservative Party
+	id = azr_internal.1
+	title = azr_internal.1.t
+	desc = azr_internal.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	option = {
+		name = azr_internal.1.a
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.03
+		}
+		add_stability = -0.01
+		add_war_support = 0.02
+		set_party_name = {
+			ideology = democratic
+			long_name = AZR_peoples_islamic_party_long
+			name = AZR_peoples_islamic_party
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = AZR_peoples_islamic_party_long
+			name = AZR_peoples_islamic_party
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Controversial Play
+	id = azr_internal.2
+	title = azr_internal.2.t
+	desc = azr_internal.2.d
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = azr_internal.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.015
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.015
+		}
+		hidden_effect = {
+			country_event = {
+				id = azr_internal.3 #Conservative vs Progressive Religious Debate
+				days = 41
+			}
+		}
+	}
+}
+country_event = { #Conservative vs Progressive Religious Debate
+	id = azr_internal.3
+	title = azr_internal.3.t
+	desc = azr_internal.3.d
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = azr_internal.3.a
+		ai_chance = {
+			base = 100
+		}
+		random_list = {
+			50 = {
+				add_popularity = {
+					ideology = social_democracy
+					popularity = 0.02
+				}
+				add_popularity = {
+					ideology = social_liberalism
+					popularity = 0.02
+				}
+			}
+			50 = {
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.02
+				}
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.02
+				}
+			}
+		}
+	}
+}
+country_event = { #SocDem Paper
+	id = azr_internal.4
+	title = azr_internal.4.t
+	desc = azr_internal.4.d
+	picture = GFX_event_People_Reading_Newspapers
+	is_triggered_only = yes
+	option = {
+		name = azr_internal.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.02
+		}
+	}
+}
+country_event = { #Armenian Petition
+	id = azr_internal.5
+	title = azr_internal.5.t
+	desc = azr_internal.5.d
+	picture = GFX_event_People_Reading_Newspapers
+	is_triggered_only = yes
+	option = {
+		name = azr_internal.5.a
+		ai_chance = {
+			base = 80
+		}
+		add_political_power = -20
+	}
+	option = {
+		name = azr_internal.5.b
+		ai_chance = {
+			base = 20
+		}
+		add_stability = -0.04
+		add_war_support = -0.04
+	}
+}
+country_event = { #Turkish Recognition (azr asks)
+	id = azr_external.1
+	title = azr_external.1.t
+	desc = azr_external.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	option = {
+		name = azr_external.1.a
+		add_political_power = 10
+		FROM = {
+			country_event = {
+				id = azr_external.2
+				days = 1
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+	option = {
+		name = azr_external.1.b
+		FROM = {
+			country_event = {
+				id = azr_external.3
+				days = 1
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+country_event = { #Turkey Recognized Azerbaijan
+	id = azr_external.2
+	title = azr_external.2.t
+	desc = azr_external.2.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	option = {
+		name = azr_external.2.a
+		add_political_power = 20
+		add_war_support = 0.02
+		add_stability = 0.02
+		set_country_flag = AZR_tur_recognized
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Turkey did not recognize Azerbaijan
+	id = azr_external.3
+	title = azr_external.3.t
+	desc = azr_external.3.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	option = {
+		name = azr_external.2.a
+		add_political_power = -20
+		add_war_support = -0.02
+		add_stability = -0.02
+		set_country_flag = AZR_tur_unrecognized
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Turkish Officers
+	id = azr_external.4
+	title = azr_external.4.t
+	desc = azr_external.4.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	option = {
+		name = azr_external.4.a
+		add_political_power = 10
+		FROM = {
+			country_event = {
+				id = azr_external.5
+				days = 4
+			}
+			effect_tooltip = {
+				add_ideas = AZR_turkish_officers
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+	option = {
+		name = azr_external.4.b
+		FROM = {
+			country_event = {
+				id = azr_external.6
+				days = 1
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+country_event = { #Turkey Recognized Azerbaijan
+	id = azr_external.5
+	title = azr_external.5.t
+	desc = azr_external.5.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	option = {
+		name = azr_external.5.a
+		add_ideas = AZR_turkish_officers
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Turkey did not recognize Azerbaijan
+	id = azr_external.6
+	title = azr_external.6.t
+	desc = azr_external.6.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	option = {
+		name = azr_external.6.a
+		add_political_power = -20
+		add_war_support = -0.02
+		add_stability = -0.02
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #offensive victory Nagorno-Karabakh
+	id = azr_external.7
+	title = azr_external.7.t
+	desc = azr_external.7.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = azr_external.7.a
+		ARM_AZR_add_1_escalation = yes
+		transfer_state = 1079
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #offensive failure
+	id = azr_external.8
+	title = azr_external.8.t
+	desc = azr_external.8.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = azr_external.8.a
+		add_stability = -0.02
+		add_war_support = -0.02
+ 		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #defensive success
+	id = azr_external.9
+	title = azr_external.9.t
+	desc = azr_external.9.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = azr_external.9.a
+		add_stability = 0.02
+		add_war_support = 0.02
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #defensive failure
+	id = azr_external.10
+	title = azr_external.10.t
+	desc = azr_external.10.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = azr_external.10.a
+		add_stability = -0.02
+		add_war_support = -0.02
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #offensive victory Nagorno-Karabakh
+	id = azr_external.11
+	title = azr_external.11.t
+	desc = azr_external.11.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = azr_external.11.a
+		ARM_AZR_add_1_escalation = yes
+		transfer_state = 1077
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #offensive victory Nakhchivan
+	id = azr_external.12
+	title = azr_external.12.t
+	desc = azr_external.12.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = azr_external.12.a
+		ARM_AZR_add_1_escalation = yes
+		transfer_state = 1077
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Total Loss in Zangezur
+	id = azr_external.13
+	title = azr_external.13.t
+	desc = azr_external.13.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	option = {
+		name = azr_external.13.a
+		add_stability = -0.10
+		add_war_support = -0.10
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Escalation setup test
+	id = azr_test.1
+	title = azr_test.1.t
+	desc = azr_test.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Karabekov
+	is_triggered_only = yes
+	option = {
+		name = azr_test.1.a
+		AZR = {
+			transfer_state = 229
+			transfer_state = 1078
+			transfer_state = 1079
+		}
+		ARM = {
+			transfer_state = 230
+			transfer_state = 1077
+			transfer_state = 1076
+		}
+		set_variable = {
+			global.SC_Tension = 5
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}

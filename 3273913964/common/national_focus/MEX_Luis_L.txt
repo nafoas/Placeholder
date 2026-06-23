@@ -1,0 +1,350 @@
+	#Focus for Lobalto's Presidency
+	shared_focus = {
+		id = MEX_luislobalto
+		icon = GFX_focus_MEX_President_Lobato
+		x = 7
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward  = {
+			COALITION_RESET = yes
+		}
+	}
+	
+	#Focus for Follow Vasconcelos
+	shared_focus = {
+		id = MEX_Follow_Vasconcelos
+		icon = GFX_focus_MEX_Jose_Vasconcelos
+		x = 4
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			has_country_flag = mujica_demsoc
+		}	
+		prerequisite = { focus = MEX_luislobalto }
+		mutually_exclusive = { focus = MEX_carranzistrevival }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = jacobin popularity = 0.04 }
+			set_politics = {
+				ruling_party = jacobin
+			}
+			COALITION_add_con = yes
+			COALITION_add_nat = yes
+			COALITION_add_fas = yes
+		}
+	}
+	#Focus for Rewrite Article 27
+	shared_focus = {
+		id = MEX_rewrirearticle27
+		icon = GFX_focus_Agrarian_Reform
+		x = 2
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_Follow_Vasconcelos }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			random_owned_state = { add_extra_state_shared_building_slots = 1 }
+			random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		}			
+	}
+	
+	#Focus for Befriend the Church
+	shared_focus = {
+		id = MEX_befriendtehchurch
+		icon = GFX_focus_Secularism
+		x = 2
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_rewrirearticle27 }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_secularization  add_idea = mex_friendship_with_the_church  }	
+			country_event = { days = 1 id = mex_political.28 }
+		}
+	}	
+	
+	#Focus for New Article 3
+	shared_focus = {
+		id = MEX_newarticle3
+		icon = GFX_focus_Brainpower
+		x = 4
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_Follow_Vasconcelos }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_education_reform_3  add_idea = mex_education_reform_4  }	
+		} 
+	}	
+	
+	#Focus for Vasconcelos' Dream
+	shared_focus = {
+		id = MEX_vasconcelosdream
+		icon = GFX_focus_Education_Reform
+		x = 4
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_newarticle3 }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_education_reform_4  add_idea = mex_education_reform_5  }	
+		} 
+	}	
+	
+	
+	#Focus for Look to the Future
+	shared_focus = {
+		id = MEX_lookfuture
+		icon = GFX_focus_Economics_School
+		x = 6
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_carranzistrevival 
+			focus = MEX_Follow_Vasconcelos 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+		}
+		random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+	}
+}
+}	
+
+#Focus for Support Local Business
+shared_focus = {
+	id = MEX_supportlocalbusiness
+	icon = GFX_focus_strengthen_small_production
+	x = 6
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_lookfuture }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_political_power = 50
+	}
+}	
+#Focus for Our Red Scare
+shared_focus = {
+	id = MEX_ourredscare
+	icon = GFX_focus_Anti_Communist
+	x = 8
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_carranzistrevival 
+		focus = MEX_Follow_Vasconcelos 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = communism popularity = -0.05 }
+		add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }		
+		add_popularity = { ideology = socialism popularity = -0.05 }
+	}	
+}
+#Focus for Reduce PDM Influence
+shared_focus = {
+	id = MEX_reducepdminfluence
+	icon = GFX_focus_Investigate_Corruption
+	x = 8
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_ourredscare }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = social_democracy popularity = -0.05 }
+		add_popularity = { ideology = social_liberalism popularity = -0.05 }	
+		add_popularity = { ideology = market_liberalism popularity = -0.05 }		
+	}
+}
+
+#Focus for Vasconcelian Conservatism
+shared_focus = {
+	id = MEX_vasconcelianconservatism
+	icon = GFX_focus_MEX_Vasconcelist_Conservatism
+	x = 5
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_befriendtehchurch 
+	}
+	prerequisite = { 
+		focus = MEX_vasconcelosdream 
+	}
+	prerequisite = { 
+		focus = MEX_supportlocalbusiness 
+	}
+	prerequisite = { 
+		focus = MEX_reducepdminfluence 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = jacobin popularity = 0.05 }
+	}	
+}	
+#Focus for Carranzist Revival
+shared_focus = {
+	id = MEX_carranzistrevival
+	icon = GFX_focus_MEX_Venustiano_Carranza
+	x = 10
+	y = 2
+	cost = 10
+	available_if_capitulated = yes
+	available = {
+		has_country_flag = mujica_revsoc
+	}
+	prerequisite = { focus = MEX_luislobalto }
+	mutually_exclusive = { focus = MEX_Follow_Vasconcelos }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = democratic popularity = 0.05 }
+		set_politics = {
+			ruling_party = democratic
+		}
+		COALITION_add_cen = yes	
+		COALITION_add_nat = yes
+		COALITION_add_fas = yes
+	}
+}
+
+#Focus for End Socialist Education
+shared_focus = {
+	id = MEX_endsocialisteducation
+	icon = GFX_focus_Education_Reform
+	x = 10
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_carranzistrevival }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_socialist_education_3  add_idea = mex_education_reform_4  }	
+	}			
+}
+
+#Focus for Support Catholic Schools
+shared_focus = {
+	id = MEX_supportcatholicschools
+	icon = GFX_focus_State_Theology
+	x = 10
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_endsocialisteducation }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_education_reform_4  add_idea = mex_education_reform_5  }	
+	} 		
+}	
+#Focus for End the Ejido System
+shared_focus = {
+	id = MEX_endtheejidosystem27
+	icon = GFX_focus_Deregulation
+	x = 12
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_carranzistrevival }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+	}		
+}
+
+#Focus for The Church Deal
+shared_focus = {
+	id = MEX_thechurchdeal
+	icon = GFX_focus_For_Christ_and_Country
+	x = 12
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_endtheejidosystem27 }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_state_atheism  add_idea = mex_state_catholicism  }	
+		country_event = { days = 1 id = mex_political.28 }
+	}		
+}
+#Focus for Carranzist Conservatism
+shared_focus = {
+	id = MEX_carranzistconservatism
+	icon = GFX_focus_MEX_Carranzist_Conservatism
+	x = 9
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_supportcatholicschools }
+	prerequisite = { focus = MEX_reducepdminfluence }		
+	prerequisite = { focus = MEX_thechurchdeal }
+	prerequisite = { focus = MEX_supportlocalbusiness }		
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = democratic popularity = 0.05 }				
+	}
+}
+#Focus for A Into the New Era
+shared_focus = {
+	id = MEX_into_the_new_era
+	icon = GFX_focus_Befriend_Mexico
+	x = 7
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_carranzistconservatism }
+	prerequisite = { focus = MEX_vasconcelianconservatism }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = 0.10
+	}		
+}

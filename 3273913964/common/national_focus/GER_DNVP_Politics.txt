@@ -1,0 +1,1603 @@
+#52 focuses
+#by s_team337
+shared_focus = {
+	id = GER_DNVP_Politics_Start
+	icon = GFX_focus_GER_dnvp
+	#prerequisite = { focus = GER_DNVP_Politics_Start }
+	x = 7
+	y = 0
+	#relative_position_id = GER_DNVP_Politics_Start
+	cost = 0
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+		has_country_flag = GER_hugenberg_in_power
+	}
+	completion_reward = {
+		custom_effect_tooltip = GER_unlocks_below_focuses
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Coalition
+	icon = GFX_focus_Risky_Deal
+	prerequisite = {
+		focus = GER_DNVP_Politics_Start
+	}
+	x = 0
+	y = 1
+	relative_position_id = GER_DNVP_Politics_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_internal.27
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_No_Coalition
+	icon = GFX_focus_DNVP_Propaganda
+	prerequisite = {
+		focus = GER_DNVP_Politics_Coalition
+	}
+	dynamic = yes
+	x = -3
+	y = 2
+	relative_position_id = GER_DNVP_Politics_Start
+	cost = 1
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		OR = {
+			has_country_flag = GER_DNVP_WP_coal
+			has_country_flag = GER_DNVP_no_coal
+			NOT = { has_country_flag = GER_DNVP_nazi_coal }
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 30
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Arrest_Nazis
+	icon = GFX_focus_Arrest_Nazis
+	prerequisite = {
+		focus = GER_DNVP_Politics_No_Coalition
+	}
+	x = -1
+	y = 1
+	relative_position_id = GER_DNVP_Politics_No_Coalition
+	cost = 4.58
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.05
+		}
+		add_stability = 0.05
+		retire_character = GER_joseph_goebbels
+		retire_character = GER_heinrich_himmler
+		retire_character = GER_hermann_goring
+		retire_character = GER_martin_bormann
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Political_Protestantism
+	icon = GFX_focus_Protestantism
+	prerequisite = {
+		focus = GER_DNVP_Politics_Arrest_Nazis
+	}
+	x = -2
+	y = 2
+	relative_position_id = GER_DNVP_Politics_No_Coalition
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GER_prot
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Break_Nazis
+	icon = GFX_focus_Anti_Fascist
+	prerequisite = {
+		focus = GER_DNVP_Politics_Political_Protestantism
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Nazi_Voters
+	}
+	x = -1
+	y = 3
+	relative_position_id = GER_DNVP_Politics_No_Coalition
+	cost = 6
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.10
+		}
+		add_stability = -0.05
+		retire_character = GER_adolf_hitler
+		if = {
+			limit = { has_country_flag = GER_hitler_in_power }
+			clr_country_flag = GER_hitler_in_power
+		}
+		if = {
+			limit = { has_idea = hitler }
+			remove_ideas = hitler
+		}
+		if = {
+			limit = {
+				has_country_flag = GER_Stalhelm_exists
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = GER_stahlhelm_party_long
+				name = GER_stahlhelm_party
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_New_Bismarck
+	icon = GFX_focus_The_New_Bismarck
+	prerequisite = {
+		focus = GER_DNVP_Politics_Political_Protestantism
+	}
+	x = -2
+	y = 4
+	relative_position_id = GER_DNVP_Politics_No_Coalition
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = -0.03
+		add_political_power = 30
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Junker_Confidence
+	icon = GFX_focus_Junkers
+	prerequisite = {
+		focus = GER_DNVP_Politics_No_Coalition
+	}
+	x = 1
+	y = 1
+	relative_position_id = GER_DNVP_Politics_No_Coalition
+	cost = 3
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.05
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Nazi_Voters
+	icon = GFX_focus_Empower_President
+	prerequisite = {
+		focus = GER_DNVP_Politics_Arrest_Nazis
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Junker_Confidence
+	}
+	x = 0
+	y = 2
+	relative_position_id = GER_DNVP_Politics_No_Coalition
+	cost = 3.58
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.025
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.025
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_DNVP_Women
+	icon = GFX_focus_German_National_Womens_League
+	prerequisite = {
+		focus = GER_DNVP_Politics_Nazi_Voters
+	}
+	x = 0
+	y = 4
+	relative_position_id = GER_DNVP_Politics_No_Coalition
+	cost = 4.53
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GER_DNVP_DNF
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Laud_Farmer
+	icon = GFX_focus_Agriculture
+	prerequisite = {
+		focus = GER_DNVP_Politics_New_Bismarck
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Break_Nazis
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_DNVP_Women
+	}
+	x = -1
+	y = 5
+	relative_position_id = GER_DNVP_Politics_No_Coalition
+	cost = 2.86
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		#add_ideas = GER_DNVP_Agr_policy
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Stahlhelm
+	icon = GFX_focus_Integrate_Stalhelm
+	prerequisite = {
+		focus = GER_DNVP_Politics_No_Coalition
+		focus = GER_DNVP_Politics_Nazi_Coalition
+	}
+	x = 3
+	y = 1
+	relative_position_id = GER_DNVP_Politics_No_Coalition
+	cost = 2.15
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_internal.29
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Paramilitary_Emergency
+	icon = GFX_focus_Skull_Cannon
+	prerequisite = {
+		focus = GER_DNVP_Politics_Stahlhelm
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_Politics_Commie_Emergency
+	}
+	x = -1
+	y = 1
+	relative_position_id = GER_DNVP_Politics_Stahlhelm
+	cost = 3.34
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		OR = {
+			has_country_flag = GER_DNVP_yes_sa
+			has_completed_focus = GER_DNVP_Politics_No_Coalition
+		}
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 30
+		drop_cosmetic_tag = yes
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Fight_Paramilitaries
+	icon = GFX_focus_Restrict_Firearms
+	prerequisite = {
+		focus = GER_DNVP_Politics_Paramilitary_Emergency
+	}
+	x = -2
+	y = 2
+	relative_position_id = GER_DNVP_Politics_Stahlhelm
+	cost = 10
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		OR = {
+			has_country_flag = GER_DNVP_yes_sa
+			has_completed_focus = GER_DNVP_Politics_No_Coalition
+		}
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		remove_ideas = paramilitary_divisions
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Commie_Emergency
+	icon = GFX_focus_Anti_Communist
+	prerequisite = {
+		focus = GER_DNVP_Politics_Stahlhelm
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Disband_SA
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_Politics_Paramilitary_Emergency
+	}
+	x = 1
+	y = 1
+	relative_position_id = GER_DNVP_Politics_Stahlhelm
+	cost = 3.34
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_DNVP_no_sa
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 30
+		drop_cosmetic_tag = yes
+		add_popularity = {
+			ideology = communism
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Ban_Communism
+	icon = GFX_focus_Anti_Communist
+	prerequisite = {
+		focus = GER_DNVP_Politics_Paramilitary_Emergency
+		focus = GER_DNVP_Politics_Commie_Emergency
+	}
+	x = 0
+	y = 2
+	relative_position_id = GER_DNVP_Politics_Stahlhelm
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = -0.05
+		add_popularity = {
+			ideology = communism
+			popularity = -0.10
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Break_Trade_Unions
+	icon = GFX_focus_Destroy_Trade_Unions
+	prerequisite = {
+		focus = GER_DNVP_Politics_Commie_Emergency
+	}
+	x = 1
+	y = 3
+	relative_position_id = GER_DNVP_Politics_Stahlhelm
+	cost = 3.34
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_country_flag = GER_DNVP_yes_sa
+			}
+			if = {
+				limit = {
+					has_idea = paramilitary_divisions
+				}
+				swap_ideas = {
+					remove_idea = paramilitary_divisions
+					add_idea = paramilitary_divisions2
+				}
+			}
+			else = {
+				remove_ideas = paramilitary_divisions2
+			}
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Ban_SPD
+	icon = GFX_Undermine_Social_Democrats
+	prerequisite = {
+		focus = GER_DNVP_Politics_Fight_Paramilitaries
+		focus = GER_DNVP_Politics_Ban_Communism
+	}
+	x = -1
+	y = 3
+	relative_position_id = GER_DNVP_Politics_Stahlhelm
+	cost = 5.72
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -25
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = -0.05
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Ban_Liberals
+	icon = GFX_focus_Anti_Democracy
+	prerequisite = {
+		focus = GER_DNVP_Politics_Ban_SPD
+	}
+	x = -1
+	y = 4
+	relative_position_id = GER_DNVP_Politics_Stahlhelm
+	cost = 7
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -50
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.04
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = -0.04
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = GER_DNVP_WP_coal
+				}
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = -0.02
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Nazi_Coalition
+	icon = GFX_focus_nazi_dnvp_agreement
+	prerequisite = {
+		focus = GER_DNVP_Politics_Coalition
+	}
+	x = 3
+	y = 2
+	relative_position_id = GER_DNVP_Politics_Start
+	cost = 1
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_nazi_coal
+	}
+	bypass = {
+		has_country_flag = GER_DNVP_Restoration
+	}
+	completion_reward = {
+		add_stability = 0.03
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Disband_SA
+	icon = GFX_focus_SA_Icon
+	prerequisite = {
+		focus = GER_DNVP_Politics_Nazi_Coalition
+	}
+	x = 0
+	y = 1
+	relative_position_id = GER_DNVP_Politics_Nazi_Coalition
+	cost = 1
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_nazi_coal
+	}
+	bypass = {
+		has_country_flag = GER_DNVP_Restoration
+	}
+	completion_reward = {
+	    if = {
+		    limit = { is_ai = no }
+		hidden_effect = {
+			set_temp_variable = {
+				tempRand = random
+			}
+			multiply_temp_variable = {
+				tempRand = 100
+			}
+			round_variable = tempRand
+			if = {
+				limit = {
+					check_variable = {
+						tempRand < 5.01
+					}
+				}
+				country_event = {
+					id = ger_internal.30
+				}
+			}
+			else = {
+				country_event = {
+					id = ger_internal.31
+				}
+			}
+		}
+		}
+		if = {
+		    limit = { is_ai = yes }
+			hidden_effect = {
+			    country_event = {
+					id = ger_internal.31
+				}
+			}
+		}
+		custom_effect_tooltip = GER_DNVP_SA_demands
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Blood_and_Soil
+	icon = GFX_focus_German_Empire
+	prerequisite = {
+		focus = GER_DNVP_Politics_Disband_SA
+	}
+	x = 0
+	y = 4
+	relative_position_id = GER_DNVP_Politics_Nazi_Coalition
+	cost = 4.29
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_nazi_coal
+		has_country_flag = GER_DNVP_no_sa
+	}
+	bypass = {
+		has_country_flag = GER_DNVP_Restoration
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.02
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_New_Trade_Union
+	icon = GFX_focus_Fascist_Trade_Union
+	prerequisite = {
+		focus = GER_DNVP_Politics_Break_Trade_Unions
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Blood_and_Soil
+	}
+	x = -1
+	y = 5
+	relative_position_id = GER_DNVP_Politics_Nazi_Coalition
+	cost = 6.43
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_nazi_coal
+		has_country_flag = GER_DNVP_no_sa
+	}
+	bypass = {
+		has_country_flag = GER_DNVP_Restoration
+	}
+	completion_reward = {
+		add_ideas = GER_DNVP_Trade_Union
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Hindenburg
+	icon = GFX_focus_Death_Of_Hindenburg
+	prerequisite = {
+		focus = GER_DNVP_Politics_Ban_Liberals
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Laud_Farmer
+		focus = GER_DNVP_Politics_New_Trade_Union
+	}
+	x = -1
+	y = 8
+	relative_position_id = GER_DNVP_Politics_Start
+	cost = 0
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_hindenburg_dead
+	}
+	bypass = {
+		has_country_flag = GER_hindenburg_dead
+	}
+	completion_reward = {
+		custom_effect_tooltip = GER_unlocks_below_focuses
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Kaiser
+	icon = GFX_focus_Wilhelm_III
+	prerequisite = {
+		focus = GER_DNVP_Politics_Hindenburg
+	}
+	x = -5
+	y = 1
+	relative_position_id = GER_DNVP_Politics_Hindenburg
+	cost = 4.22
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Restoration
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.05
+		}
+		country_event = {
+			id = ger_internal.34 #constitution flavor
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Gerepo
+	icon = GFX_focus_authoritarian_ideology
+	prerequisite = {
+		focus = GER_DNVP_Politics_Kaiser
+	}
+	x = 1
+	y = 1
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 3
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Restoration
+	}
+	bypass = {
+		has_completed_focus = GER_DNVP_Politics_Gestapo
+	}
+	completion_reward = {
+		add_stability = 0.03
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Nobility
+	icon = GFX_focus_Nobility
+	prerequisite = {
+		focus = GER_DNVP_Politics_Gerepo
+	}
+	x = 0
+	y = 2
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 2.15
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Restoration
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_internal.35
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Fuhrer
+	icon = GFX_focus_Hugenberg
+	prerequisite = {
+		focus = GER_DNVP_Politics_Hindenburg
+	}
+	x = 5
+	y = 1
+	relative_position_id = GER_DNVP_Politics_Hindenburg
+	cost = 4.22
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Fuhrer
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.05
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Gestapo
+	icon = GFX_focus_Counter_Intelligence
+	prerequisite = {
+		focus = GER_DNVP_Politics_Fuhrer
+	}
+	x = -1
+	y = 1
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 3
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Fuhrer
+	}
+	bypass = {
+		has_completed_focus = GER_DNVP_Politics_Gerepo
+	}
+	completion_reward = {
+		add_political_power = 40
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Downplay_Monarchism
+	icon = GFX_focus_Crush_the_Monarchy
+	prerequisite = {
+		focus = GER_DNVP_Politics_Gestapo
+	}
+	x = 0
+	y = 2
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 4.72
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Fuhrer
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.033
+		}
+		add_political_power = 33
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Remove_Nazi
+	icon = GFX_focus_Ban_NSDAP
+	prerequisite = {
+		focus = GER_DNVP_Politics_Kaiser
+		focus = GER_DNVP_Politics_Fuhrer
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_Politics_Keep_Nazi
+	}
+	x = 3
+	y = 1
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+		has_completed_focus = GER_DNVP_Politics_Break_Nazis
+	}
+	completion_reward = {
+		COALITION_clr_fas = yes
+		country_event = {
+			id = ger_internal.36 #deal with nazis
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Destroy_Unions
+	icon = GFX_focus_Crush_Resistance
+	prerequisite = {
+		focus = GER_DNVP_Politics_Remove_Nazi
+	}
+	x = 2
+	y = 2
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 6
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+		has_completed_focus = GER_DNVP_Politics_Break_Trade_Unions
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = communism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Strike_Breaking
+	icon = GFX_focus_Destroy_Trade_Unions
+	prerequisite = {
+		focus = GER_DNVP_Politics_Destroy_Unions
+	}
+	x = 2
+	y = 3
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 4.29
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -30
+		add_stability = 0.03
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Imperial_Youth_League
+	icon = GFX_focus_Oath_of_Loyalty
+	prerequisite = {
+		focus = GER_DNVP_Politics_Remove_Nazi
+	}
+	x = 4
+	y = 2
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 2.86
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Keep_Nazi
+	icon = GFX_focus_Volksheer_3
+	prerequisite = {
+		focus = GER_DNVP_Politics_Fuhrer
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_Politics_Remove_Nazi
+	}
+	x = -3
+	y = 1
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_nazi_coal
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.05
+		hidden_effect = {
+			country_event = {
+				id = ger_internal.75
+				days = 1578
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Industry_Contacts
+	icon = GFX_focus_Collaborate_with_Local_Elites
+	prerequisite = {
+		focus = GER_DNVP_Politics_Keep_Nazi
+	}
+	x = -4
+	y = 2
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 5.15
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = GER_DNVP_Rearm_Conference
+			}
+			swap_ideas = {
+				remove_idea = GER_DNVP_Rearm_Conference
+				add_idea = GER_DNVP_Rearmament
+			}
+		}
+		else = {
+			add_ideas = GER_DNVP_Industry_Contacts
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Rearmament_Conference
+	icon = GFX_focus_POL_complete_april_constitution
+	prerequisite = {
+		focus = GER_DNVP_Politics_Keep_Nazi
+	}
+	x = -2
+	y = 2
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 5.15
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = GER_DNVP_Industry_Contacts
+			}
+			swap_ideas = {
+				remove_idea = GER_DNVP_Industry_Contacts
+				add_idea = GER_DNVP_Rearmament
+			}
+		}
+		else = {
+			add_ideas = GER_DNVP_Rearm_Conference
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Racial_Laws
+	icon = GFX_focus_A_Deadly_Deal
+	prerequisite = {
+		focus = GER_DNVP_Politics_Rearmament_Conference
+	}
+	x = -2
+	y = 3
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 7.15
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GER_Hitler_Racial_Laws
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Pan_Germanism
+	icon = GFX_focus_Pan_Germanism
+	prerequisite = {
+		focus = GER_DNVP_Politics_Imperial_Youth_League
+		focus = GER_DNVP_Politics_Industry_Contacts
+	}
+	x = 4
+	y = 3
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 5.43
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_war_support = 0.05
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Traditionalism
+	icon = GFX_focus_Traditional_Family
+	prerequisite = {
+		focus = GER_DNVP_Politics_Imperial_Youth_League
+		focus = GER_DNVP_Politics_Industry_Contacts
+	}
+	x = 6
+	y = 3
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 2
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.02
+		add_political_power = -20
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_State_Religion
+	icon = GFX_focus_Protestantism
+	prerequisite = {
+		focus = GER_DNVP_Politics_Strike_Breaking
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Pan_Germanism
+	}
+	x = 1
+	y = 4
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 2.86
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = GER_prot
+			}
+			swap_ideas = {
+				remove_idea = GER_prot
+				add_idea = GER_prot2
+			}
+		}
+		else = {
+			add_ideas = GER_prot
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Protestant_Union
+	icon = GFX_focus_Protestant_Trade_Unions
+	prerequisite = {
+		focus = GER_DNVP_Politics_Strike_Breaking
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Pan_Germanism
+	}
+	x = 3
+	y = 4
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		OR = {
+			has_completed_focus = GER_DNVP_Politics_Pan_Germanism
+			NOT = {
+				has_completed_focus = GER_DNVP_Politics_Kaiser
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.035
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Coerce_Churches
+	icon = GFX_focus_coerce_church
+	prerequisite = {
+		focus = GER_DNVP_Politics_State_Religion
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Protestant_Union
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Trad_Edu
+	}
+	x = 2
+	y = 5
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 6.43
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.06
+		add_political_power = -60
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Public_Opinion
+	icon = GFX_focus_Popular_Sentiment
+	prerequisite = {
+		focus = GER_DNVP_Politics_State_Religion
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Protestant_Union
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Trad_Edu
+	}
+	x = 4
+	y = 5
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 6.43
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		remove_ideas = anger_against_gov
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Reich_Reborn
+	icon = GFX_focus_Imperial_Germany_Crowned
+	prerequisite = {
+		focus = GER_DNVP_Politics_Coerce_Churches
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Public_Opinion
+	}
+	x = 3
+	y = 6
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.025
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.025
+		}
+		add_stability = 0.05
+		add_war_support = 0.05
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Trad_Edu
+	icon = GFX_focus_Brainpower
+	prerequisite = {
+		focus = GER_DNVP_Politics_Pan_Germanism
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Traditionalism
+	}
+	x = 5
+	y = 4
+	relative_position_id = GER_DNVP_Politics_Kaiser
+	cost = 5.72
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GER_Trad_Edu
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Nationalism_Over_Socialism
+	icon = GFX_focus_Civil_Unrest
+	prerequisite = {
+		focus = GER_DNVP_Politics_Traditionalism
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Racial_Laws
+	}
+	x = -3
+	y = 4
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Fuhrer
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.05
+		}
+		remove_ideas = anger_against_gov
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Expand_Veteran_Association
+	icon = GFX_focus_veterans
+	prerequisite = {
+		focus = GER_DNVP_Politics_Racial_Laws
+	}
+	x = -1
+	y = 4
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 3.67
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Fuhrer
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 27
+		add_stability = 0.027
+		add_war_support = 0.027
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_End_Electoral_Cycle
+	icon = GFX_focus_Rigged_Elections
+	prerequisite = {
+		focus = GER_DNVP_Politics_Trad_Edu
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Nationalism_Over_Socialism
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Expand_Veteran_Association
+	}
+	x = -4
+	y = 5
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 1.43
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Fuhrer
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = -0.05
+		add_political_power = 30
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_NSDAP_Governors
+	icon = GFX_focus_Fascism_ideology
+	prerequisite = {
+		focus = GER_DNVP_Politics_Trad_Edu
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Nationalism_Over_Socialism
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Expand_Veteran_Association
+	}
+	x = -2
+	y = 5
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 1.43
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Fuhrer
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_internal.37
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Disband_Bundesrat
+	icon = GFX_focus_Dissolve_Parliament
+	prerequisite = {
+		focus = GER_DNVP_Politics_Trad_Edu
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Nationalism_Over_Socialism
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Expand_Veteran_Association
+	}
+	x = 0
+	y = 5
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 1.82
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Fuhrer
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 40
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Politics_Nordicism
+	icon = GFX_focus_Nordicism
+	prerequisite = {
+		focus = GER_DNVP_Politics_End_Electoral_Cycle
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_NSDAP_Governors
+	}
+	prerequisite = {
+		focus = GER_DNVP_Politics_Disband_Bundesrat
+	}
+	x = -2
+	y = 6
+	relative_position_id = GER_DNVP_Politics_Fuhrer
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_hugenberg_in_power
+		has_country_flag = GER_DNVP_Fuhrer
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = -0.04
+		add_war_support = 0.04
+	}
+}

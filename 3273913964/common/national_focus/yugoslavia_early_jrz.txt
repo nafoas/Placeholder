@@ -1,0 +1,1586 @@
+	shared_focus = {
+		id = YUG_jns_victory
+		icon = GFX_focus_Rally
+		cost = 5
+		x = 17
+		y = 8
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			}
+
+		bypass = {
+			has_country_flag = YUG_jns_won
+			}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = 20	
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_release_leaders_jns
+		icon = GFX_focus_Collaborate_with_Local_Elites
+		cost = 5
+		x = 15
+		y = 9
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			}
+		
+		prerequisite = {
+			focus = YUG_jns_victory
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		bypass = {
+			NOT = {
+				has_country_flag = YUG_macek_imprisoned
+				has_country_flag = YUG_korosec_exiled
+				has_country_flag = YUG_spaho_imprisoned
+			}
+		}
+		
+		completion_reward = {
+			add_political_power = 20
+			clr_country_flag = YUG_macek_imprisoned
+			clr_country_flag = YUG_korosec_exiled
+			clr_country_flag = YUG_spaho_imprisoned
+			add_popularity = { ideology = social_liberalism popularity = 0.06 }
+			add_popularity = { ideology = nationalism popularity = 0.06 }
+		}
+
+	}
+	shared_focus = {
+		id = YUG_jns_replace_prime_minister
+		icon = GFX_focus_president_focus
+		cost = 5
+		x = 17
+		y = 9
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			}
+		
+		prerequisite = {
+				focus = YUG_jns_victory
+		}
+		ai_will_do = {
+			factor = 15
+		}
+		
+		completion_reward = {
+			add_stability = 0.03
+			remove_ideas_with_trait = hog
+			add_ideas = YUG_hog_Milan_Stojadinovic
+			remove_ideas_with_trait = frnmin
+			add_ideas = YUG_frn_Milan_Stojadinovic
+			remove_ideas_with_trait = ecomin
+			add_ideas = YUG_eco_Dusan_Letica
+			hidden_effect = {
+				country_event = { #Stojadinovic Vodja (flavor)
+					id = yugoslavia.200
+					days = 50
+					random_days = 30
+				}
+			}
+		}
+
+	}
+	shared_focus = {
+		id = YUG_jns_new_electoral_law
+		icon = GFX_focus_Give_Democracy
+		cost = 5
+		x = 19
+		y = 9
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			}
+		
+		prerequisite = {
+			focus = YUG_jns_victory
+		}
+		
+		ai_will_do = {
+			factor = 16
+		}
+		
+		bypass = {
+			has_country_flag = YUG_new_electoral_law
+		}
+		
+		completion_reward = {
+			add_political_power = 20
+			add_popularity = { ideology = monarchism popularity = 0.06 }
+			add_popularity = { ideology = market_liberalism popularity = 0.03 }
+			add_popularity = { ideology = social_liberalism popularity = 0.03 }
+			add_popularity = { ideology = jacobin popularity = 0.03 }
+			add_popularity = { ideology = democratic popularity = 0.03 }
+			set_country_flag = YUG_new_electoral_law
+		}
+
+	}
+	shared_focus = {
+		id = YUG_new_ruling_party
+		icon = GFX_focus_yugoslav_radical_union
+		cost = 5
+		x = 17
+		y = 10
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			}
+		
+		prerequisite = {
+			focus = YUG_release_leaders_jns
+		}
+		prerequisite = {
+			focus = YUG_jns_replace_prime_minister
+		}
+		prerequisite = {
+			focus = YUG_jns_new_electoral_law
+		}
+		
+		ai_will_do = {
+			factor = 20
+		}
+			
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = monarchism popularity = -0.25 }
+			add_popularity = { ideology = nationalism popularity = 0.25 }
+			set_party_name = { 
+				ideology = nationalism
+				name = YUG_nationalism_party_jrz
+				long_name = YUG_nationalism_party_jrz_long
+			}
+			
+			set_variable = {
+				var = slovene_opinion
+				value = 3
+			}
+			set_variable = {
+				var = bosniak_opinion
+				value = 3
+			}
+			if = {
+				limit = {
+					NOT = {has_country_flag = YUG_spaho_cooperates}
+				}   
+				add_to_variable = {
+					var = government_seats
+					value = jmo_seats
+				}
+			}
+			if = {
+				limit = {
+					NOT = {has_country_flag = YUG_korosec_cooperates}
+				}   
+				add_to_variable = {
+					var = government_seats
+					value = sls_seats
+				}
+			}
+			set_country_flag = YUG_korosec_cooperates
+			set_country_flag = YUG_spaho_cooperates
+			set_politics = {
+				ruling_party = nationalism
+			}
+			COALITION_RESET = yes
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_negotiate_sls
+		icon = GFX_focus_Slovenian_Politicians
+		cost = 5
+		x = 7
+		y = 11
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 102
+			controls_state = 838
+			}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			add_political_power = -50
+			add_stability = 0.02
+		}
+
+	}
+	shared_focus = {
+		id = YUG_support_sls
+		icon = GFX_focus_Collaborate_with_Local_Elites
+		cost = 5
+		x = 7
+		y = 12
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 102
+			controls_state = 838
+			}
+		
+		prerequisite = {
+			focus = YUG_negotiate_sls
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			add_political_power = -50
+			add_popularity = { ideology = nationalism popularity = 0.02 }		
+		}
+
+	}
+	shared_focus = {
+		id = YUG_secure_slovenia
+		icon = GFX_focus_secure_slovenia
+		cost = 5
+		x = 7
+		y = 13
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 102
+			controls_state = 838
+			}
+		
+		prerequisite = {
+			focus = YUG_support_sls
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			add_political_power = 50
+			add_popularity = { ideology = nationalism popularity = 0.02 }
+			add_stability = 0.02
+			set_country_flag = YUG_slovenia_secured
+		}
+
+	}
+	shared_focus = {
+		id = YUG_negotiate_jmo
+		icon = GFX_focus_Bosnian_Politicians
+		cost = 5
+		x = 9
+		y = 11
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 104
+			controls_state = 909
+			controls_state = 908
+			controls_state = 906
+			}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = -50
+			add_stability = 0.02
+		}
+
+	}
+	shared_focus = {
+		id = YUG_support_jmo
+		icon = GFX_focus_Compensate_muslim_landowners
+		cost = 5
+		x = 9
+		y = 12
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 104
+			controls_state = 909
+			controls_state = 908
+			controls_state = 906
+		}
+		
+		prerequisite = {
+			focus = YUG_negotiate_jmo
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = -50
+			add_popularity = { ideology = nationalism popularity = 0.02 }
+			hidden_effect = {
+				subtract_from_variable = {
+					var = ygw_bos_c_pow
+					value = 5
+				}
+				subtract_from_variable = {
+					var = ygw_bos_s_pow
+					value = 5
+				}
+				subtract_from_variable = {
+					var = ygw_bos_p_pow
+					value = 5
+				}
+				add_to_variable = {
+					var = ygw_bos_m_pow
+					value = 15
+				}
+			}
+		}
+
+	}
+	shared_focus = {
+		id = YUG_secure_bosnia
+		icon = GFX_focus_secure_bosnia
+		cost = 5
+		x = 9
+		y = 13
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 104
+			controls_state = 909
+			controls_state = 908
+			controls_state = 906
+		}
+		
+		prerequisite = {
+			focus = YUG_support_jmo
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = 50
+			add_popularity = { ideology = nationalism popularity = 0.02 }
+			add_stability = 0.02
+			set_country_flag = YUG_bosnia_secured	
+		}
+
+	}
+	shared_focus = {
+		id = YUG_petrovic_negos_support
+		icon = GFX_focus_montenegrin_dynasty
+		cost = 5
+		x = 11
+		y = 11
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 105
+			}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = -50
+			add_popularity = { ideology = monarchism popularity = -0.03 }
+			add_popularity = { ideology = nationalism popularity = 0.03 }
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = YUG_alexander_is_going_to_die }
+					}
+					random_list = {
+						80 = {
+							set_country_flag = YUG_alexander_is_going_to_die
+							set_country_flag = YUG_alexander_dead_in_cetinje
+							YUG = {
+								country_event = { 
+									id = yugoslavia.114
+									days = 10
+								}
+							}
+						}
+						20 = {}
+					}
+				}
+				add_to_variable = {
+					var = ygw_mnt_w_pop
+					value = 10
+				}
+				subtract_from_variable = {
+					var = ygw_mnt_g_pop
+					value = 10
+				}
+			}
+		}
+
+	}
+	shared_focus = {
+		id = YUG_orthodox_support
+		icon = GFX_focus_Orthodox
+		cost = 5
+		x = 12
+		y = 12
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			NOT = { has_country_flag = YUG_varnava_out }
+		}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+		
+		ai_will_do = {
+			factor = 14
+		}
+		
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.04
+			add_popularity = { ideology = democratic popularity = 0.06 }
+			add_popularity = { ideology = monarchism popularity = 0.06 }
+			add_popularity = { ideology = nationalism popularity = 0.06 }		
+		}
+
+	}
+	shared_focus = {
+		id = YUG_secure_montenegro
+		icon = GFX_focus_secure_montenegro
+		cost = 5
+		x = 11
+		y = 13
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 105
+			}
+		
+		prerequisite = {
+			focus = YUG_petrovic_negos_support
+		}
+		prerequisite = {
+			focus = YUG_orthodox_support
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = 50
+			add_popularity = { ideology = nationalism popularity = 0.02 }
+			add_stability = 0.02
+			set_country_flag = YUG_montenegro_secured	
+		}
+
+	}
+	shared_focus = {
+		id = YUG_negotiate_radicals
+		icon = GFX_focus_Torch_of_Freedom
+		cost = 5
+		x = 13
+		y = 11
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 107
+			}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = -20
+			add_stability = 0.02
+		}
+
+	}
+	shared_focus = {
+		id = YUG_negotiate_democrats
+		icon = GFX_focus_Social_Liberalism
+		cost = 5
+		x = 15
+		y = 11
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 107
+			}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = -20
+			add_stability = 0.02
+		}
+
+	}
+	shared_focus = {
+		id = YUG_negotiate_agriculturalists
+		icon = GFX_focus_Agriculture
+		cost = 5
+		x = 14
+		y = 12
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 107
+			}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = -20
+			add_stability = 0.02
+		}
+
+	}
+	shared_focus = {
+		id = YUG_need_federalization
+		icon = GFX_focus_federal_yug
+		cost = 5
+		x = 13
+		y = 13
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 107
+			}
+		
+		prerequisite = {
+			focus = YUG_negotiate_radicals
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		completion_reward = {
+			add_political_power = 100
+			add_stability = -0.10
+			add_popularity = { ideology = democratic popularity = 0.12 }
+			add_popularity = { ideology = social_liberalism popularity = 0.08 }
+			add_popularity = { ideology = nationalism popularity = 0.04 }
+			add_ideas = YUG_federalization_talks
+		}
+
+	}
+	shared_focus = {
+		id = YUG_need_welfare
+		icon = GFX_focus_National_Assurance_Service
+		cost = 5
+		x = 14
+		y = 14
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 107
+			}
+		
+		prerequisite = {
+			focus = YUG_negotiate_agriculturalists
+		}
+		
+		ai_will_do = {
+			factor = 8
+		}
+		
+		completion_reward = {
+			add_political_power = -50
+			add_stability = 0.02
+			add_popularity = { ideology = jacobin popularity = 0.07 }
+			add_popularity = { ideology = social_liberalism popularity = 0.05 }
+			add_popularity = { ideology = nationalism popularity = 0.03 }
+		}
+
+	}
+	shared_focus = {
+		id = YUG_need_democracy
+		icon = GFX_focus_Freedom
+		cost = 5
+		x = 15
+		y = 13
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 107
+			}
+		
+		prerequisite = {
+			focus = YUG_negotiate_democrats
+		}
+		
+		ai_will_do = {
+			factor = 8
+		}
+		
+		completion_reward = {
+			add_political_power = -50
+			add_stability = 0.04
+			add_popularity = { ideology = democratic popularity = 0.10 }
+			add_popularity = { ideology = social_liberalism popularity = 0.04 }
+			add_popularity = { ideology = nationalism popularity = 0.03 }
+		}
+
+	}
+	shared_focus = {
+		id = YUG_secure_serbia
+		icon = GFX_focus_secure_serbia
+		cost = 5
+		x = 14
+		y = 15
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 107
+			}
+		
+		prerequisite = {
+			focus = YUG_orthodox_support
+		}
+		prerequisite = {
+			focus = YUG_need_federalization
+		}
+		prerequisite = {
+			focus = YUG_need_welfare
+		}
+		prerequisite = {
+			focus = YUG_need_democracy
+		}
+		
+		ai_will_do = {
+			factor = 14
+		}
+		
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = nationalism popularity = 0.08 }
+			add_stability = 0.03
+			set_country_flag = YUG_serbia_secured	
+		}
+
+	}
+	shared_focus = {
+		id = YUG_secure_vojvodina
+		icon = GFX_focus_secure_vojvodina
+		cost = 5
+		x = 15
+		y = 16
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 839
+			controls_state = 840
+			controls_state = 45
+			controls_state = 1031
+			}
+		
+		prerequisite = {
+			focus = YUG_secure_serbia
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = 50
+			add_popularity = { ideology = nationalism popularity = 0.04 }
+			add_stability = 0.02
+			set_country_flag = YUG_vojvodina_secured	
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_talk_dzemijet
+		icon = GFX_focus_Risky_Deal
+		cost = 5
+		x = 22
+		y = 11
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 765
+			}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+		
+		mutually_exclusive = {
+			focus = YUG_intensify_serb
+		}
+		
+		ai_will_do = {
+			factor = 8
+		}
+		
+		completion_reward = {
+			add_popularity = { ideology = nationalism popularity = -0.02 }
+			add_stability = 0.02
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_intensify_serb
+		icon = GFX_focus_serbians
+		cost = 5
+		x = 24
+		y = 11
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			OR = {
+				controls_state = 765
+				controls_state = 106
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+		
+		mutually_exclusive = {
+			focus = YUG_talk_dzemijet
+		}
+		
+		mutually_exclusive = {
+			focus = YUG_deal_VMRO_split
+		}
+		
+		ai_will_do = {
+			factor = 15
+		}
+		
+		completion_reward = {
+			add_popularity = { ideology = nationalism popularity = 0.02 }
+			add_popularity = { ideology = neutrality popularity = 0.07 }
+			add_stability = -0.03
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_deal_VMRO_split
+		icon = GFX_focus_Guerilla_Warfare
+		cost = 5
+		x = 26
+		y = 11
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 106
+			}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+		
+		mutually_exclusive = {
+			focus = YUG_intensify_serb
+		}
+		
+		ai_will_do = {
+			factor = 8
+		}
+		
+		completion_reward = {
+			add_popularity = { ideology = nationalism popularity = -0.02 }
+			add_stability = 0.02
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_partner_albanians
+		icon = GFX_focus_Common_Identity
+		cost = 5
+		x = 21
+		y = 12
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 765
+			}
+		
+		prerequisite = {
+			focus = YUG_talk_dzemijet
+		}
+		
+		ai_will_do = {
+			factor = 8
+		}
+		
+		completion_reward = {
+			add_popularity = { ideology = nationalism popularity = -0.03 }
+			add_stability = 0.03
+			hidden_effect = {
+				country_event = { 
+					id = yugoslavia.121
+					days = 5
+				}
+			}	
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_treaty_albania
+		icon = GFX_focus_talk_albania
+		cost = 5
+		x = 23
+		y = 12
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 765
+			country_exists = ALB
+		}
+		
+		prerequisite = {
+			focus = YUG_talk_dzemijet
+			focus = YUG_intensify_serb
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			ALB = {
+			country_event = { 
+				id = yugoslavia.1005
+				days = 5
+			}
+			}
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_treaty_bulgaria
+		icon = GFX_focus_talk_bulgaria
+		cost = 5
+		x = 25
+		y = 12
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 106
+			country_exists = BUL
+		}
+		
+		prerequisite = {
+			focus = YUG_deal_VMRO_split
+			focus = YUG_intensify_serb
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			BUL = {
+			country_event = { 
+				id = yugoslavia.1006
+				days = 5
+			}
+			}
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_strike_VMRO_jrz
+		icon = GFX_focus_Crush_Resistance
+		cost = 5
+		x = 27
+		y = 12
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 106
+			}
+		
+		prerequisite = {
+			focus = YUG_deal_VMRO_split
+		}
+		
+		ai_will_do = {
+			factor = 8
+		}
+		
+		bypass = {
+			OR = {
+				has_completed_focus = YUG_strike_vmro_regency
+				has_completed_focus = YUG_vmro_no_more
+				NOT = { has_idea = YUG_vmro_activity }
+			}
+		}
+		
+		completion_reward = {
+			add_political_power = -20
+			add_popularity = { ideology = monarchism popularity = 0.02 }
+			add_popularity = { ideology = nationalism popularity = 0.08 }
+			add_popularity = { ideology = neutrality popularity = 0.10 }
+			add_popularity = { ideology = communism popularity = 0.02 }
+			hidden_effect = {
+				subtract_from_variable = { ygw_mac_m_pow = 10 }
+				add_to_variable = { ygw_mac_s_pow = 10 }
+			}
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_secure_old_serbia
+		icon = GFX_focus_secure_old_serbia
+		cost = 5
+		x = 24
+		y = 13
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 106
+			controls_state = 765
+			OR = {
+				AND = {
+				has_country_flag = YUG_alb_schools
+				has_country_flag = YUG_ind_courts
+				}
+				AND = {
+				has_country_flag = YUG_kosovo_je_srbija
+				has_country_flag = YUG_kosovo_has_police
+				}
+			}
+			OR = {
+				has_country_flag = YUG_albanians_out
+				has_country_flag = YUG_chetniks_kosovo
+			}
+			OR = {
+				AND = {
+				has_country_flag = YUG_vmro_split_sup
+				has_country_flag = YUG_vmro_moderates
+				}
+				AND = {
+				has_country_flag = YUG_makedonija_je_srbija
+				has_country_flag = YUG_macedonia_has_police
+				}
+			}
+			OR = {
+				has_country_flag = YUG_bulgarians_out
+				has_country_flag = YUG_chetniks_macedonia
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_intensify_serb
+			focus = YUG_strike_VMRO_jrz
+			focus = YUG_partner_albanians
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = 70
+			add_popularity = { ideology = nationalism popularity = 0.04 }
+			add_stability = 0.02
+			set_country_flag = YUG_old_serbia_secured	
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_uneasy_talk_hss
+		icon = GFX_focus_Party_Politics
+		cost = 5
+		x = 19
+		y = 11
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 103
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+			}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+		
+		ai_will_do = {
+			factor = 14
+		}
+		
+		completion_reward = {
+			add_stability = 0.05
+			country_event = { 
+					id = yugoslavia.126
+					days = 5
+			}
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_admit_croats_cool
+		icon = GFX_focus_croats_superior
+		cost = 5
+		x = 19
+		y = 12
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 103
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+			}
+		
+		prerequisite = {
+			focus = YUG_uneasy_talk_hss
+		}
+		
+		ai_will_do = {
+			factor = 7
+		}
+		
+		completion_reward = {
+			add_stability = -0.05
+			add_political_power = 20
+			add_popularity = { ideology = nationalism popularity = -0.04 }
+			add_popularity = { ideology = social_liberalism popularity = 0.08 }
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_enemies_my_enemy
+		icon = GFX_focus_Black_Skull
+		cost = 5
+		x = 19
+		y = 13
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 103
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+			}
+		
+		prerequisite = {
+			focus = YUG_admit_croats_cool
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = 60
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_negotiate_communists
+		icon = GFX_focus_Integrate_Bolsheviks
+		cost = 5
+		x = 16
+		y = 14
+		
+		available = {
+			has_country_flag = YUG_jns_won
+		}
+		
+		prerequisite = {
+			focus = YUG_enemies_my_enemy
+		}
+		
+		mutually_exclusive = {
+			focus = YUG_negotiate_left_democrats
+		}
+		
+		ai_will_do = {
+			factor = 7
+		}
+		
+		completion_reward = {
+			add_political_power = 40
+			add_popularity = { ideology = nationalism popularity = 0.02 }
+			add_popularity = { ideology = communism popularity = 0.02 }
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_repeal_1921
+		icon = GFX_focus_Communist_Discourse
+		cost = 5
+		x = 16
+		y = 15
+		
+		available = {
+			has_country_flag = YUG_jns_won
+		}
+		
+		prerequisite = {
+			focus = YUG_negotiate_communists
+		}
+				
+		ai_will_do = {
+			factor = 4
+		}
+		
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = nationalism popularity = 0.04 }
+			add_popularity = { ideology = communism popularity = 0.08 }
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.03 }
+			add_popularity = { ideology = socialism popularity = 0.03 }
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_negotiate_left_democrats
+		icon = GFX_focus_Social_Democracy
+		cost = 5
+		x = 18
+		y = 14
+		
+		available = {
+			has_country_flag = YUG_jns_won
+		}
+		
+		prerequisite = {
+			focus = YUG_enemies_my_enemy
+		}
+		
+		mutually_exclusive = {
+			focus = YUG_negotiate_communists
+		}
+				
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = 40
+			add_popularity = { ideology = nationalism popularity = 0.02 }
+			add_popularity = { ideology = socialism popularity = 0.02 }
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_repeal_1929
+		icon = GFX_focus_Freedom_of_Speech
+		cost = 5
+		x = 18
+		y = 15
+		
+		available = {
+			has_country_flag = YUG_jns_won
+		}
+		
+		prerequisite = {
+			focus = YUG_negotiate_left_democrats
+		}
+				
+		ai_will_do = {
+			factor = 8
+		}
+		
+		completion_reward = {
+			add_political_power = 60
+			add_popularity = { ideology = nationalism popularity = 0.04 }
+			add_popularity = { ideology = social_democracy popularity = 0.05 }
+			add_popularity = { ideology = socialism popularity = 0.06 }
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_press_hss_left
+		icon = GFX_focus_Bullish_Diplomacy
+		cost = 5
+		x = 17
+		y = 16
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 103
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+		}
+		
+		prerequisite = {
+			focus = YUG_repeal_1921
+			focus = YUG_repeal_1929
+		}
+				
+		ai_will_do = {
+			factor = 14
+		}
+		
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = nationalism popularity = 0.05 }
+			add_popularity = { ideology = social_liberalism popularity = -0.03 }
+			add_popularity = { ideology = communism popularity = 0.02 }
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.01 }
+			add_popularity = { ideology = socialism popularity = 0.01 }
+			add_popularity = { ideology = social_democracy popularity = 0.01 }
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_negotiate_rightists
+		icon = GFX_focus_Protectionism
+		cost = 5
+		x = 20
+		y = 14
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 103
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+		}
+		
+		prerequisite = {
+			focus = YUG_enemies_my_enemy
+		}
+		
+		mutually_exclusive = {
+			focus = YUG_negotiate_ustasa
+		}
+				
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			add_political_power = 40
+			add_popularity = { ideology = nationalism popularity = 0.03 }
+			add_popularity = { ideology = democratic popularity = 0.02 }
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_concordat_vatican
+		icon = GFX_focus_Papal_Bull
+		cost = 5
+		x = 20
+		y = 15
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 103
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+		}
+		
+		prerequisite = {
+			focus = YUG_negotiate_rightists
+		}
+				
+		ai_will_do = {
+			factor = 8
+		}
+		
+		completion_reward = {
+			add_political_power = 50
+			add_popularity = { ideology = nationalism popularity = 0.03 }
+			add_popularity = { ideology = democratic popularity = 0.02 }
+			hidden_effect = {
+				country_event = { 
+					id = yugoslavia.127
+					days = 5
+				}
+			}
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_negotiate_ustasa
+		icon = GFX_focus_ustase
+		cost = 5
+		x = 22
+		y = 14
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 103
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+		}
+		
+		prerequisite = {
+			focus = YUG_enemies_my_enemy
+		}
+		
+		mutually_exclusive = {
+			focus = YUG_negotiate_rightists
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+		
+		completion_reward = {
+			add_political_power = 40
+			add_popularity = { ideology = nationalism popularity = 0.02 }
+			add_popularity = { ideology = fascism popularity = 0.02 }
+			hidden_effect = {
+			country_event = { 
+				id = yugoslavia.128
+				days = 5
+			}
+			}
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_amnesty_prisoners
+		icon = GFX_focus_Champagne_Repression
+		cost = 5
+		x = 22
+		y = 15
+		
+		available = {
+			has_country_flag = YUG_jns_won
+		}
+		
+		prerequisite = {
+			focus = YUG_negotiate_ustasa
+		}
+				
+		ai_will_do = {
+			factor = 0
+		}
+		
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = nationalism popularity = 0.04 }
+			add_popularity = { ideology = fascism popularity = 0.08 }
+			add_popularity = { ideology = neutrality popularity = 0.08 }
+			hidden_effect = {
+			add_ideas = YUG_croatian_nationalism
+			}
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_press_hss_right
+		icon = GFX_focus_Aggresion
+		cost = 5
+		x = 21
+		y = 16
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			OR = {
+			has_country_flag = YUG_concordat_signed
+			has_completed_focus = YUG_amnesty_prisoners
+			}
+			controls_state = 103
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+		}
+		
+		prerequisite = {
+			focus = YUG_concordat_vatican
+			focus = YUG_amnesty_prisoners
+		}
+				
+		ai_will_do = {
+			factor = 14
+		}
+		
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = nationalism popularity = 0.04 }
+			add_popularity = { ideology = social_liberalism popularity = -0.03 }
+			add_popularity = { ideology = fascism popularity = 0.02 }
+			add_popularity = { ideology = neutrality popularity = 0.01 }
+			add_popularity = { ideology = monarchism popularity = 0.01 }
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_secure_croatia
+		icon = GFX_focus_secure_croatia
+		cost = 5
+		x = 19
+		y = 17
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			controls_state = 103
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+			has_country_flag = YUG_slovenia_secured
+			has_country_flag = YUG_bosnia_secured
+			has_country_flag = YUG_montenegro_secured
+			has_country_flag = YUG_serbia_secured
+			has_country_flag = YUG_vojvodina_secured
+			has_country_flag = YUG_old_serbia_secured
+			}
+		
+		prerequisite = {
+			focus = YUG_press_hss_left
+		}
+		prerequisite = {
+			focus = YUG_press_hss_right
+		}
+		
+		ai_will_do = {
+			factor = 17
+		}
+		
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = nationalism popularity = 0.08 }
+			add_stability = 0.03
+			set_country_flag = YUG_croatia_secured
+			remove_ideas = YUG_croatian_nationalism
+			set_variable = {
+				var = croat_opinion
+				value = 2
+			}
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_deal_our_terms
+		icon = GFX_focus_cool_federal_yug
+		cost = 10
+		x = 17
+		y = 12
+		
+		available = {
+			has_country_flag = YUG_jns_won
+			has_country_flag = YUG_serbia_secured
+			has_country_flag = YUG_croatia_secured
+			has_country_flag = YUG_slovenia_secured
+			has_country_flag = YUG_bosnia_secured
+			has_country_flag = YUG_montenegro_secured
+			has_country_flag = YUG_vojvodina_secured
+			has_country_flag = YUG_old_serbia_secured
+		}
+		
+		prerequisite = {
+			focus = YUG_new_ruling_party
+		}
+				
+		ai_will_do = {
+			factor = 50
+		}
+		
+		select_effect = {
+			country_event = { 
+				id = yugoslavia.130
+				days = 10
+			}
+		}
+		
+		completion_reward = {
+			add_political_power = 200
+		}
+
+	}
+	
+	shared_focus = {
+		id = YUG_federal_constitution
+		icon = GFX_focus_German_Constitutionalism
+		cost = 2
+		x = 17
+		y = 13
+		
+		available = {
+			NOT = {
+				has_idea = YUG_federalization_talks
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_deal_our_terms
+		}
+				
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_ideas = YUG_federal_yug_jrz
+		}
+
+	}

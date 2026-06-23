@@ -1,0 +1,829 @@
+﻿##########################
+# Dagestan Events
+###########################
+
+add_namespace = dag_internal
+add_namespace = dag_elections
+add_namespace = dag_external
+add_namespace = dag_civil_war #handles path changes and revolts. Other things go in internal
+add_namespace = dag_flavor
+add_namespace = dag_test
+add_namespace = dag_ai
+
+country_event = { #Intro, SOV declares war
+	id = dag_civil_war.1
+	title = dag_civil_war.1.t
+	desc = dag_civil_war.1.d
+	picture = GFX_event_Mountain_Republic
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			RUS = {
+				country_event = {
+					id = rus_civil_war.39 #informed of thing
+					days = 1
+				}
+			}
+			country_event = {
+				id = dag_internal.6 #russians leave
+				days = 22
+			}
+		}
+	}
+	option = {
+		name = dag_civil_war.1.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Islamic Nationalist
+	id = dag_internal.1
+	title = dag_internal.1.t
+	desc = dag_internal.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Lezgins
+	is_triggered_only = yes
+	option = {
+		name = dag_internal.1.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.02
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.005
+		}
+	}
+}
+country_event = { #Islamic Nationalist paper
+	id = dag_internal.2
+	title = dag_internal.2.t
+	desc = dag_internal.2.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Lezgins
+	is_triggered_only = yes
+	option = {
+		name = dag_internal.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.02
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.01
+		}
+	}
+}
+country_event = { #Islamic Nationalist Party
+	id = dag_internal.3
+	title = dag_internal.3.t
+	desc = dag_internal.3.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Lezgins
+	is_triggered_only = yes
+	option = {
+		name = dag_internal.3.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.02
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.01
+		}
+		set_party_name = {
+			ideology = monarchism
+			name = DAG_theocratic_party
+			long_name = DAG_theocratic_party_long
+		}
+		set_party_name = {
+			ideology = nationalism
+			name = DAG_theocratic_party
+			long_name = DAG_theocratic_party_long
+		}
+		COALITION_clr_mon = yes
+		COALITION_clr_nat = yes
+		hidden_effect = {
+			country_event = {
+				id = dag_internal.4
+				days = 4
+			}
+		}
+	}
+}
+country_event = { #Jadidist Party
+	id = dag_internal.4
+	title = dag_internal.4.t
+	desc = dag_internal.4.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Lezgins
+	is_triggered_only = yes
+	option = {
+		name = dag_internal.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.01
+		}
+		set_party_name = {
+			ideology = social_liberalism
+			name = DAG_jadidist_party
+			long_name = DAG_jadidist_party_long
+		}
+		set_party_name = {
+			ideology = social_democracy
+			name = DAG_jadidist_party
+			long_name = DAG_jadidist_party_long
+		}
+		hidden_effect = {
+			country_event = {
+				id = dag_internal.5
+				days = 7
+			}
+		}
+	}
+}
+country_event = { #Authoritarian Party
+	id = dag_internal.5
+	title = dag_internal.5.t
+	desc = dag_internal.5.d
+	picture = GFX_event_Karabekov #Lezgins
+	is_triggered_only = yes
+	option = {
+		name = dag_internal.5.a
+		ai_chance = {
+			base = 90
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.01
+		}
+		set_party_name = {
+			ideology = neutrality
+			name = DAG_authoritarian_party
+			long_name = DAG_authoritarian_party_long
+		}
+		set_party_name = {
+			ideology = democratic
+			name = DAG_authoritarian_party
+			long_name = DAG_authoritarian_party_long
+		}
+	}
+	option = {
+		name = dag_internal.5.b
+		ai_chance = {
+			base = 10
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.03
+		}
+		set_party_name = {
+			ideology = democratic
+			name = DAG_authoritarian_party
+			long_name = DAG_authoritarian_party_long
+		}
+	}
+}
+country_event = { #Russians Leave
+	id = dag_internal.6
+	title = dag_internal.6.t
+	desc = dag_internal.6.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Lezgins
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = dag_internal.6.a
+		add_popularity = {
+			ideology = communism
+			popularity = -0.05
+		}
+		RUS = {
+			country_event = {
+				id = dag_internal.7 #refugees arrive
+				days = 7
+			}
+		}
+		TUR = { #2000
+			country_event = {
+				id = dag_internal.7 #refugees arrive
+				days = 7
+			}
+		}
+		PER = { #1000
+			country_event = {
+				id = dag_internal.7 #refugees arrive
+				days = 7
+			}
+		}
+		BUL = {
+			country_event = {
+				id = dag_internal.7 #refugees arrive
+				days = 7
+			}
+		}
+		ROM = {
+			country_event = {
+				id = dag_internal.7 #refugees arrive
+				days = 7
+			}
+		}
+	}
+}
+country_event = { #Refugees arrive
+	id = dag_internal.7
+	title = dag_internal.7.t
+	desc = dag_internal.7.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Lezgins
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = dag_internal.7.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				tag = PER
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_capital = yes
+				}
+				add_manpower = 1000
+			}
+		}
+		else_if = {
+			limit = {
+				tag = TUR
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_capital = yes
+				}
+				add_manpower = 2000
+			}
+		}
+		else = {
+			random_owned_controlled_state = {
+				limit = {
+					is_capital = yes
+				}
+				add_manpower = 3000
+			}
+		}
+	}
+}
+country_event = { #Russian Socialists
+	id = dag_internal.8
+	title = dag_internal.8.t
+	desc = dag_internal.8.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Lezgins
+	is_triggered_only = yes
+	option = { #let them gather
+		name = dag_internal.8.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.01
+		}
+		set_party_name = {
+			ideology = authoritarian_socialism
+			name = DAG_assorted_socialists_party
+			long_name = DAG_assorted_socialists_party_long
+		}
+		set_party_name = {
+			ideology = socialism
+			name = DAG_assorted_socialists_party
+			long_name = DAG_assorted_socialists_party_long
+		}
+	}
+}
+country_event = { #CHC - DAG proposes union
+	id = dag_external.1
+	title = dag_external.1.t
+	desc = dag_external.1.d
+	picture = GFX_event_Mountain_Republic #Mountain_Republic
+	is_triggered_only = yes
+	option = { #accept union
+		name = dag_external.1.a
+		ai_chance = {
+			base = 50
+		}
+		DAG = {
+			add_state_core = 1080
+			dismantle_faction = yes
+			country_event = {
+				id = dag_external.2
+				hours = 3
+			}
+			annex_country = {
+				target = CHC
+				transfer_troops = yes
+			}
+			change_tag_from = CHC
+		}
+	}
+	option = { #refuse union
+		name = dag_external.1.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				DAG = { is_ai = no }
+				factor = 0
+			}
+		}
+		DAG = {
+			country_event = {
+				id = dag_external.3
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #DAG - CHC accepts Union
+	id = dag_external.2
+	title = dag_external.2.t
+	desc = dag_external.2.d
+	picture = GFX_event_Mountain_Republic #Mountain_Republic
+	is_triggered_only = yes
+	option = { #accept union
+		name = dag_external.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = 0.05
+		add_war_support = 0.05
+		add_political_power = 50
+		set_country_flag = DAG_CHC_Union
+		set_cosmetic_tag = DAG_chc
+	}
+}
+country_event = { #DAG - CHC refuses Union
+	id = dag_external.3
+	title = dag_external.3.t
+	desc = dag_external.3.d
+	picture = GFX_event_Mountain_Republic #Mountain_Republic
+	is_triggered_only = yes
+	option = { #accept union
+		name = dag_external.3.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.05
+		add_war_support = -0.05
+		add_political_power = -25
+		set_country_flag = DAG_CHC_no_Union
+	}
+}
+country_event = { #TUR - DAG proposes trade deal
+	id = dag_external.4
+	title = dag_external.4.t
+	desc = dag_external.4.d
+	picture = GFX_event_Mountain_Republic #Mountain_Republic
+	is_triggered_only = yes
+	option = { #accept
+		name = dag_external.4.a
+		ai_chance = {
+			base = 98
+			modifier = {
+				factor = 0.05
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		add_opinion_modifier = {
+			target = DAG
+			modifier = DAG_trade
+		}
+		DAG = {
+			effect_tooltip = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			country_event = {
+				id = dag_external.5
+				days = 1
+			}
+		}
+	}
+	option = { #refuse
+		name = dag_external.3.b
+		ai_chance = {
+			base = 2
+		}
+		DAG = {
+			country_event = {
+				id = dag_external.6
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #DAG - TUR accepts trade
+	id = dag_external.5
+	title = dag_external.5.t
+	desc = dag_external.5.d
+	picture = GFX_event_Mountain_Republic #Mountain_Republic
+	is_triggered_only = yes
+	option = { #
+		name = dag_external.5.a
+		ai_chance = {
+			base = 100
+		}
+		TUR = {
+			effect_tooltip = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 1
+		}
+	}
+}
+country_event = { #DAG - TUR refuses trade
+	id = dag_external.6
+	title = dag_external.6.t
+	desc = dag_external.6.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+	is_triggered_only = yes
+	option = { #
+		name = dag_external.6.a
+		ai_chance = {
+			base = 100
+		}
+		add_war_support = -0.01
+		remove_opinion_modifier = {
+			target = TUR
+			modifier = DAG_befriend
+		}
+	}
+}
+country_event = { #AZR - DAG NAP
+	id = dag_external.7
+	title = dag_external.7.t
+	desc = dag_external.7.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+	is_triggered_only = yes
+	option = { #accept
+		name = dag_external.7.a
+		ai_chance = {
+			base = 95
+		}
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+			active = yes
+		}
+		FROM = {
+			country_event = {
+				id = dag_external.8
+				days = 1
+			}
+		}
+	}
+	option = { #refuse
+		name = dag_external.7.b
+		ai_chance = {
+			base = 5
+		}
+		DAG = {
+			country_event = {
+				id = dag_external.9
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #DAG - AZR accepts NAP
+	id = dag_external.8
+	title = dag_external.8.t
+	desc = dag_external.8.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+	is_triggered_only = yes
+	option = { #
+		name = dag_external.8.a
+		ai_chance = {
+			base = 100
+		}
+		effect_tooltip = {
+			diplomatic_relation = {
+				country = FROM
+				relation = non_aggression_pact
+				active = yes
+			}
+		}
+	}
+}
+country_event = { #DAG - AZR refuses
+	id = dag_external.9
+	title = dag_external.9.t
+	desc = dag_external.9.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+	is_triggered_only = yes
+	option = { #
+		name = dag_external.9.a
+		ai_chance = {
+			base = 100
+		}
+		add_war_support = 0.01
+		remove_opinion_modifier = {
+			target = AZR
+			modifier = DAG_befriend
+		}
+	}
+}
+country_event = { #Border war: offensive victory in Kizlyar
+	id = dag_external.10
+	title = dag_external.10.t
+	desc = dag_external.10.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+	is_triggered_only = yes
+	hidden = yes
+	option = { #
+		name = dag_external.10.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				has_country_flag = NC_duplication_check
+			}
+			transfer_state = 831
+			DAG_add_1_escalation = yes
+			clr_country_flag = NC_duplication_check
+		}
+	}
+}
+country_event = { #Border war: offensive and defensive loss
+	id = dag_external.11
+	title = dag_external.11.t
+	desc = dag_external.11.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+	is_triggered_only = yes
+	hidden = yes
+	option = { #
+		name = dag_external.11.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				has_country_flag = NC_duplication_check
+			}
+			add_political_power = -50
+			# add_war_support = 0.01
+			clr_country_flag = NC_duplication_check
+		}
+	}
+}
+country_event = { #Border war: defensive victory
+	id = dag_external.12
+	title = dag_external.12.t
+	desc = dag_external.12.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+	is_triggered_only = yes
+	hidden = yes
+	option = { #
+		name = dag_external.12.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				has_country_flag = NC_duplication_check
+			}
+			add_political_power = 10
+			# add_war_support = 0.01
+			clr_country_flag = NC_duplication_check
+		}
+	}
+}
+country_event = { #Border war: offensive victory in Chechnya
+	id = dag_external.13
+	title = dag_external.13.t
+	desc = dag_external.13.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+	is_triggered_only = yes
+	hidden = yes
+	option = { #
+		name = dag_external.13.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				has_country_flag = NC_duplication_check
+			}
+			transfer_state = 1080
+			DAG_add_1_escalation = yes
+			clr_country_flag = NC_duplication_check
+		}
+	}
+}
+country_event = { #Border war: offensive victory in North Ossetia
+	id = dag_external.14
+	title = dag_external.14.t
+	desc = dag_external.14.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+	is_triggered_only = yes
+	hidden = yes
+	option = { #
+		name = dag_external.14.a
+		if = {
+			limit = {
+				has_country_flag = NC_duplication_check
+			}
+			transfer_state = 772
+			DAG_add_1_escalation = yes
+			clr_country_flag = NC_duplication_check
+		}
+	}
+}
+country_event = { #Border war: offensive victory in Kabardino-Balkaria
+	id = dag_external.15
+	title = dag_external.15.t
+	desc = dag_external.15.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+	is_triggered_only = yes
+	hidden = yes
+	option = { #
+		name = dag_external.15.a
+		if = {
+			limit = {
+				has_country_flag = NC_duplication_check
+			}
+			transfer_state = 933
+			DAG_add_1_escalation = yes
+			clr_country_flag = NC_duplication_check
+		}
+	}
+}
+# country_event = { #Border war: offensive victory in
+# 	id = dag_external.16
+# 	title = dag_external.16.t
+# 	desc = dag_external.16.d
+# 	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+# 	is_triggered_only = yes
+# 	hidden = yes
+# 	option = { #
+# 		name = dag_external.16.a
+# 		ai_chance = {
+# 			base = 100
+# 		}
+# 		if = {
+# 			limit = {
+# 				has_country_flag = NC_duplication_check
+# 			}
+# 			transfer_state = 819
+# 			DAG_add_1_escalation = yes
+# 			clr_country_flag = NC_duplication_check
+# 		}
+# 	}
+# }
+country_event = { #Border war: offensive victory in South Ossetia
+	id = dag_external.17
+	title = dag_external.17.t
+	desc = dag_external.17.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+	is_triggered_only = yes
+	hidden = yes
+	option = { #
+		name = dag_external.17.a
+		if = {
+			limit = {
+				has_country_flag = NC_duplication_check
+			}
+			transfer_state = 1074
+			DAG_add_1_escalation = yes
+			clr_country_flag = NC_duplication_check
+		}
+	}
+}
+# country_event = { #Border war: offensive victory in 
+# 	id = dag_external.18
+# 	title = dag_external.18.t
+# 	desc = dag_external.18.d
+# 	picture = GFX_Event_USSR_Battle_of_Stalingrad #Mountain_Republic
+# 	is_triggered_only = yes
+# 	hidden = yes
+# 	option = { #
+# 		name = dag_external.18.a
+# 		ai_chance = {
+# 			base = 100
+# 		}
+# 		if = {
+# 			limit = {
+# 				has_country_flag = NC_duplication_check
+# 			}
+# 			transfer_state = 556
+# 			DAG_add_1_escalation = yes
+# 			clr_country_flag = NC_duplication_check
+# 		}
+# 	}
+# }
+country_event = { #Border war: offensive victory in Dagestan, ends conflict
+	id = dag_external.19
+	title = dag_external.19.t
+	desc = dag_external.19.d
+	picture = GFX_event_Mountain_Republic #Mountain_Republic
+	is_triggered_only = yes
+	option = { #
+		name = dag_external.19.a
+		ai_chance = {
+			base = 100
+		}
+		every_other_country = {
+			limit = {
+				has_country_flag = is_in_NC_conflict
+			}
+			country_event = {
+				id = dag_external.20
+			}
+		}
+		clear_variable = global.NC_tension
+		add_stability = 0.05		
+		clr_country_flag = NC_duplication_check
+		clr_country_flag = is_in_NC_conflict
+	}
+}
+country_event = { #Border war: offensive victory in Dagestan, ends conflict for other nations
+	id = dag_external.20
+	title = dag_external.20.t
+	desc = dag_external.20.d
+	picture = GFX_event_Mountain_Republic #Mountain_Republic
+	is_triggered_only = yes
+	option = { #
+		name = dag_external.20.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = 0.05		
+		clr_country_flag = NC_duplication_check
+		clr_country_flag = is_in_NC_conflict
+	}
+}
+country_event = { #Border war: defensive loss for Dagestan
+	id = dag_external.21
+	title = dag_external.21.t
+	desc = dag_external.21.d
+	picture = GFX_event_Mountain_Republic #Mountain_Republic
+	is_triggered_only = yes
+	option = { #
+		name = dag_external.21.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.10
+		add_war_support = -0.10
+		clr_country_flag = NC_duplication_check
+		clr_country_flag = is_in_NC_conflict
+	}
+}
+country_event = { #Dagestani Victory
+	id = dag_external.22
+	title = dag_external.22.t
+	desc = dag_external.22.d
+	picture = GFX_event_Mountain_Republic #Mountain_Republic
+	is_triggered_only = yes
+	option = { #
+		name = dag_external.22.a
+		add_political_power = -80
+		add_war_support = 0.02
+		clr_country_flag = NC_duplication_check
+		clr_country_flag = is_in_NC_conflict
+	}
+}

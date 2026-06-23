@@ -1,0 +1,141 @@
+
+shared_focus = {
+		id = SPR_postwar
+		icon = GFX_goal_generic_construct_civilian
+		cost = 10
+		x = 16
+		y = 0
+		offset = {
+		    x = 6
+		    y = 0
+		    trigger = {
+				has_focus_tree = spain_revolution_tree
+		    }
+	    }
+		offset = {
+		    x = 2
+		    y = 0
+		    trigger = {
+			    OR = {
+					has_focus_tree = spain_recovery_tree_left
+				}
+		    }
+	    }
+		
+		available = { 
+		    has_idea = postwar1 
+			if = {
+			    limit = { has_focus_tree = spain_recovery_tree_left }
+				has_completed_focus = SPR_ley_reconstruccion
+			}
+		}
+        completion_reward = {
+		    swap_ideas = { remove_idea = postwar1 add_idea = postwar2 }
+		}
+	}
+	
+shared_focus = {
+		id = SPR_rationing
+		icon = GFX_goal_rationing
+		cost = 10
+		prerequisite = {
+			focus = SPR_postwar
+		}
+		completion_reward = {
+		    add_political_power = 100
+		}
+		x = 0
+		y = 1
+        relative_position_id = SPR_postwar
+	}
+	shared_focus = {
+		id = SPR_rebuild
+		icon = GFX_goal_generic_demand_territory
+		cost = 10
+		prerequisite = {
+			focus = SPR_rationing
+		}
+		completion_reward = {
+		    swap_ideas = { remove_idea = postwar2 add_idea = postwar3 }
+		}
+		x = 0
+		y = 2
+        relative_position_id = SPR_postwar 
+	}
+	shared_focus = {
+		id = SPR_usa_aid
+		icon = GFX_focus_Generic_Political
+		cost = 10
+		prerequisite = {
+			focus = SPR_rebuild
+		}
+		completion_reward = {
+		    if = {
+			    limit = { has_idea = postwar3 }
+		        swap_ideas = { remove_idea = postwar3 add_idea = postwar_aid }
+			}
+			if = {
+			    limit = { has_idea = postwar_infra }
+		        swap_ideas = { remove_idea = postwar_infra add_idea = postwar_both }
+			}
+		}
+		x = -1
+		y = 3
+        relative_position_id = SPR_postwar
+	}
+	shared_focus = {
+		id = SPR_rebuild_infra
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 10
+		prerequisite = {
+			focus = SPR_rebuild
+		}
+		completion_reward = {
+		    if = {
+			    limit = { has_idea = postwar3 }
+		        swap_ideas = { remove_idea = postwar3 add_idea = postwar_infra }
+			}
+			if = {
+			    limit = { has_idea = postwar_aid }
+		        swap_ideas = { remove_idea = postwar_aid add_idea = postwar_both }
+			}
+		}
+		x = 1
+		y = 3
+        relative_position_id = SPR_postwar
+	}
+	shared_focus = {
+		id = SPR_rebuild_ind
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 10
+		prerequisite = {
+			focus = SPR_usa_aid
+		}
+		prerequisite = {
+			focus = SPR_rebuild_infra
+		}
+		completion_reward = {
+		    swap_ideas = { remove_idea = postwar_both add_idea = postwar4 }
+		}
+		x = 0
+		y = 4
+		relative_position_id = SPR_postwar
+
+	}
+	shared_focus = {
+		id = SPR_recovery
+		icon = GFX_goal_generic_national_unity
+		cost = 10
+		prerequisite = {
+			focus = SPR_rebuild_ind
+		}
+		available = {
+		}
+		completion_reward = {
+		    remove_ideas = postwar4
+			set_country_flag = recovered
+		}
+		x = 0
+		y = 5
+        relative_position_id = SPR_postwar
+	}

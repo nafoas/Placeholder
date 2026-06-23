@@ -1,0 +1,3252 @@
+add_namespace = spa
+
+# Salamanca Meeting
+country_event = {
+	id = spa.1
+	title = spa.1.t
+	desc = spa.1.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.1.b
+		ai_chance = {
+			factor = 70
+		}
+		country_event = { days = 1 id = spa.2 }
+	}
+
+	option = {
+		name = spa.1.c
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		clr_country_flag = cabanellas_power
+		country_event = { days = 1 id = spa.3 }
+	}
+}
+
+# Salamanca Meeting - A General
+country_event = {
+	id = spa.2
+	title = spa.2.t
+	desc = spa.2.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.2.a
+		clr_country_flag = cabanellas_power
+		set_country_flag = franco_power
+		ai_chance = {
+			factor = 70
+		}
+		set_country_flag = SPA_begin_control
+		hidden_effect = {
+			country_event = { id = scw.62 days = 1 }
+			load_focus_tree = SPA_cw_franco
+			retire_character = SPR_miguel_cabanellas
+			add_country_leader_role = {
+				character = "SPR_francisco_franco"
+				promote_leader = yes
+				country_leader = {
+					ideology = francoism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "SPR_francisco_franco"
+				promote_leader = yes
+				country_leader = {
+					ideology = military
+					expire = "1965.1.1.1"
+				}
+			}
+			set_portraits = {
+				character = SPR_francisco_franco
+				army = { large="gfx/leaders_cbts/SPA/Portrait_Spain_Leader_Francisco_Franco.png" }
+			}
+		}
+		add_political_power = 200
+		set_politics = { ruling_party = fascism }
+		COALITION_add_aut = yes
+		set_variable = { spa_control = 50 }
+	}
+	option = {
+		name = spa.2.b
+		clr_country_flag = cabanellas_power
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		set_country_flag = SPA_begin_control
+		set_variable = { spa_control = 40 }
+		set_country_flag = mola_power
+		hidden_effect = { country_event = { id = scw.62 days = 1 } load_focus_tree = SPA_junta_tree }
+		add_country_leader_role = {
+			character = "SPR_emilio_mola"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1937.6.4.1"
+			}
+		}
+		add_political_power = 100
+	}
+
+	option = {
+		name = spa.2.c
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		set_country_flag = SPA_begin_control
+		set_variable = { spa_control = 20 }
+		hidden_effect = { country_event = { id = scw.62 days = 1 } load_focus_tree = SPA_junta_tree  }
+		add_political_power = -25
+	}
+}
+
+# Salamanca Meeting - The Monarchy
+country_event = {
+	id = spa.3
+	title = spa.3.t
+	desc = spa.3.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.3.a
+		set_country_flag = kindelan_power
+		ai_chance = {
+			factor = 70
+		}
+		set_country_flag = SPA_begin_control
+		add_country_leader_role = {
+			character = "SPR_alfredo_kindelan"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1950.6.4.1"
+			}
+		}
+		set_variable = { spa_control = 35 }
+		add_political_power = 50
+		hidden_effect = { country_event = { id = scw.62 days = 1 } load_focus_tree = SPA_cw_regency }
+		set_politics = { ruling_party = monarchism }
+	}
+	option = {
+		name = spa.3.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		set_country_flag = SPA_begin_control
+		add_country_leader_role = {
+			character = "SPR_javier_borbon"
+			promote_leader = yes
+			country_leader = {
+				ideology = carlism
+				expire = "1950.6.4.1"
+			}
+		}
+		set_country_flag = fal_conde
+		set_variable = { spa_control = 15 }
+		hidden_effect = { country_event = { id = scw.62 days = 1 } load_focus_tree = SPA_cw_regency }
+		set_politics = { ruling_party = nationalism }
+		add_political_power = -50
+	}
+
+}
+
+# Jose Antonio - Postwar
+country_event = {
+	id = spa.4
+	title = spa.4.t
+	desc = spa.4.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = jose_antonio
+	}
+
+	option = {
+		name = spa.4.a
+		if = {
+			limit = {
+				NOT = { has_country_flag = spa_has_cabinet }
+			}
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Vicente_Cardenas
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_JA_Giron
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Juan_Aparicio
+		}
+		set_cosmetic_tag = SPF
+		set_country_flag = falange_wins
+		add_political_power = 100
+	}
+
+}
+
+# Franco - Postwar
+country_event = {
+	id = spa.5
+	title = spa.5.t
+	desc = spa.5.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.5.a
+		if = {
+			limit = {
+				NOT = { has_country_flag = spa_has_cabinet }
+			}
+			remove_ideas_with_trait = frnmin
+		add_ideas = FM_Gomez_Jordana
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Alfonso_Pena
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Valentin_Galarza
+		}
+		set_country_flag = franco_wins
+		add_political_power = 100
+		add_ideas = SPA_maquis_idea
+		set_cosmetic_tag = SPF
+		hidden_effect = {
+			country_event = { days = 15 id = spa.36 }
+			country_event = { days = 60 id = spa.37 }
+			country_event = { days = 90 id = spa.38 }
+			country_event = { days = 365 id = spa.39 }
+			country_event = { days = 40 id = spa.40 }
+			country_event = { days = 110 id = spa.41 }
+		}
+	}
+
+}
+
+# Mola - Postwar
+country_event = {
+	id = spa.6
+	title = spa.6.t
+	desc = spa.6.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = mola_power
+	}
+
+	option = {
+		name = spa.6.a
+		if = {
+			limit = {
+				NOT = { has_country_flag = spa_has_cabinet }
+			}
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Mola
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Serrano_Suner
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_Alfonso_Pena
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Julio_Urquijo
+		}
+		set_cosmetic_tag = SPJ
+		set_country_flag = junta_wins
+		add_ideas = SPA_social_dissatisfaction
+		add_political_power = 100
+	}
+	option = {
+		name = spa.6.b
+		if = {
+			limit = {
+				NOT = { has_country_flag = spa_has_cabinet }
+			}
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Mola
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Serrano_Suner
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_Alfonso_Pena
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Julio_Urquijo
+		}
+		set_cosmetic_tag = SPP
+		set_country_flag = republic_wins
+		add_political_power = 50
+		add_ideas = SPA_monarchist_opposition
+		add_ideas = SPA_chaotic_administration
+		hidden_effect = {
+			country_event = { days = 1 id = spa.11 }
+		}
+	}
+
+}
+
+# Carlists - Postwar
+country_event = {
+	id = spa.7
+	title = spa.7.t
+	desc = spa.7.d
+	picture = GFX_report_event_spr_carlists
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = fal_conde
+	}
+
+	option = {
+		name = spa.7.a
+		if = {
+			limit = {
+				NOT = { has_country_flag = spa_has_cabinet }
+			}
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Manuel_Fal_Conde
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Tomas_Dominguez
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_Francisco_Estevez
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Julio_Urquijo
+		}
+		set_cosmetic_tag = SPT
+		set_country_flag = monarchy_wins
+		set_country_flag = carlism_wins
+		add_political_power = 100
+		add_ideas = SPA_dynastic_disputes
+	}
+
+}
+
+# Kindelan - Postwar
+country_event = {
+	id = spa.8
+	title = spa.8.t
+	desc = spa.8.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = kindelan_power
+	}
+
+	option = {
+		name = spa.8.a
+		if = {
+			limit = {
+				NOT = { has_country_flag = spa_has_cabinet }
+			}
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Goicoechea
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Ramiro_Maeztu
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_Andres_Amado
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Antonio_Goicoechea
+		}
+		set_cosmetic_tag = SPM
+		promote_character = SPR_alfonso_xiii
+		add_country_leader_role = {
+			character = "SPR_alfonso_xiii"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_alfonso_xiii"
+			promote_leader = yes
+			country_leader = {
+				ideology = carlism
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_alfonso_xiii"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_conservatism
+				expire = "1950.6.4.1"
+			}
+		}
+		set_country_flag = monarchy_wins
+		set_country_flag = alfonso_wins
+		add_political_power = 100
+	}
+
+}
+
+# Cabanellas - Postwar
+country_event = {
+	id = spa.9
+	title = spa.9.t
+	desc = spa.9.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = cabanellas_power
+	}
+
+	option = {
+		name = spa.9.a
+		if = {
+			limit = {
+				NOT = { has_country_flag = spa_has_cabinet }
+			}
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Cabanellas
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Ricardo_Cortes
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_Rafael_Aizpun
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Valentin_Galarza
+		}
+		set_cosmetic_tag = SPP
+		set_country_flag = republic_wins
+		add_political_power = 100
+		add_ideas = SPA_monarchist_opposition
+		add_ideas = SPA_chaotic_administration
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = from_spr }
+				}
+				country_event = { days = 1 id = spa.11 }
+			}
+		}
+	}
+
+}
+
+# Sanjurjo - Postwar
+country_event = {
+	id = spa.10
+	title = spa.10.t
+	desc = spa.10.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = sanjurjo_alive
+	}
+
+	option = {
+		name = spa.10.a
+		if = {
+			limit = {
+				NOT = { has_country_flag = spa_has_cabinet }
+			}
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Sanjurjo
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Ricardo_Cortes
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_Rafael_Aizpun
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Julio_Urquijo
+		}
+		set_cosmetic_tag = SPJ
+		set_country_flag = junta_wins
+		add_ideas = SPA_social_dissatisfaction
+		add_political_power = 100
+	}
+	option = {
+		name = spa.10.b
+		if = {
+			limit = {
+				NOT = { has_country_flag = spa_has_cabinet }
+			}
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Sanjurjo
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Ramiro_Maeztu
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_Andres_Amado
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Antonio_Goicoechea
+		}
+		set_cosmetic_tag = SPM
+		promote_character = SPR_alfonso_xiii
+		add_country_leader_role = {
+			character = "SPR_alfonso_xiii"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_alfonso_xiii"
+			promote_leader = yes
+			country_leader = {
+				ideology = carlism
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_alfonso_xiii"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_conservatism
+				expire = "1950.6.4.1"
+			}
+		}
+		set_politics = { ruling_party = monarchism }
+		set_country_flag = monarchy_wins
+		set_country_flag = alfonso_wins
+		add_political_power = 50
+	}
+
+}
+
+# The Republic
+country_event = {
+	id = spa.11
+	title = spa.11.t
+	desc = spa.11.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.11.a #Military preserves control
+		add_political_power = -50
+	}
+	option = {
+		name = spa.11.b #A general will be President, and Gil-Robles will have executive powers
+		add_popularity = { ideology = neutrality popularity = 0.25 }
+		add_popularity = { ideology = democratic popularity = 0.15 }
+		add_political_power = 50
+		set_politics = { ruling_party = neutrality }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Gil_Robles
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Ricardo_Cortes
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Rafael_Aizpun
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Serrano_Suner
+	}
+
+	option = {
+		name = spa.11.c #Gil Robles and the CEDA assume control
+		set_country_flag = already_ceda
+		add_country_leader_role = {
+			character = "SPR_jose_maria_gilrobles"
+			promote_leader = yes
+			country_leader = {
+				ideology = spr_ceda
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jose_maria_gilrobles"
+			promote_leader = yes
+			country_leader = {
+				ideology = soccon_agrarianism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jose_maria_gilrobles"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberal_conservatism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jose_maria_gilrobles"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jose_maria_gilrobles"
+			promote_leader = yes
+			country_leader = {
+				ideology = french_radicalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_popularity = { ideology = neutrality popularity = 0.25 }
+		add_popularity = { ideology = democratic popularity = 0.15 }
+		add_popularity = { ideology = market_liberalism popularity = 0.1 }
+		add_popularity = { ideology = jacobin popularity = 0.1 }
+		add_popularity = { ideology = social_liberalism popularity = 0.1 }
+		add_political_power = 25
+		set_politics = { ruling_party = neutrality }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Gil_Robles
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Ricardo_Cortes
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Rafael_Aizpun
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Serrano_Suner
+	}
+}
+
+# Jose Antonio decides
+country_event = {
+	id = spa.12
+	title = spa.12.t
+	desc = spa.12.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.12.a
+		set_cosmetic_tag = FAL
+		set_country_flag = nat_rep
+		add_political_power = 50
+	}
+	option = {
+		name = spa.12.b
+		set_country_flag = sp_state
+		add_political_power = 100
+	}
+
+}
+
+# Alfonso XIII dies
+country_event = {
+	#TODO
+	id = spa.13
+	title = spa.13.t
+	desc = spa.13.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	mean_time_to_happen = { #TODO: mtth
+		days = 28	# Historical
+	}
+	trigger = {
+		tag = SPA
+		date > 1941.2.1
+		has_country_leader = {
+			character = SPR_alfonso_xiii
+			ruling_only = yes
+		}
+	}
+
+	option = {
+		name = spa.13.a
+		hidden_effect = {
+			country_event = { days = 7 id = spa.14 }
+			country_event = { days = 30 id = spa.15 }
+		}
+		set_country_flag = alfonso_dead
+		retire_character = SPR_alfonso_xiii
+		add_political_power = -60
+		promote_character = SPR_juan_III
+		add_country_leader_role = {
+			character = "SPR_juan_III"
+			promote_leader = yes
+			country_leader = {
+				ideology = authoritarian
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_juan_III"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_conservatism
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_juan_III"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_liberalism
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_juan_III"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_juan_III"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1950.6.4.1"
+			}
+		}
+	}
+
+}
+
+# Juan III speech
+country_event = {
+	id = spa.14
+	title = spa.14.t
+	desc = spa.14.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = spa.14.a
+		add_political_power = 150
+	}
+}
+
+# Juan III adresses the Cortes
+country_event = {
+	id = spa.15
+	title = spa.15.t
+	desc = spa.15.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = spa.15.a
+		add_political_power = 50
+		hidden_effect = {
+			country_event = { days = 30 id = spa.20 }
+		}
+	}
+	option = {
+		name = spa.15.b
+		hidden_effect = {
+			country_event = { days = 30 id = spa.16 }
+		}
+	}
+}
+
+# Palace coup
+country_event = {
+	id = spa.16
+	title = spa.16.t
+	desc = spa.16.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #Jaime I
+		name = spa.16.a
+		add_political_power = -100
+		add_ideas = SPA_democratic_agitation
+		set_country_flag = jaime_king
+		retire_country_leader = yes
+		add_country_leader_role = {
+			character = "SPR_jaime_I"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jaime_I"
+			promote_leader = yes
+			country_leader = {
+				ideology = authoritarian
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jaime_I"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_conservatism
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jaime_I"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_liberalism
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jaime_I"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1950.6.4.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jaime_I"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1950.6.4.1"
+			}
+		}
+	}
+	option = { #Puppet
+		name = spa.16.b
+		add_political_power = -75
+		add_ideas = SPA_democratic_agitation
+		set_country_flag = juan_puppet
+		set_country_flag = authoritarian_mon
+	}
+
+}
+
+# Moderate Cabinet
+country_event = {
+	id = spa.20
+	title = spa.20.t
+	desc = spa.20.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.20.a
+		set_country_flag = constitution
+		add_political_power = -100
+		add_stability = -0.15
+		set_politics = { ruling_party = democratic }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Manuel_Gimenez
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Jose_Duato
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Manuel_Rico
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Manuel_Gimenez
+		hidden_effect = {
+			country_event = { days = 15 id = spa.21 }
+		}
+		add_popularity = { ideology = monarchism popularity = -0.2 }
+		add_popularity = { ideology = democratic popularity = 0.3 }
+		add_popularity = { ideology = market_liberalism popularity = 0.4 }
+		add_ideas = SPA_unrest_military
+	}
+}
+
+# King calls for general election
+country_event = {
+	id = spa.21
+	title = spa.21.t
+	desc = spa.21.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.21.a
+		set_party_name = {
+			ideology = democratic
+			long_name = SPA_pc_long
+			name = SPA_pc
+		}
+		set_party_name = {
+			ideology = market_liberalism
+			long_name = SPA_pl_long
+			name = SPA_pl
+		}
+		hidden_effect = {
+			country_event = { days = 30 id = spa.22 }
+		}
+	}
+}
+
+# The General Election
+country_event = {
+	id = spa.22
+	title = spa.22.t
+	desc = spa.22.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.22.a
+		add_political_power = 80
+		add_stability = -0.05
+	}
+
+	option = {
+		name = spa.22.b
+		add_political_power = 50
+		add_stability = -0.05
+		set_politics = { ruling_party = market_liberalism }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Manuel_Portela
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Joaquin_Urzaiz
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Joaquin_Chapaprieta
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Manuel_Portela
+	}
+}
+
+# Estatuto Real
+country_event = {
+	id = spa.23
+	title = spa.23.t
+	desc = spa.23.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.23.a
+		set_country_flag = authoritarian_mon
+	}
+	option = {
+		name = spa.23.b
+		set_country_flag = cons_mon
+		add_ideas = SPA_unrest_military
+		set_politics = { ruling_party = democratic }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Manuel_Gimenez
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Jose_Duato
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Manuel_Rico
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Manuel_Gimenez
+	}
+}
+
+# Return to civilian rule
+country_event = {
+	id = spa.24
+	title = spa.24.t
+	desc = spa.24.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.24.a
+		add_country_leader_role = {
+			character = "SPR_jose_maria_gilrobles"
+			promote_leader = yes
+			country_leader = {
+				ideology = spr_ceda
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jose_maria_gilrobles"
+			promote_leader = yes
+			country_leader = {
+				ideology = soccon_agrarianism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jose_maria_gilrobles"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberal_conservatism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jose_maria_gilrobles"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_jose_maria_gilrobles"
+			promote_leader = yes
+			country_leader = {
+				ideology = french_radicalism
+				expire = "1965.1.1.1"
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_idea =  HoG_Gil_Robles
+				}
+			}
+		set_politics = { ruling_party = neutrality }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Gil_Robles
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Ricardo_Cortes
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Rafael_Aizpun
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Serrano_Suner
+		}
+		country_event = { days = 1 id = spa.25 }
+	}
+}
+
+# Democrats push their agenda
+country_event = {
+	id = spa.25
+	title = spa.25.t
+	desc = spa.25.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.25.a
+		set_party_name = {
+			ideology = democratic
+			long_name = SPA_pc_long
+			name = SPA_pc
+		}
+		set_party_name = {
+			ideology = market_liberalism
+			long_name = SPA_pl_long
+			name = SPA_pl
+		}
+		add_ideas = SPA_unrest_military
+		set_country_flag = spa_restored_democracy
+		add_popularity = { ideology = democratic popularity = 0.3 }
+		add_popularity = { ideology = market_liberalism popularity = 0.4 }
+		hidden_effect = {
+			country_event = { days = 30 id = spa.26 }
+		}
+	}
+
+	option = {
+		name = spa.21.a
+		add_ideas = SPA_democratic_agitation
+	}
+}
+
+# The General Election - Rep
+country_event = {
+	id = spa.26
+	title = spa.26.t
+	desc = spa.26.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.26.a
+		add_political_power = 80
+		add_stability = -0.05
+		set_politics = { ruling_party = democratic }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Manuel_Gimenez
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Jose_Duato
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Manuel_Rico
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Manuel_Gimenez
+	}
+
+	option = {
+		name = spa.26.b
+		add_political_power = 50
+		add_stability = -0.05
+		set_politics = { ruling_party = market_liberalism }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Manuel_Portela
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Joaquin_Urzaiz
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Joaquin_Chapaprieta
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Manuel_Portela
+	}
+}
+
+# The General Election - Junta
+country_event = {
+	id = spa.27
+	title = spa.27.t
+	desc = spa.27.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.26.a
+		add_political_power = 80
+		add_stability = -0.05
+		set_politics = { ruling_party = democratic }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Manuel_Gimenez
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Jose_Duato
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Manuel_Rico
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Manuel_Gimenez
+	}
+
+	option = {
+		name = spa.26.b
+		add_political_power = 50
+		add_stability = -0.05
+		set_politics = { ruling_party = market_liberalism }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Manuel_Portela
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Joaquin_Urzaiz
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Joaquin_Chapaprieta
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Manuel_Portela
+	}
+}
+
+# Ban civilian?
+country_event = {
+	id = spa.30
+	title = spa.30.t
+	desc = spa.30.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.30.a
+		add_political_power = 20
+		add_war_support = 0.1
+	}
+	option = {
+		name = spa.30.b
+		add_political_power = 100
+	}
+
+}
+
+# JA Flavour - National Army
+country_event = {
+	id = spa.31
+	title = spa.31.t
+	desc = spa.31.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.31.a
+		add_manpower = 50000
+		add_stability = -0.1
+	}
+}
+
+# JA Flavour - Land Expropiations
+country_event = {
+	id = spa.32
+	title = spa.32.t
+	desc = spa.32.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.32.a
+		add_stability = -0.05
+		add_war_support = 0.05
+	}
+}
+
+# JA Flavour - Estatuto Trabajadores
+country_event = {
+	id = spa.33
+	title = spa.33.t
+	desc = spa.33.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.33.a
+		add_stability = 0.05
+		add_political_power = 50
+	}
+}
+
+# JA Flavour - Limit on Wealth
+country_event = {
+	id = spa.34
+	title = spa.34.t
+	desc = spa.34.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.34.a
+		add_political_power = 75
+	}
+}
+
+# JA Flavour - Reorganization of the General Staff
+country_event = {
+	id = spa.35
+	title = spa.35.t
+	desc = spa.35.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.35.a
+	}
+}
+
+# Francoist Flavour - Pardo
+country_event = {
+	id = spa.36
+	title = spa.36.t
+	desc = spa.36.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.36.a
+		add_political_power = 5
+	}
+}
+
+# Francoist Flavour - Queipo protests
+country_event = {
+	id = spa.37
+	title = spa.37.t
+	desc = spa.37.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.37.a
+		set_country_flag = Llano_incap
+		add_political_power = -10
+	}
+}
+
+# Francoist Flavour - The Second Franco government
+country_event = {
+	id = spa.38
+	title = spa.38.t
+	desc = spa.38.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.38.a
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Serrano_Suner
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Alfonso_Pena
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Esteban_Bilbao
+		add_political_power = 20
+	}
+}
+
+# Francoist Flavour - Frente de Juventudes
+country_event = {
+	id = spa.39
+	title = spa.39.t
+	desc = spa.39.d
+	picture = GFX_report_event_fascist_speech
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.39.a
+		add_manpower = 5000
+	}
+}
+
+# Francoist Flavour - SEU
+country_event = {
+	id = spa.40
+	title = spa.40.t
+	desc = spa.40.d
+	picture = GFX_report_event_fascist_speech
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.40.a
+		add_political_power = -5
+	}
+}
+
+# Francoist Flavour - Sección Femenina
+country_event = {
+	id = spa.41
+	title = spa.41.t
+	desc = spa.41.d
+	picture = GFX_report_event_fascist_speech
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.41.a
+		add_war_support = 0.025
+	}
+}
+
+# Francoist Flavour - Begoña incident
+#TODO
+country_event = {
+	id = spa.42
+	title = spa.42.t
+	desc = spa.42.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	trigger = {
+		tag = SPN
+		has_country_flag = franco_power
+		date > 1942.8.13
+		has_capitulated = no
+		has_war = yes
+
+	}
+
+	mean_time_to_happen = {
+		days = 2	# Historical
+	}
+
+	option = {
+		name = spa.42.a
+		if = {
+			limit = {
+				has_idea = FM_Serrano_Suner
+			}
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Gomez_Jordana
+		}
+		add_political_power = -100
+		add_stability = 0.05
+		if = {
+			limit = {
+				has_completed_focus = SPA_use_caution
+			}
+			custom_effect_tooltip = closer_to_britain
+			add_to_variable = { var = british_drift value = 2 }
+			add_to_variable = { var = german_drift value = -2 }
+		}
+	}
+	option = {
+		name = spa.42.b
+		if = {
+			limit = {
+				has_idea = FM_Serrano_Suner
+			}
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Gomez_Jordana
+		}
+		add_stability = 0.075
+		add_political_power = -200
+		custom_effect_tooltip = closer_to_britain
+	}
+
+   option = {
+		name = spa.42.c
+		add_stability = 0.025
+		add_political_power = -50
+		if = {
+			limit = {
+				has_completed_focus = SPA_use_caution
+			}
+			custom_effect_tooltip = closer_to_germany
+			add_to_variable = { var = british_drift value = -2 }
+			add_to_variable = { var = german_drift value = 2 }
+		}
+	}
+}
+
+# Francoist Flavour - Ley Constitutiva de las Cortes
+country_event = {
+	id = spa.43
+	title = spa.43.t
+	desc = spa.43.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.43.a
+	}
+}
+
+# Francoist Flavour - Raza
+#TODO: rework all this shit with mtths
+country_event = {
+	id = spa.44
+	title = spa.44.t
+	desc = spa.44.d
+	picture = GFX_report_event_generic_rally_3
+
+	fire_only_once = yes
+	trigger = {
+		# has_country_flag = franco_power
+		date > 1942.1.3
+		has_capitulated = no
+	}
+
+	mean_time_to_happen = {
+		days = 2	# Historical
+	}
+
+	option = {
+		name = spa.44.a
+	}
+}
+
+# Scandal in the OSE
+country_event = {
+	id = spa.45
+	title = spa.45.t
+	desc = spa.45.d
+	picture = GFX_report_event_fascist_speech
+
+	fire_only_once = yes
+	trigger = {
+		tag = SPN
+		# has_country_flag = franco_power
+		date > 1941.1.1
+		has_capitulated = no
+		has_completed_focus = SPA_sv
+	}
+
+	mean_time_to_happen = { #TODO: mtth
+		days = 60	# Historical
+	}
+
+	option = {
+		name = spa.45.a
+		add_political_power = -10
+	}
+}
+
+# Francoist Flavour - Yola
+country_event = {
+	id = spa.46
+	title = spa.46.t
+	desc = spa.46.d
+	picture = GFX_report_event_generic_rally_3
+
+	fire_only_once = yes
+	trigger = {
+		tag = SPN
+		date > 1941.3.12
+		has_capitulated = no
+	}
+
+	mean_time_to_happen = { #TODO: mtth
+		days = 2	# Historical
+	}
+
+	option = {
+		name = spa.46.a
+	}
+}
+
+# Geneve Manifesto
+country_event = {
+	id = spa.47
+	title = spa.47.t
+	desc = spa.47.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	fire_only_once = yes
+	trigger = {
+		tag = SPN
+		date > 1942.9.11
+		has_capitulated = no
+		has_country_flag = franco_power
+	}
+
+	mean_time_to_happen = { #TODO: mtth
+		days = 2	# Historical
+	}
+
+	option = {
+		name = spa.47.a
+		set_country_flag = geneve_manifesto
+		add_political_power = -80
+	}
+}
+
+# Government crisis
+country_event = {
+	id = spa.48
+	title = spa.48.t
+	desc = spa.48.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	trigger = {
+		tag = SPN
+		date > 1941.15.4
+		has_capitulated = no
+		has_war = no
+		has_country_flag = franco_power
+	}
+
+	mean_time_to_happen = { #TODO: mtth
+		days = 2	# Historical
+	}
+
+	option = {
+		name = spa.48.a #Side with the falangists
+		add_political_power = -100
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_JA_Giron
+		if = {
+			limit = {
+				has_completed_focus = SPA_use_caution
+			}
+			custom_effect_tooltip = closer_to_germany
+			add_to_variable = { var = british_drift value = -2 }
+			add_to_variable = { var = german_drift value = 2 }
+		}
+	}
+	option = {
+		name = spa.48.b #Find a compromise
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Valentin_Galarza
+		add_stability = -0.025
+		add_political_power = -50
+	}
+	option = {
+		name = spa.48.c #Side with the military
+		if = {
+			limit = {
+				has_idea = FM_Serrano_Suner
+			}
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Gomez_Jordana
+		}
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Valentin_Galarza
+		add_stability = -0.05
+		if = {
+			limit = {
+				has_completed_focus = SPA_use_caution
+			}
+			custom_effect_tooltip = closer_to_britain
+			add_to_variable = { var = british_drift value = 2 }
+			add_to_variable = { var = german_drift value = -2 }
+		}
+	}
+}
+
+# Carlist Flavor - Dios
+country_event = {
+	id = spa.49
+	title = spa.49.t
+	desc = spa.49.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.49.a
+		add_political_power = -50
+	}
+}
+
+# Carlist Flavor - Patria
+country_event = {
+	id = spa.50
+	title = spa.50.t
+	desc = spa.50.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.50.a
+	}
+}
+
+# Carlist Flavor - Fueros
+country_event = {
+	id = spa.51
+	title = spa.51.t
+	desc = spa.51.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = spa.51.a
+		add_stability = 0.05
+	}
+}
+
+# Carlist Flavor - Rey
+country_event = {
+	id = spa.52
+	title = spa.52.t
+	desc = spa.52.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #Javier I
+		name = spa.52.a
+		add_stability = 0.05
+		set_country_flag = javier_elected
+		add_country_leader_role = {
+			character = "SPR_javier_borbon"
+			promote_leader = yes
+			country_leader = {
+				ideology = carlism
+				expire = "1950.6.4.1"
+			}
+		}
+	}
+
+	option = { #Juan III
+		name = spa.52.b
+		set_country_flag = juan_elected
+		promote_character = SPR_juan_III
+	}
+
+
+   option = { #Carlos VIII
+		name = spa.52.c
+		set_country_flag = habsburg_restored
+		add_country_leader_role = {
+			character = "SPR_carlos_hasburgo"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1950.6.4.1"
+			}
+		}
+		add_stability = -0.05
+	}
+}
+
+#### ALIGNMENT
+
+# Germany - Spain grants naval access
+country_event = {
+	id = spa.54
+	title = spa.54.t
+	desc = spa.54.d
+	picture = GFX_report_event_generic_rally_3
+
+	is_triggered_only = yes
+	trigger = {
+		tag = GER
+	}
+
+	option = {
+		name = spa.54.a
+		diplomatic_relation = {
+			country = GER
+			relation = docking_rights
+			active = yes
+		}
+	}
+}
+
+# Germany - Spain grants tungsten exploitation
+country_event = {
+	id = spa.55
+	title = spa.55.t
+	desc = spa.55.d
+	picture = GFX_report_event_generic_rally_3
+
+	is_triggered_only = yes
+	trigger = {
+		tag = GER
+	}
+
+	option = {
+		name = spa.55.a
+		SPN = {
+			give_resource_rights = { receiver = GER state = 171 resources = { tungsten } }
+			add_ideas = SPA_german_capital
+		}
+		custom_effect_tooltip = closer_us
+	}
+}
+
+# Germany - Spain sends workers
+country_event = {
+	id = spa.53
+	title = spa.53.t
+	desc = spa.53.d
+	picture = GFX_report_event_generic_rally_3
+
+	is_triggered_only = yes
+	trigger = {
+		tag = GER
+	}
+
+	option = {
+		name = spa.55.a
+	}
+}
+
+# Germany - Spain ends tungsten shipments
+country_event = {
+	id = spa.56
+	title = spa.56.t
+	desc = spa.56.d
+	picture = GFX_report_event_generic_rally_3
+
+	is_triggered_only = yes
+	trigger = {
+		tag = GER
+	}
+
+	option = {
+		name = spa.56.a
+		remove_resource_rights = 171
+		SPN = {
+			remove_ideas = SPA_german_capital
+		}
+		custom_effect_tooltip = closer_eng
+	}
+}
+
+# Germany - Spain increases trade with Britain
+country_event = {
+	id = spa.57
+	title = spa.57.t
+	desc = spa.57.d
+	picture = GFX_report_event_generic_rally_3
+
+	is_triggered_only = yes
+	trigger = {
+		tag = GER
+	}
+
+	option = {
+		name = spa.54.a
+		custom_effect_tooltip = closer_eng
+	}
+}
+
+# Germany - Spain intro
+country_event = {
+	id = spa.58
+	title = spa.58.t
+	desc = spa.58.d
+	picture = GFX_report_event_generic_rally_3
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = GER
+	}
+
+	option = {
+		name = spa.58.a
+		custom_effect_tooltip = unlock_alignment
+	}
+}
+
+# Britain - Intro
+country_event = {
+	id = spa.59
+	title = spa.59.t
+	desc = spa.59.d
+	picture = GFX_report_event_generic_rally_3
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = GER
+	}
+
+	option = {
+		name = spa.59.a
+		custom_effect_tooltip = unlock_alignment
+	}
+}
+
+# Britain is notified about tungsten rights
+country_event = {
+	id = spa.60
+	title = spa.60.t
+	desc = spa.60.d
+	picture = GFX_report_event_generic_rally_3
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.60.a
+		custom_effect_tooltip = closer_ger
+	}
+}
+
+# Britain is notified about naval access
+country_event = {
+	id = spa.61
+	title = spa.61.t
+	desc = spa.61.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.61.a
+	}
+}
+
+# Spain - British bribes
+country_event = {
+	id = spa.62
+	title = spa.62.t
+	desc = spa.62.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.62.a
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -1 }
+		add_to_variable = { var = british_drift value = 1 }
+	}
+}
+
+# Spain - British praise
+country_event = {
+	id = spa.63
+	title = spa.63.t
+	desc = spa.63.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.63.a
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -2 }
+		add_to_variable = { var = british_drift value = 2 }
+	}
+}
+
+# Spain - Anglophile influence
+country_event = {
+	id = spa.64
+	title = spa.64.t
+	desc = spa.64.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.64.a
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -2 }
+		add_to_variable = { var = british_drift value = 2 }
+	}
+}
+
+# Spain - British relief
+country_event = {
+	id = spa.65
+	title = spa.65.t
+	desc = spa.65.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.65.a
+		add_stability = 0.05
+		add_war_support = -0.05
+		add_political_power = 50
+		random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -2 }
+		add_to_variable = { var = british_drift value = 2 }
+	}
+}
+
+# Spain - Pressure trough Portugal
+country_event = {
+	id = spa.67
+	title = spa.67.t
+	desc = spa.67.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.67.a
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -2 }
+		add_to_variable = { var = british_drift value = 2 }
+	}
+}
+
+# Spain - UK threatens with blockade
+country_event = {
+	id = spa.66
+	title = spa.66.t
+	desc = spa.66.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.66.a
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -2 }
+		add_to_variable = { var = british_drift value = 2 }
+	}
+}
+
+
+# Spain - Britain demands end of naval access
+country_event = {
+	id = spa.68
+	title = spa.68.t
+	desc = spa.68.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #Yes
+		name = spa.68.a
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 0.8
+				GER = {
+					controls_state = 16
+				}
+			}
+			modifier = {
+				factor = 0.8
+				GER = {
+					is_neighbor_of = SPN
+				}
+			}
+			modifier = {
+				factor = 1.5
+				ENG = {
+					is_in_faction_with = USA
+				}
+			}
+			modifier = {
+				factor = 0
+				ENG = {
+					surrender_progress > 0.6
+				}
+			}
+		}
+		diplomatic_relation = {
+			country = GER
+			relation = docking_rights
+			active = no
+		}
+		ENG = { country_event = { id = spa.69 } }
+		GER = { country_event = { id = spa.71 } }
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -2 }
+		add_to_variable = { var = british_drift value = 2 }
+	}
+
+	option = { #No
+		name = spa.68.a
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 1.3
+				GER = {
+					controls_state = 16
+				}
+			}
+			modifier = {
+				factor = 1.3
+				GER = {
+					is_neighbor_of = SPN
+				}
+			}
+			modifier = {
+				factor = 0.5
+				ENG = {
+					is_in_faction_with = USA
+				}
+			}
+			modifier = {
+				factor = 0.8
+				ENG = {
+					alliance_strength_ratio > 0.9
+				}
+			}
+			modifier = {
+				factor = 0.2
+				ENG = {
+					alliance_strength_ratio > 1.5
+				}
+			}
+			modifier = {
+				factor = 0
+				GER = {
+					surrender_progress > 0.65
+				}
+			}
+		}
+		ENG = { country_event = { id = spa.72 } }
+	}
+}
+
+# Britain - Spain ends naval access
+country_event = {
+	id = spa.69
+	title = spa.69.t
+	desc = spa.69.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.69.a
+		custom_effect_tooltip = closer_us
+	}
+}
+
+# Germany - Spain ends naval access
+country_event = {
+	id = spa.71
+	title = spa.71.t
+	desc = spa.71.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+	trigger = {
+		tag = GER
+	}
+
+	option = {
+		name = spa.71.a
+	}
+}
+
+# Britain - Spain refuses to end naval access
+country_event = {
+	id = spa.72
+	title = spa.72.t
+	desc = spa.72.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.72.a
+	}
+}
+
+# Spain - Britain demands end of tungsten shipments
+country_event = {
+	id = spa.73
+	title = spa.73.t
+	desc = spa.73.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #Yes
+		name = spa.73.a
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 0.8
+				GER = {
+					controls_state = 16
+				}
+			}
+			modifier = {
+				factor = 0.8
+				GER = {
+					is_neighbor_of = SPN
+				}
+			}
+			modifier = {
+				factor = 1.5
+				ENG = {
+					is_in_faction_with = USA
+				}
+			}
+			modifier = {
+				factor = 0
+				ENG = {
+					surrender_progress > 0.6
+				}
+			}
+		}
+		GER = { remove_resource_rights = 171 }
+		remove_ideas = SPA_german_capital
+		GER = { country_event = { id = spa.56 } }
+		ENG = { country_event = { id = spa.74 } }
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -2 }
+		add_to_variable = { var = british_drift value = 2 }
+	}
+
+	option = { #No
+		name = spa.73.a
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 1.3
+				GER = {
+					controls_state = 16
+				}
+			}
+			modifier = {
+				factor = 1.3
+				GER = {
+					is_neighbor_of = SPN
+				}
+			}
+			modifier = {
+				factor = 0.8
+				ENG = {
+					alliance_strength_ratio > 0.9
+				}
+			}
+			modifier = {
+				factor = 0.2
+				ENG = {
+					alliance_strength_ratio > 1.5
+				}
+			}
+			modifier = {
+				factor = 0.5
+				ENG = {
+					is_in_faction_with = USA
+				}
+			}
+			modifier = {
+				factor = 0
+				GER = {
+					surrender_progress > 0.65
+				}
+			}
+		}
+		ENG = { country_event = { id = spa.75 } }
+	}
+}
+
+# Britain - Spain ends tungsten shipments
+country_event = {
+	id = spa.74
+	title = spa.74.t
+	desc = spa.74.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.74.a
+		custom_effect_tooltip = closer_us
+	}
+}
+
+# Britain - Spain refuses to end tungsten shipments
+country_event = {
+	id = spa.75
+	title = spa.75.t
+	desc = spa.75.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.75.a
+	}
+}
+
+# Spain - British embargo
+country_event = {
+	id = spa.76
+	title = spa.76.t
+	desc = spa.76.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.76.a
+		ENG = {
+			add_opinion_modifier = {
+				target = SPN
+				modifier = embargo
+			}
+		}
+		add_opinion_modifier = {
+			target = ENG
+			modifier = embargo
+		}
+		if = {
+			limit = {
+				has_idea = SPA_trade_britain
+			}
+			remove_ideas = SPA_trade_britain
+		}
+	}
+}
+
+# Spain - British blockade
+country_event = {
+	id = spa.77
+	title = spa.77.t
+	desc = spa.77.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = {
+		name = spa.77.a
+		add_ideas = SPA_eng_blockaded
+		add_stability = -0.1
+		add_war_support = -0.15
+		add_political_power = -50
+	}
+}
+
+#Britain - Spain wants to end the blockade
+country_event = {
+	id = spa.78
+	title = spa.78.t
+	desc = spa.78.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #yes
+		name = spa.78.a
+		SPN = { country_event = { id = spa.79 days = 2 } }
+	}
+
+	option = { #no
+		name = spa.78.a
+		trigger = {
+			NOT = { is_in_faction_with = SPN }
+		}
+		ai_chance = {
+			factor = 0
+		}
+		SPN = { country_event = { id = spa.80 days = 2 } }
+	}
+}
+
+#Spain - end of the blockade
+country_event = {
+	id = spa.79
+	title = spa.79.t
+	desc = spa.79.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #yes
+		name = spa.79.a
+		remove_ideas = SPA_eng_blockaded
+	}
+}
+
+#Spain - no end of the blockade
+country_event = {
+	id = spa.80
+	title = spa.80.t
+	desc = spa.80.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #damn
+		name = spa.80.a
+		add_political_power = -10
+	}
+}
+
+#Spain - Wilhelm Canaris
+country_event = {
+	id = spa.81
+	title = spa.81.t
+	desc = spa.81.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #listen to him
+		name = spa.81.a
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -2 }
+		add_to_variable = { var = british_drift value = 2 }
+	}
+
+	option = { #ignore him
+		name = spa.81.b
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 2 }
+		add_to_variable = { var = british_drift value = -2 }
+	}
+}
+
+#Spain - Hans Lazar
+country_event = {
+	id = spa.82
+	title = spa.82.t
+	desc = spa.82.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #well
+		name = spa.82.a
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 2 }
+		add_to_variable = { var = british_drift value = -2 }
+	}
+}
+
+#Spain - Falangists in berlin
+country_event = {
+	id = spa.83
+	title = spa.83.t
+	desc = spa.83.d
+	picture = GFX_report_event_generic_rally_3
+
+	is_triggered_only = yes
+
+	option = { #well
+		name = spa.83.a
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 2 }
+		add_to_variable = { var = british_drift value = -2 }
+	}
+}
+
+#Spain - German relief
+country_event = {
+	id = spa.84
+	title = spa.84.t
+	desc = spa.84.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #well
+		name = spa.84.a
+		random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		add_stability = 0.05
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 2 }
+		add_to_variable = { var = british_drift value = -2 }
+	}
+}
+
+#Spain - Reminder
+country_event = {
+	id = spa.85
+	title = spa.85.t
+	desc = spa.85.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #well
+		name = spa.85.a
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 2 }
+		add_to_variable = { var = british_drift value = -2 }
+	}
+}
+
+#Spain - Himmler
+country_event = {
+	id = spa.86
+	title= spa.86.t
+	desc = spa.86.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #well
+		name = spa.86.a
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 2 }
+		add_to_variable = { var = british_drift value = -2 }
+	}
+}
+
+#Spain - German manoeuvres
+country_event = {
+	id = spa.87
+	title = spa.87.t
+	desc = spa.87.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #well
+		name = spa.87.a
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 2 }
+		add_to_variable = { var = british_drift value = -2 }
+	}
+}
+
+#Spain - German embargo
+country_event = {
+	id = spa.88
+	title = spa.88.t
+	desc = spa.88.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #well
+		name = spa.88.a
+		GER = {
+			add_opinion_modifier = {
+				target = SPN
+				modifier = embargo
+			}
+		}
+		add_opinion_modifier = {
+			target = SPN
+			modifier = embargo
+		}
+	}
+}
+
+#Spain - british trade
+country_event = {
+	id = spa.89
+	title = spa.89.t
+	desc = spa.89.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #yes
+		name = spa.89.a
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 0
+				GER = {
+					surrender_progress > 0.5
+				}
+			}
+			modifier = {
+				factor = 0.5
+				GER = {
+					NOT = { controls_state = 16 }
+				}
+			}
+			modifier = {
+				factor = 0.5
+				GER = {
+					strength_ratio = {
+						tag = ENG
+						ratio < 0.7
+					}
+				}
+			}
+		}
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 2 }
+		add_to_variable = { var = british_drift value = -2 }
+		remove_ideas = SPA_trade_britain
+		GER = { country_event = { id = spa.90 days = 2 } }
+		ENG = { country_event = { id = spa.92 days = 2 } }
+	}
+
+	option = { #no
+		name = spa.89.a
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 0.25
+				ENG = {
+					NOT = {
+						is_in_faction_with = USA
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				ENG = {
+					surrender_progress > 0.5
+				}
+			}
+			modifier = {
+				factor = 0.5
+				ENG = {
+					strength_ratio = {
+						tag = GER
+						ratio < 0.7
+					}
+				}
+			}
+		}
+		GER = { country_event = { id = spa.91 days = 2 } }
+	}
+}
+
+#Spain - british trade yes
+country_event = {
+	id = spa.90
+	title = spa.90.t
+	desc = spa.90.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+	trigger = {
+		tag = GER
+	}
+
+	option = { #yes
+		name = spa.90.a
+		custom_effect_tooltip = closer_us
+	}
+
+}
+
+#Spain - british trade no
+country_event = {
+	id = spa.91
+	title = spa.91.t
+	desc = spa.91.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+	trigger = {
+		tag = GER
+	}
+
+	option = { #yes
+		name = spa.91.a
+	}
+
+}
+
+#Spain - british trade yes
+country_event = {
+	id = spa.92
+	title = spa.92.t
+	desc = spa.92.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #yes
+		name = spa.92.a
+		custom_effect_tooltip = closer_ger
+	}
+
+}
+
+##### FLAVOR
+
+# The Valley of the Fallen
+#TODO: fuck mtth
+country_event = {
+	id = spa.70
+	title = spa.70.t
+	desc = spa.70.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	fire_only_once = yes
+	mean_time_to_happen = { days = 30 }
+	trigger = {
+		tag = SPN
+		has_country_flag = franco_power
+		has_war = no
+		date > 1940.4.4
+	}
+
+	option = {
+		name = spa.70.a
+	}
+}
+
+#####NEW IMPERIALISM
+
+#GIBRALTAR
+
+#Spain demands Gibraltar
+country_event = {
+	id = spa.93
+	title = spa.93.t
+	desc = spa.93.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #yes
+		name = spa.93.a
+		ai_chance = {
+			factor = 4
+			modifier = {
+				factor = 0
+				ENG = {
+					surrender_progress < 0.6
+				}
+			}
+			modifier = {
+				factor = 0.5
+				ENG = {
+					surrender_progress < 0.7
+				}
+			}
+			modifier = {
+				factor = 0.5
+				ENG = {
+					surrender_progress < 0.8
+				}
+			}
+			modifier = {
+				factor = 2
+				ENG = {
+					surrender_progress > 0.8
+				}
+			}
+			modifier = {
+				factor = 4
+				ENG = {
+					strength_ratio = {
+						tag = SPN
+						ratio < 0.9
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				ENG = {
+					strength_ratio = {
+						tag = SPN
+						ratio > 1.1
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				SPN = {
+					has_completed_focus = SPA_use_caution
+				}
+			}
+			custom_effect_tooltip = closer_us
+		}
+		SPN = { country_event = { id = spa.94 days = 1 } }
+	}
+
+	option = { #no
+		name = spa.93.b
+		ai_chance = {
+			factor = 6
+			modifier = {
+				factor = 2
+				is_historical_focus_on = yes
+			}
+		}
+		SPN = { country_event = { id = spa.95 days = 1 } }
+	}
+
+}
+
+#Spain gets Gibraltar
+country_event = {
+	id = spa.94
+	title = spa.94.t
+	desc = spa.94.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #yes
+		name = spa.94.a
+		if = {
+			limit = {
+				SPN = {
+					has_completed_focus = SPA_use_caution
+				}
+			}
+			custom_effect_tooltip = closer_to_britain
+			add_to_variable = { var = german_drift value = -3 }
+			add_to_variable = { var = british_drift value = 3 }
+		}
+		set_state_owner = 118
+		set_state_controller = 118
+		add_state_core = 118
+	}
+}
+
+#Spain doesnt get their demands
+country_event = {
+	id = spa.95
+	title = spa.95.t
+	desc = spa.95.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	is_triggered_only = yes
+
+	option = { #shit
+		name = spa.95.a
+		add_war_support = 0.05
+	}
+}
+
+#Spain demands Morocco
+# country_event = {
+# 	id = spa.104
+# 	title = spa.104.t
+# 	desc = spa.104.d
+# 	picture = GFX_report_event_generic_sign_treaty
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 	}
+
+# 	option = { #yes
+# 		name = spa.104.a
+# 		ai_chance = {
+# 			factor = 1
+# 			modifier = {
+# 				factor = 0
+# 				strength_ratio = {
+# 					tag = SPA
+# 					ratio > 0.8
+# 				}
+# 			}
+# 			modifier = {
+# 				factor = 2
+# 				surrender_progress > 0.6
+# 			}
+# 		}
+# 		SPA = { country_event = { id = spa.105 days = 2 } }
+# 	}
+
+# 	option = { #no
+# 		name = spa.104.b
+# 		ai_chance = {
+# 			factor = 1
+# 			modifier = {
+# 				factor = 2
+# 				strength_ratio = {
+# 					tag = SPA
+# 					ratio > 0.8
+# 				}
+# 			}
+# 		}
+# 		SPA = { country_event = { id = spa.95 days = 2 } }
+# 	}
+# }
+
+#Spain gets Morocco
+# country_event = {
+# 	id = spa.105
+# 	title = spa.105.t
+# 	desc = spa.105.d
+# 	picture = GFX_report_event_generic_sign_treaty
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 	}
+
+# 	option = { #yes
+# 		name = spa.105.a
+# 		every_country = {
+# 			limit = {
+# 				MRC = { is_subject_of = PREV }
+# 			}
+# 			PREV = {
+# 				end_puppet = MRC
+# 			}
+# 		}
+# 		SPA = {
+# 			puppet = MRC
+# 		}
+# 	}
+
+# }
+
+#Spain wants to join our faction
+# country_event = {
+# 	id = spa.108
+# 	title = spa.108.t
+# 	desc = spa.108.d
+# 	picture = GFX_report_event_generic_sign_treaty
+# 	is_triggered_only = yes
+# 	trigger = {
+# 	}
+
+# 	option = { #yes
+# 		name = spa.108.a
+# 		add_to_faction = SPA
+# 		SPA = { country_event = { id = spa.109 days = 1 } }
+# 	}
+
+# 	option = { #yes
+# 		name = spa.108.a
+# 		ai_chance = {
+# 			factor = 0
+# 		}
+# 		SPA = { country_event = { id = spa.110 days = 1 } }
+# 	}
+
+# }
+
+#Faction- agree
+country_event = {
+	id = spa.109
+	title = spa.109.t
+	desc = spa.109.d
+	picture = GFX_report_event_generic_sign_treaty
+	is_triggered_only = yes
+
+	option = { #yes
+		name = spa.109.a
+		effect_tooltip = {
+			FROM = {
+				add_to_faction = SPN
+			}
+		}
+	}
+
+}
+
+#Faction- disagree
+country_event = {
+	id = spa.110
+	title = spa.110.t
+	desc = spa.110.d
+	picture = GFX_report_event_generic_sign_treaty
+	is_triggered_only = yes
+
+	option = { #shit
+		name = spa.110.a
+	}
+
+}
+
+#German economic aid
+country_event = {
+	id = spa.111
+	title = spa.111.t
+	desc = spa.111.d
+	picture = GFX_report_event_generic_sign_treaty
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #yes
+		name = spa.107.a
+		add_stability = 0.03
+		random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+		}
+		random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+		}
+		random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+		}
+	}
+
+}
+
+#Germany-Tungsten proposal
+country_event = {
+	id = spa.112
+	title = spa.112.t
+	desc = spa.112.d
+	picture = GFX_report_event_generic_sign_treaty
+	is_triggered_only = yes
+
+	option = { #sure
+		name = spa.112.a
+		171 = {
+			add_resource = {
+				type = tungsten
+				amount = 60
+			}
+		}
+		give_resource_rights = { receiver = GER state = 171 resources = { tungsten } }
+		174 = {
+			add_resource = {
+				type = tungsten
+				amount = 45
+			}
+		}
+		hidden_effect = {
+			GER = { country_event = { id = spa.113 days = 1 } }
+		}
+	}
+
+	option = { #nah
+		name = spa.112.b
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			GER = { country_event = { id = spa.114 days = 1 } }
+		}
+	}
+
+}
+
+#tungsten- agree
+country_event = {
+	id = spa.113
+	title = spa.113.t
+	desc = spa.113.d
+	picture = GFX_report_event_generic_sign_treaty
+	is_triggered_only = yes
+
+	option = { #yes
+		name = spa.110.a
+		effect_tooltip = {
+			171 = {
+				add_resource = {
+					type = tungsten
+					amount = 60
+				}
+			}
+		}
+		give_resource_rights = { receiver = GER state = 171 resources = { tungsten } }
+		174 = {
+			add_resource = {
+				type = tungsten
+				amount = 45
+			}
+		}
+	}
+}
+
+#tungsten- disagree
+country_event = {
+	id = spa.114
+	title = spa.114.t
+	desc = spa.114.d
+	picture = GFX_report_event_generic_sign_treaty
+	is_triggered_only = yes
+
+	option = { #shit
+		name = spa.110.a
+	}
+
+}
+
+#Pro-German coup
+country_event = {
+	id = spa.115
+	title = spa.115.t
+	desc = spa.115.d
+	picture = GFX_report_event_generic_sign_treaty
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #yes
+		name = spa.115.a
+		remove_ideas = HoG_Franco
+		add_ideas = HoG_Hedilla
+		set_country_flag = Franco_incap
+		if = {
+			limit = {
+				has_idea = CA_Franco
+			}
+			remove_ideas = CA_Franco
+		}
+		retire_character = SPR_francisco_franco
+		retire_country_leader = yes
+		add_country_leader_role = {
+			character = "SPR_agustin_munoz_grandes"
+			promote_leader = yes
+			country_leader = {
+				ideology = falangism
+				expire = "1950.6.4.1"
+			}
+		}
+		add_popularity = { ideology = fascism popularity = 0.1 }
+		add_popularity = { ideology = nationalism popularity = -0.05 }
+		add_popularity = { ideology = monarchism popularity = -0.05 }
+		give_resource_rights = { receiver = GER state = 171 resources = { tungsten } }
+		give_resource_rights = { receiver = GER state = 174 resources = { tungsten } }
+		add_stability = -0.2
+		add_political_power = -200
+		add_war_support = -0.15
+	}
+
+	option = { #no
+		name = spa.115.b
+		ai_chance = {
+			factor = 0
+		}
+	}
+
+}
+
+#SECRET EVENT FOR HISTORICAL AI
+country_event = {
+	id = spa.1000
+	title = spa.1000.t
+	desc = spa.110.d
+	picture = GFX_report_event_generic_sign_treaty
+	mean_time_to_happen = { days = 2 } #TODO: mtth
+	trigger = {
+		tag = SPN
+		is_historical_focus_on = yes
+		is_ai = yes
+		GER = { is_ai = yes }
+		ENG = { is_ai = yes }
+		check_variable = { german_drift > 4 }
+	}
+
+	option = { #shit
+		name = spa.110.a
+		add_to_variable = { var = german_drift value = -4 }
+		add_to_variable = { var = british_drift value = 4 }
+	}
+}
+
+country_event = {
+	id = spa.1001
+	title = spa.1001.t
+	desc = spa.110.d
+	picture = GFX_report_event_generic_sign_treaty
+	mean_time_to_happen = { days = 2 } #TODO: mtth
+	trigger = {
+		tag = SPN
+		is_historical_focus_on = yes
+		is_ai = yes
+		GER = { is_ai = yes }
+		ENG = { is_ai = yes }
+		check_variable = { british_drift > 4 }
+	}
+
+	option = { #shit
+		name = spa.110.a
+		add_to_variable = { var = british_drift value = -4 }
+		add_to_variable = { var = german_drift value = 4 }
+	}
+
+}

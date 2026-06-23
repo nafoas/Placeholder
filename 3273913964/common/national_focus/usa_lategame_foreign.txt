@@ -1,0 +1,413 @@
+
+shared_focus = {
+	id = USA_new_superpower
+	icon = GFX_focus_Befriend_USA
+	cost = 3
+	available = {
+		always = no
+	}
+	completion_reward = {
+		custom_effect_tooltip = not_done_tt
+	}
+	x = 43
+    y = 0
+}
+
+shared_focus = {
+	id = USA_antagonize_soviets
+	icon = GFX_focus_Anti_Communist
+	cost = 3
+	prerequisite = { 
+	    focus = USA_new_superpower
+	}
+	mutually_exclusive = {
+	    focus = USA_push_detente
+	}
+	available = {
+	    SOV = {
+		    exists = yes
+			has_government = communism
+			NOT = { has_war_with = RUS }
+			NOT = { has_war_together_with = USA }
+			NOT = { is_in_faction_with = USA }
+		}
+		NOT = { has_government = social_democracy }
+	}
+	completion_reward = {
+	}
+	x = 1
+    y = 1
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_marshall_plan
+	icon = GFX_focus_European_Relations
+	cost = 3
+	prerequisite = { 
+	    focus = USA_antagonize_soviets
+	}
+	completion_reward = {
+	}
+	x = 2
+    y = 2
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_protect_turkey
+	icon = GFX_focus_Befriend_Turkey
+	cost = 3
+	prerequisite = { 
+	    focus = USA_antagonize_soviets
+	}
+	available = {
+	    NOT = { has_war_with = TUR }
+	}
+	completion_reward = {
+	}
+	x = 0
+    y = 2
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_support_greece
+	icon = GFX_focus_Greece
+	cost = 3
+	prerequisite = { 
+	    focus = USA_protect_turkey
+	}
+	prerequisite = { 
+	    focus = USA_marshall_plan
+	}
+	available = {
+	    NOT = { has_war_with = TUR }
+	}
+	completion_reward = {
+	}
+	x = 1
+    y = 3
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_contain_communism
+	icon = GFX_focus_Spear_the_Bear
+	cost = 3
+	prerequisite = { 
+	    focus = USA_marshall_plan
+	}
+	completion_reward = {
+	}
+	x = 3
+    y = 3
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_spanish_question
+	icon = GFX_focus_Through_Spain
+	cost = 3
+	prerequisite = { 
+	    focus = USA_protect_turkey
+	}
+	available = {
+	    SPA = {
+		    exists = yes
+			OR = {
+			    has_government = fascism
+				has_government = nationalism
+				has_government = neutrality
+			}
+			is_in_faction = no
+		}
+		NOT = { has_war_with = SPA }
+ 	}
+	bypass = {
+	    OR = { 
+		    SPA = { exists = no }
+			is_in_faction_with = SPA
+			has_war_with = SPA
+		}
+	}			
+	completion_reward = {
+	}
+	x = -1
+    y = 3
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_anti_communist_alliance
+	icon = GFX_focus_America_Fuck_Yeah
+	cost = 3
+	prerequisite = { 
+	    focus = USA_spanish_question
+	}
+	prerequisite = { 
+	    focus = USA_contain_communism
+	}
+	prerequisite = { 
+	    focus = USA_support_greece
+	}
+	completion_reward = {
+	}
+	x = 1
+    y = 4
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_push_detente
+	icon = GFX_Goal_Befriend_USSR
+	cost = 3
+	prerequisite = { 
+	    focus = USA_new_superpower
+	}
+	mutually_exclusive = {
+	    focus = USA_antagonize_soviets
+	}
+	available = { 
+	    has_government = social_democracy
+	}
+	completion_reward = {
+	}
+	x = 9
+    y = 1
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_joint_recovery_plan
+	icon = GFX_focus_Fundraising_alt
+	cost = 3
+	prerequisite = { 
+	    focus = USA_push_detente
+	}
+	completion_reward = {
+	}
+	x = 10
+    y = 2
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_anti_espionage_treaty
+	icon = GFX_focus_Risky_Deal
+	cost = 3
+	prerequisite = { 
+	    focus = USA_push_detente
+	}
+	completion_reward = {
+	}
+	x = 8
+    y = 2
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_anti_fascist_intervention
+	icon = GFX_focus_Through_Spain
+	cost = 3
+	prerequisite = { 
+	    focus = USA_joint_recovery_plan
+	}
+	available = {
+	    SPA = {
+		    exists = yes
+			OR = {
+			    has_government = fascism
+				has_government = nationalism
+				has_government = neutrality
+			}
+			is_in_faction = no
+		}
+		NOT = { has_war_with = SPA }
+ 	}
+	bypass = {
+	    OR = { 
+		    SPA = { exists = no }
+			is_in_faction_with = SPA
+			has_war_with = SPA
+		}
+	}
+	completion_reward = {
+	}
+	x = 11
+    y = 3
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_push_decolonization
+	icon = GFX_focus_eng_decolonization
+	cost = 3
+	prerequisite = { 
+	    focus = USA_joint_recovery_plan
+	}
+	prerequisite = { 
+	    focus = USA_anti_espionage_treaty
+	}
+	completion_reward = {
+	}
+	x = 9
+    y = 3
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_no_involvement_pact
+	icon = GFX_focus_Arrest_Nazis
+	cost = 3
+	prerequisite = { 
+	    focus = USA_anti_espionage_treaty
+	}
+	completion_reward = {
+	}
+	x = 7
+    y = 3
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_maintain_allies
+	icon = GFX_focus_Torch_of_Freedom
+	cost = 3
+	prerequisite = { 
+	    focus = USA_no_involvement_pact
+	}
+	prerequisite = { 
+	    focus = USA_push_decolonization
+	}
+	prerequisite = { 
+	    focus = USA_anti_fascist_intervention
+	}
+	completion_reward = {
+	}
+	x = 9
+    y = 4
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_support_china_kmt
+	icon = GFX_focus_Support_Chiang
+	cost = 3
+	mutually_exclusive = { focus = USA_recognize_prc }
+	prerequisite = { 
+	    focus = USA_push_detente
+		focus = USA_antagonize_soviets
+	}
+	available = {
+	    CHI = { exists = yes }
+	}
+	completion_reward = {
+	}
+	x = 4
+    y = 2
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_recognize_prc
+	icon = GFX_focus_chi_cooperation_with_the_communists
+	cost = 3
+	prerequisite = { 
+	    focus = USA_push_detente
+		focus = USA_antagonize_soviets
+	}
+	mutually_exclusive = { focus = USA_support_china_kmt }
+	available = {
+	    PRC = { owns_state = 608 }
+	}
+	completion_reward = {
+	}
+	x = 6
+    y = 2
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_ratify_un_charter
+	icon = GFX_focus_united_nations
+	cost = 3
+	prerequisite = { 
+	    focus = USA_new_superpower
+	}
+	completion_reward = {
+	}
+	x = -6
+    y = 1
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_gaat
+	icon = GFX_focus_Free_Trade
+	cost = 3
+	prerequisite = { 
+	    focus = USA_ratify_un_charter
+	}
+	completion_reward = {
+	}
+	x = -7
+    y = 2
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_iro
+	icon = GFX_focus_Pensions
+	cost = 3
+	prerequisite = { 
+	    focus = USA_ratify_un_charter
+	}
+	completion_reward = {
+	}
+	x = -5
+    y = 2
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_recognize_israel
+	icon = GFX_focus_Equality_for_Jews
+	cost = 3
+	prerequisite = { 
+	    focus = USA_ratify_un_charter
+	}
+	completion_reward = {
+	}
+	x = -6
+    y = 3
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_rio_pact
+	icon = GFX_focus_South_American_Relations
+	cost = 3
+	prerequisite = { 
+	    focus = USA_new_superpower
+	}
+	completion_reward = {
+	}
+	x = -3
+    y = 1
+	relative_position_id = USA_new_superpower
+}
+
+shared_focus = {
+	id = USA_oas
+	icon = GFX_goal_generic_national_unity
+	cost = 3
+	prerequisite = { 
+	    focus = USA_rio_pact
+	}
+	completion_reward = {
+	}
+	x = -3
+    y = 2
+	relative_position_id = USA_new_superpower
+}

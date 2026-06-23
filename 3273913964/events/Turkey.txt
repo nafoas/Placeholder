@@ -1,0 +1,306 @@
+###########################
+# Turkey Events TEMPORARY #
+###########################
+#These should be scrapped at some point and replaced with better ones - s_team
+add_namespace = tur
+
+##Event: Turkey Introduction
+country_event = {
+	id = tur.1
+	title = tur.1.t
+	desc = tur.1.d
+	picture = event_initial_turkey
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = tur.1.a
+		ai_chance = { factor = 1}
+	}
+}
+
+country_event = {
+	id = tur.2
+	title = tur.2.t
+	desc = tur.2.d
+	picture = generic_turkey_treaty_1
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = TUR
+	}
+	option = {
+		name = tur.2.a
+		ai_chance = { factor = 1}
+	}
+}
+country_event = {
+	id = tur.3
+	title = tur.3.t
+	desc = tur.3.d
+	picture = event_the_straits
+	is_triggered_only = yes
+	option = {
+		name = tur.3.a
+		set_global_flag = montreux_convention_flag
+		341 = {
+			set_demilitarized_zone = no
+		}
+		931 = {
+			set_demilitarized_zone = no
+		}
+	}
+}
+
+country_event = {
+	id = tur.4
+	title = tur.4.t
+	desc = tur.4.d
+	picture = event_political_islam
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = TUR
+	}
+	option = {
+		name = tur.4.a
+		ai_chance = { factor = 1}
+	}
+}
+
+###### Hatay demanding events
+country_event = { # retake hatay
+	id = tur.5
+	title = tur.5.t
+	desc = tur.5.d
+	picture = event_turkey_hatay
+	is_triggered_only = yes
+	option = {
+		name = tur.5.a
+		FRA = {
+			country_event = {
+				id = tur.6
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { # Demand From the TURKEY TO FRANCE
+	id = tur.6
+	title = tur.6.t
+	desc = tur.6.d
+	picture = event_turkish_troops_1
+	is_triggered_only = yes
+
+	option = { #decline
+		name = tur.6.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		TUR = {
+			country_event = {
+				id = tur.7
+				days = 3
+			}
+		}
+	}
+	option = { #accept
+		name = tur.6.b
+		ai_chance = {
+			factor = 99
+		}
+		TUR = {
+			country_event = {
+				id = tur.8
+				days = 3
+			}
+		}
+	}
+}
+
+country_event = { # Decline
+	id = tur.7
+	title = tur.7.t
+	desc = tur.7.d
+	picture = French_troops_in_syria
+	is_triggered_only = yes
+
+	option = {
+		name = tur.7.a
+		add_war_support = 0.05
+		ai_chance = {
+			factor = 10
+		}
+
+	}
+}
+
+
+country_event = { # Accept
+	id = tur.8
+	title = tur.8.t
+	desc = tur.8.d
+	picture = event_turkey_soviet_tanks
+	is_triggered_only = yes
+	option = {
+		name = tur.8.a
+		transfer_state = 1006
+		1006  = {
+			add_core_of = TUR
+		}
+	}
+}
+
+############ TIMED EVENTS
+country_event = { #Ataturk dead
+	id = tur.9
+	title = tur.9.t
+	desc = tur.9.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			retire_character = TUR_mustafa_kemal_ataturk
+			set_country_flag = TUR_ataturk_death
+		}
+	}
+	option = {
+		name = tur.9.a
+	}	
+}
+########### ECONOMIC EVENTS
+country_event = {
+	id = tur.16
+	title = tur.16.t
+	desc = tur.16.d
+	picture = event_turkey_Fevzi_takes_power
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = tur.16.a
+		set_country_flag = TUR_unions_are_allowed
+	}	
+	option = {
+		name = tur.16.b
+		set_country_flag = TUR_anti_union
+	}	
+}
+########### Continue with INONU
+
+country_event = {
+	id = tur.11
+	title = tur.11.t
+	desc = tur.11.d
+	picture = event_initial_turkey
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = tur.11.a
+		set_country_flag = TUR_inonu_takes_power
+	}
+}
+########### FEVZI CAKMAK TAKES POWER
+
+country_event = {
+	id = tur.12
+	title = tur.12.t
+	desc = tur.12.d
+	picture = event_turkey_Fevzi_takes_power
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = tur.12.a
+		set_politics = { ruling_party = nationalism elections_allowed = no }
+		set_country_flag = TUR_marshall_takes_power
+	}	
+}
+
+########### Democracy
+country_event = {
+	id = tur.13
+	title = tur.13.t
+	desc = tur.13.d
+	picture = generic_turkey_treaty_1
+	fire_only_once = yes
+	is_triggered_only = yes	
+	option = {
+		name = tur.13.a
+		set_country_flag = TUR_democratic_victory
+		TUR = {
+			country_event = {
+				id = tur.14
+			}
+		}
+	}
+	option = {
+	name = tur.13.b
+	set_country_flag = TUR_democratic_victory
+		TUR = {
+			country_event = {
+				id = tur.15
+			}
+		}
+	}
+}
+
+######### Celal bayar
+country_event = {
+	id = tur.14
+	title = tur.14.t
+	desc = tur.14.d
+	picture = generic_turkey_treaty_1
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = tur.14.a
+		set_country_flag = TUR_democratic_celal_bayar
+	}	
+}
+
+########### karabekir
+country_event = {
+	id = tur.15
+	title = tur.15.t
+	desc = tur.15.d
+	picture = generic_turkey_treaty_1
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = tur.15.a
+		set_country_flag = TUR_democratic_kazim_karabekir
+	}	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

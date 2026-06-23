@@ -1,0 +1,1013 @@
+shared_focus = {
+	id = ITA_foreign_ventures
+	icon = GFX_focus_Foreign_Diplomacy
+	x = 6
+	y = 0
+	cost = 7
+	ai_will_do = {
+		factor = 30
+	}
+	available = {
+		
+	}	
+	completion_reward = {
+		add_political_power = 25
+	}
+}
+
+shared_focus = {
+	id = ITA_four_power
+	icon = GFX_focus_Centralize_Provinces_GER
+	prerequisite = { focus = ITA_foreign_ventures}
+	mutually_exclusive = { focus = ITA_tour_de_france }
+	x = 2
+	y = 1
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = ITA_expansionist_german_government
+			GER = {
+				OR = {
+					has_country_flag = GER_hitler_in_power
+					has_country_flag = GER_DNVP_in_power
+				}
+			}
+		}
+	}
+	completion_reward = {
+		custom_effect_tooltip = ITA_four_power_pact_signing_tt
+		hidden_effect = {
+			ITA = {
+				country_event = ita_diplomacy.1
+			}
+			FRA = {
+				country_event = ita_diplomacy.1
+			}
+			GER = {
+				country_event = ita_diplomacy.1
+			}
+			ENG = {
+				country_event = ita_diplomacy.1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_sarra
+	icon = GFX_focus_eng_decolonization
+	prerequisite = { focus = ITA_four_power}
+	x = 2
+	y = 2
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+	}	
+	completion_reward = {
+		country_event = ita_diplomacy.2
+		hidden_effect = {
+			ENG = {
+				country_event = ita_diplomacy.2
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_form_stresa
+	icon = GFX_focus_protect_austria
+	prerequisite = { focus = ITA_four_power}
+	x = 4
+	y = 2
+	relative_position_id = ITA_foreign_ventures
+	cost = 6
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		has_country_flag = ITA_brenner_crisis_happened
+	}
+	completion_reward = {
+
+		add_opinion_modifier = {
+    			target = GER
+    			modifier = ITA_GER_stresa_front
+		}
+		add_opinion_modifier = {
+    			target = ENG
+    			modifier = ITA_FRA_ENG_stresa_front
+		}
+		add_opinion_modifier = {
+    			target = FRA
+    			modifier = ITA_FRA_ENG_stresa_front
+		}
+		add_opinion_modifier = {
+    			target = AUS
+    			modifier = ITA_AUS_stresa_front
+		}
+		GER = {
+			add_opinion_modifier = {
+    				target = ITA
+    				modifier = ITA_GER_stresa_front
+			}
+		}
+		FRA = {
+			add_opinion_modifier = {
+    				target = ITA
+    				modifier = ITA_FRA_ENG_stresa_front
+			}
+		}
+		ENG = {
+			add_opinion_modifier = {
+    				target = ITA
+    				modifier = ITA_FRA_ENG_stresa_front
+			}
+		}
+		AUS = {
+			add_opinion_modifier = {
+    				target = ITA
+    				modifier = ITA_AUS_stresa_front
+			}
+		}
+
+	}
+}
+
+shared_focus = {
+	id = ITA_franco_italian
+	icon = GFX_Focus_Agreemente_with_France
+	prerequisite = { focus = ITA_sarra}
+	x = 2
+	y = 3
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+	}	
+	completion_reward = {
+		country_event = ita_diplomacy.3
+		hidden_effect = {
+			FRA = {
+				country_event = ita_diplomacy.3
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_rome_protocol
+	icon = GFX_focus_Balkan_Swing
+	prerequisite = { focus = ITA_foreign_ventures}
+	x = 0
+	y = 2
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	completion_reward = {
+		AUS = {
+			country_event = {
+				id = ita_diplomacy.7
+				days = 5
+			}
+		}
+		HUN = {
+			country_event = {
+				id = ita_diplomacy.7
+				days = 10
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_tour_de_france
+	icon = GFX_focus_Italian_Shield
+	prerequisite = { focus = ITA_foreign_ventures}
+	mutually_exclusive = { focus = ITA_four_power}
+	x = -2
+	y = 1
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+		modifier = {
+			add = -30
+			is_historical_focus_on = yes
+		}
+	}
+	available = {	
+		NOT = { 
+			OR = { 
+				has_war_with = ENG has_war_with = FRA 
+			} 
+		}
+	}	
+	bypass = { 
+		OR = { 
+			has_war_with = ENG has_war_with = FRA 
+		}
+	}
+	completion_reward = {
+		ENG = { 
+			country_event = {
+    				id = ita_diplomacy.24
+    				days = 1
+			}
+		}
+		FRA = { 
+			country_event = {
+    				id = ita_diplomacy.25
+    				days = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_american_friends
+	icon = GFX_focus_German_Hegemony
+	prerequisite = { focus = ITA_tour_de_france}
+	x = -2
+	y = 2
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		NOT = { 
+			has_war_with = USA 
+		}
+	}	
+	bypass = { 
+			has_war_with = USA
+	}
+	completion_reward = {
+		USA = { 
+			country_event = {
+    				id = ita_diplomacy.19
+   				days = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_strength_at_home
+	icon = GFX_focus_Bullish_Diplomacy
+	prerequisite = { focus = ITA_tour_de_france}
+	x = -4
+	y = 2
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+	}	
+	completion_reward = {
+		add_war_support = 0.03
+		add_stability = 0.03
+	}
+}
+
+shared_focus = {
+	id = ITA_tour_de_turk
+	icon = GFX_focus_Italian_Soldiers
+	prerequisite = { focus = ITA_american_friends }
+	x = -2
+	y = 3
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		NOT = { 
+		has_war_with = TUR 
+		}
+	}	
+	bypass = { 
+		has_war_with = TUR
+	}
+	completion_reward = {
+		TUR = { 
+			country_event = {
+    				id = ita_diplomacy.16
+    				days = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_war_with_ethiopia
+	icon = GFX_Focus_Ethiopia_Attack_from_Italy
+	prerequisite = { focus = ITA_rome_protocol}
+	prerequisite = {
+		focus = ITA_tour_de_turk
+		focus = ITA_franco_italian
+	}
+	x = 0
+	y = 4
+	relative_position_id = ITA_foreign_ventures
+	cost = 0
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		always = no
+	}
+	bypass = {
+		has_country_flag = ITA_wal_wal_happened
+	}
+	completion_reward = {
+		}
+}
+
+shared_focus = {
+	id = ITA_hoare_laval
+	icon = GFX_Focus_Italy_Hoare_Laval_Pact
+	prerequisite = { focus = ITA_war_with_ethiopia}
+	x = 2
+	y = 5
+	relative_position_id = ITA_foreign_ventures
+	cost = 0
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		always = no
+	}
+	bypass = {
+		has_country_flag = ITA_hoare_laval_pact_set_in_motion
+	}
+	completion_reward = {
+	}
+}
+
+shared_focus = {
+	id = ITA_peace_in_our_time
+	icon = GFX_focus_Pacifist_State
+	prerequisite = {
+		focus = ITA_war_with_ethiopia
+	}
+	x = 0
+	y = 5
+	relative_position_id = ITA_foreign_ventures
+	cost = 0
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		always = no
+	}
+	bypass = {
+		has_country_flag = ITA_peace_in_ethiopia
+	}
+	completion_reward = {
+		}
+}
+
+shared_focus = {
+	id = ITA_ethiopia_guaranteed_conflict
+	icon = GFX_Focus_Italy_Invasion_of_Ethiopia
+	prerequisite = { focus = ITA_war_with_ethiopia}
+	x = -2
+	y = 5
+	relative_position_id = ITA_foreign_ventures
+	cost = 0
+	ai_will_do = {
+		factor = 0
+	}
+	available = {
+		always = no
+	}
+	bypass = {
+		has_country_flag = ITA_war_in_ethiopia
+	}
+	completion_reward = {
+		}
+}
+
+shared_focus = {
+	id = ITA_reconsider_foreign_policy
+	icon = GFX_focus_German_Constitutionalism
+	prerequisite = {
+		focus = ITA_peace_in_our_time
+		focus = ITA_ethiopia_guaranteed_conflict
+		focus = ITA_hoare_laval
+	}
+	x = 0
+	y = 6
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		OR = {
+			has_war = no
+			date > 1940.1.1
+		}
+	}	
+	completion_reward = {
+		add_political_power = 25
+	}
+}
+
+shared_focus = {
+	id = ITA_allied_flirtation
+	icon = GFX_focus_British_Bulldog
+	prerequisite = {focus = ITA_reconsider_foreign_policy}
+	mutually_exclusive = { focus = ITA_form_axis}
+	mutually_exclusive = { focus = ITA_formalise_rome_protocol}
+	x = 2
+	y = 7
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+		modifier = {
+			factor = 0
+			is_historical_focus_on = yes
+		}
+	}
+	available = {	
+		ENG = {
+			exists = yes
+			is_faction_leader = yes
+		}
+		NOT = {
+			has_war_with = ENG
+			is_in_faction_with = GER
+			has_offensive_war = yes
+
+		}
+		has_country_flag = ITA_hoare_laval_pact_set_in_motion
+	}	
+	bypass = {
+		is_in_faction_with = ENG
+		ENG = { 
+			is_faction_leader = yes
+
+		}
+	}
+	completion_reward = {
+		ENG = {
+			country_event = {
+				id = italy.45
+				days = 1
+			}
+		}
+		
+	}
+}
+
+shared_focus = {
+	id = ITA_statesman_reputation
+	icon = GFX_focus_ITA_Mussolini
+	prerequisite = {focus = ITA_allied_flirtation}
+	x = 3
+	y = 8
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		has_country_flag = ITA_allied_flirtation_flag
+		NOT = {
+			has_war_with = ENG
+			is_in_faction_with = GER
+			has_offensive_war = yes
+
+		}
+	}	
+	completion_reward = {
+		add_ideas = ITA_statesman_mussolini
+	}
+}
+
+shared_focus = {
+	id = ITA_attract_western_industry
+	icon = GFX_focus_Corporatism
+	prerequisite = {focus = ITA_statesman_reputation}
+	x = 3
+	y = 9
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		NOT = {
+			has_war_with = ENG
+			is_in_faction_with = GER
+			has_offensive_war = yes
+
+		}
+	}	
+	completion_reward = {
+		random_state = {
+			limit = {
+				is_owned_by = ITA
+				is_core_of = ITA
+				is_fully_controlled_by = ITA
+
+
+			}
+			add_building_construction = {
+    				type = industrial_complex
+    				level = 1
+    				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+
+		}
+		random_state = {
+			limit = {
+				is_owned_by = ITA
+				is_core_of = ITA
+				is_fully_controlled_by = ITA
+
+
+			}
+			add_building_construction = {
+    				type = arms_factory
+    				level = 1
+    				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_joint_naval_exercises
+	icon = GFX_Focus_British_Navy
+	prerequisite = {focus = ITA_attract_western_industry}
+	x = 3
+	y = 10
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		NOT = {
+			has_war_with = ENG
+			is_in_faction_with = GER
+			has_war = yes
+			ENG = {
+				has_war = yes
+			}
+		}
+	}	
+	completion_reward = {
+		ENG = {
+			country_event = {
+				id = italy.48
+				days = 1
+			}
+		}		
+	}
+}
+
+shared_focus = {
+	id = ITA_formalise_rome_protocol
+	icon = GFX_focus_Horthy_Mussolini
+	prerequisite = {focus = ITA_reconsider_foreign_policy}
+	mutually_exclusive = { focus = ITA_form_axis}
+	mutually_exclusive = { focus = ITA_allied_flirtation}
+	x = 0
+	y = 7
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+		modifier = {
+			factor = 0
+			GER = {
+				exists = yes
+				is_faction_leader = yes
+			}
+		}
+		modifier = {
+			factor = 0
+			date < 1939.1.1
+		}
+		modifier = {
+		    factor = 0
+			AND = {
+			    is_historical_focus_on = yes	
+				GER = { exists = yes }
+			}
+		}
+	}
+	available = {	
+		NOT = {
+			has_war_with = HUN
+			
+		}
+		HUN = {
+			exists = yes
+			is_in_faction = no
+		}
+		
+	}	
+	bypass = {
+		is_faction_leader = yes
+		HUN = { 
+			is_in_faction_with = ITA
+
+		}
+	}
+	completion_reward = {
+		HUN = {
+			country_event = {
+				id = italy.31
+				days = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_protect_austria
+	icon = GFX_focus_Befriend_Austria
+	prerequisite = {focus = ITA_formalise_rome_protocol}
+
+	x = 1
+	y = 8
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		NOT = {
+			has_country_flag = ITA_AUS_left_our_sphere
+			has_war_with = AUS
+			is_in_faction_with = GER
+			
+		}
+		AUS = {
+			exists = yes
+			is_in_faction = no
+		}
+		is_faction_leader = yes
+		
+	}	
+	completion_reward = {
+		AUS = {
+			country_event = {
+				id = italy.54
+				days = 1
+			}
+		}
+	}
+}
+
+
+shared_focus = {
+	id = ITA_form_axis
+	icon = GFX_Focus_Pact_Of_Steel_Focus
+	prerequisite = {focus = ITA_reconsider_foreign_policy}
+	mutually_exclusive = { focus = ITA_formalise_rome_protocol }
+	mutually_exclusive = { focus = ITA_allied_flirtation}
+	x = -2
+	y = 7
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		GER = {
+			is_faction_leader = yes
+		}
+		NOT = {
+			has_war_with = GER
+		}
+	}	
+	bypass = {
+		is_in_faction_with = GER
+	}
+	completion_reward = {
+
+		GER = {
+			country_event = {
+				id = italy.42
+				days = 1
+			}
+		}		
+	}
+}
+
+shared_focus = {
+	id = ITA_racial_discrimination
+	icon = GFX_focus_Crush_Resistance
+	prerequisite = {focus = ITA_form_axis}
+	x = -3
+	y = 8
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		is_in_faction_with = GER
+	}	
+	completion_reward = {
+		add_political_power = 50
+		add_ideas = ITA_racist_discrimination
+	}
+}
+
+shared_focus = {
+	id = ITA_annex_albania
+	icon = GFX_focus_Partition_Albania
+	prerequisite = {
+	focus = ITA_form_axis
+	focus = ITA_formalise_rome_protocol
+	}
+	x = -1
+	y = 8
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		NOT = {
+			owns_state = 1019
+			owns_state = 820
+			owns_state = 44
+		}
+		date > 1938.9.1
+		
+	}	
+	bypass = {
+		owns_state = 1019
+		owns_state = 820
+		owns_state = 44
+	}
+	completion_reward = {
+		unlock_decision_tooltip = ITA_ultimatum_to_albania_decision
+	}
+}
+
+shared_focus = {
+	id = ITA_dismantle_yugoslavia
+	icon = GFX_Focus_Division_of_Yugoslavia
+	prerequisite = {focus = ITA_align_bulgaria}
+	x = 0
+	y = 10
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		AND = {
+			owns_state = 44
+			controls_state = 44
+			owns_state = 1019
+			controls_state = 1019
+			owns_state = 820
+			controls_state = 820		
+		}
+		is_neighbor_of = YUG
+		NOT = {
+			is_in_faction_with = YUG
+			has_war_with = YUG
+		}
+		YUG = {
+			exists = yes
+		}
+		date > 1941.4.1
+
+
+	}	
+	bypass = {
+		OR = {
+
+			is_in_faction_with = YUG
+			has_war_with = YUG
+			YUG = {
+				exists = no
+			}
+		}
+	}
+	completion_reward = {
+		YUG = {
+			country_event = {
+				id = italy.15
+				days = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_align_bulgaria
+	icon = GFX_focus_Greater_Bulgaria_the_Sequel
+	prerequisite = {focus = ITA_annex_albania}
+	x = 1
+	y = 9
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		OR = {
+			is_faction_leader = yes
+			AND = {
+				is_in_faction_with = GER
+				GER = {
+					is_faction_leader = yes
+				}
+			}
+		}
+		NOT = {
+			is_in_faction_with = BUL
+			has_war_with = BUL
+		}
+		BUL = {
+			exists = yes
+		}
+		
+	}	
+	bypass = {
+		OR = {
+			BUL = {
+				exists = no
+			}
+			is_in_faction_with = BUL
+			has_war_with = BUL
+		}
+	}
+	completion_reward = {
+		IF = {
+			limit = {
+				is_faction_leader = yes
+			}
+			BUL = {
+				country_event = {
+					id = italy.17
+					days = 1
+				}
+			}
+			else = {
+				BUL = {
+					country_event = {
+						id = italy.36
+						days = 1
+					}
+				}				
+			}
+		}		
+	}
+}
+
+shared_focus = {
+	id = ITA_reconcile_greece
+	icon = GFX_focus_Collaborate_with_Local_Elites
+	prerequisite = {focus = ITA_annex_albania}
+	mutually_exclusive = { focus = ITA_greek_ultimatum}
+	x = -1
+	y = 9
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {	
+		is_faction_leader = yes
+		NOT = {
+			is_in_faction_with = GRE
+			has_war_with = GRE
+		}
+		GRE = {
+			exists = yes
+		}
+		date > 1940.10.1
+		
+	}	
+	completion_reward = {
+		GRE = {
+			country_event = {
+				id = italy.18
+				days = 1
+			}
+		}	
+	}
+}
+
+shared_focus = {
+	id = ITA_greek_ultimatum
+	icon = GFX_Focus_Italy_Utlimatum_to_Greece
+	prerequisite = {focus = ITA_annex_albania}
+	mutually_exclusive = { focus = ITA_reconcile_greece}
+	x = -3
+	y = 9
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		NOT = {
+			is_in_faction_with = GRE
+			has_war_with = GRE
+		}
+		GRE = {
+			exists = yes
+		}
+		is_neighbor_of = GRE
+		date > 1940.10.1
+
+	}	
+	bypass = {
+		OR = {
+			is_in_faction_with = GRE
+			has_war_with = GRE	
+			GRE = {
+				is_puppet_of = ITA
+			}	
+		}
+	}
+	completion_reward = {
+		GRE = {
+			country_event = {
+				id = italy.25
+				days = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_coerce_turkey
+	icon = GFX_goal_attack_turkey
+	prerequisite = {
+		focus = ITA_greek_ultimatum
+		focus = ITA_reconcile_greece
+	}
+	x = -2
+	y = 10
+	relative_position_id = ITA_foreign_ventures
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {	
+		is_faction_leader = yes
+		NOT = {
+			is_in_faction_with = TUR
+			has_war_with = TUR
+		}	
+		OR = {
+			is_neighbor_of = TUR
+			AND = {
+				BUL = {
+					is_in_faction_with = ITA
+					is_neighbor_of = TUR
+				}
+			}
+			AND = {
+				GRE = {
+					is_in_faction_with = ITA
+					is_neighbor_of = TUR
+				}
+			}
+		}
+			
+	}	
+	completion_reward = {
+			TUR = {
+				country_event = {
+					id = italy.27
+					days = 1
+				}
+			}
+		}
+}

@@ -1,0 +1,432 @@
+FIN_Set_Parliament = {
+	custom_effect_tooltip = FIN_Reshuffle_Parliament_tt
+	#Sets variable to check for discrepencies
+	set_variable = {
+		FIN_old_total_seats = FIN_total_seats
+	}
+	set_variable = {
+		FIN_com_seats = party_popularity@communism
+	}
+	set_variable = {
+		FIN_revsoc_seats = party_popularity@authoritarian_socialism
+	}
+	set_variable = {
+		FIN_demsoc_seats = party_popularity@socialism
+	}
+	set_variable = {
+		FIN_socdem_seats = party_popularity@social_democracy
+	}
+	set_variable = {
+		FIN_soclib_seats = party_popularity@social_liberalism
+	}
+	set_variable = {
+		FIN_marlib_seats = party_popularity@market_liberalism
+	}
+	set_variable = {
+		FIN_libcon_seats = party_popularity@jacobin
+	}
+	set_variable = {
+		FIN_soccon_seats = party_popularity@democratic
+	}
+	add_to_variable = {
+		FIN_soccon_seats = party_popularity@neutrality
+	}
+	set_variable = {
+		FIN_autdes_seats = party_popularity@monarchism
+	}
+	set_variable = {
+		FIN_faraut_seats = party_popularity@nationalism
+	}
+	set_variable = {
+		FIN_fas_seats = party_popularity@fascism
+	}
+	#Gets seats
+	multiply_variable = {
+		FIN_com_seats = FIN_total_seats
+	}
+	multiply_variable = {
+		FIN_revsoc_seats = FIN_total_seats
+	}
+	multiply_variable = {
+		FIN_demsoc_seats = FIN_total_seats
+	}
+	multiply_variable = {
+		FIN_socdem_seats = FIN_total_seats
+	}
+	multiply_variable = {
+		FIN_soclib_seats = FIN_total_seats
+	}
+	multiply_variable = {
+		FIN_marlib_seats = FIN_total_seats
+	}
+	multiply_variable = {
+		FIN_libcon_seats = FIN_total_seats
+	}
+	multiply_variable = {
+		FIN_soccon_seats = FIN_total_seats
+	}
+	multiply_variable = {
+		FIN_aut_seats = FIN_total_seats
+	}
+	multiply_variable = {
+		FIN_autdes_seats = FIN_total_seats
+	}
+	multiply_variable = {
+		FIN_faraut_seats = FIN_total_seats
+	}
+	multiply_variable = {
+		FIN_fas_seats = FIN_total_seats
+	}
+	#rounds
+	round_variable = FIN_com_seats
+	round_variable = FIN_revsoc_seats
+	round_variable = FIN_demsoc_seats
+	round_variable = FIN_socdem_seats
+	round_variable = FIN_soclib_seats
+	round_variable = FIN_marlib_seats
+	round_variable = FIN_libcon_seats
+	round_variable = FIN_soccon_seats
+	round_variable = FIN_aut_seats
+	round_variable = FIN_autdes_seats
+	round_variable = FIN_faraut_seats
+	round_variable = FIN_fas_seats
+	#Gets new total seat value
+	set_variable = {
+		FIN_total_seats = 0
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_com_seats
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_revsoc_seats
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_demsoc_seats
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_socdem_seats
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_soclib_seats
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_marlib_seats
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_libcon_seats
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_soccon_seats
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_aut_seats
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_autdes_seats
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_faraut_seats
+	}
+	add_to_variable = {
+		FIN_total_seats = FIN_fas_seats
+	}
+	#gets discrepency
+	subtract_from_variable = {
+		FIN_old_total_seats = FIN_total_seats
+	}
+	#deals with discrepency, if needed
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					FIN_old_total_seats = 0
+				}
+			}
+		}
+		add_to_variable = {
+			FIN_total_seats = FIN_old_total_seats
+		}
+		if = {
+			limit = {
+				has_government = communism
+			}
+			add_to_variable = {
+				FIN_com_seats = FIN_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = authoritarian_socialism
+			}
+			add_to_variable = {
+				FIN_revsoc_seats = FIN_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = socialism
+			}
+			add_to_variable = {
+				FIN_demsoc_seats = FIN_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_democracy
+			}
+			add_to_variable = {
+				FIN_socdem_seats = FIN_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_liberalism
+			}
+			add_to_variable = {
+				FIN_soclib_seats = FIN_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = market_liberalism
+			}
+			add_to_variable = {
+				FIN_marlib_seats = FIN_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = jacobin
+			}
+			add_to_variable = {
+				FIN_libcon_seats = FIN_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = democratic
+			}
+			add_to_variable = {
+				FIN_soccon_seats = FIN_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = neutrality
+			}
+			add_to_variable = {
+				FIN_aut_seats = FIN_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = monarchism
+			}
+			add_to_variable = {
+				FIN_autdes_seats = FIN_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = nationalism
+			}
+			add_to_variable = {
+				FIN_faraut_seats = FIN_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = fascism
+			}
+			add_to_variable = {
+				FIN_fas_seats = FIN_old_total_seats
+			}
+		}
+	}
+	#gets half
+	set_variable = {
+		FIN_seats_needed = FIN_total_seats
+	}
+	divide_variable = {
+		FIN_seats_needed = 2
+	}
+	round_variable = FIN_seats_needed
+	#Gets coalition
+	set_variable = {
+		FIN_coalition_seats = 0
+	}
+	FIN_get_coalition_seats = yes
+}
+FIN_get_coalition_seats = {
+	if = {
+		limit = {
+			is_in_array = { #communist
+				array = coalition_party_list
+				value = 0
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_com_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #revolutionary socialist
+				array = coalition_party_list
+				value = 1
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_revsoc_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #democratic socialist
+				array = coalition_party_list
+				value = 2
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_demsoc_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocDem
+				array = coalition_party_list
+				value = 3
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_socdem_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #soclib
+				array = coalition_party_list
+				value = 4
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_soclib_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #marlib
+				array = coalition_party_list
+				value = 5
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_marlib_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #LibCon
+				array = coalition_party_list
+				value = 6
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_libcon_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocCon
+				array = coalition_party_list
+				value = 7
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_soccon_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #Aut
+				array = coalition_party_list
+				value = 9
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_aut_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #monarchist
+				array = coalition_party_list
+				value = 8
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_autdes_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #nationalist
+				array = coalition_party_list
+				value = 10
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_faraut_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #fascist
+				array = coalition_party_list
+				value = 11
+			}
+		}
+		add_to_variable = {
+			FIN_coalition_seats = FIN_fas_seats
+		}
+	}
+}
+KR_attack_effect = {
+	custom_effect_tooltip = add_10_esc
+	add_to_variable  = {
+		var = global.KR_Tension
+		value = 10
+	}
+	clamp_variable = {
+		var = global.KR_Tension
+		min = 0
+		max = 100
+	}
+	if = {
+		limit = {
+			check_variable = {
+				var = global.KR_Tension
+				value = 100
+				compare = greater_than_or_equals
+			}
+		}
+		activate_mission = KR_start_war
+	}
+	clr_global_flag = KR_planning_attack
+	save_global_event_target_as = KR_most_recent_attacker
+	# set_variable = {
+	# 	global.KR_most_recent_attacker = THIS #most recent attacker
+	# }
+	FROM = {
+		owner = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = is_in_KR_conflict
+					}
+				}
+				set_country_flag = is_in_KR_conflict
+			}
+		}
+	}
+}

@@ -1,0 +1,7717 @@
+﻿#################################
+# Occupation Events
+# Feel free to create and modify
+# the events for your country
+#################################
+
+add_namespace = occupation
+
+# Generic France Partition
+country_event = {
+	id = occupation.1
+	title = occupation.1.t
+	desc = occupation.1.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # partition - full
+		ai_chance = {
+			factor = 15
+		}
+		name = occupation.1.a
+		trigger = {
+			OR = {
+				controls_state = 1
+				controls_state = 14
+			}
+			NOT = {
+				country_exists = BRI
+				country_exists = CRS
+			}
+		}
+
+		if = {
+			limit = {
+				controls_state = 14
+				BRI = {
+					OR = {
+						exists = no
+						is_puppet_of = ROOT
+					}
+				}
+			}
+			add_BRI_cores = yes
+			every_owned_state = {
+				limit = {
+					is_core_of = BRI
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				BRI = {
+					transfer_state = PREV
+				}
+			}
+			hidden_effect = {
+				puppet = BRI
+				BRI = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				controls_state = 1
+				CRS = {
+					OR = {
+						exists = no
+						is_puppet_of = ROOT
+					}
+				}
+			}
+			add_CRS_cores = yes
+			every_owned_state = {
+				limit = {
+					is_core_of = CRS
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				CRS = {
+					transfer_state = PREV
+				}
+			}
+			hidden_effect = {
+				puppet = CRS
+				CRS = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = FRA
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			FRA = {
+				transfer_state = PREV
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = FRA
+			FRA = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # FRA only
+		ai_chance = {
+			factor = 75
+		}
+		name = occupation.1.c
+
+		every_owned_state = {
+			limit = {
+				is_core_of = FRA
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			FRA = {
+				transfer_state = PREV
+			}
+		}
+		puppet = FRA
+		hidden_effect = {
+			FRA = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # full occupuation
+		ai_chance = {
+			factor = 0
+		}
+		name = occupation.1.e
+		add_political_power = -200
+		add_stability = -0.20
+		add_war_support = -0.20
+		set_country_flag = FRA_annex
+	}
+}
+
+# Canada
+country_event = {
+	id = occupation.2
+	title = occupation.2.t
+	desc = occupation.2.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release CAN
+		name = occupation.2.a
+		ai_chance = {
+			factor = 40
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = CAN
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			CAN = {
+				transfer_state = PREV
+			}
+		}
+		puppet = CAN
+		hidden_effect = {
+			CAN = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # release CAN / QUE
+		name = occupation.2.b
+		ai_chance = {
+			factor = 40
+		}
+		trigger = {
+			OR = {
+				controls_state = 467
+				controls_state = 740
+				controls_state = 1003 #cl
+				controls_state = 471
+			}
+		}
+		if = {
+			limit = {
+				controls_state = 1003
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = QUE
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				QUE = {
+					transfer_state = PREV
+				}
+			}
+			hidden_effect = {
+				puppet = QUE
+				QUE = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = CAN
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			CAN = {
+				transfer_state = PREV
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = CAN
+			CAN = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+
+	option = {
+		name = occupation.2.c
+		add_political_power = -100
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = CAN_annex
+	}
+}
+
+# Mexico
+country_event = {
+	id = occupation.3
+	title = occupation.3.t
+	desc = occupation.3.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release MEX
+		name = occupation.3.a
+		ai_chance = {
+			factor = 40
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = MEX
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			MEX = {
+				transfer_state = PREV
+			}
+		}
+		puppet = MEX
+		hidden_effect = {
+			MEX = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # release MEX / YUC 
+		name = occupation.3.b
+		ai_chance = {
+			factor = 40
+		}
+		trigger = {
+			OR = {
+				has_full_control_of_state = 483
+				has_full_control_of_state = 474
+			}
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = YUC
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			YUC = {
+				transfer_state = PREV
+			}
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = MEX
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			MEX = {
+				transfer_state = PREV
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = MEX
+			puppet = YUC
+			MEX = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			YUC = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+
+	option = {
+		name = occupation.2.c
+		add_political_power = -250
+		add_stability = -0.20
+		add_war_support = -0.15
+		set_country_flag = MEX_annex
+	}
+}
+
+# Guatemala
+country_event = {
+	id = occupation.4
+	title = occupation.4.t
+	desc = occupation.4.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release GUA
+		name = occupation.4.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = GUA
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			GUA = {
+				transfer_state = PREV
+			}
+		}
+		puppet = GUA
+		hidden_effect = {
+			GUA = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.4.b
+		add_political_power = -25
+		set_country_flag = GUA_annex
+	}
+}
+
+# Honduras
+country_event = {
+	id = occupation.5
+	title = occupation.5.t
+	desc = occupation.5.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release HON
+		name = occupation.5.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = HON
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			HON = {
+				transfer_state = PREV
+			}
+		}
+		puppet = HON
+		hidden_effect = {
+			HON = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.5.b
+		add_political_power = -10
+		set_country_flag = HON_annex
+	}
+}
+
+# Switzerland
+country_event = { 
+	id = occupation.6
+	title = occupation.6.t
+	desc = occupation.6.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release SWI
+		name = occupation.6.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = SWI
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SWI = {
+				transfer_state = PREV
+			}
+		}
+		puppet = SWI
+		hidden_effect = {
+			SWI = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		ai_chance = {
+			factor = 10
+		}
+		name = occupation.6.b
+		add_political_power = -75
+		set_country_flag = SWI_annex
+	}
+}
+
+# Luxemburg
+country_event = {
+	id = occupation.7
+	title = occupation.7.t
+	desc = occupation.7.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release LUX
+		name = occupation.7.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = LUX
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			LUX = {
+				transfer_state = PREV
+			}
+		}
+		puppet = LUX
+		hidden_effect = {
+			LUX = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		ai_chance = {
+			factor = 10
+		}
+		name = occupation.7.b
+		add_political_power = -15
+		set_country_flag = LUX_annex
+	}
+}
+
+# Belgium
+country_event = { 
+	id = occupation.8
+	title = occupation.8.t
+	desc = occupation.8.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+
+	option = { # release BEL
+		name = occupation.8.a
+		ai_chance = {
+			factor = 40
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = BEL
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			BEL = {
+				transfer_state = PREV
+			}
+		}
+		puppet = BEL
+		hidden_effect = {
+			BEL = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # release FLA/WAL
+		name = occupation.8.b
+		trigger = {
+			NOT = {
+				is_in_faction_with = WAL
+				has_war_with = WAL 
+				country_exists = WAL
+				is_in_faction_with = FLA
+				has_war_with = FLA
+				country_exists = FLA
+			}
+		}
+		ai_chance = {
+			factor = 40
+		}
+
+
+		every_owned_state = {
+			limit = {
+				is_core_of = FLA
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			FLA = {
+				transfer_state = PREV
+			}
+
+		}
+
+		every_owned_state = {
+			limit = {
+				is_not_claim_or_core_of_ROOT = yes
+				is_core_of = WAL
+			}
+			WAL = {
+				transfer_state = PREV
+			}
+		}
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = FLA
+			puppet = WAL
+			FLA = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			WAL = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+
+	}
+	
+	option = {
+		name = occupation.8.c
+		ai_chance = {
+			factor = 20
+		}
+		add_political_power = -75
+		set_country_flag = BEL_annex
+	}
+}
+
+# El Salvador
+country_event = {
+	id = occupation.9
+	title = occupation.9.t
+	desc = occupation.9.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release ELS
+		name = occupation.9.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = ELS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			ELS = {
+				transfer_state = PREV
+			}
+		}
+		puppet = ELS
+		hidden_effect = {
+			ELS = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		ai_chance = {
+			factor = 10
+		}
+		name = occupation.9.b
+		add_political_power = -25
+		set_country_flag = ELS_annex
+	}
+}
+
+# Nicaragua
+country_event = {
+	id = occupation.10
+	title = occupation.10.t
+	desc = occupation.10.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release NIC
+		name = occupation.10.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = NIC
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			NIC = {
+				transfer_state = PREV
+			}
+		}
+		puppet = NIC
+		hidden_effect = {
+			NIC = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		ai_chance = {
+			factor = 10
+		}
+		name = occupation.10.b
+		add_political_power = -25
+		set_country_flag = NIC_annex
+	}
+}
+
+# Costa Rica
+country_event = {
+	id = occupation.11
+	title = occupation.11.t
+	desc = occupation.11.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release COS
+		name = occupation.9.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = COS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			COS = {
+				transfer_state = PREV
+			}
+		}
+		puppet = COS
+		hidden_effect = {
+			COS = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		ai_chance = {
+			factor = 10
+		}
+		name = occupation.9.b
+		add_political_power = -25
+		add_stability = -0.025
+		add_war_support = -0.025
+		set_country_flag = COS_annex
+	}
+}
+
+# Netherlands / Holland
+country_event = {
+	id = occupation.12
+	title = occupation.12.t
+	desc = occupation.12.d
+	picture = GFX_event_Generic_occupation
+
+	is_triggered_only = yes
+	
+	option = { # release Netherlands / Holland
+		name = occupation.12.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = HOL
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			HOL = {
+				transfer_state = PREV
+			}
+
+		}
+		puppet = HOL
+		hidden_effect = {
+			HOL = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.12.b
+		add_political_power = -75
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = HOL_annex
+	}
+}
+
+country_event = { # Generic Spain - Right Wing
+	id = occupation.13
+	title = occupation.13.t
+	desc = occupation.13.d
+	picture = GFX_event_Generic_occupation
+
+	is_triggered_only = yes
+	
+	option = { # release SPA
+		name = occupation.13.a
+		ai_chance = {
+			factor = 40
+		}
+
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = SPR
+					is_core_of = SPA
+				}
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SPA = {
+				transfer_state = PREV
+			}
+		}
+
+		if = {
+			limit = {
+				SPA = { controls_state = 178 }
+			}
+			transfer_state = 178
+		}
+		if = {
+			limit = {
+				SPA = { controls_state = 177 }
+			}
+			transfer_state = 177
+		}
+
+		puppet = SPA
+		hidden_effect = {
+			SPA = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # release SPR, GAL, CAT, BAS,
+		name = occupation.13.b
+		trigger = {
+			controls_state = 171
+			controls_state = 165
+			controls_state = 172
+			controls_state = 169
+		}
+		ai_chance = {
+			factor = 40
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = GAL
+				is_not_claim_or_core_of_ROOT = yes
+			}
+					
+			GAL = {
+				transfer_state = PREV
+			}
+		}
+
+		if = {
+			limit = {
+				174 = { is_controlled_by = ROOT }
+			}
+			GAL = { transfer_state = 174 }
+		}
+		if = {
+			limit = {
+				826 = { is_controlled_by = ROOT }
+			}
+			GAL = { transfer_state = 826 }
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = CAT
+				is_not_claim_or_core_of_ROOT = yes
+			}
+					
+			CAT = {
+				transfer_state = PREV
+			}
+		}
+
+		if = {
+			limit = {
+				166 = { is_controlled_by = ROOT }
+			}
+			CAT = { transfer_state = 166 }
+		}
+		if = {
+			limit = {
+				167 = { is_controlled_by = ROOT }
+			}
+			CAT = { transfer_state = 167 }
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = BAS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+					
+			BAS = {
+				transfer_state = PREV
+			}				
+		}
+
+		if = {
+			limit = {
+				176 = { is_controlled_by = ROOT }
+			}
+			BAS = { transfer_state = 176 }
+		}
+		if = {
+			limit = {
+				752 = { is_controlled_by = ROOT }
+			}
+			BAS = { transfer_state = 752 }
+		}
+
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = SPR
+					is_core_of = SPA			
+				}
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SPA = {
+				transfer_state = PREV
+			}
+		}
+		if = {
+			limit = {
+				SPA = { controls_state = 178 }
+			}
+			transfer_state = 178
+		}
+		if = {
+			limit = {
+				SPA = { controls_state = 177 }
+			}
+			transfer_state = 177
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = SPA
+			puppet = GAL
+			puppet = CAT
+			puppet = BAS
+			SPA = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			GAL = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			CAT = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			BAS = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.13.c
+		add_political_power = -200
+		add_stability = -0.15
+		add_war_support = -0.15
+		set_country_flag = SPR_annex
+	}
+}
+
+country_event = { # Generic Spain - Left Wing
+	id = occupation.14
+	title = occupation.14.t
+	desc = occupation.14.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+
+	option = { # release SPR
+		name = occupation.14.a
+		ai_chance = {
+			factor = 40
+		}
+
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = SPR
+					is_core_of = SPA			
+				}
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SPR = {
+				transfer_state = PREV
+			}
+		}
+		puppet = SPR
+		hidden_effect = {
+			SPR = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # release SPR, GAL, CAT, BAS,
+		name = occupation.14.b
+		trigger = {
+			OR = {
+				controls_state = 171
+				controls_state = 165
+				controls_state = 172
+				controls_state = 169
+			}
+		}
+		ai_chance = {
+			factor = 40
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = GAL
+				is_not_claim_or_core_of_ROOT = yes
+			}
+					
+			GAL = {
+				transfer_state = PREV
+			}
+		}
+
+		if = {
+			limit = {
+				174 = { is_controlled_by = ROOT }
+			}
+			GAL = { transfer_state = 174 }
+		}
+		if = {
+			limit = {
+				826 = { is_controlled_by = ROOT }
+			}
+		GAL = { transfer_state = 826 }
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = CAT
+				is_not_claim_or_core_of_ROOT = yes
+			}
+					
+			CAT = {
+				transfer_state = PREV
+			}
+		}
+				
+		if = {
+			limit = {
+				166 = { is_controlled_by = ROOT }
+			}
+			CAT = { transfer_state = 166 }
+		}
+		if = {
+			limit = {
+				167 = { is_controlled_by = ROOT }
+			}
+			CAT = { transfer_state = 167 }
+		}
+		if = {
+			limit = {
+				177 = { is_controlled_by = ROOT }
+			}
+			CAT = { transfer_state = 177 }
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = BAS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+					
+			BAS = {
+				transfer_state = PREV
+			}
+		}
+				
+		if = {
+			limit = {
+				176 = { is_controlled_by = ROOT }
+			}
+			BAS = { transfer_state = 176 }
+		}
+		if = {
+			limit = {
+				752 = { is_controlled_by = ROOT }
+			}
+			BAS = { transfer_state = 752 }
+		}
+
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = SPR
+					is_core_of = SPA			
+				}
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SPR = {
+				transfer_state = PREV
+			}
+		}
+		
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = SPR
+			puppet = GAL
+			puppet = CAT
+			puppet = BAS
+			SPR = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			GAL = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			CAT = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			BAS = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.14.c
+		add_political_power = -200
+		add_stability = -0.15
+		add_war_support = -0.15
+		set_country_flag = SPR_annex
+	}
+}
+
+# Portugal
+country_event = {
+	id = occupation.15
+	title = occupation.15.t
+	desc = occupation.15.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release POR
+		name = occupation.15.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = POR
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			POR = {
+				transfer_state = PREV
+			}
+		}
+		puppet = POR
+		hidden_effect = {
+			POR = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+		if = {
+			limit = {
+				POR = { controls_state = 697 }
+			}
+			transfer_state = 697
+		}
+		if = {
+			limit = {
+				POR = { controls_state = 698 }
+			}
+			transfer_state = 698
+		}	
+	}
+	
+	option = {
+		name = occupation.15.b
+		add_political_power = -75
+		add_stability = -0.1
+		set_country_flag = POR_annex
+	}
+}
+
+# Panama
+country_event = {
+	id = occupation.16
+	title = occupation.16.t
+	desc = occupation.16.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release PAN
+		name = occupation.16.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = PAN
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			PAN = {
+				transfer_state = PREV
+			}
+		}
+		puppet = PAN
+		hidden_effect = {
+			PAN = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+
+	option = { # release PAN and keep the Canal
+		name = occupation.16.b
+		ai_chance = {
+			factor = 900
+		}
+		trigger = {
+			controls_state = 685
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = PAN
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			PAN = {
+				transfer_state = PREV
+			}
+		}
+		puppet = PAN
+		hidden_effect = {
+			PAN = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+		if = {
+			limit = {
+				PAN = { controls_state = 685 }
+			}
+			transfer_state = 685
+		}	
+	}
+	
+	option = {
+		name = occupation.16.c
+		add_political_power = -30
+		set_country_flag = PAN_annex
+	}
+}
+
+# Colombia
+country_event = {
+	id = occupation.17
+	title = occupation.17.t
+	desc = occupation.17.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release COL
+		name = occupation.17.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = COL
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			COL = {
+				transfer_state = PREV
+			}
+		}
+		puppet = COL
+		hidden_effect = {
+			COL = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.17.b
+		add_political_power = -100
+		add_stability = -0.08
+		set_country_flag = COL_annex
+	}
+}
+
+# Venezuela
+country_event = {
+	id = occupation.18
+	title = occupation.18.t
+	desc = occupation.18.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release VEN
+		name = occupation.18.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = VEN
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			VEN = {
+				transfer_state = PREV
+			}
+		}
+		puppet = VEN
+		hidden_effect = {
+			VEN = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.18.b
+		add_political_power = -75
+		add_stability = -0.1
+		set_country_flag = VEN_annex
+	}
+}
+
+# Ecuador
+country_event = {
+	id = occupation.19
+	title = occupation.19.t
+	desc = occupation.19.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release ECU
+		name = occupation.19.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = ECU
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			ECU = {
+				transfer_state = PREV
+			}
+		}
+		puppet = ECU
+		hidden_effect = {
+			ECU = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.19.b
+		add_political_power = -50
+		add_stability = -0.05
+		set_country_flag = ECU_annex
+	}
+}
+
+# Ireland
+country_event = {
+	id = occupation.20
+	title = occupation.20.t
+	desc = occupation.20.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release IRE
+		name = occupation.20.a
+		ai_chance = {
+			factor = 70
+		}
+		IRE = { add_state_core = 119 }
+		every_owned_state = {
+			limit = {
+				is_core_of = IRE
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			IRE = {
+				transfer_state = PREV
+			}
+		}
+		puppet = IRE
+		hidden_effect = {
+			IRE = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+
+	}
+	
+	option = { # release IRE and ULS
+		name = occupation.20.b
+		ai_chance = {
+			factor = 20
+		}
+		trigger = {
+			controls_state = 119
+		}
+		#IRE = { add_state_core = 199 }
+		every_owned_state = {
+			limit = {
+				is_core_of = IRE
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			IRE = {
+				transfer_state = PREV
+			}
+
+		}
+		
+		every_owned_state = {
+			limit = {
+				is_core_of = ULS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			ULS = {
+				transfer_state = PREV
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = ULS
+			puppet = IRE
+			ULS = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			IRE = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.20.c
+		add_political_power = -50
+		add_stability = -0.03
+		set_country_flag = IRE_annex
+	}
+}
+
+# Peru
+country_event = {
+	id = occupation.21
+	title = occupation.21.t
+	desc = occupation.21.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release PRU
+		name = occupation.21.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = PRU
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			PRU = {
+				transfer_state = PREV
+			}
+		}
+		puppet = PRU
+		hidden_effect = {
+			PRU = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.21.b
+		add_political_power = -75
+		add_stability = -0.05
+		set_country_flag = PRU_annex
+	}
+}
+
+# Denmark
+country_event = {
+	id = occupation.22
+	title = occupation.22.t
+	desc = occupation.22.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release DEN
+		name = occupation.22.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = DEN
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			DEN = {
+				transfer_state = PREV
+			}
+		}
+		puppet = DEN
+		hidden_effect = {
+			DEN = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.22.b
+		add_political_power = -10
+		set_country_flag = DEN_annex
+	}
+}
+
+# Sweden
+country_event = {
+	id = occupation.23
+	title = occupation.23.t
+	desc = occupation.23.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release SWE
+		name = occupation.23.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = SWE
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SWE = {
+				transfer_state = PREV
+			}
+		}
+		puppet = SWE
+		hidden_effect = {
+			SWE = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.23.b
+		add_political_power = -50
+		add_stability = -0.08
+		set_country_flag = SWE_annex
+	}
+}
+
+# Finland
+country_event = {
+	id = occupation.24
+	title = occupation.24.t
+	desc = occupation.24.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release FIN
+		name = occupation.24.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = FIN
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			FIN = {
+				transfer_state = PREV
+			}
+		}
+		puppet = FIN
+		hidden_effect = {
+			FIN = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.24.b
+		add_political_power = -50
+		add_stability = -0.05
+		set_country_flag = FIN_annex
+	}
+}
+
+# Norway
+country_event = {
+	id = occupation.25
+	title = occupation.25.t
+	desc = occupation.25.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release NOR
+		name = occupation.25.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				is_core_of = NOR
+			}
+			NOR = {
+				transfer_state = PREV
+			}
+		}
+		puppet = NOR
+		hidden_effect = {
+			NOR = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.25.b
+		add_political_power = -50
+		add_stability = -0.05
+		set_country_flag = NOR_annex
+	}
+}
+
+# Estonia
+country_event = {
+	id = occupation.26
+	title = occupation.26.t
+	desc = occupation.26.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release EST
+		name = occupation.26.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = EST
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			EST = {
+				transfer_state = PREV
+			}
+		}
+		puppet = EST
+		hidden_effect = {
+			EST = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.26.b
+		add_political_power = -25
+		add_stability = -0.02
+		set_country_flag = EST_annex
+	}
+}
+
+# Latvia
+country_event = {
+	id = occupation.27
+	title = occupation.27.t
+	desc = occupation.27.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release LAT
+		name = occupation.27.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = LAT
+
+			}
+			LAT = {
+				transfer_state = PREV
+			}
+		}
+		puppet = LAT
+		hidden_effect = {
+			LAT = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.27.b
+		add_political_power = -50
+		add_stability = -0.02
+		set_country_flag = LAT_annex
+	}
+}
+
+# Lithuania
+country_event = {
+	id = occupation.28
+	title = occupation.28.t
+	desc = occupation.28.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release LIT
+		name = occupation.28.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = LIT
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			LIT = {
+				transfer_state = PREV
+			}
+		}
+		puppet = LIT
+		hidden_effect = {
+			LIT = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.28.b
+		add_political_power = -50
+		add_stability = -0.01
+		set_country_flag = LIT_annex
+	}
+}
+
+# Hungary
+
+country_event = {
+	id = occupation.29
+	title = occupation.29.t
+	desc = occupation.29.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release HUN
+		name = occupation.29.a
+		ai_chance = {
+			base = 90
+		}
+		every_controlled_state = {
+			limit = {
+				is_core_of = HUN
+				is_not_claim_or_core_of_ROOT = yes
+				NOT = {
+					state = 1046
+					state = 1048
+					state = 76
+					state = 45
+					state = 1031
+					state = 664
+					state = 1207
+					state = 815
+					state = 1054
+				}
+			}
+			HUN = {
+				transfer_state = PREV
+			}
+		}
+		puppet = HUN
+		hidden_effect = {
+			HUN = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.29.b
+		add_political_power = -50
+		add_stability = -0.03
+		set_country_flag = HUN_annex
+	}
+}
+
+# Austria
+country_event = {
+	id = occupation.30
+	title = occupation.30.t
+	desc = occupation.30.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release AUS
+		name = occupation.30.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = AUS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			AUS = {
+				transfer_state = PREV
+			}
+		}
+		puppet = AUS
+		hidden_effect = {
+			AUS = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.30.b
+		add_political_power = -50
+		set_country_flag = AUS_annex
+	}
+}
+
+# Albania
+country_event = {
+	id = occupation.31
+	title = occupation.31.t
+	desc = occupation.31.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release ALB
+		name = occupation.31.a
+		ai_chance = {
+			factor = 90
+		}
+		
+		every_owned_state = {
+			limit = {
+				is_core_of = ALB
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			ALB = {
+				transfer_state = PREV
+			}
+		}
+		puppet = ALB
+		hidden_effect = {
+			ALB = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.31.b
+		add_political_power = -50
+		set_country_flag = ALB_annex
+	}
+}
+
+# Bulgaria
+country_event = {
+	id = occupation.32
+	title = occupation.32.t
+	desc = occupation.32.d
+	picture = GFX_event_Generic_occupation
+
+	is_triggered_only = yes
+	
+	option = { # release BUL
+		name = occupation.32.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = BUL
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			BUL = {
+				transfer_state = PREV
+			}
+		}
+		puppet = BUL
+		hidden_effect = {
+			BUL = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+		
+	}
+	
+	option = {
+		name = occupation.32.b
+		add_political_power = -50
+		add_stability = -0.04
+		set_country_flag = BUL_annex
+	}
+}
+
+# Greece
+country_event = {
+	id = occupation.33
+	title = occupation.33.t
+	desc = occupation.33.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release GRE
+		name = occupation.33.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = GRE
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			GRE = {
+				transfer_state = PREV
+			}
+		}
+		puppet = GRE
+		hidden_effect = {
+			GRE = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.33.b
+		add_political_power = -50
+		add_stability = -0.03
+		set_country_flag = GRE_annex
+	}
+}
+
+# Turkey
+country_event = {
+	id = occupation.34
+	title = occupation.34.t
+	desc = occupation.34.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release TUR
+		name = occupation.34.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = TUR
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			TUR = {
+				transfer_state = PREV
+			}
+		}
+		puppet = TUR
+		hidden_effect = {
+			TUR = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.34.b
+		add_political_power = -50
+		add_stability = -0.05
+		set_country_flag = TUR_annex
+	}
+}
+
+# Britain
+country_event = {
+	id = occupation.35
+	title = occupation.35.t
+	desc = occupation.35.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release UKP
+		name = occupation.35.a
+		ai_chance = {
+			factor = 40
+		}
+		if = {
+			limit = {
+				OR = {
+					is_in_faction_with = USA
+					is_in_faction_with = CAN
+					is_in_faction_with = SAF
+					is_in_faction_with = AST
+					is_in_faction_with = NZL
+					is_in_faction_with = RAJ
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = UKP
+						is_core_of = ENG
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				add_core_of = ENG
+				hidden_effect = {
+					UKP = { remove_state_core = PREV }
+				}
+				ENG = {
+					transfer_state = PREV
+				}
+			}
+			puppet = ENG
+			hidden_effect = {
+				ENG = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+		else = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = UKP
+						is_core_of = ENG
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				add_core_of = UKP
+				hidden_effect = {
+					ENG = { remove_state_core = PREV }
+				}
+				UKP = {
+					transfer_state = PREV
+				}
+			}
+			puppet = UKP
+			hidden_effect = {
+				UKP = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+	}
+	
+	option = { # release SCO/WLS/EGL
+		name = occupation.35.b
+		trigger = {
+			NOT = {
+				OR = {
+					country_exists = SCO
+					country_exists = WLS
+					country_exists = EGL
+				}
+			}
+		}
+		ai_chance = {
+			factor = 40
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = SCO
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SCO = {
+				transfer_state = PREV
+			}
+		}
+		puppet = SCO
+		hidden_effect = {
+			SCO = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = WLS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			WLS = {
+				transfer_state = PREV
+			}
+		}
+		puppet = WLS
+		hidden_effect = {
+			WLS = {
+				hidden_effect = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = ULS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			ULS = {
+				transfer_state = PREV
+			}
+		}
+		puppet = ULS
+		hidden_effect = {
+			ULS = {
+				hidden_effect = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = EGL
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			EGL = {
+				transfer_state = PREV
+			}
+		}
+		puppet = EGL
+		hidden_effect = {
+			EGL = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.35.e
+		add_political_power = -150
+		add_stability = -0.1
+		set_country_flag = ENG_annex
+	}
+}
+
+# Scotland
+country_event = {
+	id = occupation.36
+	title = occupation.36.t
+	desc = occupation.36.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release SCO
+		name = occupation.36.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = SCO
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SCO = {
+				transfer_state = PREV
+			}
+		}
+		puppet = SCO
+		hidden_effect = {
+			SCO = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.36.b
+		add_political_power = -50
+		add_stability = -0.03
+		set_country_flag = SCO_annex
+	}
+}
+
+# Wales
+country_event = {
+	id = occupation.37
+	title = occupation.37.t
+	desc = occupation.37.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release WLS
+		name = occupation.37.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = WLS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			WLS = {
+				transfer_state = PREV
+			}
+		}
+		puppet = WLS
+		hidden_effect = {
+			WLS = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.37.b
+		add_political_power = -25
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = WLS_annex
+	}
+}
+
+# Romania
+country_event = {
+	id = occupation.38
+	title = occupation.38.t
+	desc = occupation.38.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release ROM
+		name = occupation.38.a
+		ai_chance = {
+			factor = 80
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = ROM
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			ROM = {
+				transfer_state = PREV
+			}
+		}
+		puppet = ROM
+		hidden_effect = {
+			ROM = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # release TRN//MLD
+		name = occupation.38.b
+		trigger = {
+			NOT = {
+				country_exists = TRN 
+				country_exists = MLD
+			}
+			OR = {
+				controls_state = 76
+				controls_state = 82
+				controls_state = 46
+				controls_state = 78
+			}
+		}
+		ai_chance = {
+			factor = 10
+		}
+		if = {
+			limit = {
+				controls_state = 76
+			}
+			add_TRN_cores = yes
+			every_owned_state = {
+				limit = {
+					is_core_of = TRN
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				TRN = {
+					transfer_state = PREV
+				}
+			}
+			hidden_effect = {
+				puppet = TRN
+				TRN = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				controls_state = 78
+			}
+			add_MLD_cores = yes
+			every_owned_state = {
+				limit = {
+					is_core_of = MLD
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				MLD = {
+					transfer_state = PREV
+				}
+			}
+			hidden_effect = {
+				puppet = MLD
+				MLD = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+	}
+	
+	option = {
+		name = occupation.38.c
+		add_political_power = -100
+		add_stability = -0.085
+		add_war_support = -0.085
+		set_country_flag = ROM_annex
+	}
+}
+
+# Bolivia
+country_event = {
+	id = occupation.39
+	title = occupation.39.t
+	desc = occupation.39.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	
+	option = { # release BOL
+		name = occupation.39.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = BOL
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			BOL = {
+				transfer_state = PREV
+			}
+		}
+		puppet = BOL
+		hidden_effect = {
+			BOL = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.39.b
+		add_political_power = -50
+		add_stability = -0.03
+		set_country_flag = BOL_annex
+	}
+}
+
+# Paraguay
+country_event = {
+	id = occupation.40
+	title = occupation.40.t
+	desc = occupation.40.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release PAR
+		name = occupation.40.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = PAR
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			PAR = {
+				transfer_state = PREV
+			}
+		}
+		puppet = PAR
+		hidden_effect = {
+			PAR = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.40.b
+		add_political_power = -50
+		add_stability = -0.03
+		set_country_flag = PAR_annex
+	}
+
+}
+
+# Brazil
+country_event = {
+	id = occupation.41
+	title = occupation.41.t
+	desc = occupation.41.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release BRA
+		name = occupation.41.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = BRA
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			BRA = {
+				transfer_state = PREV
+			}
+		}
+		puppet = BRA
+		hidden_effect = {
+			BRA = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+
+	option = { # release BRA
+		name = occupation.41.b
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = RGR
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			RGR = {
+				transfer_state = PREV
+			}
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = BRA
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			BRA = {
+				transfer_state = PREV
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = BRA
+			puppet = RGR
+			BRA = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			RGR = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.41.c
+		add_political_power = -50
+		add_stability = -0.2
+		set_country_flag = BRA_annex
+	}
+}
+
+# Poland
+country_event = {
+	id = occupation.42
+	title = occupation.42.t
+	desc = occupation.42.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release POL
+		name = occupation.42.a
+		ai_chance = {
+			factor = 40
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = POL
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			POL = {
+				transfer_state = PREV
+			}
+		}
+		puppet = POL
+		hidden_effect = {
+			POL = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # release POL/UKR/BLR
+		name = occupation.42.b
+		trigger = {
+			OR = {
+				NOT = { country_exists = UKR }
+				NOT = { country_exists = BLR }
+			}
+			OR = {
+				controls_state = 91
+				controls_state = 94
+			}
+			NOT = {
+				original_tag = SOV
+			}
+		}
+		ai_chance = {
+			factor = 40
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = UKR }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = UKR
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				UKR = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = UKR_cat
+		}
+		
+		if = {
+			limit = {
+				NOT = { country_exists = BLR }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = BLR
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				BLR = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = BLR_cat
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = POL
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			POL = {
+				transfer_state = PREV
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = UKR_cat
+				}
+				puppet = UKR
+				UKR = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = BLR_cat
+				}
+				puppet = BLR
+				BLR = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			puppet = POL
+			POL = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.42.c
+		add_political_power = -100
+		add_stability = -0.1
+		set_country_flag = POL_annex
+	}
+}
+
+# Czechoslovakia
+country_event = {
+	id = occupation.43
+	title = occupation.43.t
+	desc = occupation.43.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release CZE
+		name = occupation.43.a
+		ai_chance = {
+			factor = 40
+		}
+
+		hidden_effect = {
+			if = {
+				limit = {
+					country_exists = SLO
+				}
+				CZE = { set_cosmetic_tag = CZE_ONLY }
+				every_state = {
+					limit = {
+						is_core_of = CZE
+						is_core_of = SLO
+					}
+					remove_core_of = CZE
+				}
+			}
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = CZE
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			CZE = {
+				transfer_state = PREV
+			}
+		}
+		puppet = CZE
+		hidden_effect = {
+			CZE = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # release CZE/SLO
+		name = occupation.43.b
+		trigger = {
+			NOT = { country_exists = SLO }
+			controls_state = 70
+		}
+		ai_chance = {
+			factor = 40
+		}
+		hidden_effect = {
+			CZE = {
+				set_cosmetic_tag = CZE_ONLY
+			}
+			every_state = {
+				limit = {
+					is_core_of = CZE
+					is_core_of = SLO
+				}
+				remove_core_of = CZE
+			}
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = SLO
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SLO = {
+				transfer_state = PREV
+			}
+		}
+			
+		every_owned_state = {
+			limit = {
+				is_core_of = CZE
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			CZE = {
+				transfer_state = PREV
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = CZE
+			puppet = SLO
+			CZE = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			SLO = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+		
+	}
+	
+	option = {
+		name = occupation.43.c
+		add_political_power = -40
+		add_stability = -0.03
+		set_country_flag = CZE_annex
+	}
+}
+
+# Slovakia
+country_event = {
+	id = occupation.44
+	title = occupation.44.t
+	desc = occupation.44.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release SLO
+		name = occupation.44.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				OR = {
+					tag = AUS
+					tag = HUN
+					tag = ITA
+					tag = GER
+				}
+			}
+		}
+
+		hidden_effect = {
+			if = {
+				limit = {
+					country_exists = CZE
+					CZE = {
+					    NOT = {
+						    is_puppet_of = GER
+						}
+					}
+				}
+				CZE = { set_cosmetic_tag = CZE_ONLY }
+				every_state = {
+					limit = {
+						is_core_of = CZE
+						is_core_of = SLO
+					}
+					remove_core_of = CZE
+				}
+			}
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = SLO
+				is_not_claim_or_core_of_ROOT = yes
+				}
+			SLO = {
+				transfer_state = PREV
+			}
+		}
+		puppet = SLO
+		hidden_effect = {
+			SLO = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.44.b
+		add_political_power = -20
+		add_stability = -0.03
+		set_country_flag = SLO_annex
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+# Yugoslavia
+country_event = {
+	id = occupation.45
+	title = occupation.45.t
+	desc = occupation.45.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release YUG
+		name = occupation.45.a
+		ai_chance = {
+			factor = 40
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = YUG
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			YUG = {
+				transfer_state = PREV
+			}
+		}
+		puppet = YUG
+		hidden_effect = {
+			YUG = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # Balkanize 
+		name = occupation.45.b
+		ai_chance = {
+			factor = 40
+		}
+
+		country_event = occupation.76
+		set_country_flag = YUG_annex
+		if = {
+			limit = {
+				any_owned_state = {
+					is_core_of = SLV
+					is_not_claim_or_core_of_ROOT = yes
+				}
+			}
+			custom_effect_tooltip = release_balkans_tt
+			else = {
+				custom_effect_tooltip = release_balkans1_tt
+			}
+		}
+		# will release SER, CRO and SLV always
+	}
+	
+	option = {
+		name = occupation.45.e
+		add_political_power = -300
+		add_stability = -0.20
+		add_war_support = -0.10
+		set_country_flag = YUG_annex
+	}
+}
+
+country_event = { # MNT
+	id = occupation.46
+	title = occupation.46.t
+	desc = occupation.46.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release MNT
+		name = occupation.46.a
+		trigger = {
+			NOT = { country_exists = MNT }
+		}
+		ai_chance = {
+			base = 90
+			modifier = {
+				factor = 0
+				OR = {
+					tag = ITA
+					tag = GER
+				}
+			}
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = MNT
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			MNT = {
+				transfer_state = PREV
+			}
+		}
+		puppet = MNT
+		hidden_effect = {
+			MNT = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+
+	option = { # give to Serbia
+		name = occupation.46.c
+		trigger = {
+			is_ally_with = SER
+			SER = { controls_state = 917 }
+		}
+		ai_chance = {
+			base = 5
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = MNT
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SER = {
+				transfer_state = PREV
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.46.b
+		add_political_power = -25
+		add_stability = -0.025
+		add_war_support = -0.02
+		set_country_flag = MNT_annex
+		ai_chance = {
+			base = 5
+		}
+	}
+}
+
+country_event = { # BOS
+	id = occupation.47
+	title = occupation.47.t
+	desc = occupation.47.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release BOS
+		name = occupation.47.a
+		trigger = {
+			NOT = { country_exists = BOS }
+		}
+		ai_chance = {
+			base = 90
+		}
+		release_puppet_on_controlled = BOS
+	}
+
+	option = { # give to Serbia
+		name = occupation.46.c
+		trigger = {
+			is_ally_with = SER
+			country_exists = SER
+			SER = { controls_state = 917 }
+		}
+		ai_chance = {
+			base = 5
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = BOS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SER = {
+				transfer_state = PREV
+			}
+		}
+	}
+	option = { # Partition
+		name = "Partition bosnia between Serbs and Croats"
+		trigger = {
+			country_exists = SER
+			is_ally_with = SER
+			SER = { controls_state = 917 }
+			country_exists = CRO
+			is_ally_with = CRO
+			CRO = {
+				controls_state = 103
+				controls_state = 891
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+		104 = { transfer_state_to = SER }
+		906 = { transfer_state_to = CRO }
+		908 = { transfer_state_to = CRO }
+		909 = { transfer_state_to = CRO }
+	}
+
+	option = { # give to Croatia
+		name = occupation.46.e
+		trigger = {
+			is_ally_with = CRO
+			CRO = { owns_state = 109 }
+		}
+		ai_chance = {
+			base = 5
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = BOS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			CRO = {
+				transfer_state = PREV
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.47.b
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = BOS_annex
+	}
+}
+
+country_event = { # CRO
+	id = occupation.48
+	title = occupation.48.t
+	desc = occupation.48.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release CRO
+		name = occupation.48.a
+		ai_chance = {
+			base = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = CRO
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			CRO = {
+				transfer_state = PREV
+			}
+		}
+		puppet = CRO
+	}
+	option = {
+		name = occupation.48.b
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = CRO_annex
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+country_event = { # SLV
+	id = occupation.49
+	title = occupation.49.t
+	desc = occupation.49.d
+	picture = GFX_event_Generic_occupation
+	is_triggered_only = yes
+	option = { # release SLV
+		name = occupation.49.a
+		ai_chance = {
+			base = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = SLV
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SLV = {
+				transfer_state = PREV
+			}
+		}
+		puppet = SLV
+	}
+	option = {
+		name = occupation.49.b
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = SLV_annex
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+country_event = { # MCE
+	id = occupation.50
+	title = occupation.50.t
+	desc = occupation.50.d
+	picture = GFX_event_Generic_occupation
+	is_triggered_only = yes
+	option = { # release MCE
+		name = occupation.50.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = MCE
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			MCE = {
+				transfer_state = PREV
+			}
+		}
+		puppet = MCE
+		
+	}
+	
+	option = {
+		name = occupation.50.b
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = MCE_annex
+	}
+}
+
+# Italy
+country_event = {
+	id = occupation.51
+	title = occupation.51.t
+	desc = occupation.51.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	#option = { # ITA, SAR, SCL
+	#	ai_chance = {
+	#		factor = 30
+	#	}
+	#	name = occupation.51.a
+	#	trigger = {
+	#		controls_state = 114
+	#		controls_state = 115
+	#		NOT = {
+	#			country_exists = SAR
+	#			country_exists = SCL
+	#		}
+	#	}
+	#
+	#	add_SCL_cores = yes
+	#	add_SAR_cores = yes
+	#
+	#	every_owned_state = {
+	#		limit = {
+	#			is_core_of = SCL
+	#			is_not_claim_or_core_of_ROOT = yes
+	#		}
+	#		SCL = {
+	#			transfer_state = PREV
+	#		}
+	#	}
+	#		
+	#	every_owned_state = {
+	#		limit = {
+	#			is_core_of = SAR
+	#			is_not_claim_or_core_of_ROOT = yes
+	#		}
+	#		SAR = {
+	#			transfer_state = PREV
+	#		}
+	#	}
+	#
+	#	if = {
+	#		limit = {
+	#			OR = {
+	#				has_government = fascism
+	#				has_government = nationalism
+	#			}
+	#		}
+	#		hidden_effect = {
+	#			every_state = {
+	#				limit = {
+	#					is_core_of = ITA
+	#				}
+	#				add_core_of = SRI
+	#			}
+	#		}
+	#		every_owned_state = {
+	#			limit = {
+	#				is_core_of = SRI
+	#				is_not_claim_or_core_of_ROOT = yes
+	#			}
+	#			SRI = {
+	#				transfer_state = PREV
+	#			}
+	#		}
+	#	}
+	#
+	#	else = {
+	#		every_owned_state = {
+	#			limit = {
+	#				is_core_of = ITA
+	#				is_not_claim_or_core_of_ROOT = yes
+	#			}
+	#			ITA = {
+	#				transfer_state = PREV
+	#			}
+	#		}
+	#	}
+	#
+	#	custom_effect_tooltip = lib_countries_becomes_puppet_tt
+	#	hidden_effect = {
+	#		puppet = TRI
+	#		puppet = TYR
+	#		if = {
+	#			limit = {
+	#				OR = {
+	#					has_government = fascism
+	#					has_government = nationalism
+	#				}
+	#			}
+	#			puppet = SRI
+	#		}
+	#		else = {
+	#			puppet = ITA
+	#		}
+	#		if = {
+	#			limit = {
+	#				NOT = { has_government = monarchism }
+	#			}
+	#			ITA = { drop_cosmetic_tag = yes }
+	#		}
+	#	}
+	#}
+	
+	#TODO
+	 option = { # ITA only
+	 	ai_chance = {
+	 		factor = 30
+	 	}
+	 	name = occupation.51.c
+
+		every_owned_state = {
+			limit = {
+				is_core_of = ITA
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			ITA = {
+				transfer_state = PREV
+			}
+		}
+		puppet = ITA
+	 }
+	
+	option = { # full occupuation
+		ai_chance = {
+			factor = 5
+		}
+		name = occupation.51.e
+		add_political_power = -150
+		add_stability = -0.15
+		add_war_support = -0.15
+		set_country_flag = ITA_annex
+	}
+}
+
+# Chile
+country_event = {
+	id = occupation.52
+	title = occupation.52.t
+	desc = occupation.52.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release CHL
+		name = occupation.52.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = CHL
+				is_not_claim_or_core_of_ROOT = yes
+				}
+			CHL = {
+				transfer_state = PREV
+			}
+		}
+		puppet = CHL
+	}
+	
+	option = {
+		name = occupation.52.b
+		add_political_power = -75
+		set_country_flag = CHL_annex
+	}
+}
+
+# Argentina
+country_event = {
+	id = occupation.53
+	title = occupation.53.t
+	desc = occupation.53.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release ARG
+		name = occupation.53.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = ARG
+				is_not_claim_or_core_of_ROOT = yes
+				}
+			ARG = {
+				transfer_state = PREV
+			}
+		}
+		puppet = ARG
+	}
+	
+	option = {
+		name = occupation.53.b
+		add_political_power = -150
+		set_country_flag = ARG_annex
+	}
+}
+
+# Uruguay
+country_event = {
+	id = occupation.54
+	title = occupation.54.t
+	desc = occupation.54.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release URG
+		name = occupation.54.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = URG
+				is_not_claim_or_core_of_ROOT = yes
+				}
+			URG = {
+				transfer_state = PREV
+			}
+		}
+		puppet = URG
+	}
+	
+	option = {
+		name = occupation.54.b
+		add_political_power = -25
+		set_country_flag = URG_annex
+	}
+}
+
+# India
+country_event = {
+	id = occupation.55
+	title = occupation.55.t
+	desc = occupation.55.d
+	picture = GFX_event_Generic_occupation
+
+	is_triggered_only = yes
+
+	option = { # release RAJ as colony
+		name = occupation.55.a
+		ai_chance = {
+			factor = 90
+		}
+		trigger = {
+			capital_scope = {
+				is_on_continent = europe
+			}
+		}
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = RAJ
+					is_core_of = HND
+					is_core_of = PAK
+					is_core_of = BRM
+					is_core_of = MYS
+				}
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			RAJ = {
+				transfer_state = PREV
+			}
+		}
+		RAJ = { set_cosmetic_tag = RAJ_UK }
+		puppet = RAJ
+	}
+
+	option = { # Release HND -> India Republic
+		name = occupation.55.b
+		ai_chance = {
+			factor = 90
+		}
+		trigger = {
+			NOT = {
+				capital_scope = {
+					is_on_continent = europe
+				}
+			}
+		}
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = RAJ
+					is_core_of = HND
+					is_core_of = PAK
+					is_core_of = BRM
+					is_core_of = MYS
+				}
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			HND = {
+				transfer_state = PREV
+			}
+		}
+		puppet = HND
+	}
+
+	option = { # Dismantle
+		name = occupation.55.c
+		trigger = {
+			NOT = {
+				country_exists = MYS
+				country_exists = BRM
+				country_exists = PAK
+			}
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = MYS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			MYS = {
+				transfer_state = PREV
+			}
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = BRM
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			BRM = {
+				transfer_state = PREV
+			}
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = PAK
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			PAK = {
+				transfer_state = PREV
+			}
+		}
+
+		if = {
+			limit = {
+				capital_scope = { is_on_continent = europe }
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RAJ
+						is_core_of = HND
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				RAJ = {
+					transfer_state = PREV
+				}
+			}
+		}
+		else = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RAJ
+						is_core_of = HND
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				HND = {
+					transfer_state = PREV
+				}
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = RAJ
+			puppet = HND
+			puppet = MYS
+			puppet = BRM
+			puppet = PAK
+		}
+	}
+
+	option = {
+		name = occupation.55.e
+		add_political_power = -200
+		set_country_flag = RAJ_annex
+	}
+}
+
+# Cuba
+country_event = {
+	id = occupation.56
+	title = occupation.56.t
+	desc = occupation.56.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release CUB
+		name = occupation.56.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = CUB
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			CUB = {
+				transfer_state = PREV
+			}
+		}
+		puppet = CUB
+	}
+	
+	option = {
+		name = occupation.56.b
+		add_political_power = -10
+	}
+}
+
+# Dominican Republic
+
+country_event = {
+	id = occupation.57
+	title = occupation.57
+	desc = occupation.57
+	picture = GFX_event_Generic_occupation
+
+	is_triggered_only = yes
+
+	option = { # release DOM
+		name = occupation.57.a
+		ai_chance = {
+			factor = 50
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = DOM
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			DOM = {
+				transfer_state = PREV
+			}
+		}
+		puppet = DOM
+	}
+
+	option = {
+		name = occupation.57.b
+		ai_chance = {
+			factor = 50
+		}
+		add_political_power = -10
+		set_country_flag = DOM_annex
+	}
+}
+
+# Haiti
+country_event = {
+	id = occupation.58
+	title = occupation.58.t
+	desc = occupation.58.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release HAI
+		name = occupation.58.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = HAI
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			HAI = {
+				transfer_state = PREV
+			}
+		}
+		puppet = HAI	
+	}
+	
+	option = {
+		name = occupation.58.b
+		add_political_power = -10
+		set_country_flag = HAI_annex
+	}
+}
+
+# Australia
+country_event = {
+	id = occupation.59
+	title = occupation.59.t
+	desc = occupation.59.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release AST
+		name = occupation.59.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = AST
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			AST = {
+				transfer_state = PREV
+			}
+		}
+		puppet = AST
+	}
+	
+	option = {
+		name = occupation.59.b
+		add_political_power = -10
+		set_country_flag = AST_annex
+	}
+}
+
+# New Zealand
+country_event = {
+	id = occupation.60
+	title = occupation.60.t
+	desc = occupation.60.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release NZL
+		name = occupation.60.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = NZL
+
+			}
+			NZL = {
+				transfer_state = PREV
+			}
+		}
+		puppet = NZL
+	}
+	
+	option = {
+		name = occupation.60.b
+		add_political_power = -50
+		set_country_flag = NZL_annex
+	}
+}
+
+country_event = { # Xinjiang
+	id = occupation.61
+	title = occupation.61.t
+	desc = occupation.61.d
+	picture = GFX_event_Generic_occupation
+
+	is_triggered_only = yes
+	
+	option = { # release SIK
+		name = occupation.61.a
+		ai_chance = {
+			factor = 90
+		}
+		if = {
+			limit = {
+				NOT = { original_tag = JAP }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = SIK
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				SIK = {
+					transfer_state = PREV
+				}
+			}
+			puppet = SIK
+		}
+		else = {
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = UTP
+						is_claimed_by = UTP
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				UTP = {
+					transfer_state = PREV
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.61.b
+		add_political_power = -50
+		add_stability = -0.005
+		add_war_support = -0.005
+		set_country_flag = SIK_annex
+	}
+}
+
+# Germany
+country_event = {
+	id = occupation.62
+	title = occupation.62.t
+	desc = occupation.62.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+
+	option = { # partition - full
+		ai_chance = {
+			factor = 1
+		}
+		name = occupation.62.a
+
+		trigger = {
+			controls_state = 64
+			controls_state = 52
+			controls_state = 59
+			controls_state = 745
+			
+			PRS = {
+				exists = no
+			}
+			BAV = {
+				exists = no
+			}
+			RHN = {
+				exists = no
+			}
+		}
+
+		add_PRS_cores = yes
+		add_BAV_cores = yes
+		add_RHN_cores = yes
+		add_LSX_cores = yes
+
+		every_owned_state = {
+			limit = {
+				is_core_of = PRS
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			PRS = {
+				transfer_state = PREV
+			}
+
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = BAV
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			BAV = {
+				transfer_state = PREV
+			}
+		}
+
+		every_owned_state = {
+			limit = {	
+				is_core_of = RHN
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			RHN = {
+				transfer_state = PREV
+			}
+		}
+
+		every_owned_state = {
+			limit = {	
+				is_core_of = LSX
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			LSX = {
+				transfer_state = PREV
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = PRS
+			puppet = BAV
+			puppet = RHN
+			puppet = LSX
+		}
+	}
+
+	option = { # GER only
+		ai_chance = {
+			factor = 80
+		}
+		name = occupation.62.b
+
+		if = {
+			limit = {
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = neutrality
+					has_government = monarchism
+				}
+			}
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = DDR
+							is_core_of = WGR
+							is_core_of = GER
+						}
+					}
+					add_core_of = GER
+				}
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = GER
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				GER = {
+					transfer_state = PREV
+					hidden_effect = {
+						clr_country_flag = GER_hitler_in_power
+						clr_country_flag = GER_Military_Coup
+						clr_country_flag = GER_Himmler_Coup
+					}
+				}
+			}
+			puppet = GER
+
+			if = {
+				limit = {
+					OR = {
+						country_exists = DDR
+						country_exists = WGR
+					}
+				}
+				DDR = { 
+					if = {
+						limit = {
+							owns_state = 64
+						}
+						set_cosmetic_tag = GER_EAST
+					}
+					else_if = {
+						limit = {
+							owns_state = 1176
+						}
+						set_cosmetic_tag = GER_WEST
+					}
+					else_if = {
+						limit = {
+							owns_state = 59
+						}
+						set_cosmetic_tag = GER_NORTH
+					}
+				}
+				GER = {
+					if = {
+						limit = {
+							owns_state = 64
+						}
+						set_cosmetic_tag = GER_EAST
+					}
+					else_if = {
+						limit = {
+							owns_state = 1176
+						}
+						set_cosmetic_tag = GER_WEST
+					}
+					else_if = {
+						limit = {
+							owns_state = 59
+						}
+						set_cosmetic_tag = GER_NORTH
+					}
+				}
+				WGR = {
+					if = {
+						limit = {
+							owns_state = 64
+						}
+						set_cosmetic_tag = GER_EAST
+					}
+					else_if = {
+						limit = {
+							owns_state = 1176
+						}
+						set_cosmetic_tag = GER_WEST
+					}
+					else_if = {
+						limit = {
+							owns_state = 59
+						}
+						set_cosmetic_tag = GER_NORTH
+					}
+				}
+			}
+		}
+		
+		else_if = {
+			limit = {
+				OR = {
+					has_government = democratic
+					has_government = jacobin
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = social_democracy
+					has_government = socialism
+				}
+			}
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = DDR
+							is_core_of = WGR
+							is_core_of = GER
+						}
+					}
+					add_core_of = WGR
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = DDR
+						is_core_of = WGR
+						is_core_of = GER
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				WGR = {
+					transfer_state = PREV
+				}
+
+			}
+			puppet = WGR
+			if = {
+				limit = {
+					OR = {
+						country_exists = DDR
+						country_exists = GER
+					}
+				}
+				DDR = { 
+					if = {
+						limit = {
+							owns_state = 64
+						}
+						set_cosmetic_tag = GER_EAST
+					}
+					else_if = {
+						limit = {
+							owns_state = 1176
+						}
+						set_cosmetic_tag = GER_WEST
+					}
+					else_if = {
+						limit = {
+							owns_state = 59
+						}
+						set_cosmetic_tag = GER_NORTH
+					}
+				}
+				GER = {
+					if = {
+						limit = {
+							owns_state = 64
+						}
+						set_cosmetic_tag = GER_EAST
+					}
+					else_if = {
+						limit = {
+							owns_state = 1176
+						}
+						set_cosmetic_tag = GER_WEST
+					}
+					else_if = {
+						limit = {
+							owns_state = 59
+						}
+						set_cosmetic_tag = GER_NORTH
+					}
+				}
+				WGR = {
+					if = {
+						limit = {
+							owns_state = 64
+						}
+						set_cosmetic_tag = GER_EAST
+					}
+					else_if = {
+						limit = {
+							owns_state = 1176
+						}
+						set_cosmetic_tag = GER_WEST
+					}
+					else_if = {
+						limit = {
+							owns_state = 59
+						}
+						set_cosmetic_tag = GER_NORTH
+					}
+				}
+			}
+		}
+		
+		else_if = {
+			limit = {
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = DDR
+							is_core_of = WGR
+							is_core_of = GER
+						}
+					}
+					add_core_of = DDR
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = DDR
+						is_core_of = WGR
+						is_core_of = GER
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				DDR = {
+					transfer_state = PREV
+				}
+
+			}
+			puppet = DDR
+			if = {
+				limit = {
+					OR = {
+						country_exists = GER
+						country_exists = WGR
+					}
+				}
+				DDR = { 
+					if = {
+						limit = {
+							owns_state = 64
+						}
+						set_cosmetic_tag = GER_EAST
+					}
+					else_if = {
+						limit = {
+							owns_state = 1176
+						}
+						set_cosmetic_tag = GER_WEST
+					}
+					else_if = {
+						limit = {
+							owns_state = 59
+						}
+						set_cosmetic_tag = GER_NORTH
+					}
+				}
+				GER = {
+					if = {
+						limit = {
+							owns_state = 64
+						}
+						set_cosmetic_tag = GER_EAST
+					}
+					else_if = {
+						limit = {
+							owns_state = 1176
+						}
+						set_cosmetic_tag = GER_WEST
+					}
+					else_if = {
+						limit = {
+							owns_state = 59
+						}
+						set_cosmetic_tag = GER_NORTH
+					}
+				}
+				WGR = {
+					if = {
+						limit = {
+							owns_state = 64
+						}
+						set_cosmetic_tag = GER_EAST
+					}
+					else_if = {
+						limit = {
+							owns_state = 1176
+						}
+						set_cosmetic_tag = GER_WEST
+					}
+					else_if = {
+						limit = {
+							owns_state = 59
+						}
+						set_cosmetic_tag = GER_NORTH
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # full occupuation
+		ai_chance = {
+			factor = 0
+		}
+		name = occupation.62.c
+		add_political_power = -200
+		add_stability = -0.25
+		add_war_support = -0.25
+		set_country_flag = GER_annex
+	}
+}
+
+country_event = { # BAV
+	id = occupation.63
+	title = occupation.63.t
+	desc = occupation.63.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release BAV
+		name = occupation.63.a
+		ai_chance = {
+			factor = 90
+		}
+		add_BAV_cores = yes
+
+		every_owned_state = {
+			limit = {
+				is_core_of = BAV
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			BAV = {
+				transfer_state = PREV
+			}
+		}
+		puppet = BAV
+	}
+	
+	option = {
+		name = occupation.63.b
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+	}
+}
+
+country_event = { # RHN
+	id = occupation.65
+	title = occupation.65.t
+	desc = occupation.65.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release RHN
+		name = occupation.65.a
+		ai_chance = {
+			factor = 90
+		}
+		add_RHN_cores = yes
+
+		every_owned_state = {
+			limit = {
+				is_core_of = RHN
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			RHN = {
+				transfer_state = PREV
+			}
+		}
+		puppet = RHN
+	}
+	
+	option = {
+		name = occupation.65.b
+		add_political_power = -40
+		add_stability = -0.03
+		add_war_support = -0.01
+	}
+}
+
+# USA The United States Of America
+country_event = {
+	id = occupation.66
+	title = occupation.66.t
+	desc = occupation.66.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # USA only
+		ai_chance = {
+			factor = 80
+		}
+		name = occupation.66.c
+		every_owned_state = {
+			limit = {
+				is_core_of = USA
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			USA = {
+				transfer_state = PREV
+			}
+		}
+		puppet = USA
+	}
+	
+	option = { # full occupuation
+		ai_chance = {
+			factor = 0
+		}
+		name = occupation.66.e
+		add_political_power = -400
+		add_stability = -0.15
+		add_war_support = -0.20
+		set_country_flag = USA_annex
+	}
+}
+
+country_event = { # Serbia - SER
+	id = occupation.67
+	title = occupation.67.t
+	desc = occupation.67.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release SER
+		name = occupation.67.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = SER
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SER = {
+				transfer_state = PREV
+			}
+		}
+		puppet = SER
+	}
+	
+	option = {
+		name = occupation.67.b
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = SER_annex
+	}
+}
+
+country_event = { # NGL
+	id = occupation.68
+	title = occupation.68.t
+	desc = occupation.68.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release NGL
+		name = occupation.68.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = NGL
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			NGL = {
+				transfer_state = PREV
+			}
+		}
+		puppet = NGL
+	}
+	
+	option = {
+		name = occupation.68.b
+		add_political_power = -10
+	}
+}
+
+country_event = { # Texas
+	id = occupation.70
+	title = occupation.70.t
+	desc = occupation.70.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release TEX
+		name = occupation.70.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = TEX
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			TEX = {
+				transfer_state = PREV
+			}
+		}
+		puppet = TEX
+	}
+	
+	option = {
+		name = occupation.70.b
+		add_political_power = -10
+	}
+}
+
+country_event = { # California
+	id = occupation.72
+	title = occupation.72.t
+	desc = occupation.72.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release CAL
+		name = occupation.72.a
+		ai_chance = {
+			factor = 90
+		}
+		add_CAL_cores = yes
+		every_owned_state = {
+			limit = {
+				is_core_of = USA
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			CAL = {
+				transfer_state = PREV
+			}
+		}
+		puppet = CAL
+	}
+	
+	option = {
+		name = occupation.72.b
+		set_country_flag = CAL_annex
+		add_political_power = -100
+		add_stability = -0.05
+		add_war_support = -0.05
+	}
+}
+
+# Generic Russia / Soviet Partition
+country_event = {
+	id = occupation.75
+	title = occupation.75.t
+	desc = occupation.75.d
+	picture = GFX_event_Generic_occupation
+
+	is_triggered_only = yes
+	
+	option = { # partition - full
+		ai_chance = {
+			factor = 30
+		}
+		name = occupation.75.a
+		trigger = {
+			OR = {
+				AND = {
+					controls_state = 202
+					country_exists = UKR
+				}
+				AND = {
+					controls_state = 206
+					NOT = { country_exists = BLR }
+				}
+				AND = {
+					controls_state = 231
+					NOT = { country_exists = GEO }
+				}
+				AND = {
+					controls_state = 230
+					NOT = { country_exists = ARM }
+				}
+				AND = {
+					controls_state = 229
+					NOT = { country_exists = AZR }
+				}
+				AND = {
+					controls_state = 570
+					NOT = { country_exists = SBR }
+				}
+				AND = {
+					controls_state = 586
+					NOT = { country_exists = KAZ }
+				}
+				AND = {
+					controls_state = 405
+					NOT = { country_exists = UZB }
+				}
+				AND = {
+					controls_state = 742
+					NOT = { country_exists = TJI }
+				}
+				AND = {
+					controls_state = 732
+					NOT = { country_exists = KYR }
+				}
+				AND = {
+					controls_state = 584
+					NOT = { country_exists = TRK }
+				}
+				AND = {
+					controls_state = 137
+					NOT = { country_exists = CRI }
+				}
+				AND = {
+					controls_state = 1080
+					NOT = { country_exists = CHC }
+				}
+				AND = {
+					controls_state = 232
+					NOT = { country_exists = DAG }
+				}
+				AND = {
+					controls_state = 218
+					NOT = { country_exists = DON }
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = UKR }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = UKR
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				UKR = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = UKR_cat
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = CRI }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = CRI
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				CRI = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = CRI_cat
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = DAG }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = DAG
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				DAG = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = DAG_cat
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = CHC }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = CHC
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				CHC = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = CHC_cat		
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = DON }
+			}
+			hidden_effect = { add_DON_cores = yes }
+			every_owned_state = {
+				limit = {
+					is_core_of = DON
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				DON = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = DON_cat		
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = BLR }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = BLR
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				BLR = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = BLR_cat		
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = GEO }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = GEO
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				GEO = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = GEO_cat
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = ARM }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = ARM
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				ARM = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = ARM_cat
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = AZR }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = AZR
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				AZR = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = AZR_cat
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = FER }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = FER
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				FER = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = FER_cat
+		}
+		
+		if = {
+			limit = {
+				NOT = { country_exists = SBR }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = SBR
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				SBR = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = SBR_cat
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = KAZ }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = KAZ
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				KAZ = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = KAZ_cat
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = UZB }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = UZB
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				UZB = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = UZB_cat
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = TJI }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = TJI
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				TJI = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = TJI_cat
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = KYR }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = KYR
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				KYR = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = KYR_cat
+		}
+
+		if = {
+			limit = {
+				NOT = { country_exists = TRK }
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = TRK
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				TRK = {
+					transfer_state = PREV
+				}
+			}
+			set_country_flag = TRK_cat
+		}
+
+		if = {
+			limit = {
+				has_government = fascism
+			}
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = SOV
+							is_core_of = RUS
+						}
+					}
+					add_core_of = RFP
+					SOV = { remove_state_core = PREV }
+					RUS = { remove_state_core = PREV }
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RFP
+						is_core_of = SOV
+						is_core_of = RUS
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				RFP = {
+					transfer_state = PREV
+				}
+			}
+			hidden_effect = {
+				puppet = RUS
+				RUS = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_far_left_government = yes
+			}
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = RUS
+							is_core_of = RFP
+						}
+					}
+					SOV = { add_state_core = PREV }
+					RUS = { remove_state_core = PREV }
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RFP
+						is_core_of = SOV
+						is_core_of = RUS
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				SOV = {
+					transfer_state = PREV
+				}
+			}
+			hidden_effect = {
+				puppet = SOV
+				SOV = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = RFP
+							is_core_of = SOV
+						}
+					}
+					RUS = { add_state_core = PREV }
+					#RHS = { remove_state_core = PREV }
+					SOV = { remove_state_core = PREV }
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RFP
+						is_core_of = SOV
+						is_core_of = RUS
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				RUS = {
+					transfer_state = PREV
+				}
+			}
+			hidden_effect = {
+				puppet = RFP
+				RFP = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = UKR_cat
+				}
+				puppet = UKR
+				UKR = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = BLR_cat
+				}
+				puppet = BLR
+				BLR = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = TJI_cat
+				}
+				puppet = TJI
+				TJI = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = GEO_cat
+				}
+				puppet = GEO
+				GEO = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = ARM_cat
+				}
+				puppet = ARM
+				ARM = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = AZR_cat
+				}
+				puppet = AZR
+				AZR = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = SBR_cat
+				}
+				puppet = SBR
+				SBR = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = KAZ_cat
+				}
+				puppet = KAZ
+				KAZ = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = UZB_cat
+				}
+				puppet = UZB
+				UZB = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = KYR_cat
+				}
+				puppet = KYR
+				KYR = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = TRK_cat
+				}
+				puppet = TRK
+				TRK = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = CRI_cat
+				}
+				puppet = CRI
+				CRI = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = CHC_cat
+				}
+				puppet = CHC
+				CHC = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = DAG_cat
+				}
+				puppet = DAG
+				DAG = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = DON_cat
+				}
+				puppet = DON
+			}
+		}
+		clr_country_flag = UKR_cat
+		clr_country_flag = BLR_cat
+		clr_country_flag = TJI_cat
+		clr_country_flag = GEO_cat
+		clr_country_flag = ARM_cat
+		clr_country_flag = AZR_cat
+		clr_country_flag = SBR_cat
+		clr_country_flag = KAZ_cat
+		clr_country_flag = UZB_cat
+		clr_country_flag = KYR_cat
+		clr_country_flag = TRK_cat
+		if = {
+			limit = {
+				tag = JAP
+				FER = {
+					NOT = {
+						has_country_flag = FER_JAP_Puppet
+					}
+				}
+			}
+			country_event = {
+				id = occupation.91
+			}
+		}
+	}
+	
+	option = { # partition - RUS/SBR
+		ai_chance = {
+			factor = 30
+		}
+		name = occupation.75.b
+		trigger = {
+			controls_state = 570
+			NOT = { country_exists = SBR }
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = SBR
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SBR = {
+				transfer_state = PREV
+			}
+
+		}
+
+		if = {
+			limit = {
+				has_government = fascism
+			}
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = SOV
+							is_core_of = RUS
+						}
+					}
+					RFP = { add_state_core = PREV }
+					SOV = { remove_state_core = PREV }
+					RUS = { remove_state_core = PREV }
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RFP
+						is_core_of = SOV
+						is_core_of = RUS
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				RFP = {
+					transfer_state = PREV
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_far_left_government = yes
+			}
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = RUS
+							is_core_of = RFP
+						}
+					}
+					SOV = { add_state_core = PREV }
+					#RHS = { remove_state_core = PREV }
+					RUS = { remove_state_core = PREV }
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RFP
+						is_core_of = SOV
+						is_core_of = RUS
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				SOV = {
+					transfer_state = PREV
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = RFP
+							is_core_of = SOV
+						}
+					}
+					RUS = { add_state_core = PREV }
+					#RHS = { remove_state_core = PREV }
+					SOV = { remove_state_core = PREV }
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RFP
+						is_core_of = SOV
+						is_core_of = RUS
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				RUS = {
+					transfer_state = PREV
+				}
+			}
+		}
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+		hidden_effect = {
+			puppet = SBR
+			puppet = RUS
+			puppet = SOV
+			puppet = RFP
+			SBR = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			RUS = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			SOV = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			RFP = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = { # RUS only
+		ai_chance = {
+			factor = 30
+		}
+		name = occupation.75.c
+
+		if = {
+			limit = {
+				has_government = fascism
+			}
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = SOV
+							is_core_of = RUS
+						}
+					}
+					RFP = { add_state_core = PREV }
+					SOV = { remove_state_core = PREV }
+					RUS = { remove_state_core = PREV }
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RFP
+						is_core_of = SOV
+						is_core_of = RUS
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				RFP = {
+					transfer_state = PREV
+				}
+			}
+			puppet = RFP
+			RFP = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+		else_if = {
+			limit = {
+				has_far_left_government = yes
+			}
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = RUS
+							is_core_of = RFP
+						}
+					}
+					SOV = { add_state_core = PREV }
+					#RHS = { remove_state_core = PREV }
+					RUS = { remove_state_core = PREV }
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RFP
+						is_core_of = SOV
+						is_core_of = RUS
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				SOV = {
+					transfer_state = PREV
+				}
+			}
+			puppet = SOV
+			hidden_effect = {
+				SOV = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = RFP
+							is_core_of = SOV
+						}
+					}
+					RUS = { add_state_core = PREV }
+					#RHS = { remove_state_core = PREV }
+					SOV = { remove_state_core = PREV }
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						is_core_of = RFP
+						is_core_of = SOV
+						is_core_of = RUS
+					}
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				RUS = {
+					transfer_state = PREV
+				}
+			}
+			puppet = RUS
+			hidden_effect = {
+				RUS = {
+					COALITION_RESET = yes
+					COALITION_set_up_array = yes
+				}
+			}
+		}
+	}
+	
+	option = { # full occupuation
+		ai_chance = {
+			factor = 10
+		}
+		name = occupation.75.e
+		add_political_power = -500
+		set_country_flag = RUS_annex
+	}
+}
+
+# Yugoslavian Event Chain for the Balkanization
+
+# Fate of Bosnia
+country_event = {
+	id = occupation.76
+	title = occupation.76.t
+	desc = occupation.76.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+
+	option = { # BOS
+		name = occupation.76.a
+		
+		set_country_flag = BOS_release
+		custom_effect_tooltip = bos_free_tt
+		country_event = occupation.82
+		ai_chance = {
+			base = 15
+		}
+	}
+	option = { # For SER
+		name = occupation.76.b
+		
+		set_country_flag = BOS_for_SER
+		custom_effect_tooltip = to_ser_tt
+		country_event = occupation.77
+		ai_chance = {
+			base = 5
+		}
+	}
+	option = { # For CRO
+		name = occupation.76.c
+		
+		set_country_flag = BOS_for_CRO
+		custom_effect_tooltip = to_cro_tt
+		country_event = occupation.82
+		ai_chance = {
+			base = 80
+		}
+	}
+}
+
+# Fate of Hrvastoka
+country_event = {
+	id = occupation.77
+	title = occupation.77.t
+	desc = occupation.77.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+
+	option = { # To SER
+		name = occupation.77.a
+		ai_chance = {
+			base = 0
+		}
+
+		set_country_flag = hlvr_SER
+		custom_effect_tooltip = to_ser_tt
+		if = {
+			limit = {
+				has_full_control_of_state = 839
+			}
+			country_event = occupation.82
+		}
+		else = {
+			country_event = occupation.78
+		}
+		
+	}
+	option = { # To CRO
+		name = occupation.77.b
+		ai_chance = {
+			base = 100
+		}
+
+		set_country_flag = hlvr_CRO
+		custom_effect_tooltip = to_cro_tt
+		if = {
+			limit = {
+				has_full_control_of_state = 839
+			}
+			country_event = occupation.82
+		}
+		else = {
+			country_event = occupation.78
+		}
+	}
+}
+
+# Fate of Montenegro
+country_event = {
+	id = occupation.78
+	title = occupation.78.t
+	desc = occupation.78.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+
+	option = { # Release Montenegro
+		name = occupation.78.a
+
+		set_country_flag = MNT_release
+		custom_effect_tooltip = mnt_free_tt
+		country_event = occupation.79
+	}
+	option = { # Montenegro is Serb
+		name = occupation.78.b
+
+		set_country_flag = MNT_is_SER
+		custom_effect_tooltip = to_ser_tt
+		country_event = occupation.79
+	}
+}
+
+# Fate of Kosovo
+country_event = {
+	id = occupation.79
+	title = occupation.79.t
+	desc = occupation.79.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+
+
+	option = {
+		name = occupation.79.a
+
+		set_country_flag = KOS_release
+		custom_effect_tooltip = kos_free_tt
+		country_event = occupation.81
+	}
+	option = {
+		name = occupation.79.b
+
+		set_country_flag = KOS_to_SER
+		custom_effect_tooltip = to_ser_tt
+		country_event = occupation.81
+	}
+	option = {
+		name = occupation.79.c
+		trigger = {
+			country_exists = ALB
+		}
+
+		set_country_flag = KOS_to_ALB
+		custom_effect_tooltip = to_alb_tt
+		country_event = occupation.81
+	}
+}
+
+# Fate of Macedonia
+country_event = {
+	id = occupation.80
+	title = occupation.80.t
+	desc = occupation.80.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+
+	option = { # Release Macedonia
+		name = occupation.80.a
+
+		set_country_flag = MCE_release
+		custom_effect_tooltip = mce_free_tt
+		if = {
+			limit = {
+				has_full_control_of_state = 818
+			}
+			country_event = occupation.84
+		}
+		else_if = {
+			limit = {
+				NOT = { tag = ITA }
+				is_in_faction_with = ITA
+				any_owned_state = { is_claimed_by = ITA }
+			}
+			country_event = occupation.85
+		}
+		else_if = {
+			limit = {
+				1036 = {
+					is_owned_and_controlled_by = ROOT
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				has_country_flag = BOS_for_SER
+			}
+			country_event = occupation.89
+		}
+		else_if = {
+			limit = {
+				NOT = { tag = HUN }
+				is_in_faction_with = HUN
+				any_owned_state = { is_claimed_by = HUN }
+			}
+			country_event = occupation.86
+		}
+		else = {
+			country_event = occupation.88
+		}
+		
+	}
+	option = { # Macedonia is Serb
+		name = occupation.80.b
+
+		set_country_flag = MCE_is_SER
+		custom_effect_tooltip = to_ser_tt
+		if = {
+			limit = {
+				has_full_control_of_state = 818
+			}
+			country_event = occupation.84
+		}
+		else_if = {
+			limit = {
+				NOT = { tag = ITA }
+				is_in_faction_with = ITA
+				any_owned_state = { is_claimed_by = ITA }
+			}
+			country_event = occupation.85
+		}
+		else_if = {
+			limit = {
+				1036 = {
+					is_owned_and_controlled_by = ROOT
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				has_country_flag = BOS_for_SER
+			}
+			country_event = occupation.89
+		}
+		else_if = {
+			limit = {
+				NOT = { tag = HUN }
+				is_in_faction_with = HUN
+				any_owned_state = { is_claimed_by = HUN }
+			}
+			country_event = occupation.86
+		}
+		else = {
+			country_event = occupation.88
+		}
+	}
+}
+
+
+# Fate of Metohija
+country_event = {
+	id = occupation.81
+	title = occupation.81.t
+	desc = occupation.81.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+
+	option = {
+		name = occupation.81.a
+
+		set_country_flag = hija_SER
+		custom_effect_tooltip = to_ser_tt
+		if = {
+			limit = {
+				NOT = { tag = BUL }
+				is_in_faction_with = BUL
+				any_owned_state = { is_claimed_by = BUL }
+			}
+			country_event = occupation.83
+
+			else_if = {
+				limit = {
+					OR = {
+						any_owned_state = {
+							is_core_of = MCE
+							is_claim_or_core_of_ROOT = yes
+						}
+						NOT = {
+							916 = {
+								is_owned_and_controlled_by = ROOT
+								is_not_claim_or_core_of_ROOT = yes
+							}
+							106 = {
+								is_owned_and_controlled_by = ROOT
+								is_not_claim_or_core_of_ROOT = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						NOT = { tag = ITA }
+						is_in_faction_with = ITA
+						any_owned_state = { is_claimed_by = ITA }
+					}
+					country_event = occupation.85
+				}
+
+				else_if = {
+					limit = {
+						1036 = {
+							is_owned_and_controlled_by = ROOT
+							is_not_claim_or_core_of_ROOT = yes
+						}
+						has_country_flag = BOS_for_SER
+					}
+					country_event = occupation.89
+				}
+				else_if = {
+					limit = {
+						NOT = { tag = HUN }
+						is_in_faction_with = HUN
+						any_owned_state = { is_claimed_by = HUN }
+					}
+					country_event = occupation.86
+				}
+				else = {
+					country_event = occupation.88
+				}
+			}
+			else = {
+				country_event = occupation.80
+			}
+		}
+	}
+	option = {
+		name = occupation.81.b
+		trigger = {
+			has_country_flag = MNT_release
+		}
+
+		set_country_flag = hija_MNT
+		custom_effect_tooltip = to_mnt_tt
+		if = {
+			limit = {
+				NOT = { tag = BUL }
+				is_in_faction_with = BUL
+				any_owned_state = { is_claimed_by = BUL }
+			}
+			country_event = occupation.83
+
+			else_if = {
+				limit = {
+					OR = {
+						any_owned_state = {
+							is_core_of = MCE
+							is_claim_or_core_of_ROOT = yes
+						}
+						NOT = {
+							916 = {
+								is_owned_and_controlled_by = ROOT
+								is_not_claim_or_core_of_ROOT = yes
+							}
+							106 = {
+								is_owned_and_controlled_by = ROOT
+								is_not_claim_or_core_of_ROOT = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						NOT = { tag = ITA }
+						is_in_faction_with = ITA
+						any_owned_state = { is_claimed_by = ITA }
+					}
+					country_event = occupation.85
+				}
+				else_if = {
+					limit = {
+						1036 = {
+							is_owned_and_controlled_by = ROOT
+							is_not_claim_or_core_of_ROOT = yes
+						}
+						has_country_flag = BOS_for_SER
+					}
+					country_event = occupation.89
+				}
+				else_if = {
+					limit = {
+						NOT = { tag = HUN }
+						is_in_faction_with = HUN
+						any_owned_state = { is_claimed_by = HUN }
+					}
+					country_event = occupation.86
+				}
+				else = {
+					country_event = occupation.88
+				}
+			}
+			else = {
+				country_event = occupation.80
+			}
+		}
+	}
+	option = {
+		name = occupation.81.c
+		trigger = {
+			has_country_flag = KOS_release
+
+		}
+
+		set_country_flag = hija_KOS
+		custom_effect_tooltip = to_kos_tt
+		if = {
+			limit = {
+				NOT = { tag = BUL }
+				is_in_faction_with = BUL
+				any_owned_state = { is_claimed_by = BUL }
+			}
+			country_event = occupation.83
+
+			else_if = {
+				limit = {
+					OR = {
+						any_owned_state = {
+							is_core_of = MCE
+							is_claim_or_core_of_ROOT = yes
+						}
+						NOT = {
+							916 = {
+								is_owned_and_controlled_by = ROOT
+								is_not_claim_or_core_of_ROOT = yes
+							}
+							106 = {
+								is_owned_and_controlled_by = ROOT
+								is_not_claim_or_core_of_ROOT = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						NOT = { tag = ITA }
+						is_in_faction_with = ITA
+						any_owned_state = { is_claimed_by = ITA }
+					}
+					country_event = occupation.85
+				}
+				else_if = {
+					limit = {
+						1036 = {
+							is_owned_and_controlled_by = ROOT
+							is_not_claim_or_core_of_ROOT = yes
+						}
+						has_country_flag = BOS_for_SER
+					}
+					country_event = occupation.89
+				}
+				else_if = {
+					limit = {
+						NOT = { tag = HUN }
+						is_in_faction_with = HUN
+						any_owned_state = { is_claimed_by = HUN }
+					}
+					country_event = occupation.86
+				}
+				else = {
+					country_event = occupation.88
+				}
+			}
+			else = {
+				country_event = occupation.80
+			}
+		}
+	}
+	option = {
+		name = occupation.81.e
+		trigger = {
+			country_exists = ALB
+		}
+
+		set_country_flag = hija_ALB
+		custom_effect_tooltip = to_alb_tt
+		if = {
+			limit = {
+				NOT = { tag = BUL }
+				is_in_faction_with = BUL
+				any_owned_state = { is_claimed_by = BUL }
+			}
+			country_event = occupation.83
+
+			else_if = {
+				limit = {
+					OR = {
+						any_owned_state = {
+							is_core_of = MCE
+							is_claim_or_core_of_ROOT = yes
+						}
+						NOT = {
+							916 = {
+								is_owned_and_controlled_by = ROOT
+								is_not_claim_or_core_of_ROOT = yes
+							}
+							106 = {
+								is_owned_and_controlled_by = ROOT
+								is_not_claim_or_core_of_ROOT = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						NOT = { tag = ITA }
+						is_in_faction_with = ITA
+						any_owned_state = { is_claimed_by = ITA }
+					}
+					country_event = occupation.85
+				}
+				else_if = {
+					limit = {
+						1036 = {
+							is_owned_and_controlled_by = ROOT
+							is_not_claim_or_core_of_ROOT = yes
+						}
+						has_country_flag = BOS_for_SER
+					}
+					country_event = occupation.89
+				}
+				else_if = {
+					limit = {
+						NOT = { tag = HUN }
+						is_in_faction_with = HUN
+						any_owned_state = { is_claimed_by = HUN }
+					}
+					country_event = occupation.86
+				}
+				else = {
+					country_event = occupation.88
+				}	
+			}
+			else = {
+				country_event = occupation.80
+			}
+		}
+	}
+}
+
+# Fate of Srem
+country_event = {
+	id = occupation.82
+	title = occupation.82.t
+	desc = occupation.82.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+
+	option = { # To SER
+		name = occupation.82.a
+		ai_chance = {
+			base = 0
+		}
+
+		set_country_flag = srem_SER
+		custom_effect_tooltip = to_ser_tt
+		country_event = occupation.78
+	}
+	option = { # To CRO
+		name = occupation.82.b
+
+		ai_chance = {
+			base = 100
+		}
+
+		set_country_flag = srem_CRO
+		custom_effect_tooltip = to_cro_tt
+		country_event = occupation.78
+	}
+}
+# Offer Bulgaria Land
+country_event = {
+	id = occupation.83
+	title = occupation.83.t
+	desc = occupation.83.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+
+	option = {
+		name = occupation.83.a
+
+		set_country_flag = BUL_yes_man
+		custom_effect_tooltip = warn_no_mce_tt
+		if = {
+			limit = {
+				NOT = { tag = ITA }
+				is_in_faction_with = ITA
+				any_owned_state = { is_claimed_by = ITA }
+			}
+			country_event = occupation.85
+		}
+		else_if = {
+			limit = {
+				1036 = {
+					is_owned_and_controlled_by = ROOT
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				has_country_flag = BOS_for_SER
+			}
+			country_event = occupation.89
+		}
+		else_if = {
+			limit = {
+				NOT = { tag = HUN }
+				is_in_faction_with = HUN
+				any_owned_state = { is_claimed_by = HUN }
+			}
+			country_event = occupation.86
+		}
+		else = {
+			country_event = occupation.88
+		}	
+	}
+	option = {
+		name = occupation.83.b
+
+		if = {
+			limit = {
+				OR = {
+					any_owned_state = {
+						is_core_of = MCE
+						is_claim_or_core_of_ROOT = yes
+					}
+					NOT = {
+						916 = {
+							is_owned_and_controlled_by = ROOT
+							is_not_claim_or_core_of_ROOT = yes
+						}
+						106 = {
+							is_owned_and_controlled_by = ROOT
+							is_not_claim_or_core_of_ROOT = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { tag = ITA }
+					is_in_faction_with = ITA
+					any_owned_state = { is_claimed_by = ITA }
+				}
+				country_event = occupation.85
+				else_if = {
+					limit = {
+						1036 = {
+							is_owned_and_controlled_by = ROOT
+							is_not_claim_or_core_of_ROOT = yes
+						}
+						has_country_flag = BOS_for_SER
+					}
+					country_event = occupation.89
+				}
+				else_if = {
+					limit = {
+						NOT = { tag = HUN }
+						is_in_faction_with = HUN
+						any_owned_state = { is_claimed_by = HUN }
+					}
+					country_event = occupation.86
+				}
+				else = {
+					country_event = occupation.88
+				}
+			}
+			else = {
+				country_event = occupation.80
+			}	
+		}
+	}
+}
+
+# Fate of Debar
+country_event = {
+	id = occupation.84
+	title = occupation.84.t
+	desc = occupation.84.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+
+	option = { # Debar is Serb
+		name = occupation.84.a
+		trigger = {
+			has_country_flag = MCE_is_SER
+		}
+
+		set_country_flag = deb_is_SER
+		custom_effect_tooltip = to_ser_tt
+		if = {
+			limit = {
+				NOT = { tag = ITA }
+				is_in_faction_with = ITA
+				any_owned_state = { is_claimed_by = ITA }
+			}
+			country_event = occupation.85
+		}
+		else_if = {
+			limit = {
+				1036 = {
+					is_owned_and_controlled_by = ROOT
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				has_country_flag = BOS_for_SER
+			}
+			country_event = occupation.89
+		}
+		else_if = {
+			limit = {
+				NOT = { tag = HUN }
+				is_in_faction_with = HUN
+				any_owned_state = { is_claimed_by = HUN }
+			}
+			country_event = occupation.86
+		}
+		else = {
+			country_event = occupation.88
+		}	
+	}
+
+	option = { # Debar is Macedonian
+		name = occupation.84.b
+		trigger = {
+			has_country_flag = MCE_release
+		}
+
+		set_country_flag = deb_is_MCE
+		custom_effect_tooltip = to_mce_tt
+		if = {
+			limit = {
+				NOT = { tag = ITA }
+				is_in_faction_with = ITA
+				any_owned_state = { is_claimed_by = ITA }
+			}
+			country_event = occupation.85
+		}
+		else_if = {
+			limit = {
+				1036 = {
+					is_owned_and_controlled_by = ROOT
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				has_country_flag = BOS_for_SER
+			}
+			country_event = occupation.89
+		}
+		else_if = {
+			limit = {
+				NOT = { tag = HUN }
+				is_in_faction_with = HUN
+				any_owned_state = { is_claimed_by = HUN }
+			}
+			country_event = occupation.86
+		}
+		else = {
+			country_event = occupation.88
+		}	
+	}
+
+	option = { # To Albania shall go
+		name = occupation.84.c
+		trigger = {
+			country_exists = ALB
+		}
+
+		set_country_flag = deb_is_ALB
+		custom_effect_tooltip = to_alb_tt
+		if = {
+			limit = {
+				NOT = { tag = ITA }
+				is_in_faction_with = ITA
+				any_owned_state = { is_claimed_by = ITA }
+			}
+			country_event = occupation.85
+		}
+		else_if = {
+			limit = {
+				1036 = {
+					is_owned_and_controlled_by = ROOT
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				has_country_flag = BOS_for_SER
+			}
+			country_event = occupation.89
+		}
+		else_if = {
+			limit = {
+				NOT = { tag = HUN }
+				is_in_faction_with = HUN
+				any_owned_state = { is_claimed_by = HUN }
+			}
+			country_event = occupation.86
+		}
+		else = {
+			country_event = occupation.88
+		}	
+	}
+}
+
+# Offer Italy land
+
+country_event = {
+	id = occupation.85
+	title = occupation.85.t
+	desc = occupation.85.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+
+	option = { # Give land to those pesky italians
+		name = occupation.85.a
+
+		set_country_flag = ITA_yes_man
+	}
+	option = { # No, is our land Duce
+		name = occupation.85.b
+		
+	}
+}
+
+# Offer Hungary Prekmurje (only if Hungary didn't participate in the war)
+
+country_event = {
+	id = occupation.86
+	title = occupation.86.t
+	desc = occupation.86.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		country_exists = HUN
+		HUN = {
+			has_capitulated = no
+			NOT = {
+				has_government = communism
+				has_government = authoritarian_socialism
+				has_government = socialism
+				has_government = social_democracy
+			}
+		}
+	}
+
+	option = { # Give land to Hungary
+		name = occupation.86.a
+
+		custom_effect_tooltip = give_HUN_Prekmurje_tt
+		hidden_effect = {
+			HUN = {
+				country_event = {
+					id = occupation.87
+					hours = 12
+				}
+			}
+		}
+	}
+	option = { # No sir thats my land
+		name = occupation.86.b
+	}
+}
+
+# Hungarians recieve offer from Germany about Prekmurje
+country_event = {
+	id = occupation.87
+	title = occupation.87.t
+	desc = occupation.87.d
+	picture = GFX_report_event_hungarian_soldiers
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # YES
+		name = occupation.87.a
+		transfer_state = 815
+		815 = { set_state_name = "Muravidék" }
+	}
+}
+
+# Yugoslavia's fate
+
+country_event = {
+	id = occupation.88
+	title = occupation.88.t
+	desc = occupation.88.d
+	picture = GFX_report_event_yugoslavian_split
+
+	is_triggered_only = yes
+
+	option = {
+		name = occupation.88.a
+
+		hidden_effect = {
+			# Italian Claims
+			if = {
+				limit = {
+					has_country_flag = ITA_yes_man
+					ITA = { controls_state = 44 }
+				}
+				every_owned_state = {
+					limit = {
+						is_claimed_by = ITA
+						is_not_claim_or_core_of_ROOT = yes
+					}
+					ITA = {
+						transfer_state = PREV
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = ITA_yes_man
+					ITA = {
+						NOT = {
+							controls_state = 44
+						}
+					}
+				}
+				every_owned_state = {
+					limit = {
+						is_claimed_by = ITA
+						is_not_claim_or_core_of_ROOT = yes
+						NOT = { state = 842 }
+					}
+					ITA = {
+						transfer_state = PREV
+					}
+				}
+			}
+			# Hungarian Claims
+			if = {
+				limit = {
+					has_country_flag = HUN_yes_man
+				}
+				every_owned_state = {
+					limit = {
+						is_claimed_by = HUN
+						is_not_claim_or_core_of_ROOT = yes
+					}
+					HUN = {
+						transfer_state = PREV
+					}
+				}
+			}
+			# Bulgarian Claims
+			if = {
+				limit = {
+					has_country_flag = BUL_yes_man
+				}
+				every_owned_state = {
+					limit = {
+						is_claimed_by = BUL
+						is_not_claim_or_core_of_ROOT = yes
+					}
+					BUL = {
+						transfer_state = PREV
+					}
+				}
+			}
+			# Macedonia is Serbian
+			else_if = {
+				limit = {
+					has_country_flag = MCE_is_SER
+				}
+				every_owned_state = {
+					limit = {
+						is_core_of = MCE
+						is_not_claim_or_core_of_ROOT = yes
+					}
+					SER = {
+						transfer_state = PREV
+					}
+				}
+			}
+			# Free Macedonia
+			else_if = {
+				limit = {
+					has_country_flag = MCE_release
+				}
+				every_owned_state = {
+					limit = {
+						is_core_of = MCE
+						is_not_claim_or_core_of_ROOT = yes
+					}
+					MCE = {
+						transfer_state = PREV
+					}
+				}
+			}
+			# Free Bosnia
+			if = {
+				limit = {
+					has_country_flag = BOS_release
+				}
+				every_owned_state = {
+					limit= {
+						is_core_of = BOS
+						is_not_claim_or_core_of_ROOT = yes
+					}
+					BOS = {
+						transfer_state = PREV
+					}
+				}
+			}
+			# Croatia gets Bosnia
+			else_if = {
+				limit = {
+					has_country_flag = BOS_for_CRO
+				}
+				every_owned_state = {
+					limit= {
+						is_core_of = BOS
+						is_not_claim_or_core_of_ROOT = yes
+					}
+					CRO = {
+						transfer_state = PREV
+					}
+				}
+			}
+			# Serbia gets Bosnia
+			else_if = {
+				limit = {
+					has_country_flag = BOS_for_SER
+				}
+				every_owned_state = {
+					limit= {
+						is_core_of = BOS
+						is_not_claim_or_core_of_ROOT = yes
+					}
+					SER = {
+						transfer_state = PREV
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_country_flag = BOS_for_CRO
+						has_country_flag = BOS_release
+						has_country_flag = hlvr_CRO
+					}
+					has_full_control_of_state = 910
+				}
+				CRO = {
+					transfer_state = 910
+				}
+			} 
+			else_if = {
+				limit = {
+					has_country_flag = hlvr_SER
+				}
+				CRO = {
+					transfer_state = 910
+				}
+			}
+			# Free Kosovo
+			if = {
+				limit = {
+					has_country_flag = KOS_release
+				}
+				KOS = {
+					transfer_state = 765
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = KOS_to_SER
+				}
+				SER = {
+					transfer_state = 765
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = KOS_to_ALB
+				}
+				ALB = {
+					transfer_state = 765
+				}
+			}
+			# Srem to Serbia
+			if = {
+				limit = {
+					has_country_flag = srem_SER
+				}
+				SER = {
+					transfer_state = 839
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = srem_CRO
+				}
+				CRO = {
+					transfer_state = 839
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = MNT_release
+				}
+				every_owned_state = {
+					limit = {
+						is_core_of = MNT
+						is_not_claim_or_core_of_ROOT = yes
+					}
+					MNT = {
+						transfer_state = PREV
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = TRI_release
+				}
+				TRI = {
+					transfer_state = 790
+				}
+			}
+
+			every_owned_state = {
+				limit = {
+					is_core_of = CRO
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				CRO = {
+					transfer_state = PREV
+				}
+			}
+
+			every_owned_state = {
+				limit = {
+					is_core_of = SER
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				SER = {
+					transfer_state = PREV
+				}
+			}
+
+			every_owned_state = {
+				limit = {
+					is_core_of = SLV
+					is_not_claim_or_core_of_ROOT = yes
+				}
+				SLV = {
+					transfer_state = PREV
+				}
+			}
+			# Dubrovnik for Serbia
+			if = {
+				limit = {
+					has_country_flag = dub_SER
+				}
+				SER = {
+					transfer_state = 1036
+				}
+			}
+		}
+
+		custom_effect_tooltip = option_treaty_lib_tt
+
+		custom_effect_tooltip = lib_countries_becomes_puppet_tt
+
+		hidden_effect = {
+			puppet = SER
+			puppet = CRO
+			puppet = SLV
+			puppet = BOS
+			puppet = MCE
+			puppet = MNT
+			puppet = KOS
+			puppet = TRI
+			SER = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			CRO = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			SLV = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			BOS = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			MCE = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			MNT = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			BOS = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			KOS = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+			TRI = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+		clr_country_flag = YUG_annex
+		clr_country_flag = BOS_release
+		clr_country_flag = MCE_release
+		clr_country_flag = MNT_release
+		clr_country_flag = KOS_release
+		clr_country_flag = TRI_release
+		clr_country_flag = hlvr_SER
+		clr_country_flag = hlvr_CRO
+		clr_country_flag = hija_MNT
+		clr_country_flag = hija_ALB
+		clr_country_flag = hija_KOS
+		clr_country_flag = hija_SER
+		clr_country_flag = srem_CRO
+		clr_country_flag = srem_SER
+		clr_country_flag = MNT_is_SER
+		clr_country_flag = KOS_to_ALB
+		clr_country_flag = KOS_to_SER
+		clr_country_flag = KOS_to_ALB
+		clr_country_flag = MCE_is_SER
+		clr_country_flag = deb_is_MCE
+		clr_country_flag = deb_is_ALB
+		clr_country_flag = deb_is_SER
+		clr_country_flag = ITA_yes_man
+		clr_country_flag = HUN_yes_man
+		clr_country_flag = BUL_yes_man
+		clr_country_flag = BOS_for_CRO
+		clr_country_flag = BOS_for_SER
+	}
+}
+
+# Fate of Dubrovnik
+
+country_event = {
+	id = occupation.89
+	title = occupation.89.t
+	desc = occupation.89.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	option = { # For Croatia
+		name = occupation.89.a
+
+		custom_effect_tooltip = to_cro_tt
+
+		if = {
+			limit = {
+				is_in_faction_with = HUN
+				any_owned_state = { is_claimed_by = HUN }
+			}
+			country_event = occupation.86
+		}
+		else = {
+			country_event =	occupation.88
+		}
+	}
+
+	option = { # For Serbia
+		name = occupation.89.b
+
+		set_country_flag = dub_SER
+
+		custom_effect_tooltip = to_ser_tt
+
+		if = {
+			limit = {
+				is_in_faction_with = HUN
+				any_owned_state = { is_claimed_by = HUN }
+			}
+			country_event = occupation.86
+		}
+		else = {
+			country_event =	occupation.88
+		}
+	}
+}
+
+# Far East
+country_event = {
+	id = occupation.90
+	title = occupation.90.t
+	desc = occupation.90.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release FER
+		name = occupation.90.a
+		ai_chance = {
+			factor = 40
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = FER
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			FER = {
+				transfer_state = PREV
+			}
+		}
+		puppet = FER
+		if = {
+			limit = {
+				tag = JAP
+				FER = {
+					NOT = {
+						has_country_flag = FER_JAP_Puppet
+					}
+				}
+			}
+			country_event = {
+				id = occupation.91
+			}
+		}
+		else_if = {
+			limit = {
+				FER = {
+					has_country_flag = FER_JAP_Puppet
+					OVERLORD = {
+						NOT = {
+							tag = JAP
+						}
+					}
+				}
+			}
+			clr_country_flag = FER_JAP_Puppet
+		}
+	}
+	
+	option = {
+		name = occupation.90.b
+		add_political_power = -100
+		add_stability = -0.15
+		add_war_support = -0.10
+		set_country_flag = FER_annex
+	}
+}
+country_event = {
+	id = occupation.91
+	title = occupation.91.t
+	desc = occupation.91.d
+	picture = GFX_event_Nikolai_Gondatti
+	
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			FER = {
+				set_country_flag = FER_JAP_Puppet
+				set_cosmetic_tag = FER_Japanese
+				add_ideas = FER_Japanese_Occupation
+				set_party_name = {
+					ideology = neutrality
+					name = FER_Japanese_party
+					long_name = FER_Japanese_party
+				}
+				set_party_name = {
+					ideology = nationalism
+					name = FER_Japanese_party
+					long_name = FER_Japanese_party
+				}
+				set_party_name = {
+					ideology = monarchism
+					name = FER_Japanese_party
+					long_name = FER_Japanese_party
+				}
+				create_country_leader = {
+					name = "Oi Shigemoto"
+					picture = "gfx/leaders_cbts/FER/Oi_Shigemoto.tga"
+					expire = "1965.1.1"
+					ideology = nationalist
+					traits = {}
+				}
+				create_country_leader = {
+					name = "Nikolai Gondatti"
+					picture = "gfx/leaders_cbts/FER/Nikolai_Gondatti.tga"
+					expire = "1965.1.1"
+					ideology = despotism
+					traits = {}
+				}
+				create_country_leader = {
+					name = "Nikolai Volodchenko"
+					picture = "gfx/leaders_cbts/FER/Nikolai_Volodchenko.tga"
+					expire = "1965.1.1"
+					ideology = military
+					traits = {}
+				}
+			}
+		}
+	}
+	option = { # Japanese Governor
+		name = occupation.91.a
+		ai_chance = {
+			factor = 65
+		}
+		FER = {
+			set_politics = {
+				ruling_party = nationalism
+			}
+			COALITION_add_aut = yes
+			COALITION_add_mon = yes
+		}
+	}
+	option = { # Russian Civilian Governor
+		name = occupation.91.b
+		ai_chance = {
+			factor = 25
+		}
+		FER = {
+			set_politics = {
+				ruling_party = monarchism
+			}
+			COALITION_add_aut = yes
+			COALITION_add_nat = yes
+		}
+	}
+	option = { # Russian Military Governor
+		name = occupation.91.c
+		ai_chance = {
+			factor = 10
+		}
+		FER = {
+			set_politics = {
+				ruling_party = neutrality
+			}
+			COALITION_add_mon = yes
+			COALITION_add_nat = yes
+		}
+	}
+}
+
+# Mongolia
+
+country_event = {
+	id = occupation.92
+	title = occupation.92.t
+	desc = occupation.92.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release MON
+		name = occupation.92.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = MON
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			MON = {
+				transfer_state = PREV
+			}
+		}
+		puppet = MON
+		hidden_effect = {
+			MON = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.92.b
+		add_political_power = -25
+		add_stability = -0.03
+		add_war_support = -0.02
+		set_country_flag = MON_annex
+	}
+}
+
+# Afghanistan
+
+country_event = {
+	id = occupation.93
+	title = occupation.93.t
+	desc = occupation.93.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release AFG
+		name = occupation.93.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = AFG
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			AFG = {
+				transfer_state = PREV
+			}
+		}
+		puppet = AFG
+		hidden_effect = {
+			AFG = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.92.b
+		add_political_power = -50
+		add_stability = -0.075
+		add_war_support = -0.05
+		set_country_flag = AFG_annex
+	}
+}
+
+# Persia
+country_event = {
+	id = occupation.94
+	title = occupation.94.t
+	desc = occupation.94.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release PER
+		name = occupation.94.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = PER
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			PER = {
+				transfer_state = PREV
+			}
+		}
+		puppet = PER
+		hidden_effect = {
+			PER = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.94.b
+		add_political_power = -50
+		add_stability = -0.12
+		add_war_support = -0.10
+		set_country_flag = PER_annex
+	}
+}
+
+# Iraq
+country_event = {
+	id = occupation.95
+	title = occupation.95.t
+	desc = occupation.95.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release IRQ
+		name = occupation.95.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = IRQ
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			IRQ = {
+				transfer_state = PREV
+			}
+		}
+		puppet = IRQ
+		hidden_effect = {
+			IRQ = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.95.b
+		add_political_power = -50
+		add_stability = -0.075
+		add_war_support = -0.05
+		set_country_flag = IRQ_annex
+	}
+}
+
+# Saudi Arabia
+country_event = {
+	id = occupation.96
+	title = occupation.96.t
+	desc = occupation.96.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release SAU
+		name = occupation.96.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = SAU
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SAU = {
+				transfer_state = PREV
+			}
+		}
+		puppet = SAU
+		hidden_effect = {
+			SAU = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.96.b
+		add_political_power = -50
+		add_stability = -0.08
+		add_war_support = -0.05
+		set_country_flag = SAU_annex
+	}
+}
+
+# Tannu Tuva
+country_event = {
+	id = occupation.97
+	title = occupation.97.t
+	desc = occupation.97.d
+	picture = GFX_event_Generic_occupation
+	
+	is_triggered_only = yes
+	
+	option = { # release TAN
+		name = occupation.97.a
+		ai_chance = {
+			factor = 90
+		}
+
+		every_owned_state = {
+			limit = {
+				is_core_of = TAN
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			TAN = {
+				transfer_state = PREV
+			}
+		}
+		puppet = TAN
+		hidden_effect = {
+			TAN = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.97.b
+		add_political_power = -50
+		set_country_flag = TAN_annex
+	}
+}
+
+# Siam
+country_event = {
+	id = occupation.98
+	title = occupation.98.t
+	desc = occupation.98.d
+	picture = GFX_event_Generic_occupation
+	is_triggered_only = yes
+	option = { # release Siam
+		name = occupation.98.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = SIA
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SIA = {
+				transfer_state = PREV
+			}
+
+		}
+		puppet = SIA
+		hidden_effect = {
+			SIA = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.98.b
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = SIA_annex
+	}
+}
+
+# Philippines
+country_event = {
+	id = occupation.99
+	title = occupation.99.t
+	desc = occupation.99.d
+	picture = GFX_event_Generic_occupation
+	is_triggered_only = yes
+	
+	option = { # release Philippines
+		name = occupation.99.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = PHI
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			PHI = {
+				transfer_state = PREV
+			}
+
+		}
+		puppet = PHI
+		hidden_effect = {
+			PHI = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.99.b
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = PHI_annex
+	}
+}
+
+# Paraguay
+country_event = {
+	id = occupation.100
+	title = occupation.100.t
+	desc = occupation.100.d
+	picture = GFX_event_Generic_occupation
+	is_triggered_only = yes
+	option = { # release Paraguay
+		name = occupation.100.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = PAR
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			PAR = {
+				transfer_state = PREV
+			}
+
+		}
+		puppet = PAR
+		hidden_effect = {
+			PAR = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.100.b
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = PAR_annex
+	}
+}
+
+#Ethiopia
+
+country_event = {
+	id = occupation.101
+	title = occupation.101.t
+	desc = occupation.101.d
+	picture = GFX_event_Generic_occupation
+
+	is_triggered_only = yes
+
+	option = { #release Ethiopia
+		name = occupation.101.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = ETH
+				is_not_claim_or_core_of_ROOT = yes
+				NOT = {
+					is_core_of = ERI
+				}
+			}
+			ETH = {
+				transfer_state = PREV
+			}
+		}
+		puppet = ETH
+		hidden_effect = {
+			ETH = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+		if = {
+			limit = {
+				owns_state = 550
+			}
+			country_event = occupation.102
+		}
+		if = {
+			limit = {
+				owns_state = 559
+			}
+			country_event = occupation.103
+		}
+	}
+	option = { #Liberate only core Ethiopian lands
+		name = occupation.101.b
+		ai_chance = {
+			factor = 40
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = ETH
+				is_not_claim_or_core_of_ROOT = yes
+				NOT = {
+					is_core_of = ERI
+					state = 948
+					state = 852
+					state = 952
+					state = 947
+				}
+			}
+			ETH = {
+				transfer_state = PREV
+			}
+		}
+		puppet = ETH
+		ERI = {
+			add_state_core = 948
+			add_state_core = 947
+		}
+		SMA = {
+			add_state_core = 852
+			add_state_core = 952
+		}
+		if = {
+			limit = {
+				owns_state = 550
+			}
+			country_event = occupation.102
+		}
+		if = {
+			limit = {
+				owns_state = 559
+			}
+			country_event = occupation.103
+		}
+	}
+
+	option = { #occupy
+		name = occupation.101.c
+		ai_chance = {
+			factor = 5
+			modifier = {
+				has_government = fascism 
+				factor = 70
+			}
+			modifier = {
+				has_government = nationalism 
+				factor = 50
+			}
+		}
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = ETH_annex
+	}
+}
+
+#Eritrea
+
+country_event = {
+	id = occupation.102
+	title = occupation.102.t
+	desc = occupation.102.d
+	picture = GFX_event_Generic_occupation
+
+	is_triggered_only = yes
+
+	option = { #release Eritrea
+		name = occupation.102.a
+		trigger = {
+			NOT = {
+				owns_state = 948
+				owns_state = 947
+			}
+		}
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = ERI
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			ERI = {
+				transfer_state = PREV
+			}
+		}
+		hidden_effect = {
+			ERI = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	option = {#give Eritrea to Ethiopia
+		name = occupation.102.b
+		trigger = {
+			country_exists = ETH
+			ETH = {
+				OR = {
+					is_in_faction_with = ROOT
+					is_puppet_of = ROOT
+				}
+			}
+		}
+		ai_chance = {
+			factor = 40
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = ERI
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			ETH = {
+				transfer_state = PREV
+			}
+		}
+	}
+	option = {
+		name = occupation.102.c
+		ai_chance = {
+			factor = 10
+		}
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = ERI_annex
+	}
+}
+
+# Somalia
+
+country_event = {
+	id = occupation.103
+	title = occupation.103.t
+	desc = occupation.103.d
+	picture = GFX_event_Generic_occupation
+
+	is_triggered_only = yes
+
+	option = { #release Somalia
+		name = occupation.103.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = SMA
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			SMA = {
+				transfer_state = PREV
+			}
+		}
+		hidden_effect = {
+			SMA = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	option = {
+		name = occupation.103.b
+		ai_chance = {
+			factor = 10
+		}
+		add_political_power = -25
+		add_stability = -0.03
+		add_war_support = -0.03
+		set_country_flag = SMA_annex
+	}
+}
+
+# China
+country_event = {
+	id = occupation.104
+	title = occupation.104.t
+	desc = occupation.104.d
+	picture = GFX_event_Generic_occupation
+	is_triggered_only = yes
+	option = { # release China
+		name = occupation.104.a
+		ai_chance = {
+			factor = 90
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+			CHI = { save_event_target_as = china }
+		}
+		else = {
+			PRC = { save_event_target_as = china }
+		}
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = event_target:china
+					is_claimed_by = event_target:china
+				}
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			event_target:china = {
+				transfer_state = PREV
+			}
+
+		}
+		puppet = event_target:china
+		hidden_effect = {
+			event_target:china = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.104.b
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = -0.05
+		set_country_flag = CHI_annex
+	}
+}
+
+# Liberia
+country_event = {
+	id = occupation.105
+	title = occupation.105.t
+	desc = occupation.105.d
+	picture = GFX_event_Generic_occupation
+	is_triggered_only = yes
+	option = { # release Liberia
+		name = occupation.105.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = LIB
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			LIB = {
+				transfer_state = PREV
+			}
+
+		}
+		puppet = LIB
+		hidden_effect = {
+			LIB = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.105.b
+		add_political_power = -50
+		add_stability = -0.01
+		add_war_support = -0.01
+		set_country_flag = LIB_annex
+	}
+}
+
+# Algeria
+country_event = {
+	id = occupation.106
+	title = occupation.106.t
+	desc = occupation.106.d
+	picture = GFX_event_Generic_occupation
+	is_triggered_only = yes
+	option = { # release Algeria
+		name = occupation.106.a
+		ai_chance = {
+			factor = 90
+		}
+		every_owned_state = {
+			limit = {
+				is_core_of = ALG
+				is_not_claim_or_core_of_ROOT = yes
+			}
+			ALG = {
+				transfer_state = PREV
+			}
+
+		}
+		puppet = ALG
+		hidden_effect = {
+			ALG = {
+				COALITION_RESET = yes
+				COALITION_set_up_array = yes
+			}
+		}
+	}
+	
+	option = {
+		name = occupation.106.b
+		add_political_power = -65
+		add_stability = -0.03
+		add_war_support = -0.02
+		set_country_flag = ALG_annex
+	}
+}
+
+## Return Land To Allies ##
+
+# Should be at the end of the file always #
+
+country_event = { # Do you do it? and by how much?
+	id = occupation.1000
+	title = occupation.1000.t
+	desc = occupation.1000.d
+	picture = GFX_event_generic_diplomacy
+	
+	is_triggered_only = yes
+
+	option = { # Return all clay
+		name = occupation.1000.a
+		custom_effect_tooltip = return_all_clay_tt
+		clr_country_flag = already_returning_clay
+		hidden_effect = {
+			event_target:returning_tag = {
+				country_event = occupation.1001
+			}
+		}
+		ai_chance = {
+			factor = 10
+		}
+
+
+	}
+
+	option = { # Return Cores only
+		name = occupation.1000.b
+		trigger = {
+			any_owned_state = {
+				is_controlled_by = ROOT
+				is_not_claim_or_core_of_ROOT = yes
+				NOT = { has_state_flag = keeping_clay@ROOT }
+				is_core_of = event_target:returning_tag
+			}
+			any_owned_state = {
+				is_controlled_by = ROOT
+				is_not_claim_or_core_of_ROOT = yes
+				NOT = {
+					has_state_flag = keeping_clay@ROOT
+					is_core_of = event_target:returning_tag		
+				}
+			}
+		}
+
+		clr_country_flag = already_returning_clay
+		custom_effect_tooltip = returning_only_cores_clay_tt
+
+		hidden_effect = {
+			every_owned_state = {
+				limit = {
+					NOT = {
+						has_state_flag = keeping_clay@ROOT
+						is_core_of = event_target:returning_tag
+					}
+					is_controlled_by = ROOT
+					is_not_claim_or_core_of_ROOT = yes
+					is_claimed_by = event_target:returning_tag
+				}
+				set_state_flag = keeping_clay@ROOT
+			}
+
+			event_target:returning_tag = {
+				country_event = occupation.1001
+			}
+		}
+
+	}
+
+	option = { # Mine!
+		name = occupation.1000.c
+
+		clr_country_flag = already_returning_clay
+		custom_effect_tooltip = keeping_clay_tt
+		hidden_effect = {
+			every_owned_state = {
+				limit = {
+					NOT = { has_state_flag = keeping_clay@ROOT }
+					OR = {
+						is_core_of = event_target:returning_tag
+						is_claimed_by = event_target:returning_tag
+					}
+					is_not_claim_or_core_of_ROOT = yes
+					is_controlled_by = ROOT
+					OR = {
+						any_neighbor_state = { is_owned_by = event_target:returning_tag	 }
+						AND = {
+							is_coastal = yes
+							event_target:returning_tag = {
+								any_owned_state  = {
+									is_coastal = yes
+								}
+							}
+						}
+					}
+				}
+				set_state_flag = keeping_clay@ROOT
+			}
+		}
+	}
+}
+
+country_event = { # You got clay
+	id = occupation.1001
+	title = occupation.1001.t
+	desc = occupation.1001.d
+	picture = GFX_event_generic_diplomacy
+	
+	is_triggered_only = yes
+
+	option = { # Yay so happy
+		name = occupation.1001.a
+		add_opinion_modifier = {
+			target = FROM
+			modifier = got_clay_back
+		}
+		FROM = {
+			every_owned_state = {
+				limit = {
+					NOT = { has_state_flag = keeping_clay@FROM }
+					is_claim_or_core_of_ROOT = yes
+					is_not_claim_or_core_of_PREV = yes
+					is_controlled_by = FROM
+					OR = {
+						any_neighbor_state = { is_owned_by = ROOT }
+						AND = {
+							is_coastal = yes
+							ROOT = {
+								any_owned_state  = {
+									is_coastal = yes
+								}
+							}
+						}
+					}
+				}
+				ROOT = {
+					transfer_state = PREV
+				}
+			}
+		}
+
+	}
+}

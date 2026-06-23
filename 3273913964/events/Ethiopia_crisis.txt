@@ -1,0 +1,1022 @@
+
+add_namespace = abyssinia_crisis
+add_namespace = ethiopia_liberation
+
+#EVENT CHAIN FOR THE ABYSSINIA CRISIS#
+
+country_event = { 
+	id = abyssinia_crisis.1
+	title = abyssinia_crisis.1.t
+	desc = abyssinia_crisis.1.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	immediate = {
+		add_named_threat = {
+			threat = 2
+			name = Wal_Wal_Incident
+		}
+		news_event = {
+			id = abyssinia_crisis.30
+			days = 4
+		}
+	}
+
+	option = {
+		name = abyssinia_crisis.1.a
+		ITA = {
+			country_event = {
+				id = abyssinia_crisis.2
+				days = 5
+			}
+		}
+		ETH = {
+			set_country_flag = wal_wal
+			load_focus_tree = {
+				tree = ethiopian_focus_crisis
+				keep_completed = yes
+			}
+			complete_national_focus = ETH_wal_wal_crisis
+		}
+	}
+}
+
+country_event = { #Italy initial event
+	id = abyssinia_crisis.2
+	title = abyssinia_crisis.2.t
+	desc = abyssinia_crisis.2.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #Deny Aggression but build up
+		name = abyssinia_crisis.2.a
+		ai_chance = {
+			base = 3
+		}
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.4
+				days = 25
+			}
+		}
+		set_global_flag = wal_wal_crisis
+		ITA = {
+			set_country_flag = ITA_walwal_incident_flag
+		}
+
+	}
+	option = { #We won't interfere in Ethiopia
+		name = abyssinia_crisis.2.b
+		ai_chance = {
+			base = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		trigger = {
+			ETH = {
+				is_ai = no
+			}
+		}
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.3
+				hours = 12
+			}
+		}
+		ITA = {
+			set_country_flag = ITA_peace_in_ethiopia
+		}
+
+	}
+}
+
+country_event = { #ETH: Italy retreats (Peace)
+	id = abyssinia_crisis.3
+	title = abyssinia_crisis.3.t
+	desc = abyssinia_crisis.3.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #Great
+		name = abyssinia_crisis.3.a
+		set_country_flag = ETH_white_peace
+		clr_country_flag = wal_wal
+		news_event = {
+			id = abyssinia_crisis.31
+			days = 1
+		}
+		ETH = {
+			set_country_flag = war_adverted
+			load_focus_tree = {
+				tree = ethiopian_afterwar
+				keep_completed = yes
+			}
+			complete_national_focus = ETH_war_adverted
+		}
+	}
+}
+
+country_event = { #ETH: Italy builds up their forces
+	id = abyssinia_crisis.4
+	title = abyssinia_crisis.4.t
+	desc = abyssinia_crisis.4.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #request arbitration at the league of nations
+		name = abyssinia_crisis.4.a
+		if = {
+			limit = {
+				OR = {
+					country_exists = GER
+					country_exists = DDR 
+				}
+			}
+			FRA = {
+				country_event = {
+					id = abyssinia_crisis.5
+					days = 4
+				}
+			}
+		}
+		else = {
+			FRA = {
+				country_event = {
+					id = abyssinia_crisis.6
+					days = 4
+				}
+			}
+		}
+		ENG = {
+			country_event = {
+				id = abyssinia_crisis.11
+				days = 171
+			}
+		}
+		
+	}
+}
+
+country_event = { #FRA: war in ethiopia on the horizon - Germany is a threat
+	id = abyssinia_crisis.5
+	title = abyssinia_crisis.5.t
+	desc = abyssinia_crisis.5.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #we won't interfere, we need italy
+		name = abyssinia_crisis.5.a
+		ai_chance = {
+			factor = 4
+		}
+		ITA = {
+			country_event = {
+				id = abyssinia_crisis.7
+				days = 1
+			}
+		}
+	}
+	option = { #side with eth (ahist)
+		name = abyssinia_crisis.5.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		
+		ITA = {
+			country_event = {
+				id = abyssinia_crisis.8
+				days = 1
+			}
+		}
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.9
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = { #FRA: war in ethiopia on the horizon - Germany is NOT a threat
+	id = abyssinia_crisis.6
+	title = abyssinia_crisis.6.t
+	desc = abyssinia_crisis.6.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #we wont interfere
+		name = abyssinia_crisis.6.a
+		ai_chance = {
+			factor = 2
+		}
+		ITA = {
+			country_event = {
+				id = abyssinia_crisis.7
+				days = 1
+			}
+		}
+	}
+	option = { #help ethiopia
+		name = abyssinia_crisis.6.b
+		ai_chance = {
+			factor = 3
+		}
+		
+		ITA = {
+			country_event = {
+				id = abyssinia_crisis.8
+				days = 1
+			}
+		}
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.9
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = { #ITA: France stands aside
+	id = abyssinia_crisis.7
+	title = abyssinia_crisis.7.t
+	desc = abyssinia_crisis.7.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = {
+		name = abyssinia_crisis.7.a
+	}
+}
+
+country_event = { #ITA: France helps Ethiopia
+	id = abyssinia_crisis.8
+	title = abyssinia_crisis.8.t
+	desc = abyssinia_crisis.8.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = {
+		name = abyssinia_crisis.8.a
+	}
+}
+
+country_event = { #ETH: Generic Country sends aid 
+	id = abyssinia_crisis.9
+	title = abyssinia_crisis.9.t
+	desc = abyssinia_crisis.9.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = {
+		name = abyssinia_crisis.9.a
+	}
+}
+
+country_event = { #GER: Send Aid to Ethiopia?
+	id = abyssinia_crisis.10
+	title = abyssinia_crisis.10.t
+	desc = abyssinia_crisis.10.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #yes
+		name = abyssinia_crisis.10.a
+		ai_chance = {
+			factor = 2
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.9
+				days = 1
+			}
+		}
+	}
+	option = { #no
+		name = abyssinia_crisis.10.b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = { #ENG: War looming
+	id = abyssinia_crisis.11
+	title = abyssinia_crisis.11.t
+	desc = abyssinia_crisis.11.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #send Eden to mediate
+		name = abyssinia_crisis.11.a
+		trigger = {
+			ENG = {
+				NOT = {
+					has_government = socialism
+				}
+			}
+		}
+		ITA = {
+			country_event = {
+				id = abyssinia_crisis.12
+				days = 1
+			}
+		}
+		ENG = {
+			country_event = {
+				id = abyssinia_crisis.14
+				days = 32
+			}
+		}
+	}
+	option = { #labour britain helps ethiopia
+		name = abyssinia_crisis.11.b
+		trigger = {
+			ENG = {
+				has_government = socialism
+			}
+		}
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.21
+				days = 1
+			}
+		}
+		ITA = {
+			country_event = {
+				id = abyssinia_crisis.22
+				days = 1
+			}
+		}
+		ENG = {
+			country_event = {
+				id = abyssinia_crisis.23
+				days = 32
+			}
+		}
+	}
+}
+
+country_event = { #ITA: Eng sends mediator
+	id = abyssinia_crisis.12
+	title = abyssinia_crisis.12.t
+	desc = abyssinia_crisis.12.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #this is nonsense
+		name = abyssinia_crisis.12.a
+	}
+}
+
+country_event = { #ITA: Eng sends mediator
+	id = abyssinia_crisis.13
+	title = abyssinia_crisis.13.t
+	desc = abyssinia_crisis.13.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #this is nonsense
+		name = abyssinia_crisis.13.a
+	}
+}
+
+country_event = { #ENG: Arm Embargo on both
+	id = abyssinia_crisis.14
+	title = abyssinia_crisis.14.t
+	desc = abyssinia_crisis.14.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { 
+		name = abyssinia_crisis.14.a
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.15
+				days = 1
+			}
+		}
+		ITA = {
+			country_event = {
+				id = abyssinia_crisis.16
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #ETH: britain puts an embargo
+	id = abyssinia_crisis.15
+	title = abyssinia_crisis.15.t
+	desc = abyssinia_crisis.15.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #please lift the embargo britain-san
+		name = abyssinia_crisis.15.a
+		ENG = {
+			country_event = {
+				id = abyssinia_crisis.17
+				days = 27
+			}
+		}
+		ETH = {
+			add_timed_idea = {
+				idea = ETH_arms_embargo
+				days = 200
+			}
+		}
+	}
+}
+
+country_event = { #ENG: ethiopia wants the embargo to be lifted
+	id = abyssinia_crisis.17
+	title = abyssinia_crisis.17.t
+	desc = abyssinia_crisis.17.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #no fuck u
+		name = abyssinia_crisis.17.a
+		ai_chance = {
+			factor = 4
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 7
+			}
+		}
+		
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.18
+				days = 1
+			}
+		}
+	}
+	option = { #yes
+		name = abyssinia_crisis.17.b
+		ai_chance = {
+			factor = 1
+		}
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.19
+				days = 1
+			}
+			remove_ideas = ETH_arms_embargo
+		}
+	}
+}
+
+country_event = { #ETH: Britain doesn't lift shit
+	id = abyssinia_crisis.18
+	title = abyssinia_crisis.18.t
+	desc = abyssinia_crisis.18.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #sad violin
+		name = abyssinia_crisis.18.a
+	}
+}
+
+country_event = { #ETH: Britain is super duper cool
+	id = abyssinia_crisis.19
+	title = abyssinia_crisis.19.t
+	desc = abyssinia_crisis.19.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #yay
+		name = abyssinia_crisis.19.a
+		ENG = {
+			country_event = {
+				id = abyssinia_crisis.20
+				days = 15
+			}
+		}
+	}
+}
+
+country_event = { #ENG: Send aid to Ethiopia?
+	id = abyssinia_crisis.20
+	title = abyssinia_crisis.20.t
+	desc = abyssinia_crisis.20.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #yes
+		name = abyssinia_crisis.20.a
+		ai_chance = {
+			factor = 4
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.9
+				days = 5
+			}
+		}
+	}
+	option = {#no
+		name = abyssinia_crisis.20.b
+		ai_chance = {
+			factor = 10
+		}
+		
+	}
+}
+
+country_event = { #ITA: Britain puts an arms embargo on us
+	id = abyssinia_crisis.16
+	title = abyssinia_crisis.16.t
+	desc = abyssinia_crisis.16.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #k then
+		name = abyssinia_crisis.16.a
+		ITA = {
+			country_event = {
+				id = abyssinia_crisis.24
+				days = 69
+			}
+		}
+	}
+}
+
+country_event = { #ETH: Britain sides with us!
+	id = abyssinia_crisis.21
+	title = abyssinia_crisis.21.t
+	desc = abyssinia_crisis.21.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #yay
+		name = abyssinia_crisis.21.a
+	}
+}
+
+country_event = { #ITA: Britain sides with Ethiopia!
+	id = abyssinia_crisis.22
+	title = abyssinia_crisis.22.t
+	desc = abyssinia_crisis.22.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #f them
+		name = abyssinia_crisis.22.a
+		ENG = {
+			country_event = {
+				id = abyssinia_crisis.23
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #ENG: arms embargo on Italy? (only)
+	id = abyssinia_crisis.23
+	title = abyssinia_crisis.23.t
+	desc = abyssinia_crisis.23.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #f them
+		name = abyssinia_crisis.23.a
+		ITA = {
+			country_event = {
+				id = abyssinia_crisis.16
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #ITA: Invade!
+	id = abyssinia_crisis.24
+	title = abyssinia_crisis.24.t
+	desc = abyssinia_crisis.24.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #f them
+		name = abyssinia_crisis.24.a
+		add_named_threat = {
+			threat = 5
+			name = Wal_Wal_War
+		}
+		FRA = {
+			country_event = {
+				id = abyssinia_crisis.25
+				days = 66
+			}
+		}
+		ITA = {
+			declare_war_on = {
+				target = ETH
+				type = annex_everything
+			}
+		}
+		news_event = {
+			id = abyssinia_crisis.33
+			days = 2
+		}
+		ITA = {
+			set_country_flag = second_italo_abbysinian_flag
+		}
+	}
+}
+
+country_event ={ #FRA: The Hoare Laval Pact
+	id = abyssinia_crisis.25
+	title = abyssinia_crisis.25.t
+	desc = abyssinia_crisis.25.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #sounds good
+		name = abyssinia_crisis.25.a
+		ai_chance = {
+			base = 50
+		}
+		if = {
+			limit = {
+				ITA = {
+					has_war_with = ETH
+				}
+			}
+			ENG = {
+				country_event = {
+					id = abyssinia_crisis.26
+					hours = 1
+				}
+			}
+		}
+		
+
+	}
+	option = { #we can't betray Ethiopia
+		name = abyssinia_crisis.25.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+
+	}
+}
+
+country_event ={ #ENG: The Hoare Laval Pact
+	id = abyssinia_crisis.26
+	title = abyssinia_crisis.26.t
+	desc = abyssinia_crisis.26.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #sounds good
+		name = abyssinia_crisis.26.a
+		trigger = {
+			ENG = {
+				not = {
+					has_government = socialism
+				}
+			}	
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+		}
+		ITA = {
+			country_event = {
+				id = abyssinia_crisis.27
+				days = 1
+			}
+		}
+
+	}
+	option = { #we can't betray Ethiopia
+		name = abyssinia_crisis.26.b
+		ai_chance = {
+			base = 25
+		}
+
+	}
+}
+
+country_event ={ #ITA: The Hoare Laval Pact
+	id = abyssinia_crisis.27
+	title = abyssinia_crisis.27.t
+	desc = abyssinia_crisis.27.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #accept
+		name = abyssinia_crisis.27.a
+		ai_chance = {
+			base = 2
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.28
+				days = 1
+			}
+		}
+	}
+	option = { #we'll think about it...
+		name = abyssinia_crisis.27.b
+		ai_chance = {
+			base = 2
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 4
+			}
+		}
+
+		ETH = {
+			country_event = {
+				id = abyssinia_crisis.29
+				days = 2
+			}
+		}
+		news_event = {
+			id = abyssinia_crisis.34
+			days = 1
+		}
+	}
+}
+
+country_event ={ #ETH: The Hoare Laval Pact
+	id = abyssinia_crisis.28
+	title = abyssinia_crisis.28.t
+	desc = abyssinia_crisis.28.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes
+
+	option = { #accept
+		name = abyssinia_crisis.28.a
+		ai_chance = {
+			base = 1
+		}
+		ETH = {
+			white_peace = {
+				tag = ITA
+				message = HOARE_LAVAL_PACT_SIGNED
+			}
+			load_focus_tree = ethiopian_focus_hoare_laval
+		}
+		if = {
+			limit = {
+				has_dlc = "Together for Victory"
+			}
+			ITA = {
+				set_autonomy = {
+					target = ETH
+					autonomy_state = autonomy_colony
+				}
+			}
+		}
+		else = {
+			ITA = {
+				puppet = ETH
+			}
+		}
+		ETH = {
+			transfer_state = 946
+		}
+		ITA = {
+			transfer_state = 948
+			transfer_state = 952
+		}
+		news_event = {
+			id = abyssinia_crisis.32
+			days = 1
+		}
+		ITA = {
+			set_country_flag = ITA_hoare_laval_pact_set_in_motion
+		}
+		ETH = {
+			set_cosmetic_tag = ETH_italian_puppet
+		}
+	}
+	option = { #reject
+		name = abyssinia_crisis.28.b
+		ai_chance = {
+			base = 4
+		}
+		ITA = {
+
+			country_event = {
+				id = abyssinia_crisis.38
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #ETH the plan is outrageous
+	id = abyssinia_crisis.29
+	title = abyssinia_crisis.29.t
+	desc = abyssinia_crisis.29.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes	
+
+	option = {
+		name = abyssinia_crisis.29.a
+	}
+}
+
+country_event = { #ITA: Ethiopia rejects
+	id = abyssinia_crisis.38
+	title = abyssinia_crisis.38.t
+	desc = abyssinia_crisis.38.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes	
+
+	option = { #fools
+		name = abyssinia_crisis.38.a
+	}
+}
+
+### NEWS EVENTS
+
+news_event = { #The wal wal crisis
+	id = abyssinia_crisis.30
+	title = abyssinia_crisis.30.t
+	desc = abyssinia_crisis.30.d
+	picture = GFX_news_event_walwal_incident
+	is_triggered_only = yes	
+	major = yes
+
+	option = {
+		name = abyssinia_crisis.30.a
+	}
+}
+
+news_event = { #peace at walwal
+	id = abyssinia_crisis.31
+	title = abyssinia_crisis.31.t
+	desc = abyssinia_crisis.31.d
+	picture = GFX_news_event_walwal_incident_ethiopia_peace
+	is_triggered_only = yes	
+	major = yes
+
+	option = {
+		name = abyssinia_crisis.31.a
+	}
+}
+
+news_event = { #hoare laval pact signed
+	id = abyssinia_crisis.32
+	title = abyssinia_crisis.32.t
+	desc = abyssinia_crisis.32.d
+	picture = GFX_news_event_walwal_incident_italy_peace
+	is_triggered_only = yes	
+	major = yes
+
+	option = {
+		name = abyssinia_crisis.32.a
+	}
+}
+
+news_event = { #the second italo-Ethiopian War
+	id = abyssinia_crisis.33
+	title = abyssinia_crisis.33.t
+	desc = abyssinia_crisis.33.d
+	picture = GFX_news_event_walwal_incident_italy_war
+	is_triggered_only = yes	
+	major = yes
+
+	option = {
+		name = abyssinia_crisis.33.a
+		trigger = {
+			NOT = {
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+				}
+			}	
+		}
+	}
+	option = {
+		name = abyssinia_crisis.33.b
+		trigger = {
+			OR = {
+				has_government = fascism
+				has_government = nationalism
+			}
+		}
+	}
+}
+
+news_event = { #hoare laval pact made public
+	id = abyssinia_crisis.34
+	title = abyssinia_crisis.34.t
+	desc = abyssinia_crisis.34.d
+	picture = GFX_news_event_hoare_laval_pact
+	is_triggered_only = yes	
+	major = yes
+
+	option = {
+		name = abyssinia_crisis.34.a
+	}
+}
+
+news_event = { #italo ethiopian war ends: ITA wins
+	id = abyssinia_crisis.35
+	title = abyssinia_crisis.35.t
+	desc = abyssinia_crisis.35.d
+	picture = GFX_news_event_hoare_laval_pact
+	is_triggered_only = yes	
+	major = yes
+
+	option = {
+		name = abyssinia_crisis.35.a
+		trigger = {
+			NOT = {
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+				}
+			}	
+		}
+	}
+	option = {
+		name = abyssinia_crisis.35.b
+		trigger = {
+			OR = {
+				has_government = fascism
+				has_government = nationalism
+			}
+		}
+	}
+}
+
+country_event = {
+	id = abyssinia_crisis.36
+	title = abyssinia_crisis.36.t
+	desc = abyssinia_crisis.36.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+	option = {
+		name = abyssinia_crisis.36.a
+	}
+}
+
+country_event = {
+	id = abyssinia_crisis.37
+	title = abyssinia_crisis.37.t
+	desc = abyssinia_crisis.37.d
+	picture = GFX_report_event_wal_wal
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+	option = {
+		name = abyssinia_crisis.37.a
+	}
+}
+
+
+
+
+#ETHIOPIAN LIBERATION
+
+country_event = { #ENG The Emperor requests to work together
+	id = ethiopia_liberation.1
+	title = ethiopia_liberation.1.t
+	desc = ethiopia_liberation.1.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+	is_triggered_only = yes	
+
+	option = { #we will work together
+		name = ethiopia_liberation.1.a
+		set_country_flag = liberate_ethiopia
+	}
+	option = { #we don't need any help
+		name = ethiopia_liberation.1.b
+	}
+}

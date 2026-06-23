@@ -1,0 +1,1960 @@
+#32 focuses
+#by s_team337
+shared_focus = {
+	id = GER_DNVP_Foreign_Policy_Start
+	icon = GFX_focus_German_Hegemony
+	#prerequisite = { focus = GER_DNVP_Foreign_Policy_Start }
+	x = 31
+	y = 0
+	offset = {
+		trigger = {
+			has_focus_tree = german_focus_dnvp_stahlhelm
+		}
+		x = -4
+	}
+	#relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 1.43
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 20
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Leave_League
+	icon = GFX_focus_League_of_Nations
+	prerequisite = {
+		focus = GER_DNVP_Foreign_Policy_Start
+	}
+	x = 0
+	y = 1
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 1
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_war_support = 0.015
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Rhineland
+	icon = GFX_focus_Prepare_the_Troops
+	prerequisite = {
+		focus = GER_DNVP_Leave_League
+	}
+	x = -3
+	y = 2
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 30
+		modifier = {
+			factor = 0.25
+			date < 1936.1.1
+		}
+	}
+	available = {
+		NOT = { has_country_flag = GER_demilitarized_rhineland }
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_DNVP_in_power
+		date > 1936.1.1
+	}
+	bypass = {
+		OR = {
+			has_country_flag = GER_demilitarized_rhineland
+			has_war_with = FRA
+			AND = {
+				42 = { #Moselland
+					NOT = { is_demilitarized_zone = yes }
+				}
+				51 = { #west rhineland
+					NOT = { is_demilitarized_zone = yes }
+				}
+				745 = { #ostrhineland
+					NOT = { is_demilitarized_zone = yes }
+				}
+				809 = { #Saarland
+					NOT = { is_demilitarized_zone = yes }
+				}
+				810 = { #Pfalz
+					NOT = { is_demilitarized_zone = yes }
+				}
+				864 = { #Baden
+					NOT = { is_demilitarized_zone = yes }
+				}
+				1176 = { #Frankfurt
+					NOT = { is_demilitarized_zone = yes }
+				}
+			}
+		}
+	}
+	completion_reward = {
+		42 = {
+			set_demilitarized_zone = no
+		}
+		51 = {
+			set_demilitarized_zone = no
+		}
+		745 = {
+			set_demilitarized_zone = no
+		}
+		809 = {
+			set_demilitarized_zone = no
+		}
+		810 = {
+			set_demilitarized_zone = no
+		}
+		864 = {
+			set_demilitarized_zone = no
+		}
+		1176 = {
+			set_demilitarized_zone = no
+		}
+		set_country_flag = GER_demilitarized_rhineland
+		FRA = { country_event = { id = ger_external.1 } }
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Claim_Lands
+	icon = GFX_focus_Colonial_Focus
+	prerequisite = {
+		focus = GER_DNVP_Rhineland
+	}
+	x = -4
+	y = 4
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+	}
+	bypass = {
+		owns_state = 746
+		owns_state = 754
+		owns_state = 8
+		owns_state = 836
+		owns_state = 28
+	}
+	completion_reward = {
+		add_state_claim = 746
+		add_state_claim = 754
+		add_state_claim = 8
+		add_state_claim = 836
+		add_state_claim = 28
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Claim_Colonies
+	icon = GFX_focus_German_Colonialism
+	prerequisite = {
+		focus = GER_DNVP_Rhineland
+	}
+	x = -6
+	y = 4
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+	}
+	bypass = {
+		owns_state = 794
+		owns_state = 1164
+		owns_state = 1166
+		owns_state = 546
+		owns_state = 792
+		owns_state = 793
+		owns_state = 541
+	}
+	completion_reward = {
+		add_state_claim = 794
+		add_state_claim = 1164
+		add_state_claim = 1166
+		add_state_claim = 546
+		add_state_claim = 792
+		add_state_claim = 793
+		add_state_claim = 541
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Colonial_Management
+	icon = GFX_focus_German_Colonial_Legacy
+	prerequisite = {
+		focus = GER_DNVP_Claim_Colonies
+	}
+	x = -6
+	y = 5
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 2.29
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		OR = {
+			owns_state = 794
+			owns_state = 1164
+			owns_state = 1166
+			owns_state = 546
+			owns_state = 792
+			owns_state = 793
+			owns_state = 541
+		}
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		add_ideas = GER_Colonial_Occupation
+		unlock_decision_category_tooltip = GER_DNVP_Colonial_Management_cat
+	}
+}
+shared_focus = {
+	id = GER_DNVP_War_With_France
+	icon = GFX_focus_Fall_of_Paris
+	prerequisite = {
+		focus = GER_DNVP_Claim_Colonies
+	}
+	prerequisite = {
+		focus = GER_DNVP_Claim_Lands
+	}
+	x = -4
+	y = 5
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 1.68
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		NOT = {
+			has_war_together_with = FRA
+			FRA = {
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_with = FRA
+			FRA = {
+				is_subject_of = ROOT
+			}
+			AND = {
+				owns_state = 836
+				owns_state = 28
+				OR = {
+					owns_state = 794
+					owns_state = 1164
+					owns_state = 1166
+				}
+			}
+		}
+	}
+	will_lead_to_war_with = FRA
+	completion_reward = {
+		create_wargoal = {
+			target = FRA
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Manstein_Plan
+	icon = GFX_focus_The_Big_Push
+	prerequisite = {
+		focus = GER_DNVP_War_With_France
+	}
+	x = -6
+	y = 6
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 4.72
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		has_war_with = FRA
+		OR = {
+			NOT = {
+				has_war_together_with = HOL
+			}
+			NOT = {
+				has_war_together_with = BEL
+			}
+			NOT = {
+				has_war_together_with = LUX
+			}
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_with = HOL
+			HOL = {
+				is_subject_of = ROOT
+			}
+		}
+		OR = {
+			has_war_with = BEL
+			BEL = {
+				is_subject_of = ROOT
+			}
+		}
+		OR = {
+			has_war_with = LUX
+			LUX = {
+				is_subject_of = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				country_exists = HOL
+				NOT = {
+					has_war_together_with = HOL
+					HOL = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			create_wargoal = {
+				target = HOL
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				country_exists = BEL
+				NOT = {
+					has_war_together_with = BEL
+					BEL = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			create_wargoal = {
+				target = BEL
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				country_exists = LUX
+				NOT = {
+					has_war_together_with = LUX
+					LUX = {
+						is_subject_of = ROOT
+					}
+				}
+			}
+			create_wargoal = {
+				target = LUX
+				type = annex_everything
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Entreat_Spain
+	icon = GFX_focus_Befriend_Nationalist_Spain
+	prerequisite = {
+		focus = GER_DNVP_War_With_France
+	}
+	x = -4
+	y = 6
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+			scw_in_progress = no
+			scr_in_progress = no
+		}
+		has_country_flag = GER_DNVP_in_power
+		is_faction_leader = yes
+		has_war_with = FRA
+		SPN = {
+			NOT = {
+				is_subject = yes
+				has_war_with = ROOT
+			}
+			OR = {
+				has_government = neutrality
+				has_government = monarchism
+				has_government = nationalism
+				has_government = fascism
+			}
+		}
+	}
+	bypass = {
+		is_in_faction_with = SPN
+	}
+	completion_reward = {
+		SPN = {
+			country_event = {
+				id = ger_external.18
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Operation_Moltke
+	icon = GFX_focus_Tanks_Across_the_Border
+	prerequisite = {
+		focus = GER_DNVP_War_With_France
+	}
+	x = -2
+	y = 6
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		OR = {
+			has_war_with = FRA
+			has_war_with = ENG
+		}
+		NOT = {
+			has_war_together_with = DEN
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_with = DEN
+			DEN = {
+				is_subject_of = ROOT
+			}
+		}
+	}
+	will_lead_to_war_with = DEN
+	completion_reward = {
+		create_wargoal = {
+			target = DEN
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Invade_Norway
+	icon = GFX_focus_northern_intervanetion
+	prerequisite = {
+		focus = GER_DNVP_Operation_Moltke
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_Basing_Norway
+	}
+	x = -3
+	y = 7
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 2
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		OR = {
+			has_war_with = FRA
+			has_war_with = ENG
+		}
+		NOT = {
+			has_war_together_with = NOR
+		}
+		any_country = {
+			OR = {
+				tag = ROOT
+				is_subject_of = ROOT
+			}
+			controls_state = 99
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_with = NOR
+			is_in_faction_with = NOR
+			NOR = {
+				is_subject_of = ROOT
+			}
+		}
+	}
+	will_lead_to_war_with = NOR
+	completion_reward = {
+		create_wargoal = {
+			target = NOR
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Basing_Norway
+	icon = GFX_focus_Naval_Operations
+	prerequisite = {
+		focus = GER_DNVP_Manstein_Plan
+	}
+	prerequisite = {
+		focus = GER_DNVP_Operation_Moltke
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_Invade_Norway
+	}
+	x = -5
+	y = 7
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		has_war_with = ENG
+		NOT = {
+			has_war_together_with = NOR
+		}
+		any_country = {
+			OR = {
+				tag = ROOT
+				is_subject_of = ROOT
+			}
+			controls_state = 99
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_with = NOR
+			is_in_faction_with = NOR
+			NOR = {
+				is_subject_of = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		NOR = {
+			country_event = {
+				id = ger_external.108
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Guarantee_Finland
+	icon = GFX_focus_Befriend_Finland
+	prerequisite = {
+		focus = GER_DNVP_Basing_Norway
+		focus = GER_DNVP_Invade_Norway
+	}
+	x = -4
+	y = 8
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		NOT = {
+			has_war_with = FIN
+		}
+		country_exists = FIN
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		FIN = {
+			country_event = {
+				id = wgr_external.29
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Claim_Poland
+	icon = GFX_focus_German_Plans
+	prerequisite = {
+		focus = GER_DNVP_Leave_League
+	}
+	x = 3
+	y = 2
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 1
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+	}
+	bypass = {
+		owns_state = 773
+		owns_state = 85
+		owns_state = 86
+		owns_state = 835
+		owns_state = 1060
+	}
+	completion_reward = {
+		add_state_claim = 773
+		add_state_claim = 85
+		add_state_claim = 86
+		add_state_claim = 835
+		add_state_claim = 1060
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Agitate_in_Poland
+	icon = GFX_focus_Civil_Unrest
+	prerequisite = {
+		focus = GER_DNVP_Claim_Poland
+	}
+	x = 4
+	y = 3
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		date > 1934.10.8
+		has_country_flag = GER_DNVP_in_power
+	}
+	bypass = {
+		owns_state = 773
+		owns_state = 85
+		owns_state = 86
+		owns_state = 835
+		owns_state = 1060
+	}
+	completion_reward = {
+		POL = {
+			country_event = ger_external.159
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Work_With_Danzig
+	icon = GFX_focus_Befriend_Danzig
+	prerequisite = {
+		focus = GER_DNVP_Agitate_in_Poland
+	}
+	x = 3
+	y = 4
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 2.22
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		date > 1939.7.20
+		has_country_flag = GER_DNVP_in_power
+	}
+	bypass = {
+		NOT = {
+			country_exists = DZG
+		}
+	}
+	completion_reward = {
+		DZG = {
+			country_event = ger_external.160 #ask for support if war starts
+		}
+		set_global_flag = GER_moving_on_POL
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Invade_Poland
+	icon = GFX_focus_Invade_Poland
+	prerequisite = {
+		focus = GER_DNVP_Work_With_Danzig
+	}
+	x = 3
+	y = 5
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		NOT = {
+			has_war_together_with = POL
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_with = POL
+			POL = {
+				is_subject_of = ROOT
+			}
+			NOT = {
+				country_exists = POL
+			}
+			AND = {
+				owns_state = 773
+				owns_state = 85
+				owns_state = 86
+				owns_state = 835
+				owns_state = 1060
+			}
+		}
+	}
+	will_lead_to_war_with = POL
+	completion_reward = {
+		if = {
+			limit = {
+				has_country_flag = GER_Danzig_Plan
+				country_exists = DZG
+			}
+			DZG = {
+				country_event = {
+					id = ger_external.167
+					hours = 3
+				}
+			}
+		}
+		else = {
+			create_wargoal = {
+				target = POL
+				type = annex_everything
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Core_Poland
+	icon = GFX_focus_generic_polish_deal
+	prerequisite = {
+		focus = GER_DNVP_Invade_Poland
+	}
+	x = 2
+	y = 6
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		owns_state = 773
+		owns_state = 85
+		owns_state = 86
+		owns_state = 835
+		owns_state = 1060
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		add_state_core = 773
+		add_state_core = 85
+		add_state_core = 86
+		add_state_core = 835
+		add_state_core = 1060
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Demand_Memel
+	icon = GFX_goal_generic_demand_territory
+	prerequisite = {
+		focus = GER_DNVP_Work_With_Danzig
+	}
+	x = 4
+	y = 6
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 2.29
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		188 = {
+			CONTROLLER = {
+				NOT = {
+					tag = GER
+					is_puppet_of = GER
+					is_in_faction_with = GER
+				}
+			}
+		}
+	}
+	bypass = {
+		188 = {
+			CONTROLLER = {
+				OR = {
+					tag = GER
+					is_puppet_of = GER
+					is_in_faction_with = GER
+				}
+			}
+		}
+	}
+	completion_reward = {
+		every_country = {
+			limit = { owns_state = 188 }
+			country_event = {
+				id = ger_external.146
+				hours = 4
+				random_hours = 3
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Invade_Baltic
+	icon = GFX_focus_Into_the_Flames
+	prerequisite = {
+		focus = GER_DNVP_Core_Poland
+	}
+	prerequisite = {
+		focus = GER_DNVP_Demand_Memel
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_Ally_Baltic
+	}
+	x = 3
+	y = 7
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		OR = {
+			has_government = nationalism
+			has_government = fascism
+		}
+		any_country = {
+			OR = {
+				tag = LIT
+				tag = LAT
+				tag = EST
+			}
+			NOT = {
+				has_war_together_with = ROOT
+				is_in_faction_with = ROOT
+			}
+		}
+	}
+	bypass = {
+		LIT = {
+			OR = {
+				has_war_with = ROOT
+				is_subject_of = ROOT
+				is_in_faction_with = ROOT
+				NOT = { exists = yes }
+			}
+		}
+		LAT = {
+			OR = {
+				has_war_with = ROOT
+				is_subject_of = ROOT
+				is_in_faction_with = ROOT
+				NOT = { exists = yes }
+			}
+		}
+		EST = {
+			OR = {
+				has_war_with = ROOT
+				is_subject_of = ROOT
+				is_in_faction_with = ROOT
+				NOT = { exists = yes }
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				LIT = {
+					NOT = {
+						OR = {
+							has_war_with = ROOT
+							is_subject_of = ROOT
+							is_in_faction_with = ROOT
+						}
+					}
+					exists = yes
+				}
+			}
+			create_wargoal = {
+				target = LIT
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				LAT = {
+					NOT = {
+						OR = {
+							has_war_with = ROOT
+							is_subject_of = ROOT
+							is_in_faction_with = ROOT
+						}
+					}
+					exists = yes
+				}
+			}
+			create_wargoal = {
+				target = LAT
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				EST = {
+					NOT = {
+						OR = {
+							has_war_with = ROOT
+							is_subject_of = ROOT
+							is_in_faction_with = ROOT
+						}
+					}
+					exists = yes
+				}
+			}
+			create_wargoal = {
+				target = EST
+				type = annex_everything
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Ally_Baltic
+	icon = GFX_focus_Baltic_Alliance
+	prerequisite = {
+		focus = GER_DNVP_Demand_Memel
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_Invade_Baltic
+	}
+	x = 5
+	y = 7
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		OR = {
+			has_government = nationalism
+			has_government = fascism
+			any_country = {
+				OR = {
+					tag = ROOT
+					tag = LIT
+					tag = LAT
+					tag = EST
+				}
+				has_war_with = SOV
+			}
+		}
+		is_faction_leader = yes
+		any_country = {
+			OR = {
+				tag = LIT
+				tag = LAT
+				tag = EST
+			}
+			NOT = {
+				has_war_together_with = ROOT
+				is_in_faction_with = ROOT
+				has_government = communism
+				has_government = authoritarian_socialism
+				has_government = socialism
+				has_government = social_democracy
+			}
+		}
+	}
+	bypass = {
+		LIT = {
+			is_in_faction_with = ROOT
+		}
+		LAT = {
+			is_in_faction_with = ROOT
+		}
+		EST = {
+			is_in_faction_with = ROOT
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				LIT = {
+					NOT = {
+						OR = {
+							has_war_with = ROOT
+							is_subject_of = ROOT
+							is_in_faction_with = ROOT
+						}
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_government = socialism
+						has_government = social_democracy
+					}
+					exists = yes
+				}
+			}
+			LIT = {
+				country_event = {
+					id = ger_external.150
+				}
+			}
+		}
+		if = {
+			limit = {
+				LAT = {
+					NOT = {
+						OR = {
+							has_war_with = ROOT
+							is_subject_of = ROOT
+							is_in_faction_with = ROOT
+						}
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_government = socialism
+						has_government = social_democracy
+					}
+					exists = yes
+				}
+			}
+			LAT = {
+				country_event = {
+					id = ger_external.150
+				}
+			}
+		}
+		if = {
+			limit = {
+				EST = {
+					NOT = {
+						OR = {
+							has_war_with = ROOT
+							is_subject_of = ROOT
+							is_in_faction_with = ROOT
+						}
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_government = socialism
+						has_government = social_democracy
+					}
+					exists = yes
+				}
+			}
+			EST = {
+				country_event = {
+					id = ger_external.150
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Attack_USSR
+	icon = GFX_focus_Spear_the_Bear
+	prerequisite = {
+		focus = GER_DNVP_Invade_Baltic
+		focus = GER_DNVP_Ally_Baltic
+	}
+	dynamic = yes
+	x = 4
+	y = 8
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 5
+	ai_will_do = {
+		factor = 8
+		modifier = {
+			strength_ratio = {
+				tag = SOV
+				ratio < 0.8
+			}
+			factor = 0
+		}
+		modifier = {
+			strength_ratio = {
+				tag = RUS
+				ratio < 0.8
+			}
+			factor = 0
+		}
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		date > 1941.6.15
+		OR = {
+			has_government = nationalism
+			has_government = fascism
+		}
+		OR = {
+			NOT = {
+				country_exists = POL
+			}
+			POL = {
+				OR = {
+					is_subject_of = ROOT
+					is_subject_of = SOV
+				}
+			}
+		}
+		OR = {
+			SOV = {
+				exists = yes
+				NOT = {
+					is_in_faction_with = ROOT
+					has_war_together_with = ROOT
+					is_subject_of = ROOT
+				}
+			}
+			RUS = {
+				exists = yes
+				NOT = {
+					is_in_faction_with = ROOT
+					has_war_together_with = ROOT
+					is_subject_of = ROOT
+				}
+			}
+		}
+	}
+	bypass = {
+
+	}
+	will_lead_to_war_with = SOV
+	completion_reward = {
+		if = {
+			limit = {
+				SOV = {
+					exists = yes
+					NOT = {
+						is_in_faction_with = ROOT
+						has_war_together_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			create_wargoal = {
+				target = SOV
+				type = annex_everything
+			}
+		}
+		else_if = {
+			limit = {
+				RUS = {
+					exists = yes
+					NOT = {
+						is_in_faction_with = ROOT
+						has_war_together_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+			create_wargoal = {
+				target = RUS
+				type = annex_everything
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Customs_Union_Aus
+	icon = GFX_focus_Alliance_Austria
+	prerequisite = {
+		focus = GER_DNVP_Leave_League
+	}
+	x = 0
+	y = 2
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		date > 1934.5.1
+		AUS = {
+			NOT = {
+				is_in_faction_with = ROOT
+				has_government = communism
+				has_government = authoritarian_socialism
+				has_government = socialism
+			}
+		}
+	}
+	bypass = {
+		AUS = {
+			OR = {
+				has_war_with = ROOT
+				NOT = { exists = yes }
+				is_in_faction_with = ROOT
+				is_subject = yes
+				has_government = communism
+				has_government = authoritarian_socialism
+				has_government = socialism
+			}
+		}
+	}
+	completion_reward = {
+		AUS = {
+			country_event = {
+				id = ger_external.170
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_AUS_GDVP
+	icon = GFX_goal_support_democracy
+	prerequisite = {
+		focus = GER_DNVP_Customs_Union_Aus
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_AUS_Military_Option
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_AUS_DNSAP
+	}
+	x = -2
+	y = 3
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 3
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		date > 1937.8.17
+		has_country_flag = GER_austro_agreement
+		AUS = {
+			OR = {
+				has_government = socialism
+				has_government = social_democracy
+				has_government = social_liberalism
+				has_government = market_liberalism
+				has_government = jacobin
+				has_government = democratic
+			}
+		}
+	}
+	bypass = {
+		AUS = {
+			OR = {
+				has_war_with = ROOT
+				NOT = { exists = yes }
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				AUS = {
+					has_government = market_liberalism
+				}
+			}
+			AUS = {
+				country_event = {
+					id = ger_external.174
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				country_event = {
+					id = ger_external.175
+					hours = 6
+				}
+			}
+			custom_effect_tooltip = GER_approach_GDVP_tt
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_AUS_Military_Option
+	icon = GFX_focus_Heavy_Strike
+	prerequisite = {
+		focus = GER_DNVP_Customs_Union_Aus
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_AUS_GDVP
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_AUS_DNSAP
+	}
+	x = 0
+	y = 3
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 2.15
+	ai_will_do = {
+		factor = 8
+		modifier = {
+			strength_ratio = {
+				tag = AUS
+				ratio < 1.8
+			}
+			factor = 0.2
+		}
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		date > 1937.8.17
+		OR = {
+			has_country_flag = GER_no_austro_agreement
+			AUS = {
+				OR = {
+					has_government = neutrality
+					has_government = monarchism
+					has_government = nationalism
+					has_government = fascism
+				}
+			}
+		}
+	}
+	bypass = {
+		AUS = {
+			OR = {
+				has_war_with = ROOT
+				NOT = { exists = yes }
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	will_lead_to_war_with = AUS
+	completion_reward = {
+		every_state = {
+			limit = {
+				is_core_of = AUS
+			}
+			add_core_of = ROOT
+		}
+		create_wargoal = {
+			target = AUS
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_AUS_DNSAP
+	icon = GFX_focus_Reich_Nazi_Discourse
+	prerequisite = {
+		focus = GER_DNVP_Customs_Union_Aus
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_AUS_GDVP
+	}
+	mutually_exclusive = {
+		focus = GER_DNVP_AUS_Military_Option
+	}
+	x = 2
+	y = 3
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 3
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		date > 1937.8.17
+		has_country_flag = GER_austro_agreement
+		has_country_flag = GER_DNVP_nazi_coal
+	}
+	bypass = {
+		AUS = {
+			OR = {
+				has_war_with = ROOT
+				NOT = { exists = yes }
+			}
+		}
+	}
+	completion_reward = {
+		every_state = {
+			limit = {
+				is_core_of = AUS
+			}
+			add_core_of = ROOT
+		}
+		country_event = {
+			id = ger_external.175
+		}
+		custom_effect_tooltip = GER_approach_DNSAP_tt
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Sudetenland
+	icon = GFX_goal_Sudetenland
+	prerequisite = {
+		focus = GER_DNVP_AUS_GDVP
+		focus = GER_DNVP_AUS_Military_Option
+		focus = GER_DNVP_AUS_DNSAP
+	}
+	x = 1
+	y = 4
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		date > 1938.2.20
+		any_state = {
+			OR = {
+				is_core_of = AUS
+				NOT = {
+					is_owned_by = GER
+				}
+			}
+		}
+	}
+	bypass = {
+		CZE = {
+			OR = {
+				has_war_with = ROOT
+				is_subject_of = ROOT
+				NOT = { exists = yes }
+				NOT = {
+					controls_state = 69
+					controls_state = 767
+					controls_state = 74
+				}
+			}
+		}
+	}
+	completion_reward = {
+		add_state_claim = 69
+		add_state_claim = 767
+		add_state_claim = 74
+		if = {
+			limit = {
+				ENG = {
+					NOT = {
+						has_war_with = ROOT
+						is_subject = yes
+					}
+					exists = yes
+				}
+			}
+			ENG = { country_event = { id = ger_external.65 } }
+		}
+		else_if = {
+			limit = {
+				FRA = {
+					NOT = {
+						has_war_with = ROOT
+						is_subject = yes
+					}
+					exists = yes
+				}
+			}
+			FRA = { country_event = { id = ger_external.66 } }
+		}
+		else_if = {
+			limit = {
+				CZE = {
+					NOT = {
+						has_war_with = ROOT
+						is_subject = yes
+					}
+					exists = yes
+				}
+			}
+			CZE = { country_event = { id = ger_external.67 } }
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Yugoslavia
+	icon = GFX_focus_yugoslavia_crown
+	prerequisite = {
+		focus = GER_DNVP_Summit_with_Italy
+	}
+	prerequisite = {
+		focus = GER_DNVP_Sudetenland
+	}
+	x = 1
+	y = 5
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 2.29
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		has_country_flag = GER_Failed_ITA_Summit
+		is_faction_leader = yes
+		#date > 1940.1.1
+		country_exists = YUG
+		NOT = {
+			YUG = {
+				has_war_with = ROOT
+				is_subject = yes
+				is_in_faction = yes
+			}
+		}
+	}
+	bypass = {
+		YUG = {
+			OR = {
+				has_war_with = ROOT
+				is_subject_of = ROOT
+				NOT = { exists = yes }
+			}
+		}
+	}
+	completion_reward = {
+		YUG = {
+			country_event = {
+				id = ger_external.197
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Invade_Italy
+	icon = GFX_focus_Contain_Italy
+	prerequisite = {
+		focus = GER_DNVP_Yugoslavia
+	}
+	x = 1
+	y = 7
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		is_faction_leader = yes
+		date > 1940.1.1
+		country_exists = YUG
+		NOT = {
+			ITA = {
+				has_war_with = ROOT
+				is_subject_of = ROOT
+				is_in_faction = yes
+			}
+		}
+		ITA = {
+			owns_state = 1035
+			controls_state = 1035
+		}
+	}
+	bypass = {
+		ITA = {
+			OR = {
+				has_war_with = ROOT
+				is_subject_of = ROOT
+				NOT = { exists = yes }
+			}
+		}
+	}
+	completion_reward = {
+		add_state_claim = 1035
+		create_wargoal = {
+			target = ITA
+			type = annex_everything
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_DNVP_Summit_with_Italy
+	icon = GFX_focus_Italian_Soldiers
+	prerequisite = {
+		focus = GER_DNVP_AUS_GDVP
+		focus = GER_DNVP_AUS_Military_Option
+		focus = GER_DNVP_AUS_DNSAP
+	}
+	x = -1
+	y = 4
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 1
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		is_faction_leader = yes
+		any_state = {
+			OR = {
+				is_core_of = AUS
+				NOT = {
+					is_owned_by = GER
+				}
+			}
+		}
+	}
+	bypass = {
+		ITA = {
+			OR = {
+				has_war_with = ROOT
+				is_subject_of = ROOT
+				is_in_faction_with = ROOT
+				NOT = { exists = yes }
+			}
+		}
+	}
+	completion_reward = {
+		ITA = {
+			country_event = {
+				id = ger_external.184
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Hungary
+	icon = GFX_focus_Befriend_Hungary
+	prerequisite = {
+		focus = GER_DNVP_Summit_with_Italy
+	}
+	prerequisite = {
+		focus = GER_DNVP_Sudetenland
+	}
+	x = -1
+	y = 5
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 2.29
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		OR = {
+			has_country_flag = GER_successful_summit_ITA
+			has_country_flag = GER_YUG_refuse_hvar
+		}
+		is_faction_leader = yes
+		date > 1940.1.1
+		country_exists = HUN
+		HUN = {
+			NOT = {
+				has_war_with = ROOT
+				is_subject = yes
+				is_in_faction = yes
+			}
+		}
+	}
+	bypass = {
+		HUN = {
+			OR = {
+				has_war_with = ROOT
+				is_subject_of = ROOT
+				is_in_faction = yes
+				NOT = { exists = yes }
+			}
+		}
+	}
+	completion_reward = {
+		HUN = {
+			country_event = {
+				id = ger_external.200
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Demand_Slovenia
+	icon = GFX_focus_Claims_in_Slovenia
+	prerequisite = {
+		focus = GER_DNVP_Hungary
+		focus = GER_DNVP_Yugoslavia
+	}
+	x = 0
+	y = 6
+	relative_position_id = GER_DNVP_Foreign_Policy_Start
+	cost = 3
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = GER_demilitarized_rhineland
+		OR = {
+			NOT = { has_country_flag = GCW_ongoing_flag }
+			has_country_flag = GER_no_civil_war
+			has_country_flag = GER_civil_war_over
+		}
+		has_country_flag = GER_DNVP_in_power
+		OR = {
+			NOT = {
+				has_completed_focus = GER_DNVP_Yugoslavia
+			}
+			has_country_flag = GER_YUG_refuse_hvar
+		}
+		is_faction_leader = yes
+		date > 1940.3.18
+		country_exists = YUG
+		NOT = {
+			YUG = {
+				has_war_with = ROOT
+				is_subject = yes
+				is_in_faction = yes
+			}
+		}
+		YUG = {
+			owns_state = 102
+			controls_state = 102
+		}
+	}
+	bypass = {
+		YUG = {
+			OR = {
+				has_war_with = ROOT
+				is_subject_of = ROOT
+				NOT = { exists = yes }
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = {
+					is_in_faction_with = ITA
+					is_in_faction_with = HUN
+				}
+			}
+			YUG = {
+				country_event = {
+					id = ger_external.206
+				}
+			}
+		}
+		else = {
+			set_variable = {
+				GER_event_count_YUG = 0
+			}
+		}
+		if = {
+			limit = {
+				is_in_faction_with = ITA
+				YUG = {
+					owns_state = 838
+					controls_state = 838
+				}
+				ITA = {
+					NOT = {
+						has_war_with = YUG
+						has_war_together_with = YUG
+						is_in_faction_with = YUG
+					}
+				}
+			}
+			ITA = {
+				country_event = {
+					id = ger_external.203
+				}
+			}
+		}
+		if = {
+			limit = {
+				is_in_faction_with = HUN
+				YUG = {
+					owns_state = 815
+					controls_state = 815
+				}
+				HUN = {
+					NOT = {
+						has_war_with = YUG
+						has_war_together_with = YUG
+						is_in_faction_with = YUG
+					}
+				}
+			}
+			HUN = {
+				country_event = {
+					id = ger_external.203
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,372 @@
+# focuses here
+#s_team337
+#s_team337 and Focus Tree
+shared_focus = {
+	id = GEO_2RCW_Foreign_Start
+	icon = GFX_focus_Generic_Political
+	#prerequisite = { focus = GEO_2RCW_Foreign_Start }
+	x = 9
+	y = 0
+	x = 35
+	y = 1
+	#relative_position_id = GEO_2RCW_Foreign_Start
+	cost = 5
+	ai_will_do = {
+			factor = 16
+	}
+	completion_reward = {
+		add_political_power = 70
+	}
+}
+
+shared_focus = {
+		id = GEO_the_matter_of_foriegn_relations
+		icon = GFX_manage_administration
+		x = 0
+		y = 1
+		relative_position_id = GEO_2RCW_Foreign_Start
+		prerequisite = {
+			focus = GEO_2RCW_Foreign_Start
+		}
+		available = {
+			
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 16
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = RUS_unrecognized
+				add_idea = RUS_partially_recognized
+			}	
+		}
+	}
+	
+	shared_focus = {
+		id = GEO_ask_the_french
+		icon = GFX_focus_chi_reach_out_to_france
+		x = -2
+		y = 2
+		relative_position_id = GEO_2RCW_Foreign_Start
+		prerequisite = {
+			focus = GEO_the_matter_of_foriegn_relations
+		}
+		available = {
+			
+			NOT = {
+				is_guaranteed_by = FRA
+				is_guaranteed_by = POL
+				is_guaranteed_by = GER
+				is_guaranteed_by = WGR
+				is_guaranteed_by = DDR
+			}
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_political_power = 80
+			hidden_effect = {
+				FRA = {
+					country_event = {
+						id = geo_civil_war.11
+					}
+				}
+			}
+			custom_effect_tooltip = GEO_ask_fra
+		}
+	}
+	
+	shared_focus = {
+		id = GEO_ask_the_poles
+		icon = GFX_goal_Culture_Projects
+		x = 0
+		y = 2
+		relative_position_id = GEO_2RCW_Foreign_Start
+		prerequisite = {
+			focus = GEO_the_matter_of_foriegn_relations
+		}
+		available = {
+			
+			NOT = {
+				is_guaranteed_by = FRA
+				is_guaranteed_by = POL
+				is_guaranteed_by = GER
+				is_guaranteed_by = WGR
+				is_guaranteed_by = DDR
+			}
+			#is_in_faction_with = POL
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 16
+		}
+		completion_reward = {
+			add_political_power = 40
+			set_variable = {
+				GEO_add_influence_value = 2
+			}
+			GEO_add_influence_menshevik = yes
+			custom_effect_tooltip = GEO_men_gain_2
+			hidden_effect = {
+				POL = {
+					country_event = {
+						id = geo_civil_war.11
+					}
+				}
+			}
+			custom_effect_tooltip = GEO_ask_pol
+		}
+	}
+	
+	shared_focus = {
+		id = GEO_ask_the_germans
+		icon = GFX_focus_Iron_Cross_Germany
+		x = 2
+		y = 2
+		relative_position_id = GEO_2RCW_Foreign_Start
+		prerequisite = {
+			focus = GEO_the_matter_of_foriegn_relations
+		}
+		available = {
+			
+			NOT = {
+				is_guaranteed_by = FRA
+				is_guaranteed_by = POL
+				is_guaranteed_by = GER
+				is_guaranteed_by = WGR
+				is_guaranteed_by = DDR
+			}
+			#OR = {
+			#	is_in_faction_with = GER
+			#	is_in_faction_with = WGR
+			#	is_in_faction_with = DDR
+			#}
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 16
+		}
+		completion_reward = {
+			add_political_power = 40
+			set_variable = {
+				GEO_add_influence_value = 2
+			}	
+			GEO_add_influence_traditionalist = yes
+			custom_effect_tooltip = GEO_trad_gain_2
+			hidden_effect = {
+				if = {
+					limit = {
+						country_exists = GER
+					}
+					GER = {
+						country_event = {
+							id = geo_civil_war.11
+						}
+					}
+				}
+				if = {
+					limit = {
+						country_exists = WGR
+					}
+					WGR = {
+						country_event = {
+							id = geo_civil_war.11
+						}
+					}
+				}
+				if = {
+					limit = {
+						country_exists = DDR
+					}
+					DDR = {
+						country_event = {
+							id = geo_civil_war.11
+						}
+					}
+				}
+			}
+			custom_effect_tooltip = GEO_ask_ger
+		}
+	}
+	
+	shared_focus = {
+		id = GEO_foreign_officers
+		icon = GFX_focus_Military_Attache
+		x = -1
+		y = 3
+		relative_position_id = GEO_2RCW_Foreign_Start
+		prerequisite = {
+			focus = GEO_ask_the_french
+			focus = GEO_ask_the_germans
+			focus = GEO_ask_the_poles
+		}
+		mutually_exclusive = {
+			focus = GEO_regional_diplomatic_outreach
+		}
+		available = {
+			
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 16
+		}
+		completion_reward = {
+			hidden_effect = {
+				random_country = {
+					limit = {
+					has_guaranteed = ROOT
+						OR = {
+							tag = GER
+							tag = WGR
+							tag = DDR
+							tag = FRA
+							tag = POL
+						}
+					}
+					country_event = {
+						id = geo_civil_war.6
+					}
+				}
+			}
+			custom_effect_tooltip = UKR_gib_officers
+		}
+	}
+	
+	shared_focus = {
+		id = GEO_regional_diplomatic_outreach #sends events to neighbors, may give pp to all parties involved
+		icon = GFX_focus_Freedom_of_Speech
+		x = 1
+		y = 3
+		relative_position_id = GEO_2RCW_Foreign_Start
+		prerequisite = {
+			focus = GEO_ask_the_french
+			focus = GEO_ask_the_germans
+			focus = GEO_ask_the_poles
+		}
+		mutually_exclusive = {
+			focus = GEO_foreign_officers
+		}
+		available = {
+			
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 16
+		}
+		completion_reward = { 
+			hidden_effect = {
+				every_country = {
+					limit = {
+						tag = ARM
+						tag = AZR
+						tag = DAG
+						tag = CHC
+					}
+					country_event = {
+						id = geo_civil_war.7
+					}
+				}
+			}
+			custom_effect_tooltip = GEO_gib_friends
+		}
+	}
+	
+	shared_focus = {
+		id = GEO_purchase_weapons
+		icon = GFX_focus_Buy_Foreign_Weapons
+		x = -1
+		y = 4
+		relative_position_id = GEO_2RCW_Foreign_Start
+		prerequisite = {
+			focus = GEO_foreign_officers
+		}
+		available = {
+			
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 16
+		}
+		completion_reward = { #change later
+			hidden_effect = {
+				random_country = {
+					limit = {
+						OR = {
+							tag = POL
+							tag = WGR
+							tag = GER
+							tag = DDR
+							tag = FRA
+						}
+						has_guaranteed = ROOT
+					}
+					country_event = {
+						id = geo_civil_war.5
+					}
+				}
+			}
+		custom_effect_tooltip = UKR_gib_guns
+		}
+	}
+	
+	shared_focus = {
+		id = GEO_caucasian_trade #trade deals with the neighbors for oil
+		icon = GFX_focus_Free_Trade
+		x = 1
+		y = 4
+		relative_position_id = GEO_2RCW_Foreign_Start
+		prerequisite = {
+			focus = GEO_regional_diplomatic_outreach
+		}
+		available = {
+			
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 16
+		}
+		completion_reward = {
+			add_ideas = GEO_trade 
+			hidden_effect = {
+				every_country = { #replace this with decisions
+					limit = {
+						tag = ARM
+						tag = AZR
+						tag = DAG
+						tag = CHC
+					}
+					country_event = {
+						id = geo_civil_war.8
+					}
+				}
+			}
+			custom_effect_tooltip = GEO_gib_trade
+		}
+	}
+	
+	shared_focus = {
+		id = GEO_cement_legitimacy
+		icon = GFX_focus_focus_peace_talks
+		x = 0
+		y = 5
+		relative_position_id = GEO_2RCW_Foreign_Start
+		prerequisite = {
+			focus = GEO_purchase_weapons
+			focus = GEO_caucasian_trade
+		}
+		available = {
+			
+		}
+		cost = 5
+		ai_will_do = {
+			factor = 16
+		}
+		completion_reward = {
+			remove_ideas = {
+				RUS_partially_recognized
+			}
+		}
+	}

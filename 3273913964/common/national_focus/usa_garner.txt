@@ -1,0 +1,393 @@
+focus_tree = {
+	id = USA_focus_garner
+
+	country = {
+		factor = 0
+
+		modifier = {
+			add = 0
+			tag = USA
+		}
+
+	}
+	default = no
+	continuous_focus_position = { x = 80 y = 3000 }
+	shared_focus = USA_main_foreign_start
+	shared_focus = USA_main_military_start
+
+	focus = {
+		id = USA_president_garner
+		icon = GFX_focus_USA_Garner
+		cost = 1
+		available = {
+			always = no
+		}
+		bypass = {
+			has_government = democratic
+		}
+		x = 5
+		y = 0
+	}
+
+	focus = {
+		id = USA_war_is_coming_garner
+		icon = GFX_focus_USA_Soldiers
+		cost = 7
+		prerequisite = {
+			focus = USA_president_garner
+		}
+		# mutually_exclusive = { focus = USA_different_deal }
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		available = {
+			has_war = no
+			OR = {
+				AND = {
+					JAP = {
+						exists = yes
+						has_capitulated = no
+						is_subject = no
+						OR = {
+							naval_strength_ratio = {
+								tag = USA
+								ratio > 0.4
+							}
+							strength_ratio = {
+								tag = USA
+								ratio > 0.4
+							}
+						}
+					}
+				}
+				GRM = {
+					OR = {
+						has_war_with = ENG
+						has_war_with = FRA
+						has_war_with = SOV
+					}
+				}
+				SOV = {
+					OR = {
+						has_war_with = ENG
+						has_war_with = FRA
+					}
+				}
+			}
+		}
+		completion_reward = {
+			activate_mission = USA_go_to_war_ms
+			if = {
+				limit = {
+					has_idea = undisturbed_isolation
+				}
+				swap_ideas = {
+					remove_idea = undisturbed_isolation
+					add_idea = civilian_economy
+				}
+			}
+			if = {
+				limit = {
+					has_idea = isolation
+				}
+				swap_ideas = {
+					remove_idea = isolation
+					add_idea = civilian_economy
+				}
+			}
+		}
+		x = 8
+		y = 1
+	}
+
+	focus = {
+		id = USA_office_prod_garner
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 7
+		prerequisite = {
+			focus = USA_war_is_coming_garner
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			custom_effect_tooltip = usa_war_chest_tooltip
+			effect_tooltip = {
+				add_timed_idea = {  idea = USA_prepared_war_A days = war_chest_days }
+			}
+		}
+		x = 7
+		y = 2
+	}
+
+	focus = {
+		id = USA_supply_prior_garner
+		icon = GFX_focus_Firearms
+		cost = 7
+		prerequisite = {
+			focus = USA_office_prod_garner
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			custom_effect_tooltip = usa_war_chest_tooltip
+			effect_tooltip = {
+				swap_ideas = { remove_idea = USA_prepared_war_A add_idea = USA_prepared_war_AC }
+			}
+		}
+		x = 6
+		y = 3
+	}
+
+	focus = {
+		id = USA_opa_garner
+		icon = GFX_focus_Fundraising
+		cost = 7
+		prerequisite = {
+			focus = USA_office_prod_garner
+		}
+		prerequisite = {
+			focus = USA_four_freedoms_garner
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			custom_effect_tooltip = usa_war_chest_tooltip
+			effect_tooltip = {
+				swap_ideas = { remove_idea = USA_prepared_war_A add_idea = USA_prepared_war_AD }
+			}
+		}
+		x = 8
+		y = 3
+	}
+
+	focus = {
+		id = USA_towards_war_eco_garner
+		icon = GFX_focus_Eagle_Industry
+		cost = 7
+		prerequisite = {
+			focus = USA_four_freedoms_garner
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			set_country_flag = usa_eco_bonus_depression
+			increase_mobilisation = yes
+		}
+		x = 10
+		y = 3
+	}
+
+	focus = {
+		id = USA_initiate_war_bonds_garner
+		icon = GFX_focus_Free_Trade
+		cost = 7
+		prerequisite = {
+			focus = USA_towards_war_eco_garner
+		}
+		prerequisite = {
+			focus = USA_opa_garner
+		}
+		prerequisite = {
+			focus = USA_supply_prior_garner
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			custom_effect_tooltip = usa_war_chest_tooltip
+			effect_tooltip = {
+				swap_ideas = { remove_idea = USA_prepared_war_ACD add_idea = USA_prepared_war_ACDE }
+			}
+		}
+		x = 8
+		y = 4
+	}
+
+	focus = {
+		id = USA_four_freedoms_garner
+		icon = GFX_focus_Give_Democracy
+		cost = 7
+		prerequisite = {
+			focus = USA_war_is_coming_garner
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			custom_effect_tooltip = usa_war_chest_tooltip
+			effect_tooltip = {
+				add_war_support = 0.15
+				add_stability = 0.1
+				add_political_power = 100
+			}
+		}
+		x = 9
+		y = 2
+	}
+
+	focus = {
+		id = USA_amend_political_divisions_garner
+		icon = GFX_focus_Desegregation
+		cost = 7
+		prerequisite = {
+			focus = USA_war_is_coming_garner
+			focus = USA_different_deal
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			add_political_power = 50
+		}
+		x = 5
+		y = 2
+	}
+
+	focus = {
+		id = USA_different_deal
+		icon = GFX_focus_Fundraising
+		cost = 7
+		prerequisite = {
+			focus = USA_president_garner
+		}
+		# mutually_exclusive = {
+		# 	focus = USA_war_is_coming_garner
+		# }
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			add_popularity = {
+				ideology = market_liberalism
+				popularity = -0.03
+			}
+		}
+		x = 2
+		y = 1
+	}
+
+	focus = {
+		id = USA_leadership_not_rulership
+		icon = GFX_focus_Torch_of_Freedom
+		cost = 4
+		prerequisite = {
+			focus = USA_different_deal
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY}
+		completion_reward = {
+			add_political_power = 30
+		}
+		x = 1
+		y = 2
+	}
+
+	focus = {
+		id = USA_support_public_works
+		icon = GFX_focus_Build_Houses
+		cost = 8
+		prerequisite = {
+			focus = USA_different_deal
+		}
+		search_filters = {FOCUS_FILTER_USA_CONGRESS_ACT FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = USA_garner_works_employment_law
+			custom_effect_tooltip = will_vote
+			
+		}
+		x = 3
+		y = 2
+	}
+
+	focus = {
+		id = USA_work_congress
+		icon = GFX_focus_Parliament
+		cost = 5
+		prerequisite = {
+			focus = USA_leadership_not_rulership
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			USA_congress_medium_support = yes
+			add_political_power = 30
+		}
+		x = 0
+		y = 3
+	}
+
+	focus = {
+		id = USA_decentralize_new_deal
+		icon = GFX_focus_generic_self_management
+		cost = 7
+		prerequisite = {
+			focus = USA_support_public_works
+		}
+		search_filters = {FOCUS_FILTER_USA_CONGRESS_ACT FOCUS_FILTER_POLITICAL FOCUS_FILTER_USA_DEPRESSION_RECOVERY}
+		completion_reward = {
+			custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = USA_federal_economy_law
+			custom_effect_tooltip = will_vote
+		}
+		x = 4
+		y = 3
+	}
+
+	focus = {
+		id = USA_lower_taxes_garner
+		icon = GFX_focus_Free_Trade
+		cost = 6
+		prerequisite = {
+			focus = USA_leadership_not_rulership
+		}
+		prerequisite = {
+			focus = USA_support_public_works
+		}
+		search_filters = {FOCUS_FILTER_USA_CONGRESS_ACT FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_USA_DEPRESSION_RECOVERY}
+		completion_reward = {
+			custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = USA_garner_tax_law
+			custom_effect_tooltip = will_vote
+			unlock_decision_tooltip = {
+				decision = USA_garner_tax_act
+				show_effect_tooltip = yes
+			}
+		}
+		x = 2
+		y = 3
+	}
+
+	focus = {
+		id = USA_amend_nlra
+		icon = GFX_focus_Business_Bills
+		cost = 8
+		prerequisite = {
+			focus = USA_work_congress
+		}
+		prerequisite = {
+			focus = USA_lower_taxes_garner
+		}
+		prerequisite = {
+			focus = USA_decentralize_new_deal
+		}
+		search_filters = {FOCUS_FILTER_USA_CONGRESS_ACT FOCUS_FILTER_USA_DEPRESSION_RECOVERY}
+		completion_reward = {
+			custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = USA_labor_strikes_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				effect_depression_recovery = yes
+				add_political_power = -50
+				add_popularity = {
+					ideology = democratic
+					popularity = -0.05
+				}
+			}
+		}
+		x = 2
+		y = 4
+	}
+}

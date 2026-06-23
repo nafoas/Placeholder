@@ -1,0 +1,97 @@
+BOL_ignore_neighbours_when_chaco_war = {
+	allowed = { 
+		tag = BOL
+	}
+	enable = {
+		has_war_with = PAR
+	}
+
+	abort = {
+		OR = {
+			has_war_with = BRA
+			has_war_with = PRU
+			has_war_with = CHL
+			has_war_with = ARG
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				tag = BRA
+				tag = PRU
+				tag = CHL
+				tag = ARG
+			}
+		}
+
+		value = -200
+	}
+}
+
+Attack_fase_in_the_chaco = {
+	enable = {
+		tag = BOL
+		has_global_flag = SA_chaco_war_flag
+		has_active_mission = BOL_loss_of_momentum_mission
+	}
+
+	abort = {
+		date > 1933.6.8
+	}
+
+	ai_strategy = {
+		type = ignore_army_incompetence
+		value = 100
+	}	
+	ai_strategy = {
+		type = front_control
+		tag = PAR
+   		country_trigger = { always = no } 	# a trigger to check agaisnt a specific country. scope is enemy country from scope is our country
+  		state_trigger = { always = no } 	# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+	  	#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+		priority = 0
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+   	}
+}
+
+defensive_fase_in_the_chaco = {
+	enable = {
+		tag = BOL
+		has_global_flag = SA_chaco_war_flag
+		date > 1933.6.8
+	}
+
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = front_control
+		tag = PAR
+   		country_trigger = { always = no } 	# a trigger to check agaisnt a specific country. scope is enemy country from scope is our country
+  		state_trigger = { always = no } 	# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+	  	#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+		priority = 0
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+   	}
+}
+
+BOL_dont_garrison = {
+	enable = {
+		tag = BOL
+		has_global_flag = SA_chaco_war_flag
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = garrison
+		value = -100
+	}
+}

@@ -1,0 +1,921 @@
+# focuses here
+#s_team337
+
+#civil service section
+shared_focus = {
+	id = GEN_RIGHT_POL_start
+	icon = GFX_focus_Enlist_the_Police
+	#prerequisite = { focus = GEN_RIGHT_POL_start }
+	x = 6
+	y = 0
+	#relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 75
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Purge_Government
+	icon = GFX_focus_Civillian_Purges
+	prerequisite = {
+		focus = GEN_RIGHT_POL_start
+	}
+	x = -5
+	y = 1
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		GEN_tree_decrease_other_rightists = yes
+		add_timed_idea = {
+			idea = GEN_Recent_Purges
+			days = 180
+		}
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Eliminate_Socialism
+	icon = GFX_focus_Anti_Communist
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Purge_Government
+	}
+	x = -1
+	y = 1
+	relative_position_id = GEN_RIGHT_POL_Purge_Government
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = communism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.05
+		}
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Eliminate_Liberalism
+	icon = GFX_focus_Anti_Democracy
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Purge_Government
+	}
+	x = 1
+	y = 1
+	relative_position_id = GEN_RIGHT_POL_Purge_Government
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = social_democracy
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Improve_Secret_Police
+	icon = GFX_focus_Counter_Intelligence
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Eliminate_Socialism
+	}
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Eliminate_Liberalism
+	}
+	x = 0
+	y = 2
+	relative_position_id = GEN_RIGHT_POL_Purge_Government
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_secret_police
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Tighten_Courts
+	icon = GFX_focus_Imprison_the_Opposition
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Improve_Secret_Police
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Special_Courts
+	}
+	x = -1
+	y = 3
+	relative_position_id = GEN_RIGHT_POL_Purge_Government
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		OR = {
+			has_government = neutrality
+			has_government = monarchism
+			has_government = nationalism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -30
+		add_stability = 0.06
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Special_Courts
+	icon = GFX_focus_The_Noose
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Improve_Secret_Police
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Tighten_Courts
+	}
+	x = 1
+	y = 3
+	relative_position_id = GEN_RIGHT_POL_Purge_Government
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		OR = {
+			has_government = monarchism
+			has_government = nationalism
+			has_government = fascism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -50
+		add_stability = 0.10
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Secure_Loyalty
+	icon = GFX_focus_Oath_of_Loyalty
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Tighten_Courts
+		focus = GEN_RIGHT_POL_Special_Courts
+	}
+	x = 0
+	y = 4
+	relative_position_id = GEN_RIGHT_POL_Purge_Government
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 40
+		add_stability = 0.04
+	}
+}
+##Ideology section
+shared_focus = {
+	id = GEN_RIGHT_POL_Mod_Nat
+	icon = GFX_focus_Presidential_System
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_RIGHT_POL_start
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_King
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Ultra_Nat
+	}
+	x = -2
+	y = 1
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		OR = {
+			has_government = monarchism
+			has_government = neutrality
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 40
+		if = {
+			limit = {
+				has_government = monarchism
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = 0.08
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = neutrality
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.08
+			}
+		}
+		else = {
+			add_popularity = {
+				ideology = monarchism
+				popularity = 0.04
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.04
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_King
+	icon = GFX_focus_Coronation
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_RIGHT_POL_start
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Mod_Nat
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Ultra_Nat
+	}
+	x = 0
+	y = 1
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		OR = {
+			has_government = monarchism
+			has_government = nationalism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.08
+		if = {
+			limit = {
+				has_government = monarchism
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = 0.08
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = nationalism
+			}
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.08
+			}
+		}
+		else = {
+			add_popularity = {
+				ideology = monarchism
+				popularity = 0.04
+			}
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.04
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Ultra_Nat
+	icon = GFX_focus_Fascist_Assembly
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_RIGHT_POL_start
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_King
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Mod_Nat
+	}
+	x = 2
+	y = 1
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		OR = {
+			has_government = nationalism
+			has_government = fascism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_war_support = 0.08
+		if = {
+			limit = {
+				has_government = nationalism
+			}
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.08
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = fascism
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.08
+			}
+		}
+		else = {
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.04
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.04
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Traditionalism
+	icon = GFX_focus_Agriculture_2
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_RIGHT_POL_King
+		focus = GEN_RIGHT_POL_Mod_Nat
+		focus = GEN_RIGHT_POL_Ultra_Nat
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Reactionary_Monarchism
+	}
+	x = -1
+	y = 2
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		OR = {
+			has_government = neutrality
+			has_government = monarchism
+			has_government = nationalism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_traditionalism
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Reactionary_Monarchism
+	icon = GFX_focus_Reich_Nazi_Discourse
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_RIGHT_POL_King
+		focus = GEN_RIGHT_POL_Mod_Nat
+		focus = GEN_RIGHT_POL_Ultra_Nat
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Traditionalism
+	}
+	x = 1
+	y = 2
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+		modifier = {
+			has_government = nationalism
+			factor = 0.25
+		}
+	}
+	available = {
+		OR = {
+			has_government = nationalism
+			has_government = fascism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_reactionary_modernism
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Nationalist_Education
+	icon = GFX_focus_Brainpower
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Reactionary_Monarchism
+		focus = GEN_RIGHT_POL_Traditionalism
+	}
+	x = 0
+	y = 3
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		gen_add_our_ideology = yes
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Cultural_Orgs
+	icon = GFX_focus_Green_Belts
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Nationalist_Education
+	}
+	x = -1
+	y = 4
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 45
+		add_war_support = 0.03
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Paramilitary
+	icon = GFX_focus_Recruitment
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Cultural_Orgs
+	}
+	x = -1
+	y = 5
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_paramilitary
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Centralize_Power
+	icon = GFX_focus_Empower_President
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Nationalist_Education
+	}
+	x = 1
+	y = 4
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 70
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Expand_Bureaucracy
+	icon = GFX_manage_administration
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Centralize_Power
+	}
+	x = 1
+	y = 5
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_expanded_bureaucracy
+			days = 365
+		}
+	}
+}
+#Economic Policy
+shared_focus = {
+	id = GEN_RIGHT_POL_Protectionism
+	icon = GFX_focus_Protectionism
+	prerequisite = {
+		focus = GEN_RIGHT_POL_start
+	}
+	x = 5
+	y = 1
+	relative_position_id = GEN_RIGHT_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		MOVE_DOWN_TRADE2 = yes
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Capitalism
+	icon = GFX_focus_Business_Men
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Protectionism
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Corporatism
+	}
+	x = -1
+	y = 1
+	relative_position_id = GEN_RIGHT_POL_Protectionism
+	cost = 8
+	ai_will_do = {
+		factor = 16
+		modifier = {
+			capital_scope = {
+				OR = {
+					is_on_continent = north_america
+					is_on_continent = south_america
+				}
+			}
+			factor = 0.2
+		}
+		modifier = {
+			has_government = neutrality
+			factor = 0.75
+		}
+		modifier = {
+			OR = {
+				has_government = nationalism
+				has_government = fascism
+			}
+			factor = 0.25
+		}
+	}
+	available = {
+		OR = {
+			has_government = neutrality
+			has_government = monarchism
+			has_government = nationalism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_rightist_pro_corporations
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Deregulation
+	icon = GFX_focus_Deregulation
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Capitalism
+	}
+	x = -2
+	y = 2
+	relative_position_id = GEN_RIGHT_POL_Protectionism
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		OR = {
+			has_government = neutrality
+			has_government = monarchism
+			has_government = nationalism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GEN_rightist_pro_corporations
+			add_idea = GEN_rightist_pro_corporations2
+		}
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Corporatism
+	icon = GFX_focus_Control_the_Economy
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Protectionism
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Capitalism
+	}
+	x = 1
+	y = 1
+	relative_position_id = GEN_RIGHT_POL_Protectionism
+	cost = 8
+	ai_will_do = {
+		factor = 16
+		modifier = {
+			OR = {
+				has_government = neutrality
+				has_government = monarchism
+			}
+			factor = 0.25
+		}
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_rightist_corporatism
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Coordinate
+	icon = GFX_focus_Corporatism
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Corporatism
+	}
+	x = 2
+	y = 2
+	relative_position_id = GEN_RIGHT_POL_Protectionism
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GEN_rightist_corporatism
+			add_idea = GEN_rightist_corporatism2
+		}
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Public_Works
+	icon = GFX_focus_Highways
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Capitalism
+		focus = GEN_RIGHT_POL_Corporatism
+	}
+	x = 0
+	y = 2
+	relative_position_id = GEN_RIGHT_POL_Protectionism
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_public_works
+			days = 730
+		}
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Privatizations
+	icon = GFX_focus_Capitalist_Systems
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Public_Works
+	}
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Deregulation
+		focus = GEN_RIGHT_POL_Coordinate
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Nationalizations
+	}
+	x = -1
+	y = 3
+	relative_position_id = GEN_RIGHT_POL_Protectionism
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_privatizations
+			days = 270
+		}
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Nationalizations
+	icon = GFX_focus_Planned_Economy
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Public_Works
+	}
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Deregulation
+		focus = GEN_RIGHT_POL_Coordinate
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Privatizations
+	}
+	x = 1
+	y = 3
+	relative_position_id = GEN_RIGHT_POL_Protectionism
+	cost = 8
+	ai_will_do = {
+		factor = 16
+		modifier = {
+			has_government = monarchism
+			factor = 0.25
+		}
+		modifier = {
+			has_government = neutrality
+			factor = 0.33
+		}
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_nationalizations
+			days = 270
+		}
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_Destroy_Unions
+	icon = GFX_focus_Destroy_Trade_Unions
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Privatizations
+		focus = GEN_RIGHT_POL_Nationalizations
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_National_Unions
+	}
+	x = -1
+	y = 4
+	relative_position_id = GEN_RIGHT_POL_Protectionism
+	cost = 8
+	ai_will_do = {
+		factor = 16
+		modifier = {
+			has_completed_focus = GEN_RIGHT_POL_Corporatism
+			factor = 0.10
+		}
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 60
+		add_stability = -0.10
+	}
+}
+shared_focus = {
+	id = GEN_RIGHT_POL_National_Unions
+	icon = GFX_focus_Fascist_Trade_Union
+	prerequisite = {
+		focus = GEN_RIGHT_POL_Privatizations
+		focus = GEN_RIGHT_POL_Nationalizations
+	}
+	mutually_exclusive = {
+		focus = GEN_RIGHT_POL_Destroy_Unions
+	}
+	x = 1
+	y = 4
+	relative_position_id = GEN_RIGHT_POL_Protectionism
+	cost = 8
+	ai_will_do = {
+		factor = 16
+		modifier = {
+			NOT = {
+				has_completed_focus = GEN_RIGHT_POL_Corporatism
+			}
+			factor = 0.10
+		}
+	}
+	available = {
+		has_autocratic_government = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -60
+		add_stability = 0.10
+	}
+}

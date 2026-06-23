@@ -1,0 +1,454 @@
+#14 focuses here
+#s_team337
+shared_focus = {
+	id = AZR_2RCW_Economics_Start
+	icon = GFX_focus_Business_Bills
+	#prerequisite = { focus = AZR_2RCW_Economics_Start }
+	x = 12
+	y = 0
+	#relative_position_id = AZR_2RCW_Economics_Start
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		MOVE_UP_WAR_ECONOMY = yes
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Infrastructure
+	icon = GFX_focus_Trains
+	prerequisite = {
+		focus = AZR_2RCW_Economics_Start
+	}
+	x = -2
+	y = 1
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		controls_state = 229
+		
+	}
+	bypass = {
+		NOT = {
+			229 = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = infrastructure
+					size > 1
+					include_locked = yes
+				}
+			}
+		}
+	}
+	completion_reward = {
+		229 = {
+			#add railways
+		}
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Private_Initiative
+	icon = GFX_focus_Grab_Money
+	prerequisite = {
+		focus = AZR_2RCW_Economics_Start
+	}
+	x = 0
+	y = 1
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 25
+		add_ideas = AZR_Capitalism0
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Decollectivization
+	icon = GFX_focus_Tractors
+	prerequisite = {
+		focus = AZR_2RCW_Economics_Start
+	}
+	x = 2
+	y = 1
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 3
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = RUS_decollectivize
+			days = 730
+		}
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Civilian_Industry
+	icon = GFX_focus_Industrialization
+	prerequisite = {
+		focus = AZR_2RCW_Infrastructure
+	}
+	prerequisite = {
+		focus = AZR_2RCW_Private_Initiative
+	}
+	prerequisite = {
+		focus = AZR_2RCW_Decollectivization
+	}
+	x = -1
+	y = 2
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 7
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Military_Industry
+	icon = GFX_focus_Renewed_Arms
+	prerequisite = {
+		focus = AZR_2RCW_Infrastructure
+	}
+	prerequisite = {
+		focus = AZR_2RCW_Private_Initiative
+	}
+	prerequisite = {
+		focus = AZR_2RCW_Decollectivization
+	}
+	x = 1
+	y = 2
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 6
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Expand_Oil
+	icon = GFX_focus_Oil_Industry
+	prerequisite = {
+		focus = AZR_2RCW_Civilian_Industry
+	}
+	prerequisite = {
+		focus = AZR_2RCW_Military_Industry
+	}
+	mutually_exclusive = {
+		focus = AZR_2RCW_Diversify
+	}
+	x = -1
+	y = 3
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 6.73
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		controls_state = 229
+	}
+	bypass = {
+	}
+	completion_reward = {
+		229 = {
+			add_resource = {
+				type = oil
+				amount = 12
+			}
+		}
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Export_Oil
+	icon = GFX_focus_Export_Oil
+	prerequisite = {
+		focus = AZR_2RCW_Expand_Oil
+	}
+	x = -3
+	y = 4
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = AZR_oil_focus
+			add_idea = AZR_oil_focus1
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = {
+						has_war_with = AZR
+						tag = ARM
+						has_government = communism
+					}
+				}
+				add_opinion_modifier = {
+					target = AZR
+					modifier = AZR_export_oil
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Import_Goods
+	icon = GFX_focus_Deregulation
+	prerequisite = {
+		focus = AZR_2RCW_Expand_Oil
+	}
+	x = -1
+	y = 4
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = AZR_expanded_imports
+		hidden_effect = {
+			every_country = {
+				limit = {
+					NOT = {
+						has_war_with = AZR
+						tag = ARM
+						has_government = communism
+					}
+				}
+				AZR = {
+					add_opinion_modifier = {
+						target = PREV
+						modifier = AZR_import_things
+					}
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Internal_Subsidies
+	icon = GFX_focus_Economic_Stimulus
+	prerequisite = {
+		focus = AZR_2RCW_Export_Oil
+	}
+	prerequisite = {
+		focus = AZR_2RCW_Import_Goods
+	}
+	x = -2
+	y = 5
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 6.73
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = AZR_expanded_imports
+			add_idea = AZR_subsidization
+		}
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Diversify
+	icon = GFX_focus_Mechanization
+	prerequisite = {
+		focus = AZR_2RCW_Civilian_Industry
+	}
+	prerequisite = {
+		focus = AZR_2RCW_Military_Industry
+	}
+	mutually_exclusive = {
+		focus = AZR_2RCW_Expand_Oil
+	}
+	x = 1
+	y = 3
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 6
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = AZR_oil_focus
+			add_idea = AZR_oil_focus_less
+		}
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Encourage_Consumer_Industries
+	icon = GFX_focus_strengthen_small_production
+	prerequisite = {
+		focus = AZR_2RCW_Diversify
+	}
+	x = 1
+	y = 4
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 7.15
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Agricultural_Subsidies
+	icon = GFX_focus_Agriculture
+	prerequisite = {
+		focus = AZR_2RCW_Diversify
+	}
+	x = 3
+	y = 4
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = AZR_Agro_Subs
+	}
+}
+shared_focus = {
+	id = AZR_2RCW_Bank_of_Azerbaijan
+	icon = GFX_focus_bills_and_acts
+	prerequisite = {
+		focus = AZR_2RCW_Encourage_Consumer_Industries
+	}
+	prerequisite = {
+		focus = AZR_2RCW_Agricultural_Subsidies
+	}
+	x = 2
+	y = 5
+	relative_position_id = AZR_2RCW_Economics_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}

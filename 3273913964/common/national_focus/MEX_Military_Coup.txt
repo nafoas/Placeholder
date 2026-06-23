@@ -1,0 +1,672 @@
+
+#Focus for Communism Eliminated
+shared_focus = {
+	id = MEX_communism_eliminated
+	icon = GFX_focus_Anti_Communist
+	x = 18
+	y = 2
+	cost = 1
+	available_if_capitulated = yes
+	available = { always = no }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Calles Overthrown
+shared_focus = {
+	id = MEX_calles_overthrown
+	icon = GFX_focus_mex_exile_calles
+	x = 14
+	y = 2
+	cost = 1
+	available_if_capitulated = yes
+	available = { always = no }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for USA supported Coup
+shared_focus = {
+	id = MEX_usa_supported_coup
+	icon = GFX_focus_America_Fuck_Yeah
+	x = 12
+	y = 2
+	cost = 7
+	available_if_capitulated = yes
+	available = { always = no }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Synarchists Destroyed
+shared_focus = {
+	id = MEX_synarchists_destroyed
+	icon = GFX_focus_Anti_Fascist
+	x = 16
+	y = 2
+	cost = 1
+	available_if_capitulated = yes
+	available = { always = no }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	}
+}
+
+#Focus for Nature of The Government
+shared_focus = {
+	id = MEX_nature_of_the_government
+	icon = GFX_Government_Crisis
+	x = 15
+	y = 3
+	cost = 1
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_synarchists_destroyed 
+		focus = MEX_usa_supported_coup 
+		focus = MEX_calles_overthrown 
+		focus = MEX_communism_eliminated 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		COALITION_add_mon = yes
+		COALITION_add_aut = yes
+	}
+}
+
+#Focus for Our Own Maximato
+shared_focus = {
+	id = MEX_our_own_maximato
+	icon = GFX_focus_Presidential_System
+	x = 9
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_nature_of_the_government }
+	mutually_exclusive = { focus = MEX_a_military_government }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		set_politics = {
+			ruling_party = neutrality
+		}
+		COALITION_add_socdem = yes	
+		# create_country_leader = {
+		# 	name = "Luis N. Morones"
+		# 	desc = "POLITICS_LUIS_MORONES_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_luis_morones.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = military
+		# 	traits = {}
+		# }
+		MEX_luis_n_morones = {
+			promote_character = yes
+			promote_character = military
+		}
+	}   
+}
+
+#Focus for A Military Government
+shared_focus = {
+	id = MEX_a_military_government
+	icon = GFX_focus_Military_Government
+	x = 21
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_nature_of_the_government }
+	mutually_exclusive = { focus = MEX_our_own_maximato }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = monarchism popularity = 0.10 }
+		country_event = { days = 0 id = mex_political.21 }
+	}
+}
+#Focus for Break Ejidos
+shared_focus = {
+	id = MEX_break_ejidos
+	icon = GFX_focus_Agriculture_2
+	x = 7
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_our_own_maximato }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Stop Land Reform
+shared_focus = {
+	id = MEX_stop_land_reform
+	icon = GFX_focus_Agrarian_Reform
+	x = 7
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_break_ejidos }
+	ai_will_do = {
+		factor = 1
+	}
+}
+#Focus for Replace the CNC
+shared_focus = {
+	id = MEX_replace_the_cnc
+	icon = GFX_focus_Bread_Trade
+	x = 7
+	y = 8
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_stop_land_reform }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Keep Current Labor Laws
+shared_focus = {
+	id = MEX_keep_current_labor_laws
+	icon = GFX_focus_Trade_Union_Focus
+	x = 7
+	y = 9
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_replace_the_cnc }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Oil Industry
+shared_focus = {
+	id = MEX_oil_industry
+	icon = GFX_focus_Oil_Industry
+	x = 9
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_our_own_maximato }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+
+#Focus for A Deal with the Dutch
+shared_focus = {
+	id = MEX_a_deal_with_the_dutch
+	icon = GFX_focus_Befriend_Netherlands
+	x = 9
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_oil_industry }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Promises to the Americans
+shared_focus = {
+	id = MEX_promises_to_the_americans
+	icon = GFX_focus_Befriend_USA
+	x = 9
+	y = 8
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_a_deal_with_the_dutch }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Nationalize Some
+shared_focus = {
+	id = MEX_nationalize_some
+	icon = GFX_focus_Risky_Deal
+	x = 9
+	y = 9
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_promises_to_the_americans }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for The Status Quo
+shared_focus = {
+	id = MEX_the_status_quo
+	icon = GFX_focus_Church_State_Separate
+	x = 11
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_our_own_maximato }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Cancel Socialist Education
+shared_focus = {
+	id = MEX_cancel_socialist_education
+	icon = GFX_focus_Education_Reform
+	x = 11
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_the_status_quo }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Destroy the CTM
+shared_focus = {
+	id = MEX_destroy_the_ctm
+	icon = GFX_focus_Workers_on_Strike
+	x = 11
+	y = 8
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_cancel_socialist_education }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Rewrite the Constitution
+shared_focus = {
+	id = MEX_rewrite_the_constitution
+	icon = GFX_focus_Rigged_Elections
+	x = 11
+	y = 9
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_destroy_the_ctm }
+	ai_will_do = {
+		factor = 1
+	}
+}	
+
+#Focus for Velvet Glove
+shared_focus = {
+	id = MEX_velvet_glove
+	icon = GFX_focus_Enlist_the_Police
+	x = 9
+	y = 10
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_nationalize_some 
+	}
+	prerequisite = { 
+		focus = MEX_rewrite_the_constitution 
+	}
+	prerequisite = { 
+		focus = MEX_keep_current_labor_laws 
+	}
+	prerequisite = { 
+		focus = MEX_join_or_die 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+}	
+
+#Focus for The Opposition
+shared_focus = {
+	id = MEX_the_opposition
+	icon = GFX_focus_Purge_Dissenters
+	x = 15
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_our_own_maximato 
+		focus = MEX_a_military_government 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = -0.1
+		set_party_name = { ideology = communism  long_name = "Organzacion Obrero-Campesina Mexicanan" name = "OOCM" } 
+		set_party_name = { ideology = authoritarian_socialism  long_name = "Sindicato Nacional Izquierdista" name = "SNI" }
+		set_party_name = { ideology = socialism  long_name = "Confederacion Revolucionaria Nacional" name = "CRN" } 
+		set_party_name = { ideology = social_democracy  long_name = "Confederacion Mexicana de Organzaciones Laboristas" name = "CMOL" }
+		set_party_name = { ideology = social_liberalism  long_name = "Confederacion Maderista (Left Wing)" name = "CM(L)" } 
+		set_party_name = { ideology = market_liberalism  long_name = "Confederacion Maderista (Right Wing)" name = "CM(R)" }
+		set_party_name = { ideology = jacobin  long_name = "Sociedad Intelectual de Jose Vasconcelos" name = "SIdJV" }
+	}
+}
+
+#Focus for Deal with the Cristeros
+shared_focus = {
+	id = MEX_deal_with_the_cristeros
+	icon = GFX_focus_Ties_with_Bishops
+	x = 16
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_the_opposition }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = 0.05
+		add_popularity = { ideology = democratic popularity = 0.10 }
+		add_popularity = { ideology = nationalism popularity = 0.05 }
+		add_popularity = { ideology = fascism popularity = 0.03 }
+		set_party_name = { ideology = democratic  long_name = "Movimiento Cristero (Conservative)" name = "MC(C)" } 
+		set_party_name = { ideology = nationalism  long_name = "Movimiento Cristero (Moderate) " name = "MC(M)" }		
+		set_party_name = { ideology = fascism  long_name = "Movimiento Cristero (Radical)" name = "MC(R)" }
+		COALITION_add_con = yes
+		COALITION_add_nat = yes
+		COALITION_add_fas = yes		
+	}
+}
+#Focus for Destroy Communism
+shared_focus = {
+	id = MEX_destroy_communism
+	icon = GFX_focus_Anti_Communist
+	x = 14
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_the_opposition }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = communism popularity = -0.05 }
+	}
+}
+#Focus for Zapatism is Defeated
+shared_focus = {
+	id = MEX_zapatism_is_defeated
+	icon = GFX_focus_Dig_Their_Own_Graves
+	x = 14
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_destroy_communism }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = socialism popularity = -0.05 }
+		add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }
+	}
+}
+
+#Focus for Liberalism Failed
+shared_focus = {
+	id = MEX_liberalism_failed
+	icon = GFX_focus_Anti_Democracy
+	x = 16
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_deal_with_the_cristeros }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = jacobin popularity = -0.02 }
+		add_popularity = { ideology = social_democracy popularity = -0.02 }
+	}
+}
+
+#Focus for Form A New Party
+shared_focus = {
+	id = MEX_form_a_new_party
+	icon = GFX_focus_Befriend_Mexico
+	x = 15
+	y = 8
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_liberalism_failed 
+	}
+	prerequisite = { 
+		focus = MEX_zapatism_is_defeated 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		set_party_name = { ideology = democratic long_name = "Partido Autentico de la Revolución Mexicana (Conservatives)" name = "PARM(C)" } 
+		set_party_name = { ideology = neutrality  long_name = "Partido Autentico de la Revolución Mexicana (Moderates)" name = "PARM(M)" } 
+		set_party_name = { ideology = monarchism  long_name = "Partido Autentico de la Revolución Mexicana (Hardliners) " name = "PARM(H)" }
+		set_party_name = { ideology = nationalism  long_name = "Partido Autentico de la Revolución Mexicana (Traditionalists) " name = "PARM(T)" }
+		set_party_name = { ideology = fascism  long_name = "Partido Autentico de la Revolución Mexicana (Synarchists)" name = "PARM(S)" } 
+		if = {
+			limit = {
+				has_completed_focus = MEX_our_own_maximato
+			}   
+			set_party_name = { ideology = social_democracy long_name = "Partido Autentico de la Revolución Mexicana (Laborists)" name = "PARM(L)" } 
+		}	
+	}
+}
+#Focus for Join or Die
+shared_focus = {
+	id = MEX_join_or_die
+	icon = GFX_focus_mex_support_general_cedillo
+	x = 15
+	y = 9
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_form_a_new_party }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_divided_mexico  add_idea = mex_political_army }
+	}
+}	
+
+#Focus for Destroy the Ejidos
+shared_focus = {
+	id = MEX_destroy_the_ejidos
+	icon = GFX_focus_Crush_Resistance
+	x = 23
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_a_military_government }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Reverse Land Reforms
+shared_focus = {
+	id = MEX_reverse_land_reforms
+	icon = GFX_focus_Compensate_Landowners
+	x = 23
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_destroy_the_ejidos }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Destroy the CNC
+shared_focus = {
+	id = MEX_destroy_the_cnc
+	icon = GFX_Unemployeds_Help
+	x = 23
+	y = 8
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_reverse_land_reforms }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Lower Labor Laws
+shared_focus = {
+	id = MEX_lower_labor_laws
+	icon = GFX_focus_Root_out_Funding
+	x = 23
+	y = 9
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_destroy_the_cnc }
+	ai_will_do = {
+		factor = 1
+	}
+}	
+
+#Focus for Oil Revenue
+shared_focus = {
+	id = MEX_oil_revenue
+	icon = GFX_focus_Oil_Industry
+	x = 21
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_a_military_government }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Deal with the Americans
+shared_focus = {
+	id = MEX_deal_with_the_americans
+	icon = GFX_focus_Befriend_USA
+	x = 21
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_oil_revenue }
+	ai_will_do = {
+		factor = 1
+	}
+}
+#Focus for Deal with the Companies
+shared_focus = {
+	id = MEX_deal_with_the_companies
+	icon = GFX_focus_Capitalist_Systems
+	x = 21
+	y = 8
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_deal_with_the_americans }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Kick the British Out
+shared_focus = {
+	id = MEX_kick_the_british_out
+	icon = GFX_focus_AST_never_gallipoli
+	x = 21
+	y = 9
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_deal_with_the_companies }
+	ai_will_do = {
+		factor = 1
+	}
+}	
+
+#Focus for Favor the Church
+shared_focus = {
+	id = MEX_favor_the_church
+	icon = GFX_focus_For_Christ_and_Country
+	x = 19
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_a_military_government }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for Let The Church Solve it
+shared_focus = {
+	id = MEX_let_the_church_solve_it
+	icon = GFX_focus_State_Theology
+	x = 19
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_favor_the_church }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+
+#Focus for Destroy all Syndicates
+shared_focus = {
+	id = MEX_destroy_all_syndicates
+	icon = GFX_focus_Destroy_Trade_Unions
+	x = 19
+	y = 8
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_let_the_church_solve_it }
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+#Focus for A New Constitution
+shared_focus = {
+	id = MEX_a_new_constitution_military
+	icon = GFX_focus_Fascist_Assembly
+	x = 19
+	y = 9
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_destroy_all_syndicates }
+	ai_will_do = {
+		factor = 1
+	}
+}	
+
+#Focus for Iron Hand
+shared_focus = {
+	id = MEX_iron_hand
+	icon = GFX_focus_The_Scourge
+	x = 21
+	y = 10
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_a_new_constitution_military 
+	}
+	prerequisite = { 
+		focus = MEX_kick_the_british_out 
+	}
+	prerequisite = { 
+		focus = MEX_lower_labor_laws 
+	}
+	prerequisite = { 
+		focus = MEX_join_or_die 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+}
+
+

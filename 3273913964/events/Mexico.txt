@@ -1,0 +1,2161 @@
+﻿###########################
+# Mexican Events
+###########################
+
+add_namespace = mex_political
+add_namespace = mex_army
+add_namespace = mex_navy
+add_namespace = mex_news
+add_namespace = mex_flavor
+add_namespace = mex_foreign
+
+
+##Event: The United Mexican States in 1933
+country_event = {
+	id = mex_political.1
+	title = mex_political.1.title
+	desc = mex_political.1.desc
+	picture = GFX_Mexico_Introduction
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			give_resource_rights = { receiver = ENG state = 477 resources = { oil } }
+			give_resource_rights = { receiver = ENG state = 476 resources = { oil } }
+			give_resource_rights = { receiver = USA state = 480 resources = { oil } }
+			give_resource_rights = { receiver = USA state = 479 resources = { oil } }
+		}
+	}
+
+	option = {
+		name = mex_political.1.a
+		ai_chance = { 
+			base = 1
+		}
+	}
+}
+
+##Event: PNR´s Candidate
+country_event = {
+	id = mex_political.2
+	title = mex_political.2.title
+	desc = mex_political.2.desc
+	picture = GFX_Mexico_Senate
+	is_triggered_only = yes
+	option = {
+		name = mex_political.2.a
+		ai_chance = { base = 2 }
+		hidden_effect = {
+			country_event = { days = 1 id = mex_political.3 }
+		}
+	}
+}
+
+##Event: A PNR Candidate
+country_event = {
+	id = mex_political.3
+	title = mex_political.3.title
+	desc = mex_political.3.desc
+	picture = GFX_Mexico_PNR_Candidate 
+	is_triggered_only = yes
+	option = {
+		name = mex_political.3.a
+		ai_chance = { base = 2 }
+		hidden_effect = {
+			set_country_flag = cardenas_candidate
+	 		country_event = { days = 332 id = mex_political.6 }
+		}
+	}
+}
+
+##Event: A Coalition Candidate
+country_event = {
+	id = mex_political.4
+	title = mex_political.4.title
+	desc = mex_political.4.desc
+	picture = GFX_Mexico_Coalition_Candidate
+	is_triggered_only = yes
+	option = {
+		name = mex_political.4.a
+		ai_chance = { base = 2 }
+		set_country_flag = morones_candidate
+		COALITION_add_socdem = yes
+	}
+	option = {
+		name = mex_political.4.b
+		ai_chance = { base = 1 }
+		set_country_flag = vasconcelos_candidate
+		COALITION_add_cen = yes
+	}
+}
+
+##Event: A Cold Morning Cardenas
+country_event = {
+	id = mex_political.5
+	title = mex_political.5.title
+	desc = mex_political.5.desc
+	picture = GFX_Mexico_Calles_Exiled
+	is_triggered_only = yes
+	option = {
+		name = mex_political.5.a
+		ai_chance = { base = 2}
+		add_popularity = { ideology = socialism popularity = 0.20 }
+		add_popularity = { ideology = social_democracy popularity = 0.10 }
+		add_popularity = { ideology = social_liberalism popularity = 0.10 }
+		add_popularity = { ideology = market_liberalism popularity = 0.10 }
+		add_popularity = { ideology = neutrality popularity = -0.40 }
+		set_party_name = { ideology = socialism long_name = "Partido Nacional Revolucionario (Radical)" name = "PNR(R)" }
+		set_party_name = { ideology = social_democracy long_name = "Partido Nacional Revolucionario (Socialist)" name = "PNR(S)" }
+		set_party_name = { ideology = social_liberalism long_name = "Partido Nacional Revolucionario (Moderate)" name = "PNR(M)" }
+		set_party_name = { ideology = market_liberalism long_name = "Partido Nacional Revolucionario (Liberal)" name = "PNR(L)" }
+		set_party_name = { ideology = neutrality long_name = "Partido Nacional Revolucionario (Conservative)" name = "PNR(C)" }
+		add_ideas = {
+			lazarocardenashog
+			eduardohfr
+			fransiscomeco
+			ignaciotsec
+			ignacioqint
+		}
+		#remove_unit_leader = 1302	
+		#remove_unit_leader = 1310
+		#remove_unit_leader = 1325
+		remove_unit_leader_role = MEX_plutarco_calles
+		remove_unit_leader_role = MEX_matias_santos
+		remove_unit_leader_role = MEX_manuel_trevino
+		remove_ideas = mex_the_maximato_shaky 
+		add_timed_idea = { idea = mex_the_maximato_destroyed days = 365 }
+		hidden_effect = {
+			load_focus_tree = { tree = MEX_Cardenas_Second } 
+		}	
+	}
+}
+
+##Event: Cardenas takes power
+country_event = {
+	id = mex_political.6
+	title = mex_political.6.title
+	desc = mex_political.6.desc
+	picture = GFX_Mexico_Cardenas_Takes_Power
+	is_triggered_only = yes
+	option = {
+		name = mex_political.6.a
+		ai_chance = {
+			base = 1
+		}
+		MEX_lazaro_cardenas = {
+			promote_character = yes
+			promote_character = maximato
+		}
+		# create_country_leader = {
+		# 	name = "Lazaro Cardenas"
+		# 	desc = "POLITICS_LAZARO_CARDENAS_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_lazaro_cardenas.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = maximato 
+		# 	traits = {}
+		# }
+		add_ideas = {
+			plutarcoecalleshog
+			joseafr
+			narcisobeco
+			juandbsec
+			aarongint
+		}
+		hidden_effect = {
+			country_event = { days = 1233 id = mex_political.7 }
+			country_event = { days = 395 id = mex_political.9 }
+			country_event = { days = 730 id = mex_political.10 }
+			load_focus_tree = { tree = MEX_Cardenas_First }
+		}
+		#remove_unit_leader = 1301
+		MEX_abelardo_rodriguez = {
+			demote_leader = yes
+		}
+		# create_corps_commander = {
+		# 	name = "Abelardo L. Rodríguez"
+		# 	id = 1314
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Abelardo_Rodriguez_Militar.tga"
+		# 	traits = { old_guard war_hero meticulous infantry_officer organizer }
+		# 	skill = 3
+		# 	attack_skill = 2
+		# 	defense_skill = 3
+		# 	planning_skill = 2
+		# 	logistics_skill = 3
+		# }
+		#remove_unit_leader = 1312
+		MEX_lazaro_cardenas = {
+			promote_leader = yes
+		}
+		# create_field_marshal = {
+		# 	name = "Lazaro Cardenas"
+		# 	id = 1313
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Lazaro_Cardenas_Militar.tga"
+		# 	traits = { old_guard war_hero meticulous caring_leader media_personality expert_delegator inspirational_leader }
+		# 	skill = 3
+		# 	attack_skill = 1
+		# 	defense_skill = 4
+		# 	planning_skill = 3
+		# 	logistics_skill = 2
+		# }
+		hidden_effect = {
+			country_event = { days = 1825 id = mex_political.15 }
+			load_focus_tree = { tree = MEX_Cardenas_First }
+		}
+	}
+}
+
+##Event: PAN Forming
+country_event = {
+	id = mex_political.7
+	title = mex_political.7.title
+	desc = mex_political.7.desc
+	picture = GFX_Mexico_PAN_Forms
+	is_triggered_only = yes
+	option = {
+		name = mex_political.7.a
+		ai_chance = { base = 2 }
+		add_popularity = { ideology = jacobin popularity = 0.05 }
+		add_popularity = { ideology = democratic popularity = 0.05 }
+		set_party_name = { ideology = jacobin long_name = "Partido Accion Nacional (Moderates)" name = "PAN(M)" }
+		set_party_name = { ideology = democratic long_name = "Partido Accion Nacional (Hardliners)" name = "PAN(H)" }
+		# ROOT = {
+		# 	recruit_character = MEX_manuel_g_morin
+		# }
+		MEX_manuel_g_morin = {
+			promote_character = yes
+			promote_character = christian_democracy
+		}
+		MEX_manuel_g_morin = {
+			promote_character = yes
+			promote_character = christian_democracy_soccon
+		}
+		# create_country_leader = {
+		# 	name = "Manuel G. Morin"
+		# 	desc = "POLITICS_MANUEL_MORIN_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_manuel_morin.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = christian_democracy
+		# 	traits = {}
+		# }
+		# create_country_leader = {
+		# 	name = "Manuel G. Morin"
+		# 	desc = "POLITICS_MANUEL_MORIN_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_manuel_morin.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = christian_democracy_soccon
+		# 	traits = {}
+		# }
+	}
+}
+##Event: Dissolvment of the PSI Schism in the PCM
+country_event = {
+	id = mex_political.8
+	title = mex_political.8.title
+	desc = mex_political.8.desc
+	picture = GFX_Mexico_PSI_PCM
+	is_triggered_only = yes
+	option = {
+		name = mex_political.8.a
+		ai_chance = { base = 2 }
+		add_popularity = { ideology = communism popularity = 0.02 }
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.02 }
+		set_party_name = { ideology = communism long_name = "Partido Communista Mexicano (Stalinist Loyalists)" name = "PCM(SM)" }
+		set_party_name = { ideology = authoritarian_socialism long_name = "Partido Communista Mexicano (Opposition)" name = "PCM(O)" }
+		# ROOT = {
+		# 	recruit_character = MEX_dionisio_encina
+		# }
+		MEX_dionisio_encina = {
+			promote_character = yes
+			promote_character = stalinism
+		}
+		MEX_hernan_laborde = {
+			promote_character = yes
+			promote_character = centrist_marxism
+		}
+		# create_country_leader = {
+		# 	name = "Dionisio Encina"
+		# 	desc = "POLITICS_DIONISIO_ENCINA_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_dionisio_encina.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = stalinism	
+		# 	traits = {}
+		# }
+		# create_country_leader = {
+		# 	name = "Hernan Laborde"
+		# 	desc = "POLITICS_HERNAN_LABORDE_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_hernan_laborde.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = centrist_marxism	
+		# 	traits = {}
+		# }
+	}
+}
+
+##Event: Formation of the UNS
+country_event = {
+	id = mex_political.9
+	title = mex_political.9.title
+	desc = mex_political.9.desc
+	picture = GFX_Mexico_UNS_Forms
+	is_triggered_only = yes
+	option = {
+		name = mex_political.9.a
+		ai_chance = { base = 2 }
+		add_popularity = { ideology = nationalism popularity = 0.02 }
+		add_popularity = { ideology = fascism popularity = 0.02 }
+		set_party_name = { ideology = nationalism long_name = "Union Nacional Synarquista(Cristeros)" name = "UNS(C)" }
+		set_party_name = { ideology = fascism long_name = "Union Nacional Synarquista(Synarquistas)" name = "UNS(S)" }
+		# ROOT = {
+		# 	recruit_character = MEX_jose_urquiza
+		# }
+		MEX_jose_urquiza = {
+			promote_character = yes
+			promote_character = religious_nationalism
+		}
+		MEX_jose_urquiza = {
+			promote_character = yes
+			promote_character = synarquism
+		}
+		# create_country_leader = {
+		# 	name = "Jose Antonio Urquiza"
+		# 	desc = "POLITICS_JOSE_URQUIZA_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_jose_urquiza.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = religious_nationalism
+		# 	traits = {}
+		# }
+		# create_country_leader = {
+		# 	name = "Jose Antonio Urquiza"
+		# 	desc = "POLITICS_JOSE_URQUIZA_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_jose_urquiza.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = synarquism
+		# 	traits = {}
+		# }
+	}
+}
+
+##Event: Assasination Attempt on Urquiza
+country_event = {
+	id = mex_political.10
+	title = mex_political.10.title
+	desc = mex_political.10.desc
+	picture = GFX_Mexico_Urquiza
+	is_triggered_only = yes
+	option = {
+		name = mex_political.10.a
+		ai_chance = { base = 5 }
+		# ROOT = {
+		# 	recruit_character = MEX_salvador_abascal
+		# }
+		promote_character = {
+			character = MEX_salvador_abascal  
+			ideology = religious_nationalism
+		}
+		promote_character = {
+			character = MEX_salvador_abascal
+			ideology = synarquism
+		}
+		# create_country_leader = {
+		# 	name = "Salvador Abascal"
+		# 	desc = "POLITICS_SALVADOR_ABASCAL_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_salvador_abascal.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = religious_nationalism
+		# 	traits = {}
+		# }
+		# create_country_leader = {
+		# 	name = "Salvador Abascal"
+		# 	desc = "POLITICS_SALVADOR_ABASCAL_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_salvador_abascal.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = synarquism
+		# 	traits = {}
+		# }
+	}
+	option = {
+			name = mex_political.10.b
+		ai_chance = { base = 1 }
+		add_popularity = { ideology = fascism popularity = 0.03 }
+		hidden_effect = {
+			country_event = { days = 365 id = mex_political.14 } 
+		}
+	}
+}
+
+##Event: Forming of the FPPM
+country_event = {
+	id = mex_political.11
+	title = mex_political.11.title
+	desc = mex_political.11.desc
+	picture = GFX_Mexico_FPPM
+	is_triggered_only = yes
+	option = {
+		name = mex_political.11.a
+		ai_chance = { base = 2}
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.02 }
+		set_party_name = { ideology = authoritarian_socialism long_name = "Federacion de Partidos del Pueblo Mexicano (Radicales)" name = "FPPM (R)" }
+		# ROOT = {
+		# 	recruit_character = MEX_genovevo_o
+		# }
+		MEX_genovevo_o = {
+			promote_character = yes
+			promote_character = agrarian_socialism_rev
+		}
+		# create_country_leader = {
+		# 	name = "Genovevo de la O"
+		# 	desc = "POLITICS_GENOVEVO_O_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_genovevo_o.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = agrarian_socialism_rev 
+		# 	traits = {}
+		# }
+	}
+}
+
+##Event: State Catholicism ?
+country_event = {
+	id = mex_political.12
+	title = mex_political.12.title
+	desc = mex_political.12.desc
+	picture = GFX_Mexico_Church_State
+	is_triggered_only = yes
+	option = {
+		name = mex_political.12.a
+		ai_chance = { base = 2 }
+		swap_ideas = {
+			remove_idea = mex_friendship_with_the_church
+			add_idea = mex_state_catholicism
+		}
+	}
+	option = {
+		name = mex_political.12.b
+		ai_chance = { base = 2 }
+		add_political_power = 100
+	}
+}
+
+##Event: Rid of the Depression
+country_event = {
+	id = mex_political.13
+	title = mex_political.13.title
+	desc = mex_political.13.desc
+	picture = GFX_Calles_is_gone
+	is_triggered_only = yes
+	option = {
+		name = mex_political.13.a
+		ai_chance = { base = 2 }
+		remove_ideas = mex_great_depression 
+	}
+}
+	
+##Event: The PAN and the UNS Merge
+country_event = {
+	id = mex_political.14
+	title = mex_political.14.title
+	desc = mex_political.14.desc
+	picture = GFX_Mexico_Catholicism_Against_Communism
+	is_triggered_only = yes
+	option = {
+		name = mex_political.14.a
+		ai_chance = { base = 2 }
+		add_popularity = { ideology = jacobin popularity = 0.03 }
+		add_popularity = { ideology = democratic popularity = 0.03 }
+		add_popularity = { ideology = nationalism popularity = 0.03 }
+		add_popularity = { ideology = fascism popularity = 0.03 }		
+		set_party_name = { ideology = jacobin long_name = "Partido Fuerza Nacional (Moderates)" name = "PFN(M)" }
+		set_party_name = { ideology = democratic long_name = "Partido Fuerza Nacional (Conservatives)" name = "PFN(C)" }
+		set_party_name = { ideology = nationalism long_name = "Partido Fuerza Nacional (Hardliners)" name = "PFN(H)" }
+		set_party_name = { ideology = fascism long_name = "Partido Fuerza Nacional (Synarquists)" name = "PFN(S)" }
+		# ROOT = {
+		# 	recruit_character = MEX_luis_lobato
+		# }
+		MEX_luis_lobato = {
+			promote_character = yes
+			promote_character = christian_democracy
+		}
+		MEX_luis_lobato = {
+			promote_character = yes
+			promote_character = christian_democracy_soccon
+		}
+		MEX_luis_lobato = {
+			promote_character = yes
+			promote_character = religious_nationalism
+		}
+		MEX_luis_lobato = {
+			promote_character = yes
+			promote_character = synarquism
+		}
+		# create_country_leader = {
+		# 	name = "Luis C. Lobato"
+		# 	desc = "POLITICS_LUIS_LOBATO_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Luis_Lobato.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = christian_democracy 
+		# 	traits = {}
+		# }
+		# create_country_leader = {
+		# 	name = "Luis C. Lobato"
+		# 	desc = "POLITICS_LUIS_LOBATO_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Luis_Lobato.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = christian_democracy_soccon 
+		# 	traits = {}
+		# }
+		# create_country_leader = {
+		# 	name = "Luis C. Lobato"
+		# 	desc = "POLITICS_LUIS_LOBATO_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Luis_Lobato.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = religious_nationalism 
+		# 	traits = {}
+		# }
+		# create_country_leader = {
+		# 	name = "Luis C. Lobato"
+		# 	desc = "POLITICS_LUIS_LOBATO_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Luis_Lobato.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = synarquism 
+		# 	traits = {}
+		# }
+
+		set_country_flag = pan_uns_unification
+	}
+}
+##Event: Camacho_takes_power
+country_event = {
+	id = mex_political.15
+	title = mex_political.15.title
+	desc = mex_political.15.desc
+	picture = GFX_Mexico_Camacho_Takes_Power
+	is_triggered_only = yes
+	option = {
+		name = mex_political.15.a
+		ai_chance = {
+			base = 1
+		} 
+		COALITION_RESET = yes
+		# ROOT = {
+		# 	recruit_character = MEX_manuel_camacho
+		# }
+		MEX_manuel_camacho = {
+			promote_character = yes
+			promote_character = real_socialism
+		}
+		MEX_manuel_camacho = {
+			promote_character = yes
+			promote_character = dem_socialism
+		}
+		MEX_manuel_camacho = {
+			promote_character = yes
+			promote_character = sa_radicalism
+		}
+		MEX_manuel_camacho = {
+			promote_character = yes
+			promote_character = market_liberal
+		}
+		# create_country_leader = {
+		# 	name = "Manuel A. Camacho"
+		# 	desc = "POLITICS_MANUEL_CAMACHO_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Manuel_Camacho_Civilian.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = real_socialism 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Manuel A. Camacho"
+		# 	desc = "POLITICS_MANUEL_CAMACHO_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Manuel_Camacho_Civilian.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = real_socialism 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Manuel A. Camacho"
+		# 	desc = "POLITICS_MANUEL_CAMACHO_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Manuel_Camacho_Civilian.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = dem_socialism 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Manuel A. Camacho"
+		# 	desc = "POLITICS_MANUEL_CAMACHO_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Manuel_Camacho_Civilian.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = sa_radicalism 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Manuel A. Camacho"
+		# 	desc = "POLITICS_MANUEL_CAMACHO_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Manuel_Camacho_Civilian.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = market_liberal 
+		# 	traits = {
+		# 	}
+		# }
+		add_ideas = {
+			manuelahog
+			ezequilpfr
+			efrainoeco 
+			jaimetsec
+			javiergint 
+		}
+		hidden_effect = {
+			load_focus_tree = { tree = MEX_Camacho }
+			country_event = { days = 100 id = mex_political.11 }
+			country_event = { days = 2190 id = mex_political.19 }
+		}
+		#remove_unit_leader = 1313
+		MEX_lazaro_cardenas = {
+			demote_leader = yes
+		}
+		# create_corps_commander = {
+		# 	name = "Lazaro Cardenas"
+		# 	id = 1317
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Lazaro_Cardenas_Militar.tga"
+		# 	traits = { old_guard war_hero meticulous caring_leader skilled_staffer organizer } 
+		# 	skill = 3
+		# 	attack_skill = 1 
+		# 	defense_skill = 3
+		# 	planning_skill = 3
+		# 	logistics_skill = 2
+		# }
+
+		#remove_unit_leader = 1315
+
+		MEX_manuel_camacho = {
+			promote_leader = yes
+		}
+
+		# create_field_marshal = {
+		# 	name = "Manuel A. Camacho"
+		# 	id = 1316
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Manuel_Camacho_Military.tga"
+		# 	traits = { career_officer war_hero trait_cautious decided_planner media_personality expert_delegator } 
+		# 	skill = 2
+		# 	attack_skill = 2 
+		# 	defense_skill = 2
+		# 	planning_skill = 1
+		# 	logistics_skill = 1
+		# }
+	}
+}
+
+##Event: Cardenas Succesor
+country_event = {
+	id = mex_political.16
+	title = mex_political.16.title
+	desc = mex_political.16.desc
+	picture = GFX_Mexico_Camacho_Cardenas
+	is_triggered_only = yes
+	option = {
+		name = mex_political.16.a
+		ai_chance = { base = 2 }
+		set_country_flag = camacho_candidate
+		hidden_effect = {
+			country_event = { days = 332 id = mex_political.15 }
+		}
+	}
+	option = {
+		name = mex_political.16.b
+		ai_chance = { base = 2}
+		set_country_flag = mujica_candidate
+		hidden_effect = {
+			country_event = { days = 332 id = mex_political.20 }
+		}
+	}
+}
+
+##Event: Unification of the PSI and the PCM to form the FPPM
+country_event = {
+	id = mex_political.17
+	title = mex_political.17.title
+	desc = mex_political.17.desc
+	picture = GFX_Mexico_PSI_PCM
+	is_triggered_only = yes
+
+	option = {
+		name = mex_political.17.a
+		ai_chance = { base = 2 }
+		add_popularity = { ideology = communism popularity = 0.02 }
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.02 }
+		set_party_name = { ideology = communism long_name = "Federacion de Partidos del Pueblo Mexicano (Communists)" name = "FPPM(C)"}
+		set_party_name = { ideology = authoritarian_socialism long_name = "Federacion de Partidos del Pueblo Mexicano (Revolutionaries)" name = "FPPM(R)"}
+		MEX_adalberto_tejeda = {
+			promote_character = yes
+			promote_character = leninism
+		}
+		MEX_adalberto_tejeda = {
+			promote_character = yes
+			promote_character = centrist_marxism
+		}
+		# create_country_leader = {
+		# 	name = "Adalberto Tejeda"
+		# 	desc = "POLITICS_ADALBERTO_TEJADA_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_adalberto_tejada.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = leninism
+		# 	traits = {}
+		# }
+		# create_country_leader = {
+		# 	name = "Adalberto Tejeda"
+		# 	desc = "POLITICS_ADALBERTO_TEJADA_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_adalberto_tejada.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = centrist_marxism	
+		# 	traits = {}
+		# }
+	}
+}
+
+##Event: Genovevo takes leadership of the FPPM
+country_event = {
+	id = mex_political.18
+	title = mex_political.18.title
+	desc = mex_political.18.desc
+	picture = GFX_Mexico_Genovevo
+	is_triggered_only = yes
+	option = {
+		name = mex_political.18.a
+		ai_chance = { base = 2 }
+		MEX_genovevo_o = {
+			promote_character = yes
+			promote_character = leninism
+		}
+		MEX_genovevo_o = {
+			promote_character = yes
+			promote_character = centrist_marxism
+		}
+		# create_country_leader = {
+		# 	name = "Genovevo de la O"
+		# 	desc = "POLITICS_GENOVEVO_O_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_genovevo_o.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = leninism	
+		# 	traits = {}
+		# }
+		# create_country_leader = {
+		# 	name = "Genovevo de la O"
+		# 	desc = "POLITICS_GENOVEVO_O_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_genovevo_o.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = centrist_marxism	
+		# 	traits = {}
+		# }
+	}
+}
+
+##Event: Aleman takes power
+country_event = {
+	id = mex_political.19
+	title = mex_political.19.title
+	desc = mex_political.19.desc
+	picture = GFX_Mexico_Aleman_Takes_Power
+	is_triggered_only = yes
+	option = {
+		name = mex_political.19.a
+		ai_chance = {
+			base = 1
+		} 
+		add_popularity = { ideology = socialism popularity = -0.10 }
+		# ROOT = {
+		# 	recruit_character = MEX_miguel_aleman
+		# }
+		MEX_miguel_aleman = {
+			promote_character = yes
+			promote_character = dem_socialism
+		}
+		MEX_miguel_aleman = {
+			promote_character = yes
+			promote_character = liberalism
+		}
+		MEX_miguel_aleman = {
+			promote_character = yes
+			promote_character = market_liberal
+		}
+		MEX_genovevo_o = {
+			promote_character = yes
+			promote_character = real_socialism
+		}
+		# create_country_leader = {
+		# 	name = "Miguel Aleman"
+		# 	desc = "POLITICS_MIGUEL_ALEMAN_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Miguel_Valdez.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = dem_socialism	
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Miguel Aleman"
+		# 	desc = "POLITICS_MIGUEL_ALEMAN_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Miguel_Valdez.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = liberalism 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Miguel Aleman"
+		# 	desc = "POLITICS_MIGUEL_ALEMAN_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Miguel_Valdez.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = market_liberal 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Genovevo de la O"
+		# 	desc = "POLITICS_GENOVEVO_O_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_genovevo_o.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = real_socialism 
+		# 	traits = {
+		# 	}
+		# }
+
+		add_ideas = {
+			miguelahog 
+			manuelbfr 
+			antoniobeco 
+			adolfocsec 
+			fernandoaint 
+		}
+		set_party_name = { ideology = socialism long_name = "Federacion de Partidos del Pueblo Mexicano (Socialists)" name = "FPPM(S)" }
+		hidden_effect = {
+			load_focus_tree = { tree = MEX_Miguel_Aleman }
+		} 
+	}
+}
+
+##Event: Mujica Takes Power
+country_event = {
+	id = mex_political.20
+	title = mex_political.20.title
+	desc = mex_political.20.desc
+	picture = GFX_Mexico_Mujica_Takes_Power
+	is_triggered_only = yes
+	option = {
+		name = mex_political.20.a
+		ai_chance = {
+			base = 1
+		} 
+		COALITION_RESET = yes
+		# ROOT = {
+		# 	recruit_character = MEX_francisco_mujica
+		# }
+		MEX_francisco_mujica = {
+			promote_character = yes
+			promote_character = real_socialism
+		}
+		MEX_francisco_mujica = {
+			promote_character = yes
+			promote_character = agrarian_socialism_rev
+		}
+		MEX_francisco_mujica = {
+			promote_character = yes
+			promote_character = dem_socialism
+		}
+		MEX_francisco_mujica = {
+			promote_character = yes
+			promote_character = liberalism
+		}
+		MEX_francisco_mujica = {
+			promote_character = yes
+			promote_character = market_liberal
+		}
+		# create_country_leader = {
+		# 	name = "Francisco J. Mujica"
+		# 	desc = "POLITICS_FRANCISCO_MUJICA_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Fransisco_Mujica_Civil.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = real_socialism 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Francisco J. Mujica"
+		# 	desc = "POLITICS_FRANCISCO_MUJICA_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Fransisco_Mujica_Civil.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = agrarian_socialism_rev 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Francisco J. Mujica"
+		# 	desc = "POLITICS_FRANCISCO_MUJICA_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Fransisco_Mujica_Civil.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = dem_socialism 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Francisco J. Mujica"
+		# 	desc = "POLITICS_FRANCISCO_MUJICA_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Fransisco_Mujica_Civil.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = liberalism 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Francisco J. Mujica"
+		# 	desc = "POLITICS_FRANCISCO_MUJICA_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Fransisco_Mujica_Civil.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = market_liberal 
+		# 	traits = {
+		# 	}
+		# }
+		add_ideas = {
+			fransiscomhog
+			#TODO: aureliomanriquefr
+			antonioseco 
+			ignaciotsec
+			cesarlint 
+		}
+		hidden_effect = {
+			load_focus_tree = { tree = MEX_Mujica }
+		}
+		MEX_lazaro_cardenas = {
+			demote_leader = yes
+		}
+		# remove_unit_leader = 1313
+		# create_corps_commander = {
+		# 	name = "Lazaro Cardenas"
+		# 	id = 1317
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Lazaro_Cardenas_Militar.tga"
+		# 	traits = { old_guard war_hero meticulous caring_leader skilled_staffer organizer } 
+		# 	skill = 3
+		# 	attack_skill = 1 
+		# 	defense_skill = 3
+		# 	planning_skill = 3
+		# 	logistics_skill = 2
+		# }
+		MEX_francisco_mujica = {
+			promote_leader = yes
+		}
+		# remove_unit_leader = 1329
+		# create_field_marshal = {
+		# 	name = "Francisco J. Mujica"
+		# 	id = 1334
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Fransisco_Mujica.tga"
+		# 	traits = { old_guard war_hero homeland_connoisseur inflexible_strategist logistics_wizard inspirational_leader } 
+		# 	skill = 3
+		# 	attack_skill = 1
+		# 	defense_skill = 3
+		# 	planning_skill = 2
+		# 	logistics_skill = 2	
+		# }
+	}
+}
+
+##Event: The Formation of the PDM
+country_event = {
+	id = mex_political.21
+	title = mex_political.21.title
+	desc = mex_political.21.desc
+	picture = GFX_Mexico_PDM_Forms
+	is_triggered_only = yes
+	option = {
+		name = mex_political.21.a
+		ai_chance = { base = 2 }
+		add_popularity = { ideology = social_liberalism popularity = 0.03 }
+		add_popularity = { ideology = market_liberalism popularity = 0.03 }
+		set_party_name = { ideology = social_liberalism long_name = "Partido Democrático Mexicano (Radicals)" name = "PDM(R)"}
+		set_party_name = { ideology = market_liberalism long_name = "Partido Democrático Mexicano (Liberals)" name = "PDM(L)"}
+		# ROOT = {
+		# 	recruit_character = MEX_ezequiel_penaloza
+		# }
+		MEX_ezequiel_penaloza = {
+			promote_character = yes
+			promote_character = sa_radicalism
+		}
+		MEX_ezequiel_penaloza = {
+			promote_character = yes
+			promote_character = market_liberal
+		}
+		# create_country_leader = {
+		# 	name = "Ezequiel P. Peñaloza"
+		# 	desc = "POLITICS_MANUEL_MORIN_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Ezequiel_Padilla.tga"
+		# 	expire = "1955.1.1" 
+		# 	ideology = sa_radicalism 
+		# 	traits = {}
+		# }
+		# create_country_leader = {
+		# 	name = "Ezequiel P. Peñaloza"
+		# 	desc = "POLITICS_MANUEL_MORIN_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Ezequiel_Padilla.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = market_liberal 
+		# 	traits = {}
+		# }
+	}
+}
+
+##Event: The Canabal Crisis Start
+country_event = {
+	id = mex_political.22
+	title = mex_political.22.title
+	desc = mex_political.22.desc
+	picture = GFX_Mexico_The_Red_Shirt_Scandal
+	is_triggered_only = yes
+	option = {
+		name = mex_political.22.a
+		ai_chance = { base = 2 }
+		add_popularity = { ideology = communism popularity = -0.03 }
+		add_popularity = { ideology = authoritarian_socialism popularity = -0.07 }
+		add_popularity = { ideology = socialism popularity = -0.07 }
+		add_popularity = { ideology = social_democracy popularity = -0.04 }
+		country_event = { days = 0 id = mex_political.29 }
+		add_stability = -0.20
+	}
+}
+
+##Event: The Limits on the Church
+country_event = {
+	id = mex_political.23
+	title = mex_political.23.title
+	desc = mex_political.23.desc
+	picture = GFX_Mexico_Church_State
+	is_triggered_only = yes
+	option = {
+		name = mex_political.23.a
+		ai_chance = { base = 2 }
+		remove_ideas = { mex_state_atheism mex_secularization }
+		add_ideas = { mex_secularization }
+	}
+	option = {
+		name = mex_political.23.b
+		ai_chance = { base = 2 }
+		remove_ideas = { mex_state_atheism mex_secularization }
+		add_ideas = { mex_deal_with_the_church }
+	}		
+}
+
+##Event: Tellez takes power
+country_event = {
+	id = mex_political.24
+	title = mex_political.24.title
+	desc = mex_political.24.desc
+	picture = GFX_Mexico_Tellez_Innaugurated
+	is_triggered_only = yes
+	option = {
+		name = mex_political.24.a
+		ai_chance = {
+			base = 1
+		} 
+		# ROOT = {
+		# 	recruit_character = MEX_ignacio_tellez
+		# }
+		MEX_ignacio_tellez = {
+			promote_character = yes
+			promote_character = rev_socialism
+		}
+		MEX_ignacio_tellez = {
+			promote_character = yes
+			promote_character = real_socialism
+		}
+		MEX_ignacio_tellez = {
+			promote_character = yes
+			promote_character = dem_socialism
+		}
+		# create_country_leader = {
+		# 	name = "Ignacio G. Tellez"
+		# 	desc = "POLITICS_IGNACIO_TELLEZ_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Ignacio_Tellez.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = rev_socialism	
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Ignacio G. Tellez"
+		# 	desc = "POLITICS_IGNACIO_TELLEZ_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Ignacio_Tellez.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = real_socialism 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Ignacio G. Tellez"
+		# 	desc = "POLITICS_IGNACIO_TELLEZ_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Ignacio_Tellez.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = dem_socialism 
+		# 	traits = {
+		# 	}
+		# }
+		add_ideas = {
+			ignaciothog
+		}
+ 		hidden_effect = {
+			load_focus_tree = { tree = MEX_Ignacio_Tellez }
+		} 
+	}
+}
+##Event: PRM Collapses
+country_event = {
+	id = mex_political.25
+	title = mex_political.25.title
+	desc = mex_political.25.desc
+	picture = GFX_Mexico_PRM_Colapses
+	is_triggered_only = yes
+	option = {
+		name = mex_political.25.a
+		ai_chance = {
+			base = 1
+		} 
+		MEX_adalberto_tejeda = {
+			promote_character = yes
+			promote_character = rev_socialism
+		}
+		MEX_genovevo_o = {
+			promote_character = yes
+			promote_character = real_socialism
+		}
+		MEX_ignacio_tellez = {
+			promote_character = yes
+			promote_character = dem_socialism
+		}
+		# create_country_leader = {
+		# 	name = "Adalberto Tejeda"
+		# 	desc = "POLITICS_ADALBERTO_TEJADA_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_adalberto_tejada.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = rev_socialism	
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Genovevo de la O"
+		# 	desc = "POLITICS_GENOVEVO_O_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_genovevo_o.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = real_socialism 
+		# 	traits = {
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Ignacio G. Tellez"
+		# 	desc = "POLITICS_IGNACIO_TELLEZ_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Ignacio_Tellez.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = dem_socialism 
+		# 	traits = {
+		# 	}
+		# }
+		set_politics = {
+			ruling_party = social_democracy
+		}	
+		set_party_name = { ideology = authoritarian_socialism long_name = "Partido Socialista Revolucionario" name = "PSR" }
+		set_party_name = { ideology = socialism long_name = "Partido Socialista Nacional" name = "PSN" }
+		set_party_name = { ideology = social_democracy long_name = "Partido Constitucional Progresista" name = "PCP" }
+		add_popularity = { ideology = authoritarian_socialism popularity = -0.10 }
+		add_popularity = { ideology = socialism popularity = -0.13 }
+		add_popularity = { ideology = social_democracy popularity = -0.08 }
+	}
+}
+
+##Event: PDM Elected 
+country_event = {
+	id = mex_political.26
+	title = mex_political.26.title
+	desc = mex_political.26.desc
+	picture = GFX_Mexico_Peñaloza_Innaugurated
+	is_triggered_only = yes
+	option = {
+		name = mex_political.26.a
+		ai_chance = {
+			base = 1
+		} 
+		
+		set_politics = {
+			ruling_party = social_liberalism
+		}	
+		add_popularity = { ideology = social_liberalism popularity = 0.07 }
+		add_popularity = { ideology = market_liberalism popularity = 0.07 }		
+		add_ideas = {
+			ezequilphog
+			manuelbfr
+			gilbertogeco
+			adolfocsec
+			fernandoaint
+		}
+		hidden_effect = {
+			load_focus_tree = { tree = MEX_Ezequiel_Padilla }
+		} 
+	}
+}
+
+##Event: PFM Elected 
+country_event = {
+	id = mex_political.27
+	title = mex_political.27.title
+	desc = mex_political.27.desc
+	picture = GFX_Mexico_Lobato_Innaugurated
+	is_triggered_only = yes
+	option = {
+		name = mex_political.27.a
+		ai_chance = {
+			base = 1
+		} 
+		
+		set_politics = {
+			ruling_party = democratic
+		}	
+		add_popularity = { ideology = democratic popularity = 0.07 }
+		add_popularity = { ideology = jacobin popularity = 0.07 }		
+		add_ideas = {
+			luisclhog
+			albertomfr
+			juanoeco
+			efrainlsec
+			salvadoraint
+		}
+		hidden_effect = {
+			load_focus_tree = { tree = MEX_Luis_Lobalto }
+		} 
+	}
+}
+
+##Event: Cristero Generals
+country_event = {
+	id = mex_political.28
+	title = mex_political.28.title
+	desc = mex_political.28.desc
+	picture = GFX_Mexico_Cristero_Generals
+	is_triggered_only = yes
+	option = {
+		name = mex_political.28.a
+		ai_chance = {
+			base = 1
+		}
+		add_corps_commander_role = {
+			character = MEX_jesus_d_guizar
+			traits = { homeland_connoisseur career_officer trait_cautious trickster desert_fox jungle_rat }
+			skill = 3
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 2
+			logistics_skill = 3
+		}
+		# create_corps_commander = {
+		# 	name = "Jesus D. Guizar"
+		# 	id = 1360
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Jesus_Degollado_Militar.tga"
+		# 	traits = { homeland_connoisseur career_officer trait_cautious trickster desert_fox jungle_rat }
+		# 	skill = 3
+		# 	attack_skill = 2
+		# 	defense_skill = 3
+		# 	planning_skill = 2
+		# 	logistics_skill = 3
+		# } 
+	}
+}
+
+##Event: Approaching the Scandal
+country_event = {
+	id = mex_political.29
+	title = mex_political.29.title
+	desc = mex_political.29.desc
+	picture = GFX_Mexico_The_Red_Shirt_Scandal
+
+	is_triggered_only = yes
+
+	option = {
+		name = mex_political.29.a
+		ai_chance = { base = 2 }
+		add_stability = 0.10
+		country_event = { days = 30 id = mex_political.30 }
+	}
+	option = {
+		name = mex_political.29.b
+		ai_chance = { base = 2 }
+		add_stability = -0.20
+	}
+}
+
+##Event: The Mexico City Protests
+country_event = {
+	id = mex_political.30
+	title = mex_political.30.title
+	desc = mex_political.30.desc
+	picture = GFX_MEX_Mexico_City_Riot
+
+	is_triggered_only = yes
+
+	option = {
+		name = mex_political.30.a
+		ai_chance = { base = 50 }
+		country_event = { days = 50 id = mex_political.31 }
+	}
+	option = {
+		name = mex_political.30.b
+		ai_chance = { base = 50 }
+	}
+}
+
+##Event: All Back to Normal
+country_event = {
+	id = mex_political.31
+	title = mex_political.31.title
+	desc = mex_political.31.desc
+	picture = GFX_MEX_Tellez_Candidate
+	is_triggered_only = yes
+	option = {
+		name = mex_political.31.a
+		country_event = { days = 60 id = mex_political.24 }
+		add_stability = 0.10
+		add_popularity = { ideology = communism popularity = 0.01 }
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.03 }
+		add_popularity = { ideology = socialism	popularity = 0.03 }	
+		add_popularity = { ideology = social_democracy popularity = 0.07 }		
+	}
+}
+
+##Event: The Army refuses To shot
+country_event = {
+	id = mex_political.32
+	title = mex_political.32.title
+	desc = mex_political.32.desc
+	picture = GFX_Mexico_Army
+	is_triggered_only = yes
+	option = {
+		name = mex_political.32.a
+		country_event = { days = 15 id = mex_political.25 }
+	}
+}
+
+##Event: The Election Issue
+country_event = {
+	id = mex_political.33
+	title = mex_political.33.title
+	desc = mex_political.33.desc
+	picture = GFX_MEX_Elections
+	is_triggered_only = yes
+	option = {
+		name = mex_political.33.a
+		ai_chance = { base = 50 }
+		country_event = { days = 50 id = mex_political.26 }
+	}
+	option = {
+		name = mex_political.33.b
+		ai_chance = { base = 50 }
+		country_event = { days = 50 id = mex_political.27 }
+	}
+}
+
+##Event: Sent Artillery to México?
+country_event = {
+	id = mex_foreign.1
+	title = mex_foreign.1.title
+	desc = mex_foreign.1.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+
+	option = {
+		name = mex_foreign.1.a
+		ai_chance = { base = 2 }
+		add_political_power = 20
+		send_equipment = {
+			type = artillery_equipment
+			amount = 50
+			target = MEX
+		}
+		MEX = {
+			country_event = { id = mex_foreign.7 }
+		}
+	}
+
+	option = {
+		name = mex_foreign.1.b
+		ai_chance = { base = 1 }
+		MEX = {
+			country_event = { id = mex_foreign.13 }
+		}
+	}
+}
+
+##Event: Sent Rifles to México?
+country_event = {
+	id = mex_foreign.2
+	title = mex_foreign.2.title
+	desc = mex_foreign.2.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+
+	option = {
+		name = mex_foreign.2.a
+
+		ai_chance = { base = 2 }
+		add_political_power = 20
+		send_equipment = {
+			type = infantry_equipment 
+			amount = 150
+			target = MEX
+		}		
+		MEX = {
+			country_event = { id = mex_foreign.8 }
+		}
+	}
+	option = {
+		name = mex_foreign.2.b
+		ai_chance = { base = 1 }
+		MEX = {
+			country_event = { id = mex_foreign.14 }
+		}
+	}
+}
+
+##Event: Sent Trucks to México?
+country_event = {
+	id = mex_foreign.3
+	title = mex_foreign.3.title
+	desc = mex_foreign.3.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+
+	option = {
+		name = mex_foreign.3.a
+
+		ai_chance = { base = 2 }
+		add_political_power = 20
+		send_equipment = {
+			type = motorized_equipment 
+			amount = 50 
+			target = MEX 
+		}
+		MEX = {
+			country_event = { id = mex_foreign.9 }
+		}
+	}
+	option = {
+		name = mex_foreign.3.b
+		ai_chance = { base = 1 }
+		MEX = {
+			country_event = { id = mex_foreign.15 }
+		}
+	}
+}
+
+##Event: Sent Fighters to México?
+country_event = {
+	id = mex_foreign.4
+	title = mex_foreign.4.title
+	desc = mex_foreign.4.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes	
+
+	option = {
+		name = mex_foreign.4.a
+
+		ai_chance = { base = 2 }
+		add_political_power = 20
+		if = {
+			limit = {
+				NOT = { has_dlc = "By Blood Alone" }
+			}
+			send_equipment = {
+				equipment = early_fighter_equipment
+				amount = 10
+				target = MEX
+			}
+		}
+		else = {
+			send_equipment = {
+				equipment = small_plane_airframe
+				amount = 10
+				target = MEX
+			}
+		}
+		MEX = {
+			country_event = { id = mex_foreign.10 }
+		}
+	}
+	option = {
+		name = mex_foreign.4.b
+		ai_chance = { base = 1 }
+		MEX = {
+			country_event = { id = mex_foreign.16 }
+		}
+	}
+}
+
+##Event: Sent Tanks to México?
+country_event = {
+	id = mex_foreign.5
+	title = mex_foreign.5.title
+	desc = mex_foreign.5.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+
+	option = {
+		name = mex_foreign.5.a
+		ai_chance = { base = 2 }
+		add_political_power = 20
+		send_equipment = {
+			type = gw_tank_equipment 
+			amount = 50
+			target = MEX
+		}
+		MEX = {
+			country_event = { id = mex_foreign.11 }
+		}
+	}
+	option = {
+		name = mex_foreign.5.b
+		ai_chance = { base = 1 }
+		MEX = {
+			country_event = { id = mex_foreign.17 }
+		}
+	}
+}
+
+##Event: Sent Ships to México?
+country_event = {
+	id = mex_foreign.6
+	title = mex_foreign.6.title
+	desc = mex_foreign.6.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+		option = {
+		name = mex_foreign.6.a
+		ai_chance = { base = 2 }
+		add_political_power = 20
+		send_equipment = {
+			type = convoy
+			amount = 25
+			target = MEX
+		}
+		MEX = {
+			country_event = { id = mex_foreign.12 }
+		}
+	}
+	option = {
+		name = mex_foreign.6.b
+		ai_chance = { base = 1 }
+		MEX = {
+			country_event = { id = mex_foreign.18 }
+		}
+	}
+}
+
+##Event: The Americans Accepted
+country_event = {
+	id = mex_foreign.7
+	title = mex_foreign.7.title
+	desc = mex_foreign.7.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.7.a
+		ai_chance = { base = 2 }
+		add_equipment_to_stockpile = { type = artillery_equipment amount = 150 producer = USA }
+	}
+}
+
+##Event: The British Accepted
+country_event = {
+	id = mex_foreign.8
+	title = mex_foreign.8.title
+	desc = mex_foreign.8.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.8.a
+		ai_chance = { base = 2 }
+		add_equipment_to_stockpile = { type = infantry_equipment amount = 150 producer = ENG }
+	}
+}
+
+##Event: The Soviets Accepted
+country_event = {
+	id = mex_foreign.9
+	title = mex_foreign.9.title
+	desc = mex_foreign.9.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.9.a
+		ai_chance = { base = 2 }
+		add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 50 producer = SOV }
+	}
+}
+
+##Event: The Italians Accepted
+country_event = {
+	id = mex_foreign.10
+	title = mex_foreign.10.title
+	desc = mex_foreign.10.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.10.a
+		ai_chance = { base = 2 }
+		if = {
+			limit = {
+				NOT = { has_dlc = "By Blood Alone" }
+			}
+			add_equipment_to_stockpile = {
+				type = iw_fighter_equipment
+				amount = 25
+				producer = ITA
+			}
+		}
+		else = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe_0
+				amount = 10
+				producer = ITA
+			}
+		}
+	}
+}
+
+##Event: The Germans Accepted
+country_event = {
+	id = mex_foreign.11
+	title = mex_foreign.11.title
+	desc = mex_foreign.11.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.11.a
+		ai_chance = { base = 2 }
+		add_equipment_to_stockpile = { type = gw_tank_equipment amount = 50 producer = GER }
+	}
+}
+
+##Event: The Japanese Accepted
+country_event = {
+	id = mex_foreign.12
+	title = mex_foreign.12.title
+	desc = mex_foreign.12.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.12.a
+		ai_chance = { base = 2 }
+		add_equipment_to_stockpile = { type = convoy amount = 10 producer = JAP }
+	}
+}
+
+##Event: The Americans Refused
+country_event = {
+	id = mex_foreign.13
+	title = mex_foreign.13.title
+	desc = mex_foreign.13.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.13.a
+		ai_chance = { base = 2 }
+		add_political_power = -10
+	}
+}
+
+##Event: The British Refused
+country_event = {
+	id = mex_foreign.14
+	title = mex_foreign.14.title
+	desc = mex_foreign.14.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.14.a
+		ai_chance = { base = 2 }
+		add_political_power = -10
+	}
+}
+
+##Event: The Soviets Refused
+country_event = {
+	id = mex_foreign.15
+	title = mex_foreign.15.title
+	desc = mex_foreign.15.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.15.a
+		ai_chance = { base = 2 }
+		add_political_power = -10
+	}
+}
+
+##Event: The Italians Refused
+country_event = {
+	id = mex_foreign.16
+	title = mex_foreign.16.title
+	desc = mex_foreign.16.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.16.a
+		ai_chance = { base = 2 }
+		add_political_power = -10
+	}
+}
+
+##Event: The Germans Refused
+country_event = {
+	id = mex_foreign.17
+	title = mex_foreign.17.title
+	desc = mex_foreign.17.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.17.a
+		ai_chance = { base = 2 }
+		add_political_power = -10
+	}
+}
+
+##Event: The Japanese Refused
+country_event = {
+	id = mex_foreign.18
+	title = mex_foreign.18.title
+	desc = mex_foreign.18.desc
+	picture = GFX_Event_USSR_Soviet_Workers_Smoking
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.18.a
+		ai_chance = { base = 2 }
+		add_political_power = -10
+	}
+}
+
+##Event: Mexico Nationalizes Oil!
+country_event = {
+	id = mex_foreign.19
+	title = mex_foreign.19.title
+	desc = mex_foreign.19.desc
+	picture = GFX_Mexico_Oil_Nationalization
+	is_triggered_only = yes
+
+	option = {
+		name = mex_foreign.19.a
+		ai_chance = { base = 2 }
+		add_ideas = {
+			MEX_corporation_outrage
+			MEX_nationalization_fallout
+			MEX_lack_of_trust
+		}
+	}
+}
+
+##Event: Controled Nationalization
+country_event = {
+	id = mex_foreign.20
+	title = mex_foreign.20.title
+	desc = mex_foreign.20.desc
+	picture = GFX_Mexico_Controlled_Nationalization
+	is_triggered_only = yes
+
+	option = {
+		name = mex_foreign.20.a
+		ai_chance = { base = 2 }
+		add_ideas = {
+			MEX_corporation_outrage
+			MEX_limited_outrage
+			MEX_lack_of_trust
+		}
+	}
+}
+##Event: Treaty with Spain
+country_event = {
+	id = mex_foreign.21
+	title = mex_foreign.21.title
+	desc = mex_foreign.21.desc
+	picture = GFX_Mexico_Mexico_Second_Republic
+	is_triggered_only = yes
+
+	option = {
+		name = mex_foreign.21.a
+		ai_chance = { base = 2 }
+		diplomatic_relation = {
+			country = MEX
+			relation = military_access
+			active = yes
+		}
+		MEX = {
+			country_event = { id = mex_foreign.29 }		
+		}					
+	}
+	option = {
+		name = mex_foreign.21.b
+		ai_chance = { base = 1 }
+		MEX = {
+			country_event = { id = mex_foreign.30 }
+		}
+	}
+}
+##Event: Deals with Royal Dutch Shell
+country_event = {
+	id = mex_foreign.22
+	title = mex_foreign.22.title
+	desc = mex_foreign.22.desc
+	picture = GFX_Mexico_MEX_Oil_2
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.22.a
+		ai_chance = { base = 2 }
+		add_political_power = 100
+		MEX = {
+			country_event = { id = mex_foreign.24 }
+		}
+	}
+}
+##Event: Deals with Petróleo El Águila
+country_event = {
+	id = mex_foreign.23
+	title = mex_foreign.23.title
+	desc = mex_foreign.23.desc
+	picture = GFX_Mexico_MEX_Oil_1
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.23.a
+		ai_chance = { base = 2 }
+		add_political_power = 100
+		MEX = {
+			country_event = { id = mex_foreign.25 }
+		}
+	}
+}
+##Event: Royal Dutch Shell Accepts
+country_event = {
+	id = mex_foreign.24
+	title = mex_foreign.24.title
+	desc = mex_foreign.24.desc
+	picture = GFX_Mexico_MEX_Oil_2
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.24.a
+		ai_chance = { base = 2 }
+		add_political_power = 50
+	}
+}
+
+##Event: Petróleo El Águila Accepts
+country_event = {
+	id = mex_foreign.25
+	title = mex_foreign.25.title
+	desc = mex_foreign.25.desc
+	picture = GFX_Mexico_MEX_Oil_1
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.25.a
+		ai_chance = { base = 2 }
+		add_political_power = 50
+	}
+}
+	
+##Event: Military Cooperation
+country_event = {
+	id = mex_foreign.26
+	title = mex_foreign.26.title
+	desc = mex_foreign.26.desc
+	picture = GFX_Mexico_MEX_USA_1
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.26.a
+		ai_chance = { base = 2 }
+		MEX = {
+			country_event = { id = mex_foreign.27 }
+		}
+		diplomatic_relation = {
+			country = MEX
+			relation = military_access
+			active = yes		
+		}
+	}
+	option = {
+		name = mex_foreign.26.b
+		ai_chance = { base = 2 }
+		MEX = {
+			country_event = { id = mex_foreign.28 }
+		}
+	}
+}
+
+##Event: America Accepts
+country_event = {
+	id = mex_foreign.27
+	title = mex_foreign.27.title
+	desc = mex_foreign.27.desc
+	picture = GFX_Mexico_MEX_USA_2
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.27.a
+		ai_chance = { base = 2 }
+		diplomatic_relation = {
+			country = USA
+			relation = military_access
+			active = yes
+		}
+	}
+}
+
+##Event: America Denies
+country_event = {
+	id = mex_foreign.28
+	title = mex_foreign.28.title
+	desc = mex_foreign.28.desc
+	picture = GFX_Mexico_MEX_USA_1
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.28.a
+		ai_chance = { base = 2 }
+		add_political_power = -50
+	}
+}
+	
+##Event: Spain Accepts
+country_event = {
+	id = mex_foreign.29
+	title = mex_foreign.29.title
+	desc = mex_foreign.29.desc
+	picture = GFX_Mexico_Mexico_Second_Republic
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.29.a
+		ai_chance = { base = 2 }
+		diplomatic_relation = {
+			country = SPR
+			relation = military_access
+			active = yes		
+		}
+	}
+}	
+	
+##Event: Spain Denies
+country_event = {
+	id = mex_foreign.30
+	title = mex_foreign.30.title
+	desc = mex_foreign.30.desc
+	picture = GFX_Mexico_Mexico_Second_Republic
+	is_triggered_only = yes
+	option = {
+		name = mex_foreign.30.a
+		ai_chance = { base = 2 }
+		add_political_power = -50
+	}
+}
+	
+##Event: Business Partner
+country_event = {
+	id = mex_army.1
+	title = mex_army.1.title
+	desc = mex_army.1.desc
+	picture = GFX_Mexico_Airforce
+	is_triggered_only = yes
+	option = {
+		name = mex_army.1.a
+		ai_chance = { base = 2 }
+		add_ideas = tnca_fighters 
+	}
+	option = {
+		name = mex_army.1.b
+		ai_chance = { base = 2 }
+		add_ideas = tnca_bombers 
+	}
+	option = {
+		name = mex_army.1.c
+		ai_chance = { base = 2 }
+		add_ideas = tnca_cas 
+	}
+}
+	
+##Event: New Fieldmarshal
+country_event = {
+	id = mex_army.2
+	title = mex_army.2.title
+	desc = mex_army.2.desc
+	picture = GFX_Mexico_Army
+	is_triggered_only = yes
+	option = {
+		name = mex_army.2.a
+		ai_chance = { base = 2 }
+		# MEX_francisco_urquizo = {
+		# 	remove_unit_leader_role = yes
+		# }
+		#clr_country_flag = MEX_f_urquizo_general
+		#set_country_flag = MEX_f_urquizo_marhsal
+		MEX_francisco_urquizo = {
+			promote_leader = yes
+		}
+		#remove_unit_leader = 1307
+		# create_field_marshal = {
+		# 	name = "Fransisco L. Urquizo"
+		# 	id = 1326
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Fransisco_Urquiza.tga"
+		# 	traits = { old_guard war_hero aviation_expert media_personality fast_planner trickster expert_delegator } 
+		# 	skill = 4
+		# 	attack_skill = 2
+		# 	defense_skill = 3
+		# 	planning_skill = 4
+		# 	logistics_skill = 3
+		# }
+	}
+	option = {
+		name = mex_army.2.b
+		ai_chance = { base = 2 }
+		MEX_gilberto_limon = {
+			promote_leader = yes
+		}
+		# remove_unit_leader = 1304
+		# create_field_marshal = {
+		# 	name = "Gilberto R. Limon"
+		# 	id = 1328
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Gilberto_Limon.tga"
+		# 	traits = { old_guard war_hero decided_planner brilliant_strategist thorough_planner expert_delegator } 
+		# 	skill = 3
+		# 	attack_skill = 2
+		# 	defense_skill = 1
+		# 	planning_skill = 2
+		# 	logistics_skill = 2
+		# }
+	}
+	option = {
+		name = mex_army.2.c
+		ai_chance = { base = 2 }
+		MEX_juan_carbal = {
+			promote_leader = yes
+		}
+		# remove_unit_leader = 1303
+		# create_field_marshal = {
+		# 	name = "Juan G. Cabral"
+		# 	id = 1327
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Juan_Cabral.tga"
+		# 	traits = { old_guard war_hero cavalry_officer homeland_connoisseur logistics_wizard organizer desert_fox } 
+		# 	skill = 4
+		# 	attack_skill = 3
+		# 	defense_skill = 2
+		# 	planning_skill = 3
+		# 	logistics_skill = 4
+		# }
+	}
+	option = {
+		name = mex_army.2.d
+		ai_chance = { base = 2 }
+		MEX_roberto_diaz = {
+			promote_leader = yes
+		}
+		# remove_unit_leader = 1320
+		# create_field_marshal = {
+		# 	name = "Roberto C. Diaz" 
+		# 	id = 1322
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Roberto_Cruz.tga"
+		# 	traits = { old_guard war_hero brilliant_strategist decided_planner organizer expert_delegator fast_planner } 
+		# 	skill = 4
+		# 	attack_skill = 2
+		# 	defense_skill = 2
+		# 	planning_skill = 3
+		# 	logistics_skill = 3
+		# }
+	}
+}
+
+##Event: New Fieldmarshal
+country_event = {
+	id = mex_army.3
+	title = mex_army.3.title
+	desc = mex_army.3.desc
+	picture = GFX_Mexico_Army
+	is_triggered_only = yes
+	option = {
+		name = mex_army.3.a
+		ai_chance = { base = 2 }
+		MEX_francisco_urquizo = {
+			promote_leader = yes
+		}
+		# remove_unit_leader = 1307
+		# create_field_marshal = {
+		# 	name = "Fransisco L. Urquizo"
+		# 	id = 1326
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Fransisco_Urquiza.tga"
+		# 	traits = { old_guard war_hero aviation_expert media_personality fast_planner organisational_leader expert_delegator } 
+		# 	skill = 4
+		# 	attack_skill = 2
+		# 	defense_skill = 3
+		# 	planning_skill = 4
+		# 	logistics_skill = 3
+		# }			
+	}
+	option = {
+		name = mex_army.3.b
+		ai_chance = { base = 2 }
+		MEX_gilberto_limon = {
+			promote_leader = yes
+		}
+		remove_unit_leader = 1304
+		# create_field_marshal = {
+		# 	name = "Gilberto R. Limon"
+		# 	id = 1327
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Gilberto_Limon.tga"
+		# 	traits = { old_guard war_hero decided_planner brilliant_strategist thorough_planner expert_delegator } 
+		# 	skill = 3
+		# 	attack_skill = 2
+		# 	defense_skill = 1
+		# 	planning_skill = 2
+		# 	logistics_skill = 2
+		# }		
+	}
+	option = {
+		name = mex_army.3.c
+		ai_chance = { base = 2 }
+		MEX_roberto_diaz = {
+			promote_leader = yes
+		}
+		# remove_unit_leader = 1320
+		# create_field_marshal = {
+		# 	name = "Roberto C. Diaz"
+		# 	id = 1322
+		# 	portrait_path = "gfx/leaders_cbts/MEX/Portrait_Roberto_Cruz.tga"
+		# 	traits = { old_guard war_hero brilliant_strategist decided_planner organizer expert_delegator fast_planner } 
+		# 	skill = 4
+		# 	attack_skill = 2
+		# 	defense_skill = 2
+		# 	planning_skill = 3
+		# 	logistics_skill = 3
+		# }
+	}
+}	
+	
+	
+##Event: Business Partner
+country_event = {
+	id = mex_navy.1
+	title = mex_navy.1.title
+	desc = mex_navy.1.desc
+	picture = GFX_Mexico_Navy
+	is_triggered_only = yes
+	option = {
+		name = mex_navy.1.a
+
+		ai_chance = { base = 2 }
+		add_ideas = astimar_salina_cruz
+	}
+	option = {
+		name = mex_navy.1.b
+
+		ai_chance = { base = 2 }
+		add_ideas = astimar_tampico
+	}
+	option = {
+		name = mex_navy.1.c
+		
+		ai_chance = { base = 2 }
+		add_ideas = astimar_coatzacoalcos
+	}
+}

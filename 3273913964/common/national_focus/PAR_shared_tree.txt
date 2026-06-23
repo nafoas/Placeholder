@@ -1,0 +1,386 @@
+#Paraguay economics/foreign affaires Focus Tree
+#By: Spartacus_but_Russian
+
+ #Big Increase is not a valid opinion modifier
+
+	#Economics
+
+shared_focus = {
+	id = PAR_increase_foreign_investement
+	icon = GFX_focus_Economic_Stimulus
+	cost = 5
+	completion_reward = {
+		# country_event = {
+		# 	id = PAR_economic_succes.1
+		# 	days = 5
+		# }
+		# add_days_mission_timeout = {
+		# 	mission = PAR_economic_collapse_mission
+		# 	days = 25
+		# }
+	}
+	x = 7
+	y = 0
+}
+
+shared_focus = {
+	id = PAR_laissez_faire
+	icon = GFX_focus_Free_Trade
+	cost = 5
+	completion_reward = {
+		# country_event = {
+		# 	id = PAR_economic_succes.2
+		# 	days = 5
+		# }
+		# add_days_mission_timeout = {
+		# 	mission = PAR_economic_collapse_mission
+		# 	days = 25
+		# }
+	}
+	x = 9
+	y = 0
+}
+
+shared_focus = {
+	id = PAR_recover_crisis_29
+	icon = GFX_focus_Money_Bags
+	cost = 5
+	prerequisite = {
+		focus = PAR_increase_foreign_investement
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = PAR_great_depression_idea
+			add_idea = PAR_great_depression_idea_2
+		}
+		# add_days_mission_timeout = {
+		# 	mission = PAR_economic_collapse_mission
+		# 	days = 25
+		# }
+	}
+	x = 7
+	y = 1
+}
+
+shared_focus = {
+	id = PAR_limit_import_export
+	icon = GFX_focus_Protectionism
+	cost = 5
+	prerequisite = {
+		focus = PAR_laissez_faire
+	}
+	completion_reward = {
+		# add_days_mission_timeout = {
+		# 	mission = PAR_economic_collapse_mission
+		# 	days = 25
+		# }
+	}
+	x = 9
+	y = 1
+}
+
+shared_focus = {
+	id = PAR_stop_economic_downturn
+	icon = GFX_focus_Progressive_Taxation
+	cost = 10
+	prerequisite = {
+		focus = PAR_recover_crisis_29
+	}
+	prerequisite = {
+		focus = PAR_limit_import_export
+	}
+	completion_reward = {
+		remove_ideas = PAR_great_depression_idea_2
+	}
+	x = 8
+	y = 2
+}
+
+shared_focus = {
+	id = PAR_febrerist_economy
+	icon = GFX_focus_Military_Government
+	cost = 10
+	prerequisite = {
+		focus = PAR_stop_economic_downturn
+	}
+	available = {
+		or = {
+			has_government = authoritarian_socialism
+			has_government = socialism
+			has_government = social_democracy
+			has_government = monarchism
+		}
+	}
+	completion_reward = {
+		army_experience = 10
+		#871 = {
+		#    add_extra_state_shared_building_slots = 1
+		#    add_building_construction = {
+		#        type = industrial_complex
+		#        level = 1
+		#        instant_build = yes
+		#        #state = 871
+		#    }
+		#}
+	}
+	x = 7
+	y = 3
+}
+
+shared_focus = {
+	id = PAR_liberal_economy
+	icon = GFX_focus_Business_Men
+	cost = 10
+	prerequisite = {
+		focus = PAR_stop_economic_downturn
+	}
+	available = {
+		or = {
+			has_government = social_liberalism
+			has_government = market_liberalism
+			has_government = jacobin
+			has_government = democratic
+		}
+	}
+	completion_reward = {
+		add_political_power = 50
+		#871 = {
+		#    add_extra_state_shared_building_slots = 1
+		#    add_building_construction = {
+		#        type = industrial_complex
+		#        level = 1
+		#        instant_build = yes
+		#        state = 871
+		#    }
+		#}
+	}
+	x = 9
+	y = 3
+}
+
+shared_focus = {
+	id = PAR_state_oil_excavation
+	icon = GFX_focus_Export_Oil
+	cost = 10
+	prerequisite = {
+		focus = PAR_febrerist_economy
+	}
+	available = {
+		or = {
+			has_government = authoritarian_socialism
+			has_government = socialism
+			has_government = social_democracy
+			has_government = monarchism
+		}
+	}
+	completion_reward = {
+		#869 = {
+		#    add_extra_state_shared_building_slots = 2
+		#    add_building_construction = {
+		#        type = synthetic_refinery
+		#        level = 2
+		#        instant_build = yes
+		#        state = 869
+		#    }
+		#}
+	}
+	x = 6
+	y = 4
+}
+
+shared_focus = {
+	id = PAR_recover_chaco_war
+	icon = GFX_focus_Industrialization
+	cost = 10
+	prerequisite = {
+		focus = PAR_febrerist_economy
+		focus = PAR_liberal_economy
+	}
+	completion_reward = {
+		#871 = {
+		#    add_extra_state_shared_building_slots = 1
+		#     add_building_construction = {
+		#         type = industrial_complex
+		#         level = 1
+		#         instant_build = yes
+		#         state = 871
+		#     }
+		# }
+		# 688 = { 
+		#     add_extra_state_shared_building_slots = 1
+		#     add_building_construction = {
+		#         type = industrial_complex
+		#         level = 1
+		#         instant_build = yes
+		#         state = 688
+		#     }
+		# }
+		# 869 = { 
+		#     add_extra_state_shared_building_slots = 1
+		#     add_building_construction = {
+		#         type = industrial_complex
+		#         level = 1
+		#         instant_build = yes
+		#         state = 869
+		#     }
+		# }
+	}
+	x = 8
+	y = 4
+}
+
+shared_focus = {
+	id = PAR_increase_protectionism
+	icon = GFX_focus_Business_Bills
+	cost = 10
+	prerequisite = {
+		focus = PAR_liberal_economy
+	}
+	available = {
+		or = {
+			has_government = social_liberalism
+			has_government = market_liberalism
+			has_government = jacobin
+			has_government = democratic
+		}
+	}
+	completion_reward = {
+		add_stability = 0.05
+		add_political_power = 100
+		add_ideas = {
+			limited_exports
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = faction_traitor
+		}
+		add_opinion_modifier = {
+			target = BRA
+			modifier = faction_traitor
+		}
+	}
+	x = 10
+	y = 4
+}
+
+shared_focus = {
+	id = PAR_development_land_commission
+	icon = GFX_focus_Agriculture
+	cost = 10
+	prerequisite = {
+		focus = PAR_recover_chaco_war
+	}
+	completion_reward = {
+
+		#871 = {
+		#        add_building_construction = {
+		#        type = infrastructure
+		#        level = 2
+		#        instant_build = yes
+		#        state = 871
+		#    }
+		#}
+		#869 = { 
+		#        add_building_construction = {
+		#        type = infrastructure
+		#        level = 1
+		#        instant_build = yes
+		#        state = 869
+		#    }
+		#}
+		#688 = { 
+		#    add_building_construction = {
+		#        type = infrastructure
+		#        level = 1
+		#        instant_build = yes
+		#        state = 688
+		#    }
+		#}
+	}
+	x = 7
+	y = 5
+}
+
+shared_focus = {
+	id = PAR_establish_school_economics
+	icon = GFX_focus_Ensure_Discipline_Parliament
+	cost = 10
+	prerequisite = {
+		focus = PAR_recover_chaco_war
+	}
+	completion_reward = {
+		add_research_slot = 1
+	}
+	x = 9
+	y = 5
+}
+
+shared_focus = {
+	id = PAR_national_department_labor
+	icon = GFX_focus_Military_Intervention
+	cost = 10
+	prerequisite = {
+		focus = PAR_state_oil_excavation
+	}
+	prerequisite = {
+		focus = PAR_development_land_commission
+	}
+	available = {
+		or = {
+			has_government = authoritarian_socialism
+			has_government = socialism
+			has_government = social_democracy
+			has_government = monarchism
+		}
+	}
+	completion_reward = {
+		add_ideas = {
+			PAR_national_labor_department_idea
+		}
+	}
+	x = 6
+	y = 6
+}
+
+shared_focus = {
+	id = PAR_expand_oil_drilling
+	icon = GFX_focus_Oil_Industry
+	cost = 10
+		prerequisite = {
+		focus = PAR_establish_school_economics
+	}
+	prerequisite = {
+		focus = PAR_development_land_commission
+	}
+	available = {
+		owns_state = 688
+	}
+	completion_reward = {
+	}
+	x = 8
+	y = 6
+}
+
+shared_focus = {
+	id = PAR_prevent_worker_strikes
+	icon = GFX_focus_Workers_on_Strike
+	cost = 10
+	prerequisite = {
+		focus = PAR_establish_school_economics
+	}
+	prerequisite = {
+		focus = PAR_increase_protectionism
+	}
+	available = {
+		or = {
+			has_government = social_liberalism
+			has_government = market_liberalism
+			has_government = jacobin
+			has_government = democratic
+		}
+	}
+	completion_reward = {
+	}
+	x = 10
+	y = 6
+}

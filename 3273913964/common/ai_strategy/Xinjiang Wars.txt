@@ -1,0 +1,109 @@
+#KML_dont_attack_yet = {
+#	allowed = {
+#		tag = KML
+#	}
+#	enable = {
+#		date < 1933.12.10
+#	}
+#
+#	abort_when_not_enabled = yes
+#
+#	ai_strategy = {
+#		type = front_control
+#
+#		state = 187
+#
+#		#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+#
+#		priority = 3 # default 0, higher prio strats will override lower
+#		ordertype = front
+#		execute_order = no
+#		manual_attack = no
+#	}
+#	ai_strategy = {
+#		type = front_control
+#
+#		state = 617
+#
+#		#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+#
+#		priority = 3 # default 0, higher prio strats will override lower
+#		ordertype = front
+#		execute_order = no
+#		manual_attack = no
+#	}
+#}
+
+#UTP_dont_attack_yet = {
+#	allowed = {
+#		tag = UTP
+#	}
+#	enable = {
+#		date < 1933.12.10
+#	}
+#
+#	abort_when_not_enabled = yes
+#
+#	ai_strategy = {
+#		type = front_control
+#
+#		state = 187
+#
+#		#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+#
+#		priority = 3 # default 0, higher prio strats will override lower
+#		ordertype = front
+#		execute_order = no
+#		manual_attack = no
+#	}
+#}
+
+KML_ignore_neighbours = {
+	allowed = {
+		tag = KML
+	}
+	enable = {
+		OR = {
+			has_war_with = UTP
+			has_war_with = SIK
+		}
+	}
+	abort = {
+		NOT = {
+			has_war_with = SIK
+			has_war_with = UTP
+			#TODO: Kumul Rebellion ongoing flag
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				AND = {
+					tag = SOV
+					NOT = { has_war_with = FROM }
+				}
+				AND = {
+					tag = MON
+					NOT = { has_war_with = FROM }
+				}
+				AND = {
+					tag = XSM
+					NOT = { has_war_with = FROM }
+				}
+				AND = {
+					tag = MHK
+					NOT = { has_war_with = FROM }
+				}
+				AND = {
+					tag = TIB
+					NOT = { has_war_with = FROM }
+				}
+			}
+		}
+
+		value = -200
+	}
+}

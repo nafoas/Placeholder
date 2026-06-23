@@ -1,0 +1,436 @@
+#################
+#Buryatia Events#
+#################
+
+add_namespace = bry_internal
+add_namespace = bry_external
+add_namespace = bry_civil_war #handles path changes and revolts. Other things go in internal
+add_namespace = bry_flavor
+add_namespace = bry_test
+add_namespace = bry_ai
+
+country_event = { #the situation
+	id = bry_internal.1
+	title = bry_internal.1.t
+	desc = bry_internal.1.d
+	picture = GFX_event_BRY_Guns
+	is_triggered_only = yes
+	option = { #death to the reactionaries
+		name = bry_internal.1.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 30
+	}
+}
+
+country_event = { #wrangle the committe
+	id = bry_internal.2
+	title = bry_internal.2.t
+	desc = bry_internal.2.d
+	picture = GFX_event_BRY_Speech
+	is_triggered_only = yes
+	option = { 
+		name = bry_internal.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20
+		add_stability = 0.05
+	}
+}
+
+country_event = { #PURGE
+	id = bry_internal.3
+	title = bry_internal.3.t
+	desc = bry_internal.3.d
+	picture = GFX_event_BRY_Guns
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = bry_internal.4 
+				days = 100
+			}
+		}
+	}
+	option = { 
+		name = bry_internal.3.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = bry_purge.tt
+		army_experience = -20
+		add_ideas = {
+			BRY_purge
+		}
+	}
+}
+
+country_event = { #purge complete
+	id = bry_internal.4
+	title = bry_internal.4.t
+	desc = bry_internal.4.d
+	picture = GFX_event_BRY_Guns
+	is_triggered_only = yes
+	option = { 
+		name = bry_internal.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 40
+		remove_ideas = {
+			BRY_purge
+		}
+		hidden_effect = {
+			set_country_flag = BRY_Party_Consolidation
+		}
+	}
+}
+
+country_event = { #patriotic speech
+	id = bry_internal.5
+	title = bry_internal.5.t
+	desc = bry_internal.5.d
+	picture = GFX_event_BRY_Speech
+	is_triggered_only = yes
+	option = { 
+		name = bry_internal.5.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20
+		add_war_support = 0.03
+	}
+}
+
+country_event = { #gib freedoms?
+	id = bry_internal.6
+	title = bry_internal.6.t
+	desc = bry_internal.6.d
+	picture = GFX_event_BRY_Speech
+	is_triggered_only = yes
+	option = { 
+		name = bry_internal.6.a
+		ai_chance = {
+			base = 80
+		}
+		add_political_power = -60
+		add_stability = -0.08
+		add_ideas = {
+			BRY_comprimise
+		}
+	}
+	option = { 
+		name = bry_internal.6.b
+		ai_chance = {
+			base = 20
+		}
+		add_political_power = 40
+	}
+}
+
+country_event = { #BRY asks for help
+	id = bry_internal.7
+	title = bry_internal.7.t
+	desc = bry_internal.7.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { #send guns and men
+		name = bry_internal.7.a
+		ai_chance = {
+			base = 40
+		}
+		add_manpower = -5000
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -1000
+			producer = MON
+		}
+		BRY = {
+			country_event = {
+				id = bry_internal.8
+				days = 4
+			}
+		}
+	}
+	option = { #send guns
+		name = bry_internal.7.b
+		ai_chance = {
+			base = 50
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -1000
+			producer = MON
+		}
+		BRY = {
+			country_event = {
+				id = bry_internal.9
+				days = 4
+			}
+		}
+	}
+	option = { #no
+		name = bry_internal.7.c
+		ai_chance = {
+			base = 10
+		}
+		BRY = {
+			country_event = {
+				id = bry_internal.10
+				days = 4
+			}
+		}
+	}
+}
+country_event = { #MON sent men and guns
+	id = bry_internal.8
+	title = bry_internal.8.t
+	desc = bry_internal.8.d
+	picture = GFX_event_Swedish_Officer
+	is_triggered_only = yes
+	option = { 
+		name = bry_internal.8.a
+		add_manpower = 5000
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = MON
+		}
+	}
+}
+country_event = { #MON sent guns
+	id = bry_internal.9
+	title = bry_internal.9.t
+	desc = bry_internal.9.d
+	picture = GFX_event_Swedish_Officer
+	is_triggered_only = yes
+	option = { 
+		name = bry_internal.9.a
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = MON
+		}
+	}
+}
+country_event = { #MON refuses
+	id = bry_internal.10
+	title = bry_internal.10.t
+	desc = bry_internal.10.d
+	#picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { 
+		name = bry_internal.10.a
+		add_political_power = -10
+	}
+}
+country_event = { #BRY wants industrial support
+	id = bry_external.1
+	title = bry_external.1.t
+	desc = bry_external.1.d
+	#picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { #yes
+		name = bry_external.1.a
+		ai_chance = {
+			base = 100
+		}
+		add_manpower = -2000
+		BRY = {
+			country_event = {
+				id = bry_external.2
+				days = 5
+			}
+		}
+	}
+	option = { #no
+		name = bry_external.1.b
+		ai_chance = {
+			base = 0
+		}
+		BRY = {
+			country_event = {
+				id = bry_external.3
+				days = 5
+			}
+		}
+	}
+}
+country_event = { #SOV says yes to industry
+	id = bry_external.2
+	title = bry_external.2.t
+	desc = bry_external.2.d
+	#picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { 
+		name = bry_external.2.a
+		add_ideas = {
+			BRY_industry_support
+		}
+	}
+}
+country_event = { #SOV says no
+	id = bry_external.3
+	title = bry_external.3.t
+	desc = bry_external.3.d
+	#picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { 
+		name = bry_external.3.a
+		add_political_power = -30
+	}
+}
+country_event = { #BRY wants construction support
+	id = bry_external.4
+	title = bry_external.4.t
+	desc = bry_external.4.d
+	#picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { #yes
+		name = bry_external.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_manpower = -2000
+		BRY = {
+			country_event = {
+				id = bry_external.5
+				days = 5
+			}
+		}
+	}
+	option = { #no
+		name = bry_external.4.b
+		ai_chance = {
+			base = 0
+		}
+		BRY = {
+			country_event = {
+				id = bry_external.3
+				days = 5
+			}
+		}
+	}
+}
+country_event = { #SOV says yes to construction
+	id = bry_external.5
+	title = bry_external.5.t
+	desc = bry_external.5.d
+	#picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { 
+		name = bry_external.5.a
+		add_ideas = {
+			BRY_construction_support
+		}
+	}
+}
+country_event = { #BRY wants excavation support
+	id = bry_external.6
+	title = bry_external.6.t
+	desc = bry_external.6.d
+	#picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { #yes
+		name = bry_external.6.a
+		ai_chance = {
+			base = 100
+		}
+		add_manpower = -2000
+		BRY = {
+			country_event = {
+				id = bry_external.7
+				days = 5
+			}
+		}
+	}
+	option = { #no
+		name = bry_external.6.b
+		ai_chance = {
+			base = 0
+		}
+		BRY = {
+			country_event = {
+				id = bry_external.3
+				days = 5
+			}
+		}
+	}
+}
+country_event = { #SOV says yes to excavation
+	id = bry_external.7
+	title = bry_external.7.t
+	desc = bry_external.7.d
+	#picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { 
+		name = bry_external.7.a
+		add_ideas = {
+			BRY_excavation_support
+		}
+		add_resource = {
+			type = steel
+			amount = 6
+			state = 564
+		}
+	}
+}
+country_event = { #BRY wants army support
+	id = bry_external.8
+	title = bry_external.8.t
+	desc = bry_external.8.d
+	#picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { #yes
+		name = bry_external.8.a
+		ai_chance = {
+			base = 100
+		}
+		BRY = {
+			country_event = {
+				id = bry_external.9
+				days = 5
+			}
+		}
+	}
+	option = { #no
+		name = bry_external.8.b
+		ai_chance = {
+			base = 0
+		}
+		BRY = {
+			country_event = {
+				id = bry_external.3
+				days = 5
+			}
+		}
+	}
+}
+country_event = { #SOV says yes to army
+	id = bry_external.9
+	title = bry_external.9.t
+	desc = bry_external.9.d
+	#picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { 
+		name = bry_external.9.a
+		add_ideas = {
+			BRY_army_support
+		}
+	}
+}
+country_event = { #BRY becomes puppet of SOV
+	id = bry_internal.11
+	title = bry_internal.11.t
+	desc = bry_internal.11.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { 
+		name = bry_internal.11.a
+		SOV = {
+			puppet = BRY
+		}
+	}
+}

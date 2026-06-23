@@ -1,0 +1,1102 @@
+# focuses here
+#s_team337
+shared_focus = {
+	id = ENG_Army_Start
+	icon = GFX_focus_British_Soldiers
+	#prerequisite = { focus = ENG_Army_Start }
+	x = 0
+	y = 0
+	#relative_position_id = ENG_Army_Start
+	cost = 2.86
+	ai_will_do = { #maybe add some political blockers here
+		factor = 1200
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		MOVE_UP_CONSCRIPTION = yes
+	}
+}
+shared_focus = {
+	id = ENG_Army_Artillery_Designs
+	icon = GFX_goal_generic_artillery
+	prerequisite = {
+		focus = ENG_Army_Start
+	}
+	mutually_exclusive = {
+		focus = ENG_Army_Artillery_Production
+	}
+	x = -1
+	y = 1
+	relative_position_id = ENG_Army_Start
+	cost = 3
+	ai_will_do = { #maybe add some political blockers here
+		factor = 300
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = artillery_bonus
+			uses = 1
+			bonus = 0.5
+			category = artillery
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Army_Artillery_Production
+	icon = GFX_focus_Skull_Cannon
+	prerequisite = {
+		focus = ENG_Army_Start
+	}
+	mutually_exclusive = {
+		focus = ENG_Army_Artillery_Designs
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_Army_Start
+	cost = 3
+	ai_will_do = { #maybe add some political blockers here
+		factor = 1200
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_timed_idea = {
+			idea = ENG_artillery_prod
+			days = 1278
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Army_Armour_Research
+	icon = GFX_focus_army_tanks
+	prerequisite = {
+		focus = ENG_Army_Artillery_Production
+		focus = ENG_Army_Artillery_Designs
+	}
+	x = -2
+	y = 2
+	relative_position_id = ENG_Army_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 250
+		modifier = {
+			date < 1940.1.1
+			factor = 0.1
+		}
+		modifier = {
+			date > 1941.1.1
+			factor = 10
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = armor_bonus
+			uses = 1
+			bonus = 0.5
+			category = armor
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Army_Mechanized
+	icon = GFX_focus_Mechanized_Divisions
+	prerequisite = {
+		focus = ENG_Army_Armour_Research
+	}
+	x = -2
+	y = 3
+	relative_position_id = ENG_Army_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 275
+		modifier = {
+			date < 1940.6.1
+			factor = 0.1
+		}
+		modifier = {
+			date > 1942.6.1
+			factor = 10
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = mechanized_bonus
+			uses = 1
+			bonus = 0.5
+			category = cat_mechanized_equipment
+		}
+		add_timed_idea = {
+			idea = ENG_mechanization
+			days = 400
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Army_Anti_Aircraft
+	icon = GFX_Generic_Anti_Aircraft_Artillery
+	prerequisite = {
+		focus = ENG_Army_Artillery_Production
+		focus = ENG_Army_Artillery_Designs
+	}
+	x = 0
+	y = 2
+	relative_position_id = ENG_Army_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 400
+		modifier = {
+			date < 1940.3.1
+			factor = 0.2
+		}
+		modifier = {
+			date > 1941.3.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = anti_aircraft_bonus
+			uses = 1
+			bonus = 0.5
+			category = cat_anti_air
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Army_Raiders
+	icon = GFX_focus_Commando_Operations
+	prerequisite = {
+		focus = ENG_Army_Anti_Aircraft
+	}
+	x = 0
+	y = 3
+	relative_position_id = ENG_Army_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 300
+		modifier = {
+			date < 1940.6.1
+			factor = 0.2
+		}
+		modifier = {
+			date > 1941.6.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = marine_bonus
+			uses = 1
+			bonus = 0.5
+			category = marine_tech
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Army_Parachutists
+	icon = GFX_focus_Parachute_Regiment
+	prerequisite = {
+		focus = ENG_Army_Mechanized
+	}
+	prerequisite = {
+		focus = ENG_Army_Raiders
+	}
+	x = -1
+	y = 4
+	relative_position_id = ENG_Army_Start
+	cost = 2.86
+	ai_will_do = { #maybe add some political blockers here
+		factor = 300
+		modifier = {
+			date < 1940.6.1
+			factor = 0.2
+		}
+		modifier = {
+			date > 1940.6.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = paratrooper_bonus
+			uses = 1
+			bonus = 0.5
+			category = para_tech
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Army_SAS
+	icon = GFX_focus_SAS
+	prerequisite = {
+		focus = ENG_Army_Mechanized
+	}
+	prerequisite = {
+		focus = ENG_Army_Raiders
+	}
+	x = 1
+	y = 4
+	relative_position_id = ENG_Army_Start
+	cost = 4.29
+	ai_will_do = { #maybe add some political blockers here
+		factor = 300
+		modifier = {
+			date < 1941.6.12
+			factor = 0.2
+		}
+		modifier = {
+			date > 1942.6.12
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = special_forces_bonus
+			uses = 1
+			bonus = 0.5
+			category = category_special_forces
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Army_Home_Guard
+	icon = GFX_focus_Home_Guard
+	prerequisite = {
+		focus = ENG_Army_Artillery_Production
+		focus = ENG_Army_Artillery_Designs
+	}
+	x = 2
+	y = 2
+	relative_position_id = ENG_Army_Start
+	cost = 4.29
+	ai_will_do = { #maybe add some political blockers here
+		factor = 500
+		modifier = {
+			date < 1940.4.1
+			factor = 0.4
+		}
+		modifier = {
+			date > 1940.10.1
+			factor = 4
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_ideas = ENG_home_guard
+	}
+}
+shared_focus = {
+	id = ENG_Army_Auxiliary_Units
+	icon = GFX_focus_Guerilla_Warfare
+	prerequisite = {
+		focus = ENG_Army_Home_Guard
+	}
+	x = 2
+	y = 3
+	relative_position_id = ENG_Army_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+		modifier = {
+			date < 1940.6.1
+			factor = 0.1
+		}
+		modifier = {
+			any_country = {
+				is_in_faction_with = ROOT
+				has_capitulated = yes
+			}
+			factor = 1.5
+		}
+		modifier = {
+			FRA = {
+				is_in_faction_with = ROOT
+				has_capitulated = yes
+			}
+			factor = 3
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = ENG_stay_behind
+	}
+}
+shared_focus = {
+	id = ENG_Army_Expand_ATS
+	icon = GFX_focus_ATS
+	prerequisite = {
+		focus = ENG_Army_Home_Guard
+	}
+	x = 3
+	y = 4
+	relative_position_id = ENG_Army_Start
+	cost = 2.15
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+		modifier = {
+			date < 1941.11.1
+			factor = 0.1
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = ENG_womens_branch
+	}
+}
+shared_focus = {
+	id = ENG_Army_Lessons_of_War
+	icon = GFX_focus_British_Soldiers
+	prerequisite = {
+		focus = ENG_Army_Parachutists
+	}
+	prerequisite = {
+		focus = ENG_Army_SAS
+	}
+	x = 0
+	y = 5
+	relative_position_id = ENG_Army_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 400
+		modifier = {
+			date < 1943.1.1
+			factor = 0.1
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = land_doctrine_bonus
+			uses = 1
+			bonus = 0.5
+			category = land_doctrine
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Navy_Start
+	icon = GFX_Focus_British_Navy
+	#prerequisite = { focus = ENG_Navy_Start }
+	x = 7
+	y = 0
+	relative_position_id = ENG_Army_Start
+	cost = 4.29
+	ai_will_do = { #maybe add some political blockers here
+		factor = 600
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		navy_experience = 30
+	}
+}
+shared_focus = {
+	id = ENG_Navy_Dockyards
+	icon = GFX_focus_Large_Navy
+	prerequisite = {
+		focus = ENG_Navy_Start
+	}
+	x = -1
+	y = 1
+	relative_position_id = ENG_Navy_Start
+	cost = 4.29
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 238
+				}
+				NOT = {
+					state = 1177
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 238
+				}
+				NOT = {
+					state = 1177
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Navy_Destroyers
+	icon = GFX_Goal_Generic_Refit_Destroyers
+	prerequisite = {
+		focus = ENG_Navy_Dockyards
+	}
+	x = -2
+	y = 2
+	relative_position_id = ENG_Navy_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			uses = 1
+			bonus = 0.5
+			name = dd_bonus
+			category = dd_tech
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Navy_Submarine
+	icon = GFX_goal_generic_navy_submarine
+	prerequisite = {
+		focus = ENG_Navy_Destroyers
+	}
+	x = -2
+	y = 3
+	relative_position_id = ENG_Navy_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+		modifier = {
+			date < 1941.6.1
+			factor = 0.2
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			uses = 1
+			bonus = 0.5
+			name = ss_bonus
+			category = ss_tech
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Navy_Battleships
+	icon = GFX_focus_Battleship
+	prerequisite = {
+		focus = ENG_Navy_Dockyards
+	}
+	x = 0
+	y = 2
+	relative_position_id = ENG_Navy_Start
+	cost = 5
+	ai_will_do = {
+		factor = 350
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			uses = 1
+			bonus = 0.5
+			name = bb_bonus
+			category = bb_tech
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Navy_Cruiser
+	icon = GFX_focus_Battlefleet
+	prerequisite = {
+		focus = ENG_Navy_Battleships
+	}
+	x = 0
+	y = 3
+	relative_position_id = ENG_Navy_Start
+	cost = 5
+	ai_will_do = {
+		factor = 350
+		modifier = {
+			date < 1941.6.1
+			factor = 0.2
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			uses = 1
+			bonus = 0.5
+			name = cl_bonus
+			category = cl_tech
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Navy_Carrier
+	icon = GFX_focus_Carrier2
+	prerequisite = {
+		focus = ENG_Navy_Submarine
+	}
+	prerequisite = {
+		focus = ENG_Navy_Cruiser
+	}
+	x = -1
+	y = 4
+	relative_position_id = ENG_Navy_Start
+	cost = 5
+	ai_will_do = {
+		factor = 350
+		modifier = {
+			date < 1942.1.1
+			factor = 0.5
+		}
+		modifier = {
+			date < 1943.6.1
+			factor = 0.5
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			uses = 1
+			bonus = 0.5
+			name = cv_bonus
+			category = cv_tech
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Navy_Churchills_Anchor
+	icon = GFX_focus_admiralty
+	prerequisite = {
+		focus = ENG_Navy_Start
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_Navy_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			uses = 2
+			bonus = 0.5
+			name = naval_doctrine_bonus
+			category = fleet_in_being_tree
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Navy_Interdiction_Strategies
+	icon = GFX_focus_Torpedo_Boats
+	prerequisite = {
+		focus = ENG_Navy_Churchills_Anchor
+	}
+	x = 2
+	y = 2
+	relative_position_id = ENG_Navy_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = ENG_trade_interdiction
+			days = 730
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Navy_Expand_Womens_Branch
+	icon = GFX_focus_Fire_Control_Systems
+	prerequisite = {
+		focus = ENG_Navy_Interdiction_Strategies
+	}
+	x = 2
+	y = 3
+	relative_position_id = ENG_Navy_Start
+	cost = 2.86
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		navy_experience = 15
+	}
+}
+shared_focus = {
+	id = ENG_Navy_Doctrine
+	icon = GFX_goal_generic_navy_doctrines_tactics
+	prerequisite = {
+		focus = ENG_Navy_Carrier
+	}
+	prerequisite = {
+		focus = ENG_Navy_Expand_Womens_Branch
+	}
+	x = 1
+	y = 5
+	relative_position_id = ENG_Navy_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			uses = 2
+			bonus = 0.5
+			name = naval_doctrine_bonus
+			category = fleet_in_being_tree
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Air_Start
+	icon = GFX_goal_generic_build_airforce
+	#prerequisite = { focus = ENG_Air_Start }
+	x = 13
+	y = 0
+	relative_position_id = ENG_Army_Start
+	cost = 4.29
+	ai_will_do = { #maybe add some political blockers here
+		factor = 600
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		air_experience = 30
+	}
+}
+shared_focus = {
+	id = ENG_Air_Rachet_Production
+	icon = GFX_focus_Aerial_Fleet
+	prerequisite = {
+		focus = ENG_Air_Start
+	}
+	x = 0
+	y = 1
+	relative_position_id = ENG_Air_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 1000
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		if = {
+			limit = {
+				has_idea = ENG_air_panic
+			}
+			swap_ideas = {
+				remove_idea = ENG_air_panic
+				add_idea = ENG_air_panic2
+			}
+		}
+		else = {
+			add_ideas = ENG_air_panic
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Air_Commonwealth_Training_Plan
+	icon = GFX_focus_Commonweath_Air_Training_Plan
+	prerequisite = {
+		focus = ENG_Air_Rachet_Production
+	}
+	x = -1
+	y = 2
+	relative_position_id = ENG_Air_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 600
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+		NOT = {
+			CAN = {
+				is_subject_of = ROOT
+			}
+			AST = {
+				is_subject_of = ROOT
+			}
+			NZL = {
+				is_subject_of = ROOT
+			}
+			SAF = {
+				is_subject_of = ROOT
+			}
+		}
+	}
+	completion_reward = {	
+		add_ideas = ENG_commonwealth_training
+		every_country = {
+			limit = {
+				OR = {
+					tag = CAN
+					tag = AST
+					tag = NZL
+					tag = SAF
+				}
+				is_subject_of = ROOT
+			}
+			country_event = {
+				id = eng_foreign.24
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Air_Fighter
+	icon = GFX_goal_generic_air_fighter
+	prerequisite = {
+		focus = ENG_Air_Commonwealth_Training_Plan
+	}
+	x = -1
+	y = 3
+	relative_position_id = ENG_Air_Start
+	cost = 5
+	ai_will_do = {
+		factor = 600
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = fighter_bonus
+			uses = 1
+			bonus = 0.5
+			category = light_fighter
+			category = cat_heavy_fighter
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Air_Bombing
+	icon = GFX_focus_Bombers_Doctrine_Force_Rotation
+	prerequisite = {
+		focus = ENG_Air_Rachet_Production
+	}
+	x = 1
+	y = 2
+	relative_position_id = ENG_Air_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 600
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = air_doctrine_bonus
+			uses = 1
+			bonus = 0.5
+			category = strategic_destruction_tree
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Air_Seaplanes
+	icon = GFX_focus_Naval_Bombers
+	prerequisite = {
+		focus = ENG_Air_Bombing
+	}
+	x = 1
+	y = 3
+	relative_position_id = ENG_Air_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = naval_air_bonus
+			uses = 1
+			bonus = 0.5
+			category = naval_air
+			#category = tactical_bomber
+			#category = cat_strategic_bomber
+			#category = cas_bomber
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Air_Bombers
+	icon = GFX_focus_Aerial_Offensive
+	prerequisite = {
+		focus = ENG_Air_Fighter
+	}
+	prerequisite = {
+		focus = ENG_Air_Bombing
+	}
+	x = 0
+	y = 4
+	relative_position_id = ENG_Air_Start
+	cost = 5
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+		modifier = {
+			has_idea = ENG_hog_George_Lansbury
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_tech_bonus = {
+			name = bomber_bonus
+			uses = 1
+			bonus = 0.5
+			category = tactical_bomber
+			category = cat_strategic_bomber
+			category = cas_bomber
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Bouncing_Bomb_Bunker_Buster
+	icon = GFX_focus_Close_Air_Support
+	prerequisite = {
+		focus = ENG_Air_Bombers
+	}
+	x = -1
+	y = 5
+	relative_position_id = ENG_Air_Start
+	cost = 8.58
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+		modifier = {
+			date > 1943.2.1
+			factor = 3
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_ideas = ENG_bouncing_bomb_bunker_buster
+	}
+}
+shared_focus = {
+	id = ENG_Nighttime_Bombing
+	icon = GFX_focus_Night_Bombing
+	prerequisite = {
+		focus = ENG_Air_Bombers
+	}
+	x = 1
+	y = 5
+	relative_position_id = ENG_Air_Start
+	cost = 5.72
+	ai_will_do = { #maybe add some political blockers here
+		factor = 350
+		modifier = {
+			date > 1942.2.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_ideas = ENG_night_bombing
+	}
+}

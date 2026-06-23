@@ -1,0 +1,1064 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			GER = {
+				GER_walther_von_reichenau = {
+					set_character_flag = reichenau
+				}
+				GER_erwin_rommel = {
+					set_character_flag = rommel
+				}
+			}
+		}
+	}
+	# country
+	on_new_term_election = {
+		random_events = {
+			100 = wgr_election.5
+		}
+		random_events = {
+			100 = ger_internal.63
+		}
+	}
+	on_monthly_WGR = {
+		effect = {
+			if = {
+				limit = {
+					date > 1939.4.1
+					date < 1939.6.1
+				}
+				GRM = {
+					country_event = { #Institute for sexual research 20th anniversary; not sure this is the best way to trigger it.
+						id = ger_internal.91
+						days = 5
+					}
+				}
+			}
+		}
+	}
+	#FROM is war target
+	on_war = {
+		effect = {
+			if = {
+				limit = {
+					THIS = {
+						tag = GRM
+						NOT = {
+							has_country_flag = GER_demilitarized_rhineland
+						}
+					}
+				}
+				set_country_flag = GER_demilitarized_rhineland
+			}
+			if = {
+				limit = {
+					tag = GER
+					OR = {
+						has_war_with = FRA
+						has_war_with = ENG
+						has_war_with = SOV
+						AND = {
+						    has_war_with = POL
+						    POL = {
+							    OR = {
+								    is_in_faction_with = ENG
+									is_in_faction_with = FRA
+									is_in_faction_with = SOV
+								}
+							}
+						}
+						AND = {
+						    has_war_with = CZE
+						    CZE = {
+							    OR = {
+								    is_in_faction_with = ENG
+									is_in_faction_with = FRA
+									is_in_faction_with = SOV
+								}
+							}
+						}
+						AND = {
+						    has_war_with = GRE
+						    GRE = {
+							    OR = {
+								    is_in_faction_with = ENG
+									is_in_faction_with = FRA
+									is_in_faction_with = SOV
+								}
+							}
+						}
+						AND = {
+						    has_war_with = YUG
+						    YUG = {
+							    OR = {
+								    is_in_faction_with = ENG
+									is_in_faction_with = FRA
+									is_in_faction_with = SOV
+								}
+							}
+						}
+						AND = {
+						    has_war_with = ROM
+						    ROM = {
+							    OR = {
+								    is_in_faction_with = ENG
+									is_in_faction_with = FRA
+									is_in_faction_with = SOV
+								}
+							}
+						}
+					}
+					has_country_flag = GER_hitler_in_power
+					NOT = {
+						has_country_flag = GER_wartime_flag
+					}
+				}
+				set_country_flag = GER_wartime_flag
+			}
+			if = {
+				limit = {
+					tag = GRM
+					has_idea = versailles_treaty
+				}
+				remove_ideas = versailles_treaty
+			}
+			if = { #Reactivate Rundstedt
+				limit = {
+					THIS = {
+						tag = GER
+						has_character = GER_gerd_von_rundstedt
+					}
+					GER_gerd_von_rundstedt = {
+						has_character_flag = GER_gerd_von_rundstedt_retired
+					}
+				}
+				GER_gerd_von_rundstedt = {
+					clr_character_flag = GER_gerd_von_rundstedt_retired
+				}
+				if = {
+					limit = {
+						GER_gerd_von_rundstedt = { is_unit_leader = no }
+					}
+					add_field_marshal_role = {
+						character = GER_gerd_von_rundstedt
+						traits = { offensive_doctrine defensive_doctrine old_guard }
+						skill = 4
+						attack_skill = 2
+						defense_skill = 3
+						planning_skill = 4
+						logistics_skill = 4
+					}
+				}
+			}
+		}
+	}
+
+	on_war_relation_added = {
+		effect = {
+			if = {
+				limit = {
+					has_government = fascism
+					NOT = { has_country_flag = GER_ww2_idea_flag }
+					OR = {
+						AND = {
+							ROOT = { tag = GER }
+							FROM = {
+								OR = {
+									tag = FRA
+									tag = ENG
+								}
+							}
+						}
+						AND = {
+							ROOT = {
+								OR = {
+									tag = FRA
+									tag = ENG
+								}
+							}
+							FROM = { tag = GER }
+						}
+					}
+				}
+
+				GER = {
+					set_country_flag = GER_ww2_idea_flag
+					country_event = { #gives the temporary buff
+						id = ger_internal.87
+						hours = 1
+					}
+				}
+			}
+		}
+	}
+
+	#ROOT is winner #FROM gets annexed - For civil wars on_civil_war_end is also fired
+	on_annex = {
+		effect = {
+			if = { #Republican victories
+				limit = {
+					FROM = {
+                        tag = GER
+					}
+					ROOT = {
+						tag = WGR
+					}
+					DDR = { exists = no }
+					has_global_flag = GCW_ongoing_flag
+				}
+				WGR = { news_event = { id = gcw_news.3 } }
+			}
+			if = {
+				limit = {
+					FROM = {
+                        tag = DDR
+					}
+					ROOT = {
+						tag = WGR
+					}
+					GER = { exists = no }
+					has_global_flag = GCW_ongoing_flag
+				}
+				WGR = { news_event = { id = gcw_news.3 } }
+			}
+			
+			if = { #Nationalist victories
+				limit = {
+					FROM = {
+                        tag = WGR
+					}
+					ROOT = {
+						tag = GER
+					}
+					DDR = { exists = no }
+					has_global_flag = GCW_ongoing_flag
+				}
+				GER = { news_event = { id = gcw_news.2 } }
+			}
+			if = {
+				limit = {
+					FROM = {
+                        tag = DDR
+					}
+					ROOT = {
+						tag = GER
+					}
+					WGR = { exists = no }
+					has_global_flag = GCW_ongoing_flag
+				}
+				GER = { news_event = { id = gcw_news.2 } }
+			}
+			
+			if = { #Communist victories
+				limit = {
+					FROM = {
+                        tag = GER
+					}
+					ROOT = {
+						tag = DDR
+					}
+					WGR = { exists = no }
+					has_global_flag = GCW_ongoing_flag
+				}
+				DDR = { 
+				    news_event = { id = gcw_news.4 }
+					ddr_cw_victory = yes
+				}
+			}
+			if = {
+				limit = {
+					FROM = {
+                        tag = WGR
+					}
+					ROOT = {
+						tag = DDR
+					}
+					GER = { exists = no }
+					has_global_flag = GCW_ongoing_flag
+				}
+				DDR = { 
+				    news_event = { id = gcw_news.4 }
+                    ddr_cw_victory = yes
+				}
+			}
+		}
+	}
+
+	on_army_leader_promoted = {
+		effect = {
+			if = {
+				limit = {
+					has_character_flag = reichenau
+				}
+				set_portraits = {
+					character = GER_walther_von_reichenau
+					army = {
+						large = "gfx/leaders_cbts/GER/Portrait_Germany_Walter_von_Reichenau_marshal.png"
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_character_flag = rommel
+				}
+				set_portraits = {
+					character = GER_erwin_rommel
+					army = {
+						large = "gfx/leaders_cbts/GER/Portrait_Germany_Erwin_Rommel_marshal.png"
+					}
+				}
+			}
+		}
+	}
+
+	#Not run on a specific country.
+	on_startup = {
+		effect = {
+			GER = {
+				country_event = { id = ger_introduction.1 }
+				#country_event = {
+					# id = ger_internal.1
+					#days = 27
+				#}
+				country_event = {
+					id = ger_ss.1
+					days = 306
+				}
+				country_event = {
+					id = ger_army.11 #December Program 1933
+					days = 351
+				}
+				country_event = {
+					id = ger_projects.1 #Berlin Motor Exibition
+					days = 41
+				}
+				country_event = {
+					id = ger_flavor.23
+					days = 13
+				}
+				country_event = {
+					id = ger_flavor.24
+					days = 28
+				}
+				country_event = { #The army pressures Hindenburg
+					id = ger_army.0
+					days = 21
+				}
+				GER_kurt_hammerstein_equord = { #Hammerstein-Equord warns Hindenburg
+					unit_leader_event = {
+						id = ger_army.1
+						days = 25
+					}
+				}
+				country_event = { #Blomberg recalled to Berlin
+					id = ger_army.2
+					days = 27
+				}
+				country_event = {
+					id = ger_internal.95
+					days = 2099
+				}
+				country_event = { #Ludendorff dies
+					id = ger_flavor.34
+					days = 1814
+				}
+				GER_gerd_von_rundstedt = {
+					unit_leader_event = {
+						id = ger_internal.93
+						days = 2130
+						random_days = 30
+					}
+				}
+				news_event = { #Germany leaves the LoN
+					id = ger_news.20
+					days = 286
+				}
+				
+				set_temp_variable = {
+					tempRand = random
+				}
+				multiply_temp_variable = {
+					tempRand = 100
+				}
+				round_variable = tempRand
+				if = {
+					limit = {
+						OR = {
+							is_historical_focus_on = yes
+							is_ai = yes
+							check_variable = {
+								tempRand < 50.01
+							}
+						}
+					}
+					country_event = {
+						id = ger_internal.25
+						days = 1249
+					}
+				}
+				else = {
+					country_event = {
+						id = ger_internal.26
+						days = 1249
+					}
+				}
+			}
+			FRA = { #Saarland
+				country_event = {
+					id = wgr_external.6
+					days = 742
+				}
+			}
+		}
+	}
+	
+	on_peaceconference_ended = {
+		effect = {
+			if = {
+				limit = {
+					tag = GER
+					has_country_flag = GER_hitler_in_power
+					has_country_flag = GER_wartime_flag
+					has_idea = improved_national_spirit	
+					NOT = {
+						has_war = yes
+					}
+				}
+				country_event = {
+					id = ger_internal.15
+				}
+			}
+			if = {
+				limit = {
+					tag = GER
+					OR = {
+						has_idea = GER_2nd_World_War
+						has_idea = GER_2nd_World_War2
+					}
+				}
+				remove_ideas = {
+					GER_2nd_World_War
+					GER_2nd_World_War2
+				}
+			}
+		}
+	}
+
+	#ROOT is new controller #FROM is old controller #FROM.FROM is state ID
+	on_state_control_changed = {
+		effect = {
+			if = {
+				limit = {
+					NOT = { has_global_flag = GER_Hitler_Kaput }
+					FROM.FROM = {
+						state = 64
+					}
+					FROM = {
+						tag = GER
+						has_country_leader = {
+							name = "Adolf Hitler"
+							ruling_only = yes
+						}
+						surrender_progress > 0.3 #can be adjusted
+						NOT = {
+							has_global_flag = GCW_ongoing_flag
+						}
+					}
+				}
+				GER = {
+					country_event = {
+						id = ger_internal.23 #Hitler Kills Himself
+					}
+
+					if = { #95% chance of Bormann dying when Berlin falls
+						limit = {
+							has_character = GER_martin_bormann
+						}
+						random_list = {
+							95 = {
+								retire_character = GER_martin_bormann
+							}
+							5 = {}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					date > 1940.1.1
+					FROM.FROM = {
+						OR = {
+							state = 66
+							state = 760
+							state = 68
+						}
+					}
+					FROM = {
+						tag = GER
+						has_government = fascism
+						has_country_leader = {
+							name = "Adolf Hitler"
+							ruling_only = yes
+						}
+						NOT = {
+							has_country_flag = GER_coup_attempt_flag
+						}
+					}
+				}
+				GER = {
+					set_country_flag = GER_coup_attempt_flag
+					set_country_flag = GER_July_20_begining
+					country_event = {
+						id = ger_internal.19 #July 20
+						days = 20
+					}
+				}
+			}
+			if = {
+				limit = {
+					date > 1940.1.1
+					FROM.FROM = {
+						state = 59
+						state = 52
+						state = 54
+						state = 60
+					}
+					FROM = {
+						tag = GER
+						has_government = fascism
+						has_country_leader = {
+							name = "Adolf Hitler"
+							ruling_only = yes
+						}
+						NOT = {
+							has_country_flag = GER_coup_attempt_flag
+						}
+					}
+				}
+				GER = {
+					set_country_flag = GER_coup_attempt_flag
+					country_event = {
+						id = ger_internal.92 #SS coup
+						days = 20
+					}
+				}
+			}
+		}
+
+		effect = { #For controller changes in states in the USSR. To prevent countries like romania to be controller of states occupied by germany in the USSR
+			if = {
+				limit = {
+					FROM = {
+						tag = SOV
+					}
+					ROOT = {
+						NOT = { tag = GER }
+						OR = {
+							is_subject_of = GER
+							is_in_faction_with = GER
+						}
+					}
+					GER = {
+						has_war_with = SOV
+						is_faction_leader = yes
+						has_capitulated = no
+					}
+					FROM.FROM = {
+						is_owned_by = SOV
+						is_on_continent = europe
+						NOT = {
+							is_claimed_by = ROOT
+							is_core_of = ROOT
+						}
+					}
+				}
+				FROM.FROM = { set_state_controller_to = GER }
+			}
+		}
+	}
+
+	on_capitulation = {
+		effect = {
+
+			if = {
+				limit = {
+					ROOT = { tag = POL }
+					FROM = { tag = GER }
+				}
+
+				hidden_effect = {
+					POL = {
+						## Trains
+						set_temp_variable = { train_e = num_equipment@train_equipment }
+						send_equipment = {
+							equipment = train_equipment
+							amount = inf_e
+							target = PRS
+						}
+	
+						### Infantry eq
+						send_equipment_fraction = {
+							value = 0.5
+							target = PRS
+						}
+						set_temp_variable = { army_e = num_equipment_in_armies@infantry_equipment }
+						multiply_temp_variable = { army_e = 0.3 }
+						round_temp_variable = army_e
+						PRS = {
+							add_equipment_to_stockpile = {
+								type = infantry_equipment
+								amount = army_e
+								producer = PREV
+							}
+						}
+						### Support Eq
+						set_temp_variable = { sup_e = num_equipment@support_equipment }
+						if = {
+							limit = {
+								OR = {
+									check_variable = { sup_e = 0 }
+									check_variable = { sup_e < 0 }
+								}
+							}
+							set_temp_variable = { sup_army_e = num_equipment_in_armies@support_equipment }
+							multiply_temp_variable = { sup_army_e = 0.4 }
+							round_temp_variable = sup_army_e
+							PRS = {
+								add_equipment_to_stockpile = {
+									type = support_equipment
+									amount = sup_army_e
+									producer = PREV
+								}
+							}
+						}
+						else = {
+							multiply_temp_variable = { sup_e = 0.3 }
+							round_temp_variable = sup_e
+							send_equipment = {
+								equipment = support_equipment
+								amount = sup_e
+								target = PRS
+							}
+						}
+					}
+				}
+
+			}
+
+			if = {
+				limit = {
+					ROOT = { tag = BEL }
+					FROM = { tag = GER }
+				}
+
+				BEL = {
+					## Trains
+					set_temp_variable = { train_e = num_equipment@train_equipment }
+					send_equipment = {
+						equipment = train_equipment
+						amount = inf_e
+						target = GER
+					}
+					### Infantry eq
+					send_equipment_fraction = {
+						value = 0.3
+						target = PRS
+					}
+					set_temp_variable = { army_e = num_equipment_in_armies@infantry_equipment }
+					multiply_temp_variable = { army_e = 0.3 }
+					round_temp_variable = army_e
+					PRS = {
+						add_equipment_to_stockpile = {
+							type = infantry_equipment
+							amount = army_e
+							producer = PREV
+						}
+					}
+
+					### Support Eq
+					set_temp_variable = { sup_e = num_equipment@support_equipment }
+					if = {
+						limit = {
+							OR = {
+								check_variable = { sup_e = 0 }
+								check_variable = { sup_e < 0 }
+							}
+						}
+						set_temp_variable = { sup_army_e = num_equipment_in_armies@support_equipment }
+						multiply_temp_variable = { sup_army_e = 0.4 }
+						round_temp_variable = sup_army_e
+						PRS = {
+							add_equipment_to_stockpile = {
+								type = support_equipment
+								amount = sup_army_e
+								producer = PREV
+							}
+						}
+					}
+					else = {
+						multiply_temp_variable = { sup_e = 0.4 }
+						round_temp_variable = sup_e
+						send_equipment = {
+							equipment = support_equipment
+							amount = sup_e
+							target = PRS
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					ROOT = { tag = HOL }
+					FROM = { tag = GER }
+				}
+
+				HOL = {
+					## Trains
+					set_temp_variable = { train_e = num_equipment@train_equipment }
+					send_equipment = {
+						equipment = train_equipment
+						amount = inf_e
+						target = GER
+					}
+
+					### Infantry eq
+					send_equipment_fraction = {
+						value = 0.3
+						target = PRS
+					}
+					set_temp_variable = { army_e = num_equipment_in_armies@infantry_equipment }
+					multiply_temp_variable = { army_e = 0.3 }
+					round_temp_variable = army_e
+					PRS = {
+						add_equipment_to_stockpile = {
+							type = infantry_equipment
+							amount = army_e
+							producer = PREV
+						}
+					}
+
+					### Support Eq
+					set_temp_variable = { sup_e = num_equipment@support_equipment }
+					if = {
+						limit = {
+							OR = {
+								check_variable = { sup_e = 0 }
+								check_variable = { sup_e < 0 }
+							}
+						}
+						set_temp_variable = { sup_army_e = num_equipment_in_armies@support_equipment }
+						multiply_temp_variable = { sup_army_e = 0.2 }
+						round_temp_variable = sup_army_e
+						PRS = {
+							add_equipment_to_stockpile = {
+								type = support_equipment
+								amount = sup_army_e
+								producer = PREV
+							}
+						}
+					}
+					else = {
+						multiply_temp_variable = { sup_e = 0.2 }
+						round_temp_variable = sup_e
+						send_equipment = {
+							equipment = support_equipment
+							amount = sup_e
+							target = PRS
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					ROOT = { tag = LUX }
+					FROM = { tag = GER }
+				}
+
+				LUX = {
+					### Infantry eq
+					set_temp_variable = { inf_e = num_equipment@infantry_equipment }
+					if = {
+						limit = {
+							OR = {
+								check_variable = { inf_e = 0 }
+								check_variable = { inf_e < 0 }
+							}
+						}
+						set_temp_variable = { army_e = num_equipment_in_armies@infantry_equipment }
+						multiply_temp_variable = { army_e = 0.4 }
+						round_temp_variable = army_e
+						PRS = {
+							add_equipment_to_stockpile = {
+								type = infantry_equipment
+								amount = army_e
+								producer = PREV
+							}
+						}
+					}
+					else = {
+						multiply_temp_variable = { inf_e = 0.5 }
+						round_temp_variable = inf_e
+						send_equipment = {
+							equipment = infantry_equipment
+							amount = inf_e
+							target = PRS
+						}
+					}
+
+					### Support Eq
+					set_temp_variable = { sup_e = num_equipment@support_equipment }
+					if = {
+						limit = {
+							OR = {
+								check_variable = { sup_e = 0 }
+								check_variable = { sup_e < 0 }
+							}
+						}
+						set_temp_variable = { sup_army_e = num_equipment_in_armies@support_equipment }
+						multiply_temp_variable = { sup_army_e = 0.2 }
+						round_temp_variable = sup_army_e
+						PRS = {
+							add_equipment_to_stockpile = {
+								type = support_equipment
+								amount = sup_army_e
+								producer = PREV
+							}
+						}
+					}
+					else = {
+						multiply_temp_variable = { sup_e = 0.2 }
+						round_temp_variable = sup_e
+						send_equipment = {
+							equipment = support_equipment
+							amount = sup_e
+							target = PRS
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					ROOT = { tag = FRA }
+					FROM = { tag = GER }
+				}
+
+				FRA = {
+					### Infantry eq
+					set_temp_variable = { inf_e = num_equipment@infantry_equipment }
+					if = {
+						limit = {
+							OR = {
+								check_variable = { inf_e = 0 }
+								check_variable = { inf_e < 0 }
+							}
+						}
+						set_temp_variable = { army_e = num_equipment_in_armies@infantry_equipment }
+						multiply_temp_variable = { army_e = 0.25 }
+						round_temp_variable = army_e
+						PRS = {
+							add_equipment_to_stockpile = {
+								type = infantry_equipment
+								amount = army_e
+								producer = PREV
+							}
+						}
+					}
+					else = {
+						multiply_temp_variable = { inf_e = 0.3 }
+						round_temp_variable = inf_e
+						send_equipment = {
+							equipment = infantry_equipment
+							amount = inf_e
+							target = PRS
+						}
+					}
+
+					### Support Eq
+					set_temp_variable = { sup_e = num_equipment@support_equipment }
+					if = {
+						limit = {
+							OR = {
+								check_variable = { sup_e = 0 }
+								check_variable = { sup_e < 0 }
+							}
+						}
+						set_temp_variable = { sup_army_e = num_equipment_in_armies@support_equipment }
+						multiply_temp_variable = { sup_army_e = 0.1 }
+						round_temp_variable = sup_army_e
+						PRS = {
+							add_equipment_to_stockpile = {
+								type = support_equipment
+								amount = sup_army_e
+								producer = PREV
+							}
+						}
+					}
+					else = {
+						multiply_temp_variable = { sup_e = 0.1 }
+						round_temp_variable = sup_e
+						send_equipment = {
+							equipment = support_equipment
+							amount = sup_e
+							target = PRS
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					ROOT = { tag = NOR }
+					FROM = { tag = GER }
+				}
+
+				NOR = {
+					## Trains
+					set_temp_variable = { train_e = num_equipment@train_equipment }
+					send_equipment = {
+						equipment = train_equipment
+						amount = inf_e
+						target = PRS
+					}
+					### Infantry eq
+					set_temp_variable = { inf_e = num_equipment@infantry_equipment }
+					if = {
+						limit = {
+							OR = {
+								check_variable = { inf_e = 0 }
+								check_variable = { inf_e < 0 }
+							}
+						}
+						set_temp_variable = { army_e = num_equipment_in_armies@infantry_equipment }
+						multiply_temp_variable = { army_e = 0.35 }
+						round_temp_variable = army_e
+						PRS = {
+							add_equipment_to_stockpile = {
+								type = infantry_equipment
+								amount = army_e
+								producer = PREV
+							}
+						}
+					}
+					else = {
+						multiply_temp_variable = { inf_e = 0.4 }
+						round_temp_variable = inf_e
+						send_equipment = {
+							equipment = infantry_equipment
+							amount = inf_e
+							target = PRS
+						}
+					}
+
+					### Support Eq
+					set_temp_variable = { sup_e = num_equipment@support_equipment }
+					if = {
+						limit = {
+							OR = {
+								check_variable = { sup_e = 0 }
+								check_variable = { sup_e < 0 }
+							}
+						}
+						set_temp_variable = { sup_army_e = num_equipment_in_armies@support_equipment }
+						multiply_temp_variable = { sup_army_e = 0.2 }
+						round_temp_variable = sup_army_e
+						PRS = {
+							add_equipment_to_stockpile = {
+								type = support_equipment
+								amount = sup_army_e
+								producer = PREV
+							}
+						}
+					}
+					else = {
+						multiply_temp_variable = { sup_e = 0.2 }
+						round_temp_variable = sup_e
+						send_equipment = {
+							equipment = support_equipment
+							amount = sup_e
+							target = PRS
+						}
+					}
+				}
+			}
+
+			if = {
+				# Erich Koch becomes Reichskommissar of RK Ostland when RKU capitulates
+				limit = {
+					ROOT = { tag = RKU }
+					RKO = {
+						exists = yes
+						has_capitulated = no
+						has_government = fascism
+					}
+				}
+				RKU = {
+					set_nationality = {
+						target_country = RKO
+						character = GER_erich_koch
+					}
+				}
+				RKO = {
+					promote_character = GER_erich_koch
+				}
+			}
+		}
+	}
+
+	on_monthly_FRA = {
+		effect = {
+			if = {
+				limit = {
+					has_global_flag = GCW_ongoing_flag
+					country_exists = DDR
+					OR = {
+						DDR = { has_war_with = GER }
+						DDR = { has_war_with = WGR }
+					}
+					826 = { is_owned_and_controlled_by = FRA }
+					28 = { is_owned_and_controlled_by = FRA }
+					824 = { is_controlled_by = DDR }
+					810 = { is_controlled_by = DDR }
+					OR = {
+						42 = { is_controlled_by = DDR }
+						809 = { is_controlled_by = DDR }
+					}
+				}
+			}
+			FRA = {
+				country_event = {
+					id = gcw_flavor.2
+					days = 30
+				}
+			}
+		}
+	}
+	on_unit_leader_created = {
+		effect = {
+			if = {
+				limit = {
+					FROM = {
+						has_idea = versailles_treaty
+					}
+				}
+				ROOT = {
+					add_unit_leader_trait = reichwehr_general
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = {
+						has_completed_focus = GER_proclamation_of_military_sovereignty
+					}
+				}
+				ROOT = {
+					add_unit_leader_trait = wehrmacht_general
+				}
+			}
+		}
+	}
+}

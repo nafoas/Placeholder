@@ -1,0 +1,6946 @@
+add_namespace = france
+add_namespace = france_parliament
+add_namespace = fra_flavour
+add_namespace = fra_armistice
+add_namespace = fra_scw
+add_namespace = fra_army
+	
+country_event = { # France's starting situation
+	id = france.1
+	title = france.1.t
+	desc = france.1.d
+	picture = GFX_event_France_eiffell
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			every_owned_state = {
+				limit = {
+					is_core_of = ALG
+				}
+				add_compliance = 25
+			}
+		}
+	}
+	
+	option = {	 #Vive la France!
+		name = france.1.a
+	#	country_event = { id = france.2 }
+	}
+}
+	
+country_event = { # Important Budget To Pass through Parliament
+	id = france.3
+	title = france.3.t 
+	desc = france.3.d 
+	picture = GFX_event_France_ChambreDeputes
+	
+	is_triggered_only = yes
+	
+	option = { # Lets hope it gets through
+		name = france.3.a
+		hidden_effect = {
+			country_event = { id = france.4 days = 13 }
+		}
+	}
+}
+	
+country_event = { # Fall of Joseph Paul-Boncour's cabinet
+	id = france.4
+	title = france.4.t 
+	desc = france.4.d 
+	picture = GFX_event_France_ChambreDeputes
+
+	is_triggered_only = yes
+	
+	option = { # Another Government falls...
+		name = france.4.a
+		add_political_power = -25
+		country_event = france.6
+	}
+}
+
+country_event = { # 1934 February Crisis
+	id = france.5
+	title = france.5.t 
+	desc = france.5.d 
+	picture = GFX_event_France_Riots_2
+
+	is_triggered_only = yes
+	
+	option = {
+		name = france.5.a
+		if = {
+			limit = {
+				NOT = { has_active_mission = FRA_mission_liquidity }
+			}
+			activate_mission = FRA_mission_liquidity
+		}
+		if = {
+			limit = {
+				NOT = { is_in_array = { array = coalition_party_list value = 5 } }
+			}
+			COALITION_add_marlib = yes #AD
+			COALITION_clr_demsoc = yes #SFIO
+		}
+		set_politics = {
+			ruling_party = market_liberalism
+			elections_allowed = yes
+		}
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = frnmin
+		}
+		add_ideas = {
+			gastondoumerguehog
+			louisgermainmartineco
+			louisbarthoufr
+		}
+		set_country_flag = FRA_reform_government
+		clr_country_flag = FRA_zay_auriol_plan_gov
+		clr_country_flag = streamlined_tax_passed
+		clr_country_flag = office_des_bles_passed
+		clr_country_flag = slash_military_passed
+		clr_country_flag = service_national_des_assurances_passed
+		clr_country_flag = caisse_de_grands_travaux_passed
+		clr_country_flag = caisse_de_liquidation_passed
+		load_focus_tree = {
+			tree = CBTS_France_letat_reform
+			keep_completed = yes
+		}
+	}
+}
+
+country_event = { # What now?
+	id = france.6
+	title = france.6.t
+	desc = france.6.d 
+	picture = GFX_event_France_ChambreDeputes
+
+	is_triggered_only = yes
+	
+	option = { # Try a Coalition with the socialists
+		name = france.6.a
+		trigger = {
+			NOT = {
+				has_completed_focus = FRA_deflationary_policies
+				focus_progress = {
+					focus = FRA_deflationary_policies
+					progress > 0.01
+				}
+			}
+		}
+		set_politics = {
+			ruling_party = social_liberalism
+			elections_allowed = yes
+		}
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = ecomin
+		}
+		add_ideas = {
+			camillechautemphog
+			georgesbonneteco
+		}
+		if = {
+			limit = {
+				NOT = { has_completed_focus = FRA_zay_auriol_plan }
+			}
+			complete_national_focus = FRA_zay_auriol_plan
+			custom_effect_tooltip = FRA_zay_auriol_plan_tt
+		}
+		ai_chance = {
+			base = 25
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+	}
+
+	option = { #Mantain centrist coalition
+		name = france.6.b
+		trigger = {
+			NOT = {
+				has_completed_focus = FRA_zay_auriol_plan
+				focus_progress = {
+					focus = FRA_zay_auriol_plan
+					progress > 0.01
+				}
+			}
+		}
+		set_politics = {
+			ruling_party = social_liberalism
+			elections_allowed = yes
+		}
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = ecomin
+		}
+		add_ideas = {
+			edoudarddaladierhog
+			georgesbonneteco
+		}
+		if = {
+			limit = {
+				focus_progress = {
+					focus = FRA_zay_auriol_plan
+					progress > 0.1
+				}
+			}
+			complete_national_focus = FRA_deflationary_policies
+		}
+		else_if = {
+			limit = {
+				NOT = { has_completed_focus = FRA_deflationary_policies }
+			}
+			unlock_national_focus = FRA_deflationary_policies
+		}
+		ai_chance = {
+			base = 75
+		}
+	}
+}
+
+country_event = { # Radical Government Falls
+	id = france.10
+	title = france.10.t
+	desc = france.10.d
+	picture = GFX_event_generic_accusation
+
+	is_triggered_only = yes
+
+	option = {
+		name = france.10.a
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+		}
+
+		if = {
+			limit = { has_idea = edoudarddaladierhog }
+			add_ideas = albertsarrauthog
+		}
+		else_if = {
+			limit = { has_idea = albertsarrauthog }
+			add_ideas = camillechautemphog
+		}
+		else = { add_ideas = edoudarddaladierhog }
+
+		add_stability = -0.01
+		add_political_power = -10
+	}
+}
+
+country_event = { # Marlib Government Falls
+	id = france.11
+	title = france.10.t
+	desc = france.10.d
+	picture = GFX_event_generic_accusation
+
+	is_triggered_only = yes
+
+	option = {
+		name = france.10.a
+
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+		}
+		if = {
+			limit = {
+				has_idea = pierreetienneflandinhog
+			}
+			add_ideas = paulreynaudhog
+		}
+		else = {
+			add_ideas = pierreetienneflandinhog
+		}
+
+		add_stability = -0.01
+		add_political_power = -10
+	}
+}
+
+country_event = { # SocDem Government Falls
+	id = france.12
+	title = france.10.t
+	desc = france.10.d
+	picture = GFX_event_generic_accusation
+
+	is_triggered_only = yes
+
+	option = {
+		name = france.10.a
+
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+		}
+		if = {
+			limit = {
+				has_idea = josephboncourhog
+			}
+			add_ideas = fernandbouissonhog
+		}
+		else = {
+			add_ideas = josephboncourhog
+		}
+
+		add_stability = -0.01
+		add_political_power = -10
+	}
+}
+
+country_event = { # Price Crisis
+	id = france.13
+	title = france.13.t
+	desc = france.13.d
+	picture = GFX_event_France_Riots_1
+
+	is_triggered_only = yes
+
+	option = {
+		name = france.13.a
+
+		custom_effect_tooltip = price_crisis_tt
+		set_country_flag = price_crisis
+		add_political_power = -25
+	}
+}
+
+country_event = { # Popular Front Radical Lead
+	id = france.14
+	title = france.14.t
+	desc = france.14.d
+	picture = GFX_event_France_ChambreDeputes
+
+	is_triggered_only = yes
+
+	option = {
+		name = france.14.a
+		set_politics = {
+			ruling_party = social_liberalism
+			elections_allowed = yes
+		}
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+		}
+		add_ideas = {
+			camillechautemphog
+		}
+	}
+}
+
+country_event = { # Popular Front SFIO Lead
+	id = france.15
+	title = france.15.t
+	desc = france.15.d
+	picture = GFX_event_France_ChambreDeputes
+
+	is_triggered_only = yes
+
+	option = {
+		name = france.15.a
+		set_politics = {
+			ruling_party = socialism
+			elections_allowed = yes
+		}
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+		}
+		add_ideas = {
+			leonblumhog
+		}
+	}
+}
+
+country_event = { # Popular Front Falls
+	id = france.16
+	title = france.16.t
+	desc = france.16.d
+	picture = GFX_event_generic_accusation
+
+	is_triggered_only = yes
+
+	option = {
+		name = france.16.a
+		if = {
+			limit = {
+				has_government = social_liberalism
+			}
+			set_politics = {
+				ruling_party = social_liberalism
+				elections_allowed = yes
+			}
+		}
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+		}
+		add_ideas = {
+			edoudarddaladierhog
+		}
+		clr_country_flag = popular_front_in_power
+		COALITION_add_marlib = yes
+		COALITION_add_con = yes
+		COALITION_add_cen = yes
+		COALITION_clr_com = yes
+		custom_effect_tooltip = FRA_not_in_version
+	}
+}
+
+country_event = { # Socialist Government Falls
+	id = france.17
+	title = france.10.t
+	desc = france.10.d
+	picture = GFX_event_France_ChambreDeputes
+
+	is_triggered_only = yes
+
+	option = {
+		name = france.10.a
+
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+		}
+
+		if = {
+			limit = {
+				has_idea = leonblumhog
+			}
+			add_ideas = paulfaurehog
+		}
+		else = {
+			add_ideas = leonblumhog
+		}
+
+		add_stability = -0.01
+		add_political_power = -10
+	}
+}
+
+country_event = { # Camille's Government Falls - Completes Deflationary Policies
+	id = france.18
+	title = france.18.t
+	desc = france.18.d
+	picture = GFX_event_France_ChambreDeputes
+
+	is_triggered_only = yes
+
+	option = {
+		name = france.18.a
+		clr_country_flag = FRA_zay_auriol_plan_gov
+		clr_country_flag = streamlined_tax_passed
+		clr_country_flag = office_des_bles_passed
+		clr_country_flag = slash_military_passed
+		clr_country_flag = service_national_des_assurances_passed
+		clr_country_flag = caisse_de_grands_travaux_passed
+		clr_country_flag = caisse_de_liquidation_passed
+		COALITION_add_marlib = yes #AD
+		COALITION_clr_demsoc = yes #SFIO
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = ecomin
+		}
+		add_ideas = {
+			edoudarddaladierhog
+			georgesbonneteco
+		}
+
+		unlock_national_focus = FRA_deflationary_policies
+		set_country_flag = FRA_deflationary_policies
+		add_political_power = -50
+		add_stability = -0.05
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.05
+		}
+		worsen_liquidity_crisis = yes
+
+		hidden_effect = {
+			country_event = {
+				id = france.205
+				days = 7
+			}
+		}
+	}
+}
+
+country_event = { # Domergue's Goverment Fall - End of the reforms
+	id = france.19
+	title = france.19.t
+	desc = france.19.d
+	picture = GFX_event_generic_accusation
+
+	is_triggered_only = yes
+
+	option = {
+		name = france.19.a
+		set_country_flag = FRA_reform_end_goverment
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = frnmin
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = secmin
+		}
+		add_ideas = {
+			pierreetienneflandinhog
+			pierrelavalfr
+			louisgermainmartineco
+			marcelregniersec
+		}
+
+		add_stability = -0.01
+		add_political_power = -10
+
+	}
+}
+
+country_event = { # Maginot Line Constructed
+	id = france.20
+	title = france.20.t
+	desc = france.20.d 
+	picture = GFX_event_France_Maginot_Line
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			add_ideas = {
+				FRA_maginot_line
+			}
+		}
+	}
+	
+	option = {
+		name = france.20.a
+		add_political_power = 25
+		set_country_flag = stop_maginot
+
+		effect_tooltip = {
+			add_ideas = { FRA_maginot_line }
+
+			if = {
+				limit = {
+					has_country_flag = expanded_maginot
+				}
+
+				836 = {
+					set_building_level = {
+						type = bunker
+						level = 10
+						instant_build = yes
+
+						province = {
+							level < 10
+							id = 3629
+							id = 9559
+							id = 11502
+						}
+					}
+					add_building_construction = {
+						type = anti_air_building
+						level = 2
+						instant_build = yes
+					}
+				}
+
+				28 = {
+					set_building_level = {
+						type = bunker
+						level = 10
+						instant_build = yes
+
+						province = {
+							level < 10
+							id = 549
+							id = 678
+							id = 6529
+							id = 9503
+						}
+					}
+					add_building_construction = {
+						type = anti_air_building
+						level = 1
+						instant_build = yes
+					}
+				}
+				clr_country_flag = expanded_maginot
+			}
+
+			else = {
+				836 = {
+					set_building_level = {
+						type = bunker
+						level = 7
+						instant_build = yes
+
+						province = {
+							level < 7
+							id = 3629
+							id = 9559
+							id = 11502
+						}
+					}
+					add_building_construction = {
+						type = anti_air_building
+						level = 1
+						instant_build = yes
+					}
+				}
+
+				28 = {
+					set_building_level = {
+						type = bunker
+						level = 7
+						instant_build = yes
+
+						province = {
+							level < 7
+							id = 549
+							id = 678
+							id = 6529
+							id = 9503
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Maginot Line Expanded
+	id = france.21
+	title = france.22.t
+	desc = france.21.d 
+	picture = GFX_report_event_military_planning
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			758 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = {
+						id = 575
+						id = 11606
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			757 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = {
+						id = 3536
+						id = 6504
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			29 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = {
+						id = 3402
+						id = 3447
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			17 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = {
+						level < 2
+						id = 9472
+						id = 3560
+						id = 5291
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = france.21.a
+		add_political_power = 10
+
+		effect_tooltip = {
+			758 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = {
+						id = 575
+						id = 11606
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			757 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = {
+						id = 3536
+						id = 6504
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			29 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = {
+						id = 3402
+						id = 3447
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			17 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = {
+						level < 2
+						id = 9472
+						id = 3560
+						id = 5291
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Alpine Line Build
+	id = france.22
+	title = france.22.t
+	desc = france.22.d 
+	picture = GFX_report_event_military_planning
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+
+			735 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = {
+						level < 4
+						id = 778
+						id = 764
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			1028 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = {
+						level < 4
+						id = 3764
+						id = 6975
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			1196 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = {
+						level < 4
+						id = 3959
+						id = 9909
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = france.22.a
+		add_political_power = 15
+
+		effect_tooltip = {
+			735 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = {
+						level < 4
+						id = 778
+						id = 764
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			1028 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = {
+						level < 4
+						id = 3764
+						id = 6975
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			1196 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = {
+						level < 4
+						id = 3959
+						id = 9909
+					}
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		reverse_add_opinion_modifier = {
+			target = ROOT
+			modifier = FRA_alpine_forts
+		}
+	}
+}
+
+country_event = { # Election after the reforms - AD
+	id = france.23
+	title = france.23.t
+	desc = france.23.d 
+	picture = GFX_event_generic_election
+	
+	is_triggered_only = yes
+	
+	option = { # Reynaud
+		name = france.23.a
+		set_country_flag = FRA_reynaud
+		country_event = {
+			id = france.24
+			days = 5
+		}
+	}
+	option = { # Tardieu
+		name = france.23.b
+		set_country_flag = FRA_tardieu
+		country_event = {
+			id = france.24
+			days = 5
+		}
+	}
+}
+
+country_event = { # Post-Reform - AD wins election
+	id = france.24
+	title = france.24.t
+	desc = france.24.d 
+	picture = GFX_report_event_generic_rally2
+	
+	is_triggered_only = yes
+	
+	option = { # Winners
+		name = france.24.a
+
+		set_country_flag = FRA_election_reform
+
+		COALITION_clr_socdem = yes
+	#	COALITION_clr_soclib = yes
+		COALITION_add_cen = yes
+
+		set_politics = {
+			ruling_party = market_liberalism
+			elections_allowed = yes
+			last_election = "1936.5.3"
+		}
+
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = frnmin
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = secmin
+		}
+
+		if = {
+			limit = {
+				has_country_flag = FRA_reynaud
+			}
+			add_ideas = andretardieuhog
+		}
+		else = {
+			add_ideas = paulreynaudhog
+		}
+		add_ideas = {
+			pierreetienneflandinfr
+			yvesbouthilliereco
+			georgesmandelsec
+		}
+
+
+		if = {
+			limit = {
+				NOT = { has_country_flag = strikes_happened }
+			}
+			hidden_effect = {
+				country_event = {
+					id = france.25
+					days = 30
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Strikes starts AD
+	id = france.25
+	title = france.25.t
+	desc = france.25.d 
+	picture = GFX_report_event_gathering_protest
+	
+	is_triggered_only = yes
+	
+	option = { # Yikes
+		name = france.25.a
+		add_ideas = FRA_general_strikes4
+		add_political_power = -25
+		set_country_flag = strikes_happened
+	}
+}
+
+country_event = { # Gamelin gets Sacked boi - Gets replaced by Weygand
+	id = france.26
+	title = france.26.t
+	desc = france.26.d 
+	picture = GFX_Event_Germany_France_Maurice_Gamelin
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { # ARGH
+		name = france.26.a
+		add_political_power = -5
+		set_country_flag = FRA_sacked_gamelin
+		add_timed_idea = {
+			idea = FRA_recent_change_command
+			days = 45
+		}
+		hidden_effect = {
+			retire_character = FRA_maurice_gamelin
+			remove_ideas = {
+				mauricegamelin
+				mauricegamelincos
+			}
+			set_country_flag = {
+				flag = FRA_mauricegamelin_incapable
+			}
+
+			add_ideas = {
+				maximeweygand
+				maximeweygandcos
+			}
+		}
+	}
+}
+
+country_event = { # Gamelin retires from old age
+	id = france.27
+	title = france.27.t
+	desc = france.27.d 
+	picture = GFX_Event_Germany_France_Maurice_Gamelin
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.27.a
+		retire_character = FRA_maurice_gamelin
+		hidden_effect = {
+			if = {
+				limit = {
+					has_idea = mauricegamelin
+				}
+				remove_ideas_with_trait = coa
+			}
+			if = {
+				limit = {
+					has_idea = mauricegamelincos
+				}
+				remove_ideas_with_trait = cos
+			}
+			remove_ideas = {
+				mauricegamelin
+				mauricegamelincos
+			}
+			set_country_flag = FRA_mauricegamelin_incapable
+
+		}
+	}
+}
+country_event = { #King Alexander & Foreign Minister Die!
+	id = france.30
+	title = france.30.t
+	desc = france.30.d 
+	picture = GFX_alexander_killed
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			#TODO: do this with characters instead
+			if = {
+				limit = { has_idea = louisbarthoufr }
+				set_country_flag = FRA_louisBarthou_died
+			}
+			if = {
+				limit = { has_idea = josephboncourfr }
+				set_country_flag = FRA_josephBoncour_dead
+			}
+			if = {
+				limit = { has_idea = edouarddaladierfr }
+				set_country_flag = FRA_edouardDaladier_dead
+			}
+			if = {
+				limit = { has_idea = pierrelavalfr }
+				set_country_flag = FRA_pierrelaval_incapable
+			}
+			if = {
+				limit = { has_idea = pierreetienneflandinfr }
+				set_country_flag = FRA_pierreEtienneFlandin_dead
+			}
+			if = {
+				limit = { has_idea = georgesbonnetfr }
+				set_country_flag = FRA_georgesBonnet_dead
+			}
+			if = {
+				limit = { has_idea = yvondelbosfr }
+				set_country_flag = FRA_yvonDelbos_dead
+			}
+			if = {
+				limit = { has_idea = paulreynaudfr }
+				set_country_flag = FRA_paulReynaud_dead
+			}
+			if = {
+				limit = { has_idea = paulbaudouinfr }
+				set_country_flag = FRA_paulBaudoin_dead
+			}
+			remove_ideas_with_trait = frnminç
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = FRA_pierrelaval_incapable
+					}
+				}
+				add_ideas = pierrelavalfr
+			}
+			# else the player chooses the minister or smth
+		}
+	}
+	
+	option = {
+		name = france.30.a
+		
+	}
+}
+
+country_event = { # Invite to Bloc d'Or
+	id = france.31
+	title = france.31.t
+	desc = france.31.d 
+	picture = GFX_event_generic_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.31.c
+		
+		add_bloc_dor = yes
+		if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 1 }
+			}
+			effect_tooltip = {
+				add_ideas = { bloc_dor2 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 2 }
+			}
+			effect_tooltip = {
+				add_ideas = { bloc_dor3 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 3 }
+			}
+			effect_tooltip = {
+				add_ideas = { bloc_dor4 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 4 }
+			}
+			effect_tooltip = {
+				add_ideas = { bloc_dor5 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 5 }
+			}
+			effect_tooltip = {
+				add_ideas = { bloc_dor6 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 6 }
+			}
+			effect_tooltip = {
+				add_ideas = { bloc_dor7 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 7 }
+			}
+			effect_tooltip = {
+				add_ideas = { bloc_dor8 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 8 }
+			}
+			effect_tooltip = {
+				add_ideas = { bloc_dor9 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 9 }
+			}
+			effect_tooltip = {
+				add_ideas = { bloc_dor10 }
+			}
+		}
+
+		ai_chance = {
+			base = 30
+			modifier = {
+				OR = {
+					tag = GER
+					tag = DDR
+					tag = WGR
+				}
+				factor = 0
+			}
+			modifier = {
+				OR = {
+					tag = YUG
+					tag = CZE
+				}
+				factor = 0.5
+			}
+		}
+	}
+	option = {
+		name = france.31.b
+		FROM = {
+			country_event = france.33
+		}
+
+		ai_chance = {
+			base = 70
+			modifier = {
+				OR = {
+					tag = LUX
+					tag = SWI
+					tag = BEL
+				}
+				factor = 1.5
+			}
+		}
+	}
+}
+
+country_event = { # Bloc d'Or - They said yes!
+	id = france.32
+	title = france.32.t
+	desc = france.32.d 
+	picture = GFX_report_event_generic_sign_treaty1
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.32.a #Great
+
+		if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 2 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor1
+					add_idea = bloc_dor2
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 3 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor2
+					add_idea = bloc_dor3
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 4 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor3
+					add_idea = bloc_dor4
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 5 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor4
+					add_idea = bloc_dor5
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 6 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor5
+					add_idea = bloc_dor6
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 7 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor6
+					add_idea = bloc_dor7
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 8 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor7
+					add_idea = bloc_dor8
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 9 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor8
+					add_idea = bloc_dor9
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 10 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor9
+					add_idea = bloc_dor10
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Bloc d'Or - They rejected the offer
+	id = france.33
+	title = france.33.t
+	desc = france.33.d 
+	picture = GFX_event_generic_accusation
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.33.a #SAD
+		if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 1 }
+				OR = {
+					has_completed_focus = FRA_invite_czechoslovakia
+					CZE = {
+						has_country_flag = abandoned_gold_standard
+						exists = no
+					}
+				}
+				OR = {
+					has_completed_focus = FRA_invite_germany
+					GRM = {
+						OR = {
+							has_government = fascism
+							has_government = nationalism
+							has_country_flag = abandoned_gold_standard
+							exists = no
+						}
+					}
+				}
+				OR = {
+					has_completed_focus = FRA_invite_yugoslavia
+					YUG = {
+						OR = {
+							exists = no
+							has_country_flag = abandoned_gold_standard
+						}
+					}
+				}
+			}
+			disband_bloc_dor = yes
+		}
+	}
+}
+
+country_event = { # Bloc d'Or - We are LEAVING
+	id = france.34
+	title = france.34.t
+	desc = france.34.d
+	picture = GFX_event_generic_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.34.a #SAD
+
+		if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 2 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor3
+					add_idea = bloc_dor2
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 3 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor4
+					add_idea = bloc_dor3
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 4 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor5
+					add_idea = bloc_dor4
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 5 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor6
+					add_idea = bloc_dor5
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 6 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor7
+					add_idea = bloc_dor6
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 7 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor8
+					add_idea = bloc_dor7
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 8 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor9
+					add_idea = bloc_dor8
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 9 }
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor10
+					add_idea = bloc_dor9
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 1 }
+				NOT = {
+					OR = {
+						has_completed_focus = FRA_invite_czechoslovakia
+						NOT = { country_exists = CZE }
+					}
+					OR = {
+						has_completed_focus = FRA_invite_germany
+						NOT = {
+							country_exists = GER
+							country_exists = WGR
+							country_exists = DDR
+							GER = {
+								OR = {
+									has_government = fascism
+									has_government = nationalism
+								}
+							}
+							WGR = {
+								OR = {
+									has_government = fascism
+									has_government = nationalism
+								}
+							}
+							DDR = {
+								OR = {
+									has_government = fascism
+									has_government = nationalism
+								}
+							}
+						}
+					}
+				}
+			}
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = bloc_dor2
+					add_idea = bloc_dor1
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 1 }
+				OR = {
+					has_completed_focus = FRA_invite_czechoslovakia
+					NOT = { country_exists = CZE }
+				}
+				OR = {
+					has_completed_focus = FRA_invite_germany
+					AND = {
+						GER = {
+							OR = {
+								has_government = fascism
+								has_government = nationalism
+								exists = no
+							}
+						}
+						WGR = {
+							OR = {
+								has_government = fascism
+								has_government = nationalism
+								exists = no
+							}
+						}
+						DDR = {
+							OR = {
+								has_government = fascism
+								has_government = nationalism
+								exists = no
+							}
+						}
+					}
+				}
+			}
+		}
+		effect_tooltip = {
+			country_event = france.35
+		}
+		add_stability = -0.025
+	}
+}
+
+country_event = { # Bloc d'Or - Disbanded
+	id = france.35
+	title = france.35.t
+	desc = {
+		text = france.35.f
+		trigger = {
+			FRA = {
+				OR = {
+					has_completed_focus = FRA_devaluate_franc_DA
+					has_completed_focus = FRA_devaluate_franc
+				}
+			}
+		}
+	}
+	desc = {
+		text = france.35.n
+		trigger = {
+			check_variable = { global.num_member_bloc_dor < 2 }
+		}
+	}
+	desc = {
+		text = france.35.w
+	}
+	picture = GFX_report_event_generic_read_write
+	
+	is_triggered_only = yes
+
+	immediate = {
+		clear_array = global.member_bloc_dor
+		clear_variable = global.num_member_bloc_dor
+	}
+	
+	option = {
+		name = france.35.a
+
+		if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 1 }
+			}
+			effect_tooltip = {
+				remove_ideas = { bloc_dor1 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 2 }
+			}
+			effect_tooltip = {
+				remove_ideas = { bloc_dor2 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 3 }
+			}
+			effect_tooltip = {
+				remove_ideas = { bloc_dor3 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 4 }
+			}
+			effect_tooltip = {
+				remove_ideas = { bloc_dor4 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 5 }
+			}
+			effect_tooltip = {
+				remove_ideas = { bloc_dor5 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 6 }
+			}
+			effect_tooltip = {
+				remove_ideas = { bloc_dor6 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 7 }
+			}
+			effect_tooltip = {
+				remove_ideas = { bloc_dor7 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 8 }
+			}
+			effect_tooltip = {
+				remove_ideas = { bloc_dor8 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 9 }
+			}
+			effect_tooltip = {
+				remove_ideas = { bloc_dor9 }
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 10 }
+			}
+			effect_tooltip = {
+				remove_ideas = { bloc_dor10 }
+			}
+		}
+	}
+}
+
+country_event = { # France wants to join the allies
+	id = france.36
+	title = france.36.t
+	desc = france.36.d
+	picture = GFX_report_event_degaulle_churchill
+	
+	is_triggered_only = yes
+	
+	option = { # Yep
+		name = france.36.a
+		add_to_faction = FROM
+		FROM = {
+			add_ai_strategy = {
+				type = alliance
+				id = "ENG"
+				value = 200
+			}
+			country_event = france.37
+		}
+
+		add_ai_strategy = {
+			type = alliance
+			id = FROM
+			value = 100
+		}
+	}
+
+	option = { # Nay
+		name = france.36.b
+		FROM = { 
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = FRA_go_with_britain_reject
+			}
+			country_event = france.38
+		}
+		ai_chance = { factor = 0 }
+	}
+}
+
+country_event = { # Britain said yes
+	id = france.37
+	title = france.37.t
+	desc = france.37.d
+	picture = GFX_report_event_generic_sign_treaty2
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.37.a
+		add_ai_strategy = {
+			type = alliance
+			id = FROM
+			value = 100
+		}
+	}
+}
+
+country_event = { # Britain said no
+	id = france.38
+	title = france.38.t
+	desc = france.38.d
+	picture = GFX_event_France_ChambreDeputes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.38.a
+		add_political_power = -25
+	}
+}
+
+country_event = { # France proposes the Franco-Soviet Treaty of Mutual Assistance
+	id = france.39
+	title = france.39.t
+	desc = france.39.d
+	picture = GFX_Event_USSR_Locarno_Pact
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.39.a # yeah bro
+		ai_chance = {
+			base =  5
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		give_guarantee = FROM
+		FROM = {
+			give_guarantee = ROOT
+			country_event = {
+				id = france.40
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = france.39.b # no fuck that
+		ai_chance = {
+			base =  95
+		}
+		FROM = {
+			country_event = {
+				id = france.41
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #yay friends 4ever
+	id = france.40
+	title = france.40.t
+	desc = france.40.d
+	picture = GFX_event_France_ChambreDeputes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.40.a # c:
+		effect_tooltip = {
+			give_guarantee = FROM
+		}
+	}
+}
+
+country_event = { #sad
+	id = france.41
+	title = france.41.t
+	desc = france.41.d
+	picture = GFX_event_France_ChambreDeputes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.41.a # :c
+	}
+}
+
+country_event = { #ENG - Should protest?
+	id = france.42
+	title = france.42.t
+	desc = {
+		text = france.42.da
+		trigger = {
+			FRA = {
+				focus_progress = {
+					focus = FRA_oppose_german_rearmarment
+					progress > 0
+				}
+			}
+		}
+	}
+	desc = {
+		text = france.42.db
+		trigger = {
+			FRA = {
+				focus_progress = {
+					focus = FRA_open_support_republicans
+					progress > 0
+				}
+			}
+		}
+	}
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	option = { #Protest!
+		name = france.42.a
+		add_political_power = 10
+		add_stability = 0.01
+		FROM = {
+			set_country_flag = ENG_protested
+			country_event = france.43
+		}
+
+		ai_chance = {
+			base = 5
+			modifier = {
+				has_government = democratic
+				factor = 10
+			}
+		}
+	}
+
+	option = { #Nah we cool
+		name = france.42.b
+
+		add_political_power = -75
+		add_stability = -0.08
+		ai_chance = {
+			base = 1
+			modifier = {
+				has_government = socialism
+				factor = 50
+			}
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+	}
+}
+
+country_event = { #FRA - Backdown?
+	id = france.43
+	title = france.43.t
+	desc = france.43.d
+	picture = GFX_event_generic_accusation
+
+	is_triggered_only = yes
+
+	option = { #Lets backdown
+		name = france.43.a
+		add_stability = -0.02
+		set_country_flag = FRA_backdown
+		FROM = {
+			country_event = france.47
+		}
+
+		ai_chance = {
+			base = 2
+			modifier = {
+				has_government = social_liberalism
+				factor = 4
+			}
+			modifier = {
+				is_guaranteed_by = SOV
+				has_guaranteed = SOV
+				factor = 0
+			}
+		}
+	}
+
+	option = { #NO!
+		name = france.43.b
+		set_temp_variable = { tempchange = -0.02 }
+		FRA_coalition_stability_change = yes
+		FROM = {
+			country_event = france.44
+		}
+
+		ai_chance = {
+			base = 1
+			modifier = {
+				has_government = socialism
+				factor = 6
+			}
+		}
+	}
+}
+
+country_event = { #ENG - Continue?
+	id = france.44
+	title = france.44.t
+	desc = france.44.d
+	picture = GFX_event_generic_diplomacy
+
+	is_triggered_only = yes
+
+	option = { #Fuck France
+		name = france.44.a
+
+		add_opinion_modifier = {
+			target = FRA
+			modifier = broken_relations
+		}
+		FROM = {
+			country_event = france.45
+		}
+
+		ai_chance = {
+			base = 1
+
+			modifier = {
+				has_government = democratic
+				factor = 4
+			}
+		}
+	}
+
+	option = { #Nah, we were joking
+		name = france.44.b
+
+		add_stability = -0.03
+		FROM = {
+			country_event = france.46
+		}
+
+		ai_chance = {
+			base = 1
+
+			modifier = {
+				has_government = socialism
+				factor = 2
+			}
+			modifier = {
+				GER = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+					}
+				}
+				factor = 2
+			}
+		}
+	}
+}
+
+country_event = { #FRA - British relations broke
+	id = france.45
+	title = france.45.t
+	desc = france.45.d
+	picture = GFX_event_generic_accusation
+
+	is_triggered_only = yes
+
+	option = { #shit
+		name = france.45.a
+		set_country_flag = FRA_ENG_brokeup
+		add_stability = -0.05
+		set_temp_variable = { tempchange = -0.4 }
+		FRA_coalition_stability_change = yes
+		add_opinion_modifier = {
+			target = ENG
+			modifier = broken_relations
+		}
+	}
+}
+
+country_event = { #FRA - British backdown
+	id = france.46
+	title = france.46.t
+	desc = france.46.d
+	picture = GFX_event_generic_diplomacy
+
+	is_triggered_only = yes
+
+	option = { #that was a close one
+		add_political_power = 25
+		add_stability = 0.02
+		name = france.46.a
+	}
+}
+
+country_event = { #ENG - France backdown
+	id = france.47
+	title = france.46.t
+	desc = france.47.d
+	picture = GFX_event_generic_diplomacy
+
+	is_triggered_only = yes
+
+	option = { #good anakin good
+		add_political_power = 25
+		add_stability = 0.02
+		name = france.46.a
+	}
+}
+
+country_event = { #GER/ITA - France asks us to stop sending support in the spanish conflict
+	id = france.48
+	title = france.48.t
+	desc = france.48.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #yeah sure
+		name = france.48.a
+		add_ideas = spanish_descalation
+		add_war_support = -0.05
+		add_opinion_modifier = {
+			target = FROM
+			modifier = success_neg
+		}
+		FROM = {
+			country_event = france.49
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				OR = {
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				add = 2
+			}
+		}
+	}
+	option = { #nah we good
+		name = france.48.b
+		add_political_power = 25
+		FROM = {
+			country_event = france.50
+		}
+		ai_chance = {
+			base = 1
+			modifier = {
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = monarchism
+					has_government = communism
+				}
+				factor = 5
+			}
+		}
+	}
+}
+
+country_event = { #FRA - Germany/Italy said yes scw
+	id = france.49
+	title = france.49.t
+	desc = france.49.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #great
+		name = france.49.a
+		if = {
+			limit = {
+				has_idea = FRA_republican_scw_support
+			}
+			remove_ideas = FRA_republican_scw_support
+		}
+		if = {
+			limit = {
+				NOT = { has_idea = spanish_descalation }
+			}
+			add_ideas = spanish_descalation
+			add_war_support = -0.05
+		}
+		add_political_power = 25
+		add_opinion_modifier = {
+			target = FROM
+			modifier = success_neg
+		}
+	}
+}
+
+country_event = { #FRA - Germany/Italy said no scw
+	id = france.50
+	title = france.50.t
+	desc = france.50.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #well thats sad
+		name = france.50.a
+		add_political_power = -25
+		if = {
+			limit = {
+				FROM = {
+					original_tag = ITA
+				}
+			}
+			set_country_flag = ITA_rejected_deal
+		}
+		else_if = {
+			limit = {
+				FROM = {
+					original_tag = GRM
+				}
+			}
+			set_country_flag = GRM_rejected_deal
+		}
+	}
+}
+
+country_event = { #GER/ITA - France asks us to mutual disarmament
+	id = france.51
+	title = france.48.t
+	desc = france.51.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #yeah sure
+		name = france.48.a
+		add_ideas = mutual_disarmament
+		add_war_support = -0.05
+		add_opinion_modifier = {
+			target = FROM
+			modifier = success_neg
+		}
+		FROM = {
+			country_event = france.52
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				OR = {
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				add = 2
+			}
+		}
+	}
+	option = { #nah we good
+		name = france.48.b
+		add_political_power = 25
+		FROM = {
+			country_event = france.53
+		}
+		ai_chance = {
+			base = 1
+			modifier = {
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = monarchism
+					has_government = communism
+				}
+				factor = 5
+			}
+		}
+	}
+}
+
+country_event = { #FRA - Germany/Italy said yes disarmament
+	id = france.52
+	title = france.49.t
+	desc = france.49.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #great
+		name = france.49.a
+		if = {
+			limit = {
+				has_idea = mutual_disarmament
+			}
+			add_ideas = mutual_disarmament
+			add_war_support = -0.05
+		}
+		add_political_power = 25
+		add_opinion_modifier = {
+			target = FROM
+			modifier = success_neg
+		}
+	}
+}
+
+country_event = { #FRA - Germany/Italy said no disarmament
+	id = france.53
+	title = france.50.t
+	desc = france.50.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #well thats sad
+		name = france.49.a
+		add_political_power = -25
+		if = {
+			limit = {
+				FROM = {
+					original_tag = ITA
+				}
+			}
+			set_country_flag = ITA_rejected_deal
+		}
+		else_if = {
+			limit = {
+				FROM = {
+					original_tag = GRM
+				}
+			}
+			set_country_flag = GRM_rejected_deal
+		}
+	}
+}
+
+country_event = { #London Conference Grade Report
+	id = france.54
+	title = france.54.t
+	desc = france.54.d
+	picture = GFX_event_London_Economic_Conference
+
+	is_triggered_only = yes
+
+	option = { #sadness, glory to the gold standard, may it never die
+		name = france.54.a
+		custom_effect_tooltip = FRA_unlock_bloc_dc
+		set_country_flag = london_conference
+	}
+}
+
+country_event = { #GER - France has send us a proposal, rearmament for an non aggression pact
+	id = france.55
+	title = france.55.t
+	desc = france.55.d
+	# picture = no
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #yeah sure
+		name = france.55.a
+		# remove_ideas = versailles_treaty
+		diplomatic_relation = { country = FRA relation = non_aggression_pact }
+		add_opinion_modifier = {
+			target = FROM
+			modifier = success_neg
+		}
+		hidden_effect = {
+			FRA = {
+				country_event = {
+					id = france.56
+					hours = 4
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+			modifier = {
+				OR = {
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				factor = 8
+			}
+			modifier = {
+				factor = 0
+				FRA = { is_ai = no }
+			}
+		}
+	}
+	option = { #nah we good
+		name = france.55.b
+		add_political_power = 25
+		hidden_effect = {
+			FRA = {
+				country_event = {
+					id = france.57
+					hours = 4
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+			modifier = {
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = monarchism
+					has_government = communism
+				}
+				factor = 10
+			}
+		}
+	}
+}
+
+country_event = { #FRA - Germany said yes to Non aggression pact
+	id = france.56
+	title = france.56.t
+	desc = france.56.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #great
+		name = france.56.a
+		
+		add_political_power = 5
+		set_country_flag = GER_accepted_compromise
+		add_opinion_modifier = {
+			target = FROM
+			modifier = success_neg
+		}
+	}
+}
+
+country_event = { #FRA - Germany said no to Non aggression pact
+	id = france.57
+	title = france.57.t
+	desc = france.57.d
+	picture = no
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #:c just wanted to be friendos
+		name = france.57.a
+		
+		add_political_power = -10
+		set_country_flag = GER_rejected_compromise
+	}
+}
+
+country_event = { #POL - France ask if GER can pass through Poland for defense
+	id = france.58
+	title = france.58.t
+	desc = france.58.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #yeah sure
+		name = france.58.a
+		GRM = {
+			effect_tooltip = {
+				diplomatic_relation = { country = POL relation = military_access }
+			}
+			hidden_effect = {
+				country_event = france.59
+			}
+		}
+		hidden_effect = {
+			FROM = {
+				country_event = france.59
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = { #fuck those german puppets
+		name = france.58.b
+		add_political_power = 15
+		hidden_effect = {
+			FRA = {
+				country_event = france.60
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+country_event = { #FRA/GER - Poland said said yes
+	id = france.59
+	title = france.59.t
+	desc = france.59.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { # yuju
+		name = france.59.a
+		
+		diplomatic_relation = { country = POL relation = military_access }
+		
+		add_political_power = 5
+		# add_opinion_modifier = {
+		# 	target = FROM
+		# 	modifier = success_neg
+		# }
+	}
+}
+
+country_event = { #FRA/GER - Poland said no
+	id = france.60
+	title = france.60.t
+	desc = france.60.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #they will regret this
+		name = france.60.a
+		
+		add_political_power = -45
+		if = {
+			limit = { original_tag = FRA }
+			get_ruling_party_ideology = yes
+			add_popularity = {
+				ideology = var:ruling_party_ideology_token
+				popularity = -0.01
+			}
+		}
+	}
+}
+
+country_event = { #ITA - Mutual Non-Agression Pact
+	id = france.61
+	title = france.61.t
+	desc = france.61.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #yeah sure
+		name = france.61.a
+
+		diplomatic_relation = { country = FRA relation = non_aggression_pact }
+
+		add_opinion_modifier = {
+			target = FROM
+			modifier = success_neg
+		}
+
+		ai_chance = {
+			base = 8
+		}
+	}
+	option = { #nah we good
+		name = france.61.b
+		add_political_power = 25
+		hidden_effect = {
+			FRA = {
+				country_event = france.63
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+}
+
+country_event = { #FRA - Italy said yes to NP
+	id = france.62
+	title = france.62.t
+	desc = france.62.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #great
+		name = france.62.a
+		add_political_power = 25
+		add_opinion_modifier = {
+			target = ITA
+			modifier = success_neg
+		}
+	}
+}
+
+country_event = { #FRA - Italy said no to NP
+	id = france.63
+	title = france.63.t
+	desc = france.63.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #well thats sad
+		name = france.63.a
+		add_political_power = -5
+	}
+}
+
+country_event = { # [TAG] Mutual Guarantees
+	id = france.64
+	title = france.64.t
+	desc = france.64.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #yeah sure
+		name = france.64.a
+		custom_effect_tooltip = accepting_lead_faction_tt
+		give_guarantee = FROM
+		FROM = {
+			set_country_flag = has_guaranteed_@ROOT
+			give_guarantee = ROOT
+			country_event = {
+				id = france.65
+				days = 1
+			}
+		}
+		effect_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						tag = YUG
+						tag = ROM
+						tag = CZE
+					}
+				}
+				FROM = {
+					send_equipment = {
+						equipment = infantry_equipment
+						amount = 450
+						target = ROOT
+					}
+				}
+			}
+		}
+		ai_chance = {
+			base = 5
+			modifier = {
+				any_home_area_neighbor_country = {
+					tag = GER
+				}
+				factor = 1.5
+			}
+		}
+	}
+	option = { #nah we good
+		name = france.64.b
+		add_political_power = 25
+		FROM = {
+			country_event = france.66
+		}
+		ai_chance = {
+			base = 5
+			modifier = {
+				is_in_faction = yes
+				factor = 0
+			}
+			modifier = {
+				tag = AUS
+				factor = 1.5
+			}
+		}
+	}
+}
+
+country_event = { #FRA - [TAG] said yes to Guarantees
+	id = france.65
+	title = france.65.t
+	desc = france.65.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #great
+		name = france.65.a
+		add_political_power = 25
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						tag = YUG
+						tag = ROM
+						tag = CZE
+					}
+				}
+			}
+			FROM = {
+				send_equipment = {
+					equipment = infantry_equipment
+					amount = 450
+					target = ROOT
+				}
+			}
+		}
+		add_opinion_modifier = {
+			target = FROM
+			modifier = success_neg
+		}
+	}
+}
+
+country_event = { #FRA - [TAG] said no to Guarantees
+	id = france.66
+	title = france.66.t
+	desc = france.66.d
+	picture = no
+
+	is_triggered_only = yes
+
+	option = { #well thats sad
+		name = france.66.a
+		add_political_power = -5
+	}
+}
+
+## Flavour events ##
+
+country_event = { # Zéro de Conduite
+	id = france.200
+	title = france.200.t
+	desc = france.200.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.200.a
+		add_political_power = -5
+	}
+}
+
+country_event = { # Neo-Socialist exclusion of the SFIO, form Parti socialiste de France-Union Jean Jaurès or PSdF
+	id = france.201
+	title = france.201.t
+	desc = france.201.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = { # interesting
+		name = france.201.a
+		hidden_effect = {
+			country_event = {
+				id = france.203
+				days = 728
+			}
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.025
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.025
+		}
+	}
+}
+
+country_event = { # Neo-Socialist and former SFIO right wingers form USR
+	id = france.203
+	title = france.203.t
+	desc = france.203.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.203.a
+		set_party_name = {
+			ideology = social_democracy
+			name = "USR"
+			long_name = "Union Socialiste Républicaine"
+		}
+		hidden_effect = {
+			# retire_ideology_leader = social_democracy
+			remove_country_leader_role = {
+				character = "FRA_albert_lebrun"
+				ideology = dem_socialism
+			}
+			add_country_leader_role = {
+				character = "FRA_albert_lebrun"
+				promote_leader = yes
+				country_leader = {
+					ideology = french_neosocialism
+					expire = "1965.1.1.1"
+					traits = {}
+				}
+			}
+		}
+	}
+}
+
+country_event = { # PPF forms
+	id = france.204
+	title = france.204.t
+	desc = france.204.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.204.a
+		set_party_name = {
+			ideology = fascism
+			name = FRA_french_popular_party
+			long_name = FRA_french_popular_party_long
+		}
+	}
+}
+
+country_event = { # Left Coalition has fallen - Dissention in the Radical Party
+	id = france.205
+	title = france.205.t
+	desc = france.205.d # Event about the party splitting and a lot of people from the left and right straight up leaving to join the Republican Socialists and the AD
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.205.a
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.04
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.025
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.025
+		}
+	}
+}
+
+## Elections events ##
+country_event = { # debug event
+	id = france.299
+	title = france.299.t
+	desc = france.299.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = OK
+	}
+
+}
+
+country_event = { # AD - Choose your coalition partner
+	id = france.300
+	title = france.300.t
+	desc = france.300.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = { # Form the Concentration
+		name = france.300.a
+
+		set_country_flag = AD_concentration
+
+		trigger = {
+			NOT = { has_country_flag = FRA_letat_reforms_passed }
+		}
+
+		ai_chance = {
+			base = 1
+			modifier = {
+			    factor = 0
+				has_game_rule = { rule = FRA_select_path option = FRA_AD_VICTORY }
+			}
+		}
+	}
+
+	option = { # Work with the right
+		name = france.300.b
+
+		set_country_flag = AD_right_wing
+
+		ai_chance = {
+			base = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+			modifier = {
+			    factor = 0
+				has_game_rule = { rule = FRA_select_path option = FRA_PF_VICTORY }
+			}
+		}
+	}
+
+}
+
+country_event = { # SFIO - Choose your coalition partner
+	id = france.301
+	title = france.301.t
+	desc = france.301.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = { # Work with the Radicals
+		name = france.301.a
+
+		set_country_flag = SFIO_radical
+		hidden_effect = {
+			country_event = {
+				id = france.300
+				days = 1
+			}
+		}
+
+		ai_chance = {
+			base = 1
+			modifier = {
+			    factor = 0
+				has_game_rule = { rule = FRA_select_path option = FRA_AD_VICTORY }
+			}
+		}
+	}
+
+	option = { # Nah, we can do this
+		name = france.301.b
+
+		set_country_flag = SFIO_gauche
+		hidden_effect = {
+			country_event = {
+				id = france.300
+				days = 1
+			}
+		}
+
+		ai_chance = {
+			base = 0.5
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+			modifier = {
+			    factor = 0
+				has_game_rule = { rule = FRA_select_path option = FRA_PF_VICTORY }
+			}
+		}
+	}
+
+}
+
+country_event = { # Popular Front Victory - Historical
+	id = france.302
+	title = france.302.t
+	desc = france.302.d
+	picture = GFX_event_Blum_Popular_front
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.302.a
+		COALITION_clr_marlib = yes
+		COALITION_clr_con = yes
+		COALITION_add_revsoc = yes
+		COALITION_add_demsoc = yes
+		if = {
+			limit = {
+				NOT = { has_global_flag = USSR_Third_Period }
+			}
+			COALITION_add_com = yes
+		}
+
+		set_politics = {
+			ruling_party = socialism
+			elections_allowed = yes 
+		}
+
+		set_country_flag = popular_front_in_power
+		clr_country_flag = FRA_deflationary_policies
+		clr_country_flag = SFIO_radical
+		clr_country_flag = AD_right_wing
+		clr_country_flag = AD_concentration
+
+		set_variable = { coalition_stability = 0.5 }
+
+		custom_effect_tooltip = FRA_reshuffle_parliament_tt
+
+		set_variable = { total_seats = 610 }
+		set_variable = { half_seats = 306 }
+
+		set_variable = { communist_seats = 72 }
+		set_variable = { demsoc_seats = 155 }
+		set_variable = { socdem_seats = 29 }
+		set_variable = { soclib_seats = 130 }
+		set_variable = { marlib_seats = 82 }
+		set_variable = { centre_seats = 29 }
+		set_variable = { cons_seats = 113 }
+
+		set_coalition_seats = yes
+		calculate_nonid_seats = yes
+
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = frnmin
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = secmin
+		}
+
+		add_ideas = {
+			leonblumhog
+			yvondelbosfr
+			vincentaurioleco
+			rogersalengrosec
+		}
+
+		load_focus_tree = {
+			tree = CBTS_France_popular_front
+			keep_completed = yes
+		}
+        hidden_effect = {
+		    news_event = {
+			    id = fra_news.1
+			}
+		}
+		remove_mission = FRA_mission_liquidity
+	}
+
+}
+
+country_event = { # AD WIN
+	id = france.303
+	title = {
+		text = france.303.tconcen
+		trigger = {
+			has_country_flag = AD_concentration
+		}
+	}
+	title = {
+		text = france.303.tright
+		trigger = {
+			has_country_flag = AD_right_wing
+		}
+	}
+	desc = {
+		text = france.303.dconcen
+		trigger = {
+			has_country_flag = AD_concentration
+		}
+	}
+	desc = {
+		text = france.303.dright
+		trigger = {
+			has_country_flag = AD_right_wing
+		}
+	}
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = france.303.a
+
+		COALITION_clr_socdem = yes
+		COALITION_add_cen = yes
+		if = {
+			limit = {
+				has_country_flag = AD_right_wing
+			}
+		#	COALITION_clr_soclib = yes
+		}
+		else = {
+			COALITION_clr_con = yes
+		}
+
+		set_politics = {
+			ruling_party = market_liberalism
+			elections_allowed = yes 
+		}
+
+		#custom_effect_tooltip = FRA_reshuffle_parliament_tt
+
+		set_variable = { total_seats = 610 }
+		set_variable = { half_seats = 306 }
+
+		set_variable = { communist_seats = 72 }
+		set_variable = { demsoc_seats = 155 }
+		set_variable = { socdem_seats = 29 }
+		set_variable = { soclib_seats = 130 }
+		set_variable = { marlib_seats = 82 }
+		set_variable = { centre_seats = 29 }
+		set_variable = { cons_seats = 113 }
+
+		set_coalition_seats = yes
+		calculate_nonid_seats = yes
+
+		clr_country_flag = FRA_deflationary_policies
+		clr_country_flag = SFIO_radical
+		clr_country_flag = SFIO_gauche
+
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = frnmin
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = secmin
+		}
+		if = {
+			limit = {
+				has_country_flag = AD_right
+			}
+			add_ideas = {
+				paulreynaudhog
+				pierreetienneflandinfr
+				yvesbouthilliereco
+				georgesmandelsec
+			}
+		}
+		else = {
+			add_ideas = {
+				pierreetienneflandinhog
+				pierrelavalfr
+				paulreynaudeco
+				albertsarrautsec
+			}
+		}
+		load_focus_tree = {
+			tree = CBTS_France_DA
+			keep_completed = yes
+		}
+
+		remove_mission = FRA_mission_liquidity
+		if = {
+			limit = {
+				NOT = { has_country_flag = strikes_happened }
+			}
+			hidden_effect = {
+				country_event = {
+					id = france.25
+					days = 26
+				}
+			}
+		}
+		hidden_effect = {
+		    news_event = {
+			    id = fra_news.2
+			}
+		}
+	}
+
+}
+
+##############################################################################
+#################### FRENCH SURRENDER AND VICHY SET-UP #######################
+##############################################################################
+
+# Get_FRA_HOG_Surname
+# Get_FRA_HOG_Full_Name
+
+country_event = {
+	id = fra_armistice.1 # Event informing FRA that Paris is lost.
+	title = fra_armistice.1.t
+	desc = {
+		trigger = {
+			is_in_faction_with = ENG
+		}
+		text = fra_armistice.1.allies.desc
+	}
+	desc = {
+		trigger = {
+			OR = {
+				NOT = { is_in_faction_with = ENG }
+				ENG = { exists = no }
+				ENG = { is_puppet = yes }
+				ENG = { has_capitulated = yes }
+			}
+		}
+		text = fra_armistice.1.alone.desc
+	}
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 2
+
+	option = { #Do nothing
+		name = fra_armistice.1.a
+		add_war_support = -0.02
+	}
+	option = { #Sack Weygand
+		name = fra_armistice.1.b
+		remove_ideas = {
+			maximeweygand
+			maximeweygandcos
+		}
+		retire_character = FRA_maxime_weygand
+		
+		add_stability = -0.02
+		set_country_flag = FRA_sacked_weygand
+		if = {
+			limit = {
+				has_idea = FRA_recent_change_command
+			}
+			modify_timed_idea = {
+				idea = FRA_recent_change_command
+				days = 40
+			}
+		}
+		else = {
+			add_timed_idea = {
+				idea = FRA_recent_change_command
+				days = 40
+			}
+		}
+	}
+}
+country_event = {
+	id = fra_armistice.2 #Event for Germany. Informs about the willingness of the French to fight on despite the loss of Paris.
+	# The objective of this event is to tell the player that they have to continue invading France until the French ask for an armistice
+	title = "French Resilience"
+	desc = "PLACEHOLDER. The French are willing to fight untill the last man despite the loss of Paris, but are their commanders willing?"
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = "We'll have to put that resilience to the test"
+	}
+}
+country_event = { # The French cabinet vote to ask Germany for the terms of an armistice. 1 day after the fall of Paris
+	#In March, the French and the British had agreed that neither country would seek a separate peace with Nazi Germany.
+	# Reynaud is forced to submit the proposal to the British War Cabinet. He claims that he would have to resign if the British were to reject the proposal.
+	# Reynaud hopes that the british reject the proposal so he can use it to persuade his cabinet members to continue the fight.
+	# Event for FRA
+	id = fra_armistice.3
+	title = fra_armistice.3.t
+	desc = fra_armistice.3.desc
+	picture = GFX_event_France_ChambreDeputes
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 1
+
+	trigger = {
+		NOT = {
+			has_government = communism
+			has_government = fascism
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			ENG = {
+				country_event = {
+					id = fra_armistice.4
+					days = 1
+				}
+			}
+		}
+	}
+
+	option = {
+		name = fra_armistice.3.a
+	}
+}
+country_event = { # The British War Cabinet discuss the armistice proposal. They don't want France to surrender and the French navy to fall to german hands.
+	# So they seek to to keep Reynaud in office. 
+	# On 14 June British diplomat Robert Vansittart and Morton wrote with Monnet and his deputy René Pleven a draft "Franco-British Union" proposal. 
+	#They hope that such a union would help Reynaud persuade his cabinet to continue the war from North Africa.
+	id = fra_armistice.4
+	title = fra_armistice.4.t
+	desc = fra_armistice.4.desc
+	picture = GFX_event_France_ChambreDeputes #TODO: event pic
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 1
+
+	option = { #Churchill is skeptical of the F-B Union
+		#the War Cabinet agrees to the French armistice request on the condition that the French fleet sail to British harbours.
+		name = fra_armistice.4.a
+		ai_chance = {
+			base = 60
+		}
+		hidden_effect = {
+			country_event = { 
+				id = fra_armistice.5
+				hours = 4
+			}
+			set_country_flag = ENG_aprove_french_armistice
+		}
+	}
+
+	option = { #Churchill is skeptical of the F-B Union. War Cabinet Rejects the French Armistice Proposal.
+		name = fra_armistice.4.b
+		ai_chance = {
+			base = 40
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		hidden_effect = {
+			country_event = { 
+				id = fra_armistice.5
+				hours = 4
+			}
+			set_country_flag = ENG_reject_french_armistice
+		}
+	}
+}
+
+country_event = {
+	id = fra_armistice.5 #De Gaulle arrives at London and tries to convince Churchill that the Franco-British Union is necessary 
+	#"some dramatic move is essential to give Reynaud the support which he needs to keep his Government in the war" (Big Chad energy)
+	#TODO: loc
+	title = fra_armistice.5.t
+	desc = fra_armistice.5.desc
+	picture = GFX_report_event_degaulle_churchill #TODO: event pic?
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 2
+
+	option = { #Im convinced.
+		name = fra_armistice.5.a
+		ai_chance = {
+			base = 80
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 10
+			}
+		}
+		hidden_effect = {
+			country_event = { 
+				id = fra_armistice.6
+				hours = 3
+			}
+			FRA = {
+				country_event = { #De Gaulle calls Reynaud to inform him about the F-B Union
+					id = fra_armistice.7
+				}
+			}
+		}
+	}
+	# option = { #Nope, Still not convinced - Option temporarily removed until its reworked
+	# 	name = fra_armistice.5.b
+	# 	ai_chance = {
+	# 		base = 20
+	# 		modifier = {
+	# 			is_historical_focus_on = yes
+	# 			factor = 0
+	# 		}
+	# 	}
+	# 	hidden_effect = {
+	# 		if = {
+	# 			limit = {
+	# 				has_country_flag = ENG_aprove_french_armistice
+	# 			}
+	# 			FRA = {
+	# 				country_event = {
+	# 					id = fra_armistice.13
+	# 					days = 1
+	# 				}
+	# 			}
+	# 		}
+	# 		else_if = {
+	# 			limit = {
+	# 				has_country_flag = ENG_reject_french_armistice
+	# 			}
+	# 			FRA = {
+	# 				country_event = {
+	# 					id = fra_armistice.11
+	# 					days = 1
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+	# }
+}
+
+country_event = {
+	id = fra_armistice.6 #Event informing the british player what's been done after agreeing to the F-B Union.
+	#De Gaulle then calls Reynaud and tells him that the British prime minister proposed a union between their countries, an idea which Reynaud immediately supports.
+	#Monnet, Vansittart, De Gaulle and Pleven quickly agree to a document proclaiming a joint citizenship, foreign trade, currency, war cabinet, and military command. 
+	#Churchill withdraws the armistice approval TODO:[change loc depending on if you agreed or disagreed], 
+	#and at 3 p.m. the War Cabinet met again to consider the union document.
+	#Despite the radical nature of the proposal, Churchill and the ministers recognized 
+	#the need for a dramatic act to encourage the French and reinforce Reynaud's support within his cabinet before it met again at 5pm.
+	#Include the final "Declaration of union" text if it fits.
+	#TODO: loc & event pic
+	title = fra_armistice.6.t
+	desc = fra_armistice.6.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 2
+
+	option = {
+		name = fra_armistice.6.a
+		hidden_effect = {
+			FRA = {
+				country_event = { #Churchill and De Gaulle call Reynaud to inform him that the F-B Union has been aproved
+					id = fra_armistice.8
+					hours = 2
+				}
+			}
+		}
+	}
+}
+
+country_event = { #De Gaulle calls the French PM informing him that "the British PM has proposed a union between our 2 countries"
+	#Event to inform the player of what tf is happening so he isn't surprised when he gets an event bout the F-B Union being aproved by the british.
+	#TODO: loc & event pic
+	id = fra_armistice.7
+	title = fra_armistice.7.t
+	desc = fra_armistice.7.desc
+	# picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Its our only hope to remain in the war
+		name = fra_armistice.7.a
+	}
+}
+
+country_event = { # Churchill and De Gaulle call Reynaud to inform him about the document.
+	#they arranged for a joint meeting of the two governments in Concarneau the next day. 
+	#The declaration immediately succeeded in its goal of encouraging Reynaud, who saw the union as the only alternative to surrender 
+	# and who could now cite the British rejection of the armistice.
+	#TODO: loc & event pic
+	id = fra_armistice.8
+	title = fra_armistice.8.t
+	desc = fra_armistice.8.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 1
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = fra_armistice.9
+				hours = 5
+			}
+		}
+	}
+
+	option = {
+		name = fra_armistice.8.a
+	}
+}
+
+country_event = { #French Cabinet meets at 5 pm in the same day. The cabinet opposition to the union is strong.
+	#This stunned Reynaud, who believed that his ministers no longer supported him; resigns without even taking a formal vote on the union or an armistice. 
+	#Petain forms a government and then delivers a Radio adress to the French people announcing his intention to ask for an armistice with Germany
+	#Reynaud had erred, however, by conflating opposition to the union—which a majority of the cabinet almost certainly opposed—with support for an armistice, 
+	# which it almost certainly did not. 
+	#If the proposal had been made a few days earlier, instead of the 16th when the French only had hours to decide between armistice and North Africa, 
+	#Reynaud's cabinet might have considered it more carefully.
+	#TODO:Maybe have different outcomes depending on the president/party coalition.
+	#TODO: loc & event pic
+	id = fra_armistice.9
+	title = fra_armistice.9.t
+	desc = fra_armistice.9.desc
+	picture = GFX_event_France_ChambreDeputes
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 2
+
+	immediate = {
+		hidden_effect = {
+			ENG = {
+				country_event = {
+					id = fra_armistice.10
+					hours = 2
+				}
+			}
+			if = {
+				limit = {
+					country_exists = GER
+					NOT = { country_exists = DDR }
+				}
+				GER = {
+					country_event = {
+						id = fra_armistice.15
+						days = 2
+						hours = 4
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					country_exists = DDR
+					NOT = { country_exists = GER }
+				}
+				DDR = {
+					country_event = {
+						id = fra_armistice.15
+						days = 2
+						hours = 5
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = fra_armistice.9.a
+		custom_effect_tooltip = FRA_pm_will_resign_tt
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = frnmin
+			remove_ideas_with_trait = secmin
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = con
+		}
+		add_ideas = philippepetainhog
+		add_ideas = paulbaudouinfr
+		add_ideas = adrienmarquetsec
+		add_ideas = yvesbouthilliereco
+		add_ideas = francoisdarlan
+	}
+}
+
+country_event = { #French PM has resigned and Petain has formed a government in its place. He wants an armistice. Info event for the British
+	id = fra_armistice.10
+	title = fra_armistice.10.t
+	desc = fra_armistice.10.desc
+	picture = GFX_event_France_ChambreDeputes
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 5
+	#TODO: loc & event pic
+
+	option = {
+		name = fra_armistice.10.a
+	}
+}
+###################################################################
+##### No F-B Union considered. Reject French Armistice events #####
+###################################################################
+
+# country_event = { # Armistice Rejected. For FRA
+# 	#PM uses this to try persuading his cabinet to continue the fight. 
+# 	# A tense debate between the pro-armistice and those who want to continue the fight from the colonies ensues.
+# 	#The Pro-Armistice want the PM to resign and demend it during the debate several times.
+# 	#The PM refuses to resign seeing the opportunity to continue fighting to save his country.
+# 	# At the most heated moment, General Petain and some politicians abandon the meeting.
+# 	id = fra_armistice.11
+# 	title = fra_armistice.11.t
+# 	desc = fra_armistice.11.desc
+# 	picture = GFX_Event_Germany_Germans_in_Paris
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+# 	timeout_days = 2
+
+# 	immediate = {
+# 		hidden_effect = {
+# 			country_event = {
+# 				id = fra_armistice.12
+# 				hours = 3
+# 			}
+# 		}
+# 	}
+
+# 	option = {
+# 		name = fra_armistice.11.a
+# 		hidden_effect = {
+# 			ENG = { clr_country_flag = ENG_reject_french_armistice }
+# 		}
+# 	}
+# }
+
+# country_event = { #Petain manages to gather some troops from the city garrison and marches towards (the place where the cabinet meeting was held). 
+# 	#He storms the place and takes power
+# 	#After couping the government and arresting politicians he goes live on the radio, announcing the transfer of power and his intentions 
+# 	#of seeking an armistice with Germany.
+# 	id = fra_armistice.12
+# 	title = fra_armistice.12.t
+# 	desc = fra_armistice.12.desc
+# 	picture = GFX_Event_Germany_Germans_in_Paris
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+# 	timeout_days = 2
+
+# 	option = {
+# 		name = fra_armistice.12.a
+# 		hidden_effect = {
+# 			if = {
+# 				limit = {
+# 					country_exists = GER
+# 					NOT = { country_exists = DDR }
+# 				}
+# 				GER = {
+# 					country_event = {
+# 						id = fra_armistice.15
+# 						days = 3
+# 						hours = 18
+# 					}
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					country_exists = DDR
+# 					NOT = { country_exists = GER }
+# 				}
+# 				DDR = {
+# 					country_event = {
+# 						id = fra_armistice.15
+# 						days = 3
+# 						hours = 18
+# 					}
+# 				}
+# 			}
+			
+# 			remove_ideas_with_trait = hog
+# 			remove_ideas_with_trait = frnmin
+# 			remove_ideas_with_trait = secmin
+# 			remove_ideas_with_trait = ecomin
+# 			remove_ideas_with_trait = con
+# 		}
+# 		add_ideas = philippepetainhog
+# 		add_ideas = paulbaudouinfr
+# 		add_ideas = adrienmarquetsec
+# 		add_ideas = yvesbouthilliereco
+# 		add_ideas = francoisdarlan
+# 	}
+# }
+
+###################################################################
+##### No F-B Union considered. Aprove French Armistice events #####
+###################################################################
+# country_event = { # Armistice Aproved. For FRA
+# 	# France requests terms of an armistice to Germany. Its a fuge proposal.
+# 	# If the terms are "honourable" then the cabinet will study them
+# 	# If they are not, then they will agree to fight on
+# 	id = fra_armistice.13
+# 	title = fra_armistice.13.t
+# 	desc = fra_armistice.13.desc
+# 	picture = GFX_Event_Germany_Germans_in_Paris
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+# 	timeout_days = 2
+
+# 	immediate = {
+# 		hidden_effect = {
+# 			ENG = { clr_country_flag = ENG_aprove_french_armistice }
+# 		}
+# 	}
+
+# 	option = {
+# 		name = fra_armistice.13.a
+# 		hidden_effect = {
+# 			if = {
+# 				limit = {
+# 					country_exists = GER
+# 				}
+# 				GER = {
+# 					country_event = {
+# 						id = fra_armistice.14
+# 						days = 1
+# 						hours = 12
+# 					}
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					country_exists = DDR
+# 				}
+# 				DDR = {
+# 					country_event = {
+# 						id = fra_armistice.14
+# 						days = 1
+# 						hours = 12
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# }
+
+# country_event = { #France requests to know possible armistice terms. For Germany
+# 	id = fra_armistice.14
+# 	title = fra_armistice.14.t
+# 	desc = fra_armistice.14.desc
+# 	picture = GFX_Event_Germany_Germans_in_Paris
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+# 	timeout_days = 5
+
+# 	option = { #Nazi Terms
+# 		name = fra_armistice.14.a
+# 		trigger = {
+# 			GER = {
+# 				has_country_flag = GER_hitler_in_power
+# 				has_government = fascism
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			FRA = { set_country_flag = naziArmisticeTerms }
+# 			random_list = {
+# 				55 = { #Terms accepted
+# 					FRA = {
+# 						country_event = {
+# 							id = fra_armistice.18
+# 							days = 1
+# 						}
+# 					}
+# 				}
+# 				45 = { #Terms not accepted
+# 					FRA = {
+# 						country_event = {
+# 							id = fra_armistice.19
+# 							days = 1
+# 						}
+# 					}
+# 					modifier = {
+# 						FRA = { has_country_flag = FRA_sacked_weygand }
+# 						add = 40
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# 	option = { #DNVP Terms
+# 		name = fra_armistice.14.a
+# 		trigger = {
+# 			GER = {
+# 				has_country_flag = GER_DNVP_in_power
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			FRA = { set_country_flag = DNVPArmisticeTerms }
+# 			random_list = {
+# 				60 = { #Terms accepted
+# 					FRA = {
+# 						country_event = {
+# 							id = fra_armistice.18
+# 							days = 1
+# 						}
+# 					}
+# 				}
+# 				40 = { #Terms not accepted
+# 					FRA = {
+# 						country_event = {
+# 							id = fra_armistice.19
+# 							days = 1
+# 						}
+# 					}
+# 					modifier = {
+# 						FRA = { has_country_flag = FRA_sacked_weygand }
+# 						add = 10
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# 	option = { #Communist Terms
+# 		name = fra_armistice.14.a
+# 		trigger = {
+# 			DDR = { exists = yes }
+# 		}
+# 		hidden_effect = {
+# 			FRA = { set_country_flag = commieArmisticeTerms }
+# 			random_list = {
+# 				30 = { #Terms accepted
+# 					FRA = {
+# 						country_event = {
+# 							id = fra_armistice.18
+# 							days = 1
+# 						}
+# 					}
+# 					modifier = {
+# 						FRA = { has_country_flag = FRA_sacked_weygand }
+# 						add = 10
+# 					}
+# 				}
+# 				70 = { #Terms not accepted
+# 					FRA = {
+# 						country_event = {
+# 							id = fra_armistice.19
+# 							days = 1
+# 						}
+# 					}
+					
+# 				}
+# 			}
+# 		}
+# 	}
+# }
+
+# country_event = { #Terms are voted and considered "honourable" for the cabinet. PM resigns. Petain forms a government and will manage the armistice negotiations
+# 	id = fra_armistice.18
+# 	title = fra_armistice.18.t
+# 	desc = {
+# 		trigger = {
+# 			has_country_flag = naziArmisticeTerms
+# 		}
+# 		text = fra_armistice.18.nazi.desc
+# 	}
+# 	desc = {
+# 		trigger = {
+# 			has_country_flag = DNVPArmisticeTerms
+# 		}
+# 		text = fra_armistice.18.dnvp.desc
+# 	}
+# 	desc = {
+# 		trigger = {
+# 			has_country_flag = commieArmisticeTerms
+# 		}
+# 		text = fra_armistice.18.commie.desc
+# 	}
+# 	picture = GFX_Event_Germany_Germans_in_Paris
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+# 	timeout_days = 3
+
+# 	option = {
+# 		name = fra_armistice.18.a
+# 		custom_effect_tooltip = "[Get_FRA_HOG_Full_Name] §Rwill resign§!"
+# 		hidden_effect = {
+# 			if = {
+# 				limit = { country_exists = GER }
+# 				GER = {
+# 					FRA = {
+# 						country_event = {
+# 							id = fra_armistice.16
+# 							days = 1
+# 							random_hours = 12
+# 						}
+# 					}
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = { country_exists = DDR }
+# 				DDR = {
+# 					FRA = {
+# 						country_event = {
+# 							id = fra_armistice.16
+# 							days = 1
+# 							random_hours = 12
+# 						}
+# 					}
+# 				}
+# 			}
+# 			remove_ideas_with_trait = hog
+# 			remove_ideas_with_trait = frnmin
+# 			remove_ideas_with_trait = secmin
+# 			remove_ideas_with_trait = ecomin
+# 			remove_ideas_with_trait = con
+# 		}
+# 		add_ideas = philippepetainhog
+# 		add_ideas = paulbaudouinfr
+# 		add_ideas = adrienmarquetsec
+# 		add_ideas = yvesbouthilliereco
+# 		add_ideas = francoisdarlan
+# 	}
+# }
+
+# country_event = { # Terms are too harsh, the French cabinet decides to continue fighting.
+# 	id = fra_armistice.19
+# 	title = fra_armistice.19.t
+# 	desc = fra_armistice.19.desc
+# 	picture = GFX_Event_Germany_Germans_in_Paris
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+# 	timeout_days = 3
+
+# 	option = {
+# 		name = fra_armistice.19.a
+# 		hidden_effect = {
+# 			d_FRA_continue_fight_in_north_africa = yes
+# 			if = {
+# 				limit = { country_exists = GER }
+# 				GER = {
+# 					FRA = {
+# 						country_event = {
+# 							id = fra_armistice.16
+# 							hours = 6
+# 							random_hours = 6
+# 						}
+# 					}
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = { country_exists = DDR }
+# 				DDR = {
+# 					FRA = {
+# 						country_event = {
+# 							id = fra_armistice.16
+# 							hours = 6
+# 							random_hours = 6
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# }
+
+# country_event = { # French reject armistice and escape to North Africa. For Germany
+# 	id = fra_armistice.20
+# 	title = fra_armistice.20.t
+# 	desc = fra_armistice.20.desc
+# 	picture = GFX_Event_Germany_Germans_in_Paris
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+# 	timeout_days = 5
+
+# 	option = { #Fuck
+# 		name = fra_armistice.20.a
+		
+# 	}
+# }
+
+##############################
+### Armistice Negotiations ###
+##############################
+country_event = { #Germany recieves word from the French Goverment that they want to negotiate an armistice.
+	#TODO: Make different desc loc for the various Germanies. Maybe have different terms depending on the type of Germany (Hitler, DNVP, Communist (DDR))
+	# This is where the player could choose what to do with france. Maybe not, and the terms are always the same, we'll see
+	id = fra_armistice.15
+	title = fra_armistice.15.t
+	desc = fra_armistice.15.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 5
+	#TODO: loc & event pic
+
+	option = {
+		name = fra_armistice.15.a
+		hidden_effect = {
+			FRA = {
+				country_event = {
+					id = fra_armistice.16
+					days = 1
+					hours = 4
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = GER_hitler_in_power
+					has_government = fascism
+				}
+				FRA = { set_country_flag = naziArmisticeTerms }
+			}
+			else_if = {
+				limit = {
+					has_country_flag = GER_DNVP_in_power
+				}
+				FRA = { set_country_flag = DNVPArmisticeTerms }
+			}
+			else_if = {
+				limit = {
+					country_exists = DDR
+				}
+				FRA = { set_country_flag = commieArmisticeTerms }
+			}
+		}
+	}
+}
+
+country_event = { # 2nd Armistice of Compiègne
+	# The French are presented with German Terms in the same Carriage as ww1 ended. Event for FRA
+	# In a calculated gesture of disdain for the French delegates, Hitler left the carriage as Foch had done in 1918, 
+	# leaving the negotiations to General Wilhelm Keitel.
+	# The negotiations lasted a day. It was signed on the morning of the 22nd. The cease-fire went into effect 2 days later
+	# This event makes FRA capitulate instantly. The Vichy set-up will be handled with an on_capitulation that fires the event
+	#TODO: Should fire news event about the Armistice. loc & event pic
+	id = fra_armistice.16
+	title = fra_armistice.16.t
+	desc = fra_armistice.16.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 2
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = Second_Compiegne_Armistice
+			clr_global_flag = Paris_has_fallen
+			FRA = {
+				remove_ideas = FRA_retreat_to_the_south
+				remove_ideas = FRA_on_ne_passe_pas
+				#Henri Dentz becomes Commander of the Army of the Levant
+				add_corps_commander_role = {
+					character = FRA_henri_dentz
+					traits={ old_guard infantry_officer cannot_promote trait_mountaineer }
+					skill = 1
+					attack_skill = 1
+					defense_skill = 1
+					planning_skill = 2
+					logistics_skill = 1
+				}
+				set_nationality = {
+					target_country = SYR
+					character = FRA_henri_dentz
+				}
+			}
+			SYR = {
+				retire_character = FRA_henri_leon_caillaut
+			}
+			FROM = { remove_ideas = GER_French_retreat }
+			GRM = {
+				country_event = { #1940 Field Marshal Ceremony
+					id = ger_internal.94
+					days = 27 #Days between 22 of June and 19 of July
+				}
+			}
+		}
+	}
+
+	option = {
+		name = fra_armistice.16.a #Play as Free France
+		custom_effect_tooltip = FRA_we_will_capitulate_tt
+		custom_effect_tooltip = FRA_play_as_free_fra_tt
+		hidden_effect = {
+			FRA = {
+				add_ideas = ready_to_surrender # This makes them surrender instantly
+			}
+		}
+	}
+	option = {
+		name = fra_armistice.16.b #Play as Vichy France
+		custom_effect_tooltip = FRA_we_will_capitulate_tt
+		custom_effect_tooltip = FRA_play_as_vichy_tt
+		hidden_effect = {
+			set_country_flag = FRA_capitulation_tag_switch
+			FRA = {
+				add_ideas = ready_to_surrender # This makes them surrender instantly
+			}
+		}
+	}
+}
+
+country_event = { # 2nd Armistice of Compiègne. Historical set-up
+	id = fra_armistice.17
+	title = fra_armistice.17.t
+	desc = fra_armistice.17.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+	#TODO: loc & event pic
+
+	option = {
+		name = fra_armistice.17.a
+
+		hidden_effect = {
+			d_french_armistice_GER_setup = yes
+		}
+	}
+}
+country_event = { # 2nd Armistice of Compiègne. Communist set-up - To be done
+	id = fra_armistice.21
+	title = fra_armistice.21.t
+	desc = fra_armistice.21.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = fra_armistice.21.a
+
+		hidden_effect = {
+			d_french_armistice_GER_setup = yes
+		}
+	}
+}
+
+####################################################
+### Alternative Capitulation without the British ###
+####################################################
+#The British are not in the same faction as FRA/are a puppet/no longer exist.
+
+country_event = {
+	id = fra_armistice.40 # The French cabinet vote to ask Germany for the terms of an armistice. 1 day after the fall of Paris
+	# 2 things can occurr. The vote passes and France asks for an armistice or the vote doesn't pass and France continues to fight from North Africa.
+	# Event for FRA	
+	title = fra_armistice.40.t
+	desc = fra_armistice.40.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 2
+
+	option = {
+		name = fra_armistice.40.a
+		hidden_effect = {
+			random_list = {
+				50 = { #No armistice
+					country_event = {
+						id = fra_armistice.47
+						hours = 5
+					}
+					modifier = {
+						has_country_flag = FRA_sacked_weygand
+						add = 40
+					}
+				}
+				50 = { #Yes Armistice
+					country_event = {
+						id = fra_armistice.50
+						hours = 5
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Vote doesn't pass
+	id = fra_armistice.47
+	title = fra_armistice.47.t
+	desc = fra_armistice.47.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 2
+
+	option = {
+		name = fra_armistice.47.a
+		#TODO: France moves to North Africa
+	}
+}
+country_event = { #Gov moves to North Africa
+	id = fra_armistice.48
+	title = fra_armistice.48.t
+	desc = fra_armistice.48.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 2
+
+	option = {
+		name = fra_armistice.48.a
+	}
+}
+country_event = { #Event informing France's enemies that they moved to North Africa
+	id = fra_armistice.49
+	title = fra_armistice.49.t
+	desc = fra_armistice.49.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 2
+
+	option = {
+		name = fra_armistice.49.a
+	}
+}
+country_event = { #Vote passes
+	id = fra_armistice.50
+	title = fra_armistice.50.t
+	desc = fra_armistice.50.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 2
+
+	option = {
+		name = fra_armistice.50.a
+		hidden_effect = {
+			FRA = {
+				remove_ideas = FRA_retreat_to_the_south
+			}
+			GER = {
+				remove_ideas = GER_French_retreat
+				country_event = {
+					id = fra_armistice.41
+					days = 3
+					hours = 12
+				}
+			}
+			if = {
+				limit = {
+					ITA = { has_war_with = FRA }
+				}
+				country_event = {
+					id = fra_armistice.45
+					hours = 10
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Germany recieves word that the french want an armistice. As Britain is not in the war the OTL occupation will not happen as it was provisional until the UK capitulated.
+	# The Germans take the territory they want instead of occupying France entirely. It is a final peace treaty after all.
+	id = fra_armistice.41
+	title = fra_armistice.41.t
+	desc = fra_armistice.41.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	timeout_days = 4
+
+	option = { #Demand Alsace-Lorraine, Colonies + Nazi ambitions
+		name = fra_armistice.41.a
+		trigger = {
+			GER = {
+				has_government = fascism
+			}
+		}
+		hidden_effect = {
+			FRA = {
+				country_event = {
+					id = fra_armistice.42
+					hours = 3
+				}
+			}
+		}
+		effect_tooltip = {
+			GER = {
+				transfer_state = 836
+				transfer_state = 28
+				transfer_state = 17
+				transfer_state = 1178
+				transfer_state = 1164
+				transfer_state = 539
+				transfer_state = 1163
+				transfer_state = 660
+				transfer_state = 1165
+				transfer_state = 515
+				transfer_state = 794
+				transfer_state = 543
+				transfer_state = 708
+				#Morroco
+				transfer_state = 1209
+				transfer_state = 892
+				transfer_state = 1208
+				transfer_state = 1211
+				transfer_state = 1212
+				transfer_state = 462
+				transfer_state = 461
+				# annex_country = {
+				# 	target = MRC
+				# }
+			}
+		}
+		if = {
+			limit = {
+				GER = { has_war_with = BEL }
+				BEL = { has_capitulated = yes }
+			}
+			effect_tooltip = {
+				GER = {
+					transfer_state = 757
+					transfer_state = 758
+					annex_country = {
+						target = BEL
+					}
+				}
+			}
+		}
+	}
+
+	option = { #Demand Alsace-Lorraine and German Colonies
+		name = fra_armistice.41.b
+		trigger = {
+			GER = {
+				exists = yes
+				NOT = {
+					has_government = fascism
+					has_government = communism
+				}
+			}
+			DDR = {
+				exists = no
+			}
+		}
+		hidden_effect = {
+			FRA = {
+				country_event = {
+					id = fra_armistice.43
+					hours = 3
+				}
+			}
+		}
+
+		effect_tooltip = {
+			GER = {
+				transfer_state = 836
+				transfer_state = 28
+				transfer_state = 1164
+				transfer_state = 539
+				transfer_state = 1163
+				transfer_state = 660
+				transfer_state = 1165
+				transfer_state = 515
+				transfer_state = 794
+				transfer_state = 543
+				transfer_state = 708
+				#Morroco
+				transfer_state = 1209
+				transfer_state = 892
+				transfer_state = 1208
+				transfer_state = 1211
+				transfer_state = 1212
+				transfer_state = 462
+				transfer_state = 461
+				# annex_country = {
+				# 	target = MRC
+				# }
+			}
+		}
+	}
+
+	option = { #Demand Alsace-Lorraine only
+		name = fra_armistice.41.b
+		trigger = {
+			OR = {
+				GER = {
+					exists = yes
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+				DDR = {
+					exists = yes
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_government = socialism
+						has_government = social_democracy
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			FRA = {
+				country_event = {
+					id = fra_armistice.44
+					hours = 3
+				}
+			}
+		}
+
+		effect_tooltip = {
+			GER = {
+				transfer_state = 836
+				transfer_state = 28
+				puppet = FRA
+			}
+		}
+	}
+}
+country_event = { # German Terms. Nazi Version
+	id = fra_armistice.42
+	title = fra_armistice.42.t
+	desc = fra_armistice.42.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	timeout_days = 4
+
+	option = {
+		name = fra_armistice.42.a
+		GER = {
+			transfer_state = 836
+			transfer_state = 28
+			transfer_state = 17
+			transfer_state = 1178
+			transfer_state = 1164
+			transfer_state = 539
+			transfer_state = 1163
+			transfer_state = 660
+			transfer_state = 1165
+			transfer_state = 515
+			transfer_state = 794
+			transfer_state = 543
+			transfer_state = 708
+			#Morroco
+			transfer_state = 1209
+			transfer_state = 892
+			transfer_state = 1208
+			transfer_state = 1211
+			transfer_state = 1212
+			transfer_state = 462
+			transfer_state = 461
+			# annex_country = {
+			# 	target = MRC
+			# }
+		}
+		if = {
+			limit = {
+				GER = { has_war_with = BEL }
+				BEL = { has_capitulated = yes }
+			}
+			GER = {
+				transfer_state = 757
+				transfer_state = 758
+				annex_country = {
+					target = BEL
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				OR = {
+					tag = GER
+					tag = DDR
+					is_in_faction_with = GER
+					is_in_faction_with = DDR
+				}
+				has_war_with = FRA
+				NOT = { tag = ITA }
+			}
+			white_peace = {
+				tag = FRA
+			}
+		}
+
+		hidden_effect = {
+			GRM = {
+				country_event = { #1940 Field Marshal Ceremony
+					id = ger_internal.94
+					days = 27 #Days between 22 of June and 19 of July
+				}
+			}
+		}
+	}
+}
+country_event = { # German Terms. Alsace and colonies
+	id = fra_armistice.43
+	title = fra_armistice.43.t
+	desc = fra_armistice.43.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	timeout_days = 4
+
+	option = {
+		name = fra_armistice.43.a
+		GER = {
+			transfer_state = 836
+			transfer_state = 28
+			transfer_state = 1164
+			transfer_state = 539
+			transfer_state = 1163
+			transfer_state = 660
+			transfer_state = 1165
+			transfer_state = 515
+			transfer_state = 794
+			transfer_state = 543
+			transfer_state = 708
+			#Morroco
+			transfer_state = 1209
+			transfer_state = 892
+			transfer_state = 1208
+			transfer_state = 1211
+			transfer_state = 1212
+			transfer_state = 462
+			transfer_state = 461
+			# annex_country = {
+			# 	target = MRC
+			# }
+		}
+		every_country = {
+			limit = {
+				OR = {
+					tag = GER
+					tag = DDR
+					is_in_faction_with = GER
+					is_in_faction_with = DDR
+				}
+				has_war_with = FRA
+				NOT = { tag = ITA }
+			}
+			white_peace = {
+				tag = FRA
+			}
+		}
+	}
+}
+country_event = { # German Terms. Alsace only
+	id = fra_armistice.44
+	title = fra_armistice.44.t
+	desc = fra_armistice.44.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	timeout_days = 4
+
+	option = {
+		name = fra_armistice.44.a
+		every_country = {
+			limit = {
+				OR = {
+					tag = GER
+					tag = DDR
+					is_in_faction_with = GER
+					is_in_faction_with = DDR
+				}
+				has_war_with = FRA
+				NOT = { tag = ITA }
+			}
+			white_peace = {
+				tag = FRA
+			}
+		}
+		GER = {
+			transfer_state = 836
+			transfer_state = 28
+			puppet = FRA
+		}
+	}
+}
+
+country_event = { #Armistice Italy. (Only if Italy is at war with FRA)
+	id = fra_armistice.45
+	title = fra_armistice.45.t
+	desc = fra_armistice.45.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	timeout_days = 5
+
+	option = {
+		name = fra_armistice.45.a
+		hidden_effect = {
+			FRA = {
+				country_event = {
+					id = fra_armistice.46
+					hours = 4
+				}
+			}
+		}
+		effect_tooltip = {
+			ITA = {
+				transfer_state = 1196
+				transfer_state = 1028
+				transfer_state = 735
+				transfer_state = 1
+				transfer_state = 460
+				transfer_state = 268
+				#Tunis
+				transfer_state = 665
+				transfer_state = 458
+				# annex_country = {
+				# 	target = TNS
+				# }
+			}
+		}
+	}
+}
+country_event = { #Italian Armistice. For Fra
+	id = fra_armistice.46
+	title = fra_armistice.46.t
+	desc = fra_armistice.46.desc
+	picture = GFX_Event_Germany_Germans_in_Paris
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	timeout_days = 2
+
+	option = {
+		name = fra_armistice.46.a
+		ITA = {
+			transfer_state = 1196
+			transfer_state = 1028
+			transfer_state = 735
+			transfer_state = 1
+			transfer_state = 460
+			transfer_state = 268
+			#Tunis
+			transfer_state = 665
+			transfer_state = 458
+		}
+		every_country = {
+			limit = {
+				OR = {
+					tag = ITA
+					AND = {
+						is_in_faction_with = ITA
+						has_war_with = FRA
+						NOT = { is_in_faction_with = GER }
+					}
+				}
+			}
+			white_peace = {
+				tag = FRA
+			}
+		}
+	}
+}
+
+# country_event = { # Capitulation of France
+# 	id = france.400
+# 	title = france.400.t
+# 	desc = {
+# 		text = france.400.d
+# 		trigger = {
+# 			GER = {
+# 				has_country_flag = GER_hitler_in_power
+# 			}
+# 		}
+# 	}
+# 	desc = {
+# 		text = france.400.dn
+# 		trigger = {
+# 			GER = {
+# 				NOT = { has_country_flag = GER_hitler_in_power }
+# 			}
+# 		}
+# 	}
+# 	picture = GFX_Event_Germany_Germans_in_Paris
+	
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+	
+
+# 	#option = {
+# 	#	name = france.400.a # Vichy Time
+# 	#	trigger = { is_ai = no }
+# 	#}
+
+# 	option = {
+# 		name = france.400.b # Free French Time
+# 		trigger = {
+# 			GER = {
+# 				has_country_flag = GER_hitler_in_power
+# 			}
+# 		}
+# 		ai_chance = {
+# 			base = 50
+# 		}
+# 		#custom_effect_tooltip = france.400.b_tt
+# 		GER = { country_event = france.401 }
+# 	}
+
+# 	option = { # peace with the kaiser
+# 		name = france.400.c
+# 		trigger = {
+# 			GER = {
+# 				NOT = { has_country_flag = GER_hitler_in_power }
+# 			}
+# 		}
+# 		ai_chance = {
+# 			base = 50
+# 		}
+# 		add_stability = -0.05
+# 		GER = { country_event = france.401 }
+# 	}
+# }
+
+# country_event = {
+# 	id = france.401
+# 	title = france.401.t
+# 	desc = {
+# 		text = france.401.d
+# 		trigger = {
+# 			has_country_flag = GER_hitler_in_power
+# 		}
+# 	}
+# 	desc = {
+# 		text = france.401.eng
+# 		trigger = {
+# 			NOT = { has_country_flag = GER_hitler_in_power }
+# 			FRA = {
+# 				is_in_faction_with = ENG
+# 			}
+# 		}
+# 	}
+# 	desc = {
+# 		text = france.401.dn
+# 	}
+# 	picture = GFX_Event_Germany_France_French_Ambassador_and_German_Marshal
+	
+# 	is_triggered_only = yes
+
+# 	immediate = {
+# 		hidden_effect = {
+# 			set_victory_points = {
+# 				province = 9737
+# 				value = 30
+# 			}
+# 		}
+# 	}
+	
+# 	option = { # Hitler Edition
+# 		name = france.401.a
+# 		ai_chance = {
+# 			factor = 70
+# 		}
+# 		trigger = {
+# 			has_country_flag = GER_hitler_in_power
+# 		}
+# 		set_global_flag = FRA_has_fallen
+		
+# 		FRA = {
+# 			set_cosmetic_tag = FRA_FREE
+# 			if = {
+# 				limit = {
+# 					capital_scope = {
+# 						NOT = {
+# 							state = 16
+# 							state = 1163
+# 						}
+# 					}
+# 					controls_state = 1163
+# 				}
+# 				set_capital = {
+# 					state = 1163
+# 				} # Historical Capital at the beginig of free France
+# 			}
+# 			country_event = { # De Gaulle
+# 				id = france.403
+# 				hours = 4
+# 			}
+# 		}
+
+# 		#TODO: 
+# 		#GER = {
+# 		#	puppet = VIC
+# 		#}
+
+# 		custom_effect_tooltip = establishing_vichy_tt
+# 		hidden_effect = {
+# 			VIC = {
+# 				#Main Land France
+# 				every_state = {
+# 					limit = {
+# 						OR = {
+# 							state = 735
+# 							state = 21
+# 							state = 32
+# 							state = 20
+# 							state = 26
+# 							state = 22
+# 							state = 31
+# 							state = 25
+# 							state = 33
+# 							state = 1
+# 							state = 1028
+# 							state = 1196
+# 						}
+# 						CONTROLLER = {
+# 							OR = {
+# 								original_tag = FRA
+# 								has_war_with = FRA
+# 							}
+# 						}
+# 					}
+# 					add_core_of = PREV
+# 					VIC = { transfer_state = PREV }
+# 				}
+
+# 				1028 = { set_demilitarized_zone = yes }
+# 				1196 = { set_demilitarized_zone = yes }
+# 				735 = { set_demilitarized_zone = yes }
+
+# 				#Colonial France
+# 				every_state = {
+# 					limit = {
+# 						is_owned_by = FRA
+# 						OR = {
+# 							is_on_continent = africa
+# 							is_on_continent = asia
+# 							is_on_continent = south_america
+# 							is_on_continent = australia
+# 						}
+# 						NOT = {
+# 							OR = {
+# 								state = 635
+# 								state = 728
+# 								state = 320
+# 								state = 641
+# 							}
+# 						}
+# 					}
+# 					VIC = { transfer_state = PREV }
+# 				}
+
+# 				if = {
+# 					limit = {
+# 						has_country_flag = FRA_Agreement_South_Africa
+# 					}
+# 					FRA = {
+# 						transfer_state = 543
+# 					}
+# 				}
+# 				else = {
+# 					VIC = {
+# 						transfer_state = 543
+# 					}
+# 				}
+
+# 				set_victory_points = {
+# 					province = 3594
+# 					value = 13
+# 				}
+# 				set_capital = {
+# 					state = 26
+# 				} # Vichy
+
+# 				FRA_philippe_petain = {
+# 					add_country_leader_role = {
+# 						promote_leader = yes
+# 						country_leader={
+# 							ideology=nationalist
+# 							expire="1965.1.1.1"
+# 							desc = "POLITICS_PHILIPPE_PÉTAIN_DESC"
+# 							id=-1
+# 							traits = {
+# 								#TODO:give unique trait
+# 							}
+# 						}
+# 					}
+# 				}
+
+# 				set_politics = {
+# 					ruling_party = nationalism
+# 					last_election = "1936.1.1"
+# 					election_frequency = 48
+# 					elections_allowed = no
+# 				}
+# 				set_popularities = {
+# 					communism = 5
+# 					authoritarian_socialism = 0
+# 					socialism = 5
+# 					social_democracy = 5
+# 					social_liberalism = 5
+# 					market_liberalism = 5
+# 					jacobin = 5
+# 					democratic = 20
+# 					neutrality = 15
+# 					monarchism = 5
+# 					nationalism = 20
+# 					fascism = 10
+# 				}
+
+# 				set_autonomy = {
+# 					target = MRC
+# 					autonomy_state = autonomy_protectorate
+# 				}
+# 				set_autonomy = {
+# 					target = TNS
+# 					autonomy_state = autonomy_protectorate
+# 				}
+# 				set_autonomy = {
+# 					target = SYR
+# 					autonomy_state = autonomy_colony
+# 				}
+# 				set_autonomy = {
+# 					target = LEB
+# 					autonomy_state = autonomy_colony
+# 				}
+# 				set_autonomy = {
+# 					target = VIN
+# 					autonomy_state = autonomy_colony
+# 				}
+
+# 				MRC = {
+# 					drop_cosmetic_tag = yes
+# 					set_cosmetic_tag = MRC_VIC
+# 					set_politics = {
+# 						ruling_party = monarchism
+# 						last_election = "1933.1.1"
+# 						election_frequency = 48
+# 						elections_allowed = no
+# 					}
+# 					set_popularities = {
+# 						communism = 5
+# 						authoritarian_socialism = 12
+# 						socialism = 0
+# 						social_democracy = 0
+# 						social_liberalism = 0
+# 						market_liberalism = 0
+# 						jacobin = 4
+# 						democratic = 8
+# 						neutrality = 0
+# 						monarchism = 40
+# 						nationalism = 15
+# 						fascism = 16
+# 					}
+# 				}
+
+# 				TNS = {
+# 					drop_cosmetic_tag = yes
+# 					set_cosmetic_tag = TNS_VIC
+# 					set_politics = {
+# 						ruling_party = monarchism
+# 						last_election = "1933.1.1"
+# 						election_frequency = 48
+# 						elections_allowed = no
+# 					}
+# 					set_popularities = {
+# 						communism = 16
+# 						authoritarian_socialism = 0
+# 						socialism = 5
+# 						social_democracy = 3
+# 						social_liberalism = 1
+# 						market_liberalism = 0
+# 						jacobin = 12
+# 						democratic = 3
+# 						neutrality = 5
+# 						monarchism = 39
+# 						nationalism = 16
+# 						fascism = 0
+# 					}
+# 				}
+
+# 				SYR = {
+# 					drop_cosmetic_tag = yes
+# 					set_cosmetic_tag = SYR_VIC
+# 					set_politics = {
+# 						ruling_party = neutrality
+# 						last_election = "1936.1.1"
+# 						election_frequency = 48
+# 						elections_allowed = no
+# 					}
+# 					set_popularities = {
+# 						communism = 0
+# 						authoritarian_socialism = 0
+# 						socialism = 0
+# 						social_democracy = 9
+# 						social_liberalism = 9
+# 						market_liberalism = 9
+# 						jacobin = 9
+# 						democratic = 9
+# 						neutrality = 40
+# 						monarchism = 10
+# 						nationalism = 2
+# 						fascism = 3
+# 					}
+# 				}
+
+# 				LEB = {
+# 					drop_cosmetic_tag = yes
+# 					set_cosmetic_tag = LEB_VIC
+# 					set_politics = {
+# 						ruling_party = neutrality
+# 						last_election = "1936.1.1"
+# 						election_frequency = 48
+# 						elections_allowed = no
+# 					}
+# 					set_popularities = {
+# 						communism = 1
+# 						authoritarian_socialism = 1
+# 						socialism = 1
+# 						social_democracy = 4
+# 						social_liberalism = 4
+# 						market_liberalism = 4
+# 						jacobin = 4
+# 						democratic = 4
+# 						neutrality = 69
+# 						monarchism = 1
+# 						nationalism = 5
+# 						fascism = 2
+# 					}
+# 				}
+
+# 				VIN = {
+# 					drop_cosmetic_tag = yes
+# 					set_cosmetic_tag = VIN_VIC
+# 					set_politics = {
+# 						ruling_party = monarchism
+# 						last_election = "1933.2.16"
+# 						election_frequency = 36
+# 						elections_allowed = no
+# 					}
+# 					set_popularities = {
+# 						communism = 15
+# 						authoritarian_socialism = 1
+# 						socialism = 1
+# 						social_democracy = 3
+# 						social_liberalism = 1
+# 						market_liberalism = 1
+# 						jacobin = 1
+# 						democratic = 1
+# 						neutrality = 8
+# 						monarchism = 64
+# 						nationalism = 4
+# 						fascism = 0
+# 					}
+# 				}
+
+# 				inherit_technology = FRA
+
+# 				#TODO:
+# 				FRA = {
+# 					transfer_units_fraction = {
+# 						target = VIC
+# 						size = 0.9
+# 						stockpile_ratio = 0.7
+# 						army_ratio = 0.5
+# 						navy_ratio = 0.85
+# 						air_ratio = 1.0
+# 					}
+# 					every_unit_leader = {
+# 						limit = {
+# 							OR = {
+# 								has_trait = career_officer
+# 								has_id = 101
+# 							}
+# 						}
+# 						retire = yes
+# 					}
+# 					every_unit_leader = {
+# 						limit = {
+# 							OR = {
+# 								has_trait = old_guard
+# 								has_trait = old_guard_navy
+# 								has_id = 102 #Darlan
+# 							}
+# 						}
+# 						set_nationality = VIC
+# 					}
+# 				}
+
+
+# 				#if = {
+# 				#	limit = { FRA = { has_country_flag = player_vichy } }
+# 				#	change_tag_from = FRA
+# 				#}
+# 			}
+# 		}
+# 	}
+
+# 	option = { # Accept - Kaiser DNVP Edition
+# 		name = france.401.b
+# 		ai_chance = {
+# 			base = 70
+# 		}
+# 		trigger = {
+# 			NOT = { has_country_flag = GER_hitler_in_power }
+# 		}
+		
+# 		if = { # Alsace
+# 			limit = {
+# 				28 = { is_owned_by = FRA }
+# 			}
+# 			transfer_state = 28
+# 		}
+# 		if = { # Metz
+# 			limit = {
+# 				836 = { is_owned_by = FRA }
+# 			}
+# 			transfer_state = 836
+# 		}
+# 		if = { # Saarland - Just in case
+# 			limit = {
+# 				809 = { is_owned_by = FRA }
+# 			}
+# 			transfer_state = 809
+# 		}
+
+# 		set_truce = {
+# 			target = FRA
+# 			days = 730
+# 		}
+# 		hidden_effect = {
+# 			FRA = {
+# 				white_peace = {
+# 					tag = GER
+# 					message = FRA_DNVP_PEACE
+# 				}
+# 			}
+# 		}
+# 	}
+
+# 	option = { # Conquer everything!
+# 		name = france.401.c
+# 		ai_chance = { 
+# 			base = 10
+# 			modifier = {
+# 				is_historical_focus_on = yes
+# 				factor = 0
+# 			}
+# 			modifier = {
+# 				has_country_flag = GER_hitler_in_power
+# 				FRA = { is_ai = no }
+# 				factor = 0
+# 			}
+# 		}
+# 		FRA = {
+# 			country_event = { hours = 6 id = france.402 }
+# 		}
+# 	}
+# }
+
+# country_event = { # Rejected Peace
+# 	id = france.402
+# 	title = france.402.t
+# 	desc = france.402.d
+# 	picture = GFX_Event_War_Enthusiasm
+	
+# 	is_triggered_only = yes
+
+# 	option = { # Dang it
+# 		name = france.402.a
+# 	}
+# }
+
+country_event = { # De Gaulle
+	id = france.403
+	title = france.403.t
+	desc = france.403.d
+	picture = GFX_event_De_Gaulle_Radio
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = france.403.a # De Gaulle
+		custom_effect_tooltip = FRA_leader_de_gaulle_tt
+		set_party_name = {
+			ideology = democratic
+			name = "EDC"
+			long_name = "Empire Defense Council"
+		}
+		set_party_name = {
+			ideology = jacobin
+			name = "EDC"
+			long_name = "Empire Defense Council"
+		}
+		set_party_name = {
+			ideology = neutrality
+			name = "EDC"
+			long_name = "Empire Defense Council"
+		}
+		set_party_name = {
+			ideology = market_liberalism
+			name = "EDC"
+			long_name = "Empire Defense Council"
+		}
+
+	
+		# promote_character = {
+		# 	character = FRA_charles_de_gaulle
+		# 	ideology = conservatism
+		# }
+		# promote_character = {
+		# 	character = FRA_charles_de_gaulle
+		# 	ideology = liberal_nationalism
+		# }
+		# promote_character = {
+		# 	character = FRA_charles_de_gaulle
+		# 	ideology = market_liberal
+		# }
+		# promote_character = {
+		# 	character = FRA_charles_de_gaulle
+		# 	ideology = military
+		# }
+		# promote_character = {
+		# 	character = FRA_charles_de_gaulle
+		# 	ideology = french_radicalism
+		# }
+		# promote_character = {
+		# 	character = FRA_charles_de_gaulle
+		# 	ideology = french_neosocialism
+		# }
+		COALITION_POP_NUMBER = yes
+		COALITION_add_aut = yes
+		COALITION_add_cen = yes
+	}
+}
+
+country_event = { # Mobilisation Generale
+	id = france.404
+	title = france.404.t
+	desc = france.404.d
+	picture = GFX_Event_France_Mobilisation_Generale
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			SYR = {
+				country_event = {
+					id = fra_army.3
+					days = 7
+				}
+			}
+		}
+	}
+
+	option = {
+		name = france.404.a
+		add_ideas = all_adults_serve
+		add_timed_idea = {
+			idea = FRA_mobilisation_generale_idea
+			days = 63
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					FRA = { has_idea = FRA_The_Great_War }
+				}
+				FRA = { remove_ideas = FRA_The_Great_War }
+			}
+			add_political_power = 50
+			add_stability = 0.05
+		}
+	}
+}
+
+#### Parliament ####
+# Random Events
+
+country_event = { # MP defends law
+	id = france_parliament.1
+	title = parliament.201.t
+	desc = parliament.201.d
+	picture = GFX_event_France_ChambreDeputes
+
+	mean_time_to_happen = { days = 255 }
+	trigger = {
+		tag = FRA
+		has_country_flag = law_passing
+		NOT = {
+			has_country_flag = parliament_closed
+			has_country_flag = opposition_neg
+		}
+	}
+
+	option = {
+		name = parliament.201.a
+		add_political_power = 25
+	}
+}
+
+country_event = { # Opposition argues against law
+	id = france_parliament.2
+	title = parliament.200.t
+	desc = france_parliament.2.d
+	picture = GFX_event_generic_accusation
+
+	mean_time_to_happen = { days = 255 }
+	trigger = {
+		tag = FRA
+		has_country_flag = law_passing
+		NOT = {
+			has_country_flag = parliament_closed
+			has_country_flag = opposition_neg
+		}
+	}
+
+	option = {
+		name = france_parliament.2.a
+		add_political_power = -25
+	}
+}
+
+country_event = { # Division within party
+	id = france_parliament.3
+	title = parliament.203.t
+	desc = parliament.203.d
+	picture = GFX_event_France_ChambreDeputes
+
+	mean_time_to_happen = { days = 450 }
+	trigger = {
+	    tag = FRA
+		has_country_flag = law_passing
+		NOT = {
+			has_country_flag = opposition_neg
+			has_country_flag = parliament_closed
+		}
+	}
+
+	option = {
+		name = parliament.203.a
+		set_temp_variable = { tempchange_seat = -15 }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+}
+
+# Moderate Deputies join our bloc
+country_event = {
+	id = france_parliament.4
+	title = parliament.202.t
+	desc = parliament.202.d
+	picture = GFX_event_Parliament_coalition_support
+
+	mean_time_to_happen = { days = 300 }
+	trigger = {
+	    tag = FRA
+		has_country_flag = law_passing
+		NOT = {
+			has_country_flag = opposition_neg
+			has_country_flag = parliament_closed
+		}
+	}
+	
+	option = {
+		name = parliament.202.a
+		set_temp_variable = { tempchange_seat = 15 }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+}
+
+# Specific Events
+country_event = { # Parliament Defeat
+	id = france_parliament.50
+	title = parliament.1.t
+	desc = parliament.1.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = parliament.1.a
+		add_political_power = -30
+		if = {
+			limit = {
+				has_country_flag = popular_front_in_power
+			}
+			set_temp_variable = { tempchange = -0.10 }
+			FRA_coalition_stability_change = yes
+		}
+	}
+}
+country_event = { # Parliament Victory
+	id = france_parliament.51
+	title = parliament.100.t
+	desc = parliament.100.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = parliament.100.a
+		custom_effect_tooltip = pass_other_tool
+	}
+}
+
+country_event = { # Gamelin protests Army reform
+	id = france_parliament.101
+	title = france_parliament.101.t
+	desc = france_parliament.101.d
+	picture = GFX_Event_Germany_France_Maurice_Gamelin
+ 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = france_parliament.101.a
+		add_political_power = -25
+		set_temp_variable = { tempchange_seat = -45 }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+}
+
+country_event = { # Hype Train Reform
+	id = france_parliament.102
+	title = france_parliament.102.t
+	desc = france_parliament.102.d
+	picture = GFX_event_Parliament_coalition_support
+ 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = france_parliament.102.a
+		set_temp_variable = { tempchange_seat = socdem_seats }
+		add_to_temp_variable = { tempchange_seat = soclib_seats }
+		add_to_temp_variable = { tempchange_seat = centre_seats }
+		add_to_temp_variable = { tempchange_seat = cons_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+}
+
+country_event = { # Maybe not that good of an idea
+	id = france_parliament.103
+	title = france_parliament.103.t
+	desc = france_parliament.103.d
+	picture = GFX_event_France_ChambreDeputes
+ 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # Abandon the iniciative
+		name = france_parliament.103.a
+		ai_chance = {
+			base = 5
+		}
+		add_political_power = -100
+		set_temp_variable = { temp = supseat }
+		multiply_temp_variable = { temp = 2 }
+		set_temp_variable = { tempchange_seat = supseat }
+		subtract_from_temp_variable = { tempchange_seat = temp }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+		set_country_flag = FRA_failed_reform_state
+		FRA_parliament_clr_effects = yes
+	}
+
+	option = { # Continue
+		name = france_parliament.103.b
+		add_stability = -0.1
+		ai_chance = {
+			base = 3
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		set_temp_variable = { temp = socdem_seats }
+		add_to_temp_variable = { temp = centre_seats }
+		add_to_temp_variable = { temp = cons_seats }
+		set_temp_variable = { tempchange_seat = temp }
+		multiply_temp_variable = { temp = 2 }
+		subtract_from_temp_variable = { tempchange_seat = temp }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+		clr_country_flag = no_neg_socdem
+		clr_country_flag = no_neg_centre
+		clr_country_flag = no_neg_cons
+		clr_country_flag = no_neg_agra
+		clr_country_flag = no_neg_rad
+		clr_country_flag = no_neg_indsoc
+	}
+}
+
+country_event = { # Accusation, Radicals leave
+	id = france_parliament.104
+	title = france_parliament.104.t
+	desc = france_parliament.104.d
+	picture = GFX_event_generic_accusation
+ 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = france_parliament.104.a
+		set_temp_variable = { temp = soclib_seats }
+		multiply_temp_variable = { temp = 2 }
+		set_temp_variable = { tempchange_seat = soclib_seats }
+		subtract_from_temp_variable = { tempchange_seat = temp }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+		country_event = {
+			id = france_parliament.103
+			days = 2
+		}
+	}
+}
+
+### Necessary events ###
+## Senate ##
+country_event = { # Senate Yes
+	id = france_parliament.201
+	title = france_parliament.201.t
+	desc = france_parliament.201.d
+	picture = GFX_event_Parliament_coalition_support
+ 
+	is_triggered_only = yes
+
+	immediate = {
+		set_country_flag = senate_yes
+	}
+
+	option = {
+		name = france_parliament.201.a
+		add_political_power = 20
+	}
+}
+
+country_event = { # Senate No
+	id = france_parliament.202
+	title = france_parliament.202.t
+	desc = france_parliament.202.d
+	picture = GFX_event_Parliament_debate
+ 
+	is_triggered_only = yes
+
+	immediate = {
+		set_country_flag = senate_no
+	}
+
+	option = {
+		name = france_parliament.202.a
+		custom_effect_tooltip = FRA_senate_veto_tt
+	}
+}
+
+## Negotiation ##
+country_event = { # Generic Communist Neg
+	id = france_parliament.210
+	title = france_parliament.210.t
+	desc = france_parliament.210.d
+	picture = GFX_event_generic_diplomacy
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.7.a
+		if = {
+			limit = {
+				check_variable = { communist_seats < 25 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+			}
+			else = {
+				add_political_power = -15
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { communist_seats < 50 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -22.5
+			}
+			else = {
+				add_political_power = -30
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { communist_seats < 75 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -33.75
+			}
+			else = {
+				add_political_power = -40
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { communist_seats < 100 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -37.5
+			}
+			else = {
+				add_political_power = -50
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { communist_seats < 125 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -45
+			}
+			else = {
+				add_political_power = -60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { communist_seats < 150 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -52.5
+			}
+			else = {
+				add_political_power = -70
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -60
+			}
+			else = {
+				add_political_power = -80
+			}
+		}
+		set_temp_variable = { tempchange_seat = communist_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+		custom_effect_tooltip = promised_idea_tt
+		show_ideas_tooltip = FRA_temp_worker_condition_commune_edition
+		set_country_flag = yes_neg_communist
+	}
+	
+	option = {
+		name = parliament.7.b
+	}
+}
+
+country_event = { # Generic Socialist Neg
+	id = france_parliament.211
+	title = france_parliament.211.t
+	desc = france_parliament.211.d
+	picture = GFX_event_generic_diplomacy
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.7.a
+		if = {
+			limit = {
+				check_variable = { demsoc_seats < 25 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+			}
+			else = {
+				add_political_power = -15
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { demsoc_seats < 50 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -22.5
+			}
+			else = {
+				add_political_power = -30
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { demsoc_seats < 75 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -33.75
+			}
+			else = {
+				add_political_power = -40
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { demsoc_seats < 100 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -37.5
+			}
+			else = {
+				add_political_power = -50
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { demsoc_seats < 125 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -45
+			}
+			else = {
+				add_political_power = -60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { demsoc_seats < 150 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -52.5
+			}
+			else = {
+				add_political_power = -70
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -60
+			}
+			else = {
+				add_political_power = -80
+			}
+		}
+		set_temp_variable = { tempchange_seat = demsoc_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+		custom_effect_tooltip = promised_idea_tt
+		show_ideas_tooltip = FRA_temp_worker_condition
+		set_country_flag = yes_neg_demsoc
+	}
+	
+	option = {
+		name = parliament.7.b
+	}
+}
+
+country_event = { # Generic Social Dem Neg
+	id = france_parliament.212
+	title = france_parliament.212.t
+	desc = france_parliament.212.d
+	picture = GFX_event_generic_diplomacy
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.7.a
+		if = {
+			limit = {
+				check_variable = { socdem_seats < 25 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+			}
+			else = {
+				add_political_power = -15
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { socdem_seats < 50 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -22.5
+			}
+			else = {
+				add_political_power = -30
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { socdem_seats < 75 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -33.75
+			}
+			else = {
+				add_political_power = -40
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { socdem_seats < 100 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -37.5
+			}
+			else = {
+				add_political_power = -50
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { socdem_seats < 125 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -45
+			}
+			else = {
+				add_political_power = -60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { socdem_seats < 150 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -52.5
+			}
+			else = {
+				add_political_power = -70
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -60
+			}
+			else = {
+				add_political_power = -80
+			}
+		}
+		set_temp_variable = { tempchange_seat = socdem_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+		custom_effect_tooltip = promised_idea_tt
+		show_ideas_tooltip = FRA_temp_public_spending
+		set_country_flag = yes_neg_socdem
+	}
+	
+	option = {
+		name = parliament.7.b
+	}
+}
+
+country_event = { # Generic Radicals Neg
+	id = france_parliament.213
+	title = france_parliament.213.t
+	desc = france_parliament.213.d
+	picture = GFX_event_generic_diplomacy
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.7.a
+		if = {
+			limit = {
+				check_variable = { soclib_seats < 25 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+			}
+			else = {
+				add_political_power = -15
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { soclib_seats < 50 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -22.5
+			}
+			else = {
+				add_political_power = -30
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { soclib_seats < 75 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -33.75
+			}
+			else = {
+				add_political_power = -40
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { soclib_seats < 100 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -37.5
+			}
+			else = {
+				add_political_power = -50
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { soclib_seats < 125 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -45
+			}
+			else = {
+				add_political_power = -60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { soclib_seats < 150 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -52.5
+			}
+			else = {
+				add_political_power = -70
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -60
+			}
+			else = {
+				add_political_power = -80
+			}
+		}
+		set_temp_variable = { tempchange_seat = soclib_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+		custom_effect_tooltip = promised_idea_tt
+		show_ideas_tooltip = FRA_temp_gov_help
+		set_country_flag = yes_neg_soclib
+	}
+	
+	option = {
+		name = parliament.7.b
+	}
+}
+
+country_event = { # Generic AD Neg
+	id = france_parliament.214
+	title = france_parliament.214.t
+	desc = france_parliament.214.d
+	picture = GFX_event_generic_diplomacy
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.7.a
+		if = {
+			limit = {
+				check_variable = { marlib_seats < 25 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+			}
+			else = {
+				add_political_power = -15
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { marlib_seats < 50 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -22.5
+			}
+			else = {
+				add_political_power = -30
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { marlib_seats < 75 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -33.75
+			}
+			else = {
+				add_political_power = -40
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { marlib_seats < 100 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -37.5
+			}
+			else = {
+				add_political_power = -50
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { marlib_seats < 125 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -45
+			}
+			else = {
+				add_political_power = -60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { marlib_seats < 150 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -52.5
+			}
+			else = {
+				add_political_power = -70
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -60
+			}
+			else = {
+				add_political_power = -80
+			}
+		}
+		set_temp_variable = { tempchange_seat = marlib_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+		show_ideas_tooltip = FRA_temp_open_market
+		set_country_flag = yes_neg_marlib
+	}
+	
+	option = {
+		name = parliament.7.b
+	}
+}
+
+country_event = { # Generic Centre Neg
+	id = france_parliament.215
+	title = france_parliament.215.t
+	desc = france_parliament.215.d
+	picture = GFX_event_generic_diplomacy
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.7.a
+		if = {
+			limit = {
+				check_variable = { centre_seats < 25 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+			}
+			else = {
+				add_political_power = -15
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { centre_seats < 50 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -22.5
+			}
+			else = {
+				add_political_power = -30
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { centre_seats < 75 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -33.75
+			}
+			else = {
+				add_political_power = -40
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { centre_seats < 100 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -37.5
+			}
+			else = {
+				add_political_power = -50
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { centre_seats < 125 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -45
+			}
+			else = {
+				add_political_power = -60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { centre_seats < 150 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -52.5
+			}
+			else = {
+				add_political_power = -70
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -60
+			}
+			else = {
+				add_political_power = -80
+			}
+		}
+		set_temp_variable = { tempchange_seat = centre_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+		custom_effect_tooltip = promised_idea_tt
+		show_ideas_tooltip = FRA_temp_tax_cuts
+		set_country_flag = yes_neg_centre
+	}
+	
+	option = {
+		name = parliament.7.b
+	}
+}
+
+country_event = { # Generic Conservative Neg
+	id = france_parliament.216
+	title = france_parliament.216.t
+	desc = france_parliament.216.d
+	picture = GFX_event_generic_diplomacy
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.7.a
+		if = {
+			limit = {
+				check_variable = { cons_seats < 25 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+			}
+			else = {
+				add_political_power = -15
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { cons_seats < 50 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -22.5
+			}
+			else = {
+				add_political_power = -30
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { cons_seats < 75 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -33.75
+			}
+			else = {
+				add_political_power = -40
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { cons_seats < 100 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -37.5
+			}
+			else = {
+				add_political_power = -50
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { cons_seats < 125 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -45
+			}
+			else = {
+				add_political_power = -60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { cons_seats < 150 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -52.5
+			}
+			else = {
+				add_political_power = -70
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -60
+			}
+			else = {
+				add_political_power = -80
+			}
+		}
+		set_temp_variable = { tempchange_seat = cons_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+		custom_effect_tooltip = promised_idea_tt
+		show_ideas_tooltip = FRA_temp_protectionism
+		set_country_flag = yes_neg_cons
+	}
+	
+	option = {
+		name = parliament.7.b
+	}
+}
+
+country_event = { # Generic Agrarians Neg
+	id = france_parliament.217
+	title = france_parliament.217.t
+	desc = france_parliament.217.d
+	picture = GFX_event_generic_diplomacy
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.7.a
+		if = {
+			limit = {
+				check_variable = { agra_seats < 25 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+			}
+			else = {
+				add_political_power = -15
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { agra_seats < 50 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -22.5
+			}
+			else = {
+				add_political_power = -30
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { agra_seats < 75 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -33.75
+			}
+			else = {
+				add_political_power = -40
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { agra_seats < 100 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -37.5
+			}
+			else = {
+				add_political_power = -50
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { agra_seats < 125 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -45
+			}
+			else = {
+				add_political_power = -60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { agra_seats < 150 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -52.5
+			}
+			else = {
+				add_political_power = -70
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -60
+			}
+			else = {
+				add_political_power = -80
+			}
+		}
+		set_temp_variable = { tempchange_seat = agra_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+	
+	option = {
+		name = parliament.7.b
+	}
+}
+
+country_event = { # Right Radicals
+	id = france_parliament.218
+	title = france_parliament.218.t
+	desc = france_parliament.218.d
+	picture = GFX_event_generic_diplomacy
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.7.a
+		if = {
+			limit = {
+				check_variable = { rad_seats < 25 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+			}
+			else = {
+				add_political_power = -15
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { rad_seats < 50 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -22.5
+			}
+			else = {
+				add_political_power = -30
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { rad_seats < 75 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -33.75
+			}
+			else = {
+				add_political_power = -40
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { rad_seats < 100 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -37.5
+			}
+			else = {
+				add_political_power = -50
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { rad_seats < 125 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -45
+			}
+			else = {
+				add_political_power = -60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { rad_seats < 150 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -52.5
+			}
+			else = {
+				add_political_power = -70
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -60
+			}
+			else = {
+				add_political_power = -80
+			}
+		}
+		set_temp_variable = { tempchange_seat = rad_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+	
+	option = {
+		name = parliament.7.b
+	}
+}
+
+country_event = { # Generic IndSoc Neg
+	id = france_parliament.219
+	title = france_parliament.219.t
+	desc = france_parliament.219.d
+	picture = GFX_event_generic_diplomacy
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.7.a
+		if = {
+			limit = {
+				check_variable = { indsoc_seats < 25 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+			}
+			else = {
+				add_political_power = -15
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { indsoc_seats < 50 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -22.5
+			}
+			else = {
+				add_political_power = -30
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { indsoc_seats < 75 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -33.75
+			}
+			else = {
+				add_political_power = -40
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { indsoc_seats < 100 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -37.5
+			}
+			else = {
+				add_political_power = -50
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { indsoc_seats < 125 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -45
+			}
+			else = {
+				add_political_power = -60
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { indsoc_seats < 150 }
+			}
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -52.5
+			}
+			else = {
+				add_political_power = -70
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_country_flag = automatic_dissolution
+				}
+				add_political_power = -60
+			}
+			else = {
+				add_political_power = -80
+			}
+		}
+		set_temp_variable = { tempchange_seat = indsoc_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+	
+	option = {
+		name = parliament.7.b
+	}
+}
+
+## Support ## TODO. Use Scripted Loc ##
+
+country_event = { # Communist Support
+	id = france_parliament.250
+	title = france_parliament.250.t
+	desc = france_parliament.250.d
+	picture = GFX_event_Parliament_coalition_support
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.250.a
+		set_temp_variable = { tempchange_seat = communist_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+}
+
+country_event = { # DemSoc Support
+	id = france_parliament.251
+	title = france_parliament.251.t
+	desc = france_parliament.251.d
+	picture = GFX_event_Parliament_coalition_support
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.251.a
+		set_temp_variable = { tempchange_seat = demsoc_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+}
+
+country_event = { # SocDem Support
+	id = france_parliament.252
+	title = france_parliament.252.t
+	desc = france_parliament.252.d
+	picture = GFX_event_Parliament_coalition_support
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.252.a
+		set_temp_variable = { tempchange_seat = socdem_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+}
+
+country_event = { # Soclib Support
+	id = france_parliament.253
+	title = france_parliament.253.t
+	desc = france_parliament.253.d
+	picture = GFX_event_Parliament_coalition_support
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.253.a
+		set_temp_variable = { tempchange_seat = soclib_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+}
+
+country_event = { # Marlib Support
+	id = france_parliament.254
+	title = france_parliament.254.t
+	desc = france_parliament.254.d
+	picture = GFX_event_Parliament_coalition_support
+ 
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.254.a
+		set_temp_variable = { tempchange_seat = marlib_seats }
+		add_to_variable = { supseat = tempchange_seat }
+		custom_effect_tooltip = change_seat_tt
+	}
+}
+
+
+country_event = { # France sends 32 FT tanks to republicans. for spain
+	id = fra_scw.1
+	title = fra_scw.1.t
+	desc = fra_scw.1.d
+	picture = GFX_event_french_tanks_repairing_in_spain
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = "It's something"
+		add_equipment_to_stockpile = {
+			type = light_tank_chassis_0
+			amount = 32
+			producer = SPR
+		}
+	}
+}
+country_event = { # Poland sends 16 FT tanks to republicans. for spain
+	id = fra_scw.2
+	title = fra_scw.2.t
+	desc = fra_scw.2.d
+	picture = GFX_event_french_tanks_repairing_in_spain
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = "We are grateful and all, but this is theft"
+		add_equipment_to_stockpile = {
+			type = light_tank_chassis_0
+			amount = 16
+			producer = SPR
+		}
+	}
+}
+
+
+##############NEWS ~Basileios
+add_namespace = fra_news
+#Popular Front
+news_event = {
+	id = fra_news.1
+	title = fra_news.1.t
+	desc = fra_news.1.d
+	picture = GFX_event_news_french_election
+	is_triggered_only = yes
+	major = yes
+	option = {
+	    trigger = { 
+		    NOT = { tag = FRA }
+			SPR = { 
+			    NOT = { has_government = social_democracy }
+			}
+		}
+		name =  fra_news.1.a
+	}
+	option = {
+	    trigger = { 
+		    NOT = { tag = FRA }
+			SPR = { 
+			    has_government = social_democracy
+			}
+		}
+		name =  fra_news.1.b
+	}
+	option = {
+	    trigger = { 
+		    tag = FRA
+		}
+		name =  fra_news.1.c
+	}
+}
+
+#AD
+news_event = {
+	id = fra_news.2
+	title = fra_news.2.t
+	desc = fra_news.2.d
+	picture = GFX_event_news_french_election
+	is_triggered_only = yes
+	major = yes
+	option = {
+	    trigger = { 
+		    NOT = { tag = FRA }
+		}
+		name =  fra_news.2.a
+	}
+	option = {
+	    trigger = { 
+		    tag = FRA
+		}
+		name =  fra_news.2.b
+	}
+}
+
+country_event = {
+	id = fra_flavour.1
+	title = fra_flavour.1.t
+	desc = fra_flavour.1.desc
+	picture = GFX_event_dry_guillotine
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		FRA = { has_war = no }
+		310 = { is_owned_and_controlled_by = FRA }
+	}
+
+	option = {
+		name = fra_flavour.1.a
+	}
+}
+
+country_event = {
+	id = fra_flavour.2
+	title = fra_flavour.2.t
+	desc = fra_flavour.2.desc
+	picture = GFX_event_air_france
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		FRA = { has_war = no }
+	}
+
+	option = {
+		name = fra_flavour.2.a
+	}
+}
+
+country_event = { # Charles Huntziger returns from the Levant (hidden)
+	id = fra_army.1
+	title = fra_army.1.t
+	desc = fra_army.1.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes
+
+	immediate = {
+		hidden_effect = {
+			SYR = {
+				set_nationality = {
+					target_country = FRA
+					character = FRA_charles_huntziger
+				}
+				add_corps_commander_role = {
+					character = FRA_henri_leon_caillaut
+					traits={ old_guard infantry_officer cannot_promote }
+					skill=1
+					attack_skill=1
+					defense_skill=1
+					planning_skill=1
+					logistics_skill=1
+				}
+			}
+			FRA_charles_huntziger = {
+				remove_unit_leader_trait = cannot_promote
+				unit_leader_event = {
+					id = fra_army.2
+					hours = 2
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = fra_army.1.a
+	}
+}
+
+unit_leader_event = { # Charles Huntziger returns from the Levant
+	id = fra_army.2
+	title = fra_army.2.t
+	desc = fra_army.2.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = fra_army.2.a
+		add_ideas = charleshuntzingercos
+	}
+}
+
+country_event = { #
+	id = fra_army.3
+	title = fra_army.3.t
+	desc = fra_army.3.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				set_technology = {
+					gwtank_chassis = 1
+					basic_light_tank_chassis = 1
+				}
+				create_equipment_variant = {
+					name = "Renault R35" 
+					type = light_tank_chassis_1
+					modules = {
+						main_armament_slot = tank_small_cannon
+						turret_type_slot = tank_light_one_man_tank_turret
+						suspension_type_slot = tank_leaf_spring_suspension
+						armor_type_slot = tank_cast_armor
+						engine_type_slot = tank_gasoline_engine
+						special_type_slot_1 = additional_machine_guns
+					}
+					upgrades = {
+						tank_nsb_engine_upgrade = 2
+						tank_nsb_armor_upgrade = 3
+					}
+					icon = "GFX_FRA_renault_r35_medium"
+				}
+			}
+			else = {
+				set_technology = {
+					gwtank = 1
+					light_tank_1 = 1
+				}
+			}
+			delete_unit_template_and_units = {
+				division_template = "Groupe d'automitrailleuses"
+			}
+			load_oob = "SYR_1940"
+		}
+	}
+	
+	option = {
+		name = fra_army.3.a
+	}
+}
+

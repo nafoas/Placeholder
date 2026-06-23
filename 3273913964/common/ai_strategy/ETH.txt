@@ -1,0 +1,98 @@
+prepare_against_italian_invasion = {
+	allowed = {
+		tag = ETH
+	}
+	enable = {
+		OR = {
+			has_global_flag = debug_ethiopian_war
+			has_completed_focus = ETH_wal_wal_crisis
+		}
+		country_exists = ITA
+		any_neighbor_country = {
+			original_tag = ITA
+		}
+	}
+	abort = {
+		OR = {
+			any_neighbor_country = {
+				NOT = { tag = ITA }
+			}
+			NOT = { country_exists = ITA }
+			has_war_with = ITA
+		}
+	}
+	
+	ai_strategy = {
+		type = prepare_for_war
+		id = "ITA"
+		value = 500
+	}
+}
+
+ETH_dont__put_divisions_in_border_with_UK = {
+	allowed = {
+		tag = ETH
+	}
+
+	enable = {
+		NOT = { has_war_with = ENG }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				tag = ENG
+				is_puppet_of = ENG
+			}
+			is_neighbor_of = FROM
+		}
+		value = -200
+	}
+}
+
+Buffer_for_Ethiopia = {
+	allowed = {
+		tag = ETH
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+		ratio = 0.3
+		states = {
+			271
+			951
+			949
+		}
+		area = east_africa
+	}
+}
+
+dont_leave_africa = {
+	allowed = {
+		tag = ETH
+	}
+	reversed = yes
+	enable_reverse = {
+		ETH = { is_in_faction = yes }
+	}
+	enable = {
+		NOT = { tag = ETH }
+		is_in_faction_with = ETH
+	}
+
+	abort = { always = no }
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "ETH"
+		value = -600
+	}
+}

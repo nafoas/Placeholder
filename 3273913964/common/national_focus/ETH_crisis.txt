@@ -1,0 +1,227 @@
+
+shared_focus = {
+	id = ETH_wal_wal_crisis
+	icon = GFX_Focus_Ethiopia_Attack_from_Italy
+	x = 23
+	y = 0
+	cost = 0
+	prerequisite = {
+	}
+	bypass = {
+    has_country_flag = wal_wal
+ 	}
+	available_if_capitulated = yes
+	completion_reward = {
+    }
+    ai_will_do = {
+    	factor = 0
+    }
+    available = {
+		has_country_flag = wal_wal
+	}
+}
+
+shared_focus = {
+	id = ETH_mobilization
+	icon = GFX_focus_ETH_Armed_Forces
+	x = 23
+	y = 1
+	cost = 1.2
+	prerequisite = {
+		focus = ETH_wal_wal_crisis
+	}
+	available_if_capitulated = no
+	completion_reward = {
+		custom_effect_tooltip = ETH_mobilization_tooltip
+    }
+    ai_will_do = {
+    	factor = 2
+    }
+    available = {
+		has_country_flag = wal_wal
+	}
+}
+
+shared_focus = {
+	id = ETH_crisis_adverted
+	icon = GFX_focus_focus_peace_talks
+	x = 21
+	y = 2
+	cost = 1
+	prerequisite = {
+		focus = ETH_wal_wal_crisis
+	}
+	mutually_exclusive = {
+    	focus = ETH_its_war
+	}
+	available_if_capitulated = no
+	completion_reward = {
+		add_stability = 0.1
+		load_focus_tree = { 
+			tree = ethiopian_afterwar 
+			keep_completed = yes 
+		}
+		complete_national_focus = ETH_war_adverted
+    }
+    ai_will_do = {
+    	factor = 0
+    }
+    available = {
+		has_country_flag = war_adverted
+	}
+}
+
+shared_focus = {
+	id = ETH_its_war
+	icon = GFX_focus_Ethiopia_War
+	x = 25
+	y = 2
+	cost = 1
+	prerequisite = {
+		focus = ETH_wal_wal_crisis
+	}
+	mutually_exclusive = {
+    	focus = ETH_crisis_adverted
+	}
+	completion_reward = {
+    	add_stability = 0.01
+		add_political_power = 70
+    }
+    ai_will_do = {
+    	factor = 2
+    }
+    available = {
+		has_war_with = ITA
+	}
+}
+
+shared_focus = {
+	id = ETH_organize_the_high_command
+	icon = GFX_focus_Commando_Operations
+	x = 24
+	y = 3
+	cost = 1
+	prerequisite = {
+		focus = ETH_its_war
+	}
+	available_if_capitulated = yes
+	completion_reward = {
+    	add_command_power = 50
+    }
+    ai_will_do = {
+    	factor = 2
+    }
+    available = {
+		has_war_with = ITA
+	}
+}
+
+shared_focus = {
+	id = ETH_province_preparation
+	icon = GFX_focus_Renewed_Arms 
+	x = 26
+	y = 3
+	cost = 1
+	prerequisite = {
+		focus = ETH_its_war
+	}
+	available_if_capitulated = yes
+	completion_reward = {
+    	add_ideas = ETH_province_preparation_idea
+    }
+    ai_will_do = {
+    	factor = 2
+    }
+    available = {
+		has_war_with = ITA
+	}
+}
+
+shared_focus = {
+	id = ETH_propaganda_against_the_invasors
+	icon = GFX_goal_generic_propaganda
+	x = 24
+	y = 4
+	cost = 1
+	prerequisite = {
+		focus = ETH_organize_the_high_command
+		focus = ETH_province_preparation
+	}
+	available_if_capitulated = yes
+	completion_reward = {
+    	add_war_support = 0.15
+    }
+    ai_will_do = {
+    	factor = 1
+    }
+    available = {
+		has_war_with = ITA
+	}
+}
+
+shared_focus = {
+	id = ETH_second_wave_of_mobilization
+	icon = GFX_focus_Prepare_the_Troops
+	available = {
+		has_war_with = ITA
+		has_completed_focus = ETH_mobilization
+	}
+	x = 26
+	y = 4
+	cost = 1
+	prerequisite = {
+		focus = ETH_organize_the_high_command
+		focus = ETH_province_preparation
+	}
+	completion_reward = {
+		random_state = {
+			limit = {
+				is_owned_and_controlled_by = ETH
+			}
+			create_unit = {
+				division = "name = \"Mobilized Ethiopian Reserves\" division_template = \"Mobilized Sefari\" start_equipment_factor = 0.4"
+				owner = ETH
+				allow_spawning_on_enemy_provs = yes
+				count = 1
+			}
+		}
+    }
+    ai_will_do = {
+    	factor = 2
+    }
+}
+
+shared_focus = {
+	id = ETH_christmas_offensive
+	icon = GFX_focus_The_Big_Push
+	x = 25
+	y = 5
+	cost = 5
+	prerequisite = {
+		focus = ETH_second_wave_of_mobilization
+	}
+	prerequisite = {
+		focus = ETH_propaganda_against_the_invasors
+	}
+	available_if_capitulated = yes
+	cancelable = no
+	select_effect = {
+		add_ideas = {
+			ETH_christmas_offensive
+		}
+	}
+	completion_reward = {
+    	hidden_effect = {
+    		remove_ideas = {
+    			ETH_christmas_offensive
+    		}
+    	}
+    	custom_effect_tooltip = ETH_christmas_tooltip	
+    }
+    ai_will_do = {
+    	factor = 1
+    }
+    available = {
+		has_war_with = ITA
+	}
+}

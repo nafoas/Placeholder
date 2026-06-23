@@ -1,0 +1,540 @@
+SPR_ignore_neighbours_during_cw = {
+	allowed = {
+		tag = SPR
+	}
+	enable = {
+		scw_in_progress = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		country_trigger = {
+			OR = {
+				AND = {
+					tag = POR
+					is_neighbor_of = FROM
+				}
+				AND = {
+					tag = FRA
+					is_neighbor_of = FROM
+				}
+			}
+		}
+		value = -200
+	}
+}
+
+SPA_dont_garrison = {
+	allowed = {
+		tag = SPA
+	}
+	enable = {
+		scw_in_progress = yes
+	}
+
+	abort = {
+		scw_not_in_progress = yes
+	}
+
+	ai_strategy = {
+		type = garrison
+		value = -60
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = north_africa
+		value = -500
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = iberia
+		value = -250
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = central_africa
+		value = -500
+	}
+
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 290
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 825
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 824
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 699
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 178
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 1210
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 297
+		value = -200
+	}
+
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 168
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 166
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 169
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 1213
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 172
+		value = -400
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 173
+		value = -400
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 170
+		value = -400
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 174
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 176
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 1217
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 171
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 1220
+		value = -300
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 1214
+		value = -300
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 1215
+		value = -300
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 1216
+		value = -300
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 1219
+		value = -300
+	}
+	
+}
+
+# Experimental
+SPA_focus_on_frontlines = {
+	allowed = {
+		tag = SPA
+	}
+	enable = {
+		has_war_with = SPR
+		has_global_flag = scw_ongoing
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = SPR
+
+		value = 250
+	}
+
+	ai_strategy = {
+		type = invasion_unit_request
+		tag = SPR
+		value = -200
+	}
+}
+
+#Experimental /NeuGemi
+GER_ITA_dont_invite_SPR = {
+	allowed = {
+		OR = {
+			tag = GER
+			tag = ITA
+		}
+	}
+	enable = {
+		date > 1939.6.1
+		is_historical_focus_on = yes
+	}
+	abort_when_not_enabled = yes
+	# leave britney alone!
+	ai_strategy = {
+		type = ignore
+		id = "SPA"
+		value = 200
+	}
+}
+
+SPA_andalucia_front = {
+	allowed = {
+		tag = SPA
+	}
+	enable = {
+		scw_in_progress = yes
+	}
+
+	abort = {
+		SPA = {
+			controls_state = 169
+			controls_state = 170
+		}
+		# SPA = { has_country_flag = SPA_conected_extr }
+	}
+
+	ai_strategy = {
+		type = front_control
+
+		state = 169
+		state = 1213
+
+		#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+
+		priority = 3 # default 0, higher prio strats will override lower
+		ordertype = front
+		execute_order = no
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+	 	type = front_unit_request
+	
+		state = 169
+	
+		value = 70
+	}
+}
+
+SPA_extremadura_offensive = {
+	allowed = {
+		tag = SPA
+	}
+	enable = {
+		scw_in_progress = yes
+	}
+	abort = {
+		controls_state = 170
+		has_full_control_of_state = 169
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+	
+		state = 170
+	
+		value = 45
+	}
+}
+
+SPA_northern_front = {
+	allowed = {
+		tag = SPA
+	}
+	enable = {
+		scw_in_progress = yes
+	}
+
+	abort = {
+		OR = {
+			date > 1937.3.31
+			SPA = {
+				controls_state = 752
+				controls_state = 1169
+				controls_state = 826
+				has_full_control_of_state = 172
+				has_full_control_of_state = 174
+				has_full_control_of_state = 176
+				has_full_control_of_state = 1217
+				has_full_control_of_state = 1219
+				has_full_control_of_state = 171
+			}
+			has_war_with = FRA
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+	
+		strategic_region = 41
+
+		country_trigger = {
+			OR = {
+				is_in_faction_with = FRA
+				is_in_faction_with = ENG
+			}
+		}
+	
+		value = 35
+	}
+
+	#Against AI (Not loosing)
+	ai_strategy = {
+		type = front_control
+
+		strategic_region = 41
+		# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+		state_trigger = {
+			174 = { is_controlled_by = FROM.FROM }
+			176 = { is_controlled_by = FROM.FROM }
+			171 = { is_controlled_by = FROM.FROM }
+			1217 = { is_controlled_by = FROM.FROM }
+			1219 = { is_controlled_by = FROM.FROM }
+			NOT = { 166 = { is_controlled_by = FROM } }
+			NOT = { 1216 = { is_controlled_by = FROM } }
+		}
+
+		country_trigger = {
+			is_ai = yes
+		}
+		priority = 2 # default 0, higher prio strats will override lower
+		ordertype = front
+		execute_order = no
+		execution_type = careful # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+		manual_attack = yes
+	}
+
+	#Against AI (loosing)
+	ai_strategy = {
+		type = front_control
+
+		strategic_region = 41
+		# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+		state_trigger = {
+			OR = {
+				174 = { is_controlled_by = FROM }
+				176 = { is_controlled_by = FROM }
+				171 = { is_controlled_by = FROM }
+				1217 = { is_controlled_by = FROM }
+				1219 = { is_controlled_by = FROM }
+				OR = {
+					166 = { is_controlled_by = FROM }
+					1216 = { is_controlled_by = FROM }
+				}
+			}
+		}
+
+		country_trigger = {
+			is_ai = yes
+		}
+		priority = 2 # default 0, higher prio strats will override lower
+		ordertype = front
+		execution_type = balanced # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+		manual_attack = yes
+	}
+
+	#Against player (Not loosing)
+	ai_strategy = {
+		type = front_control
+
+		strategic_region = 41
+		# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+		state_trigger = {
+			174 = { is_controlled_by = FROM.FROM }
+			176 = { is_controlled_by = FROM.FROM }
+			171 = { is_controlled_by = FROM.FROM }
+			1217 = { is_controlled_by = FROM.FROM }
+			1219 = { is_controlled_by = FROM.FROM }
+			NOT = { 166 = { is_controlled_by = FROM } }
+			NOT = { 1216 = { is_controlled_by = FROM } }
+		}
+
+		country_trigger = {
+			is_ai = no
+		}
+		priority = 2 # default 0, higher prio strats will override lower
+		ordertype = front
+		execution_type = careful # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+		manual_attack = yes
+	}
+
+	#Against AI (loosing)
+	ai_strategy = {
+		type = front_control
+
+		strategic_region = 41
+		# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+		state_trigger = {
+			OR = {
+				174 = { is_controlled_by = FROM }
+				176 = { is_controlled_by = FROM }
+				171 = { is_controlled_by = FROM }
+				1217 = { is_controlled_by = FROM }
+				1219 = { is_controlled_by = FROM }
+				OR = {
+					166 = { is_controlled_by = FROM }
+					1216 = { is_controlled_by = FROM }
+				}
+			}
+		}
+
+		country_trigger = {
+			is_ai = no
+		}
+		priority = 2 # default 0, higher prio strats will override lower
+		ordertype = front
+		execution_type = balanced # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+		manual_attack = yes
+	}
+}
+
+SPA_northern_offensive = {
+	allowed = {
+		tag = SPA
+	}
+	enable = {
+		scw_in_progress = yes
+		OR = {
+			date > 1937.3.31
+			1220 = { is_controlled_by = SPR }
+			AND = {
+				1215 = { is_fully_controlled_by = SPR }
+				1216 = { is_controlled_by = SPR }
+			}
+		}
+	}
+
+	abort = {
+		OR = {
+			AND = {
+				826 = { is_fully_controlled_by = SPA }
+				1169 = { is_fully_controlled_by = SPA }
+				752 = { is_fully_controlled_by = SPA }
+				172 = { is_fully_controlled_by = SPA }
+				172 = { is_controlled_by = SPA } 
+				174 = { is_controlled_by = SPA }
+				176 = { is_controlled_by = SPA }
+				1217 = { is_controlled_by = SPA }
+				1216 = { is_controlled_by = SPA }
+				1219 = { is_controlled_by = SPA }
+				171 = { is_controlled_by = SPA }
+			}
+			
+			has_war_with = FRA
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+
+		strategic_region = 41
+
+		#ratio = 0.1 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+
+		priority = 2 # default 0, higher prio strats will override lower
+		ordertype = front
+		execute_order = yes
+		execution_type = rush # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+	
+		strategic_region = 41
+
+		country_trigger = {
+			tag = SPR
+		}
+	
+		value = 20
+	}
+}
+
+SPA_ebro_offensive = {
+	allowed = {
+		tag = SPA
+	}
+	enable = {
+		scw_in_progress = yes
+		date > 1938.3.7
+		172 = { is_controlled_by = SPA }
+		752 = { is_controlled_by = SPA }
+		1219 = { is_controlled_by = SPA }
+		174 = { is_controlled_by = SPA }
+		176 = { is_controlled_by = SPA }
+		1217 = { is_controlled_by = SPA }
+	}
+
+	abort = {
+		SPA = {
+			has_full_control_of_state = 166
+			controls_state = 165
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+
+		state = 166
+		state = 165
+
+		#ratio = 0.1 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+
+		priority = 2 # default 0, higher prio strats will override lower
+		ordertype = front
+		execution_type = rush # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+		manual_attack = yes
+	}
+}

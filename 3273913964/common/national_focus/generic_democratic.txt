@@ -1,0 +1,698 @@
+
+
+
+shared_focus = {
+	id = GEN_pass_budget
+	icon = GFX_focus_Parliament
+	cost = 10
+	completion_reward = {
+	    add_political_power = 100
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	x = 6
+    y = 0
+}
+
+shared_focus = {
+	id = GEN_guarantee_freedom_press
+	icon = GFX_focus_Press_Barons
+	cost = 10
+	completion_reward = {
+	    if = {
+		    limit = {
+			    has_government = democratic
+			}
+			add_popularity = {
+                ideology = democratic
+                popularity = 0.1
+            }
+		}
+		if = {
+		    limit = {
+			    has_government = social_liberalism
+			}
+			add_popularity = {
+                ideology = social_liberalism
+                popularity = 0.1
+            }
+		}
+		if = {
+		    limit = {
+			    has_government = market_liberalism
+			}
+			add_popularity = {
+                ideology = market_liberalism
+                popularity = 0.1
+            }
+		}
+		if = {
+		    limit = {
+			    has_government = social_democracy
+			}
+			add_popularity = {
+                ideology = social_democracy
+                popularity = 0.1
+            }
+		}
+		if = {
+		    limit = {
+			    has_government = jacobin
+			}
+			add_popularity = {
+                ideology = jacobin
+                popularity = 0.1
+            }
+		}
+		if = {
+		    limit = {
+			    has_government = socialism
+			}
+			add_popularity = {
+                ideology = socialism
+                popularity = 0.05
+            }
+		}
+		
+		if = {
+		    limit = {
+			    has_government = neutrality
+			}
+			add_popularity = {
+                ideology = neutrality
+                popularity = 0.05
+            }
+		}
+	}
+	prerequisite = {
+	    focus = GEN_pass_budget
+	}
+	mutually_exclusive = { focus = GEN_new_censorship_laws }
+	x = -1
+    y = 1
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_new_censorship_laws
+	icon = GFX_focus_Subterfuge
+	cost = 10
+	completion_reward = {
+	    add_war_support = 0.1
+	}
+	prerequisite = {
+	    focus = GEN_pass_budget
+	}
+	mutually_exclusive = { focus = GEN_guarantee_freedom_press }
+	x = 1
+    y = 1
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_guarantee_freedom_speech
+	icon = GFX_focus_Freedom_of_Speech
+	cost = 10
+	available = {
+	    NOT = { has_government = neutrality }
+	}
+	completion_reward = {
+	    add_political_power = 100
+	}
+	prerequisite = {
+	    focus = GEN_new_censorship_laws
+		focus = GEN_guarantee_freedom_press
+	}
+	mutually_exclusive = { focus = GEN_limit_freedom_speech }
+	x = -1
+    y = 2
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_limit_freedom_speech
+	icon = GFX_focus_Rigged_Elections
+	cost = 10
+	completion_reward = {
+	    add_stability = 0.05
+	}
+	prerequisite = {
+	    focus = GEN_new_censorship_laws
+		focus = GEN_guarantee_freedom_press
+	}
+	mutually_exclusive = { focus = GEN_guarantee_freedom_speech }
+	x = 1
+    y = 2
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_education_reform
+	icon = GFX_focus_research
+	cost = 10
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_educ_reform
+            days = 365
+        }
+	}
+	prerequisite = {
+	    focus = GEN_limit_freedom_speech
+		focus = GEN_guarantee_freedom_speech
+	}
+	x = 0
+    y = 3
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_cultural_initiatives
+	icon = GFX_goal_support_democracy
+	cost = 10
+	completion_reward = {
+	    add_war_support = 0.075
+	}
+	prerequisite = {
+	    focus = GEN_education_reform
+	}
+	x = -1
+    y = 4
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_administrative_reform
+	icon = GFX_manage_administration
+	cost = 10
+	completion_reward = {
+	    add_political_power = 100
+	}
+	prerequisite = {
+	    focus = GEN_education_reform
+	}
+	x = 1
+    y = 4
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_plans_autonomy
+	icon = GFX_focus_Redraw_Admin_Borders
+	cost = 10
+	completion_reward = {
+	   add_timed_idea = {
+            idea = idea_decent_policies
+            days = 365
+        }
+	}
+	prerequisite = {
+	    focus = GEN_administrative_reform
+	}
+	mutually_exclusive = {
+	    focus = GEN_one_free_nation
+	}
+	x = 0
+    y = 5
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_one_free_nation
+	icon = GFX_focus_Rally
+	cost = 10
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_cent_policies
+            days = 300
+        }
+	}
+	prerequisite = {
+	    focus = GEN_administrative_reform
+	}
+	mutually_exclusive = {
+	    focus = GEN_plans_autonomy
+	}
+	x = 2
+    y = 5
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_negotiate_opposition
+	icon = GFX_focus_Foreign_Diplomacy
+	cost = 10
+	completion_reward = {
+	    add_stability = 0.05
+	}
+	prerequisite = {
+	    focus = GEN_pass_budget
+	}
+	x = -5
+    y = 1
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_judicial_reforms
+	icon = GFX_focus_Fair_Trials
+	cost = 10
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_judicial_reforms
+            days = 300
+        }
+	}
+	prerequisite = {
+	    focus = GEN_negotiate_opposition
+	}
+	x = -4
+    y = 2
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_investigate_corruption
+	icon = GFX_focus_Investigate_Corruption
+	cost = 10
+	completion_reward = {
+	    if = {
+		    limit = {
+			    has_government = democratic
+			}
+			add_popularity = {
+                ideology = democratic
+                popularity = 0.05
+            }
+		}
+		if = {
+		    limit = {
+			    has_government = social_liberalism
+			}
+			add_popularity = {
+                ideology = social_liberalism
+                popularity = 0.05
+            }
+		}
+		if = {
+		    limit = {
+			    has_government = market_liberalism
+			}
+			add_popularity = {
+                ideology = market_liberalism
+                popularity = 0.05
+            }
+		}
+		if = {
+		    limit = {
+			    has_government = social_democracy
+			}
+			add_popularity = {
+                ideology = social_democracy
+                popularity = 0.05
+            }
+		}
+		if = {
+		    limit = {
+			    has_government = jacobin
+			}
+			add_popularity = {
+                ideology = jacobin
+                popularity = 0.05
+            }
+		}
+		if = {
+		    limit = {
+			    has_government = socialism
+			}
+			add_popularity = {
+                ideology = socialism
+                popularity = 0.05
+            }
+		}
+		
+		if = {
+		    limit = {
+			    has_government = neutrality
+			}
+			add_popularity = {
+                ideology = neutrality
+                popularity = 0.05
+            }
+		}
+	}
+	prerequisite = {
+	    focus = GEN_negotiate_opposition
+	}
+	x = -6
+    y = 2
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_stabilize_country
+	icon = GFX_goal_generic_national_unity
+	cost = 10
+	available = {
+	    has_stability < 0.8
+	}
+	completion_reward = {
+	    add_stability = 0.05
+	}
+	prerequisite = {
+	    focus = GEN_negotiate_opposition
+	}
+	x = -5
+    y = 3
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_negotiate_workers
+	icon = GFX_focus_Workers_Support
+	cost = 10
+	available = {
+	    OR = {
+		    has_government = social_democracy
+			has_government = social_liberalism
+			has_government = socialism
+			has_government = democratic
+			has_government = market_liberalism
+		}
+	}
+	completion_reward = {
+	    add_stability = 0.05
+		add_timed_idea = {
+            idea = idea_worker_rights
+            days = 365
+        }
+		add_popularity = {
+            ideology = socialism
+            popularity = 0.075
+        }		
+	}
+	prerequisite = {
+	    focus = GEN_stabilize_country
+	}
+	mutually_exclusive = { focus = GEN_crackdown_socialism }
+	x = -6
+    y = 4
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_crackdown_socialism
+	icon = GFX_focus_Anti_Communist
+	cost = 10
+	available = {
+	    OR = {
+		    has_government = jacobin
+		    has_government = democratic
+			has_government = social_liberalism
+			has_government = market_liberalism
+			has_government = neutrality
+		}
+	}
+	completion_reward = {
+	    add_stability = 0.05
+		add_political_power = -100
+		add_war_support = -0.1
+		add_popularity = {
+            ideology = communism
+            popularity = 0.05
+        }
+	}
+	prerequisite = {
+	    focus = GEN_stabilize_country
+	}
+	mutually_exclusive = { focus = GEN_negotiate_workers }
+	x = -4
+    y = 4
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_progressive_ideas
+	icon = GFX_focus_Freedom
+	cost = 10
+	available = {
+	    OR = {
+		    has_government = socialism
+			has_government = social_liberalism
+			has_government = market_liberalism
+			has_government = social_democracy
+		}
+	}
+	completion_reward = {
+	    add_stability = 0.05
+		add_war_support = -0.1
+		add_popularity = {
+            ideology = socialism
+            popularity = 0.05
+        }
+		add_popularity = {
+            ideology = social_democracy
+            popularity = 0.05
+        }
+		add_popularity = {
+            ideology = social_liberalism
+            popularity = 0.05
+        }
+	}
+	prerequisite = {
+	    focus = GEN_crackdown_socialism
+		focus = GEN_negotiate_workers
+	}
+	mutually_exclusive = { focus = GEN_reinforce_traditional_values }
+	x = -6
+    y = 5
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_reinforce_traditional_values
+	icon = GFX_focus_Holy_Republic
+	cost = 10
+	available = {
+	    OR = {
+		    has_government = democratic
+			has_government = jacobin
+			has_government = market_liberalism
+			has_government = neutrality
+		}
+	}
+	completion_reward = {
+	    add_stability = 0.05
+		add_political_power = -100
+		add_popularity = {
+            ideology = jacobin
+            popularity = 0.05
+        }
+		add_popularity = {
+            ideology = democratic
+            popularity = 0.05
+        }
+		add_popularity = {
+            ideology = neutrality
+            popularity = 0.05
+        }
+	}
+	prerequisite = {
+	    focus = GEN_crackdown_socialism
+		focus = GEN_negotiate_workers
+	}
+	mutually_exclusive = { focus = GEN_progressive_ideas }
+	x = -4
+    y = 5
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_expand_police_force
+	icon = GFX_focus_Enlist_the_Police
+	cost = 10
+	completion_reward = {
+	    add_stability = 0.05
+		add_manpower = 20000
+	}
+	prerequisite = {
+	    focus = GEN_reinforce_traditional_values
+		focus = GEN_progressive_ideas
+	}
+	x = -5
+    y = 6
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_draft_new_economic_plan
+	icon = GFX_focus_bills_and_acts
+	cost = 10
+	completion_reward = {
+	    add_political_power = 50
+	}
+	prerequisite = {
+	    focus = GEN_pass_budget
+	}
+	x = 5
+    y = 1
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_liberalise_economy
+	icon = GFX_focus_Free_Trade
+	cost = 10
+	available = {
+	    NOT = {
+		    OR = {
+			    has_government = social_democracy
+				has_government = socialism
+			}
+		}
+	}
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_liberalisation
+            days = 300
+        }
+	}
+	prerequisite = {
+	    focus = GEN_draft_new_economic_plan
+	}
+	mutually_exclusive = { focus = GEN_intervention_plan }
+	x = 4
+    y = 2
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_deregulation
+	icon = GFX_focus_Deregulation
+	cost = 10
+	completion_reward = {
+	    add_ideas = free_trade 
+	}
+	prerequisite = {
+	    focus = GEN_liberalise_economy
+	}
+	x = 3
+    y = 3
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_lower_taxes
+	icon = GFX_focus_Extravagance
+	cost = 10
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_low_taxes
+            days = 300
+        }
+	}
+	prerequisite = {
+	    focus = GEN_deregulation
+	}
+	x = 4
+    y = 4
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_intervention_plan
+	icon = GFX_focus_Puppet_Businesses
+	cost = 10
+	available = {
+	    NOT = {
+		    OR = {
+			    has_government = market_liberalism
+				has_government = jacobin
+			}
+		}
+	}
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_intervention_eco
+            days = 300
+        }
+	}
+	prerequisite = {
+	    focus = GEN_draft_new_economic_plan
+	}
+	mutually_exclusive = { focus = GEN_liberalise_economy }
+	x = 6
+    y = 2
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_introduce_progressive_taxation
+	icon = GFX_focus_Money_Bags
+	cost = 10
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_prog_taxation
+            days = 300
+        }
+	}
+	prerequisite = {
+	    focus = GEN_intervention_plan
+	}
+	x = 7
+    y = 3
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_welfare_state
+	icon = GFX_focus_Rose_of_Democracy
+	cost = 10
+	completion_reward = {
+	    add_stability = 0.075
+	}
+	prerequisite = {
+	    focus = GEN_introduce_progressive_taxation
+	}
+	x = 6
+    y = 4
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_pass_new_budget
+	icon = GFX_focus_Generic_Political
+	cost = 10
+	completion_reward = {
+	    add_political_power = 100
+	}
+	prerequisite = {
+	    focus = GEN_intervention_plan
+		focus = GEN_liberalise_economy
+	}
+	x = 5
+    y = 3
+	relative_position_id = GEN_pass_budget
+}
+
+shared_focus = {
+	id = GEN_investment_plans
+	icon = GFX_focus_Industrialization
+	cost = 10
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_invest
+            days = 365
+        }
+	}
+	prerequisite = {
+	    focus = GEN_welfare_state
+		focus = GEN_lower_taxes
+	}
+	prerequisite = {
+	    focus = GEN_pass_new_budget
+	}
+	x = 5
+    y = 5
+	relative_position_id = GEN_pass_budget
+}

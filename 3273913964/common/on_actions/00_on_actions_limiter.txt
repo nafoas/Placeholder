@@ -1,0 +1,79 @@
+on_actions = {
+	on_weekly = {
+		effect = {
+			# unit limit calculations
+			country_event = mobilization_events.7
+		}
+	}
+
+	on_startup = {
+		effect = {
+			every_country = {
+				#Unit Limits Setup
+				country_event = mobilization_events.7
+			}
+		}
+	}
+
+	on_peace = {
+		effect = {
+			log = "[GetDateText]: [From.GetName]: on_peace division limiter"
+
+			#Demobilization check for the AI
+			if = {
+				limit = {
+					is_ai = yes
+					NOT = { has_country_flag = has_demobilization_check }
+				}
+				set_country_flag = { flag = has_demobilization_check days = 6 value = 1 }
+				country_event = { id = mobilization_events.6 days = 6 }
+			}
+
+			#Reduce units check for the AI
+			if = {
+				limit = {
+					is_ai = yes
+					NOT = { has_country_flag = has_reduce_units_check }
+				}
+				set_country_flag = has_reduce_units_check
+				country_event = { id = mobilization_events.1 days = 7 random = 72 }
+			}
+
+			if = {
+				limit = {
+					is_ai = no
+					has_unsupported_manpower_law = yes
+				}
+				activate_mission = demobilization_manpower
+			}
+			if = {
+				limit = {
+					is_ai = no
+					has_unsupported_economic_law = yes
+				}
+				activate_mission = demobilization_economic
+			}
+		}
+	}
+
+	# FROM = country to which they're sent, ROOT = sending country
+	on_send_expeditionary_force = {
+		effect = {
+			log = "[GetDateText] [Root.GetName] is sending an expeditionary force to [From.GetName]"
+		}
+	}
+
+	# FROM = country from which the forces are returning, ROOT = country who sent them
+	on_return_expeditionary_forces = {
+		effect = {
+			log = "[GetDateText] [Root.GetName] is recalling its expeditionary force from [From.GetName]"
+		}
+	}
+
+	# FROM = country requesting them, ROOT = requesting country
+	on_request_expeditionary_forces = {
+		effect = {
+			log = "[GetDateText] [From.GetName] has requested expeditionary forces from [Root.GetName]"
+		}
+	}
+}

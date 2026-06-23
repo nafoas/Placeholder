@@ -1,0 +1,1768 @@
+add_namespace = cat
+
+# Communist Spain - Chaos in Catalonia
+country_event = {
+	id = cat.1
+	title = cat.1.t
+	desc = cat.1.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPC
+	}
+
+	option = {
+		name = cat.1.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				has_game_rule = { rule = CAT_select_path option = CAT_NEVER }
+			}
+		}
+		hidden_effect = {
+			country_event = { days = 2 id = cat.2 }
+		}
+		add_political_power = -50
+	}
+
+	option = {
+		name = cat.1.b
+		ai_chance = {
+			base = 90
+			modifier = {
+				factor = 0
+				has_game_rule = { rule = CAT_select_path option = CAT_ALWAYS }
+			}
+		}
+		add_stability = -0.05
+		add_political_power = -20
+	}
+}
+
+# Catalonia becomes independent
+country_event = {
+	id = cat.2
+	title = cat.2.t
+	desc = cat.2.d
+	picture = GFX_report_event_spain_civil_war_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			SPR = {
+				country_event = { hours = 5 id = cat.4 }
+				# delete_unit = {
+				# 	state = 165
+				# 	disband = yes
+				# }
+				165 = {
+					teleport_armies = { 
+						to_state = 297
+					}
+				}
+			}
+			release_on_controlled = CAT
+			CAT = {
+				# transfer_state = 165
+				add_state_core = 165
+				load_oob = CAT_revolution
+				inherit_technology = SPR
+				add_ideas = extensive_conscription
+				add_ideas = low_research_spending
+				country_event = { days = 5 id = cat.5 }
+				give_military_access = SPC
+				delete_unit_template_and_units = {
+					division_template = "Brigada Mixta"
+				}
+				delete_unit_template_and_units = {
+					division_template = "Columna de Milicianos"
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 1000
+					producer = SPR
+				}
+				set_party_name = {
+					ideology = communism
+					long_name = CAT_poum_psuc_long
+					name = CAT_poum_psuc
+				}
+			}
+			news_event = { id = spa_news.8 hours = 8 }
+			SPC = {
+				remove_state_core = 165
+				give_military_access = CAT
+			}
+			SPR = {
+				declare_war_on = {
+					target = CAT
+					type = annex_everything
+				}
+				set_province_controller = 13689
+				set_province_controller = 3898
+				set_province_controller = 9824
+				297 = {
+					teleport_armies = { 
+						to_state = 165
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = cat.2.a
+	}
+
+	option = {
+		name = cat.2.b
+		CAT = {
+			change_tag_from = SPC
+		}
+	}
+}
+
+# Communist Spain - War against Catalonia?
+# country_event = {
+# 	id = cat.3
+# 	title = cat.3.t
+# 	desc = cat.3.d
+# 	picture = GFX_report_event_generic_riot
+
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		tag = SPC
+# 	}
+
+# 	option = {
+# 		name = cat.3.a
+# 		ai_chance = { factor = 1 }
+# 		declare_war_on = { target = CAT type = annex_everything }
+# 		hidden_effect = { country_event = { days = 120 id = cat.10 } }
+# 	}
+
+# 	option = {
+# 		name = cat.3.b
+# 		add_war_support = -0.05
+# 		ai_chance = {
+# 			base = 0
+# 			modifier = {
+# 				factor = 0
+# 				always = yes
+# 			}
+# 		}
+# 	}
+# }
+
+# Republican Spain - War against Catalonia
+country_event = {
+	id = cat.4
+	title = cat.4.t
+	desc = cat.4.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = cat.4.a
+		# declare_war_on = { target = CAT type = annex_everything }
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			remove_state_core = 165
+			add_state_claim = 165
+		}
+	}
+}
+
+# LLuis Companys forms the war cabinet
+country_event = {
+	id = cat.5
+	title = cat.5.t
+	desc = cat.5.d
+	picture = GFX_report_event_generic_rally_1
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = {
+		name = cat.5.a
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_LLuis_Compays
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Josep_Tomas
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_LLuhi
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Tarradellas
+	}
+}
+
+### SMALL CHAIN - LEY DE CONTRATOS DE CULTIVO
+
+# #Ley de Contratos de Cultivo aproved by Generalitat. 21 of March 1934
+country_event = {
+	id = cat.6
+	title = cat.6.t
+	desc = cat.6.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				90 = {
+					country_event = { days = 34 id = cat.7 }
+					country_event = { id = cat.54 days = 83 }
+				}
+				10 = {
+					modifier = {
+						is_historical_focus_on = yes
+						factor = 0
+					}
+					country_event = { days = 34 id = cat.8 }
+				}
+			}
+		}
+	}
+
+	option = {
+		name = cat.6.a
+	}
+}
+
+# Constitutional Court rules against Catalonia
+country_event = {
+	id = cat.7
+	title = cat.7.t
+	desc = cat.7.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = cat.7.a
+		add_political_power = 50
+		set_country_flag = enable_catalan_uprising
+	}
+}
+
+# ERC retires its deputies in the cortes in protest of the Constitutional court ruling
+# La anulación de la Ley de Contratos de Cultivos creó una grave crisis política entre Madrid y Barcelona. 
+#La respuesta de la Generalidad de Cataluña fue retirar de las Cortes Generales a los 18 diputados de la Esquerra Republicana de Cataluña, acompañados de los 12 del PNV, 
+#y proponer al Parlamento de Cataluña una ley idéntica que fue aprobada el 12 de junio, lo que constituía un grave desafió al gobierno y al Tribunal de Garantías Constitucionales.
+#El 12 de junio, los diputados del PNV se retiraron de las Cortes como protesta por la paralización de los trámites y en solidaridad con la Esquerra Republicana de Cataluña (ERC), 
+#que también había retirado los suyos después del que el Tribunal de Garantías Constitucionales anulase la Ley de Contratos de Cultivo aprobada por el Parlamento catalán
+country_event = {
+	id = cat.54
+	title = cat.54.t
+	desc = cat.54.d #TODO: write loc
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = law_passing
+					has_country_flag = PNV_support_parliament
+				}
+				subtract_from_variable = { supseat = pnv_seats }
+			}
+			#ERC
+			subtract_from_variable = { lftnat_seats = erc_seats }
+			subtract_from_variable = { parliament_seat_array^3 = erc_seats }
+			add_to_variable = { parliament_seat_array^10 = erc_seats } #PNV seats become empty seats
+			# set_variable = { erc_seats = 0 }
+			#PNV
+			clr_country_flag = PNV_support_parliament
+			subtract_from_variable = { rgtnat_seats = pnv_seats }
+			subtract_from_variable = { parliament_seat_array^6 = pnv_seats }
+			add_to_variable = { parliament_seat_array^10 = pnv_seats } #PNV seats become empty seats
+			# set_variable = { pnv_seats = 0 }
+
+			# Set up the positions of the dots for the semicircle parliament
+			parliament_gui_positions = yes
+
+			# Modify what shows up in the gui
+			reload_parliament_gui = yes
+
+		}
+	}
+
+	option = {
+		name = cat.54.a
+		add_political_power = -75
+	}
+}
+
+# Constitutional Court rules against the government
+country_event = {
+	id = cat.8
+	title = cat.8.t
+	desc = cat.8.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = cat.8.a
+		add_political_power = -70
+	}
+}
+
+# Francesc Macia dies
+country_event = {
+	id = cat.9
+	title = cat.9.t
+	desc = cat.9.d
+	picture = GFX_report_event_generic_funeral
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = cat.9.a
+		hidden_effect = {
+			CAT = { retire_character = CAT_francesc_marcia }
+		}
+		set_country_flag = SPR_marcia_dead
+		subtract_from_variable = { erc_seats = 1 }
+		subtract_from_variable = { EC_seats = 1 }
+		subtract_from_variable = { parliament_seat_array^3 = 1 }
+		add_to_variable = { parliament_seat_array^10 = 1 }
+	}
+}
+
+####### END OF PRE-INDEPENDENCE FLAVOR EVENTS #########
+
+# Republican Spain - Peace with Catalonia
+country_event = {
+	id = cat.11
+	title = cat.11.t
+	desc = cat.11.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPR
+		has_war_with = CAT
+		CAT = { has_capitulated = no }
+	}
+
+	immediate = {
+		hidden_effect = {
+			CAT = {
+				country_event = {
+					id = cat.12
+				}
+			}
+		}
+	}
+
+	option = {
+		name = cat.11.a
+		white_peace = CAT
+	}
+}
+
+# Our Independence secured
+country_event = {
+	id = cat.12
+	title = cat.12.t
+	desc = cat.12.d
+	picture = GFX_report_event_generic_rally_1
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		has_war = no
+	}
+
+	option = {
+		name = cat.12.a
+		add_political_power = 50
+		set_country_flag = cat_won_independence
+		remove_ideas = CAT_independence_war
+		add_ideas = CAT_disorg_army
+		country_event = { id = cat.13 days = 3 }
+	}
+}
+
+# Lluis Companys calls for Parliamentary Election
+country_event = {
+	id = cat.13
+	title = cat.13.t
+	desc = cat.13.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = {
+		name = cat.13.a
+		country_event = {
+			id = cat.14
+			days = 45
+		}
+		country_event = {
+			id = cat.21
+			days = 7
+		}
+	}
+}
+
+# General Election
+country_event = {
+	id = cat.14
+	title = cat.14.t
+	desc = cat.14.d
+	picture = GFX_report_event_election_vote
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+		has_government = social_democracy
+	}
+
+	option = { #Esquerra
+		name = cat.14.a
+		ai_chance = {
+			base = 5
+		}
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_LLuis_Compays
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Josep_Tomas
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_LLuhi
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Tarradellas
+		set_country_flag = cat_erc_won
+		set_country_flag = cat_election
+		hidden_effect = {
+			country_event = { days = 1460 id = cat.34 }
+		}
+	}
+
+	option = { #Lliga
+		name = cat.14.b
+		ai_chance = {
+			factor = 25
+		}
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Fransesc
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Ramon_Abadal
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Joan_Ventosa
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Duran
+		set_politics = { ruling_party = democratic }
+		set_country_flag = cat_lliga_won
+		set_country_flag = cat_election
+		hidden_effect = {
+			country_event = { days = 1460 id = cat.34 }
+		}
+	}
+
+	option = { #Psuc
+		name = cat.14.c
+		ai_chance = {
+			factor = 10
+		}
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Rafael_Vidiella
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Pere_Ardiaca
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Miquel_Valdes
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Antonio_Sese
+		set_party_name = {
+			ideology = communism
+			long_name = CAT_psuc_long
+			name = CAT_psuc
+		}
+		hidden_effect = {
+			retire_character = CAT_joint_leadership
+			add_country_leader_role = {
+				character = "CAT_joan_comorera"
+				promote_leader = yes
+				country_leader = {
+					ideology = stalinism
+					expire = "1965.1.1.1"
+					traits = {
+					}
+				}
+			}
+		}
+		set_politics = { ruling_party = communism }
+		set_country_flag = psuc_won
+		set_country_flag = cat_psuc_won
+		set_country_flag = cat_election
+	}
+
+	option = { #Poum
+		name = cat.14.e
+		ai_chance = {
+			factor = 15
+		}
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Andreu
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Teresa_Carbo
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Josep_Oltra
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Luis_Portela
+		set_party_name = {
+			ideology = communism
+			long_name = CAT_poum_long
+			name = CAT_poum
+		}
+		hidden_effect = {
+			retire_character = CAT_joint_leadership
+			add_country_leader_role = {
+				character = "CAT_joaquin_maurin"
+				promote_leader = yes
+				country_leader = {
+					ideology = leninism
+					expire = "1965.1.1.1"
+					traits = {
+					}
+				}
+			}
+		}
+		set_politics = { ruling_party = communism }
+		set_country_flag = poum_won
+		set_country_flag = cat_poum_won
+		set_country_flag = cat_election
+	}
+}
+
+# Presidentialism vs Semi-presidentialism
+country_event = {
+	id = cat.15
+	title = cat.15.t
+	desc = cat.15.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Presidentialism
+		name = cat.15.a
+		add_political_power = 50
+		country_event = { days = 20 id = cat.16 }
+	}
+
+	option = { #Semi-presidentialism
+		name = cat.15.b
+		add_stability = 0.05
+		if = {
+			limit = {
+				has_government = social_democracy
+			}
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Carles_Pi
+		}
+		if = {
+			limit = {
+				has_government = democratic
+			}
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Ventosa
+		}
+		country_event = { days = 20 id = cat.16 }
+	}
+}
+
+# Secularism vs Catholicism
+country_event = {
+	id = cat.16
+	title = cat.16.t
+	desc = cat.16.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Catholicism
+		name = cat.16.a
+		add_stability = 0.05
+		add_war_support = -0.1
+		country_event = { days = 20 id = cat.17 }
+	}
+
+	option = { #Secularism
+		name = cat.16.b
+		add_stability = -0.075
+		add_political_power = 200
+		country_event = { days = 20 id = cat.17 }
+	}
+}
+
+# Status of spanish
+country_event = {
+	id = cat.17
+	title = cat.17.t
+	desc = cat.17.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Co-oficial
+		name = cat.17.a
+		add_political_power = -40
+		add_war_support = -0.05
+		country_event = { days = 20 id = cat.18 }
+	}
+
+	option = { #Catalan only!
+		name = cat.17.b
+		add_stability = -0.05
+		country_event = { days = 20 id = cat.18 }
+	}
+}
+
+# Power of the Parliament
+country_event = {
+	id = cat.18
+	title = cat.18.t
+	desc = cat.18.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Weak Parliament
+		name = cat.18.a
+		add_stability = 0.05
+		add_political_power = 50
+		add_war_support = -0.1
+		country_event = { days = 20 id = cat.19 }
+	}
+
+	option = { #Powerful Parliament
+		name = cat.18.b
+		add_war_support = 0.1
+		add_popularity = { ideology = social_democracy popularity = 0.05 }
+		add_popularity = { ideology = social_liberalism popularity = 0.05 }
+		add_popularity = { ideology = jacobin popularity = 0.05 }
+		add_popularity = { ideology = democratic popularity = 0.05 }
+		country_event = { days = 20 id = cat.19 }
+	}
+}
+
+# The Catalan Constitution
+country_event = {
+	id = cat.19
+	title = cat.19.t
+	desc = cat.19.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #The End
+		name = cat.19.a
+		set_country_flag = cat_constitution_done
+		swap_ideas = { remove_idea = CAT_divided_society add_idea = CAT_divided_society2 }
+	}
+
+}
+
+# End of Democracy
+country_event = {
+	id = cat.20
+	title = cat.20.t
+	desc = cat.20.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #The End
+		name = cat.20.a
+		add_political_power = -200
+		swap_ideas = { remove_idea = CAT_divided_society add_idea = CAT_divided_society2 }
+	}
+
+}
+
+# Violence in Tarragona
+country_event = {
+	id = cat.21
+	title = cat.21.t
+	desc = cat.21.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Terrible
+		name = cat.21.a
+		add_stability = -0.05
+		hidden_effect = {
+			country_event = { days = 2 id = cat.22 }
+		}
+	}
+
+}
+
+# General Strike
+country_event = {
+	id = cat.22
+	title = cat.22.t
+	desc = cat.22.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Army
+		name = cat.22.a
+		add_stability = -0.1
+		hidden_effect = {
+			country_event = { days = 3 id = cat.23 }
+		}
+	}
+
+	option = { #Police
+		name = cat.22.b
+		add_stability = -0.05
+		hidden_effect = {
+			country_event = { days = 3 id = cat.32 }
+		}
+	}
+
+}
+
+# Mataro and Sabadell
+country_event = {
+	id = cat.23
+	title = cat.23.t
+	desc = cat.23.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Barcelona
+		name = cat.23.a
+		hidden_effect = {
+			country_event = { days = 4 id = cat.24 }
+		}
+	}
+
+	option = { #Send army
+		name = cat.23.b
+		hidden_effect = {
+			country_event = { days = 4 id = cat.29 }
+		}
+	}
+
+}
+
+# Barricades
+country_event = {
+	id = cat.24
+	title = cat.24.t
+	desc = cat.24.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Girona
+		name = cat.24.a
+		add_stability = -0.05
+		hidden_effect = {
+			country_event = { days = 3 id = cat.25 }
+		}
+	}
+
+	option = { #Continue
+		name = cat.24.b
+		add_stability = -0.05
+		hidden_effect = {
+			country_event = { days = 3 id = cat.27 }
+		}
+	}
+
+}
+
+# Fall Barcelona
+country_event = {
+	id = cat.25
+	title = cat.25.t
+	desc = cat.25.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Terrible
+		name = cat.25.a
+		hidden_effect = {
+			country_event = { days = 5 id = cat.26 }
+		}
+	}
+
+
+}
+
+# Battle Girona
+country_event = {
+	id = cat.26
+	title = cat.26.t
+	desc = cat.26.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Terrible
+		name = cat.26.a
+		add_stability = -0.05
+		hidden_effect = {
+			country_event = { days = 5 id = cat.33 }
+		}
+	}
+
+}
+
+# Victory Barcelona
+country_event = {
+	id = cat.27
+	title = cat.27.t
+	desc = cat.27.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Yay
+		name = cat.27.a
+		add_stability = 0.05
+		hidden_effect = {
+			country_event = { days = 7 id = cat.28 }
+		}
+	}
+
+
+}
+
+# Battle Tarragona
+country_event = {
+	id = cat.28
+	title = cat.28.t
+	desc = cat.28.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Terrible
+		name = cat.28.a
+		add_stability = 0.1
+	}
+
+
+}
+
+# Fall Barcelona v2
+country_event = {
+	id = cat.29
+	title = cat.29.t
+	desc = cat.29.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #ATTACK
+		name = cat.29.a
+		hidden_effect = {
+			country_event = { days = 3 id = cat.30 }
+		}
+	}
+
+	option = { #wait
+		name = cat.29.b
+		hidden_effect = {
+			country_event = { days = 4 id = cat.31 }
+		}
+	}
+
+}
+
+# Victory in Barcelona!
+country_event = {
+	id = cat.30
+	title = cat.30.t
+	desc = cat.30.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #good anakin good
+		name = cat.30.a
+		add_stability = 0.1
+	}
+
+
+}
+
+# Defeat!
+country_event = {
+	id = cat.31
+	title = cat.31.t
+	desc = cat.31.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Terrible
+		name = cat.31.a
+		add_stability = -0.05
+		hidden_effect = {
+			country_event = { days = 7 id = cat.26 }
+		}
+	}
+
+
+}
+
+# Mataro
+country_event = {
+	id = cat.32
+	title = cat.32.t
+	desc = cat.32.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #hehe
+		name = cat.32.a
+		add_stability = -0.05
+		hidden_effect = {
+			country_event = { days = 4 id = cat.29 }
+		}
+	}
+
+}
+
+
+# CNT wins
+country_event = {
+	id = cat.33
+	title = cat.33.t
+	desc = cat.33.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #CNT
+		name = cat.33.a
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Joan_Garcia
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Segundo_Blanco
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Joan_Peiro
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Buenaventura_Durruti
+		set_politics = { ruling_party = authoritarian_socialism }
+		set_country_flag = cat_cnt
+	}
+}
+
+# General Election
+country_event = {
+	id = cat.34
+	title = cat.34.t
+	desc = cat.34.d
+	picture = GFX_report_event_election_vote
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Esquerra
+		name = cat.14.a
+		if = {
+			limit = {
+				NOT = {
+					has_government = social_democracy
+				}
+			}
+			set_politics = { ruling_party = social_democracy }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_LLuis_Compays
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Josep_Tomas
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_LLuhi
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Tarradellas
+		}
+	}
+
+	option = { #Lliga
+		name = cat.14.b
+		if = {
+			limit = {
+				NOT = {
+					has_government = democratic
+				}
+			}
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Fransesc
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Ramon_Abadal
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Joan_Ventosa
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Duran
+		set_politics = { ruling_party = democratic }
+		}
+	}
+}
+
+# Catalonia proposes association
+country_event = {
+	id = cat.35
+	title = cat.35.t
+	desc = cat.35.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #Propose them an Autonomy status
+		name = cat.35.a
+		ai_chance = { factor = 0.7 }
+		CAT = {
+			country_event = { days = 1 id = cat.36 }
+		}
+	}
+
+	option = { #They are part of Spain!
+		name = cat.35.b
+		ai_chance = { factor = 0.3 }
+		CAT = {
+			country_event = { days = 1 id = cat.38 }
+		}
+	}
+
+}
+
+# Spain proposes autonomy status
+# country_event = {
+# 	id = cat.36
+# 	title = cat.36.t
+# 	desc = cat.36.d
+# 	picture = GFX_report_event_generic_sign_treaty2
+
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		tag = CAT
+# 	}
+
+# 	option = { #Accept
+# 		name = cat.36.a
+# 		SPR = {
+# 		set_autonomy = {
+# 			target = CAT
+# 			autonomy_state = autonomy_dominion
+# 		}
+# 		}
+# 	}
+
+# 	option = { #Propose an alliance instead!
+# 		name = cat.36.b
+# 		ai_chance = { factor = 0 }
+# 		SPR = {
+# 			country_event = { days = 1 id = cat.37 }
+# 		}
+# 	}
+
+# }
+
+# Catalan counter-offer
+# country_event = {
+# 	id = cat.37
+# 	title = cat.37.t
+# 	desc = cat.37.d
+# 	picture = GFX_report_event_generic_sign_treaty2
+
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		tag = SPR
+# 	}
+
+# 	option = { #Accept
+# 		name = cat.37.a
+# 		if = {
+# 			limit = {
+# 				SPR = {
+# 					is_in_faction = no
+# 				}
+# 			}
+# 			create_faction = iberian_alliance_faction
+# 			add_to_faction = CAT
+# 		}
+# 		if = {
+# 			limit = {
+# 				SPR = {
+# 					is_in_faction = yes
+# 				}
+# 			}
+# 			every_country = {
+# 				limit = {
+# 					is_in_faction_with = SPR
+# 					is_faction_leader = yes
+# 				}
+# 				add_to_faction = CAT
+# 			}
+# 		}
+# 	}
+
+# 	option = { #Refuse
+# 		name = cat.37.b
+# 		CAT = {
+# 			country_event = { days = 1 id = cat.38 }
+# 		}
+# 	}
+
+# }
+
+# Spain refuses
+# country_event = {
+# 	id = cat.38
+# 	title = cat.38.t
+# 	desc = cat.38.d
+# 	picture = GFX_report_event_generic_sign_treaty2
+
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		tag = CAT
+# 	}
+
+# 	option = { #Damn
+# 		name = cat.38.a
+# 		add_opinion_modifier = { target = SPR modifier = small_decrease }
+# 	}
+
+# }
+
+# # Catalonia asks for the Baleares
+# country_event = {
+# 	id = cat.39
+# 	title = cat.39.t
+# 	desc = cat.39.d
+# 	picture = GFX_report_event_generic_sign_treaty2
+
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		tag = SPR
+# 	}
+
+# 	option = { #Accept
+# 		name = cat.39.a
+# 		CAT = {
+# 		    transfer_state = 177
+# 			add_state_core = 177
+# 		}
+# 	}
+
+# 	option = { #Refuse
+# 		name = cat.39.b
+# 		CAT = {
+# 		    country_event = { days = 1 id = cat.40 }
+# 		}
+# 	}
+# }
+
+# # Spain refuses
+# country_event = {
+# 	id = cat.40
+# 	title = cat.40.t
+# 	desc = cat.40.d
+# 	picture = GFX_report_event_generic_sign_treaty2
+
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		tag = CAT
+# 	}
+
+# 	option = { #Damn
+# 		name = cat.40.a
+# 		add_opinion_modifier = { target = SPR modifier = small_decrease }
+# 	}
+
+# }
+
+# Catalonia asks for alliance
+country_event = {
+	id = cat.41
+	title = cat.41.t
+	desc = cat.41.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+	}
+
+	option = { #Accept
+		name = cat.41.a
+		ai_chance = {
+			factor = 0.7
+			modifier = {
+				factor = 0.6
+				SPA = {
+					exists = yes
+					OR = {
+						has_government = monarchism
+						has_government = neutrality
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				SPA = {
+					exists = yes
+					OR = {
+						has_government = democratic
+						has_government = social_liberalism
+						has_government = market_liberalism
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				SPC = {
+					exists = yes
+					OR = {
+						has_government = social_democracy
+						has_government = socialism
+					}
+				}
+			}
+			modifier = {
+				factor = 5
+				SPC = {
+					exists = yes
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+		}
+		add_to_faction = CAT
+	}
+
+	option = { #Refuse
+		name = cat.41.b
+		CAT = {
+			country_event = { days = 1 id = cat.42 }
+		}
+	}
+}
+
+# Britain refuses
+country_event = {
+	id = cat.42
+	title = cat.42.t
+	desc = cat.42.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Damn
+		name = cat.42.a
+		add_opinion_modifier = { target = ENG modifier = large_decrease }
+	}
+}
+
+
+# Catalonia asks for alliance
+country_event = {
+	id = cat.43
+	title = cat.43.t
+	desc = cat.43.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = FRA
+	}
+
+	option = { #Accept
+		name = cat.43.a
+		ai_chance = {
+			factor = 0.5
+			modifier = {
+				factor = 0.6
+				SPA = {
+					exists = yes
+					OR = {
+						has_government = neutrality
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				SPA = {
+					exists = yes
+					OR = {
+						has_government = democratic
+						has_government = social_liberalism
+						has_government = market_liberalism
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				SPC = {
+					exists = yes
+					OR = {
+						has_government = social_democracy
+						has_government = socialism
+					}
+				}
+			}
+			modifier = {
+				factor = 5
+				SPC = {
+					exists = yes
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+		}
+		add_to_faction = CAT
+	}
+
+	option = { #Refuse
+		name = cat.43.b
+		CAT = {
+			country_event = { days = 1 id = cat.44 }
+		}
+	}
+}
+
+# France refuses
+country_event = {
+	id = cat.44
+	title = cat.44.t
+	desc = cat.44.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Damn
+		name = cat.44.a
+		add_opinion_modifier = { target = FRA modifier = large_decrease }
+	}
+}
+
+# Catalonia asks for Valencia
+country_event = {
+	id = cat.45
+	title = cat.45.t
+	desc = cat.45.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+	}
+
+	option = { #Accept
+		name = cat.45.a
+		ai_chance = {
+			factor = 0.1
+			modifier = {
+				factor = 5
+				CAT = {
+					is_in_faction = yes
+				}
+			}
+		}
+		CAT = {
+			transfer_state = 167
+		}
+	}
+
+	option = { #Refuse
+		name = cat.45.b
+		ai_chance = {
+			factor = 1
+		}
+		CAT = {
+			country_event = { days = 1 id = cat.46 }
+		}
+	}
+}
+
+# Spain refuses
+country_event = {
+	id = cat.46
+	title = cat.46.t
+	desc = cat.46.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	trigger = {
+		tag = CAT
+	}
+
+	option = { #Damn
+		name = cat.46.a
+		if = {
+			limit = {
+				SPC = {
+					exists = yes
+				}
+			}
+			declare_war_on = { target = SPC type = annex_everything }
+		}
+		if = {
+			limit = {
+				SPA = {
+					exists = yes
+				}
+			}
+			declare_war_on = { target = SPA type = annex_everything }
+		}
+	}
+
+}
+
+# Catalonia asks for Baleares
+country_event = {
+	id = cat.47
+	title = cat.47.t
+	desc = cat.47.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+	}
+
+	option = { #Accept
+		name = cat.45.a
+		ai_chance = {
+			factor = 0.2
+			modifier = {
+				factor = 3
+				CAT = {
+					is_in_faction = yes
+				}
+			}
+		}
+		CAT = {
+			transfer_state = 177
+		}
+	}
+
+	option = { #Refuse
+		name = cat.45.b
+		ai_chance = {
+			factor = 1
+		}
+		CAT = {
+			country_event = { days = 1 id = cat.46 }
+		}
+	}
+}
+
+#Join soviets
+country_event = {
+	id = cat.48
+	title = cat.48.t
+	desc = cat.48.d
+	picture = GFX_report_event_generic_rally_1
+
+	is_triggered_only = yes
+	trigger = {
+		tag = SOV
+	}
+
+
+	option = {
+		name = cat.48.a
+		add_to_faction = CAT
+	}
+
+	option = {
+		name = cat.48.b
+		CAT = { country_event = { days = 1 id = cat.49 } }
+		ai_chance = { factor = 0 }
+	}
+}
+
+#No vodka for Catalonia
+country_event = {
+	id = cat.49
+	title = cat.49.t
+	desc = cat.49.d
+	picture = GFX_report_event_generic_rally_1
+
+	is_triggered_only = yes
+
+
+	option = {
+		name = cat.49.a
+		add_opinion_modifier = { target = SOV modifier = large_decrease }
+	}
+}
+
+# Catalonia is doing nasty stuff
+country_event = {
+	id = cat.50
+	title = cat.50.t
+	desc = cat.50.d
+	picture = GFX_report_event_generic_rally_1
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+	}
+
+	option = {
+		name = cat.50.a
+		add_stability = -0.15
+	}
+}
+
+#CAT becomes SPC with anarchist tree loaded
+country_event = {
+	id = cat.51
+	title = cat.51.t
+	desc = cat.51.d
+	picture = GFX_report_event_generic_rally_1
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		has_government = authoritarian_socialism
+	}
+
+	option = {
+		name = cat.51.a
+		every_state = {
+				limit = { is_core_of = SPR }
+				add_core_of = SPC
+				remove_core_of = SPR
+			}
+		every_state = {
+			limit = { is_claimed_by = SPR }
+			remove_claim_by = SPR
+			add_claim_by = SPC
+		}
+		every_state = {
+				limit = { is_core_of = SPA }
+				add_core_of = SPC
+				remove_core_of = SPA
+			}
+		every_state = {
+			limit = { is_claimed_by = SPA }
+			remove_claim_by = SPA
+			add_claim_by = SPC
+		}
+		random_owned_controlled_state = {
+			SPC = { transfer_state = PREV }
+		}
+		SPC = {
+			# remove_ideas = SPR_civil_war
+			add_ideas = postwar1
+			add_ideas = SPC_disorg_army
+			add_ideas = SPC_chaotic_adm
+			add_ideas = SPC_polit_division
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Juan_Garcia
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Angel_Pestana
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_Joan_Peiro
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Angel_Galarza
+			set_party_name = {
+				ideology = authoritarian_socialism
+				long_name = SPC_cntfai_long
+				name = SPC_cntfai
+			}
+			promote_character = SPR_comite_central
+			set_country_flag = cnt_has_full_power
+			set_country_flag = SPC_congress_over
+			set_country_flag = SPC_arm_mil
+			set_country_flag = SPC_air_bom
+			set_country_flag = SPC_nav_pp
+			set_country_flag = SPC_united_communes
+			set_country_flag = SPC_eco_syn
+			set_country_flag = SPC_ter_dec
+			set_country_flag = SPC_cnt_won
+			set_cosmetic_tag = CNT
+			set_stability = 0.4
+			add_political_power = 25
+			set_war_support = 0.4
+			annex_country = { target = CAT transfer_troops = yes }
+			change_tag_from = CAT
+		}
+	}
+}
+
+# Catalonia rejoins SPC
+country_event = {
+	id = cat.52
+	title = cat.52.t
+	desc = cat.52.d
+	picture = GFX_report_event_generic_rally_1
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = cat.52.a
+		SPC = {
+			annex_country = { target = CAT transfer_troops = no }
+			change_tag_from = CAT
+		}
+	}
+	
+	option = {
+		name = "No."
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+# Batet joins CAT
+country_event = {
+	id = cat.53
+	title = cat.53.t
+	desc = cat.53.d
+	picture = GFX_report_event_generic_rally_1
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = cat.52.a
+		set_country_flag = batet_joined_catalonia
+		SPR = {
+			SPR_domingo_batet = {
+				set_character_name = "Domènec Batet i Mestres"
+				set_nationality = CAT
+			}
+		}
+	}
+}

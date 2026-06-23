@@ -1,0 +1,2014 @@
+focus_tree = {
+	id = GER_cw_tree
+	country = {
+		factor = 0
+		modifier = {
+			add = 0
+			tag = GER
+		}
+	}
+    continuous_focus_position = { x = 50 y = 2500 }
+	
+    focus = {
+		id = GER_National_Salvation_Gov
+		icon = GFX_focus_nazi_referendum
+		#prerequisite = { focus = GER_National_Salvation_Gov }
+		#relative_position_id = GER_National_Salvation_Gov
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		cost = 1.5
+		x = 10
+		y = 0
+        available = {
+            always = yes
+        }
+		bypass = {
+		    always = yes 
+		}
+		completion_reward = {
+		    #
+		}
+	}
+	focus = {
+		id = GER_Occupy_Local_Councils
+		icon = GFX_focus_Dissolve_Parliament
+		prerequisite = { focus = GER_National_Salvation_Gov }
+		relative_position_id = GER_National_Salvation_Gov
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		cost = 4.29
+		x = -3
+		y = 1
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    add_stability = -0.03
+			add_political_power = 35
+		}
+	}
+	focus = {
+		id = GER_Reorganize_The_Reichswehr
+		icon = GFX_focus_Officers_Command
+		prerequisite = { focus = GER_National_Salvation_Gov }
+		relative_position_id = GER_National_Salvation_Gov
+		search_filters = {FOCUS_FILTER_REICHSWEHR}
+		cost = 6.86
+		x = 0
+		y = 1
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    army_experience = 40
+			add_command_power = 40
+		}
+	}
+	focus = {
+		id = GER_Abolish_Trade_Unions
+		icon = GFX_focus_Destroy_Trade_Unions
+		prerequisite = { focus = GER_National_Salvation_Gov }
+		relative_position_id = GER_National_Salvation_Gov
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		cost = 3
+		x = 3
+		y = 1
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    add_stability = -0.03
+			add_political_power = 20
+		}
+	}
+	focus = {
+		id = GER_Abolish_Leftist_Organizations
+		icon = GFX_focus_No_Mercy_for_the_Bolsheviks
+		prerequisite = { focus = GER_Occupy_Local_Councils }
+		relative_position_id = GER_National_Salvation_Gov
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		cost = 2.15
+		x = -4
+		y = 2
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    add_stability = 0.05
+			add_popularity = {
+				ideology = communism
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = social_democracy
+				popularity = -0.03
+			}
+		}
+	}
+	focus = {
+		id = GER_Local_Recruitment_Campaigns
+		icon = GFX_focus_Recruitment
+		prerequisite = { focus = GER_Occupy_Local_Councils }
+		prerequisite = { focus = GER_Reorganize_The_Reichswehr }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR}
+		cost = 6.43
+		x = -2
+		y = 1
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    add_timed_idea = {
+				idea = GER_recruitment_propaganda
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = GER_Promote_Veteran_Soldiers
+		icon = GFX_focus_veterans
+		prerequisite = { focus = GER_Reorganize_The_Reichswehr }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR}
+		cost = 2
+		x = 0
+		y = 1
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    army_experience = 15
+		}
+	}
+	focus = {
+		id = GER_Increase_Military_Production
+		icon = GFX_focus_raise_military_budget
+		prerequisite = { focus = GER_Abolish_Trade_Unions }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_ECONOMIC}
+		cost = 6
+		x = 2
+		y = 1
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = GER_Big_Business_Contacts
+		icon = GFX_focus_Corporatism
+		prerequisite = { focus = GER_Abolish_Trade_Unions }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_REACTIONARY}
+		cost = 2.86
+		x = 4
+		y = 1
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    add_popularity = {
+				ideology = fascism
+				popularity = -0.01
+			}
+		    add_popularity = {
+				ideology = nationalism
+				popularity = 0.02
+			}
+			add_stability = 0.03
+		}
+	}
+	focus = {
+		id = GER_Attack_the_Courts
+		icon = GFX_focus_Nazi_Court
+		prerequisite = { focus = GER_Abolish_Leftist_Organizations }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		cost = 5
+		x = -5
+		y = 2
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    add_political_power = 35
+			add_stability = -0.05
+		}
+	}
+	focus = {
+		id = GER_Arrest_Enemy_Sympathizers
+		icon = GFX_focus_Imprison_the_Opposition
+		prerequisite = { focus = GER_Abolish_Leftist_Organizations }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		cost = 5.72
+		x = -3
+		y = 2
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    add_stability = 0.03
+			add_popularity = {
+				ideology = social_liberalism
+				popularity = -0.0125
+			}
+			add_popularity = {
+				ideology = market_liberalism
+				popularity = -0.0125
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = -0.0125
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.0125
+			}
+		}
+	}
+	focus = {
+		id = GER_Improve_Military_Railways
+		icon = GFX_focus_Trains
+		prerequisite = { focus = GER_Local_Recruitment_Campaigns }
+		prerequisite = { focus = GER_Promote_Veteran_Soldiers }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC}
+		cost = 5.29
+		x = -1
+		y = 2
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    #TODO: add railways
+		}
+	}
+	focus = {
+		id = GER_Approach_Mussolini
+		icon = GFX_focus_ITA_Mussolini
+		prerequisite = { focus = GER_Promote_Veteran_Soldiers }
+		prerequisite = { focus = GER_Increase_Military_Production }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_FOREIGN_GCW}
+		cost = 1.72
+		x = 1
+		y = 2
+        available = {
+        }
+		bypass = {
+			ITA = {
+				OR = {
+					has_war_with = ROOT
+					is_puppet = yes
+					exists = no
+					NOT = {
+						has_government = fascism
+					}
+				}
+			}
+		}
+		completion_reward = {
+		    ITA = {
+				country_event = {
+					id = ger_civil_war.1
+				}
+			}
+		}
+	}
+	focus = {
+		id = GER_Talk_to_the_Reichsbank
+		icon = GFX_focus_Bank
+		prerequisite = { focus = GER_Big_Business_Contacts }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_REACTIONARY}
+		cost = 2.86
+		x = 5
+		y = 2
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    add_timed_idea = {
+				idea = GER_reichsbank_support
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = GER_Admirality_Shakeup
+		icon = GFX_focus_Status_of_the_Admirality
+		prerequisite = { focus = GER_Increase_Military_Production }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR}
+		cost = 4.29
+		x = 3
+		y = 2
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    navy_experience = 30
+		}
+	}
+	focus = {
+		id = GER_Install_Nationalist_Bureaucrats
+		icon = GFX_focus_Fuhrer_Oath
+		prerequisite = { focus = GER_Attack_the_Courts }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_NAZI FOCUS_FILTER_REACTIONARY}
+		cost = 3.58
+		x = -5
+		y = 3
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    add_stability = 0.025
+			add_political_power = 30
+		}
+	}
+	focus = {
+		id = GER_Stettin_Decree
+		icon = GFX_focus_German_Colonial_Legacy
+		prerequisite = { focus = GER_Arrest_Enemy_Sympathizers }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		cost = 2.86
+		x = -3
+		y = 3
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    add_stability = -0.02
+			add_popularity = {
+				ideology = fascism 
+				popularity = 0.02
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.02
+			}
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = 0.02
+			}
+		}
+	}
+	focus = {
+		id = GER_Propaganda_in_the_Military
+		icon = GFX_focus_Wehrmacht_Disputes
+		prerequisite = {
+			focus = GER_Improve_Military_Railways
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_REICHSWEHR}
+		cost = 5.43
+		x = -1
+		y = 3
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+		    add_stability = -0.02
+			add_popularity = {
+				ideology = fascism 
+				popularity = 0.04
+			}
+			army_experience = -20
+		}
+	}
+	focus = {
+		id = GER_Expand_Hitler_Youth
+		icon = GFX_focus_hitler_youths
+		prerequisite = {
+			focus = GER_Improve_Military_Railways
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_NAZI}
+		cost = 4
+		x = 1
+		y = 3
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism 
+				popularity = 0.02
+			}
+			add_timed_idea = {
+				idea = GER_hitler_youth
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = GER_Regulate_the_Agricultural_Market
+		icon = GFX_focus_Control_Agriculture
+		prerequisite = {
+			focus = GER_Talk_to_the_Reichsbank
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_AGRICULTURAL FOCUS_FILTER_ECONOMIC}
+		cost = 4.29
+		x = 3
+		y = 3
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism 
+				popularity = 0.025
+			}
+			add_popularity = {
+				ideology = nationalism 
+				popularity = 0.015
+			}
+			add_popularity = {
+				ideology = monarchism 
+				popularity = 0.015
+			}
+			add_stability = -0.05
+		}
+	}
+	focus = {
+		id = GER_Pressure_Smaller_Enterprises
+		icon = GFX_focus_strengthen_small_production
+		prerequisite = {
+			focus = GER_Talk_to_the_Reichsbank
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC}
+		cost = 5
+		x = 5
+		y = 3
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = GER_pressure_on_small_businesses
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = GER_National_Socialist_Revolution
+		icon = GFX_focus_National_Socialist_Revolution
+		prerequisite = {
+			focus = GER_Install_Nationalist_Bureaucrats
+		}
+		prerequisite = {
+			focus = GER_Stettin_Decree
+		}
+		prerequisite = {
+			focus = GER_Propaganda_in_the_Military
+		}
+		prerequisite = {
+			focus = GER_Expand_Hitler_Youth
+		}
+		prerequisite = {
+			focus = GER_Regulate_the_Agricultural_Market
+		}
+		prerequisite = {
+			focus = GER_Pressure_Smaller_Enterprises
+		}
+		mutually_exclusive = {
+			focus = GER_The_Harzburg_Front_Survives
+		}
+		mutually_exclusive = {
+			focus = GER_Die_Alte_Garde
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_NAZI FOCUS_FILTER_POLITICAL}
+		cost = 5
+		x = -4
+		y = 4
+        available = {
+			has_country_flag = GER_GCW_failed_coup
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = nationalism
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.03
+			}
+			add_stability = 0.10
+		}
+	}
+	focus = {
+		id = GER_The_Harzburg_Front_Survives
+		icon = GFX_focus_Harzburg
+		prerequisite = {
+			focus = GER_Install_Nationalist_Bureaucrats
+		}
+		prerequisite = {
+			focus = GER_Stettin_Decree
+		}
+		prerequisite = {
+			focus = GER_Propaganda_in_the_Military
+		}
+		prerequisite = {
+			focus = GER_Expand_Hitler_Youth
+		}
+		prerequisite = {
+			focus = GER_Regulate_the_Agricultural_Market
+		}
+		prerequisite = {
+			focus = GER_Pressure_Smaller_Enterprises
+		}
+		mutually_exclusive = {
+			focus = GER_National_Socialist_Revolution
+		}
+		mutually_exclusive = {
+			focus = GER_Die_Alte_Garde
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_HARZBURG_FRONT FOCUS_FILTER_POLITICAL}
+		cost = 5
+		x = 0
+		y = 4
+        available = {
+			has_country_flag = GER_GCW_Harzburg_Front_survives
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_political_power = 50
+			add_stability = 0.5
+		}
+	}
+	focus = {
+		id = GER_Die_Alte_Garde
+		icon = GFX_focus_Die_Alte_Garde
+		prerequisite = {
+			focus = GER_Install_Nationalist_Bureaucrats
+		}
+		prerequisite = {
+			focus = GER_Stettin_Decree
+		}
+		prerequisite = {
+			focus = GER_Propaganda_in_the_Military
+		}
+		prerequisite = {
+			focus = GER_Expand_Hitler_Youth
+		}
+		prerequisite = {
+			focus = GER_Regulate_the_Agricultural_Market
+		}
+		prerequisite = {
+			focus = GER_Pressure_Smaller_Enterprises
+		}
+		mutually_exclusive = {
+			focus = GER_National_Socialist_Revolution
+		}
+		mutually_exclusive = {
+			focus = GER_The_Harzburg_Front_Survives
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REACTIONARY FOCUS_FILTER_POLITICAL}
+		cost = 5
+		x = 4
+		y = 4
+        available = {
+			has_country_flag = GER_GCW_successful_coup
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.12
+			}
+			add_stability = 0.10
+		}
+	}
+	focus = {
+		id = GER_Convert_Civilian_Planes
+		icon = GFX_focus_Aviation_industry
+		prerequisite = {
+			focus = GER_National_Socialist_Revolution
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_NAZI}
+		cost = 6
+		x = -6
+		y = 5
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				amount = 8
+				producer = GER
+			}
+		}
+	}
+	focus = {
+		id = GER_Arrest_Monarchist_Sympathizers
+		icon = GFX_focus_Crush_the_Monarchy
+		prerequisite = {
+			focus = GER_National_Socialist_Revolution
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_NAZI}
+		cost = 3.72
+		x = -4
+		y = 5
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = nationalism
+				popularity = -0.025
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = -0.025
+			}
+		}
+	}
+	focus = {
+		id = GER_Blut_und_Bloden
+		icon = GFX_focus_Blood_Soil
+		prerequisite = {
+			focus = GER_National_Socialist_Revolution
+			focus = GER_The_Harzburg_Front_Survives
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_AGRICULTURAL FOCUS_FILTER_NAZI FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 2.86
+		x = -2
+		y = 5
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.01
+			}
+			add_political_power = -20
+		}
+	}
+	focus = {
+		id = GER_Shift_Responsibilities_to_the_Military
+		icon = GFX_focus_German_Plans
+		prerequisite = {
+			focus = GER_The_Harzburg_Front_Survives
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_POLITICAL FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 4.29
+		x = 0
+		y = 5
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_political_power = -30
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.03
+			}
+			add_ideas = thomas
+		}
+	}
+	focus = {
+		id = GER_Integrate_the_SA
+		icon = GFX_focus_Stahlhelm
+		prerequisite = {
+			focus = GER_The_Harzburg_Front_Survives
+			focus = GER_Die_Alte_Garde
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_REACTIONARY FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 8
+		x = 2
+		y = 5
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			every_unit_leader = {
+				limit = {
+					has_trait = germany_sturmabteilung
+				}
+				retire = yes
+			}
+			remove_ideas = GER_divided_army
+		}
+	}
+	focus = {
+		id = GER_Ensure_Clerical_Loyalty
+		icon = GFX_focus_coerce_church
+		prerequisite = {
+			focus = GER_Die_Alte_Garde
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_REACTIONARY}
+		cost = 2.86
+		x = 5
+		y = 5
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_stability = 0.025
+			add_political_power = 25
+		}
+	}
+	focus = {
+		id = GER_Establish_the_Volksheer
+		icon = GFX_focus_Volksheer_2
+		prerequisite = {
+			focus = GER_Convert_Civilian_Planes
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_NAZI}
+		cost = 10
+		x = -9
+		y = 6
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			#Add general removals
+			remove_ideas = GER_divided_army
+			every_unit_leader = {
+				limit = {
+					has_trait = germany_sturmabteilung
+					has_id = 42
+				}
+				promote_leader = yes
+			}
+			every_unit_leader = {
+				limit = {
+					NOT = {
+						has_trait = germany_sturmabteilung
+					}
+				}
+				if = {
+					limit = {
+						is_field_marshal = yes
+					}
+					demote_leader = yes
+				}
+				else = {
+					retire = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = GER_Occupy_the_Banks
+		icon = GFX_focus_found_the_investment_bank
+		prerequisite = {
+			focus = GER_Convert_Civilian_Planes
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_NAZI}
+		cost = 3.43
+		x = -6
+		y = 6
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = GER_nationalized_banks
+				days = 490
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.025
+			}
+		}
+	}
+	focus = {
+		id = GER_Break_up_Junker_Estates
+		icon = GFX_focus_Build_Houses
+		prerequisite = {
+			focus = GER_Arrest_Monarchist_Sympathizers
+		}
+		prerequisite = {
+			focus = GER_Blut_und_Bloden
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_AGRICULTURAL FOCUS_FILTER_NAZI}
+		cost = 5
+		x = -3
+		y = 6
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	focus = {
+		id = GER_Leave_Junkers_Alone
+		icon = GFX_focus_German_Constitutionalism
+		prerequisite = {
+			focus = GER_Blut_und_Bloden
+		}
+		prerequisite = {
+			focus = GER_Shift_Responsibilities_to_the_Military
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_AGRICULTURAL FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 2
+		x = -1
+		y = 6
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.02
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = 0.02
+			}
+			add_stability = 0.02
+		}
+	}
+	focus = {
+		id = GER_Motorized_Experiments
+		icon = GFX_focus_Motorization_Effort
+		prerequisite = {
+			focus = GER_Shift_Responsibilities_to_the_Military
+		}
+		prerequisite = {
+			focus = GER_Integrate_the_SA
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 5
+		x = 1
+		y = 6
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = motorized_bonus
+				uses = 1
+				bonus = 0.30
+				category = motorized_equipment
+			}
+		}
+	}
+	focus = {
+		id = GER_Support_Traditional_Militarism
+		icon = GFX_focus_Iron_Cross_Germany
+		prerequisite = {
+			focus = GER_Integrate_the_SA
+		}
+		prerequisite = {
+			focus = GER_Die_Alte_Garde
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_REACTIONARY}
+		cost = 3.58
+		x = 4
+		y = 6
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.025
+			}
+			add_stability = 0.025
+		}
+	}
+	focus = {
+		id = GER_Absorb_the_NSDAP
+		icon = GFX_focus_Arrest_Nazis
+		prerequisite = {
+			focus = GER_Ensure_Clerical_Loyalty
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_REACTIONARY}
+		cost = 5.72
+		x = 7
+		y = 6
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.08
+			}
+			add_political_power = 20
+		}
+	}
+	focus = {
+		id = GER_Practice_New_Maneuvers
+		icon = GFX_focus_Human_Wave_Charges
+		prerequisite = {
+			focus = GER_Establish_the_Volksheer
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_NAZI}
+		cost = 7.15
+		x = -10
+		y = 7
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = mass_assault_bonus
+				uses = 1
+				bonus = 0.30
+				category = cat_mass_assault
+			}
+		}
+	}
+	focus = {
+		id = GER_Distribute_Mein_Kampf
+		icon = GFX_focus_Cult_of_Personality
+		prerequisite = {
+			focus = GER_Establish_the_Volksheer
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_POLITICAL FOCUS_FILTER_NAZI}
+		cost = 2.86
+		x = -8
+		y = 7
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.02
+			}
+			army_experience = -10
+		}
+	}
+	focus = {
+		id = GER_The_Travemunde_Decree
+		icon = GFX_focus_Control_the_Economy
+		prerequisite = {
+			focus = GER_Occupy_the_Banks
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_NAZI}
+		cost = 6.43
+		x = -6
+		y = 7
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_ideas = GER_travemunde				
+		}
+	}
+	focus = {
+		id = GER_Arrest_Conservative_Professors
+		icon = GFX_focus_ORPO
+		prerequisite = {
+			focus = GER_Break_up_Junker_Estates
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_NAZI}
+		cost = 2.29
+		x = -4
+		y = 7
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = nationalism
+				popularity = -0.02
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = -0.02
+			}
+		}
+	}
+	focus = {
+		id = GER_Create_National_Cartels
+		icon = GFX_focus_Corporatism
+		prerequisite = {
+			focus = GER_Leave_Junkers_Alone
+		}
+		prerequisite = {
+			focus = GER_Motorized_Experiments
+		}
+		mutually_exclusive = {
+			focus = GER_Form_the_Military_Economic_Board
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 4.43
+		x = -1
+		y = 7
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_ideas = GER_national_cartel_monopolies
+		}
+	}
+	focus = {
+		id = GER_Form_the_Military_Economic_Board
+		icon = GFX_focus_Industrial_Council
+		prerequisite = {
+			focus = GER_Leave_Junkers_Alone
+		}
+		prerequisite = {
+			focus = GER_Motorized_Experiments
+		}
+		mutually_exclusive = {
+			focus = GER_Create_National_Cartels
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 4.43
+		x = 1
+		y = 7
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_ideas = GER_military_industrial_cooperation
+		}
+	}
+	focus = {
+		id = GER_Privileges_for_Junkers
+		icon = GFX_focus_Junkers
+		prerequisite = {
+			focus = GER_Support_Traditional_Militarism
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_AGRICULTURAL FOCUS_FILTER_REACTIONARY}
+		cost = 3.58
+		x = 3
+		y = 7
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = monarchism
+				popularity = 0.025
+			}
+			add_stability = 0.025
+		}
+	}
+	focus = {
+		id = GER_Work_with_Rifle_Makers
+		icon = GFX_focus_Firearms
+		prerequisite = {
+			focus = GER_Support_Traditional_Militarism
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_REACTIONARY}
+		cost = 5
+		x = 5
+		y = 7
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_bonus
+				uses = 1
+				bonus = 0.30
+				category = infantry_weapons
+			}
+		}
+	}
+	focus = {
+		id = GER_Expand_Conscription
+		icon = GFX_focus_Volksheer
+		prerequisite = {
+			focus = GER_Practice_New_Maneuvers
+		}
+		mutually_exclusive = {
+			focus = GER_Integrate_the_Stahlhelm
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_NAZI}
+		cost = 5.43
+		x = -10
+		y = 8
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			MOVE_UP_CONSCRIPTION = yes
+			add_political_power = -50
+		}
+	}
+	focus = {
+		id = GER_Integrate_the_Stahlhelm
+		icon = GFX_focus_DNVP_Propaganda
+		prerequisite = {
+			focus = GER_Distribute_Mein_Kampf
+		}
+		mutually_exclusive = {
+			focus = GER_Expand_Conscription
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_NAZI}
+		cost = 3.58
+		x = -8
+		y = 8
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			#add stahlhelm generals to remove
+			army_experience = 25
+			add_manpower = 3800
+		}
+	}
+	focus = {
+		id = GER_Decentralize_Industry
+		icon = GFX_focus_Stop_Industrialization
+		prerequisite = {
+			focus = GER_The_Travemunde_Decree
+		}
+		prerequisite = {
+			focus = GER_Arrest_Conservative_Professors
+		}
+		mutually_exclusive = {
+			focus = GER_Expand_our_Industrial_Base
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_NAZI}
+		cost = 5.72
+		x = -5
+		y = 8
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+					arms_factory < 2
+					dockyard < 2
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = industry_bonus
+				uses = 1
+				bonus = 0.25
+				category = dispersed_industry_category
+			}
+		}
+	}
+	focus = {
+		id = GER_Expand_our_Industrial_Base
+		icon = GFX_focus_Fascist_Trade_Union
+		prerequisite = {
+			focus = GER_Break_up_Junker_Estates
+			focus = GER_Create_National_Cartels
+			focus = GER_Form_the_Military_Economic_Board
+		}
+		mutually_exclusive = {
+			focus = GER_Decentralize_Industry
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_NAZI FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 5.72
+		x = -3
+		y = 8
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+					OR = {			
+						arms_factory > 1
+						dockyard > 1
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = industry_bonus
+				uses = 1
+				bonus = 0.25
+				category = concentrated_industry_category
+			}
+		}
+	}
+	focus = {
+		id = GER_Study_Military_Mobility
+		icon = GFX_focus_Blitzkrieg
+		prerequisite = {
+			focus = GER_Create_National_Cartels
+			focus = GER_Form_the_Military_Economic_Board
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 4.43
+		x = -1
+		y = 8
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = mobile_warfare_bonus
+				uses = 1
+				bonus = 0.30
+				category = cat_mobile_warfare
+			}
+		}
+	}
+	focus = {
+		id = GER_Secure_the_Support_of_Senior_Officers
+		icon = GFX_focus_Capitalist_Systems
+		prerequisite = {
+			focus = GER_Create_National_Cartels
+			focus = GER_Form_the_Military_Economic_Board
+			focus = GER_Privileges_for_Junkers
+		}
+		mutually_exclusive = { focus = GER_Secure_Hohenzollern_Support }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_POLITICAL FOCUS_FILTER_HARZBURG_FRONT FOCUS_FILTER_REACTIONARY}
+		cost = 4.15
+		x = 1
+		y = 8
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.03
+			}
+			add_command_power = 30
+		}
+	}
+	focus = {
+		id = GER_Secure_Hohenzollern_Support
+		icon = GFX_focus_Crown_a_king
+		prerequisite = {
+			focus = GER_Create_National_Cartels
+			focus = GER_Form_the_Military_Economic_Board
+			focus = GER_Privileges_for_Junkers
+		}
+		mutually_exclusive = { focus = GER_Secure_the_Support_of_Senior_Officers }
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_HARZBURG_FRONT FOCUS_FILTER_REACTIONARY}
+		cost = 4.15
+		x = 3
+		y = 8
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = monarchism
+				popularity = 0.03
+			}
+			add_political_power = 30
+		}
+	}
+	focus = {
+		id = GER_Experiences_of_the_Great_War
+		icon = GFX_focus_Wehrmacht_Disputes
+		prerequisite = {
+			focus = GER_Work_with_Rifle_Makers
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_REACTIONARY}
+		cost = 5
+		x = 5
+		y = 8
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = grand_battle_plan_bonus
+				uses = 1
+				bonus = 0.30
+				category = cat_grand_battle_plan
+			}
+		}
+	}
+	focus = {
+		id = GER_Benefits_for_Farmers
+		icon = GFX_focus_Set_Agricultural_Prices
+		prerequisite = {
+			focus = GER_Absorb_the_NSDAP
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_AGRICULTURAL FOCUS_FILTER_REACTIONARY}
+		cost = 3.58
+		x = 7
+		y = 8
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = GER_agrarian_subsidies
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = GER_Promote_New_Leaders
+		icon = GFX_focus_Heavy_Strike
+		prerequisite = {
+			focus = GER_Expand_Conscription
+			focus = GER_Integrate_the_Stahlhelm
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_NAZI}
+		cost = 5.72
+		x = -9
+		y = 9
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			create_corps_commander = {
+				name = "Viktor Lutze"
+				portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Viktor_Lutze.png"
+				traits = {infantry_officer politically_connected germany_sturmabteilung }
+				skill = 1
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 1
+			}
+			# create_corps_commander = {
+			# 	name = "August Schneidhuber"
+			# 	portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+			# 	traits = {artillerist politically_connected germany_sturmabteilung }
+			# 	skill = 1
+			# 	attack_skill = 2
+			# 	defense_skill = 1
+			# 	planning_skill = 1
+			# 	logistics_skill = 1
+			# }
+			# create_corps_commander = {
+			# 	name = "Edmund Heines"
+			# 	portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+			# 	traits = {harsh_leader unpopular artillerist politically_connected germany_sturmabteilung }
+			# 	skill = 1
+			# 	attack_skill = 1
+			# 	defense_skill = 1
+			# 	planning_skill = 1
+			# 	logistics_skill = 1
+			# }
+			create_corps_commander = {
+				name = "Wilhelm Scheppmann"
+				portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Wilhelm_Schepmann.png"
+				traits = {infantry_leader politically_connected germany_sturmabteilung }
+				skill = 1
+				attack_skill = 1
+				defense_skill = 2
+				planning_skill = 1
+				logistics_skill = 1
+			}
+		}
+	}
+	focus = {
+		id = GER_Study_Motorization
+		icon = GFX_focus_Mechanized_Divisions
+		prerequisite = {
+			focus = GER_The_Travemunde_Decree
+		}
+		prerequisite = {
+			focus = GER_Decentralize_Industry
+			focus = GER_Expand_our_Industrial_Base
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_NAZI}
+		cost = 5
+		x = -6
+		y = 9
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = motorized_bonus
+				uses = 1
+				bonus = 0.30
+				category = motorized_equipment
+			}
+		}
+	}
+	focus = {
+		id = GER_Limit_Small_Businesses
+		icon = GFX_focus_Limit_Small_Industries
+		prerequisite = {
+			focus = GER_Expand_our_Industrial_Base
+		}
+		prerequisite = {
+			focus = GER_Study_Military_Mobility
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 4.29
+		x = -2
+		y = 9
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = GER_protected_monopolies
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = GER_Reformulate_Strategies
+		icon = GFX_focus_Military_Intervention
+		prerequisite = {
+			focus = GER_Study_Military_Mobility
+		}
+		prerequisite = {
+			focus = GER_Secure_the_Support_of_Senior_Officers
+			focus = GER_Secure_Hohenzollern_Support
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 5
+		x = 0
+		y = 9
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doctrine_bonus
+				uses = 1
+				bonus = 0.20
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = GER_Absorb_the_Reichslandbund
+		icon = GFX_focus_Agriculture
+		prerequisite = {
+			focus = GER_Secure_the_Support_of_Senior_Officers
+			focus = GER_Secure_Hohenzollern_Support
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_AGRICULTURAL FOCUS_FILTER_POLITICAL FOCUS_FILTER_HARZBURG_FRONT FOCUS_FILTER_REACTIONARY}
+		cost = 2.86
+		x = 2
+		y = 9
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = monarchism
+				popularity = 0.03
+			}
+		}
+	}
+	focus = {
+		id = GER_Privatize_State_Owned_Services
+		icon = GFX_focus_Rich_Focus
+		prerequisite = {
+			focus = GER_Experiences_of_the_Great_War
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_REACTIONARY}
+		cost = 5.72
+		x = 4
+		y = 9
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = GER_privatizations
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = GER_Protect_Monopolies
+		icon = GFX_focus_Business_Bills
+		prerequisite = {
+			focus = GER_Experiences_of_the_Great_War
+		}
+		prerequisite = {
+			focus = GER_Benefits_for_Farmers
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_REACTIONARY}
+		cost = 6
+		x = 6
+		y = 9
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = GER_Create_the_Office_of_Fuhrer
+		icon = GFX_focus_Establish_Fuhrer_Office
+		prerequisite = {
+			focus = GER_Promote_New_Leaders
+		}
+		prerequisite = {
+			focus = GER_Study_Motorization
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_NAZI}
+		cost = 7.15
+		x = -7
+		y = 10
+        available = {
+			controls_state = 64
+			OR = {
+				WGR = {
+					OR = {
+						exists = no
+						has_capitulated = yes
+					}
+				}
+				DDR = {
+					OR = {
+						exists = no
+						has_capitulated = yes
+					}
+				}
+			}
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			add_stability = 0.05
+			add_political_power = 50
+			drop_cosmetic_tag = yes
+		}
+	}
+	focus = {
+		id = GER_Focus_on_Conscription
+		icon = GFX_focus_Renewed_Arms
+		prerequisite = {
+			focus = GER_Limit_Small_Businesses
+		}
+		mutually_exclusive = {
+			focus = GER_Retrain_Militiamen
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 5.72
+		x = -2
+		y = 10
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			MOVE_UP_CONSCRIPTION = yes
+		}
+	}
+	focus = {
+		id = GER_Retrain_Militiamen
+		icon = GFX_focus_Fascist_Militias
+		prerequisite = {
+			focus = GER_Reformulate_Strategies
+		}
+		mutually_exclusive = {
+			focus = GER_Focus_on_Conscription
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_REICHSWEHR FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 5.72
+		x = 0
+		y = 10
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			army_experience = 40
+		}
+	}
+	focus = {
+		id = GER_Absorb_the_Alldeutscher_Verband
+		icon = GFX_focus_Pan_Germanism
+		prerequisite = {
+			focus = GER_Absorb_the_Reichslandbund
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_HARZBURG_FRONT FOCUS_FILTER_REACTIONARY}
+		cost = 2.86
+		x = 2
+		y = 10
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.03
+			}
+		}
+	}
+	focus = {
+		id = GER_Distribute_Military_Contracts
+		icon = GFX_focus_rieder_rifle
+		prerequisite = {
+			focus = GER_Privatize_State_Owned_Services
+		}
+		prerequisite = {
+			focus = GER_Protect_Monopolies
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_ECONOMIC FOCUS_FILTER_REACTIONARY}
+		cost = 6.43
+		x = 5
+		y = 10
+        available = {
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.03
+			}
+		}
+	}
+	focus = {
+		id = GER_Pan_German_Dictatorship
+		icon = GFX_focus_Pan_German_Dictatorship
+		prerequisite = {
+			focus = GER_Focus_on_Conscription
+			focus = GER_Retrain_Militiamen
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_HARZBURG_FRONT}
+		cost = 7.15
+		x = -1
+		y = 11
+        available = {
+			controls_state = 64
+			OR = {
+				WGR = {
+					OR = {
+						exists = no
+						has_capitulated = yes
+					}
+				}
+				DDR = {
+					OR = {
+						exists = no
+						has_capitulated = yes
+					}
+				}
+			}
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.025
+			}
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.025
+			}
+			add_political_power = 50
+			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = GER_Proclaim_Regency
+		icon = GFX_focus_Imperial_Germany_Crowned
+		prerequisite = {
+			focus = GER_Absorb_the_Alldeutscher_Verband
+		}
+		prerequisite = {
+			focus = GER_Distribute_Military_Contracts
+		}
+		relative_position_id = GER_Reorganize_The_Reichswehr
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_REACTIONARY}
+		cost = 7.15
+		x = 3
+		y = 11
+        available = {
+			controls_state = 64
+			OR = {
+				WGR = {
+					OR = {
+						exists = no
+						has_capitulated = yes
+					}
+				}
+				DDR = {
+					OR = {
+						exists = no
+						has_capitulated = yes
+					}
+				}
+			}
+        }
+		bypass = {
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = monarchism
+				popularity = 0.025
+			}
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.025
+			}
+			add_political_power = 50
+			add_stability = 0.05
+			set_cosmetic_tag = GER_Empire
+		}
+	}
+}

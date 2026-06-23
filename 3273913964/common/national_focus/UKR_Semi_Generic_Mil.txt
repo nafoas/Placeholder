@@ -1,0 +1,520 @@
+#18 focuses here
+#s_team337
+shared_focus = {
+	id = SG2RCW_Mil_Start
+	icon = GFX_focus_Recruitment_Drive
+	#prerequisite = { focus = SG2RCW_Mil_Start }
+	x = 24
+	y = 0
+	offset = {
+		trigger = {
+			tag = BLR
+		}
+		x = 1
+	}
+	#relative_position_id = SG2RCW_Mil_Start
+	dynamic = yes
+	cost = 3.58
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		army_experience = 25
+	}
+}
+shared_focus = {
+	id = SG2RCW_Mil_Popular_Army
+	icon = GFX_focus_Human_Wave_Charges
+	prerequisite = {
+		focus = SG2RCW_Mil_Start
+	}
+	mutually_exclusive = {
+		focus = SG2RCW_Mil_Prof_Army
+	}
+	x = -2
+	y = 1
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 3.57
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = land_doctrine_bonus
+			uses = 1
+			bonus = 0.35
+			category = cat_mass_assault
+		}
+	}
+}
+shared_focus = {
+	id = SG2RCW_Mil_Guerilla_Warfare
+	icon = GFX_focus_Guerilla_Warfare
+	prerequisite = {
+		focus = SG2RCW_Mil_Popular_Army
+	}
+	x = -4
+	y = 2
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 4.8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_ideas = SG2RCW_guerilla_warfare
+	}
+}
+shared_focus = {
+	id = SG2RCW_Mil_Night_Attack
+	icon = GFX_focus_Hostile_Operations
+	prerequisite = {
+		focus = SG2RCW_Mil_Guerilla_Warfare
+	}
+	x = -4
+	y = 3
+	dynamic = yes
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = SG2RCW_guerilla_warfare
+			add_idea = SG2RCW_guerilla_warfare_night
+		}
+	}
+}
+shared_focus = {
+	id = SG2RCW_Mil_Resistance_Cells
+	icon = GFX_focus_Commando_Operations
+	prerequisite = {
+		focus = SG2RCW_Mil_Night_Attack
+	}
+	mutually_exclusive = {
+		focus = SG2RCW_Militia_focus
+	}
+	x = -3
+	y = 4
+	dynamic = yes
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = SG2RCW_guerilla_warfare_night
+			add_idea = SG2RCW_guerilla_warfare_partisan
+		}
+	}
+}
+shared_focus = {
+	id = SG2RCW_Support_Equipment
+	icon = GFX_focus_Oath_of_Loyalty
+	prerequisite = {
+		focus = SG2RCW_Mil_Popular_Army
+	}
+	x = -2
+	y = 2
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = support_equipment_bonus
+			uses = 1
+			bonus = 0.3
+			category = support_tech
+		}
+	}
+}
+shared_focus = {
+	id = SG2RCW_Bike_Divisions
+	icon = GFX_focus_Into_the_Flames
+	prerequisite = {
+		focus = SG2RCW_Support_Equipment
+	}
+	x = -2
+	y = 3
+	dynamic = yes
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				tag = BLR
+			}
+			add_ideas = BLR_cavalry_bonus
+		}
+		else = {
+			add_tech_bonus = {
+				name = bycicle_bonus
+				uses = 1
+				bonus = 0.3
+				category = bike_tech
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SG2RCW_Militia_focus
+	icon = GFX_focus_Recruitment
+	prerequisite = {
+		focus = SG2RCW_Bike_Divisions
+	}
+	mutually_exclusive = {
+		focus = SG2RCW_Mil_Resistance_Cells
+	}
+	x = -1
+	y = 4
+	relative_position_id = SG2RCW_Mil_Start
+	dynamic = yes
+	cost = 5.15
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_ideas = SG2RCW_Militia
+	}
+}
+shared_focus = {
+	id = SG2RCW_Mil_Prof_Army
+	icon = GFX_focus_The_Big_Push
+	prerequisite = {
+		focus = SG2RCW_Mil_Start
+	}
+	mutually_exclusive = {
+		focus = SG2RCW_Mil_Popular_Army
+	}
+	x = 2
+	y = 1
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 3.57
+	ai_will_do = {
+		factor = 4
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = land_doctrine_bonus
+			uses = 1
+			bonus = 0.35
+			category = cat_grand_battle_plan
+		}
+	}
+}
+shared_focus = {
+	id = SG2RCW_Motorization
+	icon = GFX_focus_Motorization_Effort
+	prerequisite = {
+		focus = SG2RCW_Mil_Prof_Army
+	}
+	x = 2
+	y = 2
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = motorized_bonus
+			uses = 1
+			bonus = 0.35
+			category = motorized_equipment
+			category = cat_mechanized_equipment
+		}
+	}
+}
+shared_focus = {
+	id = SG2RCW_Navy
+	icon = GFX_focus_Naval_Effort
+	prerequisite = {
+		focus = SG2RCW_Motorization
+	}
+	x = 2
+	y = 3
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		NOT = {
+			any_state = {
+				is_controlled_by = ROOT
+				is_coastal = yes
+			}
+		}
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = naval_bonus
+			uses = 1
+			bonus = 0.35
+			category = naval_equipment
+		}
+	}
+}
+shared_focus = {
+	id = SG2RCW_Armor
+	icon = GFX_focus_Tanks_Across_the_Border
+	prerequisite = {
+		focus = SG2RCW_Navy
+	}
+	mutually_exclusive = {
+		focus = SG2RCW_New_Awards
+	}
+	x = 1
+	y = 4
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = armor_bonus
+			uses = 1
+			bonus = 0.35
+			category = armor
+		}
+	}
+}
+shared_focus = {
+	id = SG2RCW_Chain_of_Command
+	icon = GFX_focus_Officers_Command
+	prerequisite = {
+		focus = SG2RCW_Mil_Prof_Army
+	}
+	x = 4
+	y = 2
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_ideas = SG2RCW_High_Command
+	}
+}
+shared_focus = {
+	id = SG2RCW_Discipline
+	icon = GFX_focus_Military_Intervention
+	prerequisite = {
+		focus = SG2RCW_Chain_of_Command
+	}
+	x = 4
+	y = 3
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_command_power = 20
+		add_stability = 0.05
+	}
+}
+shared_focus = {
+	id = SG2RCW_New_Awards
+	icon = GFX_focus_Mothers_Cross
+	prerequisite = {
+		focus = SG2RCW_Discipline
+	}
+	mutually_exclusive = {
+		focus = SG2RCW_Armor
+	}
+	x = 3
+	y = 4
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = 30
+	}
+}
+shared_focus = {
+	id = SG2RCW_Small_Arms
+	icon = GFX_goal_generic_small_arms
+	prerequisite = {
+		focus = SG2RCW_Mil_Popular_Army
+		focus = SG2RCW_Mil_Prof_Army
+	}
+	x = 0
+	y = 2
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = infantry_bonus
+			uses = 1
+			bonus = 0.3
+			category = infantry_weapons
+		}
+	}
+}
+shared_focus = {
+	id = SG2RCW_Artillery
+	icon = GFX_focus_Skull_Cannon
+	prerequisite = {
+		focus = SG2RCW_Small_Arms
+	}
+	x = 0
+	y = 3
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = artillery_bonus
+			uses = 1
+			bonus = 0.3
+			category = artillery
+		}
+	}
+}
+shared_focus = {
+	id = SG2RCW_Doctrine
+	icon = GFX_focus_German_Plans
+	prerequisite = {
+		focus = SG2RCW_Artillery
+	}
+	prerequisite = {
+		focus = SG2RCW_Mil_Resistance_Cells
+		focus = SG2RCW_Militia_focus
+		focus = SG2RCW_Armor
+		focus = SG2RCW_New_Awards
+	}
+	x = 0
+	y = 5
+	relative_position_id = SG2RCW_Mil_Start
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = land_doctrine_bonus
+			uses = 1
+			bonus = 0.4
+			category = land_doctrine
+		}
+	}
+}

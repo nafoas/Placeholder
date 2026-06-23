@@ -1,0 +1,1377 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+
+FRA_Brest_base_of_operations = {
+	allowed = {
+		original_tag = FRA
+	}
+	enable = {
+		controls_state = 14
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 18
+	}
+}
+FRA_Mediterranean_base_of_operations = {
+	allowed = {
+		OR = {
+			original_tag = FRA
+			original_tag = VIC
+		}
+	}
+	enable = {
+		OR = {
+			controls_state = 1234
+			controls_state = 459
+			controls_state = 21
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 68
+	}
+}
+VIN_Indochina_base_of_operations = {
+	allowed = {
+		original_tag = VIN
+	}
+	enable = {
+		OR = {
+			is_subject_of = FRA
+			is_subject_of = VIC
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 75
+	}
+}
+
+FRA_dont_defend_poland = {
+	allowed = {
+		OR = {
+			tag = FRA
+			# tag = MRC
+			# tag = TNS
+			tag = SYR
+			tag = LEB
+		}
+	}
+	enable = {
+		FRA = {
+			has_war_with = GER
+			is_in_faction_with = POL
+		}
+	}
+	
+	abort = {
+		OR = {
+			NOT = {
+				FRA = { has_war_with = GER }
+			}
+			POL = { has_capitulated = yes }
+			FRA = { has_capitulated = yes }
+			date > 1944.6.1
+		}
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "POL"
+		value = 200
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		strategic_region = 8
+		strategic_region = 38
+		strategic_region = 227
+
+		value = -200
+	}
+}
+
+FRA_dont_naval_invade_GER = {
+	allowed = {
+		OR = {
+			tag = FRA
+			# tag = MRC
+			# tag = TNS
+			tag = SYR
+			tag = LEB
+		}
+	}
+	enable = {
+		FRA = {
+			has_war_with = GER
+		}
+	}
+	
+	abort = {
+		OR = {
+			NOT = {
+				FRA = { has_war_with = GER }
+			}
+			FRA = { has_capitulated = yes }
+		}
+	}
+
+	ai_strategy = {
+		type = invade
+		id = "GER"
+		value = -3000
+	}
+	ai_strategy = {
+		type = invasion_unit_request
+		tag = GER
+
+		value = -200
+	}
+}
+
+FRA_dont_put_units_in_the_caribbean_you_mf = {
+	allowed = {
+		OR = {
+			original_tag = FRA
+			original_tag = VIC
+		}
+	}
+
+	enable = {
+		always = yes
+	}
+
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 694
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 730
+		value = -200
+	}
+	ai_strategy = {
+		type = front_unit_request
+
+		strategic_region = 53
+		value = -200
+	}
+	ai_strategy = {
+		type = front_unit_request
+
+		strategic_region = 228
+		value = -200
+	}
+}
+
+FRA_dont_put_units_in_the_guyana_you_mf = {
+	allowed = {
+		OR = {
+			original_tag = FRA
+			original_tag = VIC
+		}
+	}
+
+	enable = {
+		always = yes
+	}
+
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 310
+		value = -200
+	}
+}
+
+FRA_dont_put_units_in_the_indic_you_mf = {
+	allowed = {
+		OR = {
+			original_tag = FRA
+			original_tag = VIC
+		}
+	}
+
+	enable = {
+		always = yes
+	}
+
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 713
+		value = -200
+	}
+	ai_strategy = {
+		type = front_unit_request
+
+		strategic_region = 85
+		value = -200
+	}
+}
+
+FRA_dont_put_units_in_the_pacific_you_mf = {
+	allowed = {
+		OR = {
+			original_tag = FRA
+			original_tag = VIC
+		}
+	}
+
+	enable = {
+		always = yes
+	}
+
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 635
+		value = -999
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 641
+		value = -200
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 641
+		value = -200
+	}
+	ai_strategy = {
+		type = front_unit_request
+
+		strategic_region = 179
+		value = -200
+	}
+	ai_strategy = {
+		type = front_unit_request
+
+		strategic_region = 163
+		value = -200
+	}
+	ai_strategy = {
+		type = front_unit_request
+
+		strategic_region = 81
+		value = -200
+	}
+}
+
+FRA_unit_production = {
+	enable = {
+		original_tag = FRA
+	}
+	abort = {
+		always = no
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 4
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = paratroopers
+		value = 0
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = mountaineers
+		value = 30 
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = marines
+		value = 0
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 0
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 5
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 80 
+	}
+	
+	#Air unit factors
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 75 # From 70 to 75
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 10 # 15 to 10
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 5
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = strategic_bomber
+		value = 5
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = naval_bomber
+		value = 5
+	}
+	
+	
+	# Naval unit factors
+	ai_strategy = {
+		type = unit_ratio
+		id = capital_ship
+		value = 20 # from 15 to 25
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = submarine
+		value = 40 #from 50 to 40
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = screen_ship
+		value = 25
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = convoy
+		value = 20
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 20
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 35
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 25
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 20
+	}
+}
+
+FRA_armored_production = {
+	enable = {
+		original_tag = FRA
+		ai_wants_divisions > 12 #Decreasing the amount of tanks the AI wants
+	}
+	abort = {
+		ai_wants_divisions < 13 #Decreasing the amount of tanks the AI wants
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 2
+	}
+}
+
+FRA_highered_armored_production = {
+	enable = {
+		original_tag = FRA
+		num_of_military_factories > 109
+	}
+	abort = {
+		num_of_military_factories < 110
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 20 #Removed from original production so increased from a bit to a f*** ton (in this case 10 to 20)
+	}
+}
+
+FRA_area_priority = {
+	allowed = {
+		OR = {
+			tag = FRA
+			tag = VIC
+		}
+	}
+
+	enable = {
+		always = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = 110 #more focus here
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = -500
+	}
+		
+	ai_strategy = {
+		type = area_priority
+		id = pacific
+		value = -500 #less focus here
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = scandinavia
+		value = -20
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = northern_america
+		value = -60
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = central_america
+		value = -500
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = -500
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = north_africa
+		value = 40
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = east_africa
+		value = -80
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = west_africa
+		value = -50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = central_africa
+		value = -90
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = se_asia
+		value = 25
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = india
+		value = -700
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = 10
+	}
+}
+
+FRA_naval_role_ratios_historical = {
+	enable = {
+		has_dlc = "Man the Guns"
+		original_tag = FRA
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_capital_bb
+		value = 40
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_capital_bc
+		value = 40
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_carrier
+		value = 0
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_submarine
+		value = 10
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_screen
+		value = 150
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_cruiser_light
+		value = 75
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_cruiser_heavy
+		value = -20
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_mine_sweeper
+		value = 15
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_mine_layer
+		value = 10
+	}
+}
+
+FRA_dont_naval_invade_germany = {
+
+	allowed = { original_tag = FRA }
+
+	enable = {
+		has_war_with = GER
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = invasion_unit_request
+		tag = GER
+		value = -800
+	}
+
+	# ai_strategy = {
+	# 	type = naval_invasion_focus
+	# 	value = -50
+	# }
+}
+
+# FRA_begin_training_divisions = {
+# 	allowed = {
+# 		original_tag = FRA
+# 	}
+# 	enable = {
+# 		date > 1938.8.1
+# 		has_army_manpower = { size < 1000000 }
+# 	}
+# 	abort = {
+# 		OR = {
+# 			has_capitulated = yes
+# 			has_army_manpower = { size > 1000000 }
+# 			date > 1940.10.1
+# 		}
+# 	}
+
+# 	ai_strategy = {
+#         type = force_build_armies
+#         value = 50
+#     }
+# }
+
+FRA_prepare_for_invasion_at_belgian_border = {
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		FRA = { has_war_with = GER }
+		NOT = { BEL = { has_war_with = GER } }
+	}
+	abort = {
+		OR = {
+			GER = { controls_state = 34 }
+			GER = { controls_state = 6 }
+			GER = { controls_state = 29 }
+			GER = { controls_state = 17 }
+			has_capitulated = yes
+			GER = { has_capitulated = yes }
+		}
+	}
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		# ratio of total armeis in country to be buffered
+		ratio = 0.25
+
+		states = {
+			758
+			757
+		}
+
+		area = benelux
+
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = yes
+	}
+}
+
+FRA_plan_Dyle = {
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		has_war_with = GER
+		GER = {
+			has_war_with = BEL
+		}
+	}
+	abort = {
+		OR = {
+			has_capitulated = yes
+			controls_state = 51
+			controls_state = 42
+			#Germany controls the maginot line
+			GER = { controls_state = 826 }
+			GER = { controls_state = 28 }
+			#Germany has owned you
+			GER = { controls_state = 757 }
+			GER = { controls_state = 758 }
+			GER = { controls_state = 29 }
+			#Mission failed we'll get 'em next time
+			AND = {
+				GER = { controls_state = 6 }
+				GER = { controls_state = 34 }
+			}
+		}
+	}
+
+	ai_strategy = {
+		type = front_armor_score
+		id = "GER"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		strategic_region = 211
+
+		value = 80
+	}
+}
+
+FRA_front_in_alsace_lorraine = { #French AI fucking decides to not make fronts against germany or to not put more than 3 divisions on it
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		date > 1938.7.1
+	}
+	abort = {
+		OR = {
+			date > 1941.1.1
+			has_capitulated = yes
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		ordertype = front
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = GER
+
+		value = 90
+	}
+
+}
+
+FRA_germany_is_dangerous = {
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		has_war_with = GER
+		has_capitulated = no
+		NOT = { has_global_flag = FRA_has_fallen }
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_unit_request
+		tag = GER
+
+		value = 70
+	}
+}
+
+FRA_saar_offensive = {
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		FRA = { has_war_with = GER }
+		POL = { has_war_with = GER }
+		POL = { has_capitulated = no }
+		GER = { has_country_flag = GER_has_good_luck }
+	}
+
+	abort = {
+		OR = {
+			POL = { has_capitulated = yes }
+			GER = { has_war_with = BEL }
+			date > 1940.09.01
+		}
+	}
+
+	#Don't launch a major attack on the Germans (Historical Saar offensive)
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		priority = 10
+		ordertype = front
+		execute_order = no
+		manual_attack = no
+	}
+}
+
+FRA_full_scale_assult_on_germany = {
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		FRA = { has_war_with = GER }
+		POL = { has_war_with = GER }
+		POL = { has_capitulated = no }
+		GER = { has_country_flag = GER_has_bad_luck }
+	}
+
+	abort = {
+		OR = {
+			POL = { has_capitulated = yes }
+			GER = { has_war_with = BEL }
+			date > 1940.08.01
+		}
+	}
+
+	#Commence a full-scale assault on Germany
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		ratio = 0.5
+		priority = 10
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+}
+
+FRA_accept_USA_access = {
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		tag = FRA
+		date > 1940.9.9
+		USA = {
+			is_ai = yes
+			NOT = {
+				OR = {
+					is_in_faction_with = FRA
+					has_military_access_to = FRA
+				}
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = diplo_action_acceptance
+		id = USA
+		target = military_access
+		value = 1000
+	}
+}
+
+VIC_help_germany = {
+	allowed = {
+		tag = VIC
+	}
+	enable = {
+		NOT = { has_war_with = GER }
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = support
+		id = GER
+		value = 100
+	}
+}
+
+FRA_antagonize_vichy = {
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		has_cosmetic_tag = FRA_FREE
+		has_war_with = GER
+		is_in_faction_with = ENG
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = antagonize
+		id = FRA
+		value = 200
+	}
+}
+
+FRA_tanks_are_not_great_in_alps = {
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		always = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_armor_score
+		id = ITA
+		value = -999
+	}
+}
+
+FRA_put_units_in_italian_border = {
+	allowed = {
+		tag = FRA
+	}
+
+	enable = {
+		is_neighbor_of = ITA
+		NOT = {
+			ITA = { is_subject_of = FRA }
+			ITA = { is_in_faction_with = FRA }
+		}
+		NOT = { has_war_with = ITA }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		# strategic_region = 251
+		# tag = ITA
+		state_trigger = {
+			region = 251
+			from = { tag = ITA }
+		} 
+		ordertype = front
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = ITA
+		strategic_region = 251
+		value = 15
+	}
+}
+
+FRA_Prepare_against_italy = {
+	# if Germany has war with France, they start preparing for war with Italy just in case
+
+	allowed = {
+		original_tag = FRA
+	}
+
+	enable = {
+		NOT = { has_war_with = ITA }	
+		is_neighbor_of = ITA
+		ITA = {
+			NOT = {
+				is_in_faction_with = FRA
+				is_subject_of = FRA
+			}
+		}
+		has_war_with = GER
+	}
+	
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = prepare_for_war
+		id = ITA
+		value = 70
+	}
+}
+
+FRA_prepare_against_germany = {
+	allowed = {
+		tag = FRA
+	}
+
+	enable = {
+		NOT = { has_war_with = GER }
+		country_exists = POL
+		GER = {
+			OR = {
+				#Is going to invade Cze (Fall Grün)
+				focus_progress = {
+					focus = GER_war_with_poland
+					progress > 0
+				}
+				has_completed_focus = GER_war_with_poland
+			}
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = GER
+		value = 100
+	}
+}
+
+# FRA_garrison_algeria = {
+# 	allowed = {
+# 		OR = {
+# 			tag = FRA
+# 			tag = VIC
+# 		}
+# 	}
+
+# 	enable = {
+# 		OR = {
+# 			controls_state = 459
+# 			controls_state = 1234
+# 		}
+# 	}
+
+# 	ai_strategy = {
+# 		type = put_unit_buffers
+# 		ratio = 0.17
+# 		states = {
+# 			459
+# 			1234
+# 			460
+# 		}
+# 		area = north_africa
+# 	}
+# }
+
+FRA_avoid_german_waters = {
+	allowed = {
+		original_tag = FRA
+	}
+	enable = {
+		has_war_with = GER
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 254 #Southern Bight
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 173 #German Bight
+		value = 600
+	}
+
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 9 #northern baltic
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 206 #central baltic
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 207 #danish belts
+		value = 600
+	}
+	# North Atlantic
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 16
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 174
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 45
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 255
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 46
+		value = 600
+	}
+}
+
+FRA_ignore_countries_africa = {
+	allowed = {
+		tag = FRA
+	}
+
+	enable = {
+		has_capitulated = no
+	}
+
+	abort = {
+		any_enemy_country = {
+			has_war_with = FRA
+			any_controlled_state = {
+				OR = {
+					region = 140
+					region = 217
+					region = 231
+					region = 233
+					region = 234
+					region = 235
+					region = 237
+				}
+			}
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				AND = {
+					tag = LIB
+					NOT = { has_war_with = FROM }
+				}
+				AND = {
+					tag = ETH
+					NOT = { has_war_with = FROM }
+				}
+			}
+		}
+
+		value = -400
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		state_trigger = {
+			OR = {
+				region = 140
+				region = 217
+				region = 231
+				region = 233
+				region = 234
+				region = 235
+				region = 236
+				region = 237
+			}
+			FROM = {
+				NOT = { has_war_with = FROM.FROM }
+			}
+		}
+
+		value = -400
+	}
+}
+
+FRA_less_units_to_spanish_border = {
+	allowed = {
+		tag = FRA
+	}
+
+	enable = {
+		always = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				AND = {
+					tag = SPR
+					NOT = {
+						has_war_with = FROM
+						has_wargoal_against = FROM
+						FROM = {
+							any_enemy_country = {
+								is_ally_with = SPR
+							}
+						}
+					}
+				}
+				AND = {
+					tag = SPA
+					NOT = {
+						has_war_with = FROM
+						has_wargoal_against = FROM
+						FROM = {
+							any_enemy_country = {
+								is_ally_with = SPA
+							}
+						}
+					}
+				}
+			}
+		}
+		value = -50
+	}
+}
+
+FRA_no_units_to_spanish_border_when_big_war = {
+	allowed = {
+		tag = FRA
+	}
+
+	enable = {
+		OR = {
+			has_war_with = GER
+			has_war_with = ITA
+			has_war_with = DDR
+		}
+		OR = {
+			is_neighbor_of = SPR
+			is_neighbor_of = SPA
+		}
+		NOT = {
+			has_war_with = SPR
+			has_war_with = SPA
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				AND = {
+					tag = SPR
+					NOT = {
+						has_war_with = FROM
+						has_wargoal_against = FROM
+						FROM = {
+							any_enemy_country = {
+								is_ally_with = SPR
+							}
+						}
+					}
+				}
+				AND = {
+					tag = SPA
+					NOT = {
+						has_war_with = FROM
+						has_wargoal_against = FROM
+						FROM = {
+							any_enemy_country = {
+								is_ally_with = SPA
+							}
+						}
+					}
+				}
+			}
+		}
+		value = -200
+	}
+}
+
+FRA_ignore_Brazil = {
+	allowed = {
+		tag = FRA
+	}
+
+	enable = {
+		always = yes
+	}
+
+	abort = {
+		has_war_with = BRA
+		BRA = {
+			has_wargoal_against = FRA
+		}	
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = BRA
+		value = -200
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		strategic_region = 163
+		value = -200
+	}
+}
+
+FRA_dont_produce_char_2c = {
+	allowed = {
+		tag = FRA
+	}
+
+	enable = {
+		always = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_variant_production_factor
+		id = super_heavy_tank_chassis
+		value = -999
+	}
+}
+
+FRA_dont_garrison_insignificant_places = {
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 320 #India
+		value = -1000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 635 #Pacific
+		value = -1000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 268 #Djibuti
+		value = -1000
+	}
+}
+
+FRA_no_fronts_in_djibuti = {
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		controls_state = 268
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_unit_request
+
+		strategic_region = 17
+		value = -200
+	}
+}
+
+FRA_ignore_spa_shara = {
+	allowed = {
+		tag = FRA
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = front_unit_request
+
+		state = 699
+		value = -200
+	}
+}

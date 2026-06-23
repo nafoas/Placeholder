@@ -1,0 +1,526 @@
+#14 focuses here
+#s_team337
+shared_focus = {
+	id = DAG_2RCW_Foreign_Start
+	icon = GFX_focus_Foreign_Diplomacy
+	#prerequisite = { focus = DAG_2RCW_Foreign_Start }
+	x = 20
+	y = 0
+	#relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+	}
+	completion_reward = {
+		remove_ideas = RUS_unrecognized
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Befriend_Turkey
+	icon = GFX_focus_Befriend_Turkey
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Start
+	}
+	x = -1
+	y = 1
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 1.86
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = TUR
+			}
+			has_war_with = TUR
+		}
+	}
+	completion_reward = {
+		TUR = {
+			add_opinion_modifier = {
+				target = DAG
+				modifier = DAG_befriend
+			}
+		}
+		add_opinion_modifier = {
+			target = TUR
+			modifier = DAG_befriend
+		}
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Turkish_Trade
+	icon = GFX_focus_Free_Trade
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Befriend_Turkey
+	}
+	x = -1
+	y = 2
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 2.15
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = TUR
+			}
+			has_war_with = TUR
+		}
+	}
+	completion_reward = {
+		TUR = {
+			country_event = {
+				id = dag_external.4
+			}
+		}
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Befriend_Azerbaijan
+	icon = GFX_focus_Befriend_Azerbaijan
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Start
+	}
+	x = 1
+	y = 1
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 1.86
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = AZR
+			}
+			has_war_with = AZR
+		}
+	}
+	completion_reward = {
+		AZR = {
+			add_opinion_modifier = {
+				target = DAG
+				modifier = DAG_befriend
+			}
+		}
+		add_opinion_modifier = {
+			target = AZR
+			modifier = DAG_befriend
+		}
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_AZR_non_aggression
+	icon = GFX_focus_Pacifist_State
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Befriend_Azerbaijan
+	}
+	x = 1
+	y = 2
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = AZR
+			}
+			has_war_with = AZR
+		}
+	}
+	completion_reward = {
+		AZR = {
+			country_event = {
+				id = dag_external.7
+			}
+		}
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Pro_Russia
+	icon = GFX_focus_Befriend_Russia
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Turkish_Trade
+	}
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_AZR_non_aggression
+	}
+	mutually_exclusive = {
+		focus = DAG_2RCW_Foreign_Anti_Russia
+	}
+	x = -1
+	y = 3
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 5
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = RUS
+			}
+			has_war_with = RUS
+		}
+	}
+	completion_reward = {
+		RUS = {
+			add_opinion_modifier = {
+				target = DAG
+				modifier = DAG_befriend
+			}
+		}
+		add_opinion_modifier = {
+			target = RUS
+			modifier = DAG_befriend
+		}
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Drop_Claim
+	icon = GFX_focus_Gunpoint_Diplomacy
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Pro_Russia
+	}
+	x = -2
+	y = 4
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = RUS
+			}
+			has_war_with = RUS
+		}
+	}
+	completion_reward = {
+		remove_state_core = 831
+		RUS = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = DAG_dropped_claim
+			}
+		}
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Russian_Experience
+	icon = GFX_focus_Military_Intervention
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Drop_Claim
+	}
+	x = -1
+	y = 5
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = RUS
+			}
+			has_war_with = RUS
+		}
+	}
+	completion_reward = {
+		army_experience = 30
+		#come back to?
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Russian_Trade
+	icon = GFX_focus_Export_Oil
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Russian_Experience
+	}
+	x = -1
+	y = 6
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 2
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = RUS
+			}
+			has_war_with = RUS
+		}
+	}
+	completion_reward = {
+		RUS = {
+			add_opinion_modifier = {
+				target = DAG
+				modifier = DAG_trade
+			}
+		}
+		add_opinion_modifier = {
+			target = RUS
+			modifier = DAG_trade
+		}
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Anti_Russia
+	icon = GFX_focus_White_Terror
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Turkish_Trade
+	}
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_AZR_non_aggression
+	}
+	mutually_exclusive = {
+		focus = DAG_2RCW_Foreign_Pro_Russia
+	}
+	x = 1
+	y = 3
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 1
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = RUS
+			}
+			has_war_with = RUS
+		}
+	}
+	completion_reward = {
+		RUS = {
+			add_opinion_modifier = {
+				target = DAG
+				modifier = DAG_antagonize
+			}
+		}
+		add_opinion_modifier = {
+			target = RUS
+			modifier = DAG_antagonize
+		}
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Claims_on_Russia
+	icon = GFX_focus_Swing_the_Sword
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Anti_Russia
+	}
+	x = 2
+	y = 4
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = RUS
+			}
+			has_war_with = RUS
+			has_country_flag = DAG_CHC_no_Union
+		}
+	}
+	completion_reward = {
+		add_state_core = 233
+		add_state_core = 556
+		add_state_core = 899
+		if = {
+			limit = {
+				1074 = {
+					NOT = {
+						is_core_of = ROOT
+					}
+				}
+			}
+			add_state_core = 1074
+		}
+		if = {
+			limit = {
+				1080 = {
+					NOT = {
+						is_core_of = ROOT
+					}
+				}
+			}
+			add_state_core = 1080
+		}
+		if = {
+			limit = {
+				819 = {
+					NOT = {
+						is_core_of = ROOT
+					}
+				}
+			}
+			add_state_core = 819
+		}
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Embargo_Russia
+	icon = GFX_focus_Protectionism
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Claims_on_Russia
+	}
+	x = 1
+	y = 5
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 3.42
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = RUS
+			}
+			has_war_with = RUS
+		}
+	}
+	completion_reward = {
+		RUS = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = DAG_embargo
+			}
+		}
+		add_opinion_modifier = {
+			target = RUS
+			modifier = DAG_embargo
+		}
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Start_Border_Wars
+	icon = GFX_focus_Commando_Operations
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Embargo_Russia
+	}
+	x = 1
+	y = 6
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			AND = {
+				has_country_flag = DAG_CHC_Union
+				has_full_control_of_state = 232
+				has_full_control_of_state = 831
+				has_full_control_of_state = 233
+				has_full_control_of_state = 819
+				has_full_control_of_state = 899
+				has_full_control_of_state = 1074
+				has_full_control_of_state = 556
+				has_full_control_of_state = 1080
+			}
+			AND = {
+				has_country_flag = DAG_CHC_no_Union
+				has_full_control_of_state = 232
+				has_full_control_of_state = 831
+			}
+		}
+	}
+	completion_reward = {
+		set_country_flag = is_in_NC_conflict
+		unlock_decision_category_tooltip = Mountain_Republic_Escalation
+	}
+}
+shared_focus = {
+	id = DAG_2RCW_Foreign_Iran
+	icon = GFX_focus_Befriend_Persia
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_AZR_non_aggression
+	}
+	prerequisite = {
+		focus = DAG_2RCW_Foreign_Turkish_Trade
+	}
+	x = 0
+	y = 4
+	relative_position_id = DAG_2RCW_Foreign_Start
+	cost = 5.
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				country_exists = PER
+			}
+			has_war_with = PER
+		}
+	}
+	completion_reward = {
+		PER = {
+			add_opinion_modifier = {
+				target = DAG
+				modifier = DAG_befriend
+			}
+		}
+		add_opinion_modifier = {
+			target = PER
+			modifier = DAG_befriend
+		}
+	}
+}
+

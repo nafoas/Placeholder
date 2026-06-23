@@ -1,0 +1,1623 @@
+political_actions = {
+	GER_DNVP_Crackdown_Communists = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			has_country_flag = GER_Kaiser_Assassination
+		}
+		available = {
+			communism > 0.03
+		}
+		fire_only_once = yes
+		cost = 70
+		days_remove = 140
+		modifier = {
+			political_power_gain = -0.02
+			stability_weekly = 0.01
+		}
+		complete_effect = {
+			add_stability = -0.07
+		}
+		ai_will_do = {
+			factor = 125
+		}
+		remove_effect = {
+			add_popularity = {
+				ideology = communism
+				popularity = -0.07
+			}
+		}
+	}
+	# GER_DNVP_Restore_Monarchy = {
+	# 	icon = GFX_decision_icon_Crown
+	# 	allowed = {
+	# 		tag = GER
+	# 	}
+	# 	visible = {
+	# 		has_completed_focus = GER_DNVP_Politics_Fuhrer
+	# 		NOT = {
+	# 			has_country_flag = GER_DNVP_nazi_coal
+	# 		}
+	# 	}
+	# 	available = {
+	# 	}
+	# 	ai_will_do = {
+	# 		factor = 1000
+	# 	}
+	# 	fire_only_once = yes
+	# 	cost = 100
+	# 	#days_remove = 5
+	# 	complete_effect = {
+	# 		clr_country_flag = GER_DNVP_Fuhrer
+	# 		hidden_effect = {
+	# 			create_country_leader = {
+	# 				name = "Wilhelm III"
+	# 				picture = "gfx/leaders_cbts/GER/Portrait_Germany_Wilhelm_III.tga"
+	# 				expire = "1965.1.1"
+	# 				ideology = nationalist
+	# 				traits = { }
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					has_country_flag = GER_DNVP_Restoration
+	# 				}
+	# 				create_country_leader = {
+	# 					name = "Wilhelm III"
+	# 					desc = "POLITICS_WILHELM_III_DESC"
+	# 					picture = "gfx/leaders_cbts/GER/Portrait_Germany_Wilhelm_III_alt.png"
+	# 					expire = "1965.1.1"
+	# 					ideology = german_fascism
+	# 					traits = {
+	# 					}
+	# 				}
+	# 			}
+	# 			else_if = {
+	# 				limit = {
+	# 					has_country_flag = GER_Kaiser_Dead
+	# 				}
+	# 				create_country_leader = {
+	# 					name = "Ferdinand I"
+	# 					picture = "gfx/leaders_cbts/Portrait_Germany_Ferdinand_I.png"
+	# 					expire = "1965.1.1"
+	# 					ideology = german_fascism
+	# 					traits = {
+	# 					}
+	# 				}
+	# 			}
+	# 			country_event = {
+	# 				id = ger_internal.39
+	# 				days = 1072
+	# 			}
+	# 		}
+	# 		custom_effect_tooltip = GER_DNVP_Restoration_tt
+	# 		set_country_flag = GER_DNVP_Restoration
+	# 	}
+	# }
+	GER_DNVP_Destroy_SA = {
+		icon = GFX_decision_generic_scorched_earth
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			has_completed_focus = GER_DNVP_Politics_Kaiser
+			NOT = {
+				has_country_flag = GER_DNVP_no_sa
+			}
+			has_idea = paramilitary_divisions
+		}
+		available = {
+		}
+		ai_will_do = {
+			factor = 600
+		}
+		fire_only_once = yes
+		cost = 120
+		days_remove = 120
+		modifier = {
+			political_power_gain = -0.10
+			stability_weekly = 0.002
+		}
+		complete_effect = {
+			add_stability = -0.10
+		}
+		remove_effect = {
+			remove_ideas = paramilitary_divisions
+			set_country_flag = GER_DNVP_no_sa
+			if = {
+				limit = {
+					has_country_flag = GER_DNVP_yes_sa
+				}
+				clr_country_flag = GER_DNVP_yes_sa
+			}
+		}
+	}
+	GER_DNVP_Demobilize = {
+		icon = GFX_decision_generic_nationalism
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			has_completed_focus = GER_DNVP_War_Economy
+			has_war = no
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 90
+		days_remove = 45
+		ai_will_do = {
+			factor = 1000
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					has_idea = civilian_economy
+				}
+				add_political_power = 120
+			}
+			else_if = {
+				limit = {
+					has_idea = tot_economic_mobilisation
+				}
+				swap_ideas = {
+					remove_idea = tot_economic_mobilisation
+					add_idea = war_economy
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = war_economy
+				}
+				swap_ideas = {
+					remove_idea = war_economy
+					add_idea = partial_economic_mobilisation
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = partial_economic_mobilisation
+				}
+				swap_ideas = {
+					remove_idea = partial_economic_mobilisation
+					add_idea = low_economic_mobilisation
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = low_economic_mobilisation
+				}
+				swap_ideas = {
+					remove_idea = low_economic_mobilisation
+					add_idea = civilian_economy
+				}
+			}
+		}
+	}
+	GER_DNVP_Demobilize_Rations = {
+		icon = GFX_decision_generic_nationalism
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			has_idea = GER_DNVP_Rations
+			has_war = no
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 40
+		#days_remove = 45
+		ai_will_do = {
+			factor = 800
+		}
+		complete_effect = {
+			remove_ideas = GER_DNVP_Rations
+		}
+		remove_effect = {
+		}
+	}
+	GER_DNVP_Create_Faction = {
+		icon = GFX_decision_generic_nationalism
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			OR = {
+				date > 1938.1.1
+				has_war = yes
+			}
+			OR = {
+				has_government = nationalism
+				has_government = monarchism
+				has_government = fascism
+			}
+			has_country_flag = GER_DNVP_in_power
+			NOT = { has_country_flag = GER_hitler_in_power }
+		}
+		available = {
+			is_in_faction = no
+		}
+		fire_only_once = yes
+		cost = 20
+		#days_remove = 45
+		ai_will_do = {
+			factor = 500
+		}
+		complete_effect = {
+			create_faction = Berlin_Axis
+		}
+		remove_effect = {
+		}
+	}
+}
+GER_DNVP_Colonial_Management_cat = {
+	GER_DNVP_Togo_Start = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			owns_state = 794
+		}
+		ai_will_do = {
+			factor = 115
+		}
+		fire_only_once = yes
+		cost = 35
+		days_remove = 70
+		highlight_states = {
+			state = 794
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation
+				}
+				swap_ideas = {
+					remove_idea = GER_Colonial_Occupation
+					add_idea = GER_Colonial_Occupation2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation2
+				}
+				swap_ideas = {
+					remove_idea = GER_Colonial_Occupation2
+					add_idea = GER_Colonial_Occupation3
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation3
+				}
+				remove_ideas = GER_Colonial_Occupation3
+			}
+		}
+		complete_effect = {
+		}
+	}
+	GER_DNVP_Kamerun_Start = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			owns_state = 539
+			owns_state = 660
+		}
+		ai_will_do = {
+			factor = 115
+		}
+		fire_only_once = yes
+		cost = 35
+		days_remove = 70
+		highlight_states = {
+			state = 539
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation
+				}
+				swap_ideas = {
+					remove_idea = GER_Colonial_Occupation
+					add_idea = GER_Colonial_Occupation2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation2
+				}
+				swap_ideas = {
+					remove_idea = GER_Colonial_Occupation2
+					add_idea = GER_Colonial_Occupation3
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation3
+				}
+				remove_ideas = GER_Colonial_Occupation3
+			}
+		}
+		complete_effect = {
+		}
+	}
+	GER_DNVP_Tanganyika_Start = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			owns_state = 546
+		}
+		ai_will_do = {
+			factor = 115
+		}
+		fire_only_once = yes
+		cost = 35
+		days_remove = 70
+		highlight_states = {
+			state = 546
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation
+				}
+				swap_ideas = {
+					remove_idea = GER_Colonial_Occupation
+					add_idea = GER_Colonial_Occupation2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation2
+				}
+				swap_ideas = {
+					remove_idea = GER_Colonial_Occupation2
+					add_idea = GER_Colonial_Occupation3
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation3
+				}
+				remove_ideas = GER_Colonial_Occupation3
+			}
+		}
+		complete_effect = {
+		}
+	}
+	GER_DNVP_Namibia_Start = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			owns_state = 541
+		}
+		ai_will_do = {
+			factor = 115
+		}
+		fire_only_once = yes
+		cost = 35
+		days_remove = 70
+		highlight_states = {
+			state = 541
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation
+				}
+				swap_ideas = {
+					remove_idea = GER_Colonial_Occupation
+					add_idea = GER_Colonial_Occupation2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation2
+				}
+				swap_ideas = {
+					remove_idea = GER_Colonial_Occupation2
+					add_idea = GER_Colonial_Occupation3
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation3
+				}
+				swap_ideas = {
+					remove_idea = GER_Colonial_Occupation3
+					add_idea = GER_Colonial_Occupation4
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_Colonial_Occupation4
+				}
+				remove_ideas = GER_Colonial_Occupation4
+			}
+			else = {
+				add_stability = 0.04
+			}
+		}
+		complete_effect = {
+		}
+	}
+}
+GER_DNVP_Anschluss_cat = {
+	Anschluss_Pan_German_Propaganda = {
+		icon = GFX_decision_generic_nationalism
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			has_country_flag = GER_GDVP_cooperation
+		}
+		available = {
+		}
+		ai_will_do = {
+			factor = 300
+		}
+		cost = 30
+		days_remove = 40
+		days_re_enable = 60
+		remove_effect = {
+			add_to_variable = {
+				var = AUS_gov_pressure
+				value = 3
+			}
+			custom_effect_tooltip = GER_DNVP_Pressure_Add_3
+			effect_tooltip = {
+				if = {
+					limit = {
+						has_completed_focus = GER_DNVP_AUS_DNSAP
+					}
+					AUS = {
+						add_popularity = {
+							ideology = fascism
+							popularity = 0.03
+						}
+					}
+				}
+				else = {
+					AUS = {
+						add_popularity = {
+							ideology = market_liberalism
+							popularity = 0.03
+						}
+					}
+				}
+			}
+			hidden_effect = {
+				AUS = {
+					country_event = {
+						id = ger_external.177
+					}
+				}
+			}
+		}
+		complete_effect = {
+		}
+	}
+	Anschluss_Fund_Party = {
+		icon = GFX_decision_ger_mefo_bills
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			has_country_flag = GER_GDVP_cooperation
+		}
+		available = {
+		}
+		ai_will_do = {
+			factor = 200
+		}
+		cost = 20
+		days_remove = 27
+		days_re_enable = 40
+		remove_effect = {
+			add_to_variable = {
+				var = AUS_gov_pressure
+				value = 2
+			}
+			custom_effect_tooltip = GER_DNVP_Pressure_Add_2
+			effect_tooltip = {
+				if = {
+					limit = {
+						has_completed_focus = GER_DNVP_AUS_DNSAP
+					}
+					AUS = {
+						add_popularity = {
+							ideology = fascism
+							popularity = 0.02
+						}
+					}
+				}
+				else = {
+					AUS = {
+						add_popularity = {
+							ideology = market_liberalism
+							popularity = 0.02
+						}
+					}
+				}
+			}
+			hidden_effect = {
+				AUS = {
+					country_event = {
+						id = ger_external.178
+					}
+				}
+			}
+		}
+		complete_effect = {
+		}
+	}
+	Anschluss_Lobbyists = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			OR = {
+				has_country_flag = GER_GDVP_cooperation
+				has_completed_focus = GER_DNVP_AUS_DNSAP
+			}
+		}
+		available = {
+			
+		}
+		cost = 35
+		days_remove = 50
+		days_re_enable = 70
+		ai_will_do = {
+			factor = 350
+		}
+		remove_effect = {
+			add_to_variable = {
+				var = AUS_gov_pressure
+				value = 5
+			}
+			custom_effect_tooltip = GER_DNVP_Pressure_Add_5
+			effect_tooltip = {
+				if = {
+					limit = {
+						has_completed_focus = GER_DNVP_AUS_DNSAP
+					}
+					AUS = {
+						add_popularity = {
+							ideology = fascism
+							popularity = -0.01
+						}
+					}
+				}
+				else = {
+					AUS = {
+						add_popularity = {
+							ideology = market_liberalism
+							popularity = -0.01
+						}
+					}
+				}
+			}
+			hidden_effect = {
+				AUS = {
+					country_event = {
+						id = ger_external.179
+					}
+				}
+			}
+		}
+		complete_effect = {
+		}
+	}
+	Anschluss_Send_Arms = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = GER
+		}
+		visible = {
+			OR = {
+				has_country_flag = GER_GDVP_cooperation
+				has_completed_focus = GER_DNVP_AUS_DNSAP
+			}
+		}
+		available = {
+			has_equipment = {
+				infantry_equipment > 99
+			}
+		}
+		ai_will_do = {
+			factor = 220
+		}
+		cost = 60
+		days_remove = 8
+		days_re_enable = 180
+		remove_effect = {
+			add_to_variable = {
+				var = AUS_gov_pressure
+				value = 7
+			}
+			custom_effect_tooltip = GER_DNVP_Pressure_Add_7
+		}
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -100
+				producer = GER
+			}
+		}
+	}
+	Anschluss_Send_Demands = {
+		icon = GFX_decision_revolt
+		allowed = {
+			tag = GER
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		visible = {
+			has_country_flag = GER_GDVP_cooperation
+			OR = {
+				check_variable = {
+					AUS_gov_pressure > 69
+				}
+				OR = {
+					AND = {
+						has_completed_focus = GER_DNVP_AUS_DNSAP
+						AUS = {
+							fascism > 0.39
+						}
+					}
+					AND = {
+						has_completed_focus = GER_DNVP_AUS_GDVP
+						AUS = {
+							market_liberalism > 0.39
+						}
+					}
+				}
+			}
+		}
+		available = {
+			OR = {
+				AND = {
+					check_variable = {
+						AUS_gov_pressure > 89
+					}
+					OR = {
+						AND = {
+							has_completed_focus = GER_DNVP_AUS_DNSAP
+							AUS = {
+								fascism > 0.39
+							}
+						}
+						AND = {
+							has_completed_focus = GER_DNVP_AUS_GDVP
+							AUS = {
+								market_liberalism > 0.39
+							}
+						}
+					}
+				}
+			}
+		}
+		cost = 75
+		#days_remove = 8
+		#days_re_enable = 180
+		fire_only_once = yes
+		remove_effect = {
+		}
+		complete_effect = {
+			clear_variable = AUS_gov_pressure
+			clear_variable = GER_send_guns_to_nazis
+			clr_country_flag = GER_GDVP_cooperation
+			AUS = { clr_country_flag = AUS_counter_anschluss }
+			AUS = {
+				country_event = ger_external.180
+			}
+			every_state = {
+				limit = {
+					is_core_of = AUS
+				}
+				add_core_of = ROOT
+			}
+		}
+	}
+}
+AUS_DNVP_Anschluss_cat = {
+	Counter_Anschluss_National_Identity = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			has_country_flag = AUS_counter_anschluss
+			NOT = {
+				has_government = market_liberalism
+			}
+		}
+		available = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 400
+		}
+		cost = 25
+		days_remove = 30
+		days_re_enable = 50
+		remove_effect = {
+			GER = {
+				add_to_variable = {
+					var = AUS_gov_pressure
+					value = -3
+				}
+			}
+			custom_effect_tooltip = GER_DNVP_Pressure_Subt_3
+		}
+		complete_effect = {
+		}
+	}
+	Counter_Anschluss_Catholic_Identity = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			has_country_flag = AUS_counter_anschluss
+			OR = {
+				has_government = democratic
+				has_government = neutrality
+				has_government = monarchism
+				has_government = nationalism
+				has_government = communism
+				has_government = authoritarian_socialism
+				has_government = socialism
+				has_government = social_democracy
+			}
+			NOT = {
+				has_government = market_liberalism
+			}
+		}
+		available = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 225
+		}
+		cost = 30
+		days_remove = 36
+		days_re_enable = 60
+		remove_effect = {
+			GER = {
+				add_to_variable = {
+					var = AUS_gov_pressure
+					value = -4
+				}
+			}
+			custom_effect_tooltip = GER_DNVP_Pressure_Subt_4
+			if = {
+				limit = {
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_government = socialism
+						has_government = social_democracy
+					}
+				}
+				add_popularity = {
+					ideology = socialism
+					popularity = 0.04
+				}
+				add_popularity = {
+					ideology = social_democracy
+					popularity = 0.02
+				}
+				add_popularity = {
+					ideology = authoritarian_socialism
+					popularity = 0.01
+				}
+				add_popularity = {
+					ideology = communism
+					popularity = 0.01
+				}
+			}
+			else = {
+				add_popularity = {
+					ideology = nationalism
+					popularity = 0.03
+				}
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.03
+				}
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.02
+				}
+			}
+		}
+		complete_effect = {
+		}
+	}
+	Counter_Anschluss_Raid_Nazis = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			has_country_flag = AUS_counter_anschluss
+			GER = {
+				check_variable = {
+					GER_send_guns_to_nazis > 69
+				}
+			}
+		}
+		available = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 500
+		}
+		cost = 80
+		days_remove = 12
+		days_re_enable = 120
+		remove_effect = {
+			GER = {
+				add_to_variable = {
+					var = AUS_gov_pressure
+					value = -5
+				}
+				add_to_variable = {
+					var = GER_send_guns_to_nazis
+					value = -70
+				}
+			}
+			custom_effect_tooltip = GER_DNVP_Pressure_Subt_5
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 70
+				producer = GER
+			}
+			add_stability = -0.02
+		}
+		complete_effect = {
+		}
+	}
+	Counter_Anschluss_Repudiate = {
+		icon = GFX_decision_revolt
+		allowed = {
+			tag = AUS
+		}
+		visible = {
+			has_country_flag = AUS_counter_anschluss
+			NOT = {
+				has_government = market_liberalism
+			}
+			GER = {
+				check_variable = {
+					AUS_gov_pressure < 11
+				}
+			}
+		}
+		available = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 400
+		}
+		cost = 125
+		fire_only_once = yes
+		remove_effect = {
+		}
+		complete_effect = {
+			GER = {
+				clear_variable = AUS_gov_pressure
+				clear_variable = GER_send_guns_to_nazis
+				clr_country_flag = GER_GDVP_cooperation
+				country_event = {
+					id = ger_external.183
+				}
+			}
+			clr_country_flag = AUS_counter_anschluss
+			add_stability = 0.10
+		}
+	}
+}
+GER_DNVP_Reichstag = {
+	GER_parliament_explanation = {
+		allowed = { tag = GER }
+		visible = {
+		}
+		available = { always = yes }
+		ai_will_do = { factor = 0 } # computers don't need to know how parliament works
+		cost = 0
+		#complete_effect = { country_event = { id = bavaria.45 } }
+		days_re_enable = 1
+	}
+	GER_negotiate_with_Communists = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_communist_category = yes #voting on something a leninist would like
+			NOT = {
+				has_government = communism
+				has_negotiated_communists_90_days = yes
+				WGR_promised_communist_opposite = yes #checks to see if you promised the opposite things than what the leninists would want
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_com_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_communist_negotiate_event = yes
+		}
+	}
+	GER_negotiate_with_RevSocs = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_revsoc_category = yes #voting on something a revsoc would be ok with
+			NOT = {
+				has_government = authoritarian_socialism
+				has_negotiated_revsocs_90_days = yes
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_rso_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_revsoc_negotiate_event = yes
+		}
+	}
+	GER_negotiate_with_DemSocs = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_demsoc_category = yes #voting on something the demsocs would like
+			NOT = {
+				has_government = socialism
+				has_negotiated_demsocs_90_days = yes
+				WGR_promised_demsoc_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { WGR_dso_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_demsoc_negotiate_event = yes
+		}
+	}
+	GER_negotiate_with_SocDems = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_socdem_category = yes #voting on something the socdems can agree to.
+			NOT = {
+				has_government = social_democracy
+				has_negotiated_socdems_90_days = yes
+				WGR_promised_socdem_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_sde_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_soclib_negotiate_event = yes
+		}
+	}
+	GER_negotiate_with_SocLibs = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_soclib_category = yes #voting on something the socdems can agree to.
+			NOT = {
+				has_government = social_liberalism
+				has_negotiated_soclibs_90_days = yes
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_sli_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_soclib_negotiate_event = yes
+		}
+	}
+	GER_negotiate_with_MarLibs = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_marlib_category = yes
+			NOT = {
+				has_government = market_liberalism
+				has_negotiated_marlibs_90_days = yes
+				WGR_promised_marlib_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_mli_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_marlib_negotiate_event = yes
+		}
+	}
+	GER_negotiate_with_Centrists = { #libcons
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_libcon_category = yes
+			NOT = {
+				has_government = jacobin
+				has_negotiated_libcons_90_days = yes
+				WGR_promised_libcon_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_cen_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_libcon_negotiate_event = yes
+		}
+	}
+	GER_negotiate_with_Conservatives = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_soccon_category = yes
+			NOT = {
+				has_government = democratic
+				has_negotiated_soccons_90_days = yes
+				WGR_promised_soccon_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_dem_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_soccon_negotiate_event = yes
+		}
+	}
+	GER_negotiate_with_Authoritarians = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_aut_category = yes
+			NOT = {
+				has_government = neutrality
+				has_negotiated_aut_90_days = yes
+				WGR_promised_aut_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_neu_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_aut_negotiate_event = yes
+		}
+	}
+	GER_negotiate_with_Monarchists = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_mon_category = yes
+			NOT = {
+				has_government = monarchism
+				has_negotiated_mon_90_days = yes
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_mon_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_mon_negotiate_event = yes
+		}
+	}
+	GER_negotiate_with_Nationalists = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_nat_category = yes
+			NOT = {
+				has_government = nationalism
+				has_negotiated_nat_90_days = yes
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_nat_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_nat_negotiate_event = yes
+		}
+	}
+	GER_negotiate_with_Nazis = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_fas_category = yes
+			NOT = {
+				has_government = fascism
+				has_negotiated_fas_90_days = yes
+				WGR_promised_fas_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 250
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_fas_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_fas_negotiate_event = yes
+		}
+	}
+	GER_generic_conscription_effort = {
+        allowed = { tag = GER } #Enter the tag here
+        available = {
+			NOT = { has_country_flag = WGR_voting } #Leave this
+			NOT = {
+				has_idea = versailles_treaty
+			}
+		}
+        visible = {
+			NOT = { has_country_flag = WGR_voting }
+			NOT = { has_idea = WGR_conscription_effort }
+			NOT = { has_idea = WGR_employment_effort }
+        }
+		ai_will_do = {
+			factor = 250
+		}
+		cost = 0
+        #fire_only_once = yes #Leave this for now
+		complete_effect = {
+	        set_country_flag = WGR_voting #Hides other laws
+            set_country_flag = WGR_militarist_law #Determines category of the law, for negotiation events
+			custom_effect_tooltip = will_vote #Informs what will happen
+			GER_Parliament_Add_Coalition_Seats = yes
+            hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							has_government = nationalism
+							has_country_flag = WGR_negotiated_with_Nationalists
+						}
+					}
+					country_event = { id = wgr_parliament.11 } # nationalists
+					set_country_flag = WGR_negotiated_with_Nationalists
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_government = fascism
+							has_country_flag = WGR_negotiated_with_Nazis
+						}
+					}
+					country_event = { id = wgr_parliament.12 } # fascists
+					set_country_flag = WGR_negotiated_with_Nazis
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_government = neutrality
+							has_country_flag = WGR_negotiated_with_Authoritarians
+						}
+					}
+					country_event = { id = wgr_parliament.10 } # neutrality
+					set_country_flag = WGR_negotiated_with_Authoritarians
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_government = monarchism
+							has_country_flag = WGR_negotiated_with_Monarchists
+						}
+					}
+					country_event = { id = wgr_parliament.9 } # monarchism
+					set_country_flag = WGR_negotiated_with_Monarchists
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_government = communism
+							has_country_flag = WGR_negotiated_with_communists
+						}
+					}
+					country_event = { id = wgr_parliament.1 } # communists
+					set_country_flag = WGR_negotiated_with_communists
+				}
+			}
+            effect_tooltip = { #Effect of the law if approved
+				add_timed_idea = { #Effect from negotiation
+			        idea = WGR_conscription_effort
+			        days = 90
+		        }
+		    } 			
+        }
+		days_remove = 45 #Time to vote
+		remove_effect = { #Effect upon voting
+	        clr_country_flag = WGR_voting #Shows other laws again
+			clr_country_flag = WGR_militarist_law #Clears this
+			clr_country_flag = WGR_negotiated_with_communists #Clears this
+			clr_country_flag = WGR_negotiated_with_RevSocs #Clears this
+			clr_country_flag = WGR_negotiated_with_DemSocs #Clears this
+			clr_country_flag = WGR_negotiated_with_SocDems #Clears this
+			clr_country_flag = WGR_negotiated_with_SocLibs #Clears this
+			clr_country_flag = WGR_negotiated_with_MarLibs #Clears this
+			clr_country_flag = WGR_negotiated_with_Centrists #Clears this
+			clr_country_flag = WGR_negotiated_with_Conservatives #Clears this
+			clr_country_flag = WGR_negotiated_with_Authoritarians #Clears this
+			clr_country_flag = WGR_negotiated_with_Monarchists #Clears this
+			clr_country_flag = WGR_negotiated_with_Nationalists #Clears this
+			clr_country_flag = WGR_negotiated_with_Nazis #Clears this
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						OR = {
+							check_variable = { WGR_supseat > GER_seats_needed } #Effect if the law passes, change the number depending on seats in your parliament 
+							check_variable = { WGR_supseat = GER_seats_needed } #If there's a tie
+						}
+					}
+					add_timed_idea = { #Effect from negotiation
+						idea = WGR_conscription_effort
+						days = 90
+					}
+					WGR_fulfill_coalition_promises = yes
+				}
+				else = {
+				    country_event = { id = wgr_parliament.37 } #Event We Lost the Vote!
+				}
+				set_variable = { WGR_supseat = 0 } #Supseats variable goes back to 0
+            }			
+        }
+    }
+	GER_generic_raise_military_spending_law = {
+        allowed = { tag = GER } #Enter the tag here
+        available = {
+			NOT = { has_country_flag = WGR_voting } #Leave this
+			NOT = {
+				has_idea = versailles_treaty
+			}
+		}
+        visible = {
+			NOT = { has_country_flag = WGR_voting }
+			NOT = { has_idea = WGR_conscription_effort }
+			NOT = { has_idea = WGR_employment_effort }
+        }
+		ai_will_do = {
+			factor = 250
+		}
+		cost = 0
+        #fire_only_once = yes #Leave this for now
+		complete_effect = {
+	        set_country_flag = WGR_voting #Hides other laws
+            set_country_flag = WGR_militarist_law #Determines category of the law, for negotiation events
+			custom_effect_tooltip = will_vote #Informs what will happen
+			GER_Parliament_Add_Coalition_Seats = yes
+            hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							has_government = nationalism
+							has_country_flag = WGR_negotiated_with_Nationalists
+						}
+					}
+					country_event = { id = wgr_parliament.11 } # nationalists
+					set_country_flag = WGR_negotiated_with_Nationalists
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_government = fascism
+							has_country_flag = WGR_negotiated_with_Nazis
+						}
+					}
+					country_event = { id = wgr_parliament.12 } # fascists
+					set_country_flag = WGR_negotiated_with_Nazis
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_government = neutrality
+							has_country_flag = WGR_negotiated_with_Authoritarians
+						}
+					}
+					country_event = { id = wgr_parliament.10 } # neutrality
+					set_country_flag = WGR_negotiated_with_Authoritarians
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_government = monarchism
+							has_country_flag = WGR_negotiated_with_Monarchists
+						}
+					}
+					country_event = { id = wgr_parliament.9 } # monarchism
+					set_country_flag = WGR_negotiated_with_Monarchists
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_government = communism
+							has_country_flag = WGR_negotiated_with_communists
+						}
+					}
+					country_event = { id = wgr_parliament.1 } # communists
+					set_country_flag = WGR_negotiated_with_communists
+				}
+			}
+            effect_tooltip = { #Effect of the law if approved
+				add_timed_idea = { #Effect from negotiation
+			        idea = WGR_generic_miltary_spending_up
+			        days = 90
+		        }
+		    } 			
+        }
+		days_remove = 45 #Time to vote
+		remove_effect = { #Effect upon voting
+	        clr_country_flag = WGR_voting #Shows other laws again
+			clr_country_flag = WGR_militarist_law #Clears this
+			clr_country_flag = WGR_negotiated_with_communists #Clears this
+			clr_country_flag = WGR_negotiated_with_RevSocs #Clears this
+			clr_country_flag = WGR_negotiated_with_DemSocs #Clears this
+			clr_country_flag = WGR_negotiated_with_SocDems #Clears this
+			clr_country_flag = WGR_negotiated_with_SocLibs #Clears this
+			clr_country_flag = WGR_negotiated_with_MarLibs #Clears this
+			clr_country_flag = WGR_negotiated_with_Centrists #Clears this
+			clr_country_flag = WGR_negotiated_with_Conservatives #Clears this
+			clr_country_flag = WGR_negotiated_with_Authoritarians #Clears this
+			clr_country_flag = WGR_negotiated_with_Monarchists #Clears this
+			clr_country_flag = WGR_negotiated_with_Nationalists #Clears this
+			clr_country_flag = WGR_negotiated_with_Nazis #Clears this
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						OR = {
+							check_variable = { WGR_supseat > GER_seats_needed } #Effect if the law passes, change the number depending on seats in your parliament 
+							check_variable = { WGR_supseat = GER_seats_needed } #If there's a tie
+						}
+					}
+					add_timed_idea = { #Effect from negotiation
+						idea = WGR_generic_miltary_spending_up
+						days = 90
+					}
+					WGR_fulfill_coalition_promises = yes
+				}
+				else = {
+				    country_event = { id = wgr_parliament.37 } #Event We Lost the Vote!
+				}
+				set_variable = { WGR_supseat = 0 } #Supseats variable goes back to 0
+            }			
+        }
+    }
+	GER_generic_lower_military_spending_law = {
+        allowed = { tag = GER } #Enter the tag here
+        available = {
+			NOT = { has_country_flag = WGR_voting } #Leave this
+			NOT = {
+				has_idea = versailles_treaty
+			}
+		}
+        visible = {
+			NOT = { has_country_flag = WGR_voting }
+			NOT = { has_idea = WGR_conscription_effort }
+			NOT = { has_idea = WGR_employment_effort }
+        }
+		ai_will_do = {
+			factor = 250
+		}
+		cost = 0
+        #fire_only_once = yes #Leave this for now
+		complete_effect = {
+	        set_country_flag = WGR_voting #Hides other laws
+            set_country_flag = WGR_militarist_law #Determines category of the law, for negotiation events
+			custom_effect_tooltip = will_vote #Informs what will happen
+			GER_Parliament_Add_Coalition_Seats = yes
+            hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							has_government = social_liberalism
+							has_country_flag = WGR_negotiated_with_SocLibs
+						}
+					}
+					country_event = { id = wgr_parliament.5 } # soclibs
+					set_country_flag = WGR_negotiated_with_SocLibs
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_government = social_democracy
+							has_country_flag = WGR_negotiated_with_SocDems
+						}
+					}
+					country_event = { id = wgr_parliament.4 } # socdem
+					set_country_flag = WGR_negotiated_with_SocDems
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_government = socialism
+							has_country_flag = WGR_negotiated_with_DemSocs
+						}
+					}
+					country_event = { id = wgr_parliament.3 } # demsocs
+					set_country_flag = WGR_negotiated_with_DemSocs
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_government = authoritarian_socialism
+							has_country_flag = WGR_negotiated_with_RevSocs
+						}
+					}
+					country_event = { id = wgr_parliament.2 } # communists
+					set_country_flag = WGR_negotiated_with_RevSocs
+				}
+			}
+            effect_tooltip = { #Effect of the law if approved
+				add_timed_idea = { #Effect from negotiation
+			        idea = WGR_generic_miltary_spending_down
+			        days = 90
+		        }
+		    } 			
+        }
+		days_remove = 45 #Time to vote
+		remove_effect = { #Effect upon voting
+	        clr_country_flag = WGR_voting #Shows other laws again
+			clr_country_flag = WGR_militarist_law #Clears this
+			clr_country_flag = WGR_negotiated_with_communists #Clears this
+			clr_country_flag = WGR_negotiated_with_RevSocs #Clears this
+			clr_country_flag = WGR_negotiated_with_DemSocs #Clears this
+			clr_country_flag = WGR_negotiated_with_SocDems #Clears this
+			clr_country_flag = WGR_negotiated_with_SocLibs #Clears this
+			clr_country_flag = WGR_negotiated_with_MarLibs #Clears this
+			clr_country_flag = WGR_negotiated_with_Centrists #Clears this
+			clr_country_flag = WGR_negotiated_with_Conservatives #Clears this
+			clr_country_flag = WGR_negotiated_with_Authoritarians #Clears this
+			clr_country_flag = WGR_negotiated_with_Monarchists #Clears this
+			clr_country_flag = WGR_negotiated_with_Nationalists #Clears this
+			clr_country_flag = WGR_negotiated_with_Nazis #Clears this
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						OR = {
+							check_variable = { WGR_supseat > GER_seats_needed } #Effect if the law passes, change the number depending on seats in your parliament 
+							check_variable = { WGR_supseat = GER_seats_needed } #If there's a tie
+						}
+					}
+					add_timed_idea = { #Effect from negotiation
+						idea = WGR_generic_miltary_spending_down
+						days = 90
+					}
+					WGR_fulfill_coalition_promises = yes
+				}
+				else = {
+				    country_event = { id = wgr_parliament.37 } #Event We Lost the Vote!
+				}
+				set_variable = { WGR_supseat = 0 } #Supseats variable goes back to 0
+            }			
+        }
+    }
+}

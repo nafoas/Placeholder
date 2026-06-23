@@ -1,0 +1,589 @@
+	#Focus for Ignacio Tellez
+	shared_focus = {
+		id = MEX_ignaciotellez
+		icon = GFX_focus_MEX_President_Tellez
+		x = 10
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward  = {
+			COALITION_RESET = yes
+		}
+	}
+	
+	#Focus for Compromise with the Revolutionaries
+	shared_focus = {
+		id = MEX_compromiserevolutionaries
+		icon = GFX_focus_MEX_Tellez_RevSoc
+		x = 4
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			has_country_flag = mujica_revsoc
+		}	
+		prerequisite = { focus = MEX_ignaciotellez }
+		mutually_exclusive = { focus = MEX_continuecardenism }
+		mutually_exclusive = { focus = MEX_therevolutionover }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.04 }
+			set_politics = {
+				ruling_party = authoritarian_socialism
+			}
+			COALITION_add_demsoc = yes
+			COALITION_add_com = yes
+		}
+	}
+	#Focus for Expand Article 27
+	shared_focus = {
+		id = MEX_expandarticle27
+		icon = GFX_focus_Agriculture
+		x = 2
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_compromiserevolutionaries }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			random_owned_state = { add_extra_state_shared_building_slots = 1 }
+			random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		}			
+	}
+	
+	#Focus for Integrate Red Militias
+	shared_focus = {
+		id = MEX_integrateredmilitias
+		icon = GFX_Focus_Red_Army_Exercises
+		x = 2
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_expandarticle27 }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_war_support = 0.10
+		}
+	}
+	
+	#Focus for Persecute Zealots
+	shared_focus = {
+		id = MEX_persecutezealots
+		icon = GFX_focus_GER_Kulturkampf
+		x = 3
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_integrateredmilitias }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = jacobin popularity = -0.05 }
+			add_popularity = { ideology = democratic popularity = -0.04 }	
+			add_popularity = { ideology = nationalism popularity = -0.03 }
+			add_popularity = { ideology = fascism popularity = -0.02 }		
+		}
+	}	
+	
+	#Focus for Promote Article 3
+	shared_focus = {
+		id = MEX_promotearticle3
+		icon = GFX_focus_Proletarian_Intelectualism
+		x = 4
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_compromiserevolutionaries }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_socialist_education_3  add_idea = mex_socialist_education_4  }	
+		} 
+	}
+	
+	#Focus for Absorb the PCM
+	shared_focus = {
+		id = MEX_absorbthepcm
+		icon = GFX_focus_MEX_Tellez_PRM_PCM
+		x = 4
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_promotearticle3 }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			set_party_name = { ideology = communism long_name = "Partido de la Revolucion Mexicana (Leninism)" name = "PRM(L)" }
+			# create_country_leader = {
+			# 	name = "Ignacio G. Tellez"
+			# 	desc = "POLITICS_IGNACIO_TELLEZ_DESC"
+			# 	picture = "gfx/leaders_cbts/MEX/Portrait_Ignacio_Tellez.tga"
+			# 	expire = "1955.1.1"
+			# 	ideology = stalinism  
+			# 	traits = {}
+			# }
+			MEX_ignacio_tellez = {
+				promote_character = yes
+				promote_character = stalinism
+			}		
+		} 
+	}	
+	
+	
+	#Focus for New Plan Sexenal
+	shared_focus = {
+		id = MEX_anewplansexenal
+		icon = GFX_focus_Control_the_Economy
+		x = 7
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_continuecardenism 
+			focus = MEX_compromiserevolutionaries 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+		}
+		random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+	}
+}
+}	
+
+#Focus for Continue with Nationalization
+shared_focus = {
+	id = MEX_continuenationalization
+	icon = GFX_focus_Workers_on_Strike
+	x = 7
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_anewplansexenal }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_political_power = -50
+	}
+}	
+
+#Focus for New Railroads
+shared_focus = {
+	id = MEX_newrailroads
+	icon = GFX_focus_Railways
+	x = 5
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_absorbthepcm 
+	}
+	prerequisite = { 
+		focus = MEX_continuenationalization 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		#TODO: add railways
+	}	
+}	
+#Focus for Partially Planned Economy
+shared_focus = {
+	id = MEX_partialplannedeconomy
+	icon = GFX_focus_Planned_Economy
+	x = 7
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_continuenationalization }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {	
+		add_stability = 0.05
+		add_war_support = 0.05
+		add_political_power = 100
+	}
+}	
+#Focus for Continue Cardenism
+shared_focus = {
+	id = MEX_continuecardenism
+	icon = GFX_focus_MEX_Lazaro_Cardenas_Portrait_Icon
+	x = 10
+	y = 2
+	cost = 10
+	available_if_capitulated = yes
+	available = {
+		has_country_flag = mujica_revsoc
+	}
+	prerequisite = { focus = MEX_ignaciotellez }
+	mutually_exclusive = { focus = MEX_compromiserevolutionaries }
+	mutually_exclusive = { focus = MEX_therevolutionover }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = socialism popularity = 0.05 }
+		set_politics = {
+			ruling_party = socialism
+		}
+		COALITION_add_socdem = yes	
+		COALITION_add_revsoc = yes
+	}
+}
+
+#Focus for Continue with Article 27
+shared_focus = {
+	id = MEX_continuearticle27
+	icon = GFX_focus_Collaborate_with_Local_Elites
+	x = 10
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_continuecardenism }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+	}			
+}
+
+#Focus for Expand Education
+shared_focus = {
+	id = MEX_expandeducation
+	icon = GFX_focus_Education_Reform
+	x = 10
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_continuearticle27 }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_socialist_education_3  add_idea = mex_socialist_education_4  }	
+	} 		
+}	
+
+#Focus for Anti-Fascist Campaign
+shared_focus = {
+	id = MEX_antifascistcampaign
+	icon = GFX_focus_Anti_Fascist
+	x = 10
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_expandeducation }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = nationalism popularity = -0.03 }	
+		add_popularity = { ideology = fascism popularity = -0.04 }				
+	}
+}
+
+#Focus for Leave the Church Alone
+shared_focus = {
+	id = MEX_leavechurchalone
+	icon = GFX_focus_State_Theology
+	x = 13
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_continuecardenism 
+		focus = MEX_therevolutionover 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = 0.03
+	}	
+}
+#Focus for Stop the Church
+shared_focus = {
+	id = MEX_stoppersecution
+	icon = GFX_focus_Secularism
+	x = 13
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_leavechurchalone }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_political_power = 25
+	}
+}
+
+#Focus for Go Back to Non-Intervention
+shared_focus = {
+	id = MEX_gobacktononintervention
+	icon = GFX_focus_Church_State_Separate
+	x = 13
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_stoppersecution }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		country_event = { days = 1 id = mex_political.23 }
+	}
+}
+
+#Focus for The Revolution is Over
+shared_focus = {
+	id = MEX_therevolutionover
+	icon = GFX_focus_MEX_Tellez_SocDem
+	x = 16
+	y = 2
+	cost = 10
+	available_if_capitulated = yes
+	available = {
+		has_country_flag = mujica_demsoc
+	}
+	prerequisite = { focus = MEX_ignaciotellez }
+	mutually_exclusive = { focus = MEX_compromiserevolutionaries }
+	mutually_exclusive = { focus = MEX_continuecardenism }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = social_democracy popularity = 0.04 }
+		set_politics = {
+			ruling_party = social_democracy
+		}
+		COALITION_add_demsoc = yes
+		COALITION_add_revsoc = yes
+	}
+}
+
+#Focus for Moderate Article 27
+shared_focus = {
+	id = MEX_moderatearticle27
+	icon = GFX_focus_Agrarian_Reform
+	x = 16
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_therevolutionover }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+	}		
+}
+
+#Focus for Reduce Analfibility
+shared_focus = {
+	id = MEX_reduceanalfabilaty
+	icon = GFX_focus_Education_Reform
+	x = 16
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_moderatearticle27 }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = 0.10
+	}		
+}
+
+#Focus for Stop Extermism
+shared_focus = {
+	id = MEX_stopextremism
+	icon = GFX_focus_Give_Democracy
+	x = 15
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_reduceanalfabilaty 
+	}
+	prerequisite = { 
+		focus = MEX_stoppersecution 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = communism popularity = -0.03 }
+		add_popularity = { ideology = nationalism popularity = -0.03 }	
+		add_popularity = { ideology = fascism popularity = -0.03 }				
+	}
+}	
+
+#Focus for Compromise on Article 3
+shared_focus = {
+	id = MEX_compromisearticle3
+	icon = GFX_focus_Brainpower
+	x = 18
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_therevolutionover }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_education_reform_3  add_idea = mex_education_reform_4  }	
+	}
+}	
+#Focus for Legacy of Socialist Education
+shared_focus = {
+	id = MEX_legacysocialisteducation
+	icon = GFX_focus_Communist_Scientists
+	x = 18
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_compromisearticle3 }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_education_reform_4  add_idea = mex_education_reform_5  }		
+	}
+}
+#Focus for Expand Public Works
+shared_focus = {
+	id = MEX_expandpublicworks
+	icon = GFX_focus_Factory_Town
+	x = 17
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_legacysocialisteducation }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+	}
+	random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+}
+}
+}
+
+#Focus for Mexican Socialism
+shared_focus = {
+	id = MEX_mexicansocialism
+	icon = GFX_focus_MEX_RevSoc_Tejeda
+	x = 5
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_persecutezealots 
+	}
+	prerequisite = { 
+		focus = MEX_newrailroads 
+	}
+	prerequisite = { 
+		focus = MEX_partialplannedeconomy 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.05 }
+	}
+}
+
+#Focus for True Socialism
+shared_focus = {
+	id = MEX_truesocialism
+	icon = GFX_focus_MEX_Cardenist_Tellez
+	x = 10
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_partialplannedeconomy 
+	}
+	prerequisite = { 
+		focus = MEX_antifascistcampaign 
+	}
+	prerequisite = { 
+		focus = MEX_gobacktononintervention 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = socialism popularity = 0.05 }
+	}
+}
+#Focus for Moderate Socialism
+shared_focus = {
+	id = MEX_moderate_socialism
+	icon = GFX_focus_MEX_Laborist_Camacho
+	x = 15
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_gobacktononintervention 
+	}
+	prerequisite = { 
+		focus = MEX_stopextremism 
+	}
+	prerequisite = { 
+		focus = MEX_expandpublicworks 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = social_democracy popularity = 0.05 }	
+	}
+}
+#Focus for A New Era
+shared_focus = {
+	id = MEX_newera2
+	icon = GFX_focus_Befriend_Mexico
+	x = 10
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = MEX_truesocialism 
+		focus = MEX_mexicansocialism 
+		focus = MEX_moderate_socialism 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = socialism popularity = 0.03 }	
+		add_popularity = { ideology = social_democracy popularity = 0.02 }		
+	}	
+}

@@ -1,0 +1,338 @@
+shared_focus = {
+	id = SPR_amenaza_socialista
+	icon = GFX_focus_ger_great_red_menace
+	cost = 1
+	x = 6
+	y = 0
+	bypass = { always = yes }
+
+	allow_branch = {
+		has_global_flag = scr_ongoing
+	}
+	offset = {
+		x = 17
+		y = 0
+		trigger = {
+			has_country_flag = scr_franco_power
+		}
+	}
+	offset = {
+		x = 17
+		y = 0
+		trigger = {
+			has_country_flag = kindelan_power
+		}
+	}
+}
+shared_focus = {
+	id = SPR_estado_guerra
+	icon = GFX_focus_generic_military_mission
+	cost = 2
+	prerequisite = {
+		focus = SPR_amenaza_socialista
+	}
+	completion_reward = {
+		add_ideas = partial_economic_mobilisation
+		add_ideas = limited_exports
+		add_stability = 0.05
+	}
+	relative_position_id = SPR_amenaza_socialista
+	x = -1
+	y = 1
+
+}
+shared_focus = {
+	id = SPR_rev_general_mob
+	icon = GFX_focus_generic_little_entente
+	cost = 0.7
+	prerequisite = {
+		focus = SPR_amenaza_socialista
+	}
+	completion_reward = {
+		add_ideas = service_by_requirement
+		add_equipment_to_stockpile = {
+			type = train_equipment
+			amount = 40
+			producer = SPR
+		}
+		add_equipment_to_stockpile = {
+			type = transport_plane_equipment
+			amount = 20
+			producer = SPR
+		}
+		add_equipment_to_stockpile = {
+			type = small_plane_airframe
+			amount = 30
+			producer = SPR
+		}
+		add_equipment_to_stockpile = {
+			type = motorized_equipment
+			amount = 400
+			producer = SPR
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 700
+			producer = SPR
+		}
+	}
+	x = 1
+	y = 1
+	relative_position_id = SPR_amenaza_socialista
+}
+shared_focus = {
+	id = SPR_rev_establish_rations
+	icon = GFX_focus_civilian_rations
+	cost = 3
+	prerequisite = {
+		focus = SPR_estado_guerra
+	}
+	prerequisite = {
+		focus = SPR_rev_general_mob
+	}
+	available = { has_war_with = SPC }
+	ai_will_do = {
+		base = 70
+	}
+	completion_reward = {
+		add_ideas = SPC_civilian_rationing
+	}
+	x = 0
+	y = 2
+	relative_position_id = SPR_amenaza_socialista
+}
+shared_focus = {
+	id = SPR_military_steps
+	icon = GFX_focus_Military_Government
+	cost = 1
+	prerequisite = {
+		focus = SPR_rev_establish_rations
+	}
+	available = { always = no }
+	bypass = { has_country_flag = SPR_rev_military_coup }
+	x = -3
+	y = 3
+	relative_position_id = SPR_amenaza_socialista
+}
+shared_focus = {
+	id = SPR_rev_censor_press
+	icon = GFX_focus_control_press_alt
+	cost = 1
+	prerequisite = {
+		focus = SPR_rev_establish_rations
+	}
+	ai_will_do = {
+		base = 1000
+	}
+	completion_reward = {
+		add_political_power = 70
+		add_war_support = 0.2
+		add_stability = 0.05
+	}
+	x = 0
+	y = 3
+	relative_position_id = SPR_amenaza_socialista
+}
+shared_focus = {
+	id = SPR_national_coalition
+	icon = GFX_focus_Gil_Robles_2
+	cost = 10
+	prerequisite = {
+		focus = SPR_rev_establish_rations
+	}
+	available = { always = no }
+	bypass = { has_country_flag = national_coalition }
+	x = 3
+	y = 3
+	relative_position_id = SPR_amenaza_socialista
+}
+shared_focus = {
+	id = SPR_arrest_officers
+	icon = GFX_focus_Military_Purges
+	cost = 6
+	prerequisite = {
+		focus = SPR_military_steps
+	}
+	completion_reward = {
+		add_war_support = -0.1
+		every_unit_leader = {
+			limit = {
+				NOT = {
+					has_trait = spain_rightist
+					has_trait = trait_SPA_falangist_loyalties
+				}
+			}
+			remove_unit_leader_role = yes
+		}
+		if = {
+			limit = { has_idea = SPR_divided_army }
+			remove_ideas = SPR_divided_army
+		}
+	}
+	x = -2
+	y = 4
+	relative_position_id = SPR_amenaza_socialista
+}
+shared_focus = {
+	id = SPR_dissolve_cortes
+	icon = GFX_focus_Dissolve_Parliament
+	cost = 5
+	prerequisite = {
+		focus = SPR_national_coalition
+	}
+	completion_reward = {
+		country_event = { id = scr.20 }
+	}
+	x = 2
+	y = 4
+	relative_position_id = SPR_amenaza_socialista
+}
+shared_focus = {
+	id = SPR_economic_control
+	icon = GFX_focus_Control_the_Economy
+	cost = 7
+	prerequisite = {
+		focus = SPR_rev_censor_press
+	}
+	ai_will_do = {
+		base = 1000
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				controls_state = 752
+			}
+			752 = {
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size < 1
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_idea = SPR_altos_hornos_de_vizcaya }
+				}
+				add_ideas = SPR_altos_hornos_de_vizcaya
+			}
+		}
+		if = {
+			limit = {
+				controls_state = 41
+			}
+			41 = {
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size < 1
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_idea = SPR_casa_company }
+				}
+				add_ideas = SPR_casa_company
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_idea = SPR_secn_company }
+			}
+			add_ideas = SPR_secn_company
+		}
+		if = {
+			limit = {
+				NOT = { has_idea = SPR_astra }
+			}
+			add_ideas = SPR_astra
+		}
+	}
+	x = 0
+	y = 4
+	relative_position_id = SPR_amenaza_socialista
+}
+shared_focus = {
+	id = SPR_british_aid
+	icon = GFX_focus_Befriend_United_Kingdom
+	cost = 6
+	prerequisite = {
+		focus = SPR_national_coalition
+	}
+	completion_reward = {
+		ENG = { country_event = { days = 1 id = scr.14 } }
+	}
+	x = 4
+	y = 4
+	relative_position_id = SPR_amenaza_socialista
+}
+shared_focus = {
+	id = SPR_arrest_left_politicians
+	icon = GFX_focus_Imprison_the_Opposition
+	cost = 4
+	prerequisite = {
+		focus = SPR_military_steps
+	}
+	completion_reward = {
+		remove_ideas_with_trait = soc_democracy_minister
+		remove_ideas_with_trait = socialist_minister
+		remove_ideas_with_trait = liberal_minister
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.1
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.1
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.1
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = -0.1
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.05
+		}
+	}
+	x = -4
+	y = 4
+	relative_position_id = SPR_amenaza_socialista
+}
+shared_focus = {
+	id = SPR_choose_caudillo
+	icon = GFX_focus_generic_strike_at_democracy1
+	cost = 6
+	prerequisite = {
+		focus = SPR_arrest_left_politicians
+	}
+	prerequisite = {
+		focus = SPR_arrest_officers
+	}
+	completion_reward = {
+		country_event = { id = scr.25 hours = 1}
+	}
+	x = -3
+	y = 5
+	relative_position_id = SPR_amenaza_socialista
+}

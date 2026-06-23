@@ -1,0 +1,302 @@
+###########################
+# Mengjiang Events
+###########################
+add_namespace = mengjiang
+
+country_event = {
+	id = mengjiang.1 # Demchugdongrub made leader
+	title = mengjiang.1.t
+	desc = mengjiang.1.d
+	picture = GFX_report_event_chinese_soldiers
+
+	fire_only_once = yes 
+	is_triggered_only = yes
+
+	option = {
+		name = mengjiang.1.a
+		# kill_ideology_leader = monarchism
+
+		create_country_leader = {
+			name = "Demchugdongrub"
+			desc = "POLITICS_DEMCHUGDONGRUB_DESC"
+			picture = "gfx/leaders_cbts/MEN/Portrait_MEN_Demchugdongrub.png"
+			expire = "1965.1.1"
+			ideology = despotism
+			traits = {
+			}
+		}		
+	}
+}
+
+country_event = {
+	id = mengjiang.2 # Creation of the Chanan Autonomous Government
+	title = mengjiang.2.t
+	desc = mengjiang.2.d
+	picture = GFX_report_event_chinese_soldiers
+
+	fire_only_once = yes 
+	is_triggered_only = yes
+
+
+	option = {
+		name = mengjiang.2.a
+		custom_effect_tooltip = "The South Chahar Autonomous Government will be created"
+		hidden_effect = {
+			create_dynamic_country = {
+				original_tag = MEN
+				save_global_event_target_as = CAG_tag
+				add_state_core = 939
+				transfer_state = 939
+				set_cosmetic_tag = CAG
+				set_capital = {
+					state = 939
+					remember_old_capital = no
+				}
+				set_technology = {
+					infantry_weapons1 = 1
+					generic_infantry = 1
+				}
+				inherit_technology = MEN
+				
+				reverse_add_opinion_modifier = {
+					target = SOV
+					modifier = trade_enemies
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = trade_enemies
+				}
+				
+				set_politics = {
+					ruling_party = monarchism
+					last_election = "1936.1.1"
+					election_frequency = 48
+					elections_allowed = no
+				}
+				set_popularities = {
+					communism = 0
+					authoritarian_socialism = 0
+					socialism = 0
+					social_democracy = 0
+					social_liberalism = 0
+					market_liberalism = 0
+					jacobin = 0
+					democratic = 0
+					neutrality = 0
+					monarchism = 80
+					nationalism = 0
+					fascism = 20
+				}
+				set_research_slots = 0
+			}
+			JAP = {
+				puppet = CAG
+			}
+			939 = { set_state_name = "South Chahar" }
+			if = {
+				limit = {
+					country_exists = CAG
+					country_exists = JAG
+					country_exists = MEN
+				}
+				JAP = {
+					country_event = {
+						id = mengjiang.5
+						days = 686
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = mengjiang.3 # Creation of the North Shanxi Autonomous Government
+	title = mengjiang.3.t
+	desc = mengjiang.3.d
+	picture = GFX_report_event_chinese_soldiers
+
+	fire_only_once = yes 
+	is_triggered_only = yes
+
+
+	option = {
+		name = mengjiang.3.a
+		hidden_effect = {
+			create_dynamic_country = {
+				original_tag = MEN
+				save_global_event_target_as = JAG_tag
+				add_state_core = 1095
+				transfer_state = 1095
+				set_cosmetic_tag = JAG
+				set_capital = {
+					state = 1095
+					remember_old_capital = no
+				}
+				set_technology = {
+					infantry_weapons1 = 1
+					generic_infantry = 1
+				}
+				inherit_technology = MEN
+				
+				reverse_add_opinion_modifier = {
+					target = SOV
+					modifier = trade_enemies
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = trade_enemies
+				}
+
+				create_country_leader = {
+					name = "Xia Gong"
+					picture = "gfx/leaders_cbts/CHI/Portrait_Xia_Gong.png"
+					expire = "1955.1.1"
+					ideology = military 
+					traits = {
+						#
+					}
+				}
+				
+				set_research_slots = 0
+			}
+			JAP = {
+				puppet = JAG
+			}
+			1095 = { set_state_name = "North Shanxi" }
+			JAG = {
+				set_politics = {
+					ruling_party = neutrality
+					last_election = "1936.1.1"
+					election_frequency = 48
+					elections_allowed = no
+				}
+				set_popularities = {
+					communism = 0
+					authoritarian_socialism = 0
+					socialism = 0
+					social_democracy = 0
+					social_liberalism = 0
+					market_liberalism = 0
+					jacobin = 0
+					democratic = 0
+					neutrality = 80
+					monarchism = 0
+					nationalism = 0
+					fascism = 20
+				}
+			}
+			if = {
+				limit = {
+					country_exists = CAG
+					country_exists = JAG
+					country_exists = MEN
+				}
+				JAP = {
+					country_event = {
+						id = mengjiang.5
+						days = 686
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = mengjiang.4 # Become the MUAG
+	title = mengjiang.4.t
+	desc = mengjiang.4.d
+	picture = GFX_report_event_chinese_soldiers
+
+	fire_only_once = yes 
+	is_triggered_only = yes
+
+
+	option = {
+		name = mengjiang.4.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						621 = { is_fully_controlled_by = JAP }
+						621 = { is_fully_controlled_by = MAN }
+						621 = { is_fully_controlled_by = MEN }
+					}
+				}
+				MEN = {
+					transfer_state = 621
+					add_state_core = 621
+					set_capital = {
+						state = 621
+					}
+				}
+				set_province_name = {
+					id = 1024
+					name = "Houhehaote"
+				}
+				set_province_name = {
+					id = 12403
+					name = "Ulanqab"
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						1131 = { is_fully_controlled_by = JAP }
+						1131 = { is_fully_controlled_by = MAN }
+						1131 = { is_fully_controlled_by = MEN }
+					}
+				}
+				MEN = {
+					transfer_state = 1131
+				}
+			}
+			MEN = {
+				add_stability = 0.05
+				add_war_support = 0.1
+				add_political_power = 30
+				set_cosmetic_tag = MEN_muag
+			}
+		}
+	}
+}
+
+country_event = {
+	id = mengjiang.5 # The creation of Mengjiang
+	title = mengjiang.5.t
+	desc = mengjiang.5.d
+	picture = GFX_report_event_chinese_soldiers
+
+	fire_only_once = yes 
+	is_triggered_only = yes
+
+
+	option = {
+		name = mengjiang.5.a
+		CAG = { remove_state_core = 939 }
+		JAG = { remove_state_core = 1095 }
+		MEN = {
+			set_cosmetic_tag = MEN_mengjiang
+			annex_country = {
+				target = CAG
+			}
+			annex_country = {
+				target = JAG
+			}
+			add_state_core = 939
+			add_state_core = 1095
+			set_capital = {
+				state = 939
+			}
+			set_victory_points = {
+				province = 7445
+				value = 2
+			}
+			set_victory_points = {
+				province = 1590
+				value = 4
+			}
+		}
+	}
+}

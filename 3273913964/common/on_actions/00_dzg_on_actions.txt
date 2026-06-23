@@ -1,0 +1,64 @@
+#Danzing
+#Annex DZG automatically into poland on war
+on_actions = {
+	on_declare_war = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = {
+						NOT = {
+							tag = GRM
+						}
+					}
+					FROM = {
+						tag = POL
+					}
+					DZG = {
+						is_subject_of = FROM
+					}
+				}
+				FROM = {
+					annex_country = {
+						target = DZG
+					}
+				}
+				every_state = {
+					limit = {
+						is_core_of = DZG
+					}
+					add_core_of = FROM
+				}
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						tag = GRM
+					}
+					FROM = {
+						tag = POL
+					}
+					DZG = {
+						is_subject_of = FROM
+					}
+				}
+				ROOT = {
+					annex_country = {
+						target = DZG
+					}
+				}
+				every_state = {
+					limit = {
+						is_core_of = DZG
+					}
+					add_core_of = ROOT
+				}
+				every_state = {
+					limit = {
+						is_core_of = DZG
+					}
+					add_claim_by = FROM
+				}
+			}
+		}
+	}
+}

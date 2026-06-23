@@ -1,0 +1,6875 @@
+###########################
+###########################
+# British Events
+# By s_team337, Polindus, and Gaboemi
+###########################
+
+add_namespace = eng_test
+add_namespace = eng_introduction
+add_namespace = eng_parliament
+add_namespace = eng_internal
+add_namespace = eng_colonial
+add_namespace = eng_foreign
+add_namespace = eng_election
+add_namespace = eng_news
+add_namespace = eng_raj
+add_namespace = eng_war
+add_namespace = eng_flavour
+add_namespace = eng_by_election
+
+country_event = { #Intro event 1
+	id = eng_introduction.1
+	title = eng_introduction.1.t
+	desc = eng_introduction.1.d
+	picture = GFX_event_London_Economic_Conference
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			#Malay Federated/Unfederated States
+			975 = { add_compliance = -5 }
+			804 = { add_compliance = -5 }
+			803 = { add_compliance = -5 }
+
+			976 = { add_compliance = 10 }
+			977 = { add_compliance = 10 }
+			1105 = { add_compliance = 10 }
+		}
+	}
+
+	option = { #continue
+		name = eng_introduction.1.a
+		ai_chance = {
+			base = 0
+		}
+		country_event = {
+			id = eng_introduction.2
+		}
+	}
+	option = {
+		name = eng_introduction.1.b
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Intro event 2
+	id = eng_introduction.2
+	title = eng_introduction.2.t
+	desc = eng_introduction.2.d
+	picture = GFX_event_London_Economic_Conference
+	is_triggered_only = yes
+	option = { #continue
+		name = eng_introduction.2.a
+		ai_chance = {
+			base = 0
+		}
+		country_event = {
+			id = eng_introduction.3
+		}
+	}
+	option = {
+		name = eng_introduction.2.b
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Intro event 3
+	id = eng_introduction.3
+	title = eng_introduction.3.t
+	desc = eng_introduction.3.d
+	picture = GFX_event_London_Economic_Conference
+	is_triggered_only = yes
+	option = { #continue
+		name = eng_introduction.3.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #parliament test
+	id = eng_test.1
+	title = eng_test.1.t
+	desc = eng_test.1.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = eng_test.1.a
+		ENG_Set_Parliament = yes
+		ai_chance = {
+			factor = 100
+		}
+	}
+	option = {
+		name = eng_test.1.b
+		ENG_Set_Parliament_Biased = yes
+		ai_chance = {
+			factor = 100
+		}
+	}
+	option = {
+		name = eng_test.1.c
+		set_variable = { communist_factor = 3 }
+		divide_variable = { communist_factor = 0 }
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+country_event = { #parliament test
+	id = eng_test.2
+	title = eng_test.2.t
+	desc = eng_test.2.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		create_country_leader = {
+			name = "George V"
+			desc = "POLITICS_GEORGE_V_DESC"
+			picture = "gfx/leaders_cbts/ENG/Portrait_United_Kingdom_George_V.png"
+			expire = "1965.1.1"
+			ideology = ustashe
+			traits = {
+				peoples_king
+			}
+		}
+		set_politics = {
+			ruling_party = fascism
+		}
+	}
+}
+country_event = { #negotiate with communists - raised taxes
+	id = eng_parliament.1
+	title = eng_parliament.1.t
+	desc = eng_parliament.1.d
+	picture = GFX_event_Harry_Pollitt_Speech #Harry_Pollitt_Speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_communists
+	}
+	option = {
+		name = eng_parliament.1.a
+		ai_chance = {
+			factor = 40
+		}
+		set_country_flag = ENG_promised_communists_high_taxes
+		add_to_variable = { var = ENG_supseat value = ENG_com_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = communism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.1.b
+		ai_chance = {
+			factor = 60
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with communists - welfare
+	id = eng_parliament.2
+	title = eng_parliament.2.t
+	desc = eng_parliament.2.d
+	picture = GFX_event_Harry_Pollitt_Speech #Harry_Pollitt_Speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_communists
+	}
+	option = {
+		name = eng_parliament.2.a
+		ai_chance = {
+			factor = 40
+		}
+		set_country_flag = ENG_promised_communists_welfare
+		add_to_variable = { var = ENG_supseat value = ENG_com_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = communism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.2.b
+		ai_chance = {
+			factor = 60
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with ILP - minimum wage
+	id = eng_parliament.3
+	title = eng_parliament.3.t
+	desc = eng_parliament.3.d
+	picture = GFX_event_Independent_Labour_Party_Meeting #Independent_Labour_Party
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_revsocs
+	}
+	option = {
+		name = eng_parliament.3.a
+		ai_chance = {
+			factor = 60
+		}
+		set_country_flag = ENG_promised_revsocs_minimum_wage
+		add_to_variable = { var = ENG_supseat value = ENG_revsoc_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.3.b
+		ai_chance = {
+			factor = 40
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with ILP - unemployment pensions
+	id = eng_parliament.4
+	title = eng_parliament.4.t
+	desc = eng_parliament.4.d
+	picture = GFX_event_Independent_Labour_Party_Meeting #Independent_Labour_Party
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_revsocs
+	}
+	option = {
+		name = eng_parliament.4.a
+		ai_chance = {
+			factor = 78
+		}
+		set_country_flag = ENG_promised_revsocs_minimum_wage #really the living wage and unemployment pensions are funtionally identical (increasing welfare payments).
+		add_to_variable = { var = ENG_supseat value = ENG_revsoc_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.4.b
+		ai_chance = {
+			factor = 22
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with Labour - higher taxes
+	id = eng_parliament.5
+	title = eng_parliament.5.t
+	desc = eng_parliament.5.d
+	picture = GFX_event_Clement_Attlee #Labour_Party
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_demsocs
+	}
+	option = {
+		name = eng_parliament.5.a
+		ai_chance = {
+			factor = 95
+		}
+		set_country_flag = ENG_promised_demsocs_higher_taxes
+		add_to_variable = { var = ENG_supseat value = ENG_demsoc_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.5.b
+		ai_chance = {
+			factor = 5
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with Labour - public works
+	id = eng_parliament.6
+	title = eng_parliament.6.t
+	desc = eng_parliament.6.d
+	picture = GFX_event_Labour_Party #Labour_Party
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_demsocs
+	}
+	option = {
+		name = eng_parliament.6.a
+		ai_chance = {
+			factor = 95
+		}
+		set_country_flag = ENG_promised_demsocs_public_works
+		add_to_variable = { var = ENG_supseat value = ENG_demsoc_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.6.b
+		ai_chance = {
+			factor = 5
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with NLO - tariffs
+	id = eng_parliament.7
+	title = eng_parliament.7.t
+	desc = eng_parliament.7.d
+	picture = GFX_event_Ramsey_MacDonald #NLO
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_socdems
+	}
+	option = {
+		name = eng_parliament.7.a
+		ai_chance = {
+			factor = 95
+		}
+		set_country_flag = ENG_promised_socdems_tariffs
+		add_to_variable = { var = ENG_supseat value = ENG_socdem_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.7.b
+		ai_chance = {
+			factor = 5
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with Liberals - free trade
+	id = eng_parliament.8
+	title = eng_parliament.8.t
+	desc = eng_parliament.8.d
+	picture = GFX_event_Sir_Herbert_Samuel #Sir_Herbert_Samuel
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_soclibs
+	}
+	option = {
+		name = eng_parliament.8.a
+		ai_chance = {
+			factor = 95
+			modifier = {
+				has_government = democratic
+				factor = 0.1
+			}
+		}
+		set_country_flag = ENG_promised_soclibs_free_trade
+		add_to_variable = { var = ENG_supseat value = ENG_soclib_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.8.b
+		ai_chance = {
+			factor = 5
+			modifier = {
+				has_government = democratic
+				factor = 10
+			}
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with Liberals - education
+	id = eng_parliament.9
+	title = eng_parliament.9.t
+	desc = eng_parliament.9.d
+	picture = GFX_event_Sir_Herbert_Samuel #Sir_Herbert_Samuel
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_soclibs
+	}
+	option = {
+		name = eng_parliament.9.a
+		ai_chance = {
+			factor = 95
+		}
+		set_country_flag = ENG_promised_soclibs_education
+		add_to_variable = { var = ENG_supseat value = ENG_soclib_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.9.b
+		ai_chance = {
+			factor = 5
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with Ind Libs
+	id = eng_parliament.10
+	title = eng_parliament.10.t
+	desc = eng_parliament.10.d
+	picture = GFX_event_Lloyd_George #Lloyd George
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_marlibs
+	}
+	option = {
+		name = eng_parliament.10.a
+		ai_chance = {
+			factor = 95
+			modifier = {
+				has_government = democratic
+				factor = 0.1
+			}
+		}
+		set_country_flag = ENG_promised_marlibs_free_trade
+		add_to_variable = { var = ENG_supseat value = ENG_marlib_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.10.b
+		ai_chance = {
+			factor = 5
+			modifier = {
+				has_government = democratic
+				factor = 10
+			}
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with Nat Libs
+	id = eng_parliament.11
+	title = eng_parliament.11.t
+	desc = eng_parliament.11.d
+	picture = GFX_event_Sir_John_Simon #Lloyd George
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_libcons
+	}
+	option = {
+		name = eng_parliament.11.a
+		ai_chance = {
+			factor = 95
+			modifier = {
+				has_government = socialism
+				factor = 0.1
+			}
+		}
+		set_country_flag = ENG_promised_libcons_tariffs
+		add_to_variable = { var = ENG_supseat value = ENG_libcon_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.11.b
+		ai_chance = {
+			factor = 5
+			modifier = {
+				has_government = socialism
+				factor = 10
+			}
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with Tories - tariffs
+	id = eng_parliament.12
+	title = eng_parliament.12.t
+	desc = eng_parliament.12.d
+	picture = GFX_event_Anthony_Eden #Tories
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_tories
+	}
+	option = {
+		name = eng_parliament.12.a
+		ai_chance = {
+			factor = 95
+			modifier = {
+				has_government = socialism
+				factor = 0.1
+			}
+		}
+		set_country_flag = ENG_promised_tories_tariffs
+		add_to_variable = { var = ENG_supseat value = ENG_soccon_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.12.b
+		ai_chance = {
+			factor = 5
+			modifier = {
+				has_government = socialism
+				factor = 10
+			}
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with Tories - welfare
+	id = eng_parliament.13
+	title = eng_parliament.13.t
+	desc = eng_parliament.13.d
+	picture = GFX_event_Anthony_Eden #Tories
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_tories
+	}
+	option = {
+		name = eng_parliament.13.a
+		ai_chance = {
+			factor = 95
+		}
+		set_country_flag = ENG_promised_tories_welfare
+		add_to_variable = { var = ENG_supseat value = ENG_soccon_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.13.b
+		ai_chance = {
+			factor = 5
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+#
+country_event = { #negotiate with FarAuts
+	id = eng_parliament.14
+	title = eng_parliament.14.t
+	desc = eng_parliament.14.d
+	picture = GFX_event_John_Beckett #John_Beckett
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_farauts
+	}
+	option = {
+		name = eng_parliament.14.a
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = ENG_promised_farauts_tariffs
+		add_to_variable = { var = ENG_supseat value = ENG_faraut_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.14.b
+		ai_chance = {
+			factor = 99
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with Fascists - tariffs
+	id = eng_parliament.15
+	title = eng_parliament.15.t
+	desc = eng_parliament.15.d
+	picture = GFX_event_Oswald_Mosley #Mosley
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_fascists
+	}
+	option = {
+		name = eng_parliament.15.a
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = ENG_promised_fascists_tariffs
+		add_to_variable = { var = ENG_supseat value = ENG_fas_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.15.b
+		ai_chance = {
+			factor = 99
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #negotiate with Fascists - defense
+	id = eng_parliament.16
+	title = eng_parliament.16.t
+	desc = eng_parliament.16.d
+	picture = GFX_event_Oswald_Mosley #Mosley
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_fascists
+	}
+	option = {
+		name = eng_parliament.16.a
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = ENG_promised_fascists_defense_spending
+		add_to_variable = { var = ENG_supseat value = ENG_fas_seats }
+		clr_country_flag = ENG_negotiating
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.005
+		}
+	}
+	option = {
+		name = eng_parliament.16.b
+		ai_chance = {
+			factor = 99
+		}
+		clr_country_flag = ENG_negotiating
+	}
+}
+country_event = { #Communists agree
+	id = eng_parliament.17
+	title = eng_parliament.17.t
+	desc = eng_parliament.17.d
+	picture = GFX_event_Harry_Pollitt_Speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_communists
+	}
+	option = {
+		name = eng_parliament.17.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = ENG_supseat value = ENG_com_seats }
+	}
+}
+country_event = { #RevSocs agree
+	id = eng_parliament.18
+	title = eng_parliament.18.t
+	desc = eng_parliament.18.d
+	picture = GFX_event_Independent_Labour_Party_Meeting
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_revsocs
+	}
+	option = {
+		name = eng_parliament.18.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = ENG_supseat value = ENG_revsoc_seats }
+	}
+}
+country_event = { #DemSocs agree
+	id = eng_parliament.19
+	title = eng_parliament.19.t
+	desc = eng_parliament.19.d
+	picture = GFX_event_Labour_Party
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_demsocs
+	}
+	option = {
+		name = eng_parliament.19.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = ENG_supseat value = ENG_demsoc_seats }
+	}
+}
+country_event = { #SocDems agree
+	id = eng_parliament.20
+	title = eng_parliament.20.t
+	desc = eng_parliament.20.d
+	picture = GFX_event_Ramsey_MacDonald
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_socdems
+	}
+	option = {
+		name = eng_parliament.20.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = ENG_supseat value = ENG_socdem_seats }
+	}
+}
+country_event = { #SocLibs agree
+	id = eng_parliament.21
+	title = eng_parliament.21.t
+	desc = eng_parliament.21.d
+	picture = GFX_event_Sir_Herbert_Samuel
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_soclibs
+	}
+	option = {
+		name = eng_parliament.21.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = ENG_supseat value = ENG_soclib_seats }
+	}
+}
+country_event = { #MarLibs agree
+	id = eng_parliament.22
+	title = eng_parliament.22.t
+	desc = eng_parliament.22.d
+	picture = GFX_event_Lloyd_George
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_marlibs
+	}
+	option = {
+		name = eng_parliament.22.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = ENG_supseat value = ENG_marlib_seats }
+	}
+}
+country_event = { #LibCons agree
+	id = eng_parliament.23
+	title = eng_parliament.23.t
+	desc = eng_parliament.23.d
+	picture = GFX_event_Sir_John_Simon
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_libcons
+	}
+	option = {
+		name = eng_parliament.23.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = ENG_supseat value = ENG_libcon_seats }
+	}
+}
+country_event = { #Tories agree
+	id = eng_parliament.24
+	title = eng_parliament.24.t
+	desc = eng_parliament.24.d
+	picture = GFX_event_Anthony_Eden
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_tories
+	}
+	option = {
+		name = eng_parliament.24.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = ENG_supseat value = ENG_soccon_seats }
+	}
+}
+country_event = { #FarAuts agree
+	id = eng_parliament.25
+	title = eng_parliament.25.t
+	desc = eng_parliament.25.d
+	picture = GFX_event_John_Beckett
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_farauts
+	}
+	option = {
+		name = eng_parliament.25.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = ENG_supseat value = ENG_faraut_seats }
+	}
+}
+country_event = { #Fascist agree
+	id = eng_parliament.26
+	title = eng_parliament.26.t
+	desc = eng_parliament.26.d
+	picture = GFX_event_Oswald_Mosley
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = ENG_negotiated_with_fascists
+	}
+	option = {
+		name = eng_parliament.26.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = ENG_supseat value = ENG_fas_seats }
+	}
+}
+country_event = { #Museum
+	id = eng_internal.1
+	title = eng_internal.1.t
+	desc = eng_internal.1.d
+	picture = GFX_event_Anthony_Eden
+	is_triggered_only = yes
+	option = {
+		name = eng_internal.1.a
+		ai_chance = {
+			factor = 100
+		}
+		add_stability = 0.002
+		navy_experience = 15
+	}
+}
+country_event = { #London City Council Election (8 March 1934)
+	id = eng_internal.2
+	title = eng_internal.2.t
+	desc = eng_internal.2.d
+	picture = GFX_event_Herbert_Morrison
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.5 #labour party conference
+				days = 211
+			}
+		}
+	}
+	option = {
+		name = eng_internal.2.a
+		ai_chance = {
+			factor = 100
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.03
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.3
+				days = 400
+			}
+			country_event = {
+				id = eng_internal.4
+				days = 200
+			}
+		}
+	}
+}
+country_event = { #Morrison hikes taxes
+	id = eng_internal.3
+	title = eng_internal.3.t
+	desc = eng_internal.3.d
+	picture = GFX_event_Herbert_Morrison
+	is_triggered_only = yes
+	option = {
+		name = eng_internal.3.a
+		ai_chance = {
+			factor = 40
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+		add_political_power = 5
+	}
+	option = {
+		name = eng_internal.3.b
+		ai_chance = {
+			factor = 60
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.01
+		}
+		add_stability = -0.005
+	}
+}
+country_event = { #LCC Housing, schools, and health services
+	id = eng_internal.4
+	title = eng_internal.4.t
+	desc = eng_internal.4.d
+	picture = GFX_event_Herbert_Morrison
+	is_triggered_only = yes
+	option = {
+		name = eng_internal.4.a
+		ai_chance = {
+			factor = 100
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.03
+		}
+		add_stability = 0.02
+	}
+}
+country_event = { #Labour new platform (5 Oct 1934)
+	id = eng_internal.5
+	title = eng_internal.5.t
+	desc = eng_internal.5.d
+	picture = GFX_event_Labour_Conference
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						any_country = {
+							OR = {
+								tag = DDR
+								tag = GER
+								tag = WGR
+							}
+							OR = {
+								has_government = communism
+								has_government = fascism
+								has_government = nationalism
+								has_government = monarchism
+							}
+						}
+						count_triggers = {
+							amount = 5
+							any_country = {
+								capital_scope = {
+									is_on_continent = europe
+								}
+								OR = {
+									has_government = communism
+									has_government = fascism
+									has_government = nationalism
+									has_government = monarchism
+								}
+							}
+						}
+						is_historical_focus_on = yes
+					}
+				}
+				country_event = {
+					id = eng_internal.6 #Lansbury resigns
+					days = 368
+				}
+			}
+		}
+	}
+	option = {
+		name = eng_internal.5.a
+		ai_chance = {
+			factor = 100
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+	}
+}
+country_event = { #Lansbury resigns (8 Oct 1935)
+	id = eng_internal.6
+	title = eng_internal.6.t
+	desc = eng_internal.6.d
+	picture = GFX_event_George_Lansbury
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.7 #labour party election
+				days = 17
+			}
+		}
+	}
+	option = {
+		name = eng_internal.6.a
+		ai_chance = {
+			factor = 100
+		}
+		add_war_support = 0.02
+	}
+}
+country_event = { #Labour Leadership Election (25 Oct 1935)
+	id = eng_internal.7
+	title = eng_internal.7.t
+	desc = eng_internal.7.d
+	picture = GFX_event_Labour_Conference
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					is_historical_focus_on = yes
+				}
+				set_country_flag = ENG_attlee_wins_labour_leadership
+			}
+			else = {
+				random_list = {
+					54 = {
+						set_country_flag = ENG_attlee_wins_labour_leadership
+					}
+					34 = {
+						set_country_flag = ENG_morrison_wins_labour_leadership
+					}
+					12 = {
+						set_country_flag = ENG_greenwood_wins_labour_leadership
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = eng_internal.7.a
+		ai_chance = {
+			factor = 100
+		}
+		if = {
+			limit = {
+				has_country_flag = ENG_attlee_wins_labour_leadership
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.02
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ENG_morrison_wins_labour_leadership
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.015
+			}
+		}
+		else = {
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.01
+			}
+		}
+	}
+}
+country_event = { #King and Country Debate
+	id = eng_internal.8
+	title = eng_internal.8.t
+	desc = eng_internal.8.d
+	picture = GFX_event_Labour_Conference
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.9
+				days = 868
+			}
+		}
+	}
+	option = {
+		name = eng_internal.8.a
+		ai_chance = {
+			factor = 100
+		}
+		add_war_support = -0.035
+		add_stability = -0.035
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+	}
+}
+country_event = { #Peace Ballot
+	id = eng_internal.9
+	title = eng_internal.9.t
+	desc = eng_internal.9.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	option = {
+		name = eng_internal.9.a
+		ai_chance = {
+			factor = 100
+		}
+		add_war_support = -0.02
+		add_stability = 0.02
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.01
+		}
+	}
+}
+country_event = { #Socialist League gets yeeted, is different depending who's in power, 27 january 1937
+	id = eng_internal.10
+	title = eng_internal.10.t
+	desc = eng_internal.10.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	option = {
+		name = eng_internal.10.a
+		ai_chance = {
+			factor = 98 #disafiliate
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.01
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.11
+				days = 100 #the league dissolves
+			}
+		}
+	}
+	option = {
+		name = eng_internal.10.b
+		trigger = {
+			has_government = socialism
+		}
+		ai_chance = {
+			factor = 2 #Impress them with vague promises
+		}
+		add_stability = 0.01
+		add_political_power = -5
+	}
+}
+country_event = { #Socialist League is dissolved, May 1937
+	id = eng_internal.11
+	title = eng_internal.11.t
+	desc = eng_internal.11.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	option = {
+		name = eng_internal.11.a
+		ai_chance = {
+			factor = 100
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.005
+		}
+	}
+}
+country_event = { #Mosley Declares intention to March on Cable Street, 15 June 1936
+	id = eng_internal.12
+	title = eng_internal.12.t
+	desc = eng_internal.12.d
+	picture = GFX_event_Mosley_Rally #Mosley_Rally
+	is_triggered_only = yes
+	option = {
+		name = eng_internal.12.a
+		ai_chance = {
+			factor = 100
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.002
+		}
+		add_stability = -0.002
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.13 #Jewish People's Council
+				days = 31
+			}
+		}
+	}
+}
+country_event = { #Stepney Organizers, Jewish People's Council
+	id = eng_internal.13
+	title = eng_internal.13.t
+	desc = eng_internal.13.d
+	picture = GFX_event_Stepney_Anti_Fascism
+	is_triggered_only = yes
+	option = {
+		name = eng_internal.13.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.14 #Petition to the Home Office
+				days = 68
+			}
+		}
+	}
+}
+country_event = { ##Petition to the Home Office
+	id = eng_internal.14
+	title = eng_internal.14.t
+	desc = eng_internal.14.d
+	picture = GFX_event_Sir_John_Simon
+	is_triggered_only = yes
+	option = { #allow the march to continue
+		name = eng_internal.14.a
+		ai_chance = {
+			base = 96
+			modifier = {
+				has_government = socialism
+				factor = 0.2
+			}
+		}
+		lose_1_percent_pop = yes
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						is_historical_focus_on = yes
+					}
+				}
+				random_list = { #left to right
+					28 = {
+						country_event = { #anti-fascist victory
+							id = eng_internal.15
+							days = 2
+						}
+					}
+					67 = {
+						country_event = { #Historical outcome, march called off midway
+							id = eng_internal.16
+							days = 2
+						}
+					}
+					5 = {
+						country_event = { #Fascists continue, finish the march
+							id = eng_internal.17
+							days = 2
+						}
+					}
+				}
+			}
+			else = { #if historical is on, always get the historical outcome
+				country_event = {
+					id = eng_internal.16
+					days = 2
+				}
+			}
+		}
+	}
+	option = {
+		name = eng_internal.14.b
+		ai_chance = {
+			base = 4
+			modifier = {
+				has_government = socialism
+				factor = 10
+			}
+		}
+		add_1_percent_pop = yes
+		add_stability = -0.03
+		add_political_power = -60
+		set_country_flag = ENG_cable_street_blocked
+	}
+}
+country_event = { #The Battle of Cable Street: Anti-Fascist Victory
+	id = eng_internal.15
+	title = eng_internal.15.t
+	desc = eng_internal.15.d
+	picture = GFX_event_Cable_Street_Leftist_Victory
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.15.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.10
+		add_political_power = -100
+		add_popularity = {
+			ideology = communism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.04
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.18 #BUF retaliation
+				days = 7
+			}
+		}
+		set_country_flag = ENG_cable_street
+	}
+}
+country_event = { #The Battle of Cable Street: Historical Outcome
+	id = eng_internal.16
+	title = eng_internal.16.t
+	desc = eng_internal.16.d
+	picture = GFX_event_Cable_Street_Historical_Outcome
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.16.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.04
+		add_political_power = -40
+		add_popularity = {
+			ideology = communism
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+		set_country_flag = ENG_cable_street
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.18 #BUF retaliation
+				days = 7
+			}
+		}
+	}
+}
+country_event = { #The Battle of Cable Street: Rightist Victory
+	id = eng_internal.17
+	title = eng_internal.17.t
+	desc = eng_internal.17.d
+	picture = GFX_event_Cable_Street_Rightist_Victory
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.17.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.10
+		add_political_power = -100
+		add_popularity = {
+			ideology = communism
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.02
+		}
+		set_country_flag = ENG_cable_street
+	}
+}
+country_event = { #Mile End Pogrom
+	id = eng_internal.18
+	title = eng_internal.18.t
+	desc = eng_internal.18.d
+	picture = GFX_event_Mile_End_Pogrom
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.18.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.01
+		add_political_power = -10
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.01
+		}
+	}
+}
+country_event = { #BUF Gains Momentum (Daily Mail prints: 'hurrah for the blackshirts'. Seriously, they did)
+	id = eng_internal.19
+	title = eng_internal.19.t
+	desc = eng_internal.19.d
+	picture = GFX_event_BUF_Rally_2
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.19.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.015
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.015
+		}
+		hidden_effect = {
+			country_event = { #Olympia Rally
+				id = eng_internal.20
+				days = 143
+			}
+		}
+	}
+}
+country_event = { #Olympia Rally 7 June 1934
+	id = eng_internal.20
+	title = eng_internal.20.t
+	desc = eng_internal.20.d
+	picture = GFX_event_Anti_Fascist_Caricature
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.20.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.02
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.02
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.21 #BF dissolves
+				days = 158 #12 Nov 1934
+			}
+		}
+	}
+}
+country_event = { #BF Dissolves 12 Nov 1934. The date was chosen arbitrarily as there's no real date of dissolution. The BF's Funding got cut, they declared bankrupcy, and sort of just ended. Linton-Orman dies March 1935.
+	id = eng_internal.21
+	title = eng_internal.21.t
+	desc = eng_internal.21.d
+	picture = GFX_event_Rotha_Lintorn_Orman
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.21.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.02
+		}
+		set_party_name = {
+			ideology = nationalism
+			name = ENG_nationalism_interim_party
+			long_name = ENG_nationalism_interim_party
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.22 #Linton-Orman dies
+				days = 118 #10 March 1935
+			}
+		}
+	}
+}
+country_event = { #Rotha Lintorn-Orman dies 10 March 1935
+	id = eng_internal.22
+	title = eng_internal.22.t
+	desc = eng_internal.22.d
+	picture = GFX_event_Rotha_Lintorn_Orman
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.22.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.23 #Foundation of the BP
+				days = 1492 #25 June 1939, also abritrary, couldn't find a date
+			}
+		}
+	}
+}
+country_event = { #Formation of the BPP
+	id = eng_internal.23
+	title = eng_internal.23.t
+	desc = eng_internal.23.d
+	picture = GFX_event_John_Beckett
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.23.a
+		ai_chance = {
+			base = 100
+		}
+		set_party_name = {
+			ideology = nationalism
+			name = ENG_nationalism_bpp
+			long_name = ENG_nationalism_bpp_long
+		}
+	}
+}
+country_event = { #George V dies, 20 Jan 1935
+	id = eng_internal.24
+	title = eng_internal.24.t
+	desc = eng_internal.24.d
+	picture = GFX_event_Princes_Vigil #George_V_funeral
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			retire_character = ENG_george_v
+			country_event = {
+				id = eng_internal.25 #Mrs. Simpson divorces her husband
+				days = 280 #27 October 1936
+			}
+			news_event = {
+				id = eng_news.1
+			}
+		}
+	}
+
+	option = {
+		name = eng_internal.24.a
+		effect_tooltip = {
+			kill_country_leader = yes
+		}
+	}
+}
+news_event = { #George V dies
+	id = eng_news.1
+	title = eng_news.1.t
+	desc = eng_news.1.d
+	picture = GFX_event_Abdication_News #Edward_Abdication_News
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = eng_news.1.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Mrs. Simpson divorces her husband 27 October 1936
+	id = eng_internal.25
+	title = eng_internal.25.t
+	desc = eng_internal.25.d
+	picture = GFX_event_Edward_Wallis
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.25.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.02
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.26 #The 3 choices
+				days = 28 #25 November 1936
+			}
+		}
+	}
+}
+country_event = { #The three choices 25 November 1936
+	id = eng_internal.26
+	title = eng_internal.26.t
+	desc = eng_internal.26.d
+	picture = GFX_event_Stanley_Baldwin
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.26.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.03
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.27 #Edward attempts to speak and is blocked
+				days = 9 #3 December 1936
+			}
+		}
+	}
+}
+country_event = { #Edward attempts to speak and is blocked 3 December 1936
+	id = eng_internal.27
+	title = eng_internal.27.t
+	desc = eng_internal.27.d
+	picture = GFX_event_Edward_Abdication #Edward Speech
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.27.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -20
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.28 #Edward Abdicates
+				days = 7 #10 December 1936
+			}
+		}
+	}
+}
+country_event = { #Edward Abdicates 10 December 1936
+	id = eng_internal.28
+	title = eng_internal.28.t
+	desc = eng_internal.28.d
+	picture = GFX_event_Edward_Abdication #Edward Speech
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			retire_character = ENG_edward_viii
+			country_event = {
+				id = eng_internal.29 #Baldwin resigns even if he is leading the opposition
+				days = 148 #28 May 1937
+			}
+			if = {
+				limit = {
+					IRE = {
+						is_subject_of = ROOT
+					}
+				}
+				country_event = {
+					id = eng_internal.31 #Ireland Breaks Free
+					days = 384 #29 December 1937
+				}
+			}
+			news_event = {
+				id = eng_news.2
+				hours = 3
+			}
+		}
+	}
+
+	option = {
+		name = eng_internal.28.a
+		effect_tooltip = {
+			retire_character = ENG_edward_viii
+		}
+		add_stability = -0.05
+		add_political_power = -25
+	}
+}
+news_event = { #Edward VIII Abdicates
+	id = eng_news.2
+	title = eng_news.2.t
+	desc = eng_news.2.d
+	picture = GFX_event_Abdication_News #Edward_Abdication_News
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = eng_news.2.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Baldwin resigns 28 May 1937
+	id = eng_internal.29
+	title = eng_internal.29.t
+	desc = eng_internal.29.d
+	picture = GFX_event_Stanley_Baldwin
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.29.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				has_idea = ENG_hog_Stanley_Baldwin
+			}
+			add_ideas = {
+				ENG_hog_Neville_Chamberlain
+				ENG_frn_Anthony_Eden
+				ENG_eco_John_Simon
+				ENG_sec_Samuel_Hoare
+			}
+		}
+		set_country_flag = ENG_Chamberlain_PM
+		hidden_effect = {
+			country_event = {
+				id = eng_internal.30 #Edward goes to Germany/Italy
+				days = 148 #23 October 1937 (tour ends)
+			}
+		}
+	}
+}
+country_event = { #Windsors go to visit hitler
+	id = eng_internal.30
+	title = eng_internal.30.t
+	desc = eng_internal.30.d
+	picture = GFX_event_Windsors_Hitler
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.30.a
+		add_stability = -0.005
+	}
+}
+country_event = { #Ireland Breaks Free 29 December 1937
+	id = eng_internal.31
+	title = eng_internal.31.t
+	desc = eng_internal.31.d
+	picture = GFX_event_Irish_American_Diplomacy
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			set_autonomy = {
+				target = IRE
+				autonomy_state = autonomy_free
+			}
+			IRE = {
+				retire_character = IRE_domhnall_ua_buachalla
+				leave_faction = yes
+			}
+		}
+	}
+
+	option = {
+		name = eng_internal.31.a
+		effect_tooltip = {
+			set_autonomy = {
+				target = IRE
+				autonomy_state = autonomy_free
+				end_wars = yes
+			}
+			IRE = { leave_faction = yes }
+		}
+	}
+}
+country_event = { #Labour Industrial Democracy
+	id = eng_internal.32
+	title = eng_internal.32.t
+	desc = eng_internal.32.d
+	picture = GFX_event_ENG_Dockworkers
+	is_triggered_only = yes
+	trigger = {
+		has_government = socialism
+	}
+	option = { #adopt the idea
+		name = eng_internal.32.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				has_war = yes
+				factor = 0
+			}
+		}
+		set_country_flag = ENG_adopted_industrial_democracy
+		add_political_power = -40
+		custom_effect_tooltip = ENG_unlock_related_laws
+		custom_effect_tooltip = ENG_unlock_industrial_democracy_act
+	}
+	option = {
+		name = eng_internal.32.b
+		ai_chance = {
+			base = 90
+		}
+		add_political_power = 20
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.02
+		}
+	}
+}
+country_event = { #Great Depression Loosens Up
+	id = eng_internal.33
+	title = eng_internal.33.t
+	desc = eng_internal.33.d
+	picture = GFX_event_ENG_Dockworkers
+	is_triggered_only = yes
+	option = {
+		name = eng_internal.33.a
+		ai_chance = {
+			base = 100
+		}
+		#TODO: tooltip for the idea change to dynamic modifier
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_dynamic_modifier = {
+							modifier = ENG_Great_Depression_2
+						}
+					}
+					has_idea = ENG_Great_Depression
+				}
+				remove_ideas = ENG_Great_Depression
+				set_variable = { ENG_Great_Depresion_stab_var = -0.10 }
+				set_variable = { ENG_Great_Depresion_indus_factory_var = -0.22 }
+				set_variable = { ENG_Great_Depresion_dock_var = -0.20 }
+				set_variable = { ENG_Great_Depresion_building_speed_var = -0.22 }
+				set_variable = { ENG_Great_Depresion_cosumer_goods_var = 0.067 }
+				set_variable = { ENG_Great_Depresion_iterator_var = 1 }
+				add_dynamic_modifier = {
+					modifier = ENG_Great_Depression_2
+				}
+			}
+		}
+		set_country_flag = ENG_depression_recovering
+	}
+}
+country_event = { #Great Depression Ends
+	id = eng_internal.34
+	title = eng_internal.34.t
+	desc = eng_internal.34.d
+	picture = GFX_event_ENG_Dockworkers
+	is_triggered_only = yes
+	option = {
+		name = eng_internal.34.a
+		ai_chance = {
+			base = 100
+		}
+		remove_ideas = ENG_Great_Depression3
+	}
+}
+
+country_event = { #Ramsay resigns 7 June 1935
+	id = eng_internal.35
+	title = eng_internal.35.t
+	desc = eng_internal.35.d
+	picture = GFX_event_Stanley_Baldwin
+	is_triggered_only = yes
+	option = { #
+		name = eng_internal.35.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				has_idea = ENG_hog_Ramsay_MacDonald
+			}
+			remove_ideas = ENG_hog_Ramsay_MacDonald
+			add_ideas = ENG_hog_Stanley_Baldwin
+		}
+	}
+}
+country_event = { #Bledisloe Commission
+	id = eng_colonial.1
+	title = eng_colonial.1.t
+	desc = eng_colonial.1.d
+	picture = GFX_event_Lord_Bledisloe #ENG_Bledisloe_Commission
+	is_triggered_only = yes
+	option = {
+		name = eng_colonial.1.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20
+	}
+}
+country_event = { #Cyprus port is finished
+	id = eng_colonial.2
+	title = eng_colonial.2.t
+	desc = eng_colonial.2.d
+	picture = GFX_event_ENG_cyprus_port
+	is_triggered_only = yes
+	trigger = {
+		owns_state = 183
+		controls_state = 183
+	}
+	option = {
+		name = eng_colonial.2.a
+		ai_chance = {
+			base = 100
+		}
+		183 = {
+			add_building_construction = {
+				type = naval_base
+				level = 1
+				instant_build = yes
+				province = 11984
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_colonial.3 #Palmerokratia
+				days = 188
+			}
+		}
+	}
+}
+country_event = { #Palmerokratia
+	id = eng_colonial.3
+	title = eng_colonial.3.t
+	desc = eng_colonial.3.d
+	picture = GFX_event_ENG_palmerokratia
+	is_triggered_only = yes
+	trigger = {
+		owns_state = 183
+		controls_state = 183
+	}
+	option = {
+		name = eng_colonial.3.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.02
+		add_political_power = -6
+		183 = {
+			add_compliance = -20
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_colonial.4 #Malta Cultural Budget Issue
+				days = 44
+			}
+		}
+	}
+}
+country_event = { #Maltese Cultural Issue
+	id = eng_colonial.4
+	title = eng_colonial.4.t
+	desc = eng_colonial.4.d
+	picture = GFX_event_ENG_malta_language
+	is_triggered_only = yes
+	trigger = {
+		owns_state = 116
+		controls_state = 116
+	}
+	option = { #Rescind Maltese Autonomy
+		name = eng_colonial.4.a
+		ai_chance = {
+			base = 95
+		}
+		add_stability = -0.01
+		add_political_power = 25
+		116 = {
+			add_compliance = -15
+		}
+		set_country_flag = ENG_malta_cultural_issue
+	}
+	option = { #Let the issue slide
+		name = eng_colonial.4.b
+		ai_chance = {
+			base = 5
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		add_stability = -0.005
+		set_country_flag = ENG_malta_cultural_issue_ignored
+	}
+	option = { #Permit the teaching of Italian
+		name = eng_colonial.4.c
+		ai_chance = {
+			base = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+			modifier = {
+				ITA = {
+					OR = {
+						has_government = fascism
+						has_government = communism
+					}
+				}
+				factor = 0
+			}
+		}
+		add_political_power = -10
+		add_stability = 0.005
+		116 = {
+			add_compliance = 5
+		}
+		set_country_flag = ENG_malta_cultural_issue_italian_allowed
+		ITA = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = ENG_allowed_italian
+			}
+		}
+	}
+}
+country_event = { #Newfoundland Royal Commission
+	id = eng_colonial.5
+	title = eng_colonial.5.t
+	desc = eng_colonial.5.d
+	picture = GFX_event_Newfoundland_1
+	is_triggered_only = yes
+	trigger = {
+		NEW = {
+			is_subject_of = ROOT
+		}
+	}
+	option = {
+		name = eng_colonial.5.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = ENG_new_assem_act_on_commish
+		set_country_flag = ENG_newfoundland_comission
+		unlock_decision_category_tooltip = ENG_newfoundland_comission
+		hidden_effect = {
+			country_event = {
+				id = eng_colonial.6
+				days = 364
+			}
+		}
+	}
+}
+country_event = { #Newfoundland Assembly votes itself out of existance
+	id = eng_colonial.6
+	title = eng_colonial.6.t
+	desc = eng_colonial.6.d
+	picture = GFX_event_Newfoundland_1
+	is_triggered_only = yes
+	trigger = {
+		NEW = {
+			is_subject_of = ROOT
+		}
+	}
+	option = {
+		name = eng_colonial.6.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = ENG_begin_integrate_new
+		country_event = eng_colonial.7
+	}
+}
+country_event = { #ENG annexes NEW
+	id = eng_colonial.7
+	title = eng_colonial.7.t
+	desc = eng_colonial.7.d
+	picture = GFX_event_Newfoundland_3
+	is_triggered_only = yes
+	trigger = {
+		NEW = {
+			is_subject_of = ENG
+		}
+	}
+	option = { #annex NEW
+		name = eng_colonial.7.a
+		ai_chance = {
+			base = 90
+		}
+		hidden_effect = {
+			NEW = {
+				retire_character = NEW_david_murray_anderson
+				retire_character = NEW_william_coaker
+				retire_character = NEW_joseph_salsberg
+				retire_character = NEW_james_forbesrobertson
+				transfer_units_fraction = {
+					target = ENG
+					size = 1
+					stockpile_ratio = 1
+					army_ratio = 1
+					air_ratio = 1
+				}
+			}
+		}
+		annex_country = {
+			target = NEW
+			transfer_troops = yes
+		}
+		set_country_flag = ENG_anexed_newfoundland
+		unlock_decision_category_tooltip = ENG_newfoundland_comission
+	}
+
+	option = { #annex NEW into CAN
+		name = eng_colonial.7.b
+		trigger = {
+			OR = {
+				CAN = {
+					is_subject_of = ROOT
+				}
+				is_in_faction_with = CAN
+			}
+		}
+		ai_chance = {
+			base = 9
+			modifier = {
+				NOT = {
+					NEW = { is_ai = yes }
+				}
+				factor = 0
+			}
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		hidden_effect = {
+			NEW = {
+				retire_character = NEW_david_murray_anderson
+				retire_character = NEW_william_coaker
+				retire_character = NEW_joseph_salsberg
+				retire_character = NEW_james_forbesrobertson
+				transfer_units_fraction = {
+					target = CAN
+					size = 1
+				}
+			}
+		}
+		CAN = {
+			set_country_flag = CAN_anexed_newfoundland
+			annex_country = {
+				target = NEW
+				transfer_troops = yes
+			}
+			unlock_decision_category_tooltip = ENG_newfoundland_comission
+		}
+	}
+	option = { #keep NEW as a colony
+		name = eng_colonial.7.c
+		trigger = {
+			has_dlc = "Together for Victory"
+		}
+		ai_chance = {
+			base = 1
+			modifier = {
+				NOT = {
+					NEW = { is_ai = yes }
+				}
+				add = 99
+			}
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		set_country_flag = ENG_autonomous_newfoundland
+		unlock_decision_category_tooltip = ENG_newfoundland_comission
+		set_autonomy = {
+			target = NEW
+			autonomous_state = autonomy_integrated_puppet
+			freedom_level = 0.5
+		}
+	}
+}
+country_event = { #Belize - Roads
+	id = eng_colonial.8
+	title = eng_colonial.8.t
+	desc = eng_colonial.8.d
+	picture = GFX_event_ENG_palmerokratia
+	is_triggered_only = yes
+	trigger = {
+		owns_state = 311
+		controls_state = 311
+	}
+	option = {
+		name = eng_colonial.8.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			country_event = { #Moyne Commission
+				id = eng_colonial.9
+				days = 1294
+			}
+		}
+		311 = {
+			add_resistance = 5
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+country_event = { #Moyne Commission
+	id = eng_colonial.9
+	title = eng_colonial.9.t
+	desc = eng_colonial.9.d
+	picture = GFX_event_ENG_palmerokratia
+	is_triggered_only = yes
+	trigger = {
+		has_war = no
+	}
+	option = { #form the commission
+		name = eng_colonial.9.a
+		ai_chance = {
+			base = 50
+		}
+		hidden_effect = {
+			country_event = { #Moyne Commission Report
+				id = eng_colonial.10
+				days = 450
+			}
+		}
+	}
+	option = { #don't form the commission
+		name = eng_colonial.9.b
+		ai_chance = {
+			base = 50
+		}
+
+		311 = { add_resistance = 5 }
+		691 = { add_resistance = 6 }
+		689 = { add_resistance = 6 }
+		692 = { add_resistance = 4 }
+
+		random_controlled_state = {
+			limit = {
+				OR = {
+					state = 689
+					state = 311
+				}
+			}
+
+			if = {
+				limit = {
+					THIS = { synthetic_refinery > 0 }
+				}
+				THIS = {
+					damage_building = {
+						type = synthetic_refinery
+						damage = 0.3
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					THIS = { fuel_silo > 0 }
+				}
+				THIS = {
+					damage_building = {
+						type = fuel_silo
+						damage = 0.3
+					}
+				}
+			}
+			else = {
+				THIS = {
+					damage_building = {
+						type = infrastructure
+						damage = 0.3
+					}
+				}
+			}
+		}
+		random_controlled_state = {
+			limit = {
+				OR = {
+					state = 691
+					state = 692
+				}
+			}
+
+			if = {
+				limit = {
+					THIS = { synthetic_refinery > 0 }
+				}
+				THIS = {
+					damage_building = {
+						type = synthetic_refinery
+						damage = 0.2
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					THIS = { fuel_silo > 0 }
+				}
+				THIS = {
+					damage_building = {
+						type = fuel_silo
+						damage = 0.2
+					}
+				}
+			}
+			else = {
+				THIS = {
+					damage_building = {
+						type = infrastructure
+						damage = 0.2
+					}
+				}
+			}
+		}
+	}
+}
+country_event = { #Moyne Commission Report
+	id = eng_colonial.10
+	title = eng_colonial.10.t
+	desc = eng_colonial.10.d
+	picture = GFX_event_ENG_palmerokratia
+	is_triggered_only = yes
+	trigger = {
+		any_controlled_state = {
+			OR = {
+				state = 311
+				state = 691
+				state = 692
+				state = 689
+			}
+		}
+	}
+	option = { #fully implement the commission's recommendations
+		name = eng_colonial.10.c
+		trigger = {
+			has_government = socialism
+		}
+		ai_chance = {
+			base = 60
+		}
+		add_political_power = -25
+		311 = {
+			add_compliance = 10
+			add_resistance = -15
+		}
+
+		if = {
+			limit = {
+				controls_state = 311
+				311 = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+			}
+			311 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_compliance = 5
+				add_resistance = -10
+			}
+		}
+		else_if = {
+			limit = {
+				controls_state = 311
+				311 = {
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+			311 = {
+				add_compliance = 10
+				add_resistance = -15
+			}
+		}
+		
+		if = {
+			limit = {
+				controls_state = 691
+				691 = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+			}
+			691 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_compliance = 10
+				add_resistance = -10
+			}
+		}
+		else_if = {
+			limit = {
+				controls_state = 691
+				691 = {
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+			691 = {
+				add_resistance = -7
+			}
+		}
+
+		if = {
+			limit = {
+				controls_state = 691
+				691 = {
+					any_province_building_level = {
+						province = {
+							id = 3284
+						}
+						building = naval_base
+						level < 5
+					}
+				}
+			}
+			691 = {
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					province = 3284
+					instant_build = yes
+				}
+				add_compliance = 5
+				add_resistance = -10
+			}
+		}
+		if = {
+			limit = {
+				controls_state = 689
+				689 = {
+					any_province_building_level = {
+						province = {
+							id = 12304
+						}
+						building = naval_base
+						level < 5
+					}
+				}
+			}
+			689 = {
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					province = 12304
+					instant_build = yes
+				}
+				cancel_resistance = yes
+				force_disable_resistance = ENG
+			}
+		}
+		if = {
+			limit = {
+				controls_state = 690
+				690 = {
+					any_province_building_level = {
+						province = {
+							id = 10254
+						}
+						building = naval_base
+						level < 5
+					}
+				}
+			}
+			690 = {
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					province = 10254
+					instant_build = yes
+				}
+			}
+		}
+		if = {
+			limit = { controls_state = 692 }
+			692 = {
+				cancel_resistance = yes
+				force_disable_resistance = ENG
+			}
+		}
+	}
+
+	option = { #implement the commission's recommendations
+		name = eng_colonial.10.a
+		ai_chance = {
+			base = 40
+		}
+		add_political_power = -10
+		if = {
+			limit = { controls_state = 692 }
+			692 = {
+				cancel_resistance = yes
+				force_disable_resistance = ENG
+			}
+		}
+		if = {
+			limit = {
+				controls_state = 689
+				689 = {
+					any_province_building_level = {
+						province = {
+							id = 12304
+						}
+						building = naval_base
+						level < 5
+					}
+				}
+			}
+			689 = {
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					province = 12304
+					instant_build = yes
+				}
+				cancel_resistance = yes
+				force_disable_resistance = ENG
+			}
+		}
+
+		311 = {
+			add_compliance = 10
+			add_resistance = -15
+		}
+		if = {
+			limit = {
+				controls_state = 311
+				311 = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+			}
+			311 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_compliance = 5
+				add_resistance = -5
+			}
+		}
+		else_if = {
+			limit = {
+				controls_state = 311
+				311 = {
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+			311 = {
+				add_compliance = 5
+			}
+		}
+
+		if = {
+			limit = {
+				controls_state = 691
+				691 = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = yes
+					}
+				}
+			}
+			691 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_compliance = 10
+				add_resistance = -10
+			}
+		}
+		else_if = {
+			limit = {
+				controls_state = 691
+				691 = {
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+			691 = {
+				add_compliance = 5
+				add_resistance = -7
+			}
+		}
+		
+	}
+
+	option = { #don't implement the commission's recommendations
+		name = eng_colonial.10.b
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = -20
+	}
+}
+
+country_event = { #Arab Strike/Unrest, 25 April 1936
+	id = eng_colonial.11
+	title = eng_colonial.11.t
+	desc = eng_colonial.11.d
+	picture = GFX_event_Palestine_Riots
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		any_controlled_state = {
+			is_core_of = PAL
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			news_event = {
+				id = cbts_news.3
+				hours = 7
+			}
+			ENG = {
+				every_owned_state = {
+					limit = {
+						state = 454
+						state = 1011
+						state = 1013
+						state = 1014
+					}
+					start_resistance = yes
+					add_compliance = -10
+					add_resistance = 8
+					add_resistance_target = {
+						amount = 9
+					}
+				}
+				if = {
+					limit = {
+						controls_state = 454
+					}
+					454 = {
+						damage_building = {
+							type = infrastructure
+							damage = 0.3
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_core_of = PAL
+						NOT = { state = 1015 }
+					}
+					prioritize = {
+						1011
+						1012
+					}
+					damage_building = {
+						type = infrastructure
+						damage = 0.1
+					}
+				}
+				set_country_flag = ENG_peel_commission_unlocked
+				country_event = {
+					id = eng_colonial.12
+					days = 519 #Revolt Escalates
+				}
+				1012 = { add_compliance = 4 }
+				1013 = { add_compliance = 4 }
+			}
+		}
+	}
+	option = {
+		name = eng_colonial.11.a
+		custom_effect_tooltip = ENG_do_peel_commission
+	}
+}
+country_event = { #Arab Revolt Ramps Up, 26 September 1937
+	id = eng_colonial.12
+	title = eng_colonial.12.t
+	desc = eng_colonial.12.d
+	picture = GFX_event_Overturned_Bus_Palestine
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		ENG = {
+			any_controlled_state = {
+				is_core_of = PAL
+			}
+		}
+	}
+	option = { #
+		name = eng_colonial.12.a
+		ai_chance = {
+			base = 100
+		}
+		ENG = {
+			every_owned_state = {
+				limit = {
+					state = 454
+					state = 1011
+					state = 1014
+					state = 1012
+				}
+				add_compliance = -10
+				add_resistance = 30
+				add_resistance_target = {
+					amount = 72
+					days = 1200
+				}
+			}
+			113 = {
+				add_compliance = -15
+				add_resistance = 20
+				add_resistance_target = {
+					amount = 50
+					days = 1000
+				}
+			}
+		}
+		set_country_flag = ENG_arab_revolt
+	}
+}
+country_event = { #Peel Commission
+	id = eng_colonial.13
+	title = eng_colonial.13.t
+	desc = eng_colonial.13.d
+	picture = GFX_event_Lord_Peel
+	is_triggered_only = yes
+	trigger = {
+		any_owned_state = {
+			is_controlled_by = ROOT
+			is_core_of = PAL
+		}
+	}
+	option = { # Labour - reject
+		name = eng_colonial.13.a
+		trigger = {
+			has_government = socialism
+		}
+		ai_chance = {
+			base = 100
+		}
+		set_country_flag = ENG_reject_peel
+		ENG = {
+			every_owned_state = {
+				limit = {
+					is_core_of = PAL
+				}
+				add_resistance = -2
+				add_resistance_target = {
+					amount = -5
+				}
+			}
+		}
+	}
+	option = { # Not labour - reconsider
+		name = eng_colonial.13.a
+		trigger = {
+			NOT = {
+				has_government = socialism
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+		set_country_flag = ENG_reconsider_peel
+		ENG = {
+			every_owned_state = {
+				limit = {
+					is_core_of = PAL
+				}
+				add_resistance = 2
+				add_resistance_target = {
+					amount = -3
+				}
+			}
+		}
+	}
+}
+country_event = { #Anglo-Eyptian Treaty
+	id = eng_colonial.14
+	title = eng_colonial.14.t
+	desc = eng_colonial.14.d
+	picture = GFX_event_British_Troops_in_Egypt
+	is_triggered_only = yes
+	option = { # They don't really have a choice
+		name = eng_colonial.14.a
+		ai_chance = {
+			base = 100
+		}
+		army_experience = 20
+		ENG = {
+			send_equipment = {
+				equipment = infantry_equipment
+				amount = 250
+				target = ROOT
+			}
+			country_event = {
+				id = eng_colonial.15
+				days = 1
+			}
+		}
+		custom_effect_tooltip = ENG_game_limit_restrictions
+	}
+}
+country_event = { #Anglo-Eyptian Treaty
+	id = eng_colonial.15
+	title = eng_colonial.15.t
+	desc = eng_colonial.15.d
+	picture = GFX_event_British_Troops_in_Egypt
+	is_triggered_only = yes
+	option = { # They don't really have a choice
+		name = eng_colonial.15.a
+		ai_chance = {
+			base = 100
+		}
+		effect_tooltip = {
+			EGY = {
+				army_experience = 20
+			}
+			send_equipment = {
+				equipment = infantry_equipment
+				amount = 250
+				target = FROM
+			}
+		}
+		custom_effect_tooltip = ENG_game_limit_restrictions
+	}
+}
+country_event = { #Egypt: British Pressure to legalize socialist parties
+	id = eng_colonial.16
+	title = eng_colonial.16.t
+	desc = eng_colonial.16.d
+	picture = GFX_event_British_Troops_in_Egypt
+	is_triggered_only = yes
+	option = { # They don't really have a choice
+		name = eng_colonial.16.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.045
+		}
+	}
+}
+country_event = { #Egypt: British Pressure to Appoint a Wafd Government
+	id = eng_colonial.17
+	title = eng_colonial.17.t
+	desc = eng_colonial.17.d
+	picture = GFX_event_Abdeen_Palace_Incident
+	is_triggered_only = yes
+	option = { # They don't really have a choice
+		name = eng_colonial.17.a
+		ai_chance = {
+			base = 100
+		}
+		set_politics = {
+			ruling_party = jacobin
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = -0.25
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.05
+		}
+		add_stability = -0.25
+	}
+}
+country_event = { #Egypt: British Support Trade Unions
+	id = eng_colonial.18
+	title = eng_colonial.18.t
+	desc = eng_colonial.18.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = { # They don't really have a choice
+		name = eng_colonial.18.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.03
+		}
+	}
+}
+country_event = { #Jordan: Independence
+	id = eng_colonial.19
+	title = eng_colonial.19.t
+	desc = eng_colonial.19.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = { # sign the treaty
+		name = eng_colonial.19.a
+		ai_chance = {
+			base = 100
+		}
+		FROM = {
+			set_autonomy = {
+				target = ROOT
+				autonomy_state = autonomy_free
+			}
+			remove_from_faction = ROOT
+		}
+		give_military_access = FROM
+	}
+	option = { # don't sign the treaty
+		name = eng_colonial.19.b
+		ai_chance = {
+			base = 0
+		}
+		add_stability = -0.30
+	}
+}
+country_event = { #Egypt: Independence
+	id = eng_colonial.20
+	title = eng_colonial.20.t
+	desc = eng_colonial.20.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = { # sign the treaty
+		name = eng_colonial.20.a
+		ai_chance = {
+			base = 100
+		}
+		effect_tooltip = {
+			FROM = {
+				set_autonomy = {
+					target = EGY
+					autonomy_state = autonomy_free
+				}
+				remove_from_faction = EGY
+			}
+			give_military_access = ROOT
+		}
+		drop_cosmetic_tag = yes
+	}
+}
+country_event = { #Government of India Act: Hardline Opposition
+	id = eng_colonial.21
+	title = eng_colonial.21.t
+	desc = eng_colonial.21.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = { #Conceed to the Hardliners
+		name = eng_colonial.21.a
+		ai_chance = {
+			base = 95
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_colonial.22 #Law goes through with changes
+				days = 7
+			}
+		}
+		custom_effect_tooltip = ENG_bill_goes_to_commons
+	}
+	option = { #Refuse to conceed
+		name = eng_colonial.21.b
+		ai_chance = {
+			base = 4
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		custom_effect_tooltip = ENG_bill_goes_to_commons
+		hidden_effect = {
+			random_list = {
+				1 = {
+					country_event = {
+						id = eng_colonial.23 #Law goes through without changes
+						days = 7
+					}
+				}
+				99 = {
+					country_event = {
+						id = eng_colonial.24 #Bill dies
+						days = 7
+					}
+				}
+			}
+		}
+	}
+	option = { #Jus' drahp et
+		name = eng_colonial.21.c
+		ai_chance = {
+			base = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		RAJ = {
+			add_stability = -0.10
+			add_war_support = -0.10
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.15
+			}
+		}
+	}
+}
+country_event = { #Government of India Act: Goes Through With Changes
+	id = eng_colonial.22
+	title = eng_colonial.22.t
+	desc = eng_colonial.22.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = eng_colonial.22.a
+		1204 = {
+			set_state_name = "Aden Colony"
+			transfer_state_to = ENG
+		}
+		RAJ = {
+			add_stability = -0.05
+			add_war_support = -0.05
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.075
+			}
+		}
+	}
+}
+country_event = { #Government of India Act: Original Act Passes
+	id = eng_colonial.23
+	title = eng_colonial.23.t
+	desc = eng_colonial.23.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = eng_colonial.23.a
+		1204 = {
+			set_state_name = "Aden Colony"
+			transfer_state_to = ENG
+		}
+		RAJ = {
+			add_stability = -0.035
+			add_war_support = -0.035
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.05
+			}
+		}
+	}
+}
+country_event = { #Government of India Act: The act dies
+	id = eng_colonial.24
+	title = eng_colonial.24.t
+	desc = eng_colonial.24.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_colonial.24.a
+		ai_chance = {
+			base = 100
+		}
+		RAJ = {
+			add_stability = -0.125
+			add_war_support = -0.125
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.20
+			}
+		}
+	}
+}
+country_event = { #Cripps Mission
+	id = eng_colonial.25
+	title = eng_colonial.25.t
+	desc = eng_colonial.25.d
+	picture = GFX_event_Cripps_mission
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				98 = { set_country_flag = ENG_cripps_failed }
+				2 = { set_country_flag = ENG_cripps_succeed }
+			}
+		}
+	}
+
+	option = {
+		name = eng_colonial.25.a
+		trigger = {
+			has_country_flag = ENG_cripps_failed
+		}
+		RAJ = {
+			add_stability = -0.02
+			add_political_power = 30
+		}
+		add_political_power = 5
+	}
+	option = {
+		name = eng_colonial.25.2
+		trigger = {
+			has_country_flag = ENG_cripps_succeed
+		}
+		RAJ = {
+			add_stability = 0.10
+			add_popularity = {
+				ideology = social_democracy
+				popularity = 0.003
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.002
+			}
+		}
+	}
+}
+
+country_event = { #Quit India
+	id = eng_colonial.26
+	title = eng_colonial.26.t
+	desc = eng_colonial.26.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_colonial.26.a
+		ai_chance = {
+			base = 100
+		}
+		RAJ = {
+			add_war_support = -0.10
+			add_stability = -0.8
+			swap_ideas = {
+				remove_idea = RAJ_Indian_Independance_Movement
+				add_idea = RAJ_Quit_India_Movement
+			}
+		}
+		set_country_flag = ENG_quit_india
+		hidden_effect = {
+			RAJ = {
+				if = {
+					limit = {
+						is_subject_of = ENG
+					}
+					country_event = {
+						id = eng_colonial.27
+						days = 1383
+					}
+				}
+			}
+		}
+	}
+}
+country_event = { #RAF Mutiny
+	id = eng_colonial.27
+	title = eng_colonial.27.t
+	desc = eng_colonial.27.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	trigger = {
+		RAJ = {
+			has_war = no
+			is_subject_of = ENG
+		}
+		has_country_flag = ENG_quit_india
+	}
+	option = {
+		name = eng_colonial.27.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = india_take_action_tt
+		RAJ = {
+			add_war_support = -0.05
+			add_stability = -0.02
+			add_ideas = RAJ_Army_mutiny
+		}
+		hidden_effect = {
+			set_country_flag = ENG_raf_mutiny
+			country_event = {
+				id = eng_colonial.28
+				days = 47
+			}
+		}
+	}
+}
+country_event = { #Navy Mutiny
+	id = eng_colonial.28
+	title = eng_colonial.28.t
+	desc = eng_colonial.28.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	trigger = {
+		RAJ = {
+			has_war = no
+			is_subject_of = ENG
+		}
+	}
+	option = {
+		name = eng_colonial.28.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = india_take_action_tt
+		RAJ = {
+			add_war_support = -0.02
+			add_stability = -0.03
+			swap_ideas = { 
+				remove_idea = RAJ_Army_mutiny
+				add_idea = RAJ_Army_mutiny2
+			}
+		}
+		hidden_effect = {
+			set_country_flag = ENG_navy_mutiny
+			country_event = {
+				id = eng_colonial.29
+				days = 46
+			}
+		}
+	}
+}
+
+country_event = { #Army Mutiny
+	id = eng_colonial.29
+	title = eng_colonial.29.t
+	desc = eng_colonial.29.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	trigger = {
+		RAJ = {
+			has_war = no
+			is_subject_of = ENG
+		}
+	}
+	option = {
+		name = eng_colonial.28.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = india_take_action_tt
+		RAJ = {
+			add_war_support = -0.01
+			add_stability = -0.05
+			swap_ideas = { 
+				remove_idea =  RAJ_Army_mutiny2
+				add_idea = RAJ_Army_mutiny3
+			}
+		}
+		hidden_effect = {
+			set_country_flag = ENG_army_mutiny
+			country_event = {
+				id = eng_colonial.30
+				days = 18
+			}
+		}
+	}
+}
+country_event = { #INC agitation
+	id = eng_colonial.30
+	title = eng_colonial.30.t
+	desc = eng_colonial.30.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	trigger = {
+		RAJ = {
+			has_war = no
+			is_subject_of = ENG
+		}
+		has_country_flag = ENG_raf_mutiny
+	}
+	option = {
+		name = eng_colonial.30.a
+		custom_effect_tooltip = india_take_action_tt
+		ai_chance = {
+			base = 100
+		}
+		RAJ = {
+			add_war_support = -0.01
+			add_stability = -0.02
+		}
+		hidden_effect = {
+			set_country_flag = ENG_inc_Agitation
+			country_event = {
+				id = eng_colonial.31
+				days = 12
+			}
+		}
+	}
+}
+country_event = { #Indian Revolt
+	id = eng_colonial.31
+	title = eng_colonial.31.t
+	desc = eng_colonial.31.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	trigger = {
+		RAJ = {
+			has_war = no
+			is_subject_of = ENG
+		}
+	}
+	option = {
+		name = eng_colonial.31.a
+		ai_chance = {
+			base = 100
+		}
+		RAJ = {
+			add_war_support = -0.01
+			add_stability = -0.02
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.50
+			}
+		}
+		hidden_effect = {
+			set_country_flag = ENG_india_revolt
+			HND = {
+				transfer_state = 436
+				transfer_state = 437
+				transfer_state = 438
+				transfer_state = 439
+				transfer_state = 431
+				transfer_state = 930
+				transfer_state = 433
+				ENG = {
+					RAJ_subhas_chandra_bose = {
+						set_nationality = HND
+					}
+				}
+				set_politics = { ruling_party = social_democracy }
+				declare_war_on = {
+					target = RAJ
+					type = annex_everything
+				}
+			}
+			PAK = {
+				transfer_state = 444
+				transfer_state = 440
+				transfer_state = 445
+				declare_war_on = {
+					target = RAJ
+					type = annex_everything
+				}
+			}
+			HYD = {
+				transfer_state = 427
+				add_state_core = 427
+			}
+			KSH = {
+				transfer_state = 441
+				add_state_core = 441
+				transfer_state = 1150
+				add_state_core = 1150
+				transfer_state = 1149
+				add_state_core = 1149
+			}
+		}
+	}
+}
+country_event = { #Indian Independance-Start
+	id = eng_colonial.32
+	title = eng_colonial.32.t
+	desc = eng_colonial.32.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		RAJ = {
+			has_war = no
+			is_subject_of = ENG
+		}
+	}
+	option = {
+		trigger = {
+			has_government = democratic
+		}
+		name = eng_colonial.32.a #ML talk - Althist
+		ai_chance = {
+			base = 100
+		}
+		RAJ = {
+			add_stability = 0.10
+		}
+		hidden_effect = {
+			# set_country_flag = ENG_first_with_ML
+			country_event = { #ML negotiation
+				id = eng_colonial.33
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = eng_colonial.32.b #INC talk - historical
+		trigger = {
+			has_government = socialism
+		}
+		ai_chance = {
+			base = 100
+		}
+		RAJ = {
+			add_stability = 0.10
+		}
+		hidden_effect = {
+			# set_country_flag = ENG_first_with_INC
+			country_event = { #Ethnic-Religious Division
+				id = eng_colonial.34
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #Indian Independance - ML negotiation
+	id = eng_colonial.33
+	title = eng_colonial.33.t
+	desc = eng_colonial.33.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		RAJ = {
+			has_war = no
+			is_subject_of = ENG
+		}
+	}
+	option = {
+		trigger = {
+			has_government = democratic
+		}
+		name = eng_colonial.33.a #Yes, Pakistan incorporates Bengal
+		ai_chance = {
+			base = 10
+		}
+		hidden_effect = {
+			set_country_flag = ENG_full_bengal_for_pak
+			country_event = { #INC complains over Bengal
+				id = eng_colonial.35
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = eng_colonial.33.b #Consult INC about bengal
+		ai_chance = {
+			base = 90
+		}
+		hidden_effect = {
+			country_event = { #Ethnic-Religious Division
+				id = eng_colonial.34
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #Indian Independence - INC complains over Bengal
+	id = eng_colonial.35
+	title = eng_colonial.35.t
+	desc = eng_colonial.35.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		RAJ = {
+			has_war = no
+			is_subject_of = ENG
+		}
+	}
+	option = {
+		trigger = {
+			has_government = socialism
+		}
+		name = eng_colonial.35.a #Negociate with INC again
+		ai_chance = {
+			base = 100
+		}
+		
+		hidden_effect = {
+			clr_country_flag = ENG_full_bengal_for_pak
+			set_country_flag = ENG_indep_split_bengal
+			country_event = {
+				id = eng_colonial.36
+				days = 1
+			}
+		}
+	}
+	option = {
+		trigger = {
+			has_government = democratic
+		}
+		name = eng_colonial.35.b #fuck INC
+		ai_chance = {
+			base = 100
+		}
+
+		#continues having ENG_full_bengal_for_pak, i.e. all of Bengal for pakistan
+		
+		hidden_effect = {
+			#Pakistan gets cores on all of bengal
+			683 = {
+				add_core_of = PAK
+			}
+			430 = {
+				add_core_of = PAK
+			}
+			country_event = {
+				id = eng_colonial.36
+				days = 1
+			}
+			# country_event = {
+			# 	id = eng_colonial.41
+			# 	days = 76 # REALTIME 76
+			# }
+		}
+	}
+}
+
+country_event = { #Indian Independence - Ethnic-Religious Division - Historical
+	id = eng_colonial.34
+	title = eng_colonial.34.t
+	desc = eng_colonial.34.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		RAJ = {
+			has_war = no
+			is_subject_of = ENG
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = ENG_bengal_historical
+			country_event = {
+				id = eng_colonial.36
+				days = 76
+			}
+			#Pakistan and India get cores on Bengal
+			683 = {
+				add_core_of = HND
+			}
+			430 = {
+				add_core_of = PAK
+			}
+		}
+	}
+	option = {
+		name = eng_colonial.34.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+
+country_event = { #Indian Independence - Radcliffe line
+	id = eng_colonial.36
+	title = eng_colonial.36.t
+	desc = eng_colonial.36.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		RAJ = {
+			has_war = no
+			is_subject_of = ENG
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = eng_colonial.37
+				days = 72
+			}
+		}
+	}
+	option = { #Either Historical Partition of Bengal or Pakistan gets all of Bengal 
+		trigger = {
+			OR = {
+				has_country_flag = ENG_bengal_historical
+				has_country_flag = ENG_full_bengal_for_pak
+			}
+		}
+		name = eng_colonial.36.a #bengala is split
+		ai_chance = {
+			base = 100
+		}
+	}
+	option = { #Bengal gets Independence, but looses a part to india
+		trigger = {
+			has_country_flag = ENG_indep_split_bengal
+		}
+		name = eng_colonial.36.b
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			683 = { #India gets Part of Bengal
+				add_core_of = HND
+			}
+		}
+	}
+}
+
+country_event = { # Pakistan Independence
+	id = eng_colonial.37
+	title = eng_colonial.37.t
+	desc = eng_colonial.37.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		RAJ = {
+			has_war = no
+			is_subject_of = ENG
+		}
+	}
+
+	option = { #Historical Bengal Division under Pakistan and India
+		trigger = {
+			has_country_flag = ENG_bengal_historical
+			OR = {
+				has_country_flag = ENG_cripps_succeed
+				has_country_flag = ENG_cripps_failed
+			}
+		}
+		name = eng_colonial.37.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			clr_country_flag = ENG_bengal_historical
+			RAJ = {
+				every_owned_state = {
+					limit = {
+						is_core_of = PAK
+					}
+					remove_core_of = RAJ
+				}
+				if = { #just in case
+					limit = {
+						683 = { is_core_of = PAK }
+					}
+					683 = { remove_core_of = PAK }
+				}
+				release_on_controlled = PAK
+				PAK = {
+					inherit_technology = RAJ
+					if = { #just in case
+						limit = {
+							NOT = { owns_state = 430 }
+						}
+						transfer_state = 430
+					}
+				}
+			}
+			country_event = {
+				id = eng_colonial.38
+				days = 1
+			}
+		}
+		effect_tooltip = {
+			release = PAK
+		}
+		if = {
+			limit = { has_country_flag = ENG_cripps_failed }
+			set_autonomy = {
+				target = PAK
+				autonomy_state = autonomy_dominion
+			}
+			hidden_effect = {
+				PAK = {
+					set_politics = {
+						ruling_party = jacobin
+					}
+					COALITION_add_aut = yes
+					COALITION_add_con = yes
+					COALITION_add_soclib = yes
+					COALITION_add_marlib = yes
+					set_popularities = {
+						communism = 1
+						authoritarian_socialism = 3
+						socialism = 1
+						social_democracy = 16
+						social_liberalism = 4
+						market_liberalism = 6
+						jacobin = 38
+						democratic = 17
+						neutrality = 10
+						monarchism = 0
+						nationalism = 2
+						fascism = 2
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { has_country_flag = ENG_cripps_succeed }
+			effect_tooltip = {
+				set_autonomy = {
+					target = PAK
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+	}
+	
+	option = { #Split and independent Bengal
+		trigger = {
+			has_country_flag = ENG_indep_split_bengal
+			OR = {
+				has_country_flag = ENG_cripps_failed
+				has_country_flag = ENG_cripps_succeed
+			}
+		}
+		name = eng_colonial.37.b
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			clr_country_flag = ENG_indep_split_bengal
+			RAJ = {
+				#Bengal
+				every_owned_state = {
+					limit = {
+						is_core_of = BNG
+					}
+					remove_core_of = RAJ
+				}
+				430 = { transfer_state_to = BGN }
+				BNG = {
+					inherit_technology = RAJ
+					COALITION_add_LEFTIST = yes
+				}
+
+				#Pakistan
+				every_owned_state = {
+					limit = {
+						is_core_of = PAK
+					}
+					remove_core_of = RAJ
+				}
+				#These just in case
+				if = {
+					limit = {
+						683 = { is_core_of = PAK }
+					}
+					683 = { remove_core_of = PAK }
+				}
+				if = {
+					limit = {
+						430 = { is_core_of = PAK }
+					}
+					430 = { remove_core_of = PAK }
+				}
+				release_on_controlled = PAK
+				PAK = {
+					inherit_technology = RAJ
+				}
+			}
+			country_event = {
+				id = eng_colonial.38
+				days = 1
+			}
+		}
+		effect_tooltip = {
+			release = PAK
+			release = BNG
+		}
+		if = {
+			limit = { has_country_flag = ENG_cripps_failed }
+			set_autonomy = {
+				target = PAK
+				autonomy_state = autonomy_dominion
+			}
+			set_autonomy = {
+				target = BNG
+				autonomy_state = autonomy_dominion
+			}
+			hidden_effect = {
+				PAK = {
+					set_politics = {
+						ruling_party = jacobin
+					}
+					COALITION_add_aut = yes
+					COALITION_add_con = yes
+					COALITION_add_marlib = yes
+					COALITION_add_soclib = yes
+					set_popularities = {
+						communism = 1
+						authoritarian_socialism = 3
+						socialism = 1
+						social_democracy = 16
+						social_liberalism = 4
+						market_liberalism = 6
+						jacobin = 38
+						democratic = 17
+						neutrality = 10
+						monarchism = 0
+						nationalism = 2
+						fascism = 2
+					}
+				}
+			}
+		}
+		else = {
+			effect_tooltip = {
+				set_autonomy = {
+					target = PAK
+					autonomy_state = autonomy_free
+				}
+				set_autonomy = {
+					target = BNG
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+	}
+
+	option = { #All of bengal to Pakistan
+		trigger = {
+			has_country_flag = ENG_full_bengal_for_pak
+			OR = {
+				has_country_flag = ENG_cripps_failed
+				has_country_flag = ENG_cripps_succeed
+			}
+		}
+		name = eng_colonial.37.b
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			clr_country_flag = ENG_full_bengal_for_pak
+			RAJ = {
+				#Pakistan
+				every_owned_state = {
+					limit = {
+						is_core_of = PAK
+					}
+					remove_core_of = RAJ
+				}
+				release_on_controlled = PAK
+				PAK = {
+					inherit_technology = RAJ
+				}
+			}
+			PAK = {
+				if = { #just in case
+					limit = {
+						NOT = { owns_state = 430 }
+					}
+					transfer_state = 430
+				}
+				if = { #just in case
+					limit = {
+						NOT = { owns_state = 683 }
+					}
+					transfer_state = 683
+				}
+			}
+			country_event = {
+				id = eng_colonial.38
+				days = 1
+			}
+		}
+		
+		effect_tooltip = {
+			release = PAK
+		}
+		if = {
+			limit = {
+				has_country_flag = ENG_cripps_failed
+			}
+			set_autonomy = {
+				target = PAK
+				autonomy_state = autonomy_dominion
+			}
+			hidden_effect = {
+				PAK = {
+					set_politics = {
+						ruling_party = jacobin
+					}
+					COALITION_add_aut = yes
+					COALITION_add_marlib = yes
+					COALITION_add_con = yes
+					COALITION_add_soclib = yes
+					set_popularities = {
+						communism = 1
+						authoritarian_socialism = 3
+						socialism = 1
+						social_democracy = 16
+						social_liberalism = 4
+						market_liberalism = 6
+						jacobin = 38
+						democratic = 17
+						neutrality = 10
+						monarchism = 0
+						nationalism = 2
+						fascism = 2
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { has_country_flag = ENG_cripps_succeed }
+			effect_tooltip = {
+				set_autonomy = {
+					target = PAK
+					autonomy_state = autonomy_free
+				}
+				set_autonomy = {
+					target = BNG
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Indian Independence - India Independence
+	id = eng_colonial.38
+	title = eng_colonial.38.t
+	desc = eng_colonial.38.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # Indian Subcontinent finally gets independence!
+		trigger = {
+			# NOT = { has_country_flag = ENG_cripps_succeed }
+			RAJ = {
+				exists = yes
+				has_war = no
+				is_subject_of = ENG
+			}
+		}
+		name = eng_colonial.38.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				BHU = { is_subject_of = ENG }
+			}
+			set_autonomy = {
+				target = BHU
+				autonomy_state = autonomy_free
+			}
+		}
+		if = {
+			limit = {
+				NEP = { is_subject_of = ENG }
+			}
+			set_autonomy = {
+				target = NEP
+				autonomy_state = autonomy_free
+			}
+		}
+		hidden_effect = {
+			RAJ = {
+				every_character = {
+					limit = {
+						NOT = {
+							is_character = RAJ_puran_chand_joshi
+							is_character = RAJ_acharya_narendra_deva
+							is_character = RAJ_jayaprakash_narayan
+							is_character = RAJ_anugrah_narayan_sinha
+							is_character = RAJ_madhav_shrihari_aney
+							is_character = RAJ_mohan_singh
+							is_character = RAJ_vinayak_damodar_savarkar
+							is_character = RAJ_keshav_baliram_hedgewar
+						}
+					}
+					set_nationality = HND
+				}
+				every_character = {
+					limit = {
+						has_ideology = colonial
+					}
+					add_country_leader_role = {
+						promote_leader = yes
+						country_leader = {
+							ideology = dem_socialism
+							expire = "1965.1.1.1"
+						}
+					}
+					add_country_leader_role = {
+						promote_leader = yes
+						country_leader = {
+							ideology = liberalism
+							expire = "1965.1.1.1"
+						}
+					}
+					add_country_leader_role = {
+						promote_leader = yes
+						country_leader = {
+							ideology = market_liberal
+							expire = "1965.1.1.1"
+						}
+					}
+				}
+				every_core_state = {
+					remove_core_of = RAJ
+				}
+				every_state = {
+					limit = { is_claimed_by = RAJ }
+					remove_claim_by = RAJ
+				}
+				439 = {
+					transfer_state_to = NHD
+				}
+				release_on_controlled = KSH
+				HND = {
+					inherit_technology = RAJ
+					set_country_flag = HND_peaceful_independance
+					# set_autonomy = {
+					# 	target = BHU
+					# 	autonomy_state = autonomy_colony
+					# }
+				}
+				transfer_units_fraction = {
+					target = HND
+					size = 1.0
+					stockpile_ratio = 1.0
+					army_ratio = 1.0
+					navy_ratio = 1.0
+					air_ratio = 1.0
+					keep_unit_leaders_trigger = {
+						always = no
+					}
+				}
+			}
+			HND = {
+				transfer_state = 733 #Adaman islands
+				add_state_core = 733
+				annex_country = { target = RAJ transfer_troops = yes }
+				country_event = {
+					id = raj_internal.5
+					days = 311 #21 June 1948 
+				}
+			}
+			set_autonomy = {
+				target = KSH
+				autonomy_state = autonomy_colony
+			}
+			KSH = {
+				set_politics = {
+					ruling_party = monarchism
+				}
+				set_popularities = {
+					communism = 0
+					authoritarian_socialism = 1
+					socialism = 3
+					social_democracy = 30
+					social_liberalism = 5
+					market_liberalism = 1
+					jacobin = 1
+					democratic = 5
+					neutrality = 5
+					monarchism = 45
+					nationalism = 4
+					fascism = 0
+				}
+			}
+			country_event = {
+				id = eng_colonial.39
+				days = 1 # REALTIME 143
+			}
+		}
+		effect_tooltip = {
+			release = HND
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = ENG_cripps_succeed
+				}
+			}
+			set_autonomy = {
+				target = HND
+				autonomy_state = autonomy_dominion
+			}
+			hidden_effect = {
+				HND = {
+					kill_ideology_leader = neutrality
+					ENG_set_India_Governor_General = yes
+					set_politics = { ruling_party = social_democracy }
+					set_popularities = {
+						communism = 2
+						authoritarian_socialism = 8
+						socialism = 3
+						social_democracy = 40
+						social_liberalism = 5
+						market_liberalism = 1
+						jacobin = 16
+						democratic = 2
+						neutrality = 20
+						monarchism = 0
+						nationalism = 3
+						fascism = 0
+					}
+					COALITION_RESET = yes
+					COALITION_add_aut = yes
+					COALITION_add_soclib = yes
+					COALITION_add_marlib = yes
+				}
+			}
+		}
+		else = {
+			effect_tooltip = {
+				set_autonomy = {
+					target = HND
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Indian Independence - Burma Independence
+	id = eng_colonial.39
+	title = eng_colonial.39.t
+	desc = eng_colonial.39.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+	# trigger = {
+	# 	BRM = {
+	# 		exists = yes
+	# 		is_subject_of = ENG
+	# 		has_war = no
+	# 	}
+	# }
+	option = {
+		name = eng_colonial.39.a # Burma gets free
+		if = {
+			limit = {
+				BRM = {
+					exists = yes
+					is_subject_of = ENG
+					has_war = no
+				}
+			}
+			set_autonomy = {
+				target = BRM
+				autonomy_state = autonomy_free
+			}
+		}
+		else_if ={
+			limit = {
+				BRM = { exists = no }
+			}
+			if = {
+				limit = { country_exists = RAJ }
+				RAJ = {
+					every_controlled_state = {
+						limit = { is_core_of = BRM }
+						transfer_state_to = BRM
+					}
+				}
+			}
+			else = {
+				HND = {
+					every_controlled_state = {
+						limit = { is_core_of = BRM }
+						transfer_state_to = BRM
+					}
+				}
+			}
+		}
+		BRM = {
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = BRM_union
+			set_politics = {
+				ruling_party = socialism
+			}
+			COALITION_add_revsoc = yes
+			COALITION_add_demsoc = yes
+			hidden_effect = {
+				retire_character = BRM_aung_san
+				add_country_leader_role = {
+					character = "BRM_sao_shwe_thaik"
+					promote_leader = yes
+					country_leader={
+						ideology=agrarian_socialism_rev
+						expire="1965.1.1.1"
+						id=-1
+					}
+					country_leader={
+						ideology=real_socialism
+						expire="1965.1.1.1"
+						id=-1
+					}
+				}
+				add_popularity = {
+					ideology = socialism
+					popularity = 0.1
+				}
+				add_popularity = {
+					ideology = authoritarian_socialism
+					popularity = 0.1
+				}
+				set_party_name = {
+					ideology = authoritarian_socialism
+					long_name = BRM_AFPFL_party_long
+					name = BRM_AFPFL_party
+				}
+				set_party_name = {
+					ideology = socialism
+					long_name = BRM_AFPFL_party_long
+					name = BRM_AFPFL_party
+				}
+			}
+		}
+		remove_from_faction = BRM
+	}
+}
+
+country_event = { #Ceylon Independence
+	id = eng_colonial.40
+	title = eng_colonial.40.t
+	desc = eng_colonial.40.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = eng_colonial.40.a # Ceylon free
+		ai_chance = {
+			base = 98
+		}
+		release_on_controlled = CEY
+		set_autonomy = {
+			target = CEY
+			autonomy_state = autonomy_dominion
+		}
+		CEY = {
+			inherit_technology = HND
+			set_politics = {
+				ruling_party = jacobin
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_colonial.39
+				days = 7
+			}
+		}
+	}
+
+	option = {
+		trigger = {
+			has_government = socialism
+		}
+		name = eng_colonial.40.b # Ceylon free&Maldives free
+		ai_chance = {
+			base = 2
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.002
+		}
+		add_political_power = -100
+		release_on_controlled = CEY
+		set_autonomy = {
+			target = CEY
+			autonomy_state = autonomy_dominion
+		}
+		CEY = {
+			inherit_technology = HND
+			set_politics = {
+				ruling_party = jacobin
+			}
+		}
+		HND = { transfer_state = 281 }
+		AST = { transfer_state = 712 }
+	}
+}
+
+#######################################
+### Labour Path Indian Independence ###
+#######################################
+country_event = { #Labour Path India independence
+	id = eng_colonial.41
+	title = eng_colonial.41.t
+	desc = eng_colonial.41.d #TODO: rework loc
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #FIRST TALK WITH INC AND NOT YET ML - Bose too
+		name = eng_colonial.41.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			set_country_flag = ENG_talk_with_INC_bose
+			country_event = {
+				id = eng_colonial.43
+				hours = 2
+			}
+		}
+	}
+	option = {
+		name = eng_colonial.41.b #FIRST TALK WITH INC AND NOT YET ML - Only Gandhi
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			country_event = {
+				id = eng_colonial.43
+				hours = 2
+			}
+		}
+	}
+}
+
+# country_event = { #THIS DOES NOTHING???? WHO CODED THIS
+# 	id = eng_colonial.42	
+# 	title = eng_colonial.42.t
+# 	desc = eng_colonial.42.d
+# 	picture = GFX_event_British_Army_in_Levant2
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+
+# 	option = {
+# 		name = eng_colonial.42.a
+# 	}
+# }
+
+country_event = { #Bengal question
+	id = eng_colonial.43	
+	title = "The Bengal Question - Divide it?"
+	desc = eng_colonial.43.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Divide it 
+		trigger = {
+			NOT = {
+				has_country_flag = ENG_talk_with_INC_bose
+			}
+		}
+		name = "Divide Bengal"
+		ai_chance = {
+			base = 100
+		}
+		RAJ = {
+			add_stability = -0.01
+		}
+		hidden_effect = {
+			country_event = { #Bose complains
+				id = eng_colonial.45
+				days = 2
+			}
+		}
+	}
+	option = { #promise that bengal will not be divided
+		trigger = {
+			has_country_flag = ENG_talk_with_INC_bose
+		}
+		name = "Promise that bengal will not be divided"
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			country_event = { #Bengal Question
+				id = eng_colonial.44
+				hours = 2
+			}
+		}
+	}
+}
+
+country_event = { #Bengal question - Who owns bengal then?
+	id = eng_colonial.44	
+	title = "The Bengal Question - Who gets it?"
+	desc = eng_colonial.44.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Give it to Pakistan
+		name = "Give all of Bengal to Pakistan."
+		ai_chance = {
+			base = 70
+		}
+		hidden_effect = {
+			set_country_flag = ENG_Labour_Pakistani_All_Bengal
+			683 = {
+				add_core_of = PAK
+			}
+			430 = {
+				add_core_of = PAK
+			}
+		}
+	}
+	option = { #Promise and Independent Full Bengal
+		name = "Promise an Independent Bengal"
+		ai_chance = {
+			base = 30
+		}
+		hidden_effect = {
+			set_country_flag = ENG_Labour_Independand_Full_Bengal
+		}
+	}
+}
+
+country_event = { #Bose complains on Bengal being split
+	id = eng_colonial.45	
+	title = eng_colonial.45.t
+	desc = eng_colonial.45.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Agree on Stablishing an Independant Bengal
+		name = "Agree on stablishing an independant Bengal."
+		ai_chance = {
+			base = 60
+		}
+		hidden_effect = {
+			set_country_flag = ENG_Lab_indep_split_bengal #Independent Split Bengal
+			683 = { add_core_of = HND } #India gets part of Bengal
+		}
+	}
+	option = { #Shut up Bose
+		name = "He should just shut up."
+		ai_chance = {
+			base = 40
+		}
+		hidden_effect = {
+			set_country_flag = ENG_Labour_Divided_Bengal #Divided Bengal it is
+			#Pakistan and India get cores on Bengal
+			683 = { add_core_of = HND }
+			430 = { add_core_of = PAK }
+		}
+
+		#Bose leaves
+	}
+}
+
+country_event = { #Labour Pakistan Independence - Pakistan and Bengal
+	id = eng_colonial.46
+	title = eng_colonial.37.t
+	desc = eng_colonial.37.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {	#Historical Division of Bengal
+		trigger = {
+			has_country_flag = ENG_Labour_Divided_Bengal
+		}
+		name = eng_colonial.37.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			clr_country_flag = ENG_Labour_Divided_Bengal
+			RAJ = {
+				every_owned_state = {
+					limit = {
+						is_core_of = PAK
+					}
+					remove_core_of = RAJ
+				}
+				release_on_controlled = PAK
+				PAK = {
+					inherit_technology = RAJ
+					if = { #just in case?
+						limit = {
+							NOT = { owns_state = 430 }
+						}
+						transfer_state = 430
+					}
+					set_country_flag = PAK_peaceful_independance
+				}
+			}
+			country_event = {
+				id = eng_colonial.47
+				days = 1
+			}
+		}
+		effect_tooltip = {
+			release = PAK
+		}
+		set_autonomy = {
+			target = PAK
+			autonomy_state = autonomy_dominion
+		}
+		hidden_effect = {
+			PAK = {
+				set_politics = {
+					ruling_party = jacobin
+				}
+				COALITION_add_aut = yes
+				COALITION_add_con = yes
+				COALITION_add_soclib = yes
+				COALITION_add_marlib = yes
+				set_popularities = {
+					communism = 1
+					authoritarian_socialism = 3
+					socialism = 1
+					social_democracy = 16
+					social_liberalism = 4
+					market_liberalism = 6
+					jacobin = 38
+					democratic = 17
+					neutrality = 10
+					monarchism = 0
+					nationalism = 2
+					fascism = 2
+				}
+			}
+		}
+	}
+
+	option = {	#Full division - Independent Divided Bengal
+		trigger = {
+			has_country_flag = ENG_Lab_indep_split_bengal
+		}
+		name = eng_colonial.37.b
+		ai_chance = {
+			base = 100
+		}
+		
+		hidden_effect = {
+			clr_country_flag = ENG_Lab_indep_split_bengal
+			RAJ = {
+				#Bengal
+				every_owned_state = {
+					limit = {
+						is_core_of = BNG
+					}
+					remove_core_of = RAJ
+				}
+				BNG = {
+					transfer_state = 430
+					inherit_technology = RAJ
+					COALITION_add_LEFTIST = yes
+				}
+
+				#Pakistan
+				every_owned_state = {
+					limit = {
+						is_core_of = PAK
+					}
+					remove_core_of = RAJ
+				}
+				if = {
+					limit = {
+						683 = { is_core_of = PAK }
+					}
+					683 = { remove_core_of = PAK }
+				}
+				release_on_controlled = PAK
+				PAK = {
+					# kill_ideology_leader = jacobin
+					inherit_technology = RAJ
+					remove_state_core = 430
+					set_country_flag = PAK_peaceful_independance
+				}
+			}
+			country_event = {
+				id = eng_colonial.47
+				days = 1
+			}
+		}
+		effect_tooltip = {
+			release = PAK
+			release = BNG
+		}
+		set_autonomy = {
+			target = PAK
+			autonomy_state = autonomy_dominion
+		}
+		hidden_effect = {
+			PAK = {
+				set_politics = {
+					ruling_party = jacobin
+				}
+				COALITION_add_aut = yes
+				COALITION_add_con = yes
+				COALITION_add_soclib = yes
+				COALITION_add_marlib = yes
+				set_popularities = {
+					communism = 1
+					authoritarian_socialism = 3
+					socialism = 1
+					social_democracy = 16
+					social_liberalism = 4
+					market_liberalism = 6
+					jacobin = 38
+					democratic = 17
+					neutrality = 10
+					monarchism = 0
+					nationalism = 2
+					fascism = 2
+				}
+			}
+		}
+	}
+
+	option = {	#Full division - Independent Full Bengal
+		trigger = {
+			has_country_flag = ENG_Labour_Independand_Full_Bengal
+		}
+		name = eng_colonial.37.b
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			RAJ = {
+				#Bengal
+				every_owned_state = {
+					limit = {
+						is_core_of = BNG
+					}
+					remove_core_of = RAJ
+				}
+				BNG = {
+					transfer_state = 430
+					transfer_state = 683
+				}
+				BNG = {
+					inherit_technology = RAJ
+					COALITION_add_socdem = yes
+					COALITION_add_cen = yes
+					COALITION_add_soclib = yes
+					COALITION_add_marlib = yes
+				}
+				#Pakistan
+				every_owned_state = {
+					limit = {
+						is_core_of = PAK
+					}
+					remove_core_of = RAJ
+				}
+				release_on_controlled = PAK
+				PAK = {
+					# kill_ideology_leader = jacobin
+					inherit_technology = RAJ
+					set_country_flag = PAK_peaceful_independance
+				}
+			}
+			country_event = {
+				id = eng_colonial.47
+				days = 1
+			}
+		}
+		effect_tooltip = {
+			release = PAK
+			release = BNG
+		}
+		set_autonomy = {
+			target = PAK
+			autonomy_state = autonomy_dominion
+		}
+		set_autonomy = {
+			target = BNG
+			autonomy_state = autonomy_dominion
+		}
+		hidden_effect = {
+			PAK = {
+				set_politics = {
+					ruling_party = jacobin
+				}
+				COALITION_add_aut = yes
+				COALITION_add_con = yes
+				COALITION_add_soclib = yes
+				COALITION_add_marlib = yes
+				set_popularities = {
+					communism = 1
+					authoritarian_socialism = 3
+					socialism = 1
+					social_democracy = 16
+					social_liberalism = 4
+					market_liberalism = 6
+					jacobin = 38
+					democratic = 17
+					neutrality = 10
+					monarchism = 0
+					nationalism = 2
+					fascism = 2
+				}
+			}
+		}
+	}
+
+	option = {	#Pakistan gets all of Bengal
+		trigger = {
+			has_country_flag = ENG_Labour_Pakistani_All_Bengal
+		}
+		name = "Pakistan gets the entire province of Bengal, and independence."
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			clr_country_flag = ENG_Labour_Pakistani_All_Bengal
+			RAJ = {
+				#Pakistan
+				every_owned_state = {
+					limit = {
+						is_core_of = PAK
+					}
+					remove_core_of = RAJ
+				}
+				release_on_controlled = PAK
+				PAK = {
+					# kill_ideology_leader = jacobin
+					inherit_technology = RAJ
+					set_country_flag = PAK_peaceful_independance
+				}
+			}
+			country_event = {
+				id = eng_colonial.47
+				days = 1
+			}
+		}
+		effect_tooltip = {
+			release = PAK
+		}
+		set_autonomy = {
+			target = PAK
+			autonomy_state = autonomy_dominion
+		}
+		hidden_effect = {
+			PAK = {
+				set_politics = {
+					ruling_party = jacobin
+				}
+				COALITION_add_aut = yes
+				COALITION_add_con = yes
+				COALITION_add_soclib = yes
+				COALITION_add_marlib = yes
+				set_popularities = {
+					communism = 1
+					authoritarian_socialism = 3
+					socialism = 1
+					social_democracy = 16
+					social_liberalism = 4
+					market_liberalism = 6
+					jacobin = 38
+					democratic = 17
+					neutrality = 10
+					monarchism = 0
+					nationalism = 2
+					fascism = 2
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Labour Indian Subcontinent Independence - India
+	id = eng_colonial.47
+	title = eng_colonial.38.t
+	desc = eng_colonial.38.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #India independence Labour
+		name = eng_colonial.38.a
+		if = {
+			limit = {
+				BHU = { is_subject_of = ENG }
+			}
+			set_autonomy = {
+				target = BHU
+				autonomy_state = autonomy_free
+			}
+		}
+		if = {
+			limit = {
+				NEP = { is_subject_of = ENG }
+			}
+			set_autonomy = {
+				target = NEP
+				autonomy_state = autonomy_free
+			}
+		}
+		hidden_effect = {
+			RAJ = {
+				every_character = {
+					limit = {
+						NOT = {
+							is_character = RAJ_puran_chand_joshi
+							is_character = RAJ_acharya_narendra_deva
+							is_character = RAJ_jayaprakash_narayan
+							is_character = RAJ_anugrah_narayan_sinha
+							is_character = RAJ_madhav_shrihari_aney
+							is_character = RAJ_mohan_singh
+							is_character = RAJ_vinayak_damodar_savarkar
+							is_character = RAJ_keshav_baliram_hedgewar
+						}
+					}
+					set_nationality = HND
+				}
+				every_core_state = {
+					remove_core_of = RAJ
+				}
+				every_state = {
+					limit = { is_claimed_by = RAJ }
+					remove_claim_by = RAJ
+				}
+				release_on_controlled = KSH
+				439 = {
+					transfer_state_to = HND
+				}
+				HND = {
+					inherit_technology = RAJ
+					set_country_flag = HND_peaceful_independance
+					# set_autonomy = {
+					# 	target = BHU
+					# 	autonomy_state = autonomy_colony
+					# }
+				}
+				transfer_units_fraction = {
+					target = HND
+					size = 1.0
+					stockpile_ratio = 1.0
+					army_ratio = 1.0
+					navy_ratio = 1.0
+					air_ratio = 1.0
+					keep_unit_leaders_trigger = {
+						always = no
+					}
+				}
+			}
+			HND = {
+				transfer_state = 733 #Andaman islands
+				add_state_core = 733
+				annex_country = { target = RAJ transfer_troops = yes }
+				country_event = {
+					id = raj_internal.5
+					days = 311 #21 June 1948 
+				}
+			}
+			set_autonomy = {
+				target = KSH
+				autonomy_state = autonomy_colony
+			}
+			KSH = {
+				set_politics = {
+					ruling_party = monarchism
+				}
+				set_popularities = {
+					communism = 0
+					authoritarian_socialism = 1
+					socialism = 3
+					social_democracy = 30
+					social_liberalism = 5
+					market_liberalism = 1
+					jacobin = 1
+					democratic = 5
+					neutrality = 5
+					monarchism = 45
+					nationalism = 4
+					fascism = 0
+				}
+			}
+			country_event = {
+				id = eng_colonial.39
+				days = 1
+			}
+		}
+		effect_tooltip = {
+			release = HND
+		}
+		set_autonomy = {
+			target = HND
+			autonomy_state = autonomy_dominion
+		}
+		hidden_effect = {
+			HND = {
+				kill_ideology_leader = neutrality
+				ENG_set_India_Governor_General = yes
+				set_politics = { ruling_party = social_democracy }
+				set_popularities = {
+					communism = 2
+					authoritarian_socialism = 8
+					socialism = 3
+					social_democracy = 40
+					social_liberalism = 5
+					market_liberalism = 1
+					jacobin = 16
+					democratic = 2
+					neutrality = 20
+					monarchism = 0
+					nationalism = 3
+					fascism = 0
+				}
+				COALITION_RESET = yes
+				COALITION_add_aut = yes
+				COALITION_add_soclib = yes
+				COALITION_add_marlib = yes
+			}
+		}
+	}
+}
+
+country_event = {
+	id = eng_raj.1
+	title = eng_raj.1.t
+	desc = eng_raj.1.d
+	picture = GFX_event_RAJ_louis_mountbatten
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #Keep the british Governor Generals
+		name = "Keep the british Governor Generals."
+		RAJ = {
+			add_stability = 0.02
+		}
+		add_political_power = -20
+	}
+	option = { #call the ex-high commissioner Atul Chandra Chatterjee
+		name = "Call the ex-high commissioner Atul Chandra Chatterjee."
+		RAJ = {
+			set_country_flag = RAJ_native_governor_generals
+			add_country_leader_role = {
+				character = "RAJ_atul_chandra_chatterjee"
+				promote_leader = yes
+				country_leader = {
+					ideology = colonial
+					expire = "1965.1.1.1"
+				}
+			}
+		}
+	}
+	option = { #Give the place to the Maharaja Ganga Singh of Bikaner
+		name = "Give it to the Maharaja Ganga Singh of Bikaner"
+		RAJ = {
+			set_country_flag = RAJ_native_governor_generals
+			add_country_leader_role = {
+				character = "RAJ_ganga_singh"
+				promote_leader = yes
+				country_leader = {
+					ideology = colonial
+					expire = "1965.1.1.1"
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = raj_internal.4
+					days = 140
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Generic Alliance
+	id = eng_foreign.1
+	title = eng_foreign.1.t
+	desc = eng_foreign.1.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.1.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				is_in_faction = yes
+			}
+			FROM = {
+				give_guarantee = ROOT
+			}
+			give_guarantee = FROM
+		}
+		else = {
+			FROM = {
+				add_to_faction = ROOT
+			}
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.2
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = eng_foreign.1.b
+		ai_chance = {
+			base = 0
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.3
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #Generic Alliance - accepts
+	id = eng_foreign.2
+	title = eng_foreign.2.t
+	desc = eng_foreign.2.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.2.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Generic Alliance - rejects
+	id = eng_foreign.3
+	title = eng_foreign.3.t
+	desc = eng_foreign.3.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.3.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Arms to a Spain
+	id = eng_foreign.4
+	title = eng_foreign.4.t
+	desc = eng_foreign.4.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = ENG
+		}
+		if = {
+			limit = {
+				NOT = { has_dlc = "By Blood Alone" }
+			}
+			add_equipment_to_stockpile = {
+				type = early_fighter_equipment
+				amount = 50
+				producer = ENG
+			}
+		}
+		else = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				amount = 50
+				producer = ENG
+			}
+		}
+		add_manpower = 5500
+		add_war_support = 0.04
+		add_stability = 0.04
+		add_political_power = 40
+		FROM = {
+			country_event = {
+				id = eng_foreign.5
+				days = 1
+			}
+		}
+		add_opinion_modifier = {
+			target = FROM
+			modifier = ENG_sent_assistance
+		}
+		set_country_flag = ENG_supported_republicans
+	}
+	option = {
+		name = eng_foreign.4.b
+		ai_chance = {
+			base = 0
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.6
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #Spain accepts help
+	id = eng_foreign.5
+	title = eng_foreign.5.t
+	desc = eng_foreign.5.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.5.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Spain refuses help
+	id = eng_foreign.6
+	title = eng_foreign.6.t
+	desc = eng_foreign.6.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.6.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Arms to Catalonia
+	id = eng_foreign.7
+	title = eng_foreign.7.t
+	desc = eng_foreign.7.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.7.a
+		ai_chance = {
+			base = 100
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 400
+			producer = ENG
+		}
+		if = {
+			limit = {
+				NOT = { has_dlc = "By Blood Alone" }
+			}
+			add_equipment_to_stockpile = {
+				type = iw_fighter_equipment
+				amount = 12
+				producer = ENG
+			}
+		}
+		else = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				amount = 12
+				producer = ENG
+			}
+		}
+		add_manpower = 2000
+		add_war_support = 0.04
+		add_stability = 0.04
+		add_political_power = 40
+		FROM = {
+			country_event = {
+				id = eng_foreign.8
+				days = 1
+			}
+		}
+		add_opinion_modifier = {
+			target = FROM
+			modifier = ENG_sent_assistance
+		}
+		set_country_flag = ENG_supported_catalonians
+	}
+	option = {
+		name = eng_foreign.7.b
+		ai_chance = {
+			base = 0
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.9
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #Catalonia accepts help
+	id = eng_foreign.8
+	title = eng_foreign.8.t
+	desc = eng_foreign.8.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.8.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Catalonia refuses help
+	id = eng_foreign.9
+	title = eng_foreign.9.t
+	desc = eng_foreign.9.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.9.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Anglo Economic Investment
+	id = eng_foreign.10
+	title = eng_foreign.10.t
+	desc = eng_foreign.10.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.10.a
+		ai_chance = {
+			base = 100
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		add_political_power = 15
+		add_stability = 0.015
+		add_opinion_modifier = {
+			target = FROM
+			modifier = ENG_investment
+		}
+	}
+}
+country_event = { #YUG - UK offers arms
+	id = eng_foreign.11
+	title = eng_foreign.11.t
+	desc = eng_foreign.11.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.11.a
+		ai_chance = {
+			base = 100
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 750
+			producer = ENG
+		}
+		add_equipment_to_stockpile = {
+			type = artillery_equipment
+			amount = 48
+			producer = ENG
+		}
+		add_opinion_modifier = {
+			target = FROM
+			modifier = ENG_sent_assistance
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.12
+				days = 3
+			}
+		}
+	}
+	option = {
+		name = eng_foreign.11.b
+		ai_chance = {
+			base = 0
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.13
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #Armament offer is accepted
+	id = eng_foreign.12
+	title = eng_foreign.12.t
+	desc = eng_foreign.12.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.12.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				FROM = {
+					tag = YUG
+				}
+			}
+			set_country_flag = ENG_yug_accepted_offer
+		}
+	}
+}
+country_event = { #Armament offer is refused
+	id = eng_foreign.13
+	title = eng_foreign.13.t
+	desc = eng_foreign.13.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.13.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				FROM = {
+					tag = YUG
+				}
+			}
+			set_country_flag = ENG_yug_refused_offer
+		}
+	}
+}
+country_event = { #POL - UK offers planes
+	id = eng_foreign.14
+	title = eng_foreign.14.t
+	desc = eng_foreign.14.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.14.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				NOT = { has_dlc = "By Blood Alone" }
+			}
+			add_equipment_to_stockpile = {
+				type = early_fighter_equipment
+				amount = 64
+				producer = ENG
+			}
+		}
+		else = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				amount = 64
+				producer = ENG
+			}
+		}
+		add_tech_bonus = {
+			name = fighter_bonus
+			category = light_fighter
+			uses = 1
+			bonus = 0.5
+		}
+		air_experience = 10
+		add_opinion_modifier = {
+			target = FROM
+			modifier = ENG_sent_assistance
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.15
+				days = 3
+			}
+		}
+	}
+	option = {
+		name = eng_foreign.14.b
+		ai_chance = {
+			base = 0
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.16
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #Armament offer is accepted
+	id = eng_foreign.15
+	title = eng_foreign.15.t
+	desc = eng_foreign.15.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.15.a
+		ai_chance = {
+			base = 100
+		}
+		air_experience = 5
+	}
+}
+country_event = { #Armament offer is refused
+	id = eng_foreign.16
+	title = eng_foreign.16.t
+	desc = eng_foreign.16.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.16.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #FRA-ENG Research
+	id = eng_foreign.17
+	title = eng_foreign.17.t
+	desc = eng_foreign.17.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.17.a
+		ai_chance = {
+			base = 10
+		}
+		add_tech_bonus = {
+			name = fighter_bonus
+			uses = 1
+			bonus = 0.5
+			category = light_fighter
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.18
+				days = 5
+			}
+		}
+	}
+	option = {
+		name = eng_foreign.17.b
+		ai_chance = {
+			base = 2
+			modifier = {
+				has_country_flag = FRA_british_path
+				factor = 0
+			}
+		}
+		add_political_power = -10
+		FROM = {
+			country_event = {
+				id = eng_foreign.19
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #FRA-ENG Research
+	id = eng_foreign.18
+	title = eng_foreign.18.t
+	desc = eng_foreign.18.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.18.a
+		ai_chance = {
+			base = 100
+		}
+		add_tech_bonus = {
+			name = armor_bonus
+			uses = 1
+			bonus = 0.5
+			category = armor
+		}
+	}
+}
+country_event = { #FRA-ENG Research
+	id = eng_foreign.19
+	title = eng_foreign.19.t
+	desc = eng_foreign.19.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.19.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -5
+	}
+}
+country_event = { #WGR - ENG Reduces payments
+	id = eng_foreign.20
+	title = eng_foreign.20.t
+	desc = eng_foreign.20.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.20.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 50
+		add_stability = 0.025
+		add_war_support = 0.025
+	}
+}
+country_event = { #POL - UK offers anti-tank
+	id = eng_foreign.21
+	title = eng_foreign.21.t
+	desc = eng_foreign.21.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.21.a
+		ai_chance = {
+			base = 100
+		}
+		add_equipment_to_stockpile = {
+			type = anti_tank_equipment
+			amount = 48
+			producer = ENG
+		}
+		add_opinion_modifier = {
+			target = FROM
+			modifier = ENG_sent_assistance
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.22
+				days = 3
+			}
+		}
+	}
+	option = {
+		name = eng_foreign.21.b
+		ai_chance = {
+			base = 0
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.23
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #Armament offer is accepted
+	id = eng_foreign.22
+	title = eng_foreign.22.t
+	desc = eng_foreign.22.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.22.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Armament offer is refused
+	id = eng_foreign.23
+	title = eng_foreign.23.t
+	desc = eng_foreign.23.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.23.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Air Training Scheme
+	id = eng_foreign.24
+	title = eng_foreign.24.t
+	desc = eng_foreign.24.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.24.a
+		ai_chance = {
+			base = 100
+		}
+		add_ideas = ENG_commonwealth_training
+	}
+	option = {
+		name = eng_foreign.24.b
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+country_event = { #Ahistorical Intervention in Norway/Sweden
+	id = eng_foreign.25
+	title = eng_foreign.25.t
+	desc = eng_foreign.25.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.25.a
+		ai_chance = {
+			base = 3
+			modifier = {
+				OR = {
+					has_government = communism
+					AND = {
+						has_government = authoritarian_socialism
+						NOT = {
+							tag = SWE
+						}
+					}
+				}
+				factor = 0
+			}
+		}
+		give_military_access = FROM
+		FROM = {
+			country_event = {
+				id = eng_foreign.26
+				days = 1
+			}
+		}
+	}
+	option = { #refuse
+		name = eng_foreign.25.b
+		ai_chance = {
+			base = 97
+			modifier = {
+				tag = SWE
+				has_government = authoritarian_socialism
+				factor = 0.05
+			}
+		}
+		FROM = {
+			country_event = {
+				id = eng_foreign.27
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #NOR/SWE accepts
+	id = eng_foreign.26
+	title = eng_foreign.26.t
+	desc = eng_foreign.26.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = {
+		name = eng_foreign.26.a
+		ai_chance = {
+			base = 100
+		}
+		effect_tooltip = {
+			FROM = {
+				give_military_access = ROOT
+			}
+		}
+	}
+}
+country_event = { #NOR/SWE Refuses
+	id = eng_foreign.27
+	title = eng_foreign.27.t
+	desc = eng_foreign.27.d
+	picture = GFX_event_British_Army_in_Levant2
+	is_triggered_only = yes
+	option = { #Leave them alone
+		name = eng_foreign.27.a
+		ai_chance = {
+			base = 98
+			modifier = {
+				OR = {
+					AND = {
+						has_government = socialism
+						FROM = {
+							OR = {
+								has_government = fascism
+								has_government = nationalism
+								has_government = monarchism
+								has_government = neutrality
+							}
+						}
+					}
+					AND = {
+						has_government = democratic
+						FROM = {
+							OR = {
+								has_government = communism
+								has_government = authoritarian_socialism
+								has_government = socialism
+							}
+						}
+					}
+				}
+				factor = 0.1
+			}
+		}
+		effect_tooltip = {
+			FROM = {
+				give_military_access = ROOT
+			}
+		}
+	}
+	option = { #Attack
+		name = eng_foreign.27.b
+		ai_chance = {
+			base = 2
+		}
+		create_wargoal = {
+			target = FROM
+			type = annex_everything
+		}
+	}
+}
+
+country_event = { # US Rejects our counteroffer. For UK
+	id = eng_foreign.36
+	title = eng_foreign.36.t
+	desc = eng_foreign.36.desc
+	picture = GFX_report_event_usa_british_sailors_destroyers
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = eng_foreign.36.a
+		# hidden_effect = {
+		# 	set_global_flag = destroyers_for_bases_negotiations_flag
+		# }
+	}
+}
+
+#TODO
+country_event = { # UK tries to persuade the US to send the destroyers. Destroyers for Bases
+	id = eng_foreign.28
+	title = eng_foreign.28.t
+	desc = eng_foreign.28.d
+	picture = GFX_report_event_usa_british_sailors_destroyers
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # Aprove the Deal 
+		name = eng_foreign.28.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			
+			ENG = {
+				country_event = {
+					id = eng_foreign.29
+					days = 1
+				}
+			}
+		}
+		USA = {
+			add_opinion_modifier = {
+				target = ENG
+				modifier = destroyers_for_bases_opinion
+			}
+		}
+	}
+	option = { # Reject the Deal once more
+		name = eng_foreign.28.b
+		ai_chance = {
+			base = 0
+		}
+		hidden_effect = {
+			ENG = {
+				country_event = {
+					id = eng_foreign.30
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = { #Destroyers for Bases, US aproves. Event for UK
+	id = eng_foreign.29
+	title = eng_foreign.29.t
+	desc = eng_foreign.29.d
+	picture = GFX_report_event_usa_british_sailors_destroyers
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # Good
+		name = eng_foreign.29.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			if = {
+				limit = { not = { has_dlc = "Man the Guns" } }
+				ENG = {	load_oob = "ENG_destroyers_for_bases" }
+				CAN = { load_oob = "CAN_destroyers_for_bases" }
+			}
+			else = {
+				ENG = {	load_oob = "ENG_destroyers_for_bases_mtg" }
+				CAN = { load_oob = "CAN_destroyers_for_bases_mtg" }
+			}
+		}
+		effect_tooltip = {
+			USA = {
+				add_opinion_modifier = {
+					target = ENG
+					modifier = destroyers_for_bases_opinion
+				}
+			}
+		}
+	}
+}
+country_event = { #Destroyers for Bases, US Rejects. Event for UK
+	id = eng_foreign.30
+	title = eng_foreign.30.t
+	desc = eng_foreign.30.d
+	picture = GFX_report_event_usa_british_sailors_destroyers
+	is_triggered_only = yes
+	option = { # No deal then
+		name = eng_foreign.30.a
+	}
+}
+
+country_event = { #Tizard Mission
+	id = eng_foreign.31
+	title = eng_foreign.31.t
+	desc = eng_foreign.31.d
+	picture = GFX_report_event_usa_british_sailors_destroyers
+	is_triggered_only = yes
+	option = { #Accept
+		name = eng_foreign.31.a
+		ai_chance = {
+			base = 100
+		}
+		add_tech_bonus = {
+			name = radar_bonus
+			uses = 1
+			bonus = 0.5
+			category = radar_tech
+		}
+		ENG = {
+			country_event = {
+				id = eng_foreign.32
+				days = 1
+			}
+		}
+	}
+	option = { #Reject
+		name = eng_foreign.31.b
+		ai_chance = {
+			base = 0
+		}
+		ENG = {
+			country_event = {
+				id = eng_foreign.33
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #Tizard Mission, yes
+	id = eng_foreign.32
+	title = eng_foreign.32.t
+	desc = eng_foreign.32.d
+	picture = GFX_report_event_usa_british_sailors_destroyers
+	is_triggered_only = yes
+	option = { #Accept
+		name = eng_foreign.32.a
+		add_timed_idea = {
+			idea = ENG_tizard_mission
+			days = 730
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Tizard Mission, no
+	id = eng_foreign.33
+	title = eng_foreign.33.t
+	desc = eng_foreign.33.d
+	picture = GFX_report_event_usa_british_sailors_destroyers
+	is_triggered_only = yes
+	option = { #Accept
+		name = eng_foreign.33.a
+		add_war_support = -0.02
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { # London Economic Conference
+	id = eng_foreign.34
+	title = eng_foreign.34.t
+	desc = eng_foreign.34.d
+	picture = GFX_event_London_Economic_Conference # change when gfx ready
+	is_triggered_only = yes
+	option = { # OK
+		name = eng_foreign.34.a
+		hidden_effect = {
+			FRA = {
+				country_event = france.54
+			}
+		}
+	}
+}
+
+country_event = { #Flip to wartime tree
+	id = eng_war.1
+	title = eng_war.1.t
+	desc = eng_war.1.d
+	picture = GFX_event_British_Army_in_Levant2 #Royal Air Force
+	is_triggered_only = yes
+	option = {
+		name = eng_war.1.a
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = ENG_Anti_Fascist_Start
+					has_completed_focus = ENG_Anti_Communist_Start
+				}
+			}
+			add_war_support = 0.03
+		}
+		set_country_flag = ENG_wartime_flag
+		load_focus_tree = {
+			tree = ENG_wartime_tree
+			keep_completed = yes
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					has_government = socialism
+				}
+				if = {
+					limit = {
+						has_idea = ENG_hog_George_Lansbury
+					}
+					country_event = { #remove Lansbury
+						id = eng_war.2
+						days = 5
+					}
+				}
+				else = {
+					country_event = { #Lib-Lab Coalition
+						id = eng_war.3
+						days = 280
+					}
+				}
+			}
+			else_if = { #If conservative britain COME BACK TO
+				limit = {
+					has_government = democratic
+				}
+				country_event = { #Chamberlain holds on
+					id = eng_war.4
+					days = 320
+				}
+			}
+			SAF = {
+				country_event = {
+					id = saf_war.1
+					days = 1
+				}
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Remove Lansbury, set Attlee
+	id = eng_war.2
+	title = eng_war.2.t
+	desc = eng_war.2.d
+	picture = GFX_event_Labour_Conference
+	is_triggered_only = yes
+	trigger = {
+		has_war = yes
+	}
+	option = {
+		name = eng_war.2.a
+		set_country_flag = ENG_attlee_wins_labour_leadership
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.05
+		}
+		add_ideas = {
+			ENG_hog_Clement_Attlee
+			ENG_frn_Ernest_Bevin
+			ENG_eco_Hugh_Dalton
+			ENG_sec_Herbert_Morrison
+		}
+		hidden_effect = {
+			country_event = { #lib-lab coalition
+				id = eng_war.3
+				days = 275
+			}
+		}
+		if = {
+			limit = {
+				has_idea = ENG_pacifist_development
+			}
+			remove_ideas = ENG_pacifist_development
+		}
+		else_if = {
+			limit = {
+				has_idea = ENG_pacifist_development2
+			}
+			remove_ideas = ENG_pacifist_development2
+		}
+		else_if = {
+			limit = {
+				has_idea = ENG_pacifist_development2a
+			}
+			remove_ideas = ENG_pacifist_development2a
+		}
+		else_if = {
+			limit = {
+				has_idea = ENG_pacifist_development2b
+			}
+			remove_ideas = ENG_pacifist_development2b
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Lib-Lab Coalition
+	id = eng_war.3
+	title = eng_war.3.t
+	desc = eng_war.3.d
+	picture = GFX_event_Clement_Attlee
+	is_triggered_only = yes
+	trigger = {
+		has_war = yes
+	}
+	option = {
+		name = eng_war.3.a
+		set_country_flag = ENG_lib_lab_gov
+		COALITION_add_socdem = yes
+		COALITION_add_soclib = yes
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.03
+		}
+		# add_ideas = ENG_sec_Arthur_Hobhouse
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Chamberlain holds on because nothing happens
+	id = eng_war.4
+	title = eng_war.4.t
+	desc = eng_war.4.d
+	picture = GFX_event_Anthony_Eden
+	is_triggered_only = yes
+	trigger = {
+		has_war = yes
+		has_idea = ENG_hog_Neville_Chamberlain
+		NOT = {
+			has_country_flag = ENG_guilty_men
+		}
+	}
+	option = {
+		name = eng_war.4.a
+		set_country_flag = ENG_national_government_wartime
+		COALITION_add_cen = yes
+		COALITION_add_con = yes
+		COALITION_add_aut = yes
+		COALITION_add_mon = yes
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Chamberlain Resigns
+	id = eng_war.5
+	title = eng_war.5.t
+	desc = eng_war.5.d
+	picture = GFX_event_Anthony_Eden
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = eng_war.6
+				days = 60
+			}
+		}
+	}
+	trigger = {
+		has_war = yes
+		has_idea = ENG_hog_Neville_Chamberlain
+		NOT = {
+			has_country_flag = ENG_national_government_wartime
+		}
+	}
+	option = {
+		ai_chance = {
+			base = 100
+		}
+		name = eng_war.5.a
+		set_country_flag = ENG_wartime_government
+		COALITION_RESET = yes
+		COALITION_add_demsoc = yes
+		COALITION_add_soclib = yes
+		COALITION_add_marlib = yes
+		COALITION_add_cen = yes
+		COALITION_add_con = yes
+		COALITION_add_aut = yes
+		COALITION_add_mon = yes
+		ai_chance = {
+			base = 100
+		}
+		add_ideas = {
+			ENG_hog_Winston_Churchill
+			ENG_frn_Anthony_Eden
+			ENG_eco_Kingsley_Wood
+			ENG_sec_Herbert_Morrison
+		}
+	}
+}
+country_event = { #Guilty Men
+	id = eng_war.6
+	title = eng_war.6.t
+	desc = eng_war.6.d
+	picture = GFX_event_Anthony_Eden
+	is_triggered_only = yes
+	option = {
+		ai_chance = {
+			base = 100
+		}
+		name = eng_war.6.a
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.02
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.06
+		}
+	}
+}
+country_event = { #Peace
+	id = eng_war.7
+	title = eng_war.7.t
+	desc = eng_war.7.d
+	picture = GFX_event_Anthony_Eden
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = eng_war.8
+				days = 60
+			}
+			remove_ideas = {
+				ENG_shadow_scheme
+				ENG_shadow_scheme2
+				ENG_shadow_scheme3
+				ENG_shadow_scheme3
+				ENG_air_panic
+				ENG_air_panic2
+				ENG_labour_rearmament
+				ENG_labour_rearmament2
+				ENG_artillery_prod
+				ENG_mechanization
+				ENG_home_guard
+				ENG_stay_behind
+				ENG_womens_branch
+				ENG_commonwealth_training
+				ENG_allied_forces_idea
+			}
+		}
+	}
+	option = {
+		ai_chance = {
+			base = 100
+		}
+		set_country_flag = ENG_peace_flag
+		name = eng_war.7.a
+	}
+}
+country_event = { #Post-war election
+	id = eng_war.8
+	title = eng_war.8.t
+	desc = eng_war.8.d
+	picture = GFX_event_Anthony_Eden
+	is_triggered_only = yes
+	hidden = yes
+	immediate = {
+		hidden_effect = {
+			hold_election = ENG
+		}
+	}
+	option = {
+		ai_chance = {
+			base = 100
+		}
+		name = eng_war.8.a
+	}
+}
+country_event = { #elections
+	id = eng_election.1
+	title = eng_election.1.t
+	desc = eng_election.1.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+		OR = {
+			NOT = {
+				has_country_flag = ENG_wartime_flag
+			}
+			has_country_flag = ENG_peacetime_flag
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { #try to get tories to win on historical
+					OR = {
+						is_historical_focus_on = yes
+						has_game_rule = { rule = ENG_select_path option = ENG_CON_VICTORY }
+					}
+					is_ai = yes
+					OR = {
+						democratic < 0.44
+						democratic < party_popularity@socialism
+					}
+				}
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.15
+				}
+			}
+			if = {
+				limit = { #try to get labour to win on relevant game rule
+					OR = {
+						has_game_rule = { rule = ENG_select_path option = ENG_LAB_VICTORY }
+					}
+					is_ai = yes
+				}
+				add_popularity = {
+					ideology = socialism
+					popularity = 0.15
+				}
+			}
+			else = {
+				ENG_random_election_changes = yes
+			}
+			ENG_Set_Parliament_Biased = yes
+			if = {
+				limit = { #14 November 1935
+					date > 1935.1.1
+					date < 1936.1.1
+				}
+				country_event = { #Cable Street Setup, 15 June 1936, the 15 is arbitrary
+					id = eng_internal.12
+					days = 214
+				}
+				country_event = { #George V dies, 20 Jan 1936 (the event triggers 21 Jan because he dies late at night)
+					id = eng_internal.24
+					days = 68
+				}
+			}
+		}
+	}
+	option = {
+		name = eng_election.1.a
+		ai_chance = {
+			factor = 100
+		}
+		if = {
+			limit = {
+				ENG_labour_wins = yes
+			}
+			hidden_effect = {
+				news_event = { id = eng_news.4 }
+			}
+			set_politics = {
+				ruling_party = socialism
+				election_frequency = 60
+				elections_allowed = yes
+			}
+			hidden_effect = {
+				COALITION_RESET = yes
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = ENG_first_labour
+					}
+				}
+				set_country_flag = ENG_first_labour
+				if = {
+					limit = {
+						date > 1935.1.1
+						date < 1936.1.1
+					}
+					set_variable = {
+						ENG_labour_iteration = 0
+					}
+				}
+				else_if = {
+					limit = {
+						date > 1940.1.1
+						date < 1941.1.1
+					}
+					set_variable = {
+						ENG_labour_iteration = 1
+					}
+				}
+				else_if = {
+					limit = {
+						date > 1945.1.1
+						date < 1946.1.1
+					}
+					set_variable = {
+						ENG_labour_iteration = 2
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = ENG_attlee_wins_labour_leadership
+				}
+				add_ideas = {
+					ENG_hog_Clement_Attlee
+					ENG_frn_Ernest_Bevin
+					ENG_eco_Hugh_Dalton
+					ENG_sec_Herbert_Morrison
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = ENG_attlee_wins_labour_leadership
+				}
+				add_ideas = {
+					ENG_hog_Herbert_Morrison
+					ENG_frn_Ernest_Bevin
+					ENG_eco_Hugh_Dalton
+					ENG_sec_Christopher_Addison
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = ENG_greenwood_wins_labour_leadership
+				}
+				add_ideas = {
+					ENG_hog_Arthur_Greenwood
+					ENG_frn_Philip_Noel_Baker
+					ENG_eco_Hugh_Gaitskell
+					ENG_sec_James_Chuter_Ede
+				}
+			}
+			else = {
+				add_ideas = {
+					ENG_hog_George_Lansbury
+					ENG_frn_Philip_Noel_Baker
+					ENG_eco_Stafford_Cripps
+					ENG_sec_James_Chuter_Ede
+				}
+			}
+			load_focus_tree = {
+				tree = ENG_Labour_Tree
+				keep_completed = yes
+			}
+			hidden_effect = { #Help to ensure a Labour Majority
+				add_to_variable = {
+					ENG_soccon_seats = -30
+				}
+				add_to_variable = {
+					ENG_demsoc_seats = 30
+				}
+			}
+		}
+		else = {
+			set_politics = {
+				ruling_party = democratic
+				election_frequency = 60
+				elections_allowed = yes
+			}
+			hidden_effect = {
+				news_event = { id = eng_news.3 }
+			}
+			hidden_effect = {
+				COALITION_RESET = yes
+				COALITION_add_aut = yes
+				COALITION_add_mon = yes
+				if = {
+					limit = {
+						date < 1935.12.31
+					}
+					COALITION_add_socdem = yes
+					COALITION_add_cen = yes
+					COALITION_add_con = yes
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = ENG_Churchill_PM
+				}
+				add_ideas = {
+					ENG_hog_Winston_Churchill
+					ENG_frn_Anthony_Eden
+					ENG_eco_Kingsley_Wood
+					ENG_sec_Donald_Somervell
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = ENG_Chamberlain_PM
+				}
+				add_ideas = {
+					ENG_hog_Neville_Chamberlain
+					ENG_eco_John_Simon
+					ENG_frn_Anthony_Eden
+					ENG_sec_Samuel_Hoare
+				}
+			}
+			else = {
+				add_ideas = {
+					ENG_hog_Stanley_Baldwin
+					ENG_frn_Samuel_Hoare
+					ENG_eco_Neville_Chamberlain
+					ENG_sec_Sir_John_Simon
+				}
+			}
+			load_focus_tree = {
+				tree = ENG_Tory_Tree
+				keep_completed = yes
+			}
+		}
+		ENG_get_coalition_seats = yes
+	}
+}
+country_event = { #elections
+	id = eng_election.2
+	title = eng_election.2.t
+	desc = eng_election.2.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+		has_country_flag = ENG_wartime_flag
+		NOT = {
+			has_country_flag = ENG_peacetime_flag
+		}
+	}
+	option = {
+		name = eng_election.2.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+news_event = { #Conservatives win election
+	id = eng_news.3
+	title = eng_news.3.t
+	desc = eng_news.3.d
+	picture = GFX_event_news_election_generic
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = eng_news.3.a
+		trigger = {
+			tag = ENG 
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+	
+	option = {
+		name = eng_news.3.b
+		trigger = {
+			NOT = { tag = ENG }
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+news_event = { #Labour win election
+	id = eng_news.4
+	title = eng_news.4.t
+	desc = eng_news.4.d
+	picture = GFX_event_news_election_generic2
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = eng_news.4.a
+		trigger = {
+			tag = ENG 
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+	
+	option = {
+		name = eng_news.4.b
+		trigger = {
+			NOT = { tag = ENG }
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# add_namespace = eng_debug
+# country_event = {
+# 	id = eng_debug.1
+# 	title = eng_debug.10.t
+# 	desc = eng_debug.10.d
+# 	picture = GFX_event_Lloyd_George #Lloyd George
+# 	mean_time_to_happen = {
+# 		days = 2
+# 	}
+# 	fire_only_once = yes
+# 	trigger = {
+# 		tag = ENG
+# 		all_owned_state = {
+# 			OR = {
+# 				state = 1160
+# 				state = 1155
+# 			}
+# 		}
+# 		SAF = { exists = yes }
+# 	}
+# 	option = {
+# 		name = eng_debug.1.a
+# 		SAF = {
+# 			annex_country = {
+# 				target = ENG
+# 				transfer_troops = yes
+# 			}
+# 		}
+# 	}
+# }
+
+country_event = {
+	id = eng_flavour.1
+	title = eng_flavour.1.t
+	desc = eng_flavour.1.desc
+	picture = GFX_event_R102
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		ENG = { has_war = no }
+		NOT = { has_global_flag = CBTS_Hindenburg_Disaster }
+	}
+
+	option = {
+		name = eng_flavour.1.a
+	}
+}
+
+#Relevant by-elections
+country_event = { #Ashford - 17 Mar 1933
+	id = eng_by_election.1
+	title = eng_by_election.1.t
+	desc = eng_by_election.1.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+		#NOT = { Game rule to disable these
+	}
+	option = { #Conservative hold
+		name = eng_by_election.1.a
+		custom_effect_tooltip = eng_be_con_hold
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.005
+		}
+	}
+	
+	option = { #Liberal gain from Conservative
+		name = eng_by_election.1.b
+		custom_effect_tooltip = eng_be_lib_gain_con
+		add_to_variable = { var = ENG_soclib_seats value = 1 }
+		add_to_variable = { var = ENG_soccon_seats value = -1 }
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.005
+		}
+	}
+}
+
+country_event = { #Hitchin - 8 Jun 1933
+	id = eng_by_election.2
+	title = eng_by_election.2.t
+	desc = eng_by_election.2.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+		#NOT = { Game rule to disable these
+	}
+	option = { #Conservative hold
+		name = eng_by_election.2.a
+		custom_effect_tooltip = eng_be_con_hold
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.005
+		}
+	}
+	
+	option = { #Labour gain from Conservative
+		name = eng_by_election.2.b
+		custom_effect_tooltip = eng_be_lab_gain_con
+		add_to_variable = { var = ENG_demsoc_seats value = 1 }
+		add_to_variable = { var = ENG_soccon_seats value = -1 }
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.005
+		}
+	}
+}
+
+country_event = { #Fulham East - 25 Oct 1933
+	id = eng_by_election.3
+	title = eng_by_election.3.t
+	desc = eng_by_election.3.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+		#NOT = { Game rule to disable these
+	}
+	option = { #Conservative hold
+		name = eng_by_election.3.a
+		custom_effect_tooltip = eng_be_con_hold
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.005
+		}
+	}
+	
+	option = { #Labour gain from Conservative
+		name = eng_by_election.3.b
+		custom_effect_tooltip = eng_be_lab_gain_con
+		add_to_variable = { var = ENG_demsoc_seats value = 1 }
+		add_to_variable = { var = ENG_soccon_seats value = -1 }
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.005
+		}
+	}
+}
+
+country_event = { #Basingtoke - 19 Apr 1934
+	id = eng_by_election.4
+	title = eng_by_election.4.t
+	desc = eng_by_election.4.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+		#NOT = { Game rule to disable these
+	}
+	option = { #Conservative hold
+		name = eng_by_election.4.a
+		custom_effect_tooltip = eng_be_con_hold
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.005
+		}
+	}
+	
+	option = { #Liberal gain from Conservative
+		name = eng_by_election.4.b
+		custom_effect_tooltip = eng_be_lib_gain_con
+		add_to_variable = { var = ENG_soclib_seats value = 1 }
+		add_to_variable = { var = ENG_soccon_seats value = -1 }
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.005
+		}
+	}
+}
+
+country_event = { #Upton - 14 May 1934
+	id = eng_by_election.5
+	title = eng_by_election.5.t
+	desc = eng_by_election.5.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+		#NOT = { Game rule to disable these
+	}
+	option = { #Conservative hold
+		name = eng_by_election.5.a
+		custom_effect_tooltip = eng_be_con_hold
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.005
+		}
+	}
+	
+	option = { #Labour gain from Conservative
+		name = eng_by_election.5.b
+		custom_effect_tooltip = eng_be_lab_gain_con
+		add_to_variable = { var = ENG_demsoc_seats value = 1 }
+		add_to_variable = { var = ENG_soccon_seats value = -1 }
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.005
+		}
+	}
+}
+
+country_event = { #Lambeth North - 23 Oct 1934
+	id = eng_by_election.6
+	title = eng_by_election.6.t
+	desc = eng_by_election.6.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+		#NOT = { Game rule to disable these
+	}
+	option = { #Liberal hold
+		name = eng_by_election.6.a
+		custom_effect_tooltip = eng_be_lib_hold
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.005
+		}
+	}
+	
+	option = { #Labour gain from Liberal
+		name = eng_by_election.6.b
+		custom_effect_tooltip = eng_be_lab_gain_lib
+		add_to_variable = { var = ENG_demsoc_seats value = 1 }
+		add_to_variable = { var = ENG_soclib_seats value = -1 }
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.005
+		}
+	}
+}
+
+country_event = { #Liverpool Wavertree - 6 Feb 1935
+	id = eng_by_election.7
+	title = eng_by_election.7.t
+	desc = eng_by_election.7.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+		#NOT = { Game rule to disable these
+	}
+	option = { #Conservative hold
+		name = eng_by_election.7.a
+		custom_effect_tooltip = eng_be_con_hold
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.005
+		}
+	}
+	
+	option = { #Labour gain from Conservative
+		name = eng_by_election.7.b
+		custom_effect_tooltip = eng_be_lab_gain_con
+		add_to_variable = { var = ENG_demsoc_seats value = 1 }
+		add_to_variable = { var = ENG_soccon_seats value = -1 }
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.005
+		}
+	}
+}
+
+country_event = { #Liverpool West Toxteth - 16 Jul 1935
+	id = eng_by_election.8
+	title = eng_by_election.8.t
+	desc = eng_by_election.8.d
+	picture = GFX_event_Peace_Ballot
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+		#NOT = { Game rule to disable these
+	}
+	option = { #Conservative hold
+		name = eng_by_election.8.a
+		custom_effect_tooltip = eng_be_con_hold
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.005
+		}
+	}
+	
+	option = { #Labour gain from Conservative
+		name = eng_by_election.8.b
+		custom_effect_tooltip = eng_be_lab_gain_con
+		add_to_variable = { var = ENG_demsoc_seats value = 1 }
+		add_to_variable = { var = ENG_soccon_seats value = -1 }
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.005
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.005
+		}
+	}
+}
+	

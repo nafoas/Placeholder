@@ -1,0 +1,284 @@
+LXI_ignore_neighbours = {
+	allowed = { 
+		original_tag = LXI
+	}
+	enable = {
+		date < 1936.1.1
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				tag = YSN
+				tag = GZC
+				tag = CHI
+			}
+		}
+
+		value = -200
+	}
+}
+LWH_ignore_neighbours = {
+	allowed = { 
+		original_tag = LWH
+	}
+	enable = {
+		date < 1936.1.1
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				tag = YUN
+				tag = TIB
+				tag = GZC
+				tag = XSM
+			}
+		}
+
+		value = -200
+	}
+}
+
+LXI_less_units_on_area_defence = {
+	allowed = {
+		original_tag = LXI
+	}
+	enable = {
+		date > 1933.1.1
+	}
+	abort = {
+		date > 1935.1.1
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = LWH
+
+		value = 100
+	}
+}
+
+LXI_prepare_attack = {
+	allowed = {
+		OR = {
+			original_tag = LXI
+			original_tag = DXH
+		}
+	}
+	enable = {
+		date > 1933.4.15
+	}
+	abort = {
+		date > 1935.6.1
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = LWH
+
+		value = 500
+	}
+}
+
+LXI_begin_to_attack = {
+	allowed = {
+		original_tag = LXI
+	}
+
+	enable = {
+		has_war_with = LWH
+		has_global_flag = Two_Liu_war_flag
+	}
+
+	abort = {
+		OR = {
+			controls_state = 1192
+			NOT = { controls_state = 1123 }
+			NOT = { has_global_flag = Two_Liu_war_flag }
+			NOT = { has_war_with = LWH }
+		}
+	}
+	
+	ai_strategy = {
+		type = front_control
+
+		tag = LWH
+
+		# ratio = 0.3
+		priority = 1
+
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+LWH_focus_all_your_troops = {
+	allowed = {
+		original_tag = LWH
+	}
+	enable = {
+		has_global_flag = Two_Liu_war_flag
+	}
+	abort = {
+		date > 1933.4.20
+	}
+	
+	ai_strategy = {
+		type = front_unit_request
+		tag = LXI
+
+		value = 100
+	}
+}
+
+SIC_home_land_is_safe = {
+	allowed = {
+		OR = {
+			original_tag = LXI
+			original_tag = LWH
+		}
+	}
+
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = garrison
+		value = -25
+	}
+}
+
+LWH_offensive = {
+	allowed = {
+		original_tag = LWH
+	}
+
+	enable = {
+		has_war_with = DXH
+		has_global_flag = Two_Liu_war_flag
+	}
+
+	abort = {
+		OR = {
+			date > 1933.5.16
+			NOT = { has_global_flag = Two_Liu_war_flag }
+		}
+	}
+	
+	ai_strategy = {
+		type = front_control
+
+		tag = DXH
+
+		# ratio = 0.25
+
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+LXI_dont_defend_DXH_or_TSY = {
+	allowed = {
+		original_tag = LXI
+	}
+
+	enable = {
+		has_global_flag = Two_Liu_war_flag
+		OR = {
+			is_in_faction_with = DXH
+			is_in_faction_with = TSY
+		}
+	}
+	abort = {
+		NOT = { has_global_flag = Two_Liu_war_flag }
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "DXH"
+		value = 200
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "TSY"
+		value = 200
+	}
+}
+
+DXH_dont_defend_LXI_or_TSY = {
+	allowed = {
+		original_tag = DXH
+	}
+
+	enable = {
+		has_global_flag = Two_Liu_war_flag
+		OR = {
+			is_in_faction_with = LXI
+			is_in_faction_with = TSY
+		}
+	}
+	abort = {
+		NOT = { has_global_flag = Two_Liu_war_flag }
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "LXI"
+		value = 200
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "TSY"
+		value = 200
+	}
+}
+
+DXH_TSY_counterattack = {
+	allowed = {
+		OR = {
+			original_tag = DXH
+			original_tag = TSY
+		}
+	}
+
+	enable = {
+		date > 1933.6.4
+		has_global_flag = Two_Liu_war_flag
+	}
+
+	abort = {
+		OR = {
+			DXH = { controls_state = 605 }
+			TSY = { controls_state = 605 }
+			date > 1933.7.10
+			NOT = { has_war_with = LWH }
+		}
+	}
+	
+	ai_strategy = {
+		type = front_control
+
+		tag = LWH
+
+		ratio = 0.35
+
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
+}

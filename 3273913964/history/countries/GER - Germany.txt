@@ -1,0 +1,873 @@
+﻿capital = 64
+
+oob = "GER_1933"
+starting_train_buffer = 2
+
+country_lock_all_division_template = yes
+
+create_import = {
+	resource = rubber
+	factories = 1
+	exporter = BRA
+}
+
+# Starting tech
+set_technology = {
+	enigma_machine_tech = 1
+	#infantry_weapons
+	infantry_weapons1 = 1
+	generic_infantry = 1
+	support_weapons1 = 1
+	infantry_grenade = 1
+	armoured_car1 = 1
+	bike_infantry = 1
+	motorcycle_infantry = 1
+	motorised_infantry = 1
+	
+	#Special Forces
+	# mountain_infantry = 1
+	# naval_infantry = 1
+	
+	#Support
+	tech_recon = 1
+	tech_support = 1		
+	tech_engineers = 1
+	tech_military_police = 1
+	tech_maintenance_company = 1
+
+	#Artillery
+	gw_artillery = 1
+	interwar_artillery = 1
+	interwar_antitank = 1
+	interwar_antiair = 1
+	
+	tech_field_hospital = 1
+	tech_logistics_company = 1
+	tech_signal_company = 1
+	
+	
+	mobile_warfare = 1
+	
+	#Naval Doctrine
+	# trade_interdiction = 1
+	
+	# gw_scout_plane = 1
+	
+	#air doctrines
+	# formation_flying = 1
+	
+	#Engineering
+	electronic_mechanical_engineering = 1
+	diesel_engine = 1
+	plane_engine1 = 1
+	tank_engine1 = 1
+	radio = 1
+	analog_computers  = 1
+	elemental_fire_control_system  = 1
+	
+	#Industry	
+	great_war_assembly_line = 1
+	factory_electrification = 1
+	industry1 = 1
+	industry2 = 1
+	basic_construction_methods = 1
+	fuel_silos = 1
+	improved_fuel_silos = 1
+	basic_train = 1
+}
+
+if = {
+	limit = { has_dlc = "By Blood Alone" }
+		set_technology = {
+			aa_lmg = 1
+			engines_1 = 1
+			early_bombs = 1
+			iw_small_airframe = 1
+			iw_medium_airframe = 1
+			iw_large_airframe = 1
+			photo_reconnaisance = 1
+		}
+
+		create_equipment_variant = { #https://en.m.wikipedia.org/wiki/Arado_Ar_65
+			name = "Arado Ar 65"
+			type = small_plane_airframe_0
+			modules = {
+				fixed_main_weapon_slot = light_mg_2x
+				engine_type_slot = engine_1_1x
+				special_type_slot_1 = empty
+			}
+			obsolete = yes
+			allow_without_tech = yes
+			icon = "gfx/interface/technologies/GER/planes/FR3.dds"
+			#Production of the fighter was discontinued in 1936. 
+			#However, the next year, 12 of them were presented to the Royal Bulgarian Air Force. The final production total was 85 aircraft. 
+		}
+		add_equipment_to_stockpile = {
+			type = small_plane_airframe
+			variant_name = "Arado Ar 65"
+			
+			amount = 85
+		}
+		create_equipment_variant = {
+			name = "Heinkel He 51"
+			type = small_plane_airframe_0
+			modules = {
+				fixed_main_weapon_slot = light_mg_2x
+				engine_type_slot = engine_1_1x
+				special_type_slot_1 = empty
+			}
+			obsolete = no
+			icon = "gfx/interface/technologies/GER_early_fighter.dds"
+		}
+		create_equipment_variant = {
+			name = "Heinkel He 51B-2"
+			type = small_plane_airframe_0
+			modules = {
+				fixed_main_weapon_slot = light_mg_2x
+				engine_type_slot = engine_1_1x
+				special_type_slot_1 = floats
+			}
+			obsolete = no
+			icon = "gfx/interface/technologies/GER_early_fighter.dds"
+		}
+		create_equipment_variant = {
+			name = "Heinkel He 51C"
+			type = small_plane_cas_airframe_0
+			modules = {
+				fixed_main_weapon_slot = bomb_locks
+				fixed_auxiliary_weapon_slot_1 = light_mg_2x
+				engine_type_slot = engine_1_1x
+				special_type_slot_1 = empty
+			}
+			obsolete = no
+			icon = "gfx/interface/technologies/GER_early_fighter.dds"
+		}
+		#TODO: add Heinkel He 51 variants to production on start
+
+		activate_decision = GER_design_ar_68
+	else = { ### NON-BBA AIR TECH
+		set_technology = {
+			#Airplanes
+			iw_20s_fighter = 1
+			gw_bomber = 1
+			iw_light_bomber = 1
+			early_light_bomber = 1
+			early_fighter = 1
+			early_bomber = 1
+			transport_plane_technology = 1
+			# gw_scout_plane = 1
+		}
+	}
+}
+
+if = {
+	limit = {
+		NOT = { has_dlc = "No Step Back" }
+	}
+	set_technology = {
+		gwtank = 1
+	}
+}
+if = {
+	limit = {
+		has_dlc = "No Step Back"
+	}
+	set_technology = {
+		gwtank_chassis = 1
+	}
+}
+if = {
+	limit = {
+		not = { has_dlc = "Man the Guns" }
+	}
+	set_technology = {
+		early_submarine = 1
+		early_destroyer = 1
+		early_light_cruiser = 1
+		early_heavy_cruiser = 1
+		basic_heavy_cruiser = 1
+		early_battleship = 1
+		early_battlecruiser = 1
+		transport = 1
+	}
+	set_naval_oob = "GER_1936_naval_legacy"
+}
+if = {
+	limit = {
+		has_dlc = "Man the Guns"
+	}
+	set_technology = {
+		basic_naval_mines = 1
+		submarine_mine_laying = 1
+		early_ship_hull_light = 1
+		early_ship_hull_cruiser = 1
+		early_ship_hull_heavy = 1
+		panzerschiffe = 1
+		pre_dreadnoughts = 1
+		early_ship_hull_submarine = 1
+		mtg_transport = 1
+		basic_torpedo = 1
+		basic_battery = 1
+		basic_depth_charges = 1
+		# sonar = 1
+		# smoke_generator = 1
+	}
+	set_naval_oob = "GER_1936_naval_mtg"
+}
+add_political_power = 20
+
+set_research_slots = 4
+set_convoys = 250
+set_stability = 0.5
+set_war_support = 0.23
+set_major = yes
+if = {
+	limit = {
+		has_dlc = "La Resistance"
+	}
+	create_intelligence_agency = yes
+	upgrade_intelligence_agency = upgrade_army_department
+	upgrade_intelligence_agency = upgrade_passive_defense
+	# upgrade_intelligence_agency = upgrade_form_department
+	upgrade_intelligence_agency = upgrade_crypto_strength_2
+	add_ideas = great_power_opeartive_bonus
+}
+
+if = {
+	limit = {
+		has_dlc = "No Step Back"
+	}
+	add_ideas = {
+		professional_officer_corps_spirit
+		flexible_organization_spirit
+		surface_raiders_spirit
+	}
+}
+
+#Trade
+reverse_add_opinion_modifier = {
+    target = SWE
+    modifier = friendly_trade
+}
+add_opinion_modifier = {
+    target = SWE
+    modifier = friendly_trade
+}
+
+reverse_add_opinion_modifier = {
+    target = ROM
+    modifier = friendly_trade
+}
+add_opinion_modifier = {
+    target = ROM
+    modifier = friendly_trade
+}
+
+set_politics = {
+	ruling_party = neutrality
+	last_election = "1932.11.6"
+	election_frequency = 48
+	elections_allowed = no
+
+}
+set_popularities = {
+	communism = 16.9 #KPD 16.86
+	authoritarian_socialism = 0.1 #SAPD 0.13
+	socialism = 12 #SDP 20.4
+	social_democracy = 8.4
+	social_liberalism = 1 #DStP 0.95
+	market_liberalism = 0.7 #Reich Party of the German Middle Class 0.31, German Farmers' Party 0.42
+	jacobin = 1.8 #DVP 1.86
+	democratic = 16.9 #Zentrum 12, Bavarian People's Party 3, CSVD 1.14, Agricultural League 0.3, German-Hanoverian Party 0.18, People's Justice Party 0.13, Christian-National Peasants' and Farmers' Party 0.13
+	neutrality = 0.7
+	monarchism = 0
+	nationalism = 8.5 #DNVP 8.34, Thuringian Agricultural League 0.17
+	fascism = 33
+}
+#set_variable = { GER_communist_seats = 100 }
+#set_variable = { GER_autsoc_seats = 0 }
+#set_variable = { GER_demsoc_seats = 73 }
+#set_variable = { GER_socdem_seats = 48 }
+#set_variable = { GER_soclib_seats = 0 }
+#set_variable = { GER_marlib_seats = 2 }
+#set_variable = { GER_centre_seats = 16 }
+#set_variable = { GER_cons_seats = 95 }
+#set_variable = { GER_aut_seats = 0 }
+#set_variable = { GER_nat_seats = 24 }
+#set_variable = { GER_mon_seats = 28 }
+#set_variable = { GER_fas_seats = 196 }
+
+set_cosmetic_tag = GER_Weimar
+
+#create_faction = Axis
+#add_to_faction = GER
+add_ideas = {
+	minimal_research_spending
+	sour_loser
+	schleicher
+	konstantin_von_neurath
+	anger_against_gov
+	truppenamt
+	hermann_warmbold
+	econ_crisis
+	paramilitary_divisions
+	very_low_popularity
+	versailles_treaty
+	franz_bracht
+	patzig
+	disarmed_nation
+	coa_schleicher
+	chief_hammerstein_equord
+	wilhelm_adam
+	cant_recruit_generals
+}
+
+
+country_event = {
+	id = ger_external.41 #Hans Frank Incident
+	days = 63
+	random_days = 2
+}
+country_event = {
+	id = ger_external.45 #Frindolin Glass subordinates his unit directly to berlin
+	days = 423
+	random_days = 10
+}
+country_event = {
+	id = ger_external.46 #A putsch in Austria?
+	days = 568
+}
+
+#Country Leaders
+recruit_character = GER_paul_von_hindenburg
+recruit_character = GER_adolf_hitler
+recruit_character = GER_rudolf_hess
+recruit_character = GER_hermann_goring
+recruit_character = GER_martin_bormann
+recruit_character = GER_joseph_goebbels
+recruit_character = GER_heinrich_himmler
+#Generals
+recruit_character = GER_kurt_hammerstein_equord
+recruit_character = GER_werner_von_fritsch
+recruit_character = GER_ludwig_beck
+recruit_character = GER_werner_von_blomberg
+recruit_character = GER_gerd_von_rundstedt
+recruit_character = GER_erwin_rommel
+recruit_character = GER_heinz_guderian
+recruit_character = GER_alexander_von_falkenhausen
+recruit_character = GER_hermann_hoth
+recruit_character = GER_gunther_von_kluge
+recruit_character = GER_wilhelm_ritter_von_leeb
+recruit_character = GER_wilhelm_list
+recruit_character = GER_walther_von_reichenau
+recruit_character = GER_erwin_von_witzleben
+recruit_character = GER_fedor_von_bock
+recruit_character = GER_erich_hoepner
+recruit_character = GER_ewald_von_kleist
+recruit_character = GER_wilhelm_adam
+recruit_character = GER_johannes_blaskowitz
+recruit_character = GER_erich_von_manstein
+recruit_character = GER_oswald_lutz
+recruit_character = GER_walter_model
+recruit_character = GER_maximilian_von_weichs
+recruit_character = GER_georg_von_reinhardt
+recruit_character = GER_paul_hausser
+recruit_character = GER_friedrich_paulus
+recruit_character = GER_hans_speidel
+recruit_character = GER_alfred_jodl
+recruit_character = GER_georg_von_kuchler
+recruit_character = GER_hasso_von_manteuffel
+recruit_character = GER_josef_dietrich
+#Admirals
+recruit_character = GER_karl_donitz
+recruit_character = GER_erich_raeder
+recruit_character = GER_wilhelm_marschall
+recruit_character = GER_gunther_lutjens
+
+
+#create_country_leader = {
+#	name = "Ernst Thälmann"
+#	desc = "POLITICS_ERNST_THALMANN_DESC"
+#	picture = "gfx/leaders_cbts/GER/Portrait_Germany_Ernst_Thalmann.png"
+#	expire = "1956.1.1"
+#	ideology = stalinism
+#	traits = {
+#		assassination_survivor
+#		stalins_puppet
+#		political_prisoner
+#	}
+#}
+
+#add_namespace = {
+#	name = "ger_unit_leader"
+#	type = unit_leader
+#}
+#More to promote:
+#Friederich Dollman, 1 Feb 1933
+#Theodor Endres, reactivated 26 August 1939
+#Ludwig von Estorff
+#Hans Feige, reactivated May 1940
+#Hermann Geyer, promoted 1 January 1934
+#Walter Heitz, promoted 1 April 1937
+#Leonhard Kaupish, rejoined early 1939
+#Karl von Roques, promoted 1 July 1941
+#Hans Schmidt, reactivated 1939
+
+#Julius Ringel (was corps commander)
+#Karl von Roques, promoted to General der Infanterie (Corps Commander) in 1 July 1941. Before that he was Generalleutnant and commanded the 143rd Infantry Division.
+#Kuno-Hans von Both. October 1938 promoted to Generalleutnant, commanded the 21. Infanterie-Division. 26 October 1939 promoted to General der Infanterie (Corps Commander) and assigned the I Army Corps (Wehrmacht).
+#Alexander von Falkenhausen. Recalled from active duty in 1938. He was General der Infanterie (Corps Commander)
+#Max von Schenckendorff. promoted to General der Infanterie in december 1939. Appointed commander of the Rear army areabehind Army group Center. Previously was Generalleutnant by 1929
+
+
+#create_corps_commander = { #promoted 23 August 1939
+#	name = "Erwin Rommel"
+#	portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Erwin_Rommel.tga"
+#	traits = { trickster trait_reckless war_hero armor_officer media_personality }
+#	skill = 4
+#	id = 4
+#	attack_skill = 4
+#	defense_skill = 4
+#	planning_skill = 2
+#	logistics_skill = 3
+#}
+
+
+# create_corps_commander = {
+# 	#was commander of occupied France
+# 	#On 25 October 1940, German army high command transferred Stülpnagel to France and placed him in charge of a military government with the title of Militärbefehlshaber in Frankreich (MBF; "Military Commander in France").
+# 	#Stülpnagel, who had executed 95 hostages on 15 December 1941, refused to go any further in the implementation of the retaliation policy. He promptly submitted a bitter letter of resignation.
+# 	#Succeeded by his cousin Carl-Heinrich von Stülpnagel.
+# 	name = "Otto von Stülpnagel"
+# 	portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Otto_Stulpnagel.png"
+# 	traits = { old_guard military_governor }
+# 	legacy_id = 41
+# 	skill = 2
+# 	attack_skill = 1
+# 	defense_skill = 2
+# 	planning_skill = 2
+# 	logistics_skill = 1
+# }
+
+#create_corps_commander = { #Promoted July 1942
+#	name = "Friedrich Schulz"
+#	portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Friedrich_Schulz.tga"
+#	traits = { infantry_officer }
+#	skill = 3
+#	id = 21
+#	attack_skill = 3
+#	defense_skill = 3
+#	planning_skill = 1
+#	logistics_skill = 3
+#}
+
+#create_corps_commander = { #Promoted 1 April 1934
+#	name = "Georg von Küchler"
+#	portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Georg_von_Kuchler.tga" #TODO: Missing Portrait
+#	traits = {  }
+#	skill = 4
+#	id = 22
+#	attack_skill = 3
+#	defense_skill = 2
+#	planning_skill = 4
+#	logistics_skill = 4
+#}
+
+#create_corps_commander = { #Promoted 19 July 1940
+#	name = "Alfred Jodl"
+#	portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Alfred_Jodl.png"
+#	traits = { politically_connected career_officer }
+#	skill = 3
+#	id = 23
+#	attack_skill = 2
+#	defense_skill = 2
+#	planning_skill = 3
+#	logistics_skill = 3
+#}
+
+#create_corps_commander = { #Promoted 20 April, 1942 SS
+#	name = "Sepp Dietrich"
+#	portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Josef_Dietrich.tga"
+#	traits = { armor_officer politically_connected brilliant_strategist trait_reckless }
+#	skill = 4
+#	id = 24
+#	attack_skill = 2
+#	defense_skill = 3
+#	planning_skill = 4
+#	logistics_skill = 4
+#}
+
+#create_corps_commander = { #promoted 1 september 1944
+#	name = "Hasso von Manteuffel"
+#	portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Hasso_von_Manteuffel.tga"
+#	traits = { armor_officer career_officer trait_cautious }
+#	skill = 4
+#	id = 25
+#	attack_skill = 4
+#	defense_skill = 3
+#	planning_skill = 3
+#	logistics_skill = 3
+#}
+
+#create_corps_commander = { #promoted 1 January 1936
+#	name = "Gotthard Heinrici"
+#	portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Gotthard_Heinrici.tga"
+#	traits = { trait_engineer infantry_officer trait_cautious }
+#	skill = 3
+#	id = 33
+#	attack_skill = 3
+#	defense_skill = 1
+#	planning_skill = 3
+#	logistics_skill = 3
+#}
+
+#create_corps_commander = { #promoted 1 March 1942
+#	name = "Ernst-Eberhard Hell"
+#	portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Ernst-Eberhard_Hell.tga"
+#	traits = { winter_specialist trait_engineer war_hero }
+#	skill = 3
+#	id = 34
+#	attack_skill = 3
+#	defense_skill = 2
+#	planning_skill = 3
+#	logistics_skill = 2
+#}
+
+#create_corps_commander = { #Promoted SS, 22 April 1942
+#	name = "Felix Steiner"
+#	gfx = "GFX_portrait_ger_felix_steiner"
+#	traits = {  }
+#	skill = 3
+#	id = 35
+#	attack_skill = 3
+#	defense_skill = 2
+#	planning_skill = 3
+#	logistics_skill = 2
+#}
+
+
+#create_navy_leader = { #promoted 1 April 1935
+#	name = "Alfred Saalwächter"
+#		portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Alfred_Saalwachter.png"
+#	traits = { old_guard_navy }
+#	skill = 4
+#	id = 28
+#}
+
+#create_navy_leader = { #Promoted Fall 1934
+#	name = "Hermann Boehm"
+#		portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+#	traits = { superior_tactician }
+#	skill = 4
+#	id = 29
+#}
+
+#create_navy_leader = { #promoted 1938
+#	name = "Wilhelm Marschall"
+#		portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Wilhelm_Marschall.tga"
+#	traits = { old_guard_navy }
+#	skill = 4
+#	id = 30
+#}
+
+#create_navy_leader = { #promoted 1 October 1937
+#	name = "Günther Lütjens"
+#		portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Gunter_Lutjens.tga"
+#	traits = { superior_tactician }
+#	skill = 3
+#	id = 31
+#}
+
+if = {
+	limit = {
+		has_dlc = "La Resistance"
+	}
+	create_operative_leader = {
+		name = "Otto Skorzeny"
+		GFX = GFX_portrait_otto_skorenzy
+		traits = { operative_commando }
+		bypass_recruitment = no
+		available_to_spy_master = yes
+		nationalities = { GER }
+	}
+
+	# create_operative_leader = {
+	# 	name = "Nikolaus Ritter"
+	# 	GFX = GFX_portrait_nikolaus_ritter
+	# 	traits = { operative_safe_cracker }
+	# 	bypass_recruitment = no
+	# 	available_to_spy_master = yes
+	# 	nationalities = { GER }
+	# }
+	create_operative_leader = {
+		name = "Eleysa Bazna"
+		GFX = GFX_portrait_eleysa_bazna
+		traits = {  } #operative_infiltrator
+		bypass_recruitment = no
+		available_to_spy_master = yes
+		nationalities = { GER TUR }
+	}
+}
+
+if = {
+	limit = {
+		has_dlc = "No Step Back"
+	}
+	create_equipment_variant = {
+		name = "Leichttraktor"
+		type = light_tank_chassis_0
+		parent_version = 0
+		modules = {
+			main_armament_slot = tank_small_cannon
+			turret_type_slot = tank_light_two_man_tank_turret
+			suspension_type_slot = tank_leaf_spring_suspension
+			armor_type_slot = tank_riveted_armor
+			engine_type_slot = tank_gasoline_engine
+			special_type_slot_1 = tank_radio_1
+		}
+		upgrades = {
+			tank_nsb_engine_upgrade = 2
+			tank_nsb_armor_upgrade = 2
+		}
+		icon = "GFX_gwtank_medium"
+	}
+	create_equipment_variant = {
+		name = "Neubaufahrzeug"
+		type = heavy_tank_chassis_1
+		parent_version = 0
+		modules = {
+			main_armament_slot = tank_close_support_gun
+			turret_type_slot = tank_heavy_three_man_tank_turret
+			suspension_type_slot = tank_leaf_spring_suspension
+			armor_type_slot = tank_riveted_armor
+			engine_type_slot = tank_gasoline_engine
+			special_type_slot_1 = tank_radio_1
+			special_type_slot_2 = secondary_turret_hmg
+			special_type_slot_3 = secondary_turret_hmg
+			special_type_slot_4 = secondary_turret_hmg
+		}
+		upgrades = {
+			tank_nsb_engine_upgrade = 6
+			tank_nsb_armor_upgrade = 2
+		}
+		icon = "GFX_GER_basic_heavy_tank_medium"
+	}
+	# create_equipment_variant = { #1934
+	# 	name = "Panzer I Ausf. A"
+	# 	type = light_tank_chassis_1
+	# 	parent_version = 0
+	# 	modules = {
+	# 		main_armament_slot = tank_heavy_machine_gun
+	# 		turret_type_slot = tank_light_one_man_tank_turret
+	# 		suspension_type_slot = tank_leaf_spring_suspension
+	# 		armor_type_slot = tank_riveted_armor
+	# 		engine_type_slot = tank_gasoline_engine
+	# 		special_type_slot_1 = tank_radio_1
+	# 	}
+	# 	upgrades = {
+	# 		tank_nsb_engine_upgrade = 5
+	# 		tank_nsb_armor_upgrade = 1
+	# 	}
+	# 	icon = "GFX_GER_basic_light_tank_medium"
+	# }
+	# create_equipment_variant = { #1935-1936
+	# 	name = "Panzer II Ausf. a"
+	# 	type = light_tank_chassis_1
+	# 	parent_version = 0
+	# 	modules = {
+	# 		main_armament_slot = tank_auto_cannon
+	# 		turret_type_slot = tank_light_two_man_tank_turret
+	# 		suspension_type_slot = tank_leaf_spring_suspension
+	# 		armor_type_slot = tank_riveted_armor
+	# 		engine_type_slot = tank_gasoline_engine
+	# 		special_type_slot_1 = tank_radio_1
+	# 	}
+	# 	upgrades = {
+	# 		tank_nsb_engine_upgrade = 3
+	# 		tank_nsb_armor_upgrade = 2
+	# 	}
+	# 	icon = "GFX_GER_improved_light_tank_medium"
+	# }
+}
+
+if = {
+	limit = {
+		not = { has_dlc = "Man the Guns" }
+	}
+	### Ship Variants ###
+	## 1936 Start ##
+	# Light Cruisers #
+	create_equipment_variant = {
+		name = "Königsberg Class"
+		type = light_cruiser_1
+		parent_version = 0
+		upgrades = {
+			ship_reliability_upgrade = 2
+			ship_engine_upgrade = 2
+			ship_gun_upgrade = 2
+			ship_anti_air_upgrade = 2
+		}
+		obsolete = yes
+	}
+	# Heavy Cruisers #
+	create_equipment_variant = {
+		name = "Deutschland Class"
+		type = heavy_cruiser_1
+		parent_version = 0
+		upgrades = {
+			ship_reliability_upgrade = 1
+			ship_engine_upgrade = 1
+			ship_armor_upgrade = 1
+			ship_gun_upgrade = 2
+		}
+	}
+}
+
+if = {
+	limit = { has_dlc = "Man the Guns" }
+	create_equipment_variant = {
+		name = "Deutschland Class"
+		type = ship_hull_cruiser_panzerschiff
+		name_group = GER_CA_HISTORICAL
+		parent_version = 0
+		modules = {
+        	fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_battery_slot = ship_heavy_battery_2
+			fixed_ship_secondaries_slot = ship_secondaries_1
+			fixed_ship_armor_slot = ship_armor_cruiser_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			rear_1_custom_slot = ship_torpedo_1
+			mid_1_custom_slot = ship_airplane_launcher_1
+    	}
+	}
+	create_equipment_variant = {
+		name = "Type 24 Class"
+		type = ship_hull_light_1
+		name_group = GER_TB_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_battery_1
+			fixed_ship_anti_air_slot = empty
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = light_ship_engine_1
+			fixed_ship_torpedo_slot = ship_torpedo_1
+			rear_1_custom_slot = ship_mine_layer_1
+		}
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "Type II Class"
+		type = ship_hull_submarine_1
+		name_group = GER_SS_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_torpedo_slot = ship_torpedo_sub_1
+			fixed_ship_engine_slot = sub_ship_engine_1
+			rear_1_custom_slot = empty
+		}
+		obsolete = yes
+	}
+	# create_equipment_variant = {
+	# 	name = "Type VII Class"
+	# 	type = ship_hull_submarine_2
+	# 	name_group = GER_SS_HISTORICAL
+	# 	parent_version = 0
+	# 	modules = {
+	# 		fixed_ship_torpedo_slot = ship_torpedo_sub_2
+	# 		fixed_ship_engine_slot = sub_ship_engine_1
+	# 		rear_1_custom_slot = empty
+	# 	}
+	# }
+	create_equipment_variant = {
+		name = "Königsberg Class"
+		type = ship_hull_cruiser_1
+		name_group = GER_CL_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_medium_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			fixed_ship_armor_slot = ship_armor_cruiser_1
+			mid_1_custom_slot = ship_torpedo_1
+			mid_2_custom_slot = ship_light_medium_battery_1
+			rear_1_custom_slot = ship_mine_layer_1
+		}
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "Emden Class"
+		type = ship_hull_cruiser_1
+		name_group = GER_CL_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_medium_battery_1
+			fixed_ship_anti_air_slot = empty
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			fixed_ship_armor_slot = ship_armor_cruiser_1
+			mid_1_custom_slot = ship_light_medium_battery_1
+			mid_2_custom_slot = ship_torpedo_1
+			rear_1_custom_slot = empty
+		}
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "Leipzig Class"
+		type = ship_hull_cruiser_1
+		name_group = GER_CL_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_medium_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			fixed_ship_armor_slot = ship_armor_cruiser_1
+			front_1_custom_slot = empty
+			mid_1_custom_slot = ship_torpedo_1
+			mid_2_custom_slot = ship_light_medium_battery_1
+			rear_1_custom_slot = ship_airplane_launcher_1
+		}
+	}
+	create_equipment_variant = {
+		name = "Bremse Class"
+		type = ship_hull_cruiser_1
+		name_group = GER_CL_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			mid_1_custom_slot = ship_anti_air_1
+			mid_2_custom_slot = ship_mine_layer_1
+			rear_1_custom_slot = ship_mine_layer_1
+		}
+		obsolete = yes
+	}
+	create_equipment_variant = {
+		name = "Deutschland Class"
+		type = ship_hull_pre_dreadnought
+		name_group = GER_BB_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_heavy_battery_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = heavy_ship_engine_1
+			fixed_ship_secondaries_slot = ship_secondaries_1
+			fixed_ship_armor_slot = ship_armor_bb_1
+			front_1_custom_slot = ship_anti_air_1
+			mid_1_custom_slot = empty
+			rear_1_custom_slot = empty
+		}
+		obsolete = yes
+	}
+}

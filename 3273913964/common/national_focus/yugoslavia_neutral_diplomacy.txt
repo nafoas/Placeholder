@@ -1,0 +1,572 @@
+	shared_focus = {
+		id = YUG_preserve_neutrality
+		icon = GFX_focus_Pacifist_State
+		cost = 5
+		x = 22
+		y = 8
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+		}
+		
+		ai_will_do = {
+			factor = 14
+		}
+		
+		completion_reward = {
+			add_political_power = 50	
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_appease_great_powers
+		icon = GFX_focus_Compromise
+		cost = 5
+		x = 20
+		y = 9
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+		}
+		
+		prerequisite = {
+			focus = YUG_preserve_neutrality
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_agree_italy
+		icon = GFX_focus_reconcile_yugoslavia
+		cost = 5
+		x = 18
+		y = 10
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+			ITA = {
+				exists = yes
+				is_subject = no
+				is_neighbor_of = YUG
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_appease_great_powers
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			ITA = {
+				country_event = {
+					id = yugoslavia.1026
+					days = 5
+				}
+			}
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_leave_albania
+		icon = GFX_focus_Albania
+		cost = 5
+		x = 17
+		y = 11
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+			ITA = {
+				exists = yes
+				is_subject = no
+				is_neighbor_of = YUG
+			}
+			ALB = {
+				exists = yes
+				is_subject = no
+				is_neighbor_of = YUG
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_agree_italy
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			ITA = {
+				country_event = {
+					id = yugoslavia.1027
+					days = 5
+				}
+			}
+			diplomatic_relation = {
+				country = ALB
+				relation = guarantee
+				active = no
+			}
+			add_political_power = 50
+			ITA = { add_opinion_modifier = { target = YUG modifier = small_increase }}
+			YUG = { add_opinion_modifier = { target = ITA modifier = small_increase }}
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_betray_greece
+		icon = GFX_Focus_Italy_Utlimatum_to_Greece
+		cost = 5
+		x = 18
+		y = 12
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+			ITA = {
+				exists = yes
+				is_subject = no
+				is_neighbor_of = YUG
+			}
+			GRE = {
+				exists = yes
+				is_subject = no
+				is_neighbor_of = YUG
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_agree_italy
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			diplomatic_relation = {
+				country = GRE
+				relation = guarantee
+				active = no
+			}
+			add_political_power = 50
+			GRE = { add_opinion_modifier = { target = YUG modifier = large_decrease }}
+			YUG = { add_opinion_modifier = { target = GRE modifier = large_decrease }}
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_trade_germany
+		icon = GFX_focus_De_Emphasize_trade_with_Britain
+		cost = 5
+		x = 20
+		y = 10
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+			OR = {
+				is_neighbor_of = GER
+				is_neighbor_of = WGR
+				is_neighbor_of = DDR
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_appease_great_powers
+		}
+		
+		ai_will_do = {
+			factor = 14
+		}
+		
+		completion_reward = {
+			add_political_power = 50
+			GER = { add_opinion_modifier = { target = YUG modifier = small_increase }}
+			YUG = { add_opinion_modifier = { target = GER modifier = small_increase }}
+			WGR = { add_opinion_modifier = { target = YUG modifier = small_increase }}
+			YUG = { add_opinion_modifier = { target = WGR modifier = small_increase }}
+			DDR = { add_opinion_modifier = { target = YUG modifier = small_increase }}
+			YUG = { add_opinion_modifier = { target = DDR modifier = small_increase }}
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_recognize_german_rights
+		icon = GFX_focus_Germany_Imperial_Constitutionalism
+		cost = 5
+		x = 20
+		y = 11
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+			threat > 0.7
+			OR = {
+				is_neighbor_of = GER
+				is_neighbor_of = WGR
+				is_neighbor_of = DDR
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_trade_germany
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			add_political_power = 50
+			GER = { add_opinion_modifier = { target = YUG modifier = small_increase }}
+			YUG = { add_opinion_modifier = { target = GER modifier = small_increase }}
+			WGR = { add_opinion_modifier = { target = YUG modifier = small_increase }}
+			YUG = { add_opinion_modifier = { target = WGR modifier = small_increase }}
+			DDR = { add_opinion_modifier = { target = YUG modifier = small_increase }}
+			YUG = { add_opinion_modifier = { target = DDR modifier = small_increase }}
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_recognize_soviet_union
+		icon = GFX_focus_Soviet_Relations
+		cost = 5
+		x = 22
+		y = 10
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+			SOV = {
+				exists = yes
+				is_subject = no
+				has_completed_focus = SOV_Stalinist_Realpolitik_NAP
+			}
+			RUS = {
+				exists = no
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_appease_great_powers
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			add_political_power = 50
+			SOV = { add_opinion_modifier = { target = YUG modifier = small_increase }}
+			YUG = { add_opinion_modifier = { target = SOV modifier = small_increase }}
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_allow_communists
+		icon = GFX_focus_Communist_Pride
+		cost = 5
+		x = 22
+		y = 11
+		
+		available = {
+			has_war = no
+			is_subject = no
+			has_idea = SOV_advisors
+			is_in_faction = no
+			SOV = {
+				exists = yes
+				is_subject = no
+			}
+			RUS = {
+				exists = no
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_recognize_soviet_union
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			add_political_power = 50
+			SOV = { add_opinion_modifier = { target = YUG modifier = small_increase }}
+			YUG = { add_opinion_modifier = { target = SOV modifier = small_increase }}
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_better_pact_than_war
+		icon = GFX_focus_Risky_Deal
+		cost = 8
+		x = 21
+		y = 12
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+			threat > 0.9
+		}
+		
+		prerequisite = {
+			focus = YUG_recognize_german_rights
+			focus = YUG_allow_communists
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		completion_reward = {
+			add_political_power = -50
+			set_country_flag = YUG_better_pact
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_neutralize_neighbors
+		icon = GFX_focus_Collaborate_with_Local_Elites_2
+		cost = 5
+		x = 24
+		y = 9
+		
+		available = {
+			has_war = no
+			is_subject = no
+		}
+		
+		prerequisite = {
+			focus = YUG_preserve_neutrality
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_leave_the_pacts
+		icon = GFX_focus_Cut_state_workers_expenses
+		cost = 5
+		x = 25
+		y = 10
+		
+		available = {
+			has_war = no
+			is_subject = no
+		}
+		
+		prerequisite = {
+			focus = YUG_neutralize_neighbors
+		}
+		
+		bypass = {
+			NOT = {
+				has_guaranteed = CZE
+				has_guaranteed = ROM
+				has_guaranteed = AUS
+				has_guaranteed = GRE
+				has_guaranteed = TUR
+				has_guaranteed = ALB
+				has_guaranteed = BUL
+				is_in_faction = yes
+			}
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			leave_faction = yes
+			if = { 
+				limit = {has_country_flag = YUG_yugoslavia_little_entente}
+				country_event = {	id = yugoslavia.1022  }
+			}
+			if = { 
+				limit = {has_country_flag = YUG_yugoslavia_balkan_pact}
+				country_event = {	id = yugoslavia.1014  }
+			}
+			diplomatic_relation = {
+				country = CZE
+				relation = guarantee
+				active = no
+			}
+			diplomatic_relation = {
+				country = ROM
+				relation = guarantee
+				active = no
+			}
+			diplomatic_relation = {
+				country = AUS
+				relation = guarantee
+				active = no
+			}
+			diplomatic_relation = {
+				country = GRE
+				relation = guarantee
+				active = no
+			}
+			diplomatic_relation = {
+				country = TUR
+				relation = guarantee
+				active = no
+			}
+			diplomatic_relation = {
+				country = ALB
+				relation = guarantee
+				active = no
+			}
+			diplomatic_relation = {
+				country = BUL
+				relation = guarantee
+				active = no
+			}
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_friendship_hungary
+		icon = GFX_focus_Befriend_Hungary
+		cost = 5
+		x = 24
+		y = 11
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+			controls_state = 45
+			controls_state = 1031
+			controls_state = 839
+			controls_state = 840
+			HUN = {
+				exists = yes
+				is_subject = no
+				is_neighbor_of = YUG
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_leave_the_pacts
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			HUN = {
+				country_event = {
+					id = yugoslavia.1023
+					days = 5
+				}
+			}
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_reconsile_bulgaria
+		icon = GFX_focus_talk_bulgaria
+		cost = 5
+		x = 26
+		y = 11
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+			controls_state = 106
+			BUL = {
+				exists = yes
+				is_subject = no
+				is_neighbor_of = YUG
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_leave_the_pacts
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			BUL = {
+				country_event = {
+					id = yugoslavia.1024
+					days = 5
+				}
+			}
+		}
+	}
+	
+	shared_focus = {
+		id = YUG_accord_austria
+		icon = GFX_focus_Alliance_Austria
+		cost = 5
+		x = 25
+		y = 12
+		
+		available = {
+			has_war = no
+			is_subject = no
+			is_in_faction = no
+			controls_state = 102
+			controls_state = 838
+			AUS = {
+				exists = yes
+				is_subject = no
+				is_neighbor_of = YUG
+			}
+		}
+		
+		prerequisite = {
+			focus = YUG_leave_the_pacts
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		completion_reward = {
+			AUS = {
+				country_event = {
+					id = yugoslavia.1025
+					days = 5
+				}
+			}
+		}
+	}

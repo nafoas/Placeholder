@@ -1,0 +1,512 @@
+
+shared_focus = {
+	id = GEN_americas_diplomacy
+	icon = GFX_focus_South_American_Relations
+	cost = 6
+	available = {
+		date > 1935.1.1
+	}
+	completion_reward = {
+		add_political_power = 50
+	}
+	x = 20
+	y = 0
+}
+
+shared_focus = {
+	id = GEN_a_sovereign_nation
+	icon = GFX_focus_Rally
+	cost = 6
+	prerequisite = {
+		focus = GEN_americas_diplomacy
+	}
+	mutually_exclusive = {
+		focus = GEN_ties_america
+	}
+	available = {
+		NOT = {
+			OR = {
+				is_in_faction_with = USA
+				is_puppet_of = USA
+			}
+		}
+		is_puppet = no
+	}
+	completion_reward = {
+		add_war_support = 0.05
+		add_political_power = 70
+	}
+	x = -3
+	y = 1
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_promote_regional_cooperation
+	icon = GFX_goal_generic_national_unity
+	cost = 6
+	prerequisite = {
+		focus = GEN_a_sovereign_nation
+	}
+	mutually_exclusive = {
+		focus = GEN_aggresive_stance
+	}
+	available = {
+	}
+	completion_reward = {
+		add_political_power = 50
+		add_stability = 0.05
+	}
+	x = -4
+	y = 2
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_seek_friendship_neighbours
+	icon = GFX_focus_Pacifist_State
+	cost = 6
+	prerequisite = {
+		focus = GEN_promote_regional_cooperation
+	}
+	available = {
+	}
+	completion_reward = {
+		every_country = {
+			limit = {
+				is_neighbor_of = ROOT
+			}
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = medium_increase 
+			}
+		}
+	}
+	x = -4
+	y = 3
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_regional_trade_initiative
+	icon = GFX_goal_generic_positive_trade_relations
+	cost = 6
+	prerequisite = {
+		focus = GEN_seek_friendship_neighbours
+	}
+	available = {
+	}
+	completion_reward = {
+		every_neighbor_country = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = USA_trade_deal_opp 
+			}
+		}
+	}
+	x = -4
+	y = 4
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_america_military_cuts
+	icon = GFX_focus_Root_out_Funding
+	cost = 6
+	prerequisite = {
+		focus = GEN_regional_trade_initiative
+	}
+	available = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = idea_reduced_mil_spending
+			days = 400
+		}
+	}
+	x = -4
+	y = 5
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_aggresive_stance
+	icon = GFX_focus_Aggresion
+	cost = 6
+	prerequisite = {
+		focus = GEN_a_sovereign_nation
+	}
+	mutually_exclusive = {
+		focus = GEN_promote_regional_cooperation
+	}
+	available = {
+		is_puppet = no
+	}
+	completion_reward = {
+		add_war_support = 0.1
+	}
+	x = -2
+	y = 2
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_militarize_border
+	icon = GFX_focus_Fortification_Effort
+	cost = 6
+	prerequisite = {
+		focus = GEN_aggresive_stance
+	}
+	available = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = idea_defense_plans
+			days = 400
+		}
+	}
+	x = -2
+	y = 3
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_america_mob_plans
+	icon = GFX_focus_Prepare_the_Troops
+	cost = 6
+	prerequisite = {
+		focus = GEN_militarize_border
+	}
+	available = {
+	}
+	completion_reward = {
+		add_ideas = idea_permanent_mobilization
+	}
+	x = -2
+	y = 4
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_remove_fifth_columnists
+	icon = GFX_focus_Espionage
+	cost = 6
+	prerequisite = {
+		focus = GEN_america_mob_plans
+	}
+	available = {
+	}
+	completion_reward = {
+		add_stability = 0.1
+	}
+	x = -2
+	y = 5
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_ties_america
+	icon = GFX_focus_chi_mission_to_the_us
+	cost = 6
+	prerequisite = {
+		focus = GEN_americas_diplomacy
+	}
+	mutually_exclusive = {
+		focus = GEN_a_sovereign_nation
+	}
+	available = {
+		NOT = {
+			OR = {
+				has_government = communism
+				has_government = authoritarian_socialism
+				has_government = fascism
+			}
+		}
+		if = {
+			limit = {
+				USA = { has_government = social_democracy }
+			}
+			NOT = { has_government = nationalism }
+		}
+		if = {
+			limit = {
+				USA = { has_government = democratic }
+			}
+			NOT = { has_government = socialism }
+		}
+		NOT = {
+			AND = {
+				is_puppet = yes
+				NOT = { is_puppet_of = USA }
+			}
+		}
+		NOT = { has_war_with = USA }
+	}
+	completion_reward = {
+		USA = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = medium_increase 
+			}
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = medium_increase 
+		}
+	}
+	x = 3
+	y = 1
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_welcome_american_advisors
+	icon = GFX_focus_Foreign_Diplomacy
+	cost = 6
+	prerequisite = {
+		focus = GEN_ties_america
+	}
+	available = {
+	}
+	completion_reward = {
+		add_political_power = 100
+		add_stability = -0.05
+	}
+	x = 2
+	y = 2
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_buy_american_weapons
+	icon = GFX_focus_Buy_Foreign_Weapons
+	cost = 6
+	prerequisite = {
+		focus = GEN_ties_america
+	}
+	available = {
+	}
+	completion_reward = {
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1500
+			producer = USA
+		}
+		add_equipment_to_stockpile = {
+			type = artillery_equipment_1 
+			amount = 700
+			producer = USA
+		}
+		add_equipment_to_stockpile = {
+			type = light_tank_chassis  
+			amount = 250
+			producer = USA
+		}
+	}
+	x = 4
+	y = 2
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_american_military_mission
+	icon = GFX_focus_USA_Soldiers
+	cost = 6
+	prerequisite = {
+		focus = GEN_buy_american_weapons
+	}
+	prerequisite = {
+		focus = GEN_welcome_american_advisors
+	}
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = land_doc_bonus
+			bonus = 1.0
+			uses = 2
+			category = land_doctrine
+		}
+		add_stability = -0.05
+	}
+	x = 3
+	y = 3
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_american_technical_support
+	icon = GFX_focus_Eagle_Industry
+	cost = 6
+	prerequisite = {
+		focus = GEN_welcome_american_advisors
+	}
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 1.0
+			uses = 1
+			category = industry
+		}
+	}
+	x = 1
+	y = 3
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_buy_american_planes
+	icon = GFX_focus_usa_escort_fighters
+	cost = 6
+	prerequisite = {
+		focus = GEN_buy_american_weapons
+	}
+	available = {
+	}
+	completion_reward = {
+		add_equipment_to_stockpile = {
+			type = small_plane_airframe   
+			amount = 150
+			producer = USA
+		}
+		add_equipment_to_stockpile = {
+			type = medium_plane_airframe   
+			amount = 100
+			producer = USA
+		}
+	}
+	x = 5
+	y = 3
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_welcome_american_companies
+	icon = GFX_focus_American_Automobiles
+	cost = 6
+	prerequisite = {
+		focus = GEN_american_technical_support
+	}
+	prerequisite = {
+		focus = GEN_american_military_mission
+	}
+	available = {
+	}
+	bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = industrial_complex
+						size < 1
+						include_locked = yes
+					}					
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_stability = -0.05
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+			add_stability = -0.05
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = 2
+	y = 4
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_intelligence_exchange
+	icon = GFX_focus_Subterfuge
+	cost = 6
+	prerequisite = {
+		focus = GEN_buy_american_planes
+	}
+	prerequisite = {
+		focus = GEN_american_military_mission
+	}
+	available = {
+	}
+	completion_reward = {
+		add_stability = -0.05
+		add_tech_bonus = {
+			name = secret_bonus
+			bonus = 1.0
+			uses = 2
+			category = electronics
+		}
+	}
+	x = 4
+	y = 4
+	relative_position_id = GEN_americas_diplomacy
+}
+
+shared_focus = {
+	id = GEN_mutual_friendship_deal
+	icon = GFX_focus_Befriend_USA
+	cost = 6
+	prerequisite = {
+		focus = GEN_welcome_american_companies
+	}
+	prerequisite = {
+		focus = GEN_intelligence_exchange
+	}
+	available = {
+	}
+	completion_reward = {
+		USA = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = USA_trade_deal_opp 
+			}
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = USA_trade_deal_opp 
+		}
+		custom_effect_tooltip = tie_diplo_us 
+	}
+	x = 3
+	y = 5
+	relative_position_id = GEN_americas_diplomacy
+}

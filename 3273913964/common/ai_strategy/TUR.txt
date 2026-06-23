@@ -1,0 +1,109 @@
+TUR_ignore_Iran = {
+	allowed = {
+		original_tag = TUR
+	}
+	enable = {
+		country_exists = PER
+	}
+
+	abort = {
+		OR = {
+			has_war_with = PER
+			has_wargoal_against = PER
+			PER = { has_wargoal_against = TUR }
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			tag = PER
+			NOT = { has_war_with = FROM }
+		}
+
+		value = -200
+	}
+}
+TUR_ignore_Iraq = {
+	allowed = {
+		original_tag = TUR
+	}
+	enable = {
+		country_exists = IRQ
+	}
+
+	abort = {
+		OR = {
+			has_war_with = IRQ
+			has_wargoal_against = IRQ
+			IRQ = { has_wargoal_against = TUR }
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			tag = IRQ
+			NOT = { has_war_with = FROM }
+		}
+
+		value = -200
+	}
+}
+
+TUR_treaty_of_Lausanne_dmz = {
+	allowed = {
+		tag = TUR
+	}
+	enable = {
+		NOT = { has_global_flag = montreux_convention_flag }
+		controls_state = 759
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = GRE
+		tag = BUL
+
+		value = -200
+	}	
+}
+
+GRE_treaty_of_Lausanne_dmz = {
+	allowed = {
+		tag = GRE
+	}
+	enable = {
+		NOT = { has_global_flag = montreux_convention_flag }
+		controls_state = 1023
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		state = 759
+
+		value = -200
+	}	
+}
+
+BUL_treaty_of_Lausanne_dmz = {
+	allowed = {
+		tag = BUL
+	}
+	enable = {
+		NOT = { has_global_flag = montreux_convention_flag }
+		is_neighbor_of = TUR
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		state = 759
+
+		value = -200
+	}	
+}

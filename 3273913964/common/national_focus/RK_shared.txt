@@ -1,0 +1,221 @@
+shared_focus = {
+	id = RK_begin_reconstruction
+	icon = GFX_focus_Planned_Economy
+	x = 0
+	y = 0
+	offset = {
+		x = 16
+		y = 5
+		trigger = {
+			tag = RKN
+		}
+	}
+	cost = 8
+	available = {
+		OR = {
+			AND = {
+				has_completed_focus = RK_deutsche_arbeitsfront
+				has_completed_focus = RK_improve_german_living_conditions
+				OR = {
+					has_completed_focus = RK_german_shipping_companies
+					NOT = { any_owned_state = { is_coastal = yes } }
+				}
+			}
+			AND = {
+				has_completed_focus = RK_encourage_collaborators
+				has_completed_focus = RK_reward_assimilators
+				has_completed_focus = RK_expand_welfare_for_assimilators
+			}
+			AND = {
+				has_completed_focus = RK_local_conscription
+				has_completed_focus = RK_propaganda_newsreels
+			}
+		}
+		OR = {
+			has_completed_focus = RK_streamline_bureaucracy
+			has_completed_focus = RK_spartan_society
+		}
+		has_completed_focus = RK_exploit_ethnic_divisions
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		}	
+	completion_reward = {
+		swap_ideas = { remove_idea = RK_occupation add_idea = RK_occupation_2 }
+	}
+}
+shared_focus = {
+	id = RK_begin_economic_recovery
+	icon = GFX_goal_generic_construct_civilian
+	prerequisite = {
+		focus = RK_begin_reconstruction
+	}
+	relative_position_id = RK_begin_reconstruction
+	x = -2
+	y = 1
+	cost = 6
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+
+		}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RK_lesser_military_presence
+	icon = GFX_focus_Pacifist_State
+	prerequisite = {
+		focus = RK_begin_reconstruction
+	}
+	relative_position_id = RK_begin_reconstruction
+	x = 0
+	y = 1
+	cost = 5
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+
+	}	
+	completion_reward = {
+		add_stability = 0.05
+	}
+}
+shared_focus = {
+	id = RK_loosen_restrictions
+	icon = GFX_focus_Torch_of_Freedom
+	prerequisite = {
+		focus = RK_begin_reconstruction
+	}
+	relative_position_id = RK_begin_reconstruction
+	x = 2
+	y = 1
+	cost = 3
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+
+	}	
+	completion_reward = {
+		add_stability = 0.05
+		add_political_power = -20
+	}
+}
+shared_focus = {
+	id = RK_increase_rations
+	icon = GFX_focus_Tiger_Economy
+	prerequisite = {
+		focus = RK_begin_economic_recovery
+	}
+	prerequisite = {
+		focus = RK_lesser_military_presence
+	}
+	prerequisite = {
+		focus = RK_loosen_restrictions
+	}
+	relative_position_id = RK_begin_reconstruction
+	x = -1
+	y = 2
+	cost = 4
+	available = {
+		
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+
+	}	
+	completion_reward = {
+		add_ideas = RK_more_rations
+	}
+}
+shared_focus = {
+	id = RK_absorb_collaborators
+	icon = GFX_focus_Backstab
+	prerequisite = {
+		focus = RK_begin_economic_recovery
+	}
+	prerequisite = {
+		focus = RK_lesser_military_presence
+	}
+	prerequisite = {
+		focus = RK_loosen_restrictions
+	}
+	relative_position_id = RK_begin_reconstruction
+	x = 1
+	y = 2
+	cost = 6
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+
+	}	
+	completion_reward = {
+		add_political_power = 50
+		add_popularity = { ideology = nationalism popularity = -0.1 }
+		add_popularity = { ideology = fascism popularity = 0.1 }
+	}
+}
+shared_focus = {
+	id = RK_reconstruction_complete
+	icon = GFX_focus_Triumphant_Will
+	prerequisite = {
+		focus = RK_increase_rations
+	}
+	prerequisite = {
+		focus = RK_absorb_collaborators
+	}
+	relative_position_id = RK_begin_reconstruction
+	x = 0
+	y = 3
+	cost = 8
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 6
+	}
+	bypass = {
+
+	}	
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = RK_occupation
+			add_idea = RK_occupation_2
+		}
+	}
+}

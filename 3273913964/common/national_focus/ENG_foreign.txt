@@ -1,0 +1,3939 @@
+# focuses here
+#s_team337
+#I'm not entirely sure about the checks here. Those can be fixed with further testing.
+shared_focus = {
+	id = ENG_Cause_of_Peace_Start
+	icon = GFX_focus_Pacifist_State
+	#prerequisite = { focus = ENG_Cause_of_Peace_Start }
+	mutually_exclusive = {
+		focus = ENG_Anti_Fascist_Start
+	}
+	mutually_exclusive = {
+		focus = ENG_Anti_Communist_Start
+	}
+	x = 38
+	y = 0
+	#relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 800
+		modifier = {
+			has_government = socialism
+			NOT = {
+				has_idea = ENG_hog_George_Lansbury
+			}
+			factor = 0
+		}
+	}
+	available = {
+		date > 1936.1.1
+		OR = {
+			has_government = socialism
+			GER = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = nationalism
+					has_government = fascism
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_stability = 0.01
+		add_political_power = 5
+	}
+}
+shared_focus = {
+	id = ENG_Peace_Talks_with_America
+	icon = GFX_focus_Befriend_USA
+	prerequisite = {
+		focus = ENG_Cause_of_Peace_Start
+	}
+	x = -1
+	y = 1
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2
+	ai_will_do = {
+		factor = 360
+		modifier = {
+			date < 1937.12.12
+			factor = 0
+		}
+		modifier = {
+			OR = {
+				has_global_flag = GER_annexed_austria
+				4 = {
+					is_controlled_by = GER
+				}
+			}
+			factor = 5
+		}
+	}
+	available = {
+	}
+	bypass = {
+		OR = {
+			has_war_with = USA
+			USA = {
+				is_subject = yes
+			}
+		}
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = USA
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Peace_Talks_with_France
+	icon = GFX_Focus_Agreemente_with_France
+	prerequisite = {
+		focus = ENG_Cause_of_Peace_Start
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2
+	ai_will_do = {
+		factor = 360
+		modifier = {
+			date < 1937.1.1
+			factor = 0
+		}
+		modifier = {
+			OR = {
+				has_global_flag = GER_annexed_austria
+				4 = {
+					is_controlled_by = GER
+				}
+			}
+			factor = 5
+		}
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = FRA
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = FRA
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Peace_Appeasement
+	icon = GFX_focus_Fascist_Treaties
+	prerequisite = {
+		focus = ENG_Peace_Talks_with_America
+	}
+	prerequisite = {
+		focus = ENG_Peace_Talks_with_France
+	}
+	mutually_exclusive = {
+		focus = ENG_Peace_Collective_Security
+	}
+	x = -1
+	y = 2
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 500
+		modifier = {
+			date < 1938.3.1
+			factor = 0
+		}
+		modifier = {
+			OR = {
+				has_global_flag = GER_annexed_austria
+				4 = {
+					is_controlled_by = GER
+				}
+			}
+			factor = 5
+		}
+	}
+	available = {
+		OR = {
+			has_idea = ENG_hog_George_Lansbury
+			OR = {
+				has_global_flag = GER_annexed_austria
+				4 = {
+					is_controlled_by = GER
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_stability = 0.02
+		add_war_support = -0.02
+		if = {
+			limit = {
+				NOT = {
+					has_idea = ENG_hog_George_Lansbury
+				}
+			}
+			swap_ideas = {
+				remove_idea = ENG_Pacifism
+				add_idea = ENG_Pacifism2
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Peace_Approach_USSR
+	icon = GFX_Goal_Befriend_USSR
+	prerequisite = {
+		focus = ENG_Peace_Appeasement
+	}
+	mutually_exclusive = {
+		focus = ENG_Peace_Ally_France
+	}
+	x = -2
+	y = 3
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			NOT = {
+				has_idea = ENG_hog_George_Lansbury
+			}
+			factor = 0
+		}
+	}
+	available = {
+		SOV = {
+			exists = yes
+			is_subject = no
+		}
+		NOT = {
+			has_global_flag = Russian_Civil_War
+		}
+		has_government = socialism
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = SOV
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = SOV
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Peace_Collective_Security
+	icon = GFX_focus_Anti_Fascist
+	prerequisite = {
+		focus = ENG_Peace_Talks_with_America
+	}
+	prerequisite = {
+		focus = ENG_Peace_Talks_with_France
+	}
+	mutually_exclusive = {
+		focus = ENG_Peace_Appeasement
+	}
+	x = 1
+	y = 2
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 450
+		modifier = {
+			date < 1938.3.1
+			factor = 0
+		}
+		modifier = {
+			OR = {
+				has_global_flag = GER_annexed_austria
+				4 = {
+					is_controlled_by = GER
+				}
+			}
+			factor = 5
+		}
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		NOT = {
+			has_idea = ENG_hog_George_Lansbury
+		}
+		OR = {
+				has_global_flag = GER_annexed_austria
+				4 = {
+					is_controlled_by = GER
+				}
+			}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_stability = -0.04
+		add_war_support = 0.02
+		swap_ideas = {
+			remove_idea = ENG_Pacifism
+			add_idea = ENG_Pacifism2
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Peace_Ally_France
+	icon = GFX_focus_Anglo_French_Alliance
+	prerequisite = {
+		focus = ENG_Peace_Appeasement
+		focus = ENG_Peace_Collective_Security
+	}
+	mutually_exclusive = {
+		focus = ENG_Peace_Approach_USSR
+	}
+	x = 0
+	y = 3
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 600
+		modifier = {
+			NOT = {
+				has_idea = ENG_hog_George_Lansbury
+			}
+			factor = 0
+		}
+	}
+	available = {
+		NOT = {
+			has_idea = ENG_hog_George_Lansbury
+		}
+		FRA = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		FRA = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+		if = {
+			limit = {
+				has_idea = ENG_Pacifism2
+			}
+			swap_ideas = {
+				remove_idea = ENG_Pacifism2
+				add_idea = ENG_Pacifism3
+			}
+		}
+		else = {
+			remove_ideas = ENG_Pacifism3
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Peace_Ally_Czechoslovakia
+	icon = GFX_focus_Czechoslovak_state
+	prerequisite = {
+		focus = ENG_Peace_Collective_Security
+	}
+	x = 2
+	y = 3
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 700
+	}
+	available = {
+		CZE = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+				is_in_faction_with = GER
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		CZE = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+		if = {
+			limit = {
+				has_idea = ENG_Pacifism2
+			}
+			swap_ideas = {
+				remove_idea = ENG_Pacifism2
+				add_idea = ENG_Pacifism3
+			}
+		}
+		else = {
+			remove_ideas = ENG_Pacifism3
+		}
+	}
+}
+shared_focus = { #TODO: Make this an event and decision. This focus will do nothing and only get bypassed when you garantee Poland.
+	id = ENG_Peace_Defend_Poland
+	icon = GFX_focus_Combined_Arms
+	prerequisite = {
+		focus = ENG_Peace_Ally_France
+		focus = ENG_Peace_Ally_Czechoslovakia
+	}
+	x = 1
+	y = 4
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2
+	ai_will_do = {
+		factor = 1000
+	}
+	available = {
+		POL = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ENG
+				has_war_with = FRA
+				is_in_faction_with = GER
+			}
+			OR = {
+				NOT = { has_war_with = SOV }
+				NOT = { has_global_flag = Russian_Civil_War }
+			}
+		}
+		OR = {
+			has_global_flag = GER_annexed_sudeten
+			has_global_flag = GER_moving_on_POL
+			GER = { has_wargoal_against = POL }
+		}
+	}
+	bypass = {
+		has_guaranteed = POL
+	}
+	completion_reward = {	
+		give_guarantee = POL
+	}
+}
+shared_focus = {
+	id = ENG_Peace_Defend_Greece_Romania
+	icon = GFX_focus_Defend_Greece_and_Romania
+	prerequisite = {
+		focus = ENG_Peace_Appeasement
+	}
+	prerequisite = {
+		focus = ENG_Peace_Defend_Poland
+	}
+	x = -1
+	y = 5
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2
+	ai_will_do = {
+		factor = 600
+	}
+	available = {
+		date > 1939.3.15
+		OR = {
+			GRE = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = GER
+				}
+			}
+			ROM = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = GER
+				}
+			}
+		}
+		ALB = {
+			custom_trigger_tooltip = {
+				tooltip = ENG_ita_annexed_alb
+				OR = {
+					AND = {
+						exists = no
+						any_state = {
+							is_core_of = ALB
+							is_controlled_by = ITA
+						}
+					}
+					has_war_with = ITA
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		if = {
+			limit = {
+				GRE = {
+					exists = yes
+					is_subject = no
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = GER
+					}
+				}
+			}
+			give_guarantee = GRE
+		}			
+		if = {
+			limit = {
+				ROM = {
+					exists = yes
+					is_subject = no
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = GER
+					}
+				}
+			}
+			give_guarantee = ROM
+		}			
+	}
+}
+shared_focus = {
+	id = ENG_Peace_Ally_Greece_Romania
+	icon = GFX_focus_balkan_outlook
+	prerequisite = {
+		focus = ENG_Peace_Defend_Poland
+	}
+	prerequisite = {
+		focus = ENG_Peace_Ally_Czechoslovakia
+	}
+	x = 3
+	y = 5
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2
+	ai_will_do = {
+		factor = 600
+	}
+	available = {
+		date > 1939.3.15
+		OR = {
+			GRE = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = GER
+				}
+			}
+			ROM = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = GER
+				}
+			}
+		}
+		ALB = {
+			custom_trigger_tooltip = {
+				tooltip = ENG_ita_annexed_alb
+				OR = {
+					AND = {
+						exists = no
+						any_state = {
+							is_core_of = ALB
+							is_controlled_by = ITA
+						}
+					}
+					has_war_with = ITA
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		if = {
+			limit = {
+				GRE = {
+					exists = yes
+					is_subject = no
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = GER
+					}
+				}
+			}
+			GRE = {
+				country_event = {
+					id = eng_foreign.1
+				}
+			}
+		}			
+		if = {
+			limit = {
+				ROM = {
+					exists = yes
+					is_subject = no
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = GER
+					}
+				}
+			}
+			ROM = {
+				country_event = {
+					id = eng_foreign.1
+				}
+			}
+		}			
+	}
+}
+shared_focus = {
+	id = ENG_Peace_Ally_Poland
+	icon = GFX_focus_Shield_Poland
+	prerequisite = {
+		focus = ENG_Peace_Defend_Poland
+	}
+	x = 1
+	y = 5
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2
+	ai_will_do = {
+		factor = 1000
+		modifier = {
+			date < 1939.7.1
+			factor = 0.3
+		}
+		modifier = {
+			GER = { has_completed_focus = GER_prepare_war_poland_focus }
+			factor = 5
+		}
+	}
+	available = {
+		ENG = { has_war_together_with = POL }
+		OR = {
+			AND = {
+				ENG = { has_war_with = GER }
+				POL = { has_war_with = GER }
+			}
+			AND = {
+				ENG = { has_war_with = SOV }
+				POL = { has_war_with = SOV }
+			}
+		}
+		POL = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ENG
+				AND = {
+					has_war_with = FRA
+					FRA = { is_in_faction_with = ENG }
+				}
+				is_in_faction_with = GER
+			}
+		}
+	}
+	bypass = {
+		POL = { is_in_faction_with = ENG }
+	}
+	completion_reward = {	
+		add_to_faction = POL
+	}
+}
+shared_focus = {
+	id = ENG_Spanish_Arms_Embargo
+	icon = GFX_focus_Protectionism
+	prerequisite = {
+		focus = ENG_Cause_of_Peace_Start
+		focus = ENG_Anti_Fascist_Start
+	}
+	mutually_exclusive = {
+		focus = ENG_Support_Republicans
+	}
+	mutually_exclusive = {
+		focus = ENG_Support_Catalonia
+	}
+	x = 4
+	y = 1
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 280
+		modifier = {
+			has_completed_focus = ENG_Anti_Fascist_Start
+			factor = 0.2
+		}
+	}
+	available = {
+		SPR = {
+			OR = {
+				has_war_with = SPC
+				has_war_with = SPA
+			}
+		}
+		date > 1935.1.1
+	}
+	bypass = {
+		is_in_faction_with = SPR
+	}
+	completion_reward = {	
+		if = {
+			limit = {
+				country_exists = SPR
+			}
+			reverse_add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_arms_embargo
+			}
+			reverse_add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_arms_embargo_trade
+			}
+		}
+		if = {
+			limit = {
+				country_exists = SPA
+			}
+			reverse_add_opinion_modifier = {
+				target = SPA
+				modifier = ENG_arms_embargo
+			}
+			reverse_add_opinion_modifier = {
+				target = SPA
+				modifier = ENG_arms_embargo_trade
+			}
+		}
+		if = {
+			limit = {
+				country_exists = SPC
+			}
+			reverse_add_opinion_modifier = {
+				target = SPC
+				modifier = ENG_arms_embargo
+			}
+			reverse_add_opinion_modifier = {
+				target = SPC
+				modifier = ENG_arms_embargo_trade
+			}
+		}
+		if = {
+			limit = {
+				country_exists = CAT
+			}
+			reverse_add_opinion_modifier = {
+				target = CAT
+				modifier = ENG_arms_embargo
+			}
+			reverse_add_opinion_modifier = {
+				target = CAT
+				modifier = ENG_arms_embargo_trade
+			}
+		}
+		if = {
+			limit = {
+				country_exists = BAS
+			}
+			reverse_add_opinion_modifier = {
+				target = BAS
+				modifier = ENG_arms_embargo
+			}
+			reverse_add_opinion_modifier = {
+				target = BAS
+				modifier = ENG_arms_embargo_trade
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Support_Republicans
+	icon = GFX_focus_support_republican_spain
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Start
+	}
+	mutually_exclusive = {
+		focus = ENG_Spanish_Arms_Embargo
+	}
+	mutually_exclusive = {
+		focus = ENG_Support_Catalonia
+	}
+	x = 6
+	y = 1
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 330
+	}
+	available = {
+		OR = {
+			SPR = {
+				OR = {
+					has_war_with = SPC
+					has_war_with = SPA
+				}
+			}
+			AND = {
+				SPC = {
+					has_war_with = SPR
+				}
+				SPR = {
+					OR = {
+						has_government = neutrality
+						has_government = monarchism
+						has_government = nationalism
+						has_government = fascism
+					}
+				}
+			}
+		}
+		date > 1935.1.1
+	}
+	bypass = {
+		OR = {
+			AND = {
+				SPR = {
+					NOT = {
+						has_war_with = SPC
+						has_war_with = SPA
+					}
+				}
+				date > 1938.1.1
+			}
+			is_in_faction_with = SPR
+		}
+	}
+	completion_reward = {	
+		if = {
+			limit = {
+				SPR = {
+					has_government = neutrality
+				}
+			}
+			SPC = {
+				country_event = {
+					id = eng_foreign.4
+				}
+			}
+		}
+		else = {
+			SPR = {
+				country_event = {
+					id = eng_foreign.4
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Meet_with_Republic
+	icon = GFX_focus_Spanish_Republicanism
+	prerequisite = {
+		focus = ENG_Spanish_Arms_Embargo
+		focus = ENG_Support_Republicans
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_Spanish_Arms_Embargo
+	cost = 2.86
+	ai_will_do = {
+		factor = 380
+		modifier = {
+			has_completed_focus = ENG_Cause_of_Peace_Start
+			factor = 0.2
+		}
+	}
+	available = {
+		OR = {
+			SPR = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				has_war = no
+			}
+			SPC = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				has_war = no
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				SPC = {
+					exists = yes
+				}
+			}
+			reverse_add_opinion_modifier = {
+				target = SPC
+				modifier = ENG_talks
+			}
+			add_opinion_modifier = {
+				target = SPC
+				modifier = ENG_talks
+			}
+		}
+		else = {
+			reverse_add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_talks
+			}
+			add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_talks
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Embargo_Nationalists
+	icon = GFX_focus_Swing_the_Sword
+	prerequisite = {
+		focus = ENG_Support_Republicans
+		focus = ENG_Support_Catalonia
+	}
+	x = 3
+	y = 1
+	relative_position_id = ENG_Spanish_Arms_Embargo
+	cost = 1.43
+	ai_will_do = {
+		factor = 380
+		modifier = {
+			has_completed_focus = ENG_Cause_of_Peace_Start
+			factor = 0
+		}
+	}
+	available = {
+		OR = {
+			SPR = {
+				exists = yes
+				is_subject = no
+				has_government = neutrality
+				has_war = no
+			}
+			SPA = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = neutrality
+					has_government = monarchism
+					has_government = nationalism
+					has_government = fascism
+				}
+				has_war = no
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				SPR = {
+					exists = yes
+				}
+			}
+			reverse_add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_embargo
+			}
+			reverse_add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_embargo_trade
+			}
+			add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_embargo_trade
+			}
+		}
+		else = {
+			reverse_add_opinion_modifier = {
+				target = SPA
+				modifier = ENG_embargo
+			}
+			reverse_add_opinion_modifier = {
+				target = SPA
+				modifier = ENG_embargo_trade
+			}
+			add_opinion_modifier = {
+				target = SPA
+				modifier = ENG_embargo_trade
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Economic_Assistance
+	icon = GFX_focus_Fundraising_alt
+	prerequisite = {
+		focus = ENG_Meet_with_Republic
+	}
+	x = 0
+	y = 2
+	relative_position_id = ENG_Spanish_Arms_Embargo
+	cost = 2.86
+	ai_will_do = {
+		factor = 380
+		modifier = {
+			has_completed_focus = ENG_Cause_of_Peace_Start
+			factor = 0.2
+		}
+	}
+	available = {
+		OR = {
+			SPR = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				has_war = no
+			}
+			SPC = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				has_war = no
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				SPC = {
+					exists = yes
+				}
+			}
+			country_event = {
+				id = eng_foreign.10
+			}
+		}
+		else = {
+			SPR = {
+				country_event = {
+					id = eng_foreign.10
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Spanish_Trade
+	icon = GFX_focus_escape_from_the_market_economy
+	prerequisite = {
+		focus = ENG_Meet_with_Republic
+	}
+	x = 2
+	y = 2
+	relative_position_id = ENG_Spanish_Arms_Embargo
+	cost = 1.43
+	ai_will_do = {
+		factor = 380
+		modifier = {
+			has_completed_focus = ENG_Cause_of_Peace_Start
+			factor = 0.2
+		}
+	}
+	available = {
+		OR = {
+			SPR = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				has_war = no
+			}
+			SPC = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				has_war = no
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				SPC = {
+					exists = yes
+				}
+			}
+			reverse_add_opinion_modifier = {
+				target = SPA
+				modifier = ENG_trade
+			}
+			add_opinion_modifier = {
+				target = SPA
+				modifier = ENG_trade
+			}
+		}
+		else = {
+			reverse_add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_trade
+			}
+			add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_trade
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Spanish_Alliance
+	icon = GFX_focus_Befriend_Republican_Spain 
+	prerequisite = {
+		focus = ENG_Economic_Assistance
+	}
+	prerequisite = {
+		focus = ENG_Spanish_Trade
+	}
+	x = 1
+	y = 3
+	relative_position_id = ENG_Spanish_Arms_Embargo
+	cost = 1
+	ai_will_do = {
+		factor = 380
+		modifier = {
+			has_completed_focus = ENG_Cause_of_Peace_Start
+			factor = 0.2
+		}
+	}
+	available = {
+		NOT = {
+			has_idea = ENG_hog_George_Lansbury
+		}
+		OR = {
+			SPR = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				has_war = no
+			}
+			SPC = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				has_war = no
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				SPC = {
+					exists = yes
+				}
+			}
+			SPC = {
+				country_event = {
+					id = eng_foreign.1
+				}
+			}
+		}
+		else = {
+			SPR = {
+				country_event = {
+					id = eng_foreign.1
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Support_Catalonia
+	icon = GFX_focus_Befriend_Catalonia
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Start
+	}
+	mutually_exclusive = {
+		focus = ENG_Spanish_Arms_Embargo
+	}
+	mutually_exclusive = {
+		focus = ENG_Support_Republicans
+	}
+	x = 8
+	y = 1
+	relative_position_id = ENG_Cause_of_Peace_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 130
+	}
+	available = {
+		OR = {
+			CAT = {
+				OR = {
+					has_war_with = SPC
+					has_war_with = SPA
+					has_war_with = SPR
+				}
+			}
+		}
+		NOT = {
+			country_exists = SPR
+			SPR = {
+				OR = {
+					has_government = neutrality
+					has_government = monarchism
+					has_government = nationalism
+					has_government = fascism
+				}
+			}
+		}
+		date > 1935.1.1
+	}
+	bypass = {
+		country_exists = CAT
+		CAT = {
+			has_war = no
+			is_subject = no
+			NOT = {
+				has_government = socialism
+				has_government = social_democracy
+				has_government = social_liberalism
+				has_government = market_liberalism
+				has_government = jacobin
+				has_government = democratic
+			}
+		}
+		date > 1938.1.1
+		NOT = {
+			country_exists = SPR
+			SPR = {
+				is_subject = yes #not sure about these checks.
+				OR = {
+					has_government = neutrality
+					has_government = monarchism
+					has_government = nationalism
+					has_government = fascism
+				}
+			}
+		}
+	}
+	completion_reward = {	
+		CAT = {
+			country_event = {
+				id = eng_foreign.7
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Catalonian_Trade_Deal
+	icon = GFX_focus_Free_Trade
+	prerequisite = {
+		focus = ENG_Support_Catalonia
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_Support_Catalonia
+	cost = 2
+	ai_will_do = {
+		factor = 130
+	}
+	available = {
+		CAT = {
+			exists = yes
+			OR = {
+				has_government = socialism
+				has_government = social_democracy
+				has_government = social_liberalism
+				has_government = market_liberalism
+				has_government = jacobin
+				has_government = democratic
+			}
+			is_subject = no
+			has_war = no
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = CAT
+			modifier = ENG_trade
+		}
+		add_opinion_modifier = {
+			target = CAT
+			modifier = ENG_trade
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Catalonian_Alliance
+	icon = GFX_focus_Common_Identity
+	prerequisite = {
+		focus = ENG_Catalonian_Trade_Deal
+	}
+	x = 0
+	y = 2
+	relative_position_id = ENG_Support_Catalonia
+	cost = 2
+	ai_will_do = {
+		factor = 130
+	}
+	available = {
+		CAT = {
+			exists = yes
+			OR = {
+				has_government = socialism
+				has_government = social_democracy
+				has_government = social_liberalism
+				has_government = market_liberalism
+				has_government = jacobin
+				has_government = democratic
+			}
+			is_subject = no
+			has_war = no
+		}
+		any_country = {
+			exists = yes
+			OR = {
+				tag = FRA
+				tag = ITA
+				tag = SPR
+				tag = SPA
+			}
+			NOT = {
+				has_government = socialism
+				has_government = social_democracy
+				has_government = social_liberalism
+				has_government = market_liberalism
+				has_government = jacobin
+				has_government = democratic
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		CAT = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Portuguese_Alliance
+	icon = GFX_focus_Befriend_Portugal
+	prerequisite = {
+		focus = ENG_Spanish_Alliance
+		focus = ENG_Catalonian_Alliance
+	}
+	x = 3
+	y = 4
+	relative_position_id = ENG_Spanish_Arms_Embargo
+	cost = 1
+	ai_will_do = {
+		factor = 380
+		modifier = {
+			has_completed_focus = ENG_Cause_of_Peace_Start
+			factor = 0.2
+		}
+	}
+	available = {
+		NOT = {
+			has_idea = ENG_hog_George_Lansbury
+			is_in_faction_with = SPC
+		}
+		POR = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+				has_government = communism
+				has_government = fascism
+			}
+		}
+		SPA = {
+			OR = {
+				exists = no
+				NOT = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = monarchism
+					has_government = neutrality
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		POR = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Start
+	icon = GFX_focus_Anti_Fascist
+	#prerequisite = { focus = ENG_Anti_Fascist_Start }
+	mutually_exclusive = {
+		focus = ENG_Cause_of_Peace_Start
+	}
+	mutually_exclusive = {
+		focus = ENG_Anti_Communist_Start
+	}
+	x = 52
+	y = 0
+	#relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 800
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		date > 1936.1.1
+		has_government = socialism
+		NOT = {
+			has_idea = ENG_hog_George_Lansbury
+		}
+		OR = {
+			GER = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = nationalism
+					has_government = fascism
+				}
+			}
+			ITA = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = nationalism
+					has_government = fascism
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_war_support = 0.01
+		add_political_power = 5
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.01
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Approach_Czechs
+	icon = GFX_focus_Czechslovakia
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Start
+	}
+	dynamic = yes
+	x = -2
+	y = 1
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1.72
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			OR = {
+				has_global_flag = GER_annexed_austria
+				4 = {
+					is_controlled_by = GER
+				}
+			}
+			date > 1938.8.1
+			factor = 3
+		}
+		modifier = {
+			has_global_flag = GER_annexed_sudeten
+			factor = 3
+		}
+	}
+	available = {
+		OR = {
+			has_global_flag = GER_annexed_austria
+			4 = {
+				is_controlled_by = GER
+			}
+		}
+		CZE = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = fascism
+			}
+		}
+	}
+	bypass = {
+		CZE = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = ROOT
+				has_government = fascism
+			}
+		}
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = CZE
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = CZE
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Czech_Alliance
+	icon = GFX_focus_Gun_Czechs
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Approach_Czechs
+	}
+	x = -1
+	y = 2
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1.72
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			OR = {
+				has_global_flag = GER_annexed_austria
+				4 = {
+					is_controlled_by = GER
+				}
+			}
+			date > 1939.1.1
+			factor = 3
+		}
+		modifier = {
+			has_global_flag = GER_annexed_sudeten
+			factor = 3
+		}
+	}
+	available = {
+		OR = {
+			has_global_flag = GER_annexed_austria
+			4 = {
+				is_controlled_by = GER
+			}
+		}
+		CZE = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = fascism
+			}
+		}
+	}
+	bypass = {
+		CZE = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = ROOT
+				has_government = fascism
+			}
+		}
+	}
+	completion_reward = {	
+		CZE = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Embargo_Hungary
+	icon = GFX_focus_Operation_Margarethe
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Approach_Czechs
+	}
+	x = -3
+	y = 2
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1.72
+	ai_will_do = {
+		factor = 150
+		modifier = {
+			HUN = {
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+				}
+			}
+			factor = 1.5
+		}
+		modifier = {
+			HUN = {
+				OR = {
+					is_in_faction_with = GER
+					is_in_faction_with = ITA
+				}
+			}
+			factor = 2
+		}
+	}
+	available = {
+		HUN = {
+			exists = yes
+			is_subject = no
+			OR = {
+				has_government = fascism
+				has_government = nationalism
+				is_in_faction_with = GER
+				is_in_faction_with = ITA
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = HUN
+			modifier = ENG_embargo
+		}
+		reverse_add_opinion_modifier = {
+			target = HUN
+			modifier = ENG_embargo_trade
+		}
+		add_opinion_modifier = {
+			target = HUN
+			modifier = ENG_embargo_trade
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Protect_Romania
+	icon = GFX_focus_protect_romania
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Embargo_Hungary
+	}
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Czech_Alliance
+	}
+	x = -2
+	y = 3
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1.72
+	ai_will_do = {
+		factor = 185
+		modifier = {
+			any_state = {
+				OR = {
+					is_core_of = ROM
+					is_core_of = SLO
+					is_core_of = CZE
+				}
+				is_controlled_by = HUN
+			}
+			factor = 2.5
+		}
+	}
+	available = {
+		ROM = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_government = fascism
+				is_in_faction_with = GER
+				is_in_faction_with = ITA
+			}
+			OR = {
+				NOT = {
+					has_government = nationalism
+				}
+				HUN = {
+					OR = {
+						controls_state = 664
+						controls_state = 1048
+					}
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		ROM = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Yugoslavia_Arms
+	icon = GFX_focus_modern_yug_army
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Start
+	}
+	x = 2
+	y = 1
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 2.15
+	ai_will_do = {
+		factor = 150
+		modifier = {
+			NOT = {
+				country_exists = ALB
+			}
+			factor = 2
+		}
+	}
+	available = {
+		OR = {
+			threat > 0.25
+			date > 1937.6.1
+		}
+		YUG = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = fascism
+				is_in_faction_with = GER
+				is_in_faction_with = ITA
+			}
+		}
+	}
+	bypass = {
+		YUG = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = ROOT
+				has_government = fascism
+				is_in_faction_with = GER
+				is_in_faction_with = ITA
+			}
+		}
+	}
+	completion_reward = {	
+		YUG = {
+			country_event = {
+				id = eng_foreign.11
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Yugoslavia_Alliance
+	icon = GFX_focus_Protect_Yugoslavia
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Yugoslavia_Arms
+	}
+	x = 1
+	y = 2
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1.72
+	ai_will_do = {
+		factor = 180
+		modifier = {
+			NOT = {
+				country_exists = ALB
+			}
+			factor = 2
+		}
+	}
+	available = {
+		OR = {
+			has_global_flag = GER_annexed_austria
+			4 = {
+				is_controlled_by = GER
+			}
+		}
+		has_country_flag = ENG_yug_accepted_offer
+		YUG = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = fascism
+				is_in_faction_with = GER
+				is_in_faction_with = ITA
+			}
+		}
+	}
+	bypass = {
+		OR = {
+			YUG = {
+				OR = {
+					exists = no
+					is_subject = yes
+					has_war_with = ROOT
+					has_government = fascism
+					is_in_faction_with = GER
+					is_in_faction_with = ITA
+				}
+			}
+			has_country_flag = ENG_yug_refused_offer
+		}
+	}
+	completion_reward = {	
+		YUG = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Embargo_Italy
+	icon = GFX_focus_Contain_Italy
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Yugoslavia_Arms
+	}
+	x = 3
+	y = 2
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1
+	ai_will_do = {
+		factor = 230
+		modifier = {
+			NOT = {
+				country_exists = ALB
+			}
+			factor = 2
+		}
+		modifier = {
+			date < 1938.6.1
+			factor = 0.67
+		}
+		modifier = {
+			ITA = {
+				has_war = yes
+			}
+			factor = 3
+		}
+	}
+	available = {
+		ITA = {
+			exists = yes
+			has_government = fascism
+		}
+	}
+	bypass = {
+		ITA = {
+			OR = {
+				exists = no
+				is_subject = yes
+			}
+		}
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = ITA
+			modifier = ENG_embargo
+		}
+		reverse_add_opinion_modifier = {
+			target = ITA
+			modifier = ENG_embargo_trade
+		}
+		add_opinion_modifier = {
+			target = ITA
+			modifier = ENG_embargo_trade
+		}
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Ally_Greece
+	icon = GFX_focus_shield_greece
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Yugoslavia_Alliance
+	}
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Embargo_Italy
+	}
+	x = 2
+	y = 3
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			NOT = {
+				country_exists = ALB
+			}
+			factor = 2
+		}
+		modifier = {
+			date < 1938.6.1
+			factor = 0.67
+		}
+		modifier = {
+			ITA = {
+				has_war = yes
+			}
+			factor = 3
+		}
+	}
+	available = {
+		ITA = {
+			exists = yes
+			has_government = fascism
+		}
+		any_state = {
+			is_core_of = ALB
+			is_controlled_by = ITA
+		}
+		GRE = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = fascism
+				is_in_faction_with = GER
+				is_in_faction_with = ITA
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		GRE = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Approach_Poland
+	icon = GFX_focus_Preserve_Greater_Poland
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Start
+	}
+	x = 0
+	y = 1
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 500
+		modifier = {
+			date > 1938.6.1
+			factor = 1.5
+		}
+	}
+	available = {
+		POL = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = fascism
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = POL
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = POL
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Planes_to_Poland
+	icon = GFX_Buy_British_Planes
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Approach_Poland
+	}
+	x = 0
+	y = 3
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 280
+		modifier = {
+			date > 1939.1.1
+			factor = 3
+		}
+	}
+	available = {
+		OR = {
+			has_global_flag = GER_annexed_austria
+			4 = {
+				is_controlled_by = GER
+			}
+		}
+		POL = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = fascism
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		POL = {
+			country_event = {
+				id = eng_foreign.14
+			}
+		}
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Ally_Poland
+	icon = GFX_focus_Shield_Poland
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Planes_to_Poland
+	}
+	x = -1
+	y = 4
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 1200
+		modifier = {
+			date < 1939.3.1
+			factor = 0
+		}
+	}
+	available = {
+		POL = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = fascism
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		POL = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Fascist_Embargo_Germany
+	icon = GFX_focus_Ban_NSDAP
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Planes_to_Poland
+	}
+	x = 1
+	y = 4
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1
+	ai_will_do = {
+		factor = 1000
+		modifier = {
+			date < 1939.3.1
+			factor = 0
+		}
+	}
+	available = {
+		GER = {
+			exists = yes
+			OR = {
+				has_government = fascism
+				has_government = nationalism
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = GER
+			modifier = ENG_embargo
+		}
+		reverse_add_opinion_modifier = {
+			target = GER
+			modifier = ENG_embargo_trade
+		}
+		add_opinion_modifier = {
+			target = GER
+			modifier = ENG_embargo_trade
+		}
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_French_Summit
+	icon = GFX_Focus_Agreemente_with_France
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Start
+		focus = ENG_Anti_Communist_Start
+	}
+	x = 6
+	y = 1
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 210
+		modifier = {
+			date < 1936.8.10
+			factor = 0
+		}
+	}
+	available = {
+		FRA = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			OR = {
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Fascist_Start
+					}
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+					}
+				}
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Communist_Start
+					}
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = FRA
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = FRA
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_French_Research
+	icon = GFX_focus_Brainpower
+	prerequisite = {
+		focus = ENG_French_Summit
+	}
+	x = -1
+	y = 1
+	relative_position_id = ENG_French_Summit
+	cost = 2.86
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			date < 1937.1.1
+			factor = 0
+		}
+	}
+	available = {
+		FRA = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			OR = {
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Fascist_Start
+					}
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+					}
+				}
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Communist_Start
+					}
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		FRA = {
+			country_event = {
+				id = eng_foreign.17
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_French_Trade
+	icon = GFX_focus_French_Industry
+	prerequisite = {
+		focus = ENG_French_Summit
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_French_Summit
+	cost = 1.43
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			date < 1936.8.10
+			factor = 0
+		}
+	}
+	available = {
+		FRA = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			OR = {
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Fascist_Start
+					}
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+					}
+				}
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Communist_Start
+					}
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = FRA
+			modifier = ENG_trade
+		}
+		add_opinion_modifier = {
+			target = FRA
+			modifier = ENG_trade
+		}
+	}
+}
+shared_focus = {
+	id = ENG_French_Alliance
+	icon = GFX_focus_Anglo_French_Alliance
+	prerequisite = {
+		focus = ENG_French_Research
+	}
+	prerequisite = {
+		focus = ENG_French_Trade
+	}
+	x = 0
+	y = 2
+	relative_position_id = ENG_French_Summit
+	cost = 1
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			date < 1938.3.1
+			factor = 0
+		}
+	}
+	available = {
+		OR = {
+			date > 1937.10.1
+			threat > 0.25
+		}
+		FRA = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			OR = {
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Fascist_Start
+					}
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+					}
+				}
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Communist_Start
+					}
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		FRA = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_German_Summit
+	icon = GFX_focus_Befriend_Weimar_Germany
+	prerequisite = {
+		focus = ENG_Anti_Fascist_Start
+		focus = ENG_Anti_Communist_Start
+	}
+	x = 10
+	y = 1
+	relative_position_id = ENG_Anti_Fascist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 210
+		modifier = {
+			date < 1936.8.10
+			factor = 0
+		}
+	}
+	available = {
+		WGR = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			OR = {
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Fascist_Start
+					}
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+					}
+				}
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Communist_Start
+					}
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = WGR
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = WGR
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_German_Trade
+	icon = GFX_focus_Gold_Germany
+	prerequisite = {
+		focus = ENG_German_Summit
+	}
+	x = -1
+	y = 1
+	relative_position_id = ENG_German_Summit
+	cost = 1.43
+	ai_will_do = {
+		factor = 210
+		modifier = {
+			date < 1936.8.10
+			factor = 0
+		}
+	}
+	available = {
+		WGR = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			OR = {
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Fascist_Start
+					}
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+					}
+				}
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Communist_Start
+					}
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = WGR
+			modifier = ENG_trade
+		}
+		add_opinion_modifier = {
+			target = WGR
+			modifier = ENG_trade
+		}
+	}
+}
+shared_focus = {
+	id = ENG_German_Payment_Reduction
+	icon = GFX_focus_Reduce_Employer_Contributions
+	prerequisite = {
+		focus = ENG_German_Summit
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_German_Summit
+	cost = 1.43
+	ai_will_do = {
+		factor = 210
+		modifier = {
+			date < 1936.8.10
+			factor = 0
+		}
+	}
+	available = {
+		WGR = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			OR = {
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Fascist_Start
+					}
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+					}
+				}
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Communist_Start
+					}
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_political_power = -25
+		WGR = {
+			country_event = {
+				id = eng_foreign.20
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_German_Alliance
+	icon = GFX_focus_A_Free_Germany
+	prerequisite = {
+		focus = ENG_German_Trade
+	}
+	prerequisite = {
+		focus = ENG_German_Payment_Reduction
+	}
+	x = 0
+	y = 2
+	relative_position_id = ENG_German_Summit
+	cost = 1.43
+	ai_will_do = {
+		factor = 210
+		modifier = {
+			date < 1936.8.10
+			factor = 0
+		}
+	}
+	available = {
+		WGR = {
+			exists = yes
+			is_subject = no
+			is_in_faction = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			OR = {
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Fascist_Start
+					}
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+					}
+				}
+				AND = {
+					ROOT = {
+						has_completed_focus = ENG_Anti_Communist_Start
+					}
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		WGR = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Start
+	icon = GFX_focus_Anti_Communist
+	#prerequisite = { focus = ENG_Anti_Communist_Start }
+	mutually_exclusive = {
+		focus = ENG_Cause_of_Peace_Start
+	}
+	mutually_exclusive = {
+		focus = ENG_Anti_Fascist_Start
+	}
+	x = 68
+	y = 0
+	#relative_position_id = ENG_Anti_Communist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 800
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			SOV = {
+				OR = {
+					exists = no
+					NOT = {
+						OR = {
+							has_government = communism
+							has_government = authoritarian_socialism
+						}
+					}
+					is_subject = yes
+				}
+			}
+			factor = 0.25
+		}
+		modifier = {
+			DDR = {
+				exists = yes
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+			factor = 1.5
+		}
+	}
+	available = {
+		date > 1936.1.1
+		NOT = {
+			GER = {
+				exists = yes
+				is_subject = no
+				OR = {
+					has_government = nationalism
+					has_government = fascism
+				}
+			}
+			has_government = communism
+			has_government = authoritarian_socialism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_war_support = 0.01
+		add_political_power = 5
+		add_popularity = {
+			ideology = communism
+			popularity = -0.01
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Soviet
+	icon = GFX_focus_Spear_the_Bear
+	prerequisite = {
+		focus = ENG_Anti_Communist_Start
+	}
+	x = -2
+	y = 1
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 1
+	ai_will_do = {
+		factor = 250
+	}
+	available = {
+		SOV = {
+			exists = yes
+			OR = {
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	bypass = {
+		has_war_with = SOV
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = SOV
+			modifier = ENG_against
+		}
+		add_opinion_modifier = {
+			target = SOV
+			modifier = ENG_against
+		}
+		set_global_flag = ENG_anti_soviet
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Arm_Finland
+	icon = GFX_focus_Finland_Officers
+	prerequisite = {
+		focus = ENG_Anti_Communist_Soviet
+	}
+	x = -3
+	y = 2
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 2.15
+	ai_will_do = {
+		factor = 250
+		modifier = {
+			factor = 10
+			FIN = {
+				has_war_with = SOV
+			}
+		}
+	}
+	available = {
+		FIN = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+		custom_trigger_tooltip = {
+			SOV = {
+				has_completed_focus = SOV_Ultimatum_to_Finland
+			}
+			tooltip = ENG_sov_aiming_for_finland
+		}
+	}
+	bypass = {
+		FIN = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = ROOT
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	completion_reward = {	
+		FIN = {
+			country_event = {
+				id = eng_foreign.11
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Ally_Finland
+	icon = GFX_focus_Befriend_Finland
+	prerequisite = {
+		focus = ENG_Anti_Communist_Arm_Finland
+	}
+	x = -4
+	y = 3
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			factor = 0.2
+			FIN = {
+				has_war_with = SOV
+			}
+		}
+	}
+	available = {
+		FIN = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+		custom_trigger_tooltip = {
+			SOV = {
+				has_completed_focus = SOV_Ultimatum_to_Finland
+			}
+			tooltip = ENG_sov_aiming_for_finland
+		}
+	}
+	bypass = {
+		FIN = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = ROOT
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	completion_reward = {	
+		FIN = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Guarantee_Baltics
+	icon = GFX_focus_Baltic_Alliance
+	prerequisite = {
+		focus = ENG_Anti_Communist_Arm_Finland
+	}
+	x = -2
+	y = 3
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 2
+	ai_will_do = {
+		factor = 400
+	}
+	available = {
+		OR = {
+			EST = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+			LAT = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+			LIT = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			SOV = {
+				has_completed_focus = SOV_Bases_in_the_Baltic
+			}
+			tooltip = ENG_sov_aiming_for_baltics
+		}
+	}
+	bypass = {
+		NOT = {
+			EST = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		NOT = {
+			LAT = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		NOT = {
+			LIT = {
+				exists = yes
+				is_subject = no
+				NOT = {
+					has_war_with = ROOT
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+	}
+	completion_reward = {	
+		EST = {
+			if = {
+				limit = {
+					exists = yes
+					is_subject = no
+					NOT = {
+						has_war_with = ROOT
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+				country_event = {
+					id = eng_foreign.1
+				}
+			}
+		}
+		LIT = {
+			if = {
+				limit = {
+					exists = yes
+					is_subject = no
+					NOT = {
+						has_war_with = ROOT
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+				country_event = {
+					id = eng_foreign.1
+				}
+			}
+		}
+		LAT = {
+			if = {
+				limit = {
+					exists = yes
+					is_subject = no
+					NOT = {
+						has_war_with = ROOT
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+				country_event = {
+					id = eng_foreign.1
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Ally_Romania
+	icon = GFX_focus_Alliance_with_Romania
+	prerequisite = {
+		focus = ENG_Anti_Communist_Ally_Finland
+	}
+	prerequisite = {
+		focus = ENG_Anti_Communist_Guarantee_Baltics
+	}
+	x = -3
+	y = 4
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			factor = 0.2
+			ROM = {
+				has_war_with = SOV
+			}
+		}
+	}
+	available = {
+		ROM = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+		custom_trigger_tooltip = {
+			SOV = {
+				has_completed_focus = SOV_Demand_Bessarabia
+			}
+			tooltip = ENG_sov_aiming_for_romania
+		}
+	}
+	bypass = {
+		ROM = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = ROOT
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	completion_reward = {	
+		ROM = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Embargo_USSR
+	icon = GFX_focus_Gulags
+	prerequisite = {
+		focus = ENG_Anti_Communist_Guarantee_Baltics
+	}
+	x = -1
+	y = 4
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			factor = 4
+			SOV = {
+				has_war = yes
+			}
+		}
+	}
+	available = {
+		SOV = {
+			exists = yes
+			OR = {
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = SOV
+			modifier = ENG_embargo
+		}
+		reverse_add_opinion_modifier = {
+			target = SOV
+			modifier = ENG_embargo_trade
+		}
+		add_opinion_modifier = {
+			target = SOV
+			modifier = ENG_embargo_trade
+		}
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Poland
+	icon = GFX_goal_System_Wodzowski
+	prerequisite = {
+		focus = ENG_Anti_Communist_Start
+	}
+	x = 0
+	y = 1
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 1
+	ai_will_do = {
+		factor = 500
+		modifier = {
+			date > 1938.6.1
+			factor = 1.5
+		}
+	}
+	available = {
+		POL = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = communism
+				has_government = authoritarian_socialism
+				is_in_faction_with = SOV
+				is_in_faction_with = DDR
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = POL
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = POL
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Arm_Poland
+	icon = GFX_focus_Firearms
+	prerequisite = {
+		focus = ENG_Anti_Communist_Poland
+	}
+	prerequisite = {
+		focus = ENG_Anti_Communist_Soviet
+	}
+	mutually_exclusive = {
+		focus = ENG_Anti_Communist_Anti_Tank_Poland
+	}
+	x = -1
+	y = 2
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 2.15
+	ai_will_do = {
+		factor = 500
+		modifier = {
+			date > 1938.10.1
+			factor = 1.5
+		}
+		modifier = {
+			POL = {
+				has_war_with = SOV
+			}
+			factor = 5
+		}
+	}
+	available = {
+		POL = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = communism
+				has_government = authoritarian_socialism
+				is_in_faction_with = SOV
+				is_in_faction_with = DDR
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		POL = {
+			country_event = {
+				id = eng_foreign.11
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Anti_Tank_Poland
+	icon = GFX_focus_Anti-Tank
+	prerequisite = {
+		focus = ENG_Anti_Communist_Poland
+	}
+	prerequisite = {
+		focus = ENG_Anti_Communist_Germany
+	}
+	mutually_exclusive = {
+		focus = ENG_Anti_Communist_Arm_Poland
+	}
+	x = 1
+	y = 2
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 2.15
+	ai_will_do = {
+		factor = 500
+		modifier = {
+			date > 1938.10.1
+			factor = 1.5
+		}
+		modifier = {
+			POL = {
+				has_war_with = DDR
+			}
+			factor = 5
+		}
+	}
+	available = {
+		POL = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = communism
+				has_government = authoritarian_socialism
+				is_in_faction_with = SOV
+				is_in_faction_with = DDR
+			}
+		}
+		has_tech = interwar_antitank
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		POL = {
+			country_event = {
+				id = eng_foreign.21
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Poland_Ally
+	icon = GFX_goal_Informacja_Wojskowa
+	prerequisite = {
+		focus = ENG_Anti_Communist_Arm_Poland
+		focus = ENG_Anti_Communist_Anti_Tank_Poland
+	}
+	x = 0
+	y = 3
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 500
+		modifier = {
+			date > 1939.5.1
+			factor = 1.5
+		}
+		modifier = {
+			POL = {
+				OR = {
+					has_war_with = DDR
+					has_war_with = SOV
+				}
+			}
+			factor = 0.5
+		}
+	}
+	available = {
+		POL = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = communism
+				has_government = authoritarian_socialism
+				is_in_faction_with = SOV
+				is_in_faction_with = DDR
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		POL = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Germany
+	icon = GFX_focus_KPD_Primacy
+	prerequisite = {
+		focus = ENG_Anti_Communist_Start
+	}
+	x = 2
+	y = 1
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 1
+	ai_will_do = {
+		factor = 250
+	}
+	available = {
+		DDR = {
+			exists = yes
+			OR = {
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	bypass = {
+		has_war_with = DDR
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = DDR
+			modifier = ENG_against
+		}
+		add_opinion_modifier = {
+			target = DDR
+			modifier = ENG_against
+		}
+		set_global_flag = ENG_anti_DDR
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Commnist_Arm_Czechs
+	icon = GFX_focus_Gun_Czechs
+	prerequisite = {
+		focus = ENG_Anti_Communist_Germany
+	}
+	x = 3
+	y = 2
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 2.15
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+		CZE = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = communism
+			}
+		}
+	}
+	bypass = {
+		CZE = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = ROOT
+				has_government = communism
+			}
+		}
+	}
+	completion_reward = {	
+		CZE = {
+			country_event = {
+				id = eng_foreign.11
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Commnist_Ally_Czechs
+	icon = GFX_focus_Czechoslovak_state
+	prerequisite = {
+		focus = ENG_Anti_Commnist_Arm_Czechs
+	}
+	x = 4
+	y = 3
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+		CZE = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = communism
+			}
+		}
+	}
+	bypass = {
+		CZE = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = ROOT
+				has_government = communism
+			}
+		}
+	}
+	completion_reward = {	
+		CZE = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Commnist_Approach_Italy
+	icon = GFX_focus_cbts_Befriend_Italy
+	prerequisite = {
+		focus = ENG_Anti_Commnist_Arm_Czechs
+	}
+	x = 2
+	y = 3
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+		ITA = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	bypass = {
+		ITA = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = ROOT
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = ITA
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = ITA
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Commnist_Ally_Italy
+	icon = GFX_focus_Victory_Italy
+	prerequisite = {
+		focus = ENG_Anti_Commnist_Ally_Czechs
+	}
+	prerequisite = {
+		focus = ENG_Anti_Commnist_Approach_Italy
+	}
+	x = 3
+	y = 4
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+		ITA = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+		OR = {
+			ITA = {
+				NOT = {
+					has_government = fascism
+				}
+			}
+			NOT = {
+				has_government = communism
+				has_government = authoritarian_socialism
+				has_government = socialism
+			}
+		}
+	}
+	bypass = {
+		ITA = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = ROOT
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	completion_reward = {	
+		ITA = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Anti_Communist_Embargo_Germany
+	icon = GFX_focus_Heavy_Strike
+	prerequisite = {
+		focus = ENG_Anti_Commnist_Approach_Italy
+	}
+	x = 1
+	y = 4
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			factor = 4
+			DDR = {
+				has_war = yes
+			}
+		}
+	}
+	available = {
+		DDR = {
+			exists = yes
+			OR = {
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		reverse_add_opinion_modifier = {
+			target = DDR
+			modifier = ENG_embargo
+		}
+		reverse_add_opinion_modifier = {
+			target = DDR
+			modifier = ENG_embargo_trade
+		}
+		add_opinion_modifier = {
+			target = DDR
+			modifier = ENG_embargo_trade
+		}
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_Support_Spanish_Nationalists
+	icon = GFX_focus_support_nationalist_spain
+	prerequisite = {
+		focus = ENG_Anti_Communist_Start
+	}
+	x = 7
+	y = 1
+	relative_position_id = ENG_Anti_Communist_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 330
+	}
+	available = {
+		OR = {
+			SPA = {
+				has_war_with = SPR
+			}
+			AND = {
+				SPC = {
+					has_war_with = SPR
+				}
+				SPR = {
+					OR = {
+						has_government = neutrality
+						has_government = monarchism
+						has_government = nationalism
+						has_government = fascism
+					}
+				}
+			}
+		}
+		date > 1935.1.1
+	}
+	bypass = {
+		OR = {
+			AND = {
+				SPA = {
+					NOT = {
+						has_war_with = SPC
+						has_war_with = SPR
+					}
+				}
+				date > 1938.1.1
+			}
+			AND = {
+				SPR = {
+					has_government = neutrality
+					NOT = {
+						has_war_with = SPA
+					}
+				}
+			}
+			is_in_faction_with = SPR
+			is_in_faction_with = SPA
+		}
+	}
+	completion_reward = {	
+		if = {
+			limit = {
+				SPR = {
+					has_government = neutrality
+				}
+			}
+			SPR = {
+				country_event = {
+					id = eng_foreign.4
+				}
+			}
+		}
+		else = {
+			SPA = {
+				country_event = {
+					id = eng_foreign.4
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Embargo_Republicans
+	icon = GFX_focus_Anti_Democracy
+	prerequisite = {
+		focus = ENG_Support_Spanish_Nationalists
+	}
+	mutually_exclusive = {
+		focus = ENG_Recognize_NatSpa
+	}
+	x = -1
+	y = 1
+	relative_position_id = ENG_Support_Spanish_Nationalists
+	cost = 1.43
+	ai_will_do = {
+		factor = 330
+	}
+	available = {
+		OR = {
+			SPR = {
+				exists = yes
+				NOT = {
+					has_government = neutrality
+				}
+				has_war = no
+			}
+			SPC = {
+				exists = yes
+				is_subject = no
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				SPR = {
+					exists = yes
+					NOT = {
+						has_government = neutrality
+					}
+				}
+			}
+			reverse_add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_embargo
+			}
+			reverse_add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_embargo_trade
+			}
+			add_opinion_modifier = {
+				target = SPR
+				modifier = ENG_embargo_trade
+			}
+		}
+		else = {
+			reverse_add_opinion_modifier = {
+				target = SPC
+				modifier = ENG_embargo
+			}
+			reverse_add_opinion_modifier = {
+				target = SPC
+				modifier = ENG_embargo_trade
+			}
+			add_opinion_modifier = {
+				target = SPC
+				modifier = ENG_embargo_trade
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_Recognize_NatSpa
+	icon = GFX_focus_Victory_Iberia
+	prerequisite = {
+		focus = ENG_Support_Spanish_Nationalists
+	}
+	mutually_exclusive = {
+		focus = ENG_Embargo_Republicans
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_Support_Spanish_Nationalists
+	cost = 1.43
+	ai_will_do = {
+		factor = 330
+	}
+	available = {
+		SPA = {
+			exists = yes
+			has_war = no
+			NOT = {
+				has_country_leader = {
+					name = "José Antonio Primo de Rivera"
+					ruling_only = yes
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		reverse_add_opinion_modifier = {
+			target = SPA
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = SPA
+			modifier = ENG_talks
+		}
+	}	
+}
+shared_focus = {
+	id = ENG_Recognize_Send_Arms
+	icon = GFX_focus_Guns_Shipment
+	prerequisite = {
+		focus = ENG_Recognize_NatSpa
+	}
+	x = 0
+	y = 2
+	relative_position_id = ENG_Support_Spanish_Nationalists
+	cost = 2.15
+	ai_will_do = {
+		factor = 330
+	}
+	available = {
+		SPA = {
+			exists = yes
+			has_war = no
+			NOT = {
+				has_country_leader = {
+					name = "José Antonio Primo de Rivera"
+					ruling_only = yes
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		SPA = {
+			country_event = {
+				id = eng_foreign.11
+			}
+		}
+	}	
+}
+shared_focus = {
+	id = ENG_Recognize_Send_Investment
+	icon = GFX_focus_Grab_Money
+	prerequisite = {
+		focus = ENG_Recognize_NatSpa
+	}
+	x = 2
+	y = 2
+	relative_position_id = ENG_Support_Spanish_Nationalists
+	cost = 2.86
+	ai_will_do = {
+		factor = 330
+	}
+	available = {
+		SPA = {
+			exists = yes
+			has_war = no
+			NOT = {
+				has_country_leader = {
+					name = "José Antonio Primo de Rivera"
+					ruling_only = yes
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		SPA = {
+			country_event = {
+				id = eng_foreign.10
+			}
+		}
+	}	
+}
+shared_focus = {
+	id = ENG_Ally_NatSpa
+	icon = GFX_focus_Champagne_Repression
+	prerequisite = {
+		focus = ENG_Recognize_Send_Arms
+	}
+	prerequisite = {
+		focus = ENG_Recognize_Send_Investment
+	}
+	x = 1
+	y = 3
+	relative_position_id = ENG_Support_Spanish_Nationalists
+	cost = 1.43
+	ai_will_do = {
+		factor = 330
+	}
+	available = {
+		SPA = {
+			exists = yes
+			has_war = no
+			NOT = {
+				has_country_leader = {
+					name = "José Antonio Primo de Rivera"
+					ruling_only = yes
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		SPA = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}	
+}
+shared_focus = {
+	id = ENG_Ally_Portugal
+	icon = GFX_focus_Anglo_Portuguese_Alliance
+	prerequisite = {
+		focus = ENG_Embargo_Republicans
+		focus = ENG_Ally_NatSpa
+	}
+	x = -1
+	y = 4
+	relative_position_id = ENG_Support_Spanish_Nationalists
+	cost = 1.43
+	ai_will_do = {
+		factor = 330
+	}
+	available = {
+		POR = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_war_with = ROOT
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		POR = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}	
+}

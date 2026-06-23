@@ -1,0 +1,717 @@
+	#Pre-Election Tree
+	shared_focus = {
+		id = SAF_1933_Election
+		icon = GFX_focus_election
+		x = 7
+		y = 0
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+		}
+	}
+	shared_focus = {
+		id = SAF_The_Question_Of_Coalition
+		icon = GFX_focus_Party_Politics
+		x = 6
+		y = 1
+		cost = 5
+		prerequisite = { focus = SAF_1933_Election }
+		available = {
+			}
+		completion_reward = {
+		}
+	}
+	shared_focus = {
+		id = SAF_The_Minor_Parties
+		icon = GFX_focus_Social_Democracy
+		x = 8
+		y = 1
+		cost = 5
+		prerequisite = { focus = SAF_1933_Election }
+		available = {
+			}
+		completion_reward = {
+		}
+	}
+	shared_focus = {
+		id = SAF_The_Final_Debates
+		icon = GFX_focus_Elections_2
+		x = 7
+		y = 2
+		cost = 5.5
+		prerequisite = { focus = SAF_The_Minor_Parties }
+		prerequisite = { focus = SAF_The_Question_Of_Coalition }
+		available = {
+			}
+		completion_reward = {
+		}
+	}
+	#1933 Coalition Tree
+	shared_focus = {
+		id = SAF_Coalition_Forms
+		icon = GFX_focus_United_Party
+		allow_branch = {
+			has_country_flag = SAF_Coalition_Victory
+		}
+		prerequisite = { focus = SAF_The_Final_Debates }
+		x = 7
+		y = 3
+		cost = 1
+		completion_reward = {
+			country_event = {
+				id = saf_election.2
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Two_Pillars
+		icon = GFX_focus_Two_Pillars
+		prerequisite = { focus = SAF_Coalition_Forms }
+		x = -5
+		y = 1
+		relative_position_id = SAF_Coalition_Forms
+		cost = 1
+		available = {
+			NOT = {
+				has_country_flag = SAF_Coalition_Collapse
+			}
+		}
+		completion_reward = {
+			add_stability = 0.05
+		}
+	}
+	shared_focus = {
+		id = SAF_Malan_Question
+		icon = GFX_focus_Malan_Question
+		prerequisite = { focus = SAF_Two_Pillars }
+		x = -6
+		y = 2
+		relative_position_id = SAF_Coalition_Forms
+		cost = 1
+		available = {
+			NOT = {
+				has_country_flag = SAF_Coalition_Collapse
+			}
+		}
+		completion_reward = {
+			country_event = {
+				id = saf_election.3
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Gesuiwerde_Left
+		icon = GFX_focus_Gesuiwerde_Left
+		prerequisite = { focus = SAF_Malan_Question }
+		x = -6
+		y = 3
+		relative_position_id = SAF_Coalition_Forms
+		cost = 3
+		available = {
+			has_country_flag = SAF_Failed_Talks
+			NOT = {
+				has_country_flag = SAF_Coalition_Collapse
+			}
+		}
+		
+		completion_reward = {
+		country_event = {
+				id = saf_election.8
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Emphasize_Smelters
+		icon = GFX_focus_Give_Democracy
+		prerequisite = { focus = SAF_Gesuiwerde_Left }
+		mutually_exclusive = { focus = SAF_Compromise_Policies }
+		x = -5
+		y = 4
+		relative_position_id = SAF_Coalition_Forms
+		cost = 3
+		available = {
+			has_country_flag = SAF_emphasize
+			NOT = {
+				has_country_flag = SAF_Coalition_Collapse
+			}
+			}
+		completion_reward = {
+		custom_effect_tooltip = 2_SAF_tt
+		hidden_effect = {
+				add_popularity = {
+					ideology = fascism
+					popularity = 0.05
+				}
+				add_popularity = {
+					ideology = jacobin
+					popularity = 0.05
+				}
+				SAF_coalition_level_up = yes
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Compromise_Policies
+		icon = GFX_focus_denounce_democracies
+		prerequisite = { focus = SAF_Gesuiwerde_Left }
+		mutually_exclusive = { focus = SAF_Emphasize_Smelters }
+		x = -7
+		y = 4
+		relative_position_id = SAF_Coalition_Forms
+		cost = 3
+		available = {
+			has_country_flag = SAF_compromise
+			NOT = {
+				has_country_flag = SAF_Coalition_Collapse
+			}
+			}
+		completion_reward = {
+		custom_effect_tooltip = 3_SAF_tt
+		hidden_effect = {
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.05
+				}
+				add_popularity = {
+					ideology = jacobin
+					popularity = -0.02
+				}
+				add_popularity = {
+					ideology = fascism
+					popularity = -0.02
+				}
+				SAF_coalition_level_down = yes
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Ministry_Question
+		icon = GFX_focus_Prime_Minister_Question
+		prerequisite = { focus = SAF_Two_Pillars }
+		x = -4
+		y = 2
+		relative_position_id = SAF_Coalition_Forms
+		cost = 5
+		available = {
+			NOT = {
+				has_country_flag = SAF_Coalition_Collapse
+			}
+			}
+		select_effect = {
+			country_event = {
+				id = saf_election.6
+			}
+		}
+		completion_reward = {
+			custom_effect_tooltip = Ministry_SAF_tt
+		}
+	}
+	shared_focus = {
+		id = SAF_An_Uneasy_Coalition
+		icon = GFX_focus_Risky_Deal
+		prerequisite = { focus = SAF_Compromise_Policies focus = SAF_Emphasize_Smelters}
+		prerequisite = { focus = SAF_Ministry_Question }
+		x = -4
+		y = 5
+		relative_position_id = SAF_Coalition_Forms
+		cost = 3
+		available = {
+			has_country_flag = SAF_Depression_Over_flag
+			NOT = {
+				has_country_flag = SAF_Coalition_Collapse
+			}
+			}
+		completion_reward = {
+		custom_effect_tooltip = SAF_uneasy_coalition
+			hidden_effect = {
+				add_political_power = 30
+				set_country_flag = SAF_coalition_ready
+				SAF_coalition_clear_all = yes
+			}
+		}
+	}
+	#Economy
+	shared_focus = {
+		id = SAF_Gold_Standard
+		icon = GFX_focus_Root_out_Funding
+		prerequisite = { focus = SAF_Coalition_Forms }
+		x = 5
+		y = 1
+		relative_position_id = SAF_Coalition_Forms
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_depression_up_tt
+			hidden_effect = {
+				SAF_depression_level_up = yes
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Float_Pound
+		icon = GFX_focus_Economic_Stimulus
+		prerequisite = { focus = SAF_Gold_Standard }
+		x = 5
+		y = 2
+		relative_position_id = SAF_Coalition_Forms
+		cost = 3
+		available = {
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_depression_up_tt
+			hidden_effect = {
+				SAF_depression_level_up = yes
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Sterling_Area
+		icon = GFX_focus_Befriend_United_Kingdom
+		prerequisite = { focus = SAF_Float_Pound }
+		mutually_exclusive = { focus = SAF_Our_Own_Currency }
+		x = 4
+		y = 3
+		relative_position_id = SAF_Coalition_Forms
+		cost = 2.5
+		ai_will_do = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_5
+			}
+		}
+		available = {
+			}
+		completion_reward = {
+			custom_effect_tooltip = 2_SAF_tt
+			custom_effect_tooltip = SAF_depression_up_tt
+			hidden_effect = {
+				SAF_coalition_level_up = yes
+				SAF_depression_level_up = yes
+				add_ideas = SAF_Sterling_Area
+				set_country_flag = SAF_Joined_Sterling
+
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Our_Own_Currency
+		icon = GFX_focus_Fundraising
+		prerequisite = { focus = SAF_Float_Pound }
+		mutually_exclusive = { focus = SAF_Sterling_Area }
+		x = 6
+		y = 3
+		relative_position_id = SAF_Coalition_Forms
+		cost = 2.5
+		ai_will_do = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_1
+			}
+		}
+		available = {
+			}
+		completion_reward = {
+			custom_effect_tooltip = 3_SAF_tt
+			custom_effect_tooltip = SAF_depression_up_tt
+			hidden_effect = {
+				SAF_coalition_level_down = yes
+				SAF_depression_level_up = yes
+				add_ideas = SAF_Independent_Currency
+				set_country_flag = SAF_Emphasized_Currency
+			}
+		}
+	}
+	
+	shared_focus = {
+		id = SAF_Import_Taxes
+		icon = GFX_focus_Protectionism
+		prerequisite = { focus = SAF_Our_Own_Currency focus = SAF_Sterling_Area }
+		x = 5
+		y = 4
+		relative_position_id = SAF_Coalition_Forms
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+			add_timed_idea = {
+				idea = SAF_import_taxes_temp
+				days = 180
+			}
+			custom_effect_tooltip = SAF_depression_up_tt
+			hidden_effect = {
+			SAF_depression_level_up = yes
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Invest_Agriculture
+		icon = GFX_focus_Agriculture
+		prerequisite = { focus = SAF_Import_Taxes }
+		mutually_exclusive = { focus = SAF_Invest_Industry }
+		x = 6
+		y = 5
+		relative_position_id = SAF_Coalition_Forms
+		cost = 3.5
+		ai_will_do = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_5
+			}
+		}
+		available = {
+			}
+		completion_reward = {
+			custom_effect_tooltip = 3_SAF_tt
+			custom_effect_tooltip = SAF_depression_up_tt
+			hidden_effect = {
+				SAF_coalition_level_down = yes
+				add_timed_idea = {
+					idea = SAF_agricultural_tech
+					days = 365
+				}
+				
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Invest_Industry
+		icon = GFX_focus_Industrialization
+		prerequisite = { focus = SAF_Import_Taxes }
+		mutually_exclusive = { focus = SAF_Invest_Agriculture }
+		x = 4
+		y = 5
+		relative_position_id = SAF_Coalition_Forms
+		cost = 3.5
+		ai_will_do = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_1
+			}
+		}
+		available = {
+			}
+		completion_reward = {
+			custom_effect_tooltip = 2_SAF_tt
+			custom_effect_tooltip = SAF_depression_up_tt
+			hidden_effect = {
+				SAF_coalition_level_up = yes
+				add_timed_idea = {
+					idea = SAF_industrial_tech
+					days = 365
+				}
+				
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Increase_Mining
+		icon = GFX_focus_Chromium
+		prerequisite = { focus = SAF_Invest_Industry focus = SAF_Invest_Agriculture}
+		x = 5
+		y = 6
+		relative_position_id = SAF_Coalition_Forms
+		cost = 2
+		available = {
+		controls_state = 275
+		}
+		bypass = {
+			NOT = {
+				controls_state = 275
+			}
+		}
+		completion_reward = {
+			custom_effect_tooltip = SAF_depression_up_tt
+			275 = {
+			add_resource = {
+				type = steel
+				amount = 5
+				}
+			}
+			hidden_effect = {
+				add_timed_idea = {
+					idea = SAF_industrial_tech
+					days = 365
+				}
+				
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Out_Of_The_Fire
+		icon = GFX_focus_Progressive_Taxation
+		prerequisite = { focus = SAF_Increase_Mining }
+		x = 5
+		y = 7
+		relative_position_id = SAF_Coalition_Forms
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+			add_political_power = 30
+			custom_effect_tooltip = SAF_Depression_Over
+			hidden_effect = {
+				SAF_coalition_clear_all = yes
+				SAF_depression_clear_all = yes
+				add_timed_idea = {
+					idea = SAF_industrial_tech
+					days = 365
+				}
+				set_country_flag = SAF_Depression_Over_flag
+			}
+		}
+			
+	}
+	#Parliament
+	shared_focus = {
+		id = SAF_Grant_Provincial_Taxation_Powers
+		icon = GFX_focus_Tax_Incentives
+		prerequisite = { focus = SAF_Coalition_Forms }
+		x = -1
+		y = 1
+		relative_position_id = SAF_Coalition_Forms
+		cost = 2.5
+		ai_will_do = {
+			factor = 1000
+		}
+		available = {
+			}
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_taxation_act
+			}
+	}
+	shared_focus = {
+		id = SAF_Protect_National_Monuments
+		icon = GFX_focus_Common_Identity
+		prerequisite = { focus = SAF_Coalition_Forms }
+		x = 1
+		y = 1
+		relative_position_id = SAF_Coalition_Forms
+		cost = 4
+		ai_will_do = {
+			factor = 1000
+		}
+		available = {
+			has_country_flag = SAF_United_Party_formed
+			has_country_flag = SAF_Depression_Over_flag
+			}
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_monument_act
+			}
+	}
+	shared_focus = {
+		id = SAF_Reform_Justice_System
+		icon = GFX_focus_Judicial_System
+		prerequisite = { focus = SAF_Protect_National_Monuments }
+		prerequisite = { focus = SAF_Grant_Provincial_Taxation_Powers }
+		x = -2
+		y = 2
+		relative_position_id = SAF_Coalition_Forms
+		cost = 8
+		ai_will_do = {
+			factor = 1000
+		}
+		mutually_exclusive = { focus = SAF_Expand_Prison_System }
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_attorneys_act
+			custom_effect_tooltip = SAF_unlock_orange_free_state_act
+			custom_effect_tooltip = SAF_unlock_cape_statute_law_act
+			custom_effect_tooltip = SAF_unlock_judge_salary_act
+			custom_effect_tooltip = SAF_unlock_reformatory_amendment_act
+			}
+	}
+	shared_focus = {
+		id = SAF_Expand_Prison_System
+		icon = GFX_focus_Imprison_the_Opposition
+		prerequisite = { focus = SAF_Protect_National_Monuments }
+		prerequisite = { focus = SAF_Grant_Provincial_Taxation_Powers }
+		x = 0
+		y = 2
+		relative_position_id = SAF_Coalition_Forms
+		cost = 6
+		ai_will_do = {
+			factor = 1000
+		}
+		mutually_exclusive = { focus = SAF_Reform_Justice_System }
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_prison_expansion_act
+			custom_effect_tooltip = SAF_unlock_police_salary_act
+			custom_effect_tooltip = SAF_unlock_policing_incentivization_act
+			}
+	}
+	shared_focus = {
+		id = SAF_Regulate_Animal_Slaughtering
+		icon = GFX_focus_Animal_Abuse_Laws
+		prerequisite = { focus = SAF_Protect_National_Monuments }
+		prerequisite = { focus = SAF_Grant_Provincial_Taxation_Powers }
+		x = 2
+		y = 2
+		ai_will_do = {
+			factor = 1000
+		}
+		relative_position_id = SAF_Coalition_Forms
+		cost = 5
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_animal_slaughter_act
+			}
+	}
+	shared_focus = {
+		id = SAF_Increase_Workmens_Compensation
+		icon = GFX_focus_Union_Workers
+		prerequisite = { focus = SAF_Regulate_Animal_Slaughtering }
+		x = 2
+		y = 3
+		ai_will_do = {
+			factor = 1000
+		}
+		relative_position_id = SAF_Coalition_Forms
+		cost = 4
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_compensation_act
+			custom_effect_tooltip = SAF_unlock_pthisis_act
+			}
+	}
+	shared_focus = {
+		id = SAF_Reform_Public_Service
+		icon = GFX_focus_Parliament
+		prerequisite = { focus = SAF_Expand_Prison_System focus = SAF_Reform_Justice_System}
+		x = 0
+		y = 3
+		ai_will_do = {
+			factor = 1000
+		}
+		relative_position_id = SAF_Coalition_Forms
+		cost = 5
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_public_service_pension_act
+			custom_effect_tooltip = SAF_unlock_public_service_amendment_act
+			custom_effect_tooltip = SAF_unlock_reformatories_service_act
+			}
+	}
+	shared_focus = {
+		id = SAF_Manage_Waterways
+		icon = GFX_focus_Dam_Focus
+		prerequisite = { focus = SAF_Expand_Prison_System focus = SAF_Reform_Justice_System}
+		x = -2
+		y = 3
+		relative_position_id = SAF_Coalition_Forms
+		cost = 6
+		ai_will_do = {
+			factor = 1000
+		}
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_buffelspoort_irrigation_act
+			custom_effect_tooltip = SAF_unlock_irrigation_amendment_act
+			custom_effect_tooltip = SAF_unlock_rand_water_board_act
+			custom_effect_tooltip = SAF_unlock_sea_shore_act
+			}
+	}
+	shared_focus = {
+		id = SAF_Regulate_Agricultural_Sector
+		icon = GFX_focus_Buy_Surplus_Produce
+		prerequisite = { focus = SAF_Manage_Waterways }
+		x = -1
+		y = 4
+		relative_position_id = SAF_Coalition_Forms
+		cost = 6
+		ai_will_do = {
+			factor = 1000
+		}
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_tobacco_control_act
+			custom_effect_tooltip = SAF_unlock_farmers_assitance_act
+			custom_effect_tooltip = SAF_unlock_wheat_industry_act
+			custom_effect_tooltip = SAF_unlock_mealie_control_act
+			custom_effect_tooltip = SAF_unlock_dairy_control_act
+			}
+	}
+	shared_focus = {
+		id = SAF_Regulate_Mining_Sector
+		icon = GFX_focus_Excavations
+		prerequisite = { focus = SAF_Manage_Waterways }
+		x = -3
+		y = 4
+		relative_position_id = SAF_Coalition_Forms
+		cost = 7
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_iron_and_steel_act
+			custom_effect_tooltip = SAF_unlock_orange_free_state_metals_act
+			custom_effect_tooltip = SAF_unlock_gold_law_and_mine_trading_act
+			custom_effect_tooltip = SAF_unlock_precious_stones_act
+			custom_effect_tooltip = SAF_unlock_copper_mines_relief_act
+			}
+	}
+	shared_focus = {
+		id = SAF_Regulate_Transportation_Sector
+		icon = GFX_focus_Railways
+		prerequisite = { focus = SAF_Regulate_Agricultural_Sector }
+		prerequisite = { focus = SAF_Regulate_Mining_Sector }
+		x = -2
+		y = 5
+		relative_position_id = SAF_Coalition_Forms
+		cost = 5
+		ai_will_do = {
+			factor = 1000
+		}
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_motor_carrier_act
+			custom_effect_tooltip = SAF_unlock_roads_act
+			custom_effect_tooltip = SAF_unlock_railways_construction_act
+			custom_effect_tooltip = SAF_unlock_second_railways_act
+			}
+	}
+	shared_focus = {
+		id = SAF_Protect_The_Disabled
+		icon = GFX_focus_Pensions
+		prerequisite = { focus = SAF_Reform_Public_Service }
+		prerequisite = {  focus = SAF_Increase_Workmens_Compensation }
+		x = 1
+		y = 4
+		relative_position_id = SAF_Coalition_Forms
+		cost = 4
+		ai_will_do = {
+			factor = 1000
+		}
+		completion_reward = {
+			custom_effect_tooltip = ENG_unlock_related_laws
+			custom_effect_tooltip = SAF_unlock_blind_persons_act
+			custom_effect_tooltip = SAF_unlock_girls_act
+			custom_effect_tooltip = SAF_unlock_childrens_act
+			}
+	}
+	
+	#1933 South African Party Tree
+	shared_focus = {
+		id = SAF_1933_SAP_Victory
+		icon = GFX_focus_WIP
+		prerequisite = { focus = SAF_The_Final_Debates }
+		x = 7
+		y = 3
+		cost = 1
+		allow_branch = {
+			has_country_flag = SAF_SAP_Victory
+		}
+		available = {
+			has_country_flag = SAF_SAP_Victory
+			}
+		completion_reward = {
+		
+		}
+	}
+	

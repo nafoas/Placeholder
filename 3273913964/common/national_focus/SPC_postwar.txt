@@ -1,0 +1,3222 @@
+focus_tree = {
+	id = SPC_postwar
+	country = {
+		factor = 0
+	}
+	continuous_focus_position = { x = 50 y = 2500 }
+	default = no
+
+
+	focus = {
+		id = SPC_first
+		icon = GFX_goal_generic_neutrality_focus
+		cost = 1
+		x = 22
+		y = 0
+		available = {
+			has_country_flag = won_scw
+		}
+		bypass = {
+			OR = {
+				has_country_flag = cnt_has_full_power
+				has_country_flag = pce_has_full_power
+			}
+		}
+		completion_reward = {
+			country_event = { id = spc.1 }
+		}
+	}
+	focus = {
+		id = SPC_economy1
+		icon = GFX_focus_Control_the_Economy
+		cost = 10
+		prerequisite = {
+			focus = SPC_first
+		}
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+			OR = { 
+				has_country_flag = SPC_eco_syn
+				has_country_flag = SPC_eco_pl
+				has_country_flag = SPC_eco_ls
+			}
+		}
+		x = 12
+		y = 1
+
+	}
+	focus = {
+		id = SPC_pce_eco
+		icon = GFX_focus_Planned_Economy
+		cost = 10
+		prerequisite = {
+			focus = SPC_economy1
+		}
+		available = {
+			has_country_flag = SPC_eco_pl
+		}
+		mutually_exclusive = {
+			focus = SPC_syndie
+		}
+		mutually_exclusive = {
+			focus = SPC_liberal
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = postwar1 add_idea = postwar2 }
+		}
+		x = 9
+		y = 2
+
+	}
+	focus = {
+		id = SPC_comitee
+		icon = GFX_focus_Manipulate_the_Poor
+		cost = 10
+		prerequisite = {
+			focus = SPC_pce_eco
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.0
+				uses = 1
+				category = industry
+			}
+		}
+		x = 9
+		y = 3
+
+	}
+	focus = {
+		id = SPC_military_plans
+		icon = GFX_focus_Combined_Arms
+		cost = 10
+		prerequisite = {
+			focus = SPC_comitee
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				if = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size < 1
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 9
+		y = 4
+
+	}
+	focus = {
+		id = SPC_complex
+		icon = GFX_focus_Factory_Town
+		cost = 3
+		prerequisite = {
+			focus = SPC_military_plans
+		}
+		completion_reward = {
+			41 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				
+			}
+		}
+		x = 9
+		y = 5
+		
+	}
+	focus = {
+		id = SPC_5_year
+		icon = GFX_focus_Communist_Bills
+		cost = 10
+		prerequisite = {
+			focus = SPC_complex
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = postwar2 add_idea = postwar3 }
+			random_owned_controlled_state = {
+				if = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size < 1
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 9
+		y = 6
+
+	}
+	focus = {
+		id = SPC_syndie
+		icon = GFX_focus_Cooperatives
+		cost = 10
+		prerequisite = {
+			focus = SPC_economy1
+		}
+		available = {
+			has_country_flag = SPC_eco_syn
+		}
+		mutually_exclusive = {
+			focus = SPC_pce_eco
+		}
+		mutually_exclusive = {
+			focus = SPC_liberal
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = postwar1 add_idea = postwar2 }
+		}
+		x = 12
+		y = 2
+
+	}
+	focus = {
+		id = SPC_cooperatives
+		icon = GFX_focus_Workers_Support
+		cost = 10
+		prerequisite = {
+			focus = SPC_syndie
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 11
+		y = 3
+
+	}
+	focus = {
+		id = SPC_agricultural
+		icon = GFX_focus_Agriculture_2
+		cost = 10
+		prerequisite = {
+			focus = SPC_syndie
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = postwar2 add_idea = postwar3 }
+		}
+		x = 13
+		y = 3
+
+	}
+	focus = {
+		id = SPC_workplace
+		icon = GFX_focus_generic_the_giant_wakes
+		cost = 10
+		prerequisite = {
+			focus = SPC_cooperatives
+		}
+		prerequisite = {
+			focus = SPC_agricultural
+		}
+		completion_reward = {
+			add_stability = 0.075
+		}
+		x = 12
+		y = 4
+
+	}
+	focus = {
+		id = SPC_safety
+		icon = GFX_focus_Union_Workers
+		cost = 10
+		prerequisite = {
+			focus = SPC_workplace
+		}
+		completion_reward = {
+			add_war_support = 0.1
+		}
+		x = 12
+		y = 5
+
+	}
+	focus = {
+		id = SPC_self_sufficiency
+		icon = GFX_focus_Protectionism
+		cost = 10
+		prerequisite = {
+			focus = SPC_safety
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 12
+		y = 6
+
+	}
+	focus = {
+		id = SPC_liberal
+		icon = GFX_focus_Social_Democracy
+		cost = 10
+		prerequisite = {
+			focus = SPC_economy1
+		}
+		available = {
+			has_country_flag = SPC_eco_ls
+		}
+		mutually_exclusive = {
+			focus = SPC_syndie
+		}
+		mutually_exclusive = {
+			focus = SPC_pce_eco
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = postwar1 add_idea = postwar2 }
+		}
+		x = 15
+		y = 2
+
+	}
+	focus = {
+		id = SPC_redistribution
+		icon = GFX_focus_Agriculture
+		cost = 6
+		prerequisite = {
+			focus = SPC_liberal
+		}
+		completion_reward = {
+			169 = {
+				add_extra_state_shared_building_slots = 1			
+			}
+			170 = {
+				add_extra_state_shared_building_slots = 1			
+			}
+			173 = {
+				add_extra_state_shared_building_slots = 1			
+			}
+			add_stability = 0.05
+		}
+		x = 15
+		y = 3
+
+	}
+	focus = {
+		id = SPC_georgism
+		icon = GFX_focus_Common_Identity
+		cost = 6
+		prerequisite = {
+			focus = SPC_redistribution
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = postwar2 add_idea = postwar3 }
+		}
+		x = 15
+		y = 4
+
+	}
+	focus = {
+		id = SPC_entrepreurial
+		icon = GFX_focus_Progressive_Taxation
+		cost = 4
+		prerequisite = {
+			focus = SPC_georgism
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = SPC_entrepreurial
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+		x = 15
+		y = 5
+
+	}
+	focus = {
+		id = SPC_welfare
+		icon = GFX_Unemployeds_Help
+		cost = 10
+		prerequisite = {
+			focus = SPC_entrepreurial
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.075
+			add_political_power = 150
+		}
+		x = 15
+		y = 6
+
+	}
+	focus = {
+		id = SPC_rebuilt
+		icon = GFX_focus_Victory_Iberia_republican
+		cost = 10
+		prerequisite = {
+			focus = SPC_5_year
+			focus = SPC_self_sufficiency
+			focus = SPC_welfare
+		}
+		completion_reward = {
+			remove_ideas = postwar3
+			add_research_slot = 1
+		}
+		x = 12
+		y = 7
+
+	}
+	focus = {
+		id = SPC_territorial1
+		icon = GFX_manage_administration
+		cost = 10
+		prerequisite = {
+			focus = SPC_first
+		}
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+			OR = { 
+				has_country_flag = SPC_ter_ctr
+				has_country_flag = SPC_ter_stq
+				has_country_flag = SPC_ter_dec
+			}
+		}
+		x = 19
+		y = 1
+
+	}
+	focus = {
+		id = SPC_centralize1
+		icon = GFX_focus_Communist_Pride
+		cost = 8
+		prerequisite = {
+			focus = SPC_territorial1
+		}
+		available = {
+			has_country_flag = SPC_ter_ctr
+		}
+		mutually_exclusive = {
+			focus = SPC_status_quo
+		}
+		mutually_exclusive = {
+			focus = SPC_decentralize
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_chaotic_adm add_idea = SPC_chaotic_adm2 }
+		}
+		x = 17
+		y = 2
+
+	}
+	focus = {
+		id = SPC_supress
+		icon = GFX_focus_Crush_Resistance
+		cost = 8
+		prerequisite = {
+			focus = SPC_centralize1
+		}
+		completion_reward = {
+			add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }
+			add_stability = 0.05
+		}
+		x = 17
+		y = 3
+
+	}
+	focus = {
+		id = SPC_appointed
+		icon = GFX_focus_Communist_Discourse
+		cost = 6
+		prerequisite = {
+			focus = SPC_supress
+		}
+		completion_reward = {
+			add_ideas = SPC_rule_madrid
+		}
+		x = 17
+		y = 4
+
+	}
+	focus = {
+		id = SPC_lenguage
+		icon = GFX_focus_Swing_the_Sword
+		cost = 8
+		prerequisite = {
+			focus = SPC_appointed
+		}
+		completion_reward = {
+			add_political_power = -80
+			add_stability = 0.05
+		}
+		x = 17
+		y = 5
+
+	}
+	focus = {
+		id = SPC_status_quo
+		icon = GFX_focus_Popular_Front
+		cost = 5
+		prerequisite = {
+			focus = SPC_territorial1
+		}
+		available = {
+			has_country_flag = SPC_ter_stq
+		}
+		mutually_exclusive = {
+			focus = SPC_decentralize
+		}
+		mutually_exclusive = {
+			focus = SPC_centralize1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_chaotic_adm add_idea = SPC_chaotic_adm2 }
+		}
+		x = 19
+		y = 2
+
+	}
+	focus = {
+		id = SPC_municipal
+		icon = GFX_goal_support_democracy
+		cost = 6
+		prerequisite = {
+			focus = SPC_status_quo
+		}
+		completion_reward = {
+			add_popularity = { ideology = socialism popularity = 0.08 }
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.08 }
+		}
+		x = 19
+		y = 3
+
+	}
+	focus = {
+		id = SPC_estatutes
+		icon = GFX_focus_Statutes_Autonomy
+		cost = 9
+		prerequisite = {
+			focus = SPC_municipal
+		}
+		completion_reward = {
+			add_political_power = 150
+			add_war_support = 0.05
+		}
+		x = 19
+		y = 4
+
+	}
+	focus = {
+		id = SPC_many_one
+		icon = GFX_focus_Spanish_Republicanism
+		cost = 8
+		prerequisite = {
+			focus = SPC_estatutes
+		}
+		completion_reward = {
+			add_ideas = SPC_many_to_one
+		}
+		x = 19
+		y = 5
+
+	}
+	focus = {
+		id = SPC_decentralize
+		icon = GFX_focus_Trade_Union_Focus
+		cost = 8
+		prerequisite = {
+			focus = SPC_territorial1
+		}
+		available = {
+			has_country_flag = SPC_ter_dec
+		}
+		mutually_exclusive = {
+			focus = SPC_centralize1
+		}
+		mutually_exclusive = {
+			focus = SPC_status_quo
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_chaotic_adm add_idea = SPC_chaotic_adm2 }
+		}
+		x = 21
+		y = 2
+
+	}
+	focus = {
+		id = SPC_communal
+		icon = GFX_focus_Redraw_Admin_Borders
+		cost = 7
+		prerequisite = {
+			focus = SPC_decentralize
+		}
+		completion_reward = {
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.07 }
+			add_political_power = 70
+		}
+		x = 21                
+		y = 3
+
+	}
+	focus = {
+		id = SPC_communal_chamber
+		icon = GFX_focus_Consensus_with_Peasants
+		cost = 6
+		prerequisite = {
+			focus = SPC_communal
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_popularity = { ideology = communism popularity = -0.05 }
+		}
+		x = 21
+		y = 4
+
+	}
+	focus = {
+		id = SPC_self_rule
+		icon = GFX_focus_Anarcho_Syndicalism
+		cost = 7
+		prerequisite = {
+			focus = SPC_communal_chamber
+		}
+		completion_reward = {
+			add_ideas = SPC_federalization
+		}
+		x = 21
+		y = 5
+
+	}
+	focus = {
+		id = SPC_reforms_done
+		icon = GFX_focus_Generic_Bills
+		cost = 8
+		prerequisite = {
+			focus = SPC_lenguage
+			focus = SPC_many_one
+			focus = SPC_self_rule
+		}
+		completion_reward = {
+			remove_ideas = SPC_chaotic_adm2
+		}
+		x = 19
+		y = 6
+
+	}
+	focus = {
+		id = SPC_internal1
+		icon = GFX_focus_Pride_of_The_Left
+		cost = 10
+		prerequisite = {
+			focus = SPC_first
+		}
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+			has_country_flag = SPC_congress_over
+		}
+		x = 26
+		y = 1
+
+	}
+	focus = {
+		id = SPC_chairman
+		icon = GFX_focus_PCE
+		cost = 7
+		prerequisite = {
+			focus = SPC_internal1
+		}
+		available = {
+			OR = {
+				has_country_flag = SPC_pce_won
+			}
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_polit_division add_idea = SPC_polit_division2 }
+		}
+		x = 23
+		y = 2
+
+	}
+	focus = {
+		id = SPC_offices
+		icon = GFX_focus_generic_support_the_left_right
+		cost = 5
+		prerequisite = {
+			focus = SPC_chairman
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_government = communism
+				}
+				add_popularity = { ideology = communism popularity = 0.1 }
+			}
+			if = {
+				limit = {
+					has_government = authoritarian_socialism
+				}
+				add_popularity = { ideology = authoritarian_socialism popularity = 0.1 }
+			}
+		}
+		x = 23
+		y = 3
+
+	}
+	focus = {
+		id = SPC_comissars
+		icon = GFX_focus_Communist_Discourse
+		cost = 8
+		prerequisite = {
+			focus = SPC_offices
+		}
+		completion_reward = {
+			add_ideas = SPC_pol_repress
+		}
+		x = 23
+		y = 4
+
+	}
+	focus = {
+		id = SPC_secret_pol
+		icon = GFX_focus_Subterfuge
+		cost = 8
+		prerequisite = {
+			focus = SPC_comissars
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_pol_repress add_idea = SPC_pol_repress2 }
+		}
+		x = 23
+		y = 5
+
+	}
+	focus = {
+		id = SPC_tuc
+		icon = GFX_focus_CNT_FAI
+		cost = 7
+		prerequisite = {
+			focus = SPC_internal1
+		}
+		available = {
+			has_country_flag = SPC_cnt_won
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_polit_division add_idea = SPC_polit_division2 }
+		}
+		x = 25
+		y = 2
+
+	}
+	focus = {
+		id = SPC_union_rep
+		icon = GFX_focus_Workers_Rights
+		cost = 6
+		prerequisite = {
+			focus = SPC_tuc
+		}
+		completion_reward = {
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.15 }
+			add_stability = 0.05
+		}
+		x = 25
+		y = 3
+
+	}
+	focus = {
+		id = SPC_monthly_checks
+		icon = GFX_focus_Workers_Support
+		cost = 8
+		prerequisite = {
+			focus = SPC_union_rep
+		}
+		completion_reward = {
+			add_political_power = -20
+			add_war_support = 0.1
+		}
+		x = 25
+		y = 4
+
+	}
+	focus = {
+		id = SPC_shared
+		icon = GFX_focus_Civil_Unrest
+		cost = 6
+		prerequisite = {
+			focus = SPC_monthly_checks
+		}
+		completion_reward = {
+			add_ideas = SPC_unions_control
+		}
+		x = 25
+		y = 5
+
+	}
+	focus = {
+		id = SPC_cortes
+		icon = GFX_focus_Support_Spanish_Republic
+		cost = 9
+		prerequisite = {
+			focus = SPC_internal1
+		}
+		available = {
+			has_country_flag = SPC_prieto_won
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_polit_division add_idea = SPC_polit_division2 }
+		}
+		x = 29
+		y = 2
+
+	}
+	focus = {
+		id = SPC_2_chambers
+		icon = GFX_focus_Parliament
+		cost = 8
+		prerequisite = {
+			focus = SPC_cortes
+		}
+		completion_reward = {
+			add_popularity = { ideology = socialism popularity = 0.15 }
+			add_popularity = { ideology = social_democracy popularity = 0.1 }
+		}
+		x = 29
+		y = 3
+
+	}
+	focus = {
+		id = SPC_expel
+		icon = GFX_focus_Destroy_Trade_Unions
+		cost = 4
+		prerequisite = {
+			focus = SPC_2_chambers
+		}
+		completion_reward = {
+			add_popularity = { ideology = authoritarian_socialism popularity = -0.2 }
+			add_stability = -0.075
+		}
+		x = 29
+		y = 4
+
+	}
+	focus = {
+		id = SPC_elections
+		icon = GFX_focus_election
+		cost = 3
+		prerequisite = {
+			focus = SPC_expel
+		}
+		completion_reward = {
+			add_political_power = 200
+			add_stability = 0.03
+		}
+		x = 29
+		y = 5
+
+	}
+	focus = {
+		id = SPC_caballeristas_focus
+		icon = GFX_focus_Communist_Loyalty
+		cost = 9
+		prerequisite = {
+			focus = SPC_internal1
+		}
+		available = {
+			has_country_flag = SPC_psoe_won
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_polit_division add_idea = SPC_polit_division2 }
+		}
+		x = 27
+		y = 2
+
+	}
+	focus = {
+		id = SPC_heal_party
+		icon = GFX_focus_Pacifist_State
+		cost = 9
+		prerequisite = {
+			focus = SPC_caballeristas_focus
+		}
+		available = {
+			
+		}
+		completion_reward = {
+			COALITION_add_demsoc = yes
+		}
+		x = 27
+		y = 3
+
+	}
+	focus = {
+		id = SPC_the_spanish_lenin
+		icon = GFX_focus_Devotion_to_Lenin
+		cost = 9
+		prerequisite = {
+			focus = SPC_heal_party
+		}
+		available = {
+			
+		}
+		completion_reward = {
+			COALITION_add_com = yes
+		}
+		x = 27
+		y = 4
+
+	}
+	focus = {
+		id = SPC_placate_unions
+		icon = GFX_focus_Consensus_with_Peasants
+		cost = 9
+		prerequisite = {
+			focus = SPC_the_spanish_lenin
+		}
+		available = {
+			
+		}
+		completion_reward = {
+			add_ideas = SPC_frente_sindical
+		}
+		x = 27
+		y = 5
+
+	}
+	focus = {
+		id = SPC_internal_done
+		icon = GFX_focus_Judicial_System
+		cost = 8
+		prerequisite = {
+			focus = SPC_secret_pol
+			focus = SPC_shared
+			focus = SPC_elections
+			focus = SPC_placate_unions
+		}
+		completion_reward = {
+			remove_ideas = SPC_polit_division2
+		}
+		x = 26
+		y = 6
+
+	}
+	focus = {
+		id = SPC_new
+		icon = GFX_focus_Political_reform_1
+		cost = 8
+		prerequisite = {
+			focus = SPC_reforms_done
+		}
+		prerequisite = {
+			focus = SPC_internal_done
+		}
+		completion_reward = {
+			add_political_power = 150
+		}
+		x = 22
+		y = 7
+
+	}
+	focus = {
+		id = SPC_second
+		icon = GFX_goal_generic_neutrality_focus
+		cost = 1
+		prerequisite = {
+			focus = SPC_rebuilt
+		}
+		prerequisite = {
+			focus = SPC_new
+		}
+		bypass = {
+			OR = {
+				has_country_flag = cnt_has_full_power
+				has_country_flag = pce_has_full_power
+			}
+		}
+		completion_reward = {
+			country_event = { id = spc.15 }
+		}
+		x = 17
+		y = 8
+
+	}
+	focus = {
+		id = SPC_3rd
+		icon = GFX_focus_Spanish_Republicanism
+		cost = 10
+		prerequisite = {
+			focus = SPC_second
+		}
+		available = { always = no }
+		bypass = {
+			OR = {
+				has_country_flag = SPC_dem_rep
+				has_country_flag = SPC_ugt_rep
+			}
+		}
+		x = 3
+		y = 9
+
+	}
+	focus = {
+		id = SPC_general
+		icon = GFX_focus_election
+		cost = 10
+		prerequisite = {
+			focus = SPC_3rd
+		}
+		mutually_exclusive = {
+			focus = SPC_ban_cnt
+		}
+		available = { has_country_flag = SPC_dem_rep }
+		completion_reward = {
+			country_event = { id = spc.19 }
+		}
+		x = 2
+		y = 10
+
+	}
+	focus = {
+		id = SPC_housing
+		icon = GFX_focus_Build_Houses
+		cost = 8
+		prerequisite = {
+			focus = SPC_general
+		}
+		completion_reward = {
+			41 = {
+				add_extra_state_shared_building_slots = 1			
+			}
+			165 = {
+				add_extra_state_shared_building_slots = 1			
+			}
+			172 = {
+				add_extra_state_shared_building_slots = 1			
+			}
+			add_stability = 0.1
+		}
+		x = -3
+		y = 11
+
+	}
+	focus = {
+		id = SPC_healthcare
+		icon = GFX_focus_Medicine
+		cost = 7
+		prerequisite = {
+			focus = SPC_general
+		}
+		completion_reward = {
+			add_war_support = 0.15
+			add_popularity = { ideology = authoritarian_socialism popularity = -0.1 }
+			add_popularity = { ideology = communism popularity = -0.1 }
+			
+		}
+		x = -1
+		y = 11
+
+	}
+	focus = {
+		id = SPC_ley_trabajo
+		icon = GFX_focus_Workers_Rights
+		cost = 8
+		prerequisite = {
+			focus = SPC_healthcare
+		}
+		prerequisite = {
+			focus = SPC_housing
+		}
+		completion_reward = {
+			add_stability = 0.05
+		}
+		x = -2
+		y = 12
+
+	}
+	focus = {
+		id = SPC_censorship
+		icon = GFX_focus_Freedom_of_Speech
+		cost = 6
+		prerequisite = {
+			focus = SPC_general
+		}
+		completion_reward = {
+			add_political_power = 150
+			add_popularity = { ideology = authoritarian_socialism popularity = -0.1 }
+			add_popularity = { ideology = communism popularity = -0.1 }
+			
+		}
+		x = 1
+		y = 11
+
+	}
+	focus = {
+		id = SPC_rural_schooling
+		icon = GFX_focus_Agriculture
+		cost = 9
+		prerequisite = {
+			focus = SPC_healthcare
+		}
+		prerequisite = {
+			focus = SPC_censorship
+		}
+		completion_reward = {
+			add_research_slot = 1
+		} 
+		x = 0
+		y = 12
+
+	}
+	focus = {
+		id = SPC_people
+		icon = GFX_focus_Communist_Pride
+		cost = 10
+		prerequisite = {
+			focus = SPC_second
+		}
+		available = { always = no }
+		bypass = {
+			has_country_flag = SPC_people_rep
+		}
+		x = 28
+		y = 9
+
+	}
+	focus = {
+		id = SPC_secretariat
+		icon = GFX_focus_Communist_Star
+		cost = 8
+		prerequisite = {
+			focus = SPC_people
+		}
+		completion_reward = {
+			add_stability = 0.1
+		}
+		x = 28
+		y = 10
+
+	}
+	focus = {
+		id = SPC_leap
+		icon = GFX_focus_Planned_Economy
+		cost = 9
+		prerequisite = {
+			focus = SPC_secretariat
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.0
+				uses = 1
+				category = industry
+			}
+		}
+		x = 30
+		y = 11
+
+	}
+	focus = {
+		id = SPC_cpsr
+		icon = GFX_focus_Communist_Repression
+		cost = 6
+		prerequisite = {
+			focus = SPC_secretariat
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_pol_repress2 add_idea = SPC_pol_repress3 }
+		}
+			
+		x = 26
+		y = 11
+
+	}
+	focus = {
+		id = SPC_railroad
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 7
+		prerequisite = {
+			focus = SPC_leap
+		}
+		completion_reward = {
+			#TODO: add railroads
+		}
+		x = 29
+		y = 12
+
+	}
+	focus = {
+		id = SPC_kulaks
+		icon = GFX_focus_Purge_Kulaks
+		cost = 8
+		prerequisite = {
+			focus = SPC_leap
+		}
+		completion_reward = {
+			176 = {
+				add_extra_state_shared_building_slots = 2			
+			}
+			174 = {
+				add_extra_state_shared_building_slots = 2			
+			}
+			add_political_power = -50
+		}
+		x = 31
+		y = 12
+
+	}
+	focus = {
+		id = SPC_quotas
+		icon = GFX_focus_Communist_Bills
+		cost = 6
+		prerequisite = {
+			focus = SPC_kulaks
+		}
+		completion_reward = {
+			add_ideas = SPC_prod_quotas
+		}
+		x = 31
+		y = 13
+
+	}
+	focus = {
+		id = SPC_navy1
+		icon = GFX_focus_naval_reform
+		cost = 10
+		prerequisite = {
+			focus = SPC_first
+		}
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+			OR = { 
+				has_country_flag = SPC_nav_off
+				has_country_flag = SPC_nav_pp
+			}
+		}
+		x = 32
+		y = 1
+
+	}
+	focus = {
+		id = SPC_officer_nav
+		icon = GFX_focus_admiralty
+		cost = 7
+		prerequisite = {
+			focus = SPC_navy1
+		}
+		available = {
+			has_country_flag = SPC_nav_off
+		}
+		mutually_exclusive = {
+			focus = SPC_peoples_nav
+		}
+		completion_reward = {
+			hidden_effect = {
+				clr_country_flag = SPC_nav_off
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.01
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.01
+			}
+			navy_experience = 150
+		}
+		x = 31
+		y = 2
+
+	}
+	focus = {
+		id = SPC_naval_drill
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		cost = 3
+		prerequisite = {
+			focus = SPC_school_nav
+			focus = SPC_sailor
+		}
+		available = {
+			has_country_flag = SPC_nav_off
+		}
+		completion_reward = {
+			navy_experience = 50
+		}
+		x = 31
+		y = 4
+
+	}
+	focus = {
+		id = SPC_protect_fleet
+		icon = GFX_Goal_Generic_Defend_Conveys
+		cost = 8
+		prerequisite = {
+			focus = SPC_sailor
+			focus = SPC_school_nav
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = SPC_protect_fleet
+				bonus = 0.6
+				uses = 1
+				category = cl_tech
+			}
+		}
+		x = 33
+		y = 4
+
+	}
+	focus = {
+		id = SPC_battleship
+		icon = GFX_focus_Battleship
+		cost = 5
+		prerequisite = {
+			focus = SPC_navy_expansion
+		}
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = SPC_battleship
+				bonus = 0.75
+				uses = 1
+				category = bb_tech
+			}
+		}
+		x = 33
+		y = 6
+
+	}
+	focus = {
+		id = SPC_school_nav
+		icon = GFX_focus_admiralty_alt
+		cost = 9
+		prerequisite = {
+			focus = SPC_officer_nav
+		}
+		completion_reward = {
+			navy_experience = 50
+		}
+		x = 31
+		y = 3
+
+	}
+	focus = {
+		id = SPC_peoples_nav
+		icon = GFX_focus_The_Red_Fleet
+		cost = 7
+		prerequisite = {
+			focus = SPC_navy1
+		}
+		available = {
+			has_country_flag = SPC_nav_pp
+		}
+		mutually_exclusive = {
+			focus = SPC_officer_nav
+		}
+		completion_reward = {
+			hidden_effect = {
+				clr_country_flag = SPC_nav_pp
+			}
+			add_political_power = 50
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = 0.02
+			}
+			add_ideas = SPC_peoples_navy
+		}
+		x = 33
+		y = 2
+
+	}
+	focus = {
+		id = SPC_navy_expansion
+		icon = GFX_focus_POL_develop_polish_shipbuilding
+		cost = 9
+		prerequisite = {
+			focus = SPC_naval_drill
+			focus = SPC_protect_fleet
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					168 = {
+						free_building_slots = {
+							building = dockyard
+							size < 1
+						}
+					}
+				}
+				168 = {
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			168 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					165 = {
+						free_building_slots = {
+							building = dockyard
+							size < 1
+						}
+					}
+				}
+				165 = { add_extra_state_shared_building_slots = 1 }
+			}
+			165 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			if = {
+				limit = {
+					1169 = {
+						free_building_slots = {
+							building = dockyard
+							size < 1
+						}
+					}
+				}
+				1169 = { add_extra_state_shared_building_slots = 1 }
+			}
+			1169 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 32
+		y = 5
+
+	}
+	focus = {
+		id = SPC_carrier
+		icon = GFX_focus_Carrier2
+		cost = 8
+		prerequisite = {
+			focus = SPC_navy_expansion
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = SPC_carrier
+				bonus = 0.5
+				uses = 1
+				category = cv_tech
+			}
+		}
+		x = 31
+		y = 6
+
+	}
+	focus = {
+		id = SPC_sailor
+		icon = GFX_focus_recruit_sailors
+		cost = 4
+		prerequisite = {
+			focus = SPC_peoples_nav
+		}
+		completion_reward = {
+			navy_experience = 50
+		}
+		x = 33
+		y = 3
+
+	}
+
+	# focus = {
+	# 	id = SPC_military1
+	# 	icon = GFX_focus_Communist_Loyalty
+	# 	cost = 10
+	# 	available = {
+	# 		has_country_flag = bypassed
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPC_first
+	# 	}
+	# 	bypass = {
+	# 		OR = { 
+	# 			has_country_flag = SPC_arm_org
+	# 			has_country_flag = SPC_arm_mil
+	# 		}
+	# 	}
+	# 	x = 39
+	# 	y = 1
+
+	# }
+	# focus = {
+	# 	id = SPC_organized
+	# 	icon = GFX_focus_SPR_army
+	# 	cost = 9
+	# 	prerequisite = {
+	# 		focus = SPC_military1
+	# 	}
+	# 	available = {
+	# 		has_country_flag = SPC_arm_org
+	# 	}
+	# 	completion_reward = {
+	# 		swap_ideas = { remove_idea = SPC_disorg_army add_idea = SPC_disorg_army2 }
+	# 	}
+	# 	x = 36
+	# 	y = 2
+
+	# }
+	# focus = {
+	# 	id = SPC_disband_militias
+	# 	icon = GFX_focus_Army_Reform
+	# 	cost = 8
+	# 	prerequisite = {
+	# 		focus = SPC_organized
+	# 	}
+	# 	completion_reward = {
+	# 		remove_ideas = SPC_disorg_army2
+	# 		add_war_support = -0.2
+	# 	}
+	# 	x = 35
+	# 	y = 3
+
+	# }
+	# focus = {
+	# 	id = SPC_command
+	# 	icon = GFX_focus_Flexible_chain_of_command
+	# 	cost = 7
+	# 	prerequisite = {
+	# 		focus = SPC_organized
+	# 	}
+	# 	completion_reward = {
+	# 		army_experience = 25
+	# 	}
+	# 	x = 37
+	# 	y = 3
+
+	# }
+	# focus = {
+	# 	id = SPC_discipline
+	# 	icon = GFX_focus_Into_the_Flames_of_Glory
+	# 	cost = 10
+	# 	prerequisite = {
+	# 		focus = SPC_disband_militias
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPC_command
+	# 	}
+	# 	completion_reward = {
+	# 		add_ideas = SPC_army_disc
+	# 		add_tech_bonus = {
+	# 			name = land_doc_bonus
+	# 			bonus = 1.0
+	# 			uses = 1
+	# 			category = land_doctrine
+	# 		}
+	# 	}
+	# 	x = 36
+	# 	y = 4
+
+	# }
+	# focus = {
+	# 	id = SPC_artillery
+	# 	icon = GFX_goal_generic_army_artillery
+	# 	cost = 6
+	# 	prerequisite = {
+	# 		focus = SPC_discipline
+	# 	}
+	# 	mutually_exclusive = {
+	# 		focus = SPC_motorize
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = artillery_bonus
+	# 			bonus = 1.0
+	# 			uses = 2
+	# 			category = artillery
+	# 		}
+	# 	}
+	# 	x = 36
+	# 	y = 5
+
+	# }
+	# focus = {
+	# 	id = SPC_directed_bombardment
+	# 	icon = GFX_goal_generic_artillery
+	# 	cost = 7
+	# 	prerequisite = {
+	# 		focus = SPC_artillery
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = land_doc_bonus
+	# 			bonus = 1.0
+	# 			uses = 3
+	# 			category = cat_superior_firepower
+	# 		}
+	# 	}
+	# 	x = 35
+	# 	y = 6
+
+	# }
+	# focus = {
+	# 	id = SPC_defensive
+	# 	icon = GFX_focus_Fortification_Effort
+	# 	cost = 5
+	# 	prerequisite = {
+	# 		focus = SPC_artillery
+	# 	}
+	# 	completion_reward = {
+	# 		swap_ideas = { remove_idea = SPC_army_disc add_idea = SPC_army_disc2 }
+	# 	}
+	# 	x = 37
+	# 	y = 6
+
+	# }
+	# focus = {
+	# 	id = SPC_initiative
+	# 	icon = GFX_focus_Recruitment_Drive
+	# 	cost = 5
+	# 	prerequisite = {
+	# 		focus = SPC_directed_bombardment
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPC_defensive
+	# 	}
+	# 	completion_reward = {
+	# 		swap_ideas = { remove_idea = SPC_army_disc2 add_idea = SPC_army_disc3 }
+	# 		add_tech_bonus = {
+	# 			name = land_doc_bonus
+	# 			bonus = 1.0
+	# 			uses = 1
+	# 			category = cat_superior_firepower
+	# 		}
+	# 	}
+	# 	x = 36
+	# 	y = 7
+
+	# }
+	# focus = {
+	# 	id = SPC_hospitals
+	# 	icon = GFX_focus_Military_Hospital
+	# 	cost = 5
+	# 	prerequisite = {
+	# 		focus = SPC_initiative
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = SPC_hospitals
+	# 			bonus = 1.0
+	# 			uses = 2
+	# 			category = hospital_tech
+	# 		}
+	# 	}
+	# 	x = 36
+	# 	y = 8
+
+	# }
+	# focus = {
+	# 	id = SPC_militia
+	# 	icon = GFX_focus_Peasant_Militias
+	# 	cost = 5
+	# 	prerequisite = {
+	# 		focus = SPC_military1
+	# 	}
+	# 	available = {
+	# 		has_country_flag = SPC_arm_mil
+	# 	}
+	# 	completion_reward = {
+	# 		swap_ideas = { remove_idea = SPC_disorg_army add_idea = SPC_disorg_army2 }
+	# 	}
+	# 	x = 42
+	# 	y = 2
+
+	# }
+	# focus = {
+	# 	id = SPC_army_factories
+	# 	icon = GFX_focus_Soviet_War_Economy
+	# 	cost = 9
+	# 	prerequisite = {
+	# 		focus = SPC_organized
+	# 		focus = SPC_militia
+	# 	}
+	# 	completion_reward = {
+	# 		random_owned_state = {
+	# 			limit = {
+	# 				free_building_slots = {
+	# 					building = arms_factory
+	# 					size > 0
+	# 					include_locked = yes
+	# 				}
+	# 				OR = {
+	# 					is_in_home_area = yes
+	# 					NOT = {
+	# 						owner = {
+	# 							any_owned_state = {
+	# 								free_building_slots = {
+	# 									building = arms_factory
+	# 									size > 0
+	# 									include_locked = yes
+	# 								}
+	# 								is_in_home_area = yes
+	# 							}
+	# 						}
+	# 					}
+	# 				}
+	# 			}
+	# 			add_extra_state_shared_building_slots = 1
+	# 			add_building_construction = {
+	# 				type = arms_factory
+	# 				level = 1
+	# 				instant_build = yes
+	# 			}
+	# 		}
+	# 	}
+	# 	x = 39
+	# 	y = 3
+
+	# }
+	# focus = {
+	# 	id = SPC_elected
+	# 	icon = GFX_focus_Arm_Resistance
+	# 	cost = 6
+	# 	prerequisite = {
+	# 		focus = SPC_militia
+	# 	}
+	# 	completion_reward = {
+	# 		swap_ideas = { remove_idea = SPC_disorg_army2 add_idea = SPC_disorg_army3 }
+	# 	}
+	# 	x = 41
+	# 	y = 3
+
+	# }
+	# focus = {
+	# 	id = SPC_drive
+	# 	icon = GFX_focus_Recruitment
+	# 	cost = 5
+	# 	prerequisite = {
+	# 		focus = SPC_militia
+	# 	}
+	# 	completion_reward = {
+	# 		add_manpower = 30000
+	# 	}
+	# 	x = 43
+	# 	y = 3
+
+	# }
+	# focus = {
+	# 	id = SPC_enthusiasm
+	# 	icon = GFX_focus_Workers_Support
+	# 	cost = 5
+	# 	prerequisite = {
+	# 		focus = SPC_elected
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPC_drive
+	# 	}
+	# 	completion_reward = {
+	# 		swap_ideas = { remove_idea = SPC_disorg_army3 add_idea = SPC_army_enth }
+	# 		add_tech_bonus = {
+	# 			name = land_doc_bonus
+	# 			bonus = 1.0
+	# 			uses = 1
+	# 			category = land_doctrine
+	# 		}
+	# 	}
+	# 	x = 42
+	# 	y = 4
+
+	# }
+	# focus = {
+	# 	id = SPC_motorize
+	# 	icon = GFX_focus_Motorization_Effort
+	# 	cost = 8
+	# 	prerequisite = {
+	# 		focus = SPC_discipline
+	# 		focus = SPC_enthusiasm
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPC_army_factories
+	# 	}
+	# 	mutually_exclusive = {
+	# 		focus = SPC_artillery
+	# 		focus = SPC_small_arms
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = motorized_bonus
+	# 			bonus = 1.5
+	# 			technology = motorised_infantry
+	# 		}
+	# 		army_experience = 20
+	# 	}
+	# 	x = 39
+	# 	y = 5
+
+	# }
+	# focus = {
+	# 	id = SPC_small_arms
+	# 	icon = GFX_focus_Renewed_Arms
+	# 	cost = 7
+	# 	prerequisite = {
+	# 		focus = SPC_enthusiasm
+	# 	}
+	# 	mutually_exclusive = {
+	# 		focus = SPC_motorize
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = infantry_weapons_bonus
+	# 			bonus = 1.0
+	# 			uses = 2
+	# 			category = infantry_weapons
+	# 		}
+	# 	}
+	# 	x = 42
+	# 	y = 5
+
+	# }
+	# focus = {
+	# 	id = SPC_relentless
+	# 	icon = GFX_focus_Combined_Arms
+	# 	cost = 5
+	# 	prerequisite = {
+	# 		focus = SPC_small_arms
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = land_doc_bonus
+	# 			bonus = 1.0
+	# 			uses = 3
+	# 			category = cat_mass_assault
+	# 		}
+	# 	}
+	# 	x = 41
+	# 	y = 6
+
+	# }
+	# focus = {
+	# 	id = SPC_call_arms
+	# 	icon = GFX_focus_Human_Wave_Charges
+	# 	cost = 6
+	# 	prerequisite = {
+	# 		focus = SPC_small_arms
+	# 	}
+	# 	completion_reward = {
+	# 		swap_ideas = { remove_idea = SPC_army_enth add_idea = SPC_army_enth2 }
+	# 	}
+	# 	x = 43
+	# 	y = 6
+
+	# }
+	# focus = {
+	# 	id = SPC_gun_every_hand
+	# 	icon = GFX_focus_Firearms
+	# 	cost = 7
+	# 	prerequisite = {
+	# 		focus = SPC_relentless
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPC_call_arms
+	# 	}
+	# 	completion_reward = {
+	# 		swap_ideas = { remove_idea = SPC_army_enth2 add_idea = SPC_army_enth3 }
+	# 		add_tech_bonus = {
+	# 			name = land_doc_bonus
+	# 			bonus = 1.0
+	# 			uses = 1
+	# 			category = cat_mass_assault
+	# 		}
+	# 	}
+	# 	x = 42
+	# 	y = 7
+
+	# }
+	# focus = {
+	# 	id = SPC_logistics
+	# 	icon = GFX_focus_Supply_Troops
+	# 	cost = 6
+	# 	prerequisite = {
+	# 		focus = SPC_gun_every_hand
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = secret_bonus
+	# 			bonus = 1.0
+	# 			uses = 2
+	# 			category = logistics_tech
+	# 		}
+	# 	}
+	# 	x = 42
+	# 	y = 8
+
+	# }
+
+	# focus = {
+	# 	id = SPC_factories_tank
+	# 	icon = GFX_focus_Medium_Tanks
+	# 	cost = 9
+	# 	prerequisite = {
+	# 		focus = SPC_motorize
+	# 	}
+	# 	completion_reward = {
+	# 		random_owned_state = {
+	# 			limit = {
+	# 				free_building_slots = {
+	# 					building = arms_factory
+	# 					size > 0
+	# 					include_locked = yes
+	# 				}
+	# 				OR = {
+	# 					is_in_home_area = yes
+	# 					NOT = {
+	# 						owner = {
+	# 							any_owned_state = {
+	# 								free_building_slots = {
+	# 									building = arms_factory
+	# 									size > 0
+	# 									include_locked = yes
+	# 								}
+	# 								is_in_home_area = yes
+	# 							}
+	# 						}
+	# 					}
+	# 				}
+	# 			}
+	# 			add_extra_state_shared_building_slots = 1
+	# 			add_building_construction = {
+	# 				type = arms_factory
+	# 				level = 1
+	# 				instant_build = yes
+	# 			}
+	# 		}
+	# 	}
+	# 	x = 39
+	# 	y = 6
+
+	# }
+	# focus = {
+	# 	id = SPC_relampago
+	# 	icon = GFX_focus_Tanks_Across_the_Border
+	# 	cost = 6
+	# 	prerequisite = {
+	# 		focus = SPC_factories_tank
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = land_doc_bonus
+	# 			bonus = 0.6
+	# 			uses = 4
+	# 			category = cat_mobile_warfare
+	# 		}
+	# 	}
+	# 	x = 38
+	# 	y = 7
+
+	# }
+	# focus = {
+	# 	id = SPC_armoured
+	# 	icon = GFX_focus_Light_Tanks
+	# 	cost = 7
+	# 	prerequisite = {
+	# 		focus = SPC_factories_tank
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = armor_bonus
+	# 			bonus = 1.0
+	# 			uses = 2
+	# 			category = armor
+	# 		}
+	# 	}
+	# 	x = 40
+	# 	y = 7
+
+	# }
+	# focus = {
+	# 	id = SPC_field_engineers
+	# 	icon = GFX_goal_generic_production
+	# 	cost = 5
+	# 	prerequisite = {
+	# 		focus = SPC_relampago
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPC_armoured
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = SPC_field_engineers
+	# 			bonus = 1.0
+	# 			uses = 3
+	# 			category = engineers_tech
+	# 			category = maintenance_company_tech
+	# 		}
+	# 	}
+	# 	x = 39
+	# 	y = 8
+
+	# }
+	# focus = {
+	# 	id = SPC_new_army
+	# 	icon = GFX_focus_Red_Army
+	# 	cost = 8
+	# 	prerequisite = {
+	# 		focus = SPC_hospitals
+	# 		focus = SPC_field_engineers
+	# 		focus = SPC_logistics
+	# 	}
+	# 	completion_reward = {
+
+	# 	}
+	# 	x = 39
+	# 	y = 9
+
+	# }
+	focus = {
+		id = SPC_recover_cat
+		icon = GFX_focus_Swing_the_Sword
+		cost = 5
+		prerequisite = {
+			focus = SPC_second
+		}
+		ai_will_do = {
+			factor = 15
+			modifier = {
+				factor = 0.5
+				CAT = {
+					is_ai = no
+				}
+			}
+		}
+		allow_branch = {
+			CAT = { exists = yes }
+		}
+		available = {
+			NOT = { 
+				CAT = {
+					OR = {
+						is_in_faction_with = SPC
+						is_subject_of = SPC
+					}
+				}
+			}
+		}
+		bypass = {
+			has_war_with = CAT 
+		}
+		completion_reward = {
+			declare_war_on = {
+				target = CAT
+				type = annex_everything
+			}
+		}
+		x = 22
+		y = 9
+
+	}
+	focus = {
+		id = SPC_communes
+		icon = GFX_focus_CNT_FAI
+		cost = 3
+		prerequisite = {
+			focus = SPC_second
+		}
+		available = { has_country_flag = SPC_united_communes }
+		completion_reward = {
+			country_event = { id = spc.21 }
+		}
+		x = 17
+		y = 9
+
+	}
+	focus = {
+		id = SPC_ban_cnt
+		icon = GFX_focus_Destroy_Trade_Unions
+		cost = 5
+		prerequisite = {
+			focus = SPC_3rd
+		}
+		available = { has_country_flag = SPC_ugt_rep }
+		mutually_exclusive = {
+			focus = SPC_general
+		}
+		completion_reward = {
+			add_stability = 0.05
+		}
+		x = 4
+		y = 10
+
+	}
+	focus = {
+		id = SPC_crush_pce
+		icon = GFX_focus_Anti_Communist
+		cost = 4
+		prerequisite = {
+			focus = SPC_general
+			focus = SPC_ban_cnt
+		}
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = -0.2 }
+			add_political_power = 100
+		}
+		x = 3
+		y = 11
+
+	}
+	focus = {
+		id = SPC_tax
+		icon = GFX_focus_Extravagance
+		cost = 8
+		prerequisite = {
+			focus = SPC_ley_trabajo
+		}
+		prerequisite = {
+			focus = SPC_rural_schooling
+		}
+		completion_reward = {
+			add_popularity = { ideology = social_liberalism popularity = 0.1 }
+			add_popularity = { ideology = market_liberalism popularity = 0.1 }
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		x = -1
+		y = 13
+
+	}
+	focus = {
+		id = SPC_asalto
+		icon = GFX_focus_Republican_Officer
+		cost = 8
+		prerequisite = {
+			focus = SPC_housing
+		}
+		completion_reward = {
+			add_popularity = { ideology = socialism popularity = 0.1 }
+			add_manpower = 30000
+			add_war_support = 0.1
+			add_stability = 0.05
+		}
+		x = -3
+		y = 13
+
+	}
+	focus = {
+		id = SPC_progressive
+		icon = GFX_focus_Social_Democracy
+		cost = 5
+		prerequisite = {
+			focus = SPC_censorship
+		}
+		completion_reward = {
+			add_popularity = { ideology = social_democracy popularity = 0.1 }
+			add_political_power = 200
+		}
+		x = 1
+		y = 13
+
+	}
+	focus = {
+		id = SPC_stable
+		icon = GFX_focus_Support_Spanish_Republic
+		cost = 9
+		prerequisite = {
+			focus = SPC_tax
+		}
+		prerequisite = {
+			focus = SPC_asalto
+		}
+		prerequisite = {
+			focus = SPC_progressive
+		}
+		completion_reward = {
+			add_ideas = SPC_democracy_end
+		}
+		x = -1
+		y = 14
+
+	}
+	focus = {
+		id = SPC_ahv
+		icon = GFX_focus_Fundraising
+		cost = 7
+		prerequisite = {
+			focus = SPC_crush_pce
+		}
+		completion_reward = {
+			add_resource = {
+				type = steel
+				amount = 30
+				state = 172
+			}
+			172 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 3
+		y = 12
+
+	}
+	focus = {
+		id = SPC_highway
+		icon = GFX_focus_Highways
+		cost = 8
+		prerequisite = {
+			focus = SPC_ahv
+		}
+		completion_reward = {
+			#TODO: add highways
+		}
+		x = 3
+		y = 13
+
+	}
+	focus = {
+		id = SPC_empower_ugt
+		icon = GFX_focus_Cooperatives
+		cost = 8
+		prerequisite = {
+			focus = SPC_ban_cnt
+		}
+		completion_reward = {
+			add_ideas = SPC_ugt_primacy
+		}
+		x = 5
+		y = 11
+
+	}
+	focus = {
+		id = SPC_disarm
+		icon = GFX_focus_Peasant_Militias
+		cost = 6
+		prerequisite = {
+			focus = SPC_ban_cnt
+		}
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = -0.1 }
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 1200
+				producer = SPC
+			} 
+		}
+		
+		x = 7
+		y = 11
+
+	}
+	focus = {
+		id = SPC_motorizada
+		icon = GFX_goal_generic_army_motorized
+		cost = 5
+		prerequisite = {
+			focus = SPC_ban_cnt
+		}
+		completion_reward = {
+			add_popularity = { ideology = socialism popularity = -0.1 }
+			add_equipment_to_stockpile = {
+				type = motorized_equipment_1
+				amount = 500
+				producer = SPC
+			}
+		}
+		x = 9
+		y = 11
+
+	}
+	focus = {
+		id = SPC_semi
+		icon = GFX_focus_Manipulate_the_Poor
+		cost = 6
+		prerequisite = {
+			focus = SPC_empower_ugt
+		}
+		prerequisite = {
+			focus = SPC_disarm
+		}
+		completion_reward = {
+			add_political_power = 200
+		}
+		x = 6
+		y = 12
+
+	}
+	focus = {
+		id = SPC_revolution_halt
+		icon = GFX_focus_Revolution
+		cost = 4
+		prerequisite = {
+			focus = SPC_motorizada
+		}
+		prerequisite = {
+			focus = SPC_disarm
+		}
+		completion_reward = {
+			add_stability = 0.075
+		}
+		x = 8
+		y = 12
+
+	}
+	focus = {
+		id = SPC_worker_cond
+		icon = GFX_focus_Union_Workers
+		cost = 9
+		prerequisite = {
+			focus = SPC_empower_ugt
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_ugt_primacy add_idea = SPC_ugt_primacy2 }
+		}
+		x = 5
+		y = 13
+
+	}
+	focus = {
+		id = SPC_woo
+		icon = GFX_focus_Communist_Discourse
+		cost = 7
+		prerequisite = {
+			focus = SPC_semi
+		}
+		prerequisite = {
+			focus = SPC_revolution_halt
+		}
+		completion_reward = {
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.1 }
+			add_political_power = 100
+		}
+		x = 7
+		y = 13
+
+	}
+	focus = {
+		id = SPC_dgs
+		icon = GFX_focus_Gunpoint_Diplomacy
+		cost = 8
+		prerequisite = {
+			focus = SPC_motorizada
+		}
+		completion_reward = {
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.1 }
+			add_manpower = 50000
+			add_war_support = 0.1
+			add_stability = 0.05
+		}
+		x = 9
+		y = 13
+
+	}
+	focus = {
+		id = SPC_new_kind
+		icon = GFX_focus_Communist_Star
+		cost = 9
+		prerequisite = {
+			focus = SPC_woo
+		}
+		prerequisite = {
+			focus = SPC_worker_cond
+		}
+		prerequisite = {
+			focus = SPC_dgs
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+		x = 7
+		y = 14
+
+	}
+	
+	focus = {
+		id = SPC_cnt_faistas
+		icon = GFX_focus_Anarcho_Syndicalism
+		cost = 1
+		prerequisite = {
+			focus = SPC_communes
+		}
+		mutually_exclusive = {
+			focus = SPC_cnt_treintistas
+		}
+		available = {
+			has_country_flag = spc_faistas
+		}
+		bypass = {
+			has_country_flag = spc_faistas
+		}
+		completion_reward = {
+		}
+		x = 14
+		y = 10
+
+	}
+	
+	focus = {
+		id = SPC_dissolve_political_parties
+		icon = GFX_focus_Anti_Democracy
+		cost = 7
+		prerequisite = {
+			focus = SPC_cnt_faistas
+		}
+		completion_reward = {
+			add_political_power = 300
+			effect_tooltip = {
+				add_popularity = { ideology = communism popularity = -0.99 }
+				add_popularity = { ideology = socialism popularity = -0.99 }
+				add_popularity = { ideology = social_democracy popularity = -0.99 }
+			}
+			hidden_effect = {
+				add_popularity = { ideology = authoritarian_socialism popularity = 1.0 }
+			}
+		}
+		x = 14
+		y = 11
+
+	}
+	
+	focus = {
+		id = SPC_collective_leadership
+		icon = GFX_goal_generic_national_unity
+		cost = 10
+		prerequisite = {
+			focus = SPC_dissolve_political_parties
+		}
+		completion_reward = {
+			promote_character = SPR_comite_central
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Comite_Central
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Comite_Diplomatico
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_Comite_Industrial
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Comite_Seguridad
+		}
+		x = 13
+		y = 12
+
+	}
+	
+	focus = {
+		id = SPC_the_individual_revolution
+		icon = GFX_focus_spr_torchbearers_of_tomorrow
+		cost = 8
+		prerequisite = {
+			focus = SPC_collective_leadership
+		}
+		completion_reward = {
+			add_ideas = SPC_individual_revolution_idea
+		}
+		x = 14
+		y = 13
+
+	}
+	
+	focus = {
+		id = SPC_secure_womens_liberation
+		icon = GFX_focus_Anarcho_Feminism
+		cost = 7
+		prerequisite = {
+			focus = SPC_collective_leadership
+		}
+		completion_reward = {
+			add_ideas = SPC_free_women
+			set_rule = {
+				can_generate_female_aces = yes
+			}
+		}
+		x = 12
+		y = 13
+
+	}
+	
+	focus = {
+		id = SPC_no_hierarchy
+		icon = GFX_focus_Promote_Social_Solidarism
+		cost = 8
+		prerequisite = {
+			focus = SPC_secure_womens_liberation
+		}
+		prerequisite = {
+			focus = SPC_the_individual_revolution
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_individual_revolution_idea add_idea = SPC_lib_communism }
+		}
+		x = 13
+		y = 14
+
+	}
+	
+	
+	
+	focus = {
+		id = SPC_cnt_treintistas
+		icon = GFX_focus_Risky_Deal
+		cost = 1
+		prerequisite = {
+			focus = SPC_communes
+		}
+		mutually_exclusive = {
+			focus = SPC_cnt_faistas
+		}
+		available = {
+			has_country_flag = spc_treintistas
+		}
+		bypass = {
+			has_country_flag = spc_treintistas
+		}
+		completion_reward = {
+		}
+		x = 20
+		y = 10
+
+	}
+	
+	focus = {
+		id = SPC_cooperate_socialists
+		icon = GFX_focus_Pride_of_The_Left
+		cost = 5
+		prerequisite = {
+			focus = SPC_cnt_treintistas
+		}
+		available = {
+			has_country_flag = pce_destroyed_cnt
+		}
+		completion_reward = {
+			COALITION_add_demsoc = yes
+			COALITION_add_com = yes
+		}
+		x = 20
+		y = 11
+
+	}
+	
+	focus = {
+		id = SPC_transitionary_state
+		icon = GFX_focus_Consensus_with_Peasants
+		cost = 8
+		prerequisite = {
+			focus = SPC_cooperate_socialists
+		}
+		completion_reward = {
+			add_stability = 0.2
+			add_political_power = 200
+			add_war_support = -0.15
+		}
+		x = 21
+		y = 12
+
+	}
+	
+	focus = {
+		id = SPC_educate_people
+		icon = GFX_focus_Brainpower
+		cost = 9
+		prerequisite = {
+			focus = SPC_transitionary_state
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+		x = 20
+		y = 13
+
+	}
+	
+	focus = {
+		id = SPC_apolitical_unions
+		icon = GFX_focus_Union_Workers
+		cost = 8
+		prerequisite = {
+			focus = SPC_transitionary_state
+		}
+		completion_reward = {
+			add_ideas = SPC_syndicalism_idea
+		}
+		x = 22
+		y = 13
+
+	}
+	
+	focus = {
+		id = SPC_revolucion_sindicalista
+		icon = GFX_focus_Cooperatives
+		cost = 8
+		prerequisite = {
+			focus = SPC_apolitical_unions
+		}
+		prerequisite = {
+			focus = SPC_educate_people
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_syndicalism_idea add_idea = SPC_syndicalism2_idea }
+		}
+		x = 21
+		y = 14
+
+	}
+	
+	focus = {
+		id = SPC_destroy_pce
+		icon = GFX_focus_Swing_the_Sword
+		cost = 5
+		prerequisite = {
+			focus = SPC_cnt_faistas
+			focus = SPC_cnt_treintistas
+		}
+		completion_reward = {
+			set_country_flag = pce_destroyed_cnt
+			add_popularity = { ideology = communism popularity = -0.2 }
+			set_party_name = {
+				ideology = communism
+				long_name = SPC_poum_long
+				name = SPC_poum
+			}
+			create_country_leader = {
+				name = "Joaquín Maurín"
+				picture = "gfx/leaders_cbts/CAT/Portrait_Catalonia_Joaquin_Maurin_Julia.png"
+				expire = "1965.1.1"
+				ideology = leninism
+				traits = {
+					#
+				}
+			}
+			
+		}
+		x = 16
+		y = 11
+
+	}
+	
+	focus = {
+		id = SPC_transform_society
+		icon = GFX_focus_Workers_Support
+		cost = 8
+		prerequisite = {
+			focus = SPC_destroy_pce
+		}
+		completion_reward = {
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.2 }
+			add_stability = 0.05
+			add_war_support = 0.1
+		}
+		x = 15
+		y = 12
+
+	}
+	
+	focus = {
+		id = SPC_burgeois_vices
+		icon = GFX_focus_rom_parties_end
+		cost = 5
+		prerequisite = {
+			focus = SPC_transform_society
+		}
+		completion_reward = {
+			country_event = { id = spc.20 }
+		}
+		x = 16
+		y = 13
+
+	}
+	
+	focus = {
+		id = SPC_union_initiatives
+		icon = GFX_goal_generic_construction
+		cost = 8
+		prerequisite = {
+			focus = SPC_cnt_faistas
+			focus = SPC_cnt_treintistas
+		}
+		completion_reward = {
+			add_ideas = SPC_cnt_cons
+		}
+		x = 18
+		y = 11
+
+	}
+	
+	focus = {
+		id = SPC_railway
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 8
+		prerequisite = {
+			focus = SPC_union_initiatives
+		}
+		completion_reward = {
+			#TODO: add railroads
+			
+			# 171 = {
+			# 	add_building_construction = {
+			# 		type = infrastructure
+			# 		level = 2
+			# 		instant_build = yes
+			# 	}
+			# }
+			# 174 = {
+			# 	add_building_construction = {
+			# 		type = infrastructure
+			# 		level = 2
+			# 		instant_build = yes
+			# 	}
+			# }
+			# 176 = {
+			# 	add_building_construction = {
+			# 		type = infrastructure
+			# 		level = 2
+			# 		instant_build = yes
+			# 	}
+			# }
+			# 41 = {
+			# 	add_building_construction = {
+			# 		type = infrastructure
+			# 		level = 2
+			# 		instant_build = yes
+			# 	}
+			# }
+			# 175 = {
+			# 	add_building_construction = {
+			# 		type = infrastructure
+			# 		level = 2
+			# 		instant_build = yes
+			# 	}
+			# }
+			# 173 = {
+			# 	add_building_construction = {
+			# 		type = infrastructure
+			# 		level = 2
+			# 		instant_build = yes
+			# 	}
+			# }
+		}
+		x = 19
+		y = 12
+
+	}
+	focus = {
+		id = SPC_arms
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 7
+		prerequisite = {
+			focus = SPC_union_initiatives
+		}
+		prerequisite = {
+			focus = SPC_destroy_pce
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 17
+		y = 12
+
+	}
+	focus = {
+		id = SPC_communal_cooperation
+		icon = GFX_goal_generic_production
+		cost = 8
+		prerequisite = {
+			focus = SPC_railway
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPC_cnt_cons add_idea = SPC_cnt_cons2 }
+		}
+		x = 18
+		y = 13
+
+	}
+	focus = {
+		id = SPC_industries
+		icon = GFX_focus_Factory_Town
+		cost = 7
+		prerequisite = {
+			focus = SPC_communal_cooperation
+		}
+		prerequisite = {
+			focus = SPC_arms
+		}
+		prerequisite = {
+			focus = SPC_burgeois_vices
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 17
+		y = 14
+
+	}
+	focus = {
+		id = SPC_centers
+		icon = GFX_focus_Factory_Town
+		cost = 8
+		prerequisite = {
+			focus = SPC_railroad
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 29
+		y = 13
+
+	}
+	focus = {
+		id = SPC_party
+		icon = GFX_focus_PCE
+		cost = 7
+		prerequisite = {
+			focus = SPC_cpsr
+		}
+		completion_reward = {
+			add_war_support = 0.1
+		}
+		x = 26
+		y = 12
+
+	}
+	focus = {
+		id = SPC_destroy_cnt
+		icon = GFX_focus_Destroy_Trade_Unions
+		cost = 8
+		prerequisite = {
+			focus = SPC_party
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = authoritarian_socialism popularity = -0.2 }
+		}
+		x = 25
+		y = 13
+
+	}
+	focus = {
+		id = SPC_soviets
+		icon = GFX_focus_Communist_Discourse
+		cost = 9
+		prerequisite = {
+			focus = SPC_party
+		}
+		available = { has_completed_focus = SPC_destroy_cnt }
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = 0.15 }
+			COALITION_add_revsoc = yes
+			set_party_name = {
+				ideology = communism
+				long_name = SPC_psue_long
+				name = SPC_psue
+			}
+			set_party_name = {
+				ideology = authoritarian_socialism
+				long_name = SPC_psue_long
+				name = SPC_psue
+			}
+		}
+		x = 27
+		y = 13
+
+	}
+	focus = {
+		id = SPC_proletarian
+		icon = GFX_focus_Devotion_to_Lenin
+		cost = 9
+		prerequisite = {
+			focus = SPC_destroy_cnt
+		}
+		prerequisite = {
+			focus = SPC_soviets
+		}
+		completion_reward = {
+			add_stability = 0.2
+		}
+		x = 26
+		y = 14
+
+	}
+	focus = {
+		id = SPC_rural_education
+		icon = GFX_focus_Communist_Scientists
+		cost = 8
+		prerequisite = {
+			focus = SPC_quotas
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+		x = 31
+		y = 14
+
+	}
+}

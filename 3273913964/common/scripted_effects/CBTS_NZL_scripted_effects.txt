@@ -1,0 +1,406 @@
+NZL_Set_Parliament = {
+	custom_effect_tooltip = NZL_Reshuffle_Parliament_tt
+	#Sets variable to check for discrepencies
+	set_variable = {
+		NZL_old_total_seats = NZL_total_seats
+	}
+	set_variable = {
+		NZL_com_seats = party_popularity@communism
+	}
+	set_variable = {
+		NZL_revsoc_seats = party_popularity@authoritarian_socialism
+	}
+	set_variable = {
+		NZL_demsoc_seats = party_popularity@socialism
+	}
+	set_variable = {
+		NZL_socdem_seats = party_popularity@social_democracy
+	}
+	set_variable = {
+		NZL_soclib_seats = party_popularity@social_liberalism
+	}
+	set_variable = {
+		NZL_marlib_seats = party_popularity@market_liberalism
+	}
+	set_variable = {
+		NZL_libcon_seats = party_popularity@jacobin
+	}
+	set_variable = {
+		NZL_soccon_seats = party_popularity@democratic
+	}
+	set_variable = {
+		NZL_aut_seats = party_popularity@neutrality
+	}
+	set_variable = {
+		NZL_autdes_seats = party_popularity@monarchism
+	}
+	if = {
+		limit = {
+			nationalism > 0.05
+		}
+		set_variable = {
+			NZL_faraut_seats = party_popularity@nationalism
+		}
+	}
+	if = {
+		limit = {
+			fascism > 0.05
+		}
+		set_variable = {
+			NZL_fas_seats = party_popularity@fascism
+		}
+	}
+	#Gets seats
+	multiply_variable = {
+		NZL_com_seats = NZL_total_seats
+	}
+	multiply_variable = {
+		NZL_revsoc_seats = NZL_total_seats
+	}
+	multiply_variable = {
+		NZL_demsoc_seats = NZL_total_seats
+	}
+	multiply_variable = {
+		NZL_socdem_seats = NZL_total_seats
+	}
+	multiply_variable = {
+		NZL_soclib_seats = NZL_total_seats
+	}
+	multiply_variable = {
+		NZL_marlib_seats = NZL_total_seats
+	}
+	multiply_variable = {
+		NZL_libcon_seats = NZL_total_seats
+	}
+	multiply_variable = {
+		NZL_soccon_seats = NZL_total_seats
+	}
+	multiply_variable = {
+		NZL_aut_seats = NZL_total_seats
+	}
+	multiply_variable = {
+		NZL_autdes_seats = NZL_total_seats
+	}
+	multiply_variable = {
+		NZL_faraut_seats = NZL_total_seats
+	}
+	multiply_variable = {
+		NZL_fas_seats = NZL_total_seats
+	}
+	#rounds
+	round_variable = NZL_com_seats
+	round_variable = NZL_revsoc_seats
+	round_variable = NZL_demsoc_seats
+	round_variable = NZL_socdem_seats
+	round_variable = NZL_soclib_seats
+	round_variable = NZL_marlib_seats
+	round_variable = NZL_libcon_seats
+	round_variable = NZL_soccon_seats
+	round_variable = NZL_aut_seats
+	round_variable = NZL_autdes_seats
+	round_variable = NZL_faraut_seats
+	round_variable = NZL_fas_seats
+	#Gets new total seat value
+	set_variable = {
+		NZL_total_seats = 0
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_com_seats
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_revsoc_seats
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_demsoc_seats
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_socdem_seats
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_soclib_seats
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_marlib_seats
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_libcon_seats
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_soccon_seats
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_aut_seats
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_autdes_seats
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_faraut_seats
+	}
+	add_to_variable = {
+		NZL_total_seats = NZL_fas_seats
+	}
+	#gets discrepency
+	subtract_from_variable = {
+		NZL_old_total_seats = NZL_total_seats
+	}
+	#deals with discrepency, if needed
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					NZL_old_total_seats = 0
+				}
+			}
+		}
+		add_to_variable = {
+			NZL_total_seats = NZL_old_total_seats
+		}
+		if = {
+			limit = {
+				has_government = communism
+			}
+			add_to_variable = {
+				NZL_com_seats = NZL_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = authoritarian_socialism
+			}
+			add_to_variable = {
+				NZL_revsoc_seats = NZL_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = socialism
+			}
+			add_to_variable = {
+				NZL_demsoc_seats = NZL_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_democracy
+			}
+			add_to_variable = {
+				NZL_socdem_seats = NZL_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_liberalism
+			}
+			add_to_variable = {
+				NZL_soclib_seats = NZL_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = market_liberalism
+			}
+			add_to_variable = {
+				NZL_marlib_seats = NZL_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = jacobin
+			}
+			add_to_variable = {
+				NZL_libcon_seats = NZL_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = democratic
+			}
+			add_to_variable = {
+				NZL_soccon_seats = NZL_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = neutrality
+			}
+			add_to_variable = {
+				NZL_aut_seats = NZL_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = monarchism
+			}
+			add_to_variable = {
+				NZL_autdes_seats = NZL_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = nationalism
+			}
+			add_to_variable = {
+				NZL_faraut_seats = NZL_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = fascism
+			}
+			add_to_variable = {
+				NZL_fas_seats = NZL_old_total_seats
+			}
+		}
+	}
+	#gets half
+	set_variable = {
+		NZL_seats_needed = NZL_total_seats
+	}
+	divide_variable = {
+		NZL_seats_needed = 2
+	}
+	round_variable = NZL_seats_needed
+	#Gets coalition
+	set_variable = {
+		NZL_coalition_seats = 0
+	}
+	NZL_get_coalition_seats = yes
+}
+NZL_get_coalition_seats = {
+	set_variable = {
+		NZL_coalition_seats = 0
+	}
+	if = {
+		limit = {
+			is_in_array = { #communist
+				array = coalition_party_list
+				value = 0
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_com_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #revolutionary socialist
+				array = coalition_party_list
+				value = 1
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_revsoc_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #democratic socialist
+				array = coalition_party_list
+				value = 2
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_demsoc_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocDem
+				array = coalition_party_list
+				value = 3
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_socdem_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #soclib
+				array = coalition_party_list
+				value = 4
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_soclib_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #marlib
+				array = coalition_party_list
+				value = 5
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_marlib_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #LibCon
+				array = coalition_party_list
+				value = 6
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_libcon_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocCon
+				array = coalition_party_list
+				value = 7
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_soccon_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #Aut
+				array = coalition_party_list
+				value = 9
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_aut_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #monarchist
+				array = coalition_party_list
+				value = 8
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_autdes_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #nationalist
+				array = coalition_party_list
+				value = 10
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_faraut_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #fascist
+				array = coalition_party_list
+				value = 11
+			}
+		}
+		add_to_variable = {
+			NZL_coalition_seats = NZL_fas_seats
+		}
+	}
+}

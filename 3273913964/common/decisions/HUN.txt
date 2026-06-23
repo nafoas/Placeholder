@@ -1,0 +1,3403 @@
+#### ##    ## ########  ##     ##  ######  ######## ########  ####    ###    ##           ######    ##	   ##  ## 	##	########
+ ##  ###   ## ##     ## ##     ## ##    ##    ##    ##     ##  ##    ## ##   ##           ##	##  ##	   ##     	##  ##     ## 
+ ##  ####  ## ##     ## ##     ## ##          ##    ##     ##  ##   ##   ##  ##           ##	 ## ##     ##  ## 	##  ##     ##  
+ ##  ## ## ## ##     ## ##     ##  ######     ##    ########   ##  ##     ## ##           # #####   ##	   ##  ## 	##  ##     ## 
+ ##  ##  #### ##     ## ##     ##       ##    ##    ##   ##    ##  ######### ##           ##	 ## ##     ##  ## 	## 	## 	   ##
+ ##  ##   ### ##     ## ##     ## ##    ##    ##    ##    ##   ##  ##     ## ##           ##    ##  ##     ##  ## 	##  ##     ##	
+#### ##    ## ########   #######   ######     ##    ##     ## #### ##     ## ########     ######     #######   ## 	##	######## 
+
+
+# Activated by 'Appeal to Industrial Experts' focus. Lets you choose to reach out for economic aid from Germany, Italy or, the League of Nations
+HUN_reach_out_to_foreign_economies = {
+
+	#Ask GERMANY for aid
+	HUN_reach_out_to_germany = {
+
+		cost = 0
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 1000
+			}
+		}		
+
+		visible = {
+			tag = HUN
+			has_completed_focus = HUN_appeal_to_industrial_experts
+			not = { 
+				or = {
+					has_country_flag = HUN_ITA_trade_deal_win
+					has_country_flag = HUN_GER_trade_deal_result 	
+					has_country_flag = HUN_lon_trade_deal_win				
+				}
+			}	
+		}
+
+		complete_effect = {
+			GER = { country_event = { id = CBTS_hungary.57 days = 3 } }
+
+		}
+	}
+
+	#Ask ITALY for aid
+	HUN_reach_out_to_italy = {
+
+		cost = 0
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 60
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}		
+
+		visible = {
+			tag = HUN
+			has_completed_focus = HUN_appeal_to_industrial_experts
+			not = { 
+				or = {
+					has_country_flag = HUN_GER_trade_deal_win
+					has_country_flag = HUN_ITA_trade_deal_result 		
+					has_country_flag = HUN_lon_trade_deal_win							
+				}
+			}		
+		}
+
+		complete_effect = {
+			ITA = { country_event = { id = CBTS_hungary.58 days = 3 } }
+
+		}
+	}
+
+	#Ask League of Nations for aid
+	HUN_reach_out_to_lon = {
+
+		cost = 5
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 30
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}		
+
+		available = {
+			fascism < 0.20
+		}
+
+		visible = {
+			tag = HUN
+			has_completed_focus = HUN_appeal_to_industrial_experts
+			not = { 
+				or = {
+					has_country_flag = HUN_GER_trade_deal_win
+					has_country_flag = HUN_ITA_trade_deal_win							
+					has_country_flag = HUN_lon_trade_deal_win							
+				}
+			}
+			#not = { has_country_flag = HUN_ITA_trade_deal_result }		
+		}
+
+		complete_effect = {
+			set_country_flag = HUN_lon_trade_deal_win		
+		}
+	}
+
+}
+
+
+##############################################
+############ GERMAN LOANSHARKS ###############
+##############################################
+HUN_reduce_the_effects_of_the_great_depression = {  # German-Hungarian Trade Deal
+	
+	HUN_sell_wheat_to_germany = {
+
+		icon = GFX_decision_ger_mefo_bills
+
+		allowed = {
+			tag = HUN
+		}
+
+		available = {
+			NOT = { has_country_flag = hun_trade_deal_with_germany_in_progress }
+			OR = {
+				has_war_support < 0.8
+				has_idea = HUN_effects_of_the_great_depression_1
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_2
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_3
+				}				
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_4 
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_5
+				}
+			}
+		}
+
+		cost = 50
+
+		fire_only_once = no
+
+		days_remove = 135
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		modifier = {
+		    consumer_goods_factor = 0.15
+		    production_factory_max_efficiency_factor = -0.15
+		}
+
+		visible = {
+			has_country_flag = HUN_GER_trade_deal_win
+			OR = {					
+				has_idea = HUN_effects_of_the_great_depression_5
+				has_idea = HUN_effects_of_the_great_depression_4
+				has_idea = HUN_effects_of_the_great_depression_3
+				has_idea = HUN_effects_of_the_great_depression_2
+				has_idea = HUN_effects_of_the_great_depression_1
+			}
+			tag = HUN
+		}
+
+		remove_effect = {
+		custom_effect_tooltip = HUN_cooperate_with_far_right_tt
+		GER = { add_to_variable = { var = ger_nation_influence value = 5 } }
+		    add_popularity = {
+                ideology = fascism
+                popularity = 0.02
+            }
+			add_stability = -0.03
+			HUN_effects_of_the_great_depression_level_down = yes
+			clr_country_flag = hun_trade_deal_with_germany_in_progress
+		}
+
+		complete_effect = {
+			set_country_flag = hun_trade_deal_with_germany_in_progress
+		}
+	}
+
+
+	HUN_purchase_german_industrial_goods = {
+
+		icon = generic_industry
+ 
+		allowed = {
+			tag = HUN
+		}
+
+		available = {
+			NOT = { has_country_flag = hun_trade_deal_with_germany_in_progress }
+			OR = {
+				has_war_support < 0.8
+				has_idea = HUN_effects_of_the_great_depression_1
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_2
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_3
+				}				
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_4 
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_5
+				}
+			}
+		}
+
+		cost = 50
+
+		fire_only_once = no
+
+		days_remove = 135
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+		modifier = {
+			political_power_factor = -0.05
+			industrial_capacity_factory = -0.15
+		}
+
+		visible = {
+			has_country_flag = HUN_GER_trade_deal_win
+			OR = {					
+				has_idea = HUN_effects_of_the_great_depression_5
+				has_idea = HUN_effects_of_the_great_depression_4
+				has_idea = HUN_effects_of_the_great_depression_3
+				has_idea = HUN_effects_of_the_great_depression_2
+				has_idea = HUN_effects_of_the_great_depression_1
+			}
+			tag = HUN
+		}
+
+		remove_effect = {
+		custom_effect_tooltip = HUN_cooperate_with_far_right_tt
+		GER = { add_to_variable = { var = ger_nation_influence value = 5 } }
+		    add_popularity = {
+                ideology = fascism
+                popularity = 0.02
+            }
+			HUN_effects_of_the_great_depression_level_down = yes
+			clr_country_flag = hun_trade_deal_with_germany_in_progress
+		}
+
+		complete_effect = {
+			set_country_flag = hun_trade_deal_with_germany_in_progress
+		}
+
+	}
+
+	HUN_german_hungarian_industrial_planning = {
+
+		icon = generic_construction
+
+		allowed = {
+			tag = HUN
+		}
+
+		available = {
+			NOT = { has_country_flag = hun_trade_deal_with_germany_in_progress }
+			OR = {
+				has_war_support < 0.8
+				has_idea = HUN_effects_of_the_great_depression_1
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_2
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_3
+				}				
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_4 
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_5
+				}
+			}
+		}
+
+		cost = 65
+
+		fire_only_once = no
+
+		days_remove = 135
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		modifier = {
+			industrial_capacity_factory = 0.1
+			political_power_factor = -0.50
+		}
+
+		visible = {
+			has_country_flag = HUN_GER_trade_deal_win
+			OR = {					
+				has_idea = HUN_effects_of_the_great_depression_5
+				has_idea = HUN_effects_of_the_great_depression_4
+				has_idea = HUN_effects_of_the_great_depression_3
+				has_idea = HUN_effects_of_the_great_depression_2
+				has_idea = HUN_effects_of_the_great_depression_1
+			}
+			tag = HUN
+		}
+
+		remove_effect = {
+		custom_effect_tooltip = HUN_cooperate_with_far_right_tt
+		GER = { add_to_variable = { var = ger_nation_influence value = 5 } }
+			HUN_effects_of_the_great_depression_level_down = yes
+			clr_country_flag = hun_trade_deal_with_germany_in_progress
+		}
+
+		complete_effect = {
+			set_country_flag = hun_trade_deal_with_germany_in_progress
+		}
+
+	}
+
+}
+
+##############################################
+############ ITALIAN LOANSHARKS ##############
+##############################################
+HUN_italy_reduce_the_effects_of_the_great_depression = {  # Italian-Hungarian Trade Deal
+	
+	HUN_sell_wheat_to_italy = {
+
+		icon = GFX_decision_ger_mefo_bills
+
+		allowed = {
+			tag = HUN
+		}
+
+		available = {
+			NOT = { has_country_flag = hun_trade_deal_with_italy_in_progress }
+			OR = {
+				has_war_support < 0.8
+				has_idea = HUN_effects_of_the_great_depression_1
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_2
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_3
+				}				
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_4 
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_5
+				}
+			}
+		}
+
+		cost = 45
+
+		fire_only_once = no
+
+		days_remove = 135
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		modifier = {
+		    consumer_goods_factor = 0.15
+		    production_factory_max_efficiency_factor = -0.15
+		}
+
+		visible = {
+			has_country_flag = HUN_ITA_trade_deal_win
+			OR = {					
+				has_idea = HUN_effects_of_the_great_depression_5
+				has_idea = HUN_effects_of_the_great_depression_4
+				has_idea = HUN_effects_of_the_great_depression_3
+				has_idea = HUN_effects_of_the_great_depression_2
+				has_idea = HUN_effects_of_the_great_depression_1
+			}
+			tag = HUN
+		}
+
+		remove_effect = {
+		custom_effect_tooltip = HUN_add_ita_influence_5_tt
+		ITA = { add_to_variable = { var = ita_nation_influence value = 5 } }
+		    add_popularity = {
+                ideology = fascism
+                popularity = 0.02
+            }
+			add_stability = -0.03
+			HUN_effects_of_the_great_depression_level_down = yes
+			clr_country_flag = hun_trade_deal_with_italy_in_progress
+		}
+
+		complete_effect = {
+			set_country_flag = hun_trade_deal_with_italy_in_progress
+		}
+	}
+
+
+	HUN_purchase_italian_industrial_goods = {
+
+		icon = generic_industry
+ 
+		allowed = {
+			tag = HUN
+		}
+
+		available = {
+			NOT = { has_country_flag = hun_trade_deal_with_italy_in_progress }
+			OR = {
+				has_war_support < 0.8
+				has_idea = HUN_effects_of_the_great_depression_1
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_2
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_3
+				}				
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_4 
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_5
+				}
+			}
+		}
+
+		cost = 45
+
+		fire_only_once = no
+
+		days_remove = 135
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+		modifier = {
+			political_power_factor = -0.05
+			industrial_capacity_factory = -0.15
+		}
+
+		visible = {
+			has_country_flag = HUN_ITA_trade_deal_win
+			OR = {					
+				has_idea = HUN_effects_of_the_great_depression_5
+				has_idea = HUN_effects_of_the_great_depression_4
+				has_idea = HUN_effects_of_the_great_depression_3
+				has_idea = HUN_effects_of_the_great_depression_2
+				has_idea = HUN_effects_of_the_great_depression_1
+			}
+			tag = HUN
+		}
+
+		remove_effect = {
+		custom_effect_tooltip = HUN_add_ita_influence_5_tt
+		ITA = { add_to_variable = { var = ita_nation_influence value = 5 } }
+		    add_popularity = {
+                ideology = fascism
+                popularity = 0.02
+            }
+			HUN_effects_of_the_great_depression_level_down = yes
+			clr_country_flag = hun_trade_deal_with_italy_in_progress
+		}
+
+		complete_effect = {
+			set_country_flag = hun_trade_deal_with_italy_in_progress
+		}
+
+	}
+
+	HUN_italian_hungarian_industrial_planning = {
+
+		icon = generic_construction
+
+		allowed = {
+			tag = HUN
+		}
+
+		available = {
+			NOT = { has_country_flag = hun_trade_deal_with_italy_in_progress }
+			OR = {
+				has_war_support < 0.8
+				has_idea = HUN_effects_of_the_great_depression_1
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_2
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_3
+				}				
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_4 
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_5
+				}
+			}
+		}
+
+		cost = 60
+
+		fire_only_once = no
+
+		days_remove = 135
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		modifier = {
+			industrial_capacity_factory = 0.1
+			political_power_factor = -0.50
+		}
+
+		visible = {
+			has_country_flag = HUN_ITA_trade_deal_win
+			OR = {					
+				has_idea = HUN_effects_of_the_great_depression_5
+				has_idea = HUN_effects_of_the_great_depression_4
+				has_idea = HUN_effects_of_the_great_depression_3
+				has_idea = HUN_effects_of_the_great_depression_2
+				has_idea = HUN_effects_of_the_great_depression_1
+			}
+			tag = HUN
+		}
+
+		remove_effect = {
+		custom_effect_tooltip = HUN_add_ita_influence_5_tt
+		ITA = { add_to_variable = { var = ita_nation_influence value = 5 } }
+			HUN_effects_of_the_great_depression_level_down = yes
+			clr_country_flag = hun_trade_deal_with_italy_in_progress
+		}
+
+		complete_effect = {
+			set_country_flag = hun_trade_deal_with_italy_in_progress
+		}
+
+	}
+
+}
+
+##############################################
+############ LEAGUE OF NATIONS ##############
+##############################################
+HUN_lon_reduce_the_effects_of_the_great_depression = {  # lon-Hungarian Trade Deal
+
+	HUN_trade_with_lon = {
+
+		icon = generic_industry
+ 
+		allowed = {
+			tag = HUN
+		}
+
+		available = {
+			NOT = { has_country_flag = hun_trade_deal_with_lon_in_progress }
+			OR = {
+				has_war_support < 0.8
+				has_idea = HUN_effects_of_the_great_depression_1
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_2
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_3
+				}				
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_4 
+				}
+				hidden_trigger = {
+					has_idea = HUN_effects_of_the_great_depression_5
+				}
+			}
+		}
+
+		cost = 45
+
+		fire_only_once = no
+
+		days_remove = 135
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+		modifier = {
+			political_power_factor = -0.05
+			industrial_capacity_factory = -0.15
+		}
+
+		visible = {
+			has_country_flag = HUN_lon_trade_deal_win
+			OR = {					
+				has_idea = HUN_effects_of_the_great_depression_5
+				has_idea = HUN_effects_of_the_great_depression_4
+				has_idea = HUN_effects_of_the_great_depression_3
+				has_idea = HUN_effects_of_the_great_depression_2
+				has_idea = HUN_effects_of_the_great_depression_1
+			}
+			tag = HUN
+		}
+
+		remove_effect = {
+			HUN_effects_of_the_great_depression_level_down = yes
+			clr_country_flag = hun_trade_deal_with_lon_in_progress
+		}
+
+		complete_effect = {
+			set_country_flag = hun_trade_deal_with_lon_in_progress
+		}
+
+	}
+}
+
+########  ########    ###    ########  ##     ##    ###    ##     ## ######## ##    ## ######## 
+##     ## ##         ## ##   ##     ## ###   ###   ## ##   ###   ### ##       ###   ##    ##    
+##     ## ##        ##   ##  ##     ## #### ####  ##   ##  #### #### ##       ####  ##    ##    
+########  ######   ##     ## ########  ## ### ## ##     ## ## ### ## ######   ## ## ##    ##    
+##   ##   ##       ######### ##   ##   ##     ## ######### ##     ## ##       ##  ####    ##    
+##    ##  ##       ##     ## ##    ##  ##     ## ##     ## ##     ## ##       ##   ###    ##    
+##     ## ######## ##     ## ##     ## ##     ## ##     ## ##     ## ######## ##    ##    ## 
+
+
+HUN_arms_deals_decision = {		# Now renamed to Hungarian Secret Rearmament 
+
+
+	HUN_demand_rearmament_renegotiation = {			#if the player chose peaceful option, this gives them a last chance to remove trianon
+	
+		icon = GFX_decision_eng_trade_unions_support	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			has_war = no
+			ROM = { 
+				exists = yes 
+				is_puppet = yes
+			}
+			has_completed_focus = HUN_the_bled_agreement
+			has_global_flag = HUN_denied_trianon		
+		}
+
+		cost = 50
+
+		days_remove = 60
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = ROM
+					modifier = HUN_diplomatic_visit_trianon
+				}				
+			}		
+		}
+		remove_effect = {	
+
+			ROM = {
+				country_event = {
+					id = CBTS_hungary.1
+				}
+			}				
+		}
+	}
+
+	HUN_elod_plan_decision = {
+
+		icon = generic_army 
+
+		available = {
+			has_army_size = {
+				type = infantry
+				size > 20
+			}
+			has_army_size = {
+				type = motorized
+				size > 0
+			}
+			has_deployed_air_force_size = {
+			    size > 51
+			    type = cas
+			}
+			has_deployed_air_force_size = {
+			    size > 51
+			    type = fighter
+			}
+		}
+
+		fire_only_once = yes
+		is_good = no
+		days_mission_timeout = 2160
+		allowed = {
+			tag = HUN
+		}
+		activation = {
+			NOT = {
+				has_completed_focus = HUN_huba_army_expansion
+			}			
+		}
+
+		visible = {
+			NOT = {
+				has_completed_focus = HUN_huba_army_expansion
+			}
+		}
+
+		#remove_effect = {
+		#	remove_ideas = HUN_elod_plan
+		#}
+
+		complete_effect = {
+			army_experience = 15
+			air_experience = 20
+		}
+	}
+
+	HUN_huba_plan_decision = {
+
+		icon = generic_army 
+
+		available = {
+			has_army_size = {
+				type = infantry
+				size > 25
+			}
+			has_army_size = {
+				type = armor
+				size > 1
+			}
+			has_army_size = {
+				type = motorized
+				size > 0
+			}
+			has_deployed_air_force_size = {
+			    size > 127
+			    type = cas
+			}
+			has_deployed_air_force_size = {
+			    size > 127
+			    type = fighter
+			}
+		}
+
+		fire_only_once = yes
+		days_mission_timeout = 720
+		is_good = no
+		activation = {
+			original_tag = HUN
+			has_completed_focus = HUN_huba_army_expansion
+		}
+
+		visible = {
+			has_completed_focus = HUN_huba_army_expansion
+		}
+
+		remove_effect = {
+			remove_ideas = HUN_huba_plan
+		}
+
+		complete_effect = {
+			add_war_support = 0.05
+			army_experience = 20
+			air_experience = 30
+		}
+	}
+
+	HUN_botond_plan = {
+	
+		icon = GFX_decision_ger_military_buildup	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		visible = {
+			has_completed_focus = HUN_huba_army_expansion
+
+		}
+		available = {
+			has_tech = motorised_infantry
+			has_completed_focus = HUN_huba_army_expansion
+
+		}
+		custom_cost_trigger = {
+			command_power > 29
+		}
+
+		custom_cost_text = command_power_more_than_30
+
+		days_remove = 30
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+
+		remove_effect = {	
+			add_equipment_to_stockpile = {
+				type = motorized_equipment_1
+				amount = 1000
+				producer = HUN			
+			}
+		}
+	}
+
+	HUN_turan_plan = {
+	
+		icon = generic_tank	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		visible = {
+			has_completed_focus = HUN_huba_army_expansion
+
+		}
+		available = {
+			or = {
+				has_tech = medium_tank_0
+				has_tech = basic_medium_tank_chassis
+			}
+			has_completed_focus = HUN_huba_army_expansion
+
+		}
+		custom_cost_trigger = {
+			command_power > 29
+		}
+
+		custom_cost_text = command_power_more_than_30
+
+		days_remove = 30
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+
+		remove_effect = {	
+			if = {
+				limit = { 
+					NOT = { has_dlc = "No Step Back"}
+				}
+				add_equipment_to_stockpile = {
+					type = medium_tank_equipment_1
+					amount = 230
+					producer = HUN
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+		create_equipment_variant = {
+			name = "40M Turán I"
+			type = medium_tank_chassis_0
+			parent_version = 0
+			modules = {
+				main_armament_slot = tank_small_cannon_2
+				turret_type_slot = tank_medium_three_man_tank_turret
+				suspension_type_slot = tank_torsion_bar_suspension
+				armor_type_slot = tank_welded_armor
+				engine_type_slot = tank_gasoline_engine
+				special_type_slot_1 = tank_radio_1
+				special_type_slot_2 = smoke_launchers
+				special_type_slot_3 = empty
+				special_type_slot_4 = empty
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 5
+				tank_nsb_armor_upgrade = 3
+			}
+			icon = "GFX_HUN_basic_medium_tank_medium"
+		}
+			}
+		}
+	}
+
+	HUN_cheat_the_treaties_1 = {
+
+	name = HUN_cheat_the_treaties_1
+	
+		icon = GFX_decision_generic_break_treaty	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			has_war = no		
+		}
+
+		cost = 50
+
+		days_remove = 200	#prev 120
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+		visible = {
+			original_tag = HUN
+			has_completed_focus = HUN_secret_rearmament
+		}
+
+			remove_effect = {	
+			hidden_effect = {
+				set_variable = { HUN_treaty_of_trianon_phase = 2 }
+			}
+			set_global_flag = hun_trianon_cheat_decision_1
+			custom_effect_tooltip = HUN_cheat_the_treaties_tt
+
+			}
+		}
+	HUN_cheat_the_treaties_2 = {
+
+		name = HUN_cheat_the_treaties_1
+	
+		icon = GFX_decision_generic_break_treaty	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			has_war = no		
+		}
+
+		cost = 50
+
+		days_remove = 200   #prev 120
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+		visible = {
+			has_global_flag = hun_trianon_cheat_decision_1 
+			original_tag = HUN
+			has_completed_focus = HUN_secret_rearmament
+		}
+
+			remove_effect = {	
+			hidden_effect = {
+				country_lock_all_division_template = no
+				set_variable = { HUN_treaty_of_trianon_phase = 3 }			
+			}
+			custom_effect_tooltip = HUN_cheat_the_treaties_2_tt
+		}
+	}
+	HUN_diplomatic_visit_romania = {
+	
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			ROM = { 
+				exists = yes 
+				controls_state = 46
+			}
+			has_war = no		
+		}
+
+		cost = 20
+
+		days_remove = 60
+
+		days_re_enable = 30
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		visible = {
+			original_tag = HUN
+			has_idea = HUN_treaty_of_trianon
+		}
+
+		remove_effect = {	
+			add_opinion_modifier = {
+				target = ROM
+				modifier = HUN_diplomatic_visit_trianon
+			}				
+		}
+	}
+	HUN_diplomatic_visit_czechoslovakia = {
+	
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			CZE = { 
+				exists = yes 
+				controls_state = 9
+			}
+			has_war = no		
+		}
+
+		cost = 20
+
+		days_remove = 60
+
+		days_re_enable = 30
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		visible = {
+			original_tag = HUN
+			has_idea = HUN_treaty_of_trianon
+		}
+
+		remove_effect = {	
+			add_opinion_modifier = {
+				target = CZE
+				modifier = HUN_diplomatic_visit_trianon
+			}				
+		}
+	}
+	HUN_diplomatic_visit_yugoslavia = {
+	
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			YUG = { 
+				exists = yes 
+				controls_state = 107
+			}
+			has_war = no		
+		}
+
+		cost = 20
+
+		days_remove = 60
+
+		days_re_enable = 30
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		visible = {
+			original_tag = HUN
+			has_idea = HUN_treaty_of_trianon
+		}
+
+		remove_effect = {	
+			add_opinion_modifier = {
+				target = YUG
+				modifier = HUN_diplomatic_visit_trianon
+			}				
+		}
+	}
+
+	HUN_promote_istvan_horthy = {
+	
+		icon = generic_air	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			has_completed_focus = HUN_reveal_the_hungarian_air_force		
+		}
+
+		fire_only_once = yes
+
+		cost = 15
+
+		days_remove = 5
+
+		ai_will_do = {
+			factor = 5
+		}
+
+		visible = {
+			has_completed_focus = HUN_reveal_the_hungarian_air_force		
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			add_ace = {
+    			name = "Istvan"
+    			surname = "Horthy"
+    			callsign = "Mávag"
+    			type = fighter_genius
+			}				
+		}
+	}
+}
+
+HUN_foreign_aid_decision = {
+
+	HUN_aid_spain_decision = {
+	
+		icon = GFX_decision_generic_nationalism	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			SPR = { 
+				OR = { 
+					has_war_with = SPA 
+					has_war_with = SPC 
+				} 
+			}
+			HUN = {
+				NOT = {
+					has_war_with = SPR
+					has_war_with = SPA
+					has_war_with = SPC
+				}
+			}		
+		}
+
+		cost = 25
+
+		fire_only_once = yes
+
+		days_remove = 20
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+			remove_effect = {
+				add_stability = -0.05
+				add_war_support = 0.05
+				add_timed_idea = {
+				idea = HUN_aid_spain
+				days = 720
+			}
+
+		}
+	}
+
+	HUN_aid_finland_decision = {
+	
+		icon = generic_industry	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			FIN = {
+				has_war = yes
+			}
+			NOT = {
+				has_war_with = FIN
+			}		
+		}
+
+		cost = 25
+
+		fire_only_once = yes
+
+		days_remove = 20
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {
+			army_experience = 10
+					add_opinion_modifier = {
+						target = FIN
+						modifier = HUN_bought_guns
+					}	    		
+	        FIN = {
+            	add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 300 producer = HUN }
+				add_equipment_to_stockpile = { type = artillery_equipment_1 amount = 16 producer = HUN }
+				add_equipment_to_stockpile = { type = anti_air_equipment_1 amount = 36 producer = HUN }
+			}
+		}
+	}
+
+	HUN_reestablish_soviet_diplomacy = {
+	
+		icon = GFX_decision_eng_trade_unions_support	
+
+		available = {
+			original_tag = HUN
+		}
+
+		visible = {
+			has_idea = HUN_gyula_gombos		
+		}
+
+		#cosmetic_tag = SOV
+
+		cost = 0
+
+		fire_only_once = yes
+
+		days_remove = 5
+
+		ai_will_do = {
+			factor = 10
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {
+			add_political_power = 10
+			add_opinion_modifier = {
+				target = SOV
+				modifier = HUN_bought_guns
+			}	    		
+		}
+	}
+}					 #   #
+							 
+  ####### #	   #	######	   #######
+ ##		   #  #    #      #   ##	 ##
+##			##	  #		   #  ########
+##	  ###	##	  #		   #  ##   ##
+##		#	##	   #	  #	  ##	##
+ ########	##	    ######    ##     ##
+
+HUN_gyor_program_decision = {
+
+	HUN_expand_military_industry = {
+	
+		icon = GFX_decision_ger_military_buildup	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			has_global_flag = hun_gyor_program_idea		
+			NOT = {
+				has_country_flag = HUN_gyor_decision_in_progress
+			}
+		}
+
+		cost = 25
+
+		fire_only_once = yes
+
+		days_remove = 100
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		modifier = {
+			industrial_capacity_factory = 0.05
+		    #consumer_goods_factor = -0.05
+		}
+
+		remove_effect = {
+			clr_country_flag = HUN_gyor_decision_in_progress
+		}
+
+		complete_effect = {
+			set_country_flag = HUN_gyor_decision_in_progress
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+	}
+
+	HUN_expand_military_industry_2 = {
+	
+		icon = GFX_decision_generic_tank	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			has_global_flag = hun_gyor_program_idea		
+			NOT = {
+				has_country_flag = HUN_gyor_decision_in_progress
+			}
+		}
+
+		visible = {
+			original_tag = HUN
+			has_global_flag = hun_gyor_program_idea
+		}
+
+		cost = 30
+
+		fire_only_once = yes
+
+		days_remove = 100
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		modifier = {
+			industrial_capacity_factory = 0.1
+		    #consumer_goods_factor = -0.05
+		}
+
+		remove_effect = {
+			clr_country_flag = HUN_gyor_decision_in_progress
+		}
+
+		complete_effect = {
+			set_country_flag = HUN_gyor_decision_in_progress
+		}
+	}
+
+	HUN_expand_military_industry_3 = {
+	
+		icon = GFX_decision_generic_air	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			has_global_flag = hun_gyor_program_idea
+			NOT = {
+				has_country_flag = HUN_gyor_decision_in_progress
+			}		
+		}
+
+		visible = {
+			original_tag = HUN
+			has_global_flag = hun_gyor_program_idea
+		}
+
+		cost = 30
+
+		fire_only_once = yes
+
+		days_remove = 100
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		modifier = {
+			industrial_capacity_factory = 0.1
+		    #consumer_goods_factor = -0.1
+		}
+		remove_effect = {
+			clr_country_flag = HUN_gyor_decision_in_progress
+		}
+
+		complete_effect = {
+			set_country_flag = HUN_gyor_decision_in_progress
+		}
+
+	}
+	HUN_expand_civilian_industry = {
+	
+		icon = GFX_decision_ger_mefo_bills	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = HUN_gyor_decision_in_progress
+			}
+		}
+
+		visible = {
+			original_tag = HUN
+			has_global_flag = hun_gyor_program_idea
+		}
+
+		cost = 25
+
+		fire_only_once = yes
+
+		days_remove = 100
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		modifier = {
+		    #consumer_goods_factor = 0.05
+		}
+
+			remove_effect = {
+			clr_country_flag = HUN_gyor_decision_in_progress
+			set_global_flag = hun_gyor_program_decision_4
+			random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			set_state_flag = gyor_program_industrial_complex_1
+			}				
+		}
+
+		complete_effect = {
+			set_country_flag = HUN_gyor_decision_in_progress
+		}
+	}
+	HUN_expand_civilian_industry_2 = {
+	
+		icon = generic_industry	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = HUN_gyor_decision_in_progress
+			}		
+		}
+
+		visible = {
+			original_tag = HUN
+			has_global_flag = hun_gyor_program_idea
+		}
+
+		cost = 30
+
+		fire_only_once = yes
+
+		days_remove = 100
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		modifier = {
+		    #consumer_goods_factor = 0.05
+		}
+
+			remove_effect = {
+				clr_country_flag = HUN_gyor_decision_in_progress
+				set_global_flag = hun_gyor_program_decision_5
+				random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				set_state_flag = gyor_program_industrial_complex_2
+				}
+			}
+
+		complete_effect = {
+			set_country_flag = HUN_gyor_decision_in_progress
+		}
+	}
+	HUN_expand_civilian_industry_3 = {
+	
+		icon = generic_construction
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = HUN_gyor_decision_in_progress
+			}	
+		}
+
+		visible = {
+			original_tag = HUN
+			has_global_flag = hun_gyor_program_idea
+		}
+
+		cost = 35
+
+		fire_only_once = yes
+
+		days_remove = 100
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		modifier = {
+		    #consumer_goods_factor = 0.05
+		}
+
+			remove_effect = {
+				clr_country_flag = HUN_gyor_decision_in_progress
+				set_global_flag = hun_gyor_program_decision_6
+				random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				set_state_flag = gyor_program_industrial_complex_2
+				}
+			}
+
+		complete_effect = {
+			set_country_flag = HUN_gyor_decision_in_progress
+		}
+	}
+
+	HUN_expand_the_steel_works = {
+	
+		icon = GFX_decision_steel	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = HUN_gyor_decision_in_progress
+			}	
+		}
+
+		visible = {
+			original_tag = HUN
+			has_global_flag = hun_gyor_program_idea
+		}
+
+		cost = 25
+
+		fire_only_once = yes
+
+		days_remove = 60
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		modifier = {
+		    #consumer_goods_factor = 0.05
+		}
+
+		remove_effect = {
+		clr_country_flag = HUN_gyor_decision_in_progress
+			834 = {
+				add_resource = {
+					type = steel
+					amount = 12
+				}
+			}
+		}
+
+		complete_effect = {
+			set_country_flag = HUN_gyor_decision_in_progress
+		}
+	}
+	HUN_szolnok_tungsten_mines = {
+	
+		icon = GFX_decision_tungsten	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = HUN_gyor_decision_in_progress
+			}	
+		}
+
+		visible = {
+			original_tag = HUN
+			has_global_flag = hun_gyor_program_idea
+		}
+
+		cost = 25
+
+		fire_only_once = yes
+
+		days_remove = 60
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		modifier = {
+		    #consumer_goods_factor = 0.05
+		}
+
+		remove_effect = {
+		clr_country_flag = HUN_gyor_decision_in_progress
+			154 = {
+				add_resource = {
+					type = tungsten
+					amount = 10
+				}
+			}
+		}
+
+		complete_effect = {
+			set_country_flag = HUN_gyor_decision_in_progress
+		}
+	}
+	HUN_found_the_maort = {
+	
+		icon = GFX_decision_oil	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = HUN_gyor_decision_in_progress
+			}	
+		}
+
+		visible = {
+			original_tag = HUN
+			has_global_flag = hun_gyor_program_idea
+		}
+
+		cost = 25
+
+		fire_only_once = yes
+
+		days_remove = 60
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		modifier = {
+		    #consumer_goods_factor = 0.05
+		}
+
+		remove_effect = {
+		clr_country_flag = HUN_gyor_decision_in_progress
+			155 = {
+				add_resource = {
+					type = oil
+					amount = 8
+				}
+			}
+		}
+		
+		complete_effect = {
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = HUN_maort
+			set_country_flag = HUN_gyor_decision_in_progress
+			hidden_effect = {
+				set_country_flag = HUN_maort_available
+			}
+		}
+	}
+}
+
+HUN_core_occupied_territory_decision = {
+	HUN_form_greater_hungary = {
+
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			original_tag = HUN
+			HUN = { 
+				controls_state = 45
+				controls_state = 1031
+				controls_state = 815
+				controls_state = 1046
+				controls_state = 76
+				controls_state = 1054
+				controls_state = 1048
+				controls_state = 1207
+				controls_state = 73
+				controls_state = 664
+			}
+		}
+
+		cost = 100
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 75
+		}
+
+		visible = {
+			has_completed_focus = HUN_assert_our_claims
+			original_tag = HUN
+		}
+		complete_effect = {
+			swap_ideas = {
+				remove_idea = HUN_hungarian_irredentism
+				add_idea = HUN_greater_hungary
+			}
+			custom_effect_tooltip = HUN_GREATER_tt
+			set_cosmetic_tag = HUN_GREATER
+			hidden_effect = {
+				news_event = { id = HUN_news.299 days = 1 }
+			}
+		}
+	}
+	core_southern_slovakia = {
+
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			HUN = { 
+				controls_state = 664
+			}
+		}
+
+		cost = 35
+
+		days_remove = 60
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 75
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			add_state_core = 664				
+		}	
+
+	}
+	core_southern_transcarpathia = {
+
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			HUN = { 
+				controls_state = 1207
+			}
+		}
+
+		cost = 35
+
+		days_remove = 60
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 75
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			add_state_core = 1207				
+		}	
+	}
+	core_transcarpathia = {
+
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			HUN = { 
+				controls_state = 73
+			}
+		}
+
+		cost = 35
+
+		days_remove = 60
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 75
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			add_state_core = 73				
+		}	
+	}
+	core_bihor = {
+
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			HUN = { 
+				controls_state = 1048
+			}
+		}
+
+		cost = 35
+
+		days_remove = 60
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 75
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			add_state_core = 1048				
+		}
+	}
+	core_maramures = {
+
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			HUN = { 
+				controls_state = 1054
+			}
+		}
+
+		cost = 35
+
+		days_remove = 60
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 75
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			add_state_core = 1054				
+		}	
+	}
+	core_north_transylvania = {
+
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			HUN = { 
+				controls_state = 76
+			}
+		}
+
+		cost = 35
+
+		days_remove = 60
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 75
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			add_state_core = 76				
+		}	
+	}
+	core_transylvania = {
+
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			HUN = { 
+				controls_state = 1046
+			}
+		}
+
+		cost = 35
+
+		days_remove = 60
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 75
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			add_state_core = 1046				
+		}	
+	}
+	core_prekmurje = {
+
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			HUN = { 
+				controls_state = 815
+			}
+		}
+
+		cost = 35
+
+		days_remove = 60
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 75
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			add_state_core = 815				
+		}	
+	}
+	core_vojvodina = {
+
+		icon = GFX_decision_generic_form_nation	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			HUN = { 
+				controls_state = 45
+				controls_state = 1031
+			}
+		}
+
+		cost = 35
+
+		days_remove = 60
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 75
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			add_state_core = 45		
+			add_state_core = 1031		
+		}	
+	}
+}
+
+HUN_take_transcarpathia = {
+		#take_transcarpathia = {
+
+		#icon = GFX_decision_eng_trade_unions_support	
+
+		#allowed = {
+		#	original_tag = HUN
+		#}
+
+		#visible = {
+		#	has_global_flag = HUN_take_transcarpathia
+		#}
+
+		#available = {
+		#	HUN = {
+		#		controls_state = 1207
+		#	}
+		#	SLO = {
+		#		exists = yes
+		#		controls_state = 73
+		#	}
+		#}
+
+		#cost = 25
+
+		#days_remove = 20
+
+		#fire_only_once = yes
+
+		#ai_will_do = {
+		#	factor = 200
+		#}
+
+		#visible = {
+		#	original_tag = HUN
+		#}
+
+		#remove_effect = {	
+		#	SLO = { country_event = CBTS_hungary.12 }
+					
+		#}	
+	#}
+
+	#Decision to escalate incident on border with SLO to border conflict
+	HUN_escalate_incident_to_border_conflict_SLO = {
+
+		icon = border_war
+
+		allowed = { tag = HUN } #Activated from effect
+
+		visible = {
+			has_global_flag = HUN_take_transcarpathia
+		}
+		available = {
+			always = no
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 1207
+				state = 73	
+			}
+		}
+
+		ai_will_do = {
+			base = 1000
+			modifier = { 
+				has_war = no
+				factor = 2000
+			}
+		}
+
+		fire_only_once = yes 
+
+		complete_effect = {
+			start_border_war = {
+				change_state_after_war = no
+				attacker = {
+					state = 1207
+					num_provinces = 4
+					on_win = CBTS_hungary.11
+					on_lose = hungarian_border_conflict.3
+					on_cancel = hungarian_border_conflict.4
+				}
+				
+				defender = {
+					state = 73
+					num_provinces = 4
+					on_win = hungarian_border_conflict.3
+					on_lose = hungarian_border_conflict.2
+					on_cancel = hungarian_border_conflict.4
+				}
+			}
+			SLO = {
+				activate_targeted_decision = { target = HUN decision = HUN_border_conflict_time_until_cancelled }
+			}
+			activate_targeted_decision = { target = SLO decision = HUN_border_conflict_time_until_cancelled }
+		}
+	}
+	#Mission for attacker to win border war against FROM in X days
+	HUN_border_conflict_time_until_cancelled = {
+
+		icon = border_war
+
+		allowed = { always = no } #Activated from effect
+
+		available = {
+			1207 = { has_border_war = no }
+			73 = { has_border_war = no }
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 73
+				state = 1207
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				
+			}
+		}
+
+		days_mission_timeout = 90
+		is_good = no
+
+		fire_only_once = yes #Reactivation handled in effect
+
+		complete_effect = {
+
+		}
+
+		timeout_effect = {
+			cancel_border_war = {
+				defender = 73
+				attacker = 1207
+			}
+		}
+	}
+}
+
+HUN_secret_rearmament_decision = {
+
+	HUN_indoctrinate_the_levente_youth = {
+	
+		icon = GFX_decision_ger_mefo_bills	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			tag = HUN
+		}
+
+		fire_only_once = no
+
+		days_remove = 65
+
+		days_re_enable = 30
+
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = command_power_more_than_30
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+
+		modifier = {
+			experience_gain_army_factor	= 0.1
+			command_power_gain = 0.1
+		}
+
+		visible = {
+		#	has_completed_focus = 	
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			add_popularity = {
+    			ideology = nationalism
+    			popularity = 0.01
+			}		
+			add_war_support = 0.01			
+		}
+	}
+
+	HUN_promote_the_levente = {
+	
+		icon = generic_industry	
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			tag = HUN
+		}
+
+		fire_only_once = no
+
+		days_remove = 65
+
+		days_re_enable = 90
+
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = command_power_more_than_30
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+
+		modifier = {
+			weekly_manpower = 500
+		}
+
+		visible = {
+		#	has_completed_focus = 	
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			army_experience = 2						
+		}
+	}
+
+	HUN_covert_flying_clubs = {
+	
+		icon = generic_air
+
+		allowed = {
+			original_tag = HUN
+		}
+
+		available = {
+			tag = HUN
+		}
+
+		fire_only_once = no
+
+		days_remove = 120
+
+		days_re_enable = 30
+
+		custom_cost_trigger = {
+			command_power > 29
+		}
+		custom_cost_text = command_power_more_than_30
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -30
+			}
+		}
+
+		modifier = {
+			air_accidents_factor = -0.75 
+			air_training_xp_gain_factor = 0.1
+		}
+
+		visible = {
+			original_tag = HUN
+		}
+
+		remove_effect = {	
+			air_experience = 15					
+		}
+	}	
+
+	HUN_buy_tankette_in_italy = { 
+
+		icon = generic_tank
+
+		available = {
+			ITA = {
+				has_government = fascism
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 25
+		days_remove = 70
+		ai_will_do = {
+			factor = 50
+			modifier = {
+				has_war = yes
+				factor = 100
+			}
+		}
+		modifier = {
+			civilian_factory_use = 1
+		}
+		visible = {
+			has_completed_focus = HUN_purchase_tankettes
+			NOT = {
+				has_war_with = ITA
+			}
+			country_exists = ITA
+		}
+		complete_effect = {
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+				add_opinion_modifier = {
+					target = HUN
+					modifier = HUN_bought_guns
+				}
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = HUN_sold_guns
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = HUN_arms_trade
+			}
+		}
+		remove_effect = {
+			hidden_effect = {
+				set_global_flag = HUN_tankette_purchase_flag
+			}		
+			
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				create_equipment_variant = {
+					name = "V3/V4"
+					type = light_tank_chassis_1
+					parent_version = 0
+					modules = {
+						main_armament_slot = tank_heavy_machine_gun
+						turret_type_slot = tank_light_one_man_tank_turret
+						suspension_type_slot = tank_christie_suspension
+						armor_type_slot = tank_riveted_armor
+						engine_type_slot = tank_gasoline_engine
+						special_type_slot_1 = tank_radio_1
+					}
+					upgrades = {
+						tank_nsb_engine_upgrade = 3
+						tank_nsb_armor_upgrade = 1
+					}
+					icon = "GFX_HUN_basic_light_tank_medium"
+					obsolete = no
+				}
+				
+			}
+			add_equipment_to_stockpile = {
+				type = light_tank_chassis
+				amount = 20
+				producer = ITA
+			}
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			set_country_flag = ITA_HUN_tankette
+		}
+	}
+
+	HUN_buy_fighters_in_italy = { 
+
+		icon = generic_air
+
+		available = {
+			ITA = {
+				has_government = fascism
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 25
+		days_remove = 60
+		ai_will_do = {
+			factor = 50
+			modifier = {
+				has_war = yes
+				factor = 100
+			}
+		}
+		modifier = {
+			civilian_factory_use = 1
+		}
+		visible = {
+			NOT = { has_country_flag = GER_HUN_fighters }
+			has_completed_focus = HUN_purchase_the_cr32
+			NOT = {
+				has_war_with = ITA
+			}
+			country_exists = ITA
+		}
+		complete_effect = {
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+				add_opinion_modifier = {
+					target = HUN
+					modifier = HUN_bought_guns
+				}
+
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = HUN_sold_guns
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = HUN_arms_trade
+			}
+		}
+		remove_effect = {
+			hidden_effect = {
+				set_global_flag = HUN_fighter_purchase_flag
+			}
+			add_equipment_to_stockpile = {
+				type = early_fighter_equipment
+				amount = 50
+				producer = ITA
+			}
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			set_country_flag = ITA_HUN_fighters
+		}
+	}
+	HUN_buy_fighters_in_italy_2 = { 
+
+		name = HUN_buy_fighters_in_italy
+
+		icon = generic_air
+
+		available = {
+			ITA = {
+				has_government = fascism
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 25
+		days_remove = 60
+		ai_will_do = {
+			factor = 50
+			modifier = {
+				has_war = yes
+				factor = 100
+			}
+		}
+		modifier = {
+			civilian_factory_use = 1
+		}
+		visible = {
+			has_global_flag = HUN_fighter_purchase_flag
+			has_completed_focus = HUN_purchase_the_cr32
+			NOT = {
+				has_war_with = ITA
+			}
+			country_exists = ITA
+		}
+		complete_effect = {
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+				add_opinion_modifier = {
+					target = HUN
+					modifier = HUN_bought_guns
+				}
+
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = HUN_sold_guns
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = HUN_arms_trade
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = early_fighter_equipment
+				amount = 50
+				producer = ITA
+			}
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			set_country_flag = ITA_HUN_fighters
+		}
+	}
+
+	HUN_buy_tac_in_italy = { 
+
+		icon = generic_air
+
+		available = {
+			ITA = {
+				has_government = fascism
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 25
+		days_remove = 60
+		ai_will_do = {
+			factor = 50
+			modifier = {
+				has_war = yes
+				factor = 100
+			}
+		}
+		modifier = {
+			civilian_factory_use = 1
+		}
+		visible = {
+			has_completed_focus = HUN_purchase_the_ca_101
+			NOT = {
+				has_war_with = ITA
+			}
+			country_exists = ITA
+		}
+		complete_effect = {
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+				add_opinion_modifier = {
+					target = HUN
+					modifier = HUN_bought_guns
+				}
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = HUN_sold_guns
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = HUN_arms_trade
+			}
+		}
+		remove_effect = {
+			hidden_effect = {
+				set_global_flag = HUN_bomber_purchase_flag
+			}		
+			add_equipment_to_stockpile = {
+				type = tac_bomber_equipment_0
+				amount = 50
+				producer = ITA
+			}
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			set_country_flag = ITA_HUN_tac
+		}
+	}
+	HUN_buy_tac_in_italy_2 = { 
+
+		name = HUN_buy_tac_in_italy
+
+		icon = generic_air
+
+		available = {
+			ITA = {
+				has_government = fascism
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 25
+		days_remove = 60
+		ai_will_do = {
+			factor = 50
+			modifier = {
+				has_war = yes
+				factor = 100
+			}
+		}
+		modifier = {
+			civilian_factory_use = 1
+		}
+		visible = {
+			has_global_flag = HUN_bomber_purchase_flag
+			has_completed_focus = HUN_purchase_the_ca_101
+			NOT = {
+				has_war_with = ITA
+			}
+			country_exists = ITA
+		}
+		complete_effect = {
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+				add_opinion_modifier = {
+					target = HUN
+					modifier = HUN_bought_guns
+				}
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = HUN_sold_guns
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = HUN_arms_trade
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = tac_bomber_equipment_0
+				amount = 50
+				producer = ITA
+			}
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			set_country_flag = ITA_HUN_tac
+		}
+	}
+}	
+
+HUN_internal_politics = {
+	HUN_join_axis_decision = {	
+
+	icon = generic_army_support	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		NOT = { has_completed_focus = HUN_revise_the_national_work_plan }
+		always = yes
+	}
+
+	available = {
+		NOT = {
+			is_in_faction_with = GER
+		}
+		has_completed_focus = HUN_join_the_tripartite_pact
+		has_country_flag = HUN_tripartite_pact_succeeded
+	}
+
+	cost = 100
+
+	days_remove = 65
+
+	ai_will_do = {
+		factor = 0
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	remove_effect = {
+		GER = { add_to_faction = HUN }
+		}
+	}
+
+	HUN_strengthen_volksbund_decision = {	
+
+	icon = GFX_decision_eng_trade_unions_support	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		always = yes
+	}
+
+	available = {
+		has_completed_focus = HUN_form_the_volksbund
+	}
+
+	cost = 20
+
+	days_remove = 65
+
+	ai_will_do = {
+		factor = 0
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	modifier = {
+		weekly_manpower = 1000 
+		}
+
+	remove_effect = {
+		custom_effect_tooltip = HUN_add_influence_5_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 100 compare = less_than } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = 5 } }
+			}
+		}
+	}
+
+	HUN_promote_anti_fascist_elements = {
+
+	icon = GFX_decision_generic_political_rally
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		always = yes
+	}
+
+	available = {
+		NOT = { 
+			has_government = fascism 
+		} 
+	}
+
+	cost = 50
+
+	days_remove = 65
+
+	ai_will_do = {
+		factor = 0
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	modifier = {
+		stability_weekly = 0.002
+	}
+
+	remove_effect = {
+		add_popularity = {
+    		ideology = fascism
+    		popularity = -0.02
+			}	
+		custom_effect_tooltip = HUN_anti_fascist_elements_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 0 compare = greater_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = -5 } }
+			}
+	
+		}
+	}
+	
+HUN_cooperate_with_far_right_decision = {	
+
+	icon = generic_political_discourse	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		always = yes
+	}
+
+	available = {
+		NOT = { 
+			has_government = fascism 
+		} 
+	}
+
+	cost = 15
+
+	ai_will_do = {
+		factor = 0
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	remove_effect = {
+		add_political_power = 1
+		add_popularity = {
+    		ideology = fascism
+    		popularity = 0.007
+		}	
+		custom_effect_tooltip = HUN_fascist_elements_tt
+		if = {
+			limit = {
+				HUN = {
+					check_variable = { hun_nation_influence < 100 }
+				}
+			}
+			HUN = {
+				add_to_variable = { hun_nation_influence = 4 }
+			}
+		}
+	}
+}
+
+	#Gyula Gömbös
+	HUN_introduce_48_workweek = {	
+
+	icon = GFX_decision_generic_accord	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		or = {
+			has_idea = HUN_gyula_gombos
+			has_idea = HUN_CBTS_kalman_daranyi
+			has_idea = HUN_bela_imredy
+		}
+	}
+
+	available = {
+
+	}
+
+	cost = 15
+
+	fire_only_once = yes
+
+	days_remove = 25
+
+	ai_will_do = {
+		factor = 50
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	remove_effect = {	
+		add_popularity = {
+    		ideology = nationalism
+    		popularity = 0.01
+			}	
+		add_stability = 0.02
+		}
+	}
+	HUN_professional_chambers= {	
+
+	icon = GFX_decision_generic_ballot	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		or = {
+			has_idea = HUN_gyula_gombos
+			has_idea = HUN_CBTS_kalman_daranyi
+			has_idea = HUN_bela_imredy
+		}
+	}
+
+	available = {
+
+	}
+
+	cost = 15
+
+	fire_only_once = yes
+
+	days_remove = 20
+
+	ai_will_do = {
+		factor = 50
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	remove_effect = {	
+		add_political_power = 15
+		add_stability = 0.02
+		}
+	}
+	HUN_minimum_wage = {	
+
+	icon = GFX_decision_generic_accord	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		or = {
+			has_idea = HUN_gyula_gombos
+			has_idea = HUN_CBTS_kalman_daranyi
+			has_idea = HUN_bela_imredy
+		}
+	}
+
+	available = {
+
+	}
+
+	cost = 10
+
+	fire_only_once = yes
+
+
+	days_remove = 15
+
+	ai_will_do = {
+		factor = 50
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	remove_effect = {	
+		add_political_power = 10
+		add_stability = 0.01
+		}
+	}
+	HUN_agrarian_reforms = {	
+
+	icon = generic_scorched_earth	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		or = {
+			has_idea = HUN_gyula_gombos
+			has_idea = HUN_CBTS_kalman_daranyi
+			has_idea = HUN_bela_imredy
+		}
+	}
+
+	available = {
+
+	}
+
+	cost = 25
+
+	fire_only_once = yes
+
+	days_remove = 20
+
+	ai_will_do = {
+		factor = 50
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	remove_effect = {	
+		add_political_power = 30
+		add_stability = 0.01
+		}
+	}
+
+	#Kalman Daranyi
+	HUN_expand_press_censorship = {	
+
+	icon = GFX_decision_generic_politicians2	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		or = {
+			#has_idea = HUN_gyula_gombos
+			has_idea = HUN_CBTS_kalman_daranyi
+			has_idea = HUN_bela_imredy
+		}
+	}
+
+	available = {
+
+	}
+
+	cost = 15
+
+	fire_only_once = yes
+
+	days_remove = 15
+
+	ai_will_do = {
+		factor = 50
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	remove_effect = {	
+		add_political_power = 25
+		add_stability = -0.03
+		add_popularity = {
+    		ideology = nationalism
+    		popularity = -0.01
+			}
+		}
+	}
+	HUN_extend_power_of_government = {	
+
+	icon = GFX_decision_generic_accord	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		or = {
+			#has_idea = HUN_gyula_gombos
+			has_idea = HUN_CBTS_kalman_daranyi
+			has_idea = HUN_bela_imredy
+		}
+	}
+
+	available = {
+
+	}
+
+	cost = 15
+
+	fire_only_once = yes
+
+	days_remove = 30
+
+	ai_will_do = {
+		factor = 50
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	remove_effect = {	
+		add_political_power = 20
+		add_stability = 0.01
+		add_popularity = {
+    		ideology = fascism
+    		popularity = 0.01
+			}
+		}
+	}
+	HUN_reform_upper_house = {	
+
+	icon = GFX_decision_generic_ballot	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		or = {
+			#has_idea = HUN_gyula_gombos
+			has_idea = HUN_CBTS_kalman_daranyi
+			has_idea = HUN_bela_imredy
+		}
+	}
+
+	available = {
+
+	}
+
+	cost = 10
+
+	fire_only_once = yes
+
+	days_remove = 25
+
+	ai_will_do = {
+		factor = 50
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	remove_effect = {	
+		add_political_power = 15
+		add_stability = 0.01
+		add_popularity = {
+    		ideology = nationalism
+    		popularity = 0.01
+			}
+		}
+	}
+
+	#Bela Imredy
+	HUN_restrict_rights_of_assembly = {	
+
+	icon = GFX_decision_generic_accord	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		or = {
+			#has_idea = HUN_gyula_gombos
+			#has_idea = HUN_CBTS_kalman_daranyi
+			has_idea = HUN_bela_imredy
+		}
+	}
+
+	available = {
+
+	}
+
+	cost = 15
+
+	fire_only_once = yes
+
+	days_remove = 20
+
+	ai_will_do = {
+		factor = 50
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	remove_effect = {	
+		add_political_power = 10
+		add_stability = -0.02
+		add_popularity = {
+    		ideology = fascism
+    		popularity = 0.01
+			}
+		}
+	}
+	HUN_anti_fascist_measures = {	
+
+	icon = GFX_decision_generic_political_rally	
+
+	allowed = {
+		original_tag = HUN
+	}
+
+	visible = {
+		or = {
+			#has_idea = HUN_gyula_gombos
+			#has_idea = HUN_CBTS_kalman_daranyi
+			has_idea = HUN_bela_imredy
+		}
+	}
+
+	available = {
+
+	}
+
+	cost = 10
+
+	fire_only_once = yes
+
+	days_remove = 25
+
+	ai_will_do = {
+		factor = 50
+	}
+
+	visible = {
+		original_tag = HUN
+	}
+
+	remove_effect = {	
+		add_political_power = 15
+		add_stability = 0.03
+		add_popularity = {
+    		ideology = fascism
+    		popularity = -0.02
+			}
+		}
+	}
+}
+#HUNGARY DEBT DECISIONS
+HUN_pay_back_debt_to_the_lon_category = { 
+
+	HUN_repay_debt_decision = {
+
+		icon = hol_attract_foreign_investors 
+
+		allowed = { 
+			original_tag = HUN
+		}
+
+		available = {
+			NOT = {
+				OR = {
+					has_country_flag = HUN_completely_debt_free
+				}
+				hidden_trigger = {
+					has_war_with = USA
+				}
+				hidden_trigger = {
+					has_war_with = ENG
+				}
+				hidden_trigger = {
+					has_war_with = CZE
+				}
+				hidden_trigger = {
+					has_war_with = SWI
+				}
+			}
+		}
+
+		cosmetic_tag = SWI
+		cosmetic_ideology = democratic
+
+		days_remove = 115
+
+		days_re_enable = 1
+
+		cost = 35
+
+		fire_only_once = no
+
+		ai_will_do = {
+			factor = 500
+		}
+
+		visible = {
+			original_tag = HUN
+			NOT = {
+				OR = {
+					has_country_flag = HUN_repay_debt_flag
+					check_variable = { var = HUN_debt_to_the_lon_var value = 0 compare = equals }
+				}
+			}
+		}
+
+		complete_effect = {
+			#hidden_effect = { 
+			#	set_country_flag = { flag = HUN_repay_debt_flag value = 1 days = 60 }
+			#}
+		}
+
+		remove_effect = {
+			HUN_repay_debt_decision_effect_tt = yes
+		}
+	}			
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

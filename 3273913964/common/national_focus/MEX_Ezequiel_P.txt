@@ -1,0 +1,359 @@
+	#Focus for Ezequiel Padilla
+	shared_focus = {
+		id = MEX_ezequielpadilla
+		icon = GFX_focus_MEX_President_Penaloza
+		x = 7
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward  = {
+			COALITION_RESET = yes
+			# create_country_leader = {
+			# 	name = "Ezequiel P. Peñaloza"
+			# 	desc = "POLITICS_MANUEL_MORIN_DESC"
+			# 	picture = "gfx/leaders_cbts/MEX/Portrait_Ezequiel_Padilla.tga"
+			# 	expire = "1955.1.1" 
+			# 	ideology = dem_socialism  
+			# 	traits = {}
+			# }
+			MEX_ezequiel_penaloza = {
+				promote_character = yes
+				promote_character = dem_socialism
+			}
+			set_party_name = { ideology = social_democracy long_name = "Partido Democrático Mexicano (Laborists)" name = "PDM(L)"}		
+		}
+	}
+	
+	#Focus for Reform Maderist Principles
+	shared_focus = {
+		id = MEX_reformmadersitprinciples
+		icon = GFX_focus_MEX_Francisco_Madero_Revised
+		x = 4
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			has_country_flag = mujica_demsoc
+		}	
+		prerequisite = { focus = MEX_ezequielpadilla }
+		mutually_exclusive = { focus = MEX_maintainmaderoslegacy }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = social_liberalism popularity = 0.04 }
+			set_politics = {
+				ruling_party = social_liberalism
+			}
+			COALITION_add_soclib = yes
+			COALITION_add_marlib = yes
+		}
+	}
+	#Focus for Reform Article 27
+	shared_focus = {
+		id = MEX_refornarticle27
+		icon = GFX_focus_Agrarian_Reform
+		x = 2
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_reformmadersitprinciples }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			random_owned_state = { add_extra_state_shared_building_slots = 1 }
+			random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		}			
+	}
+	
+	#Focus for Stop the Persecution
+	shared_focus = {
+		id = MEX_stoptehpersecution
+		icon = GFX_focus_Secularism
+		x = 2
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_refornarticle27 }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_secularization  add_idea = mex_deal_with_the_church  }	
+		}
+	}	
+	
+	#Focus for Redo Article 3
+	shared_focus = {
+		id = MEX_redoarticle3
+		icon = GFX_focus_Brainpower
+		x = 4
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_reformmadersitprinciples }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_education_reform_3  add_idea = mex_education_reform_4  }	
+		} 
+	}	
+	
+	#Focus for Focus on Analfability
+	shared_focus = {
+		id = MEX_focusanalfability
+		icon = GFX_focus_Education_Reform
+		x = 4
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_redoarticle3 }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_education_reform_4  add_idea = mex_education_reform_5  }	
+		} 
+	}	
+	
+	
+	#Focus for Industralization Plan
+	shared_focus = {
+		id = MEX_industralizationplan
+		icon = GFX_focus_Industrialization
+		x = 6
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_maintainmaderoslegacy 
+			focus = MEX_reformmadersitprinciples 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+		}
+		random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+	}
+}
+}	
+
+#Focus for Stop the Nationalizations 
+shared_focus = {
+	id = MEX_stopthenationalization
+	icon = GFX_focus_Business_Bills
+	x = 6
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_industralizationplan }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_political_power = 50
+	}
+}	
+#Focus for Break Revolutionaries
+shared_focus = {
+	id = MEX_breakrevolutionaries
+	icon = GFX_focus_Anti_Communist
+	x = 8
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_maintainmaderoslegacy 
+		focus = MEX_reformmadersitprinciples 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = communism popularity = -0.05 }
+		add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }		
+		add_popularity = { ideology = socialism popularity = -0.05 }
+		add_popularity = { ideology = social_democracy popularity = 0.10 }
+	}	
+}
+#Focus for Deal with Reactionaries
+shared_focus = {
+	id = MEX_dealwithreactionaries
+	icon = GFX_focus_Anti_Fascist
+	x = 8
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_breakrevolutionaries }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = nationalism popularity = -0.07 }
+		add_popularity = { ideology = fascism popularity = -0.07 }		
+	}
+}
+
+#Focus for Mexican Liberalism
+shared_focus = {
+	id = MEX_mexicanliberalism
+	icon = GFX_focus_MEX_Mexican_Liberalism
+	x = 5
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_stoptehpersecution 
+	}
+	prerequisite = { 
+		focus = MEX_focusanalfability 
+	}
+	prerequisite = { 
+		focus = MEX_stopthenationalization 
+	}
+	prerequisite = { 
+		focus = MEX_dealwithreactionaries 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = social_liberalism popularity = 0.05 }
+	}	
+}	
+#Focus for Maintain Madero's Legacy
+shared_focus = {
+	id = MEX_maintainmaderoslegacy
+	icon = GFX_focus_MEX_Francisco_Madero
+	x = 10
+	y = 2
+	cost = 10
+	available_if_capitulated = yes
+	available = {
+		has_country_flag = mujica_revsoc
+	}
+	prerequisite = { focus = MEX_ezequielpadilla }
+	mutually_exclusive = { focus = MEX_reformmadersitprinciples }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = market_liberalism popularity = 0.05 }
+		set_politics = {
+			ruling_party = market_liberalism
+		}
+		COALITION_add_socdem = yes	
+		COALITION_add_soclib = yes
+	}
+}
+
+#Focus for Rewrite Article 3
+shared_focus = {
+	id = MEX_rewritearticle3
+	icon = GFX_focus_Education_Reform
+	x = 10
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_maintainmaderoslegacy }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_socialist_education_3  add_idea = mex_education_reform_4  }	
+	}			
+}
+
+#Focus for Allows Catholic Schools
+shared_focus = {
+	id = MEX_allowcatholicschools
+	icon = GFX_focus_State_Theology
+	x = 10
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_rewritearticle3 }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_education_reform_4  add_idea = mex_education_reform_5  }	
+	} 		
+}	
+
+#Focus for Maderist Liberalism
+shared_focus = {
+	id = MEX_maderistliberalism
+	icon = GFX_focus_MEX_Maderist_Liberalism
+	x = 9
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_allowcatholicschools }
+	prerequisite = { focus = MEX_dealwithreactionaries }		
+	prerequisite = { focus = MEX_befriendthechurch }
+	prerequisite = { focus = MEX_stopthenationalization }		
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = market_liberalism popularity = 0.05 }				
+	}
+}
+#Focus for Get Rid of Article 27
+shared_focus = {
+	id = MEX_getridarticle27
+	icon = GFX_focus_Set_Agricultural_Prices
+	x = 12
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_maintainmaderoslegacy }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+	}		
+}
+
+#Focus for Befriend the Church
+shared_focus = {
+	id = MEX_befriendthechurch
+	icon = GFX_focus_For_Christ_and_Country
+	x = 12
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_getridarticle27 }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_state_atheism  add_idea = mex_friendship_with_the_church  }	
+	}		
+}
+#Focus for A New Stable Mexico
+shared_focus = {
+	id = MEX_new_stable_mexico
+	icon = GFX_focus_Befriend_Mexico
+	x = 7
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_maderistliberalism focus = MEX_mexicanliberalism }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = 0.10
+	}		
+}

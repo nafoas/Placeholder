@@ -1,0 +1,183 @@
+# SA_dont_go_to_another_continent = {
+# 	allowed = {
+# 		OR = {
+# 			tag = CHL
+# 			tag = PAR
+# 			tag = BOL
+# 			tag = ARG
+# 			tag = URG
+# 			tag = DOM
+# 			tag = HAI
+# 			tag = CUB
+# 			tag = MEX
+# 			tag = GUA
+# 			tag = HON
+# 			tag = NIC
+# 			tag = COS
+# 			tag = PAN
+# 			tag = VEN
+# 			tag = COL
+# 			tag = ECU
+# 			tag = PRU
+# 		}
+# 	}
+# 	reversed = yes
+# 	# Has a war with a country outside the Americas
+# 	enable_reverse = {
+# 		THIS = {
+# 			any_enemy_country = {
+# 				capital_scope = {
+# 					NOT = { is_on_continent = south_america }
+# 					NOT = { is_on_continent = north_america }
+# 				}
+# 			}
+# 			set_temp_variable = { SA_nation = THIS.id }
+# 		}
+# 	}
+	
+# 	enable = {
+# 		NOT = {
+# 			tag = CHL
+# 			tag = PAR
+# 			tag = BOL
+# 			tag = ARG
+# 			tag = URG
+# 			tag = DOM
+# 			tag = HAI
+# 			tag = CUB
+# 			tag = MEX
+# 			tag = GUA
+# 			tag = HON
+# 			tag = NIC
+# 			tag = COS
+# 			tag = PAN
+# 			tag = VEN
+# 			tag = COL
+# 			tag = ECU
+# 			tag = PRU
+# 		}
+# 		is_in_faction_with = var:SA_nation
+# 		any_controlled_state = {
+# 			OR = {
+# 				is_on_continent = europe
+# 				is_on_continent = asia
+# 				is_on_continent = middle_east
+# 				is_on_continent = africa
+# 				is_on_continent = australia
+# 			}
+# 		}
+# 	}
+	
+# 	abort_when_not_enabled = yes
+	
+# 	ai_strategy = { 
+# 		type = dont_defend_ally_borders 
+# 		id = "var:SA_nation" 
+# 		value = 1000 
+# 	}
+
+# }
+
+SAm_dont_sent_troops_there = {
+	allowed = {
+		OR = {
+			tag = CHL
+			tag = PAR
+			tag = BOL
+			tag = ARG
+			tag = URG
+			tag = DOM
+			tag = HAI
+			tag = CUB
+			tag = MEX
+			tag = GUA
+			tag = HON
+			tag = NIC
+			tag = COS
+			tag = PAN
+			tag = VEN
+			tag = COL
+			tag = ECU
+			tag = PRU	
+		}
+	}
+	enable = {
+		any_other_country = {
+			capital_scope = {
+				NOT = { is_on_continent = south_america }
+				NOT = { is_on_continent = north_america }
+			}
+			has_war_with = PREV
+			has_capitulated = no
+		}
+	}
+	
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			capital_scope = {
+				NOT = { is_on_continent = south_america }
+				NOT = { is_on_continent = north_america }
+			}
+		}
+
+		value = -200
+	}
+}
+
+SAm_no_interest_in_other_continents = {
+	allowed = {
+		OR = {
+			tag = CHL
+			tag = PAR
+			tag = BOL
+			tag = ARG
+			tag = URG
+			tag = DOM
+			tag = HAI
+			tag = CUB
+			tag = MEX
+			tag = GUA
+			tag = HON
+			tag = NIC
+			tag = COS
+			tag = PAN
+			tag = VEN
+			tag = COL
+			tag = ECU
+			tag = PRU	
+		}
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = area_priority
+		id = africa
+		value = -200
+	}
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = -200
+	}
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = -200
+	}
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = -200
+	}
+	ai_strategy = {
+		type = area_priority
+		id = pacific
+		value = -200
+	}
+}

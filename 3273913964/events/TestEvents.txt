@@ -1,0 +1,780 @@
+﻿###########################
+# Test Events
+###########################
+
+add_namespace = test
+
+# Test Event 1
+country_event = {
+	id = test.1
+	title = test.1.t
+	desc = test.1.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = test.1.a	
+	}
+}
+
+# Test Event 2
+country_event = {
+	id = test.2
+	title = test.2.t
+	desc = test.2.d
+	
+	is_triggered_only = yes
+	
+	immediate = { FROM = { add_political_power = 100 } }
+
+	option = {
+		name = test.2.a
+		FROM = { add_political_power = 100 }
+		event_target:yalta_partner = {
+			add_political_power = 100
+		}
+	}
+}
+
+# Test Event 3
+country_event = {
+	id = test.3
+	title = test.3.t
+	desc = test.3.d
+	
+	is_triggered_only = yes
+
+	immediate = {
+		add_autonomy_score = {
+			value = 10
+			localization = "TEST_EVENT_3_IMMEDIATE: $VAL|+=2$"
+		}
+	}
+	
+	option = {
+		name = test.3.a
+		RAJ = {
+			add_autonomy_score = {
+				value = 5
+				localization = "TEST_EVENT_3_OPTION: $VAL|+=2$"
+			}
+		}
+	}
+}
+
+country_event = {
+	id = test.4
+	title = test.4.t
+	desc = test.4.desc
+	picture = x
+
+	is_triggered_only = yes
+
+	option = {
+		name = test.4.a
+	}
+
+	option = {
+		name = test.4.b
+		set_variable = { rep_def_var = 0.30 }
+		add_dynamic_modifier = {
+			modifier = SPR_def_control
+		}
+	}
+
+	option = {
+		name = test.4.c
+		set_variable = { morale_momentum_var = 0.14 }
+		set_variable = { breaktrough_momentum_var = 0.10 }
+		add_dynamic_modifier = {
+			modifier = SPA_initial_momentum
+			days = 138 #This is the maximum time you have to take madrid. 4m 2w and 1d
+		}
+		set_country_flag = SPA_momentum_flag
+		country_event = {
+			id = test.5
+			days = 84 #nº of days when the idea changes to "stagnating momentum"
+		}
+		set_variable = { momentum_days_s = Global.num_days }
+		subtract_from_variable = { momentum_days_s = 705545 } #1933*365
+		set_variable = { max_momentum_days = 138 }
+
+		activate_mission = SPA_take_madrid_mission
+	}
+}
+
+country_event = {
+	id = test.5
+	title = test.5.t
+	desc = test.5.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 6
+
+	immediate = {
+		set_temp_variable = { stag_momentum_days = Global.num_days }
+		subtract_from_temp_variable = { stag_momentum_days = 705545 } #1933*365
+		subtract_from_temp_variable = { stag_momentum_days = momentum_days_s }
+		set_temp_variable = { max_momentum_days_t = max_momentum_days }
+		subtract_from_temp_variable = { max_momentum_days_t = stag_momentum_days }
+		remove_dynamic_modifier = {
+			modifier = SPA_initial_momentum
+		}
+		add_dynamic_modifier = {
+			modifier = SPA_stagnating_momentum
+			days = var:stag_momentum_days
+		}
+	}
+
+	option = {
+		name = test.5.a
+	}
+}
+
+country_event = {
+	id = test.6
+	title = test.6.t
+	desc = test.6.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		if = {
+			limit = {
+				SPA = { has_country_flag = SPA_momentum_flag }
+			}
+			SPA = { clr_country_flag = SPA_momentum_flag }
+		}
+		SPA = {
+			add_ideas = SCW_SPA_war_of_attrition
+		}
+		SPR = {
+			add_ideas = SCW_SPR_war_of_attrition
+		}
+
+		#Liberating memory
+		clear_variable = morale_momentum_var
+		clear_variable = breaktrough_momentum_var
+		clear_variable = momentum_days_s
+		clear_variable = max_momentum_days
+	}
+
+	option = {
+		name = test.6.a
+	}
+}
+
+country_event = {
+	id = test.7
+	title = test.7.t
+	desc = test.7.desc
+	picture = x
+
+	is_triggered_only = yes
+	
+
+	option = {
+		name = test.7.a
+		activate_mission = SPA_connect_extr_sev_mission
+	}
+
+	option = {
+		name = test.7.b
+		169 = {
+			add_core_of = SPA
+			force_enable_resistance = POR
+			start_resistance = yes
+		}
+	}
+}
+
+country_event = {
+	id = test.9
+	title = test.9.t
+	desc = test.9.desc
+	picture = x
+
+	is_triggered_only = yes
+	
+
+	option = {
+		name = test.9.a
+		every_controlled_state = {
+			limit = {
+				is_fully_controlled_by = ROOT
+			}
+			set_temp_variable = { fleeing_population_var = 0 }
+			randomize_temp_variable = {
+				var = fleeing_population_var
+				distribution = uniform
+				min = 3000
+				max = 10000
+			}
+			multiply_temp_variable = { fleeing_population_var = -1 }
+			add_manpower = var:fleeing_population_var
+		}
+	}
+}
+
+country_event = {
+	id = test.10
+	title = test.10.t
+	desc = test.10.desc
+	picture = x
+
+	is_triggered_only = yes
+	
+	option = {
+		name = test.10.a
+		set_global_flag = debug_ethiopian_war
+		#To activate de AI strategies before the war. So they can prepare
+	}
+	option = {
+		name = test.10.b
+		ITA = {
+			declare_war_on = {
+				target = ETH
+				type = annex_everything
+			}
+		}
+	}
+}
+
+country_event = {
+	id = test.11
+	title = test.11.t
+	desc = test.11.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = test.11.a
+		add_nuclear_bombs = 1
+		launch_nuke = {
+			province = 3883
+			state = 376
+			#use_nuke = yes
+		}
+		376 = {
+			add_state_modifier = {
+				modifier = { 
+					state_repair_speed_infrastructure_factor = 1.5
+					state_repair_speed_industrial_complex_factor = 1.5
+					state_repair_speed_arms_factory_factor = 1.5
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = test.12
+	title = test.12.t
+	desc = test.12.desc
+	picture = x
+
+	is_triggered_only = yes
+
+	option = {
+		name = test.12.a
+	}
+
+	option = {
+		name = test.12.b
+
+		get_ruling_party_ideology = yes
+		add_popularity = {
+			ideology = var:ruling_party_ideology_token
+			popularity = -0.06
+		}
+	}
+}
+country_event = {
+	id = test.13
+	title = test.13.t
+	desc = test.13.desc
+	picture = x
+
+	is_triggered_only = yes
+	
+	option = {
+		name = test.13.a
+		set_global_flag = WHITE_SEA_CANAL_BUILT
+	}
+	option = {
+		name = test.13.b
+		for_each_scope_loop = {
+			array = little_entente_members_array
+			every_other_country = {
+				limit = {
+					has_country_flag = little_entente_member
+				}
+				add_intel = {
+					target = ROOT
+					army_intel = 40
+					airforce_intel = 30
+				}
+				ROOT = {
+					add_intel = {
+						target = PREV
+						army_intel = 40
+						airforce_intel = 30
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = test.14
+	title = test.14.t
+	desc = test.14.desc
+	is_triggered_only = yes
+
+	option = {
+		name = test.14.a
+		for_each_scope_loop = {
+			array = little_entente_members_array
+			for_each_loop = {
+				array = little_entente_members_array
+				if = {
+					limit = {
+						NOT = {
+							PREV = {
+								tag = var:v
+							}
+						}
+					}
+					add_intel = {
+						target = var:v
+						army_intel = 100
+						airforce_intel = 50
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = test.14.a
+		set_politics = { ruling_party = fascism elections_allowed = no }
+	}
+	option = {
+		name = test.14.a
+		set_global_flag = montreux_convention_flag
+	}
+	option = {
+		name = test.14.a
+		set_country_flag = TURKISH_STRAITS_BLOCKED_FOR_COUNTRY
+	}
+}
+
+country_event = {
+	id = test.15
+	title = test.15.t
+	desc = test.15.desc
+	is_triggered_only = yes
+
+	option = {
+		name = test.15.a
+		ENG = {
+			add_to_faction = FRA
+		}
+		GER = {
+			declare_war_on = {
+				target = POL
+				type = annex_everything
+			}
+		}
+	}
+
+	option = {
+		name = test.15.a
+		ENG = {
+			declare_war_on = {
+				target = GER
+				type = annex_everything
+			}
+		}
+	}
+	option = {
+		name = test.15.a
+		ENG = {
+			add_to_faction = POL
+		}
+	}
+	option = {
+		name = test.15.a
+		SOV = {
+			declare_war_on = {
+				target = POL
+				type = annex_everything
+			}
+		}
+		set_global_flag = SOV_invading_Poland_MR
+	}
+	option = {
+		name = test.15.a
+		clr_global_flag = SOV_invading_Poland_MR
+	}
+}
+
+country_event = {
+	id = test.16
+	title = test.16.t
+	desc = test.16.desc
+	is_triggered_only = yes
+
+	option = {
+		name = test.16.a
+		send_equipment_fraction = {
+			value = 0.3
+			target = PRS
+		}
+		set_temp_variable = { army_e = num_equipment_in_armies@infantry_equipment }
+		multiply_temp_variable = { army_e = 0.2 }
+		round_temp_variable = army_e
+		PRS = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = army_e
+				producer = PREV
+			}
+		}
+		### Support Eq
+		set_temp_variable = { sup_e = num_equipment@support_equipment }
+		if = {
+			limit = {
+				OR = {
+					check_variable = { sup_e = 0 }
+					check_variable = { sup_e < 0 }
+				}
+			}
+			set_temp_variable = { sup_army_e = num_equipment_in_armies@support_equipment }
+			multiply_temp_variable = { sup_army_e = 0.2 }
+			round_temp_variable = sup_army_e
+			PRS = {
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = sup_army_e
+					producer = PREV
+				}
+			}
+		}
+		else = {
+			multiply_temp_variable = { sup_e = 0.25 }
+			round_temp_variable = sup_e
+			send_equipment = {
+				equipment = support_equipment
+				amount = sup_e
+				target = PRS
+			}
+		}
+	}
+	option = {
+		name = test.16.b
+		PRS = {
+			# send_equipment_fraction = {
+			# 	value = 0.3
+			# 	target = ROOT
+			# }
+			set_temp_variable = { inf_e = num_equipment@infantry_equipment }
+			send_equipment = {
+				equipment = infantry_equipment
+				amount = inf_e
+				target = PREV
+			}
+		}
+	}
+}
+
+### Soviet Famine manpower loss calculation
+country_event = {
+	id = test.17
+	title = test.17.t
+	desc = test.17.desc
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = test.17.b
+		if = {
+			limit = {
+				has_country_flag = soviet_famines_flag
+			}
+			every_owned_state = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = Soviet_Big_Famine_modifier
+					}
+				}
+				set_temp_variable = { current_state_pop = init_state_pop }
+				multiply_temp_variable = {
+					var = current_state_pop
+					value = 100
+				}
+				multiply_temp_variable = {
+					var = current_state_pop
+					value = THIS.soviet_famine_modifier
+				}
+				#modifier@montly_population_state
+			
+				round_temp_variable = current_state_pop
+				add_manpower = current_state_pop
+			}
+
+			country_event = {
+				id = test.17
+				days = 30
+			}
+		}
+	}
+}
+
+country_event = {
+	id = test.18
+	title = test.18.t
+	desc = test.18.desc
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes
+
+	option = {
+		name = test.18.a
+		clr_country_flag = soviet_famines_flag
+		every_state = {
+			limit = {
+				has_dynamic_modifier = {
+					modifier = Soviet_Big_Famine_modifier
+				}
+			}
+			clear_variable = soviet_famine_modifier
+			clear_variable = init_state_pop
+			remove_dynamic_modifier = {
+				modifier = Soviet_Big_Famine_modifier
+			}
+		}
+	}
+}
+country_event = {
+	id = test.20
+	title = test.20.t
+	desc = test.20.desc
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		NOT = {
+			ITA = { has_country_flag = ITA_armistice_inminent }
+			ITA = { has_country_flag = ITA_armistice_with_allies }
+			has_global_flag = Italian_Civil_War_flag
+		}
+		ITA = {
+			#WW2 is ongoing.
+			#TODO: maybe make a global flag for ww2 ongoing that is added through on actions
+			OR = {
+				AND = {
+					ALY = {
+						exists = yes
+						is_subject = no
+						has_war_with = ITA
+					}
+				}
+				AND = {
+					has_war_with = ENG
+					ENG = {
+						is_faction_leader = yes
+						exists = yes
+						is_subject = no
+					}
+				}
+			}
+			is_in_faction_with = GER
+			has_war_together_with = GER
+		}
+	}
+
+	option = {
+		name = test.20.a
+		log = "Funciona jajaja"
+		ENG = { #New controller
+			# save_event_target_as = ita_occupier_mainland
+			ITA = {
+				add_to_array = {
+					array = occupiers_of_italy
+					value = PREV
+				}
+			}
+		}
+
+		ITA = {
+			add_to_array = {
+				array = ITA_occupied_states
+				value = 115
+			}
+		}
+
+		ITA = { activate_mission = ITA_retake_sicily }
+	}
+}
+
+country_event = {
+	id = test.19
+	title = test.19.t
+	desc = test.19.desc
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes
+
+	option = {
+		name = test.19.a
+		# set_variable = { start_days = global.num_days }
+		# log = "start_days: [?start_days]"
+		# subtract_from_variable = { start_days = 705545 }
+		# log = "start_days: [?start_days]"
+		# set_variable = { something_var = 10 }
+		# subtract_from_variable = { something_var = start_days }
+		# log = "something_var: [?something_var]"
+		# country_event = {
+		# 	id = test.19
+		# 	days = var:something_var
+		# }
+	}
+	option = { #TODO: For Case Anton. States owner becomes FRA, Germany and Italy occupy the states
+		name = test.19.b
+		FRA = {
+			set_state_owner = 22
+			set_state_owner = 21
+			set_state_owner = 32
+			set_state_owner = 20
+			set_state_owner = 26
+			set_state_owner = 31
+			set_state_owner = 25
+			set_state_owner = 33
+			set_state_owner = 735
+			set_state_owner = 1028
+			set_state_owner = 1196
+		}
+		GER = {
+			set_state_controller = 33
+			set_state_controller = 25
+			set_state_controller = 31
+			set_state_controller = 26
+			set_state_controller = 22
+			set_state_controller = 20
+			set_state_controller = 21
+		}
+		ITA = {
+			set_state_controller = 1196
+			set_state_controller = 1028
+			set_state_controller = 735
+			set_state_controller = 32
+			set_state_controller = 1
+
+			set_province_controller = 9736
+			set_province_controller = 3762
+			set_province_controller = 3961
+			set_province_controller = 956
+			set_province_controller = 3928
+		}
+
+		#VIC becomes a puppet? (or joins faction?). changes color to the same one as germany? (in that case french colonies also adquire that color)
+		#vic colonies become germany puppets or remain a puppet of VIC? If VIC becomes a puppet of ger, set autonomy for vic colonies again (remember to set end_wars = no for all of them)
+
+		# 33 = {
+		# 	set_state_province_controller = {
+		# 		controller = GER
+		# 		limit = {
+		# 			always = yes
+		# 		}
+		# 	}
+		# }
+	}
+
+	option = {
+		name = test.19.c
+
+		GER = {
+			create_faction = Axis
+			add_to_faction = ITA
+			declare_war_on = {
+				target = ENG
+				type = annex_everything
+			}
+			annex_country = {
+				target = AUS
+				transfer_troops = no
+			}
+			transfer_state = 102
+			transfer_state = 182
+			transfer_state = 187
+			transfer_state = 1021
+			transfer_state = 1023
+			transfer_state = 1024
+		}
+		ITA = {
+			transfer_state = 163
+			transfer_state = 841
+			transfer_state = 837
+			transfer_state = 838
+			transfer_state = 105
+			transfer_state = 914
+			transfer_state = 765
+			transfer_state = 818
+			declare_war_on = {
+				target = ENG
+				type = annex_everything
+			}
+			annex_country = {
+				target = ALB
+				transfer_troops = no
+			}
+			annex_country = {
+				target = GRE
+				transfer_troops = no
+			}
+			set_variable = {
+				ITA_main_occ_id = 115
+			}
+		}
+		# ENG = { save_event_target_as = ita_occupier_mainland }
+	}
+}
+
+country_event = {
+	id = test.21
+	title = test.21.t
+	desc = test.21.desc
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = test.21.a
+		GER_gerd_von_rundstedt = {
+			unit_leader_event = {
+				id = ger_internal.93
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = test.21.a
+		country_event = { id = unitedstates.132 }
+		country_event = { id = unitedstates.133 days = 2 }
+	}
+	option = {
+		name = test.21.a
+		country_event = {
+			id = phi_internal.5 #Mission
+		}
+	}
+	option = {
+		name = test.21.a
+		PHI = { country_event = { id = phi_internal.2} } #constitution
+	}
+}

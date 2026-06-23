@@ -1,0 +1,454 @@
+	#Focus for Reform the Navy
+	shared_focus = {
+		id = MEX_reformthenavy
+		icon = GFX_focus_Naval_Effort
+		x = 32
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			OR = {
+				has_completed_focus = MEX_aunitedparty
+				has_completed_focus = MEX_aunitedleft
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = { navy_experience = 15 }
+	}
+	#Focus for Promote Heriberto Jara
+	shared_focus = {
+		id = MEX_promoteheribertojara
+		icon = GFX_focus_Promote_Heriberto_Jara
+		x = 30
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_reformthenavy }
+		mutually_exclusive = { 
+			focus = MEX_promotecarloscastillo 
+		}
+		mutually_exclusive = { 
+			focus = MEX_promoteothonpblanco 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_ideas = heribertojcon 
+			# create_navy_leader = {
+			# 	name = "Heriberto Jara"
+			# 	picture = "Portrait_Mexico_heriberto_jara.tga"
+			# 	traits = { politically_connected craven }
+			# 	skill = 1
+			# 	attack_skill = 2
+			# 	defense_skill = 1
+			# 	maneuvering_skill = 0
+			# 	coordination_skill = 1
+			# }
+			add_naval_commander_role = {
+				character = MEX_heriberto_jara
+				traits = { politically_connected craven }
+				skill = 1
+				attack_skill = 2
+				defense_skill = 1
+				maneuvering_skill = 0
+				coordination_skill = 1
+			}
+		}
+	}
+	
+	#Focus for Promote Carlos Castillo
+	shared_focus = {
+		id = MEX_promotecarloscastillo
+		icon = GFX_focus_Promote_Carlos_Breton
+		x = 32
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		available = { NOT = {
+			has_country_flag = MEX_Carlos_Breton_Dead } } 
+			prerequisite = { 
+				focus = MEX_reformthenavy 
+			}
+			mutually_exclusive = { 
+				focus = MEX_promoteheribertojara 
+			}
+			mutually_exclusive = { 
+				focus = MEX_promoteothonpblanco 
+			}
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				add_ideas = carlosccon 
+				# create_navy_leader = {
+				# 	name = "Carlos Castillo"
+				# 	picture = "Portrait_Mexico_carlos_castillo.tga"
+				# 	traits = { navy_career_officer aviation_enthusiast }
+				# 	skill = 2
+				# 	attack_skill = 1
+				# 	defense_skill = 3
+				# 	maneuvering_skill = 2
+				# 	coordination_skill = 2
+				# }
+				add_naval_commander_role = {
+					character = MEX_carlos_castillo
+					traits = { navy_career_officer aviation_enthusiast }
+					skill = 2
+					attack_skill = 1
+					defense_skill = 3
+					maneuvering_skill = 2
+					coordination_skill = 2
+				}
+			}
+		}
+		
+		#Focus for Promote Othon P. Blanco
+		shared_focus = {
+			id = MEX_promoteothonpblanco
+			icon = GFX_focus_Promote_Othon_Blanco
+			x = 34
+			y = 2
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { focus = MEX_reformthenavy }
+			mutually_exclusive = { 
+				focus = MEX_promoteheribertojara 
+			}
+			mutually_exclusive = { 
+				focus = MEX_promotecarloscastillo 
+			}
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				add_ideas = othonbcon
+			}
+		}
+		
+		#Focus for New Submarine Designs
+		shared_focus = {
+			id = MEX_newsubmarinedesigns
+			icon = GFX_goal_generic_navy_submarine
+			x = 30
+			y = 3
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { focus = MEX_promoteheribertojara }
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				add_tech_bonus = {
+					name = submmarine_bonus
+					uses = 2
+					bonus = 0.25
+					category = ss_tech
+				}
+			}
+		}	
+		
+		#Focus for Submarine Warfare
+		shared_focus = {
+			id = MEX_submarinewarfare
+			icon = GFX_focus_Torpedo_Boats
+			x = 30
+			y = 4
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { focus = MEX_newsubmarinedesigns }
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				add_tech_bonus = {
+					name = submmarine_bonus
+					uses = 1
+					bonus = 1
+					category = ss_tech
+				}
+			}
+		}
+		#Focus for Our own Carrier
+		shared_focus = {
+			id = MEX_ourowncarrier
+			icon = GFX_focus_Carrier_Focus
+			x = 32
+			y = 3
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { focus = MEX_promotecarloscastillo }
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				add_tech_bonus = {
+					name = carrier_bonus
+					uses = 1
+					bonus = 1
+					category = cv_tech
+				}
+			}
+		}
+		
+		#Focus for Escort Ships
+		shared_focus = {
+			id = MEX_escortships
+			icon = GFX_Goal_Generic_Defend_Conveys
+			x = 32
+			y = 4
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { focus = MEX_ourowncarrier }
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				add_tech_bonus = {
+					name = destroyer_bonus
+					uses = 2
+					bonus = 0.5
+					category = dd_tech
+				}
+			}
+		}	
+		
+		#Focus for Resume Designs
+		shared_focus = {
+			id = MEX_resumedesigns
+			icon = GFX_focus_Battlefleet
+			x = 34
+			y = 3
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { focus = MEX_promoteothonpblanco }
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				add_tech_bonus = {
+					name = battleship_bonus
+					uses = 1
+					bonus = 0.5
+					category = bb_tech
+				}
+			}
+		}
+		
+		#Focus for The Perfect Ship
+		shared_focus = {
+			id = MEX_theperfectship
+			icon = GFX_focus_Battleship
+			x = 34
+			y = 4
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { focus = MEX_resumedesigns }
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				add_tech_bonus = {
+					name = super_battleship_bonus
+					uses = 1
+					bonus = 0.5
+					category = shbb_tech
+				}
+			}
+		}
+		#Focus for Select Business Partner
+		shared_focus = {
+			id = MEX_selectbusinesspartner
+			icon = GFX_focus_Business_Men
+			x = 31
+			y = 5
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { 
+				focus = MEX_submarinewarfare 
+				focus = MEX_escortships 
+				focus = MEX_theperfectship 
+			}
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				country_event = { days = 1 id = mex_navy.1 }
+			}			
+		}
+		
+		#Focus for Naval Investments
+		shared_focus = {
+			id = MEX_navalinvestments
+			icon = GFX_focus_Naval_Operations
+			x = 31
+			y = 6
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { focus = MEX_selectbusinesspartner }
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				navy_experience = 50   
+			}
+		}	
+		#Focus for Dockyard Building
+		shared_focus = {
+			id = MEX_dockyardbuilding
+			icon = GFX_goal_generic_construct_naval_dockyard
+			x = 33
+			y = 5
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { 
+				focus = MEX_escortships 
+				focus = MEX_theperfectship 
+				focus = MEX_submarinewarfare 
+			}
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				random_owned_controlled_state = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+		
+		#Focus for Marine Training
+		shared_focus = {
+			id = MEX_marinetraining
+			icon = GFX_goal_generic_amphibious_assault
+			x = 33
+			y = 6
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { focus = MEX_dockyardbuilding }
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				add_tech_bonus = {
+					name = marine_bonus
+					uses = 1
+					bonus = 0.5
+					category = marine_tech
+				}
+			}
+		}
+		
+		#Focus for En El Aire
+		shared_focus = {
+			id = MEX_enelaire
+			icon = GFX_focus_generic_cryptologic_bomb
+			x = 32
+			y = 7
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { 
+				focus = MEX_navalinvestments 
+			}
+			prerequisite = { 
+				focus = MEX_marinetraining 
+			}
+			prerequisite = { 
+				focus = MEX_escortships 
+			}
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				add_tech_bonus = {
+					name = base_strike_bonus
+					uses = 2
+					bonus = 0.5
+					category = cat_base_strike
+				}
+				add_doctrine_cost_reduction = {
+					name = base_strike_bonus
+					cost_reduction = 0.5
+					uses = 2
+					category = cat_base_strike
+				}
+			}
+		}
+		
+		#Focus for En El Mar
+		shared_focus = {
+			id = MEX_enelmar
+			icon = GFX_goal_generic_wolf_pack
+			x = 30
+			y = 7
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { 
+				focus = MEX_navalinvestments 
+			}
+			prerequisite = { 
+				focus = MEX_marinetraining 
+			}
+			prerequisite = { 
+				focus = MEX_submarinewarfare 
+			}
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				# add_tech_bonus = {
+				# 	name = trade_interdiction_bonus
+				# 	uses = 2
+				# 	bonus = 0.5
+				# 	category = cat_trade_interdiction
+				# }
+				add_doctrine_cost_reduction = {
+					name = trade_interdiction_bonus
+					cost_reduction = 0.5
+					uses = 2
+					category = cat_trade_interdiction
+				}
+			}
+		}
+		
+		#Focus for En la "Tierra"
+		shared_focus = {
+			id = MEX_enlatierra
+			icon = GFX_goal_generic_navy_doctrines_tactics
+			x = 34
+			y = 7
+			cost = 10
+			available_if_capitulated = yes
+			prerequisite = { 
+				focus = MEX_theperfectship 
+			}
+			prerequisite = { 
+				focus = MEX_marinetraining 
+			}
+			prerequisite = { 
+				focus = MEX_navalinvestments 
+			}
+			ai_will_do = {
+				factor = 1
+			}
+			completion_reward = {
+				# add_tech_bonus = {
+				# 	name = fleet_in_being_bonus
+				# 	uses = 2
+				# 	bonus = 0.5
+				# 	category = cat_fleet_in_being
+				# }
+				add_doctrine_cost_reduction = {
+					name = fleet_in_being_bonus
+					cost_reduction = 0.5
+					uses = 2
+					category = cat_fleet_in_being
+				}
+			}
+		}

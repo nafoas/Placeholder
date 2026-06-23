@@ -1,0 +1,487 @@
+focus_tree = {
+	id = USA_focus_landon_second
+
+	country = {
+		factor = 0
+
+		modifier = {
+			add = 0
+			tag = USA
+		}
+
+	}
+	default = no
+	continuous_focus_position = { x = 80 y = 3000 }
+	shared_focus = USA_main_foreign_start
+	shared_focus = USA_main_military_start
+
+	focus = {
+		id = USA_landon_reelected
+		icon = GFX_focus_USA_Alf
+		cost = 1
+		available = {
+			always = no
+		}
+		bypass = {
+			has_government = market_liberalism
+		}
+		x = 5
+		y = 0
+	}
+
+	focus = {
+		id = USA_war_is_coming_landon
+		icon = GFX_focus_USA_Soldiers
+		cost = 7
+		prerequisite = {
+			focus = USA_landon_reelected
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		# mutually_exclusive = { focus = USA_continue_eco_reforms }
+		available = {
+			has_war = no
+			OR = {
+				AND = {
+					JAP = {
+						exists = yes
+						has_capitulated = no
+						is_subject = no
+						OR = {
+							naval_strength_ratio = {
+								tag = USA
+								ratio > 0.4
+							}
+							strength_ratio = {
+								tag = USA
+								ratio > 0.4
+							}
+						}
+					}
+				}
+				GRM = {
+					OR = {
+						has_war_with = ENG
+						has_war_with = FRA
+						has_war_with = SOV
+					}
+				}
+				SOV = {
+					OR = {
+						has_war_with = ENG
+						has_war_with = FRA
+					}
+				}
+			}
+		}
+		completion_reward = {
+			activate_mission = USA_go_to_war_ms
+			if = {
+				limit = {
+					has_idea = civilian_economy
+				}
+				swap_ideas = {
+					remove_idea = civilian_economy
+					add_idea = low_economic_mobilisation
+				}
+			}
+			if = {
+				limit = {
+					has_idea = isolation
+				}
+				swap_ideas = {
+					remove_idea = isolation
+					add_idea = civilian_economy
+				}
+			}
+			if = {
+				limit = {
+					has_idea = undisturbed_isolation
+				}
+				swap_ideas = {
+					remove_idea = undisturbed_isolation
+					add_idea = isolation
+				}
+			}
+		}
+		x = 8
+		y = 1
+	}
+
+	focus = {
+		id = USA_office_prod_landon
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 7
+		prerequisite = {
+			focus = USA_war_is_coming_landon
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			custom_effect_tooltip = usa_war_chest_tooltip
+			effect_tooltip = {
+				add_timed_idea = {  idea = USA_prepared_war_A days = war_chest_days }
+			}
+		}
+		x = 7
+		y = 2
+	}
+
+	focus = {
+		id = USA_supply_prior_landon
+		icon = GFX_focus_Firearms
+		cost = 7
+		prerequisite = {
+			focus = USA_office_prod_landon
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			custom_effect_tooltip = usa_war_chest_tooltip
+			effect_tooltip = {
+				swap_ideas = { remove_idea = USA_prepared_war_A add_idea = USA_prepared_war_AC }
+			}
+		}
+		x = 6
+		y = 3
+	}
+
+	focus = {
+		id = USA_opa_landon
+		icon = GFX_focus_Fundraising
+		cost = 7
+		prerequisite = {
+			focus = USA_office_prod_landon
+		}
+		prerequisite = {
+			focus = USA_four_freedoms_landon
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			custom_effect_tooltip = usa_war_chest_tooltip
+			effect_tooltip = {
+				swap_ideas = { remove_idea = USA_prepared_war_A add_idea = USA_prepared_war_AD }
+			}
+		}
+		x = 8
+		y = 3
+	}
+
+	focus = {
+		id = USA_towards_war_eco_landon
+		icon = GFX_focus_Eagle_Industry
+		cost = 7
+		prerequisite = {
+			focus = USA_four_freedoms_landon
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			set_country_flag = usa_eco_bonus_depression
+			custom_effect_tooltip = usa_war_chest_tooltip
+			effect_tooltip = {
+				random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				}
+				random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				}
+				random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				}
+			}
+		}
+		x = 10
+		y = 3
+	}
+
+	focus = {
+		id = USA_initiate_war_bonds_landon
+		icon = GFX_focus_Free_Trade
+		cost = 7
+		prerequisite = {
+			focus = USA_towards_war_eco_landon
+		}
+		prerequisite = {
+			focus = USA_opa_landon
+		}
+		prerequisite = {
+			focus = USA_supply_prior_landon
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			custom_effect_tooltip = usa_war_chest_tooltip
+			effect_tooltip = {
+				swap_ideas = { remove_idea = USA_prepared_war_ACD add_idea = USA_prepared_war_ACDE }
+			}
+		}
+		x = 8
+		y = 4
+	}
+
+	focus = {
+		id = USA_four_freedoms_landon
+		icon = GFX_focus_Give_Democracy
+		cost = 7
+		prerequisite = {
+			focus = USA_war_is_coming_landon
+		}
+		available = {
+			NOT = { has_country_flag = usa_war_mission_timed_out }
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			custom_effect_tooltip = usa_war_chest_tooltip
+			effect_tooltip = {
+				add_war_support = 0.15
+				add_stability = 0.1
+				add_political_power = 100
+			}
+		}
+		x = 9
+		y = 2
+	}
+
+	focus = {
+		id = USA_amend_political_divisions_landon
+		icon = GFX_focus_Desegregation
+		cost = 7
+		prerequisite = {
+			focus = USA_war_is_coming_landon
+			focus = USA_continue_eco_reforms
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			add_political_power = 50
+		}
+		x = 5
+		y = 2
+	}
+
+	focus = {
+		id = USA_continue_eco_reforms
+		icon = GFX_focus_Congress_Bills
+		cost = 7
+		prerequisite = {
+			focus = USA_landon_reelected
+		}
+		# mutually_exclusive = { focus = USA_war_is_coming_landon }
+		search_filters = {FOCUS_FILTER_USA_DEPRESSION_RECOVERY}
+		completion_reward = {
+			effect_depression_recovery = yes
+		}
+		x = 2
+		y = 1
+	}
+
+	focus = {
+		id = USA_guarantee_american_dream
+		icon = GFX_focus_Traditional_Family
+		cost = 5
+		prerequisite = {
+			focus = USA_continue_eco_reforms
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY}
+		completion_reward = {
+			add_political_power = 80
+		}
+		x = 1
+		y = 2
+	}
+
+	focus = {
+		id = USA_practical_progressivism
+		icon = GFX_focus_Social_Liberalism
+		cost = 7
+		prerequisite = {
+			focus = USA_guarantee_american_dream
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY}
+		completion_reward = {
+			add_popularity = {
+				ideology = jacobin
+				popularity = -0.01
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.01
+			}
+			add_to_variable = { usa_president_popularity = 1 }
+			USA_clamp_president_pop = yes
+		}
+		x = 0
+		y = 3
+	}
+
+	focus = {
+		id = USA_cut_waste
+		icon = GFX_focus_Deregulation
+		cost = 7
+		prerequisite = {
+			focus = USA_economic_liberty_act
+		}
+		prerequisite = {
+			focus = USA_guarantee_american_dream
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			add_political_power = -50
+			add_stability = 0.03
+		}
+		x = 2
+		y = 3
+	}
+	focus = {
+		id = USA_economic_tax_act
+		icon = GFX_focus_Tax_Incentives
+		cost = 7
+		prerequisite = {
+			focus = USA_economic_liberty_act
+		}
+		search_filters = {FOCUS_FILTER_USA_DEPRESSION_RECOVERY FOCUS_FILTER_USA_CONGRESS_ACT}
+		completion_reward = {
+			custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = landon_tax_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				effect_depression_recovery = yes
+			}
+		}
+		x = 4
+		y = 3
+	}
+
+	focus = {
+		id = USA_landon_safety_net
+		icon = GFX_focus_found_the_investment_bank
+		cost = 7
+		prerequisite = {
+			focus = USA_practical_progressivism
+		}
+		prerequisite = {
+			focus = USA_economic_tax_act
+		}
+		prerequisite = {
+			focus = USA_cut_waste
+		}
+		search_filters = {FOCUS_FILTER_USA_DEPRESSION_RECOVERY FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			effect_depression_recovery = yes
+			add_stability = 0.05
+		}
+		x = 2
+		y = 4
+	}
+
+	focus = {
+		id = USA_economic_liberty_act
+		icon = GFX_focus_bills_and_acts
+		cost = 7
+		prerequisite = {
+			focus = USA_continue_eco_reforms
+		}
+		search_filters = {FOCUS_FILTER_USA_DEPRESSION_RECOVERY FOCUS_FILTER_USA_CONGRESS_ACT}
+		completion_reward = {
+			custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = landon_liberty_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				effect_depression_recovery = yes
+			}
+		}
+		x = 3
+		y = 2
+	}
+}

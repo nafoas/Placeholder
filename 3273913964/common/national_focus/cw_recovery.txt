@@ -1,0 +1,350 @@
+	shared_focus = {
+		id = SPR_stood
+		icon = GFX_focus_Defend_The_Republic
+		cost = 10
+		x = 4
+		y = 0
+		available = { always = no }
+		bypass = { always = yes }
+
+	}
+	shared_focus = {
+		id = SPR_national_reconciliation
+		icon = GFX_goal_generic_national_unity
+		cost = 5
+		prerequisite = {
+			focus = SPR_stood
+		}
+		mutually_exclusive = {
+			focus = SPR_non_negotiable
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		    swap_ideas = { remove_idea = SPR_cw_legacy add_idea = SPR_cw_legacy2 }
+			if = {
+		        limit = {
+				    OR = {
+					    has_government = socialism
+						has_government = social_democracy
+					}
+				}
+				add_popularity = { ideology = democratic popularity = 0.05 }
+				add_popularity = { ideology = market_liberalism popularity = 0.05 }
+			}
+			if = {
+		        limit = {
+				    OR = {
+					    has_government = democratic
+						has_government = market_liberalism
+					}
+				}
+				add_popularity = { ideology = socialism popularity = 0.05 }
+				add_popularity = { ideology = social_democracy popularity = 0.05 }
+			}
+		}
+		x = 1
+		y = 1
+
+	}
+	shared_focus = {
+		id = SPR_prisioner_liberation
+		icon = GFX_goal_continuous_boost_freedom
+		cost = 7
+		prerequisite = {
+			focus = SPR_national_reconciliation
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		    add_political_power = 150
+			if = {
+		        limit = {
+				    OR = {
+					    has_government = socialism
+						has_government = social_democracy
+					}
+				}
+				add_popularity = { ideology = democratic popularity = 0.05 }
+				add_popularity = { ideology = market_liberalism popularity = 0.05 }
+			}
+			if = {
+		        limit = {
+				    OR = {
+					    has_government = democratic
+						has_government = market_liberalism
+					}
+				}
+				add_popularity = { ideology = socialism popularity = 0.05 }
+				add_popularity = { ideology = social_democracy popularity = 0.05 }
+			}
+		}
+		x = 0
+		y = 2
+
+	}
+	shared_focus = {
+		id = SPR_apologize
+		icon = GFX_goal_generic_improve_relations
+		cost = 7
+		prerequisite = {
+			focus = SPR_prisioner_liberation
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		   swap_ideas = { remove_idea = SPR_cw_legacy2 add_idea = SPR_cw_legacy3 }
+		}
+		x = 0
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_foreign_threats
+		icon = GFX_goal_generic_propaganda
+		cost = 7
+		prerequisite = {
+			focus = SPR_national_reconciliation
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		    add_war_support = 0.2
+		}
+		x = 2
+		y = 2
+
+	}
+	shared_focus = {
+		id = SPR_unite_people
+		icon = GFX_focus_Unite_Spain
+		cost = 7
+		prerequisite = {
+			focus = SPR_foreign_threats
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		    add_stability = 0.08
+			if = {
+		        limit = {
+				    OR = {
+					    has_government = socialism
+						has_government = social_democracy
+					}
+				}
+				add_popularity = { ideology = democratic popularity = 0.05 }
+				add_popularity = { ideology = market_liberalism popularity = 0.05 }
+			}
+			if = {
+		        limit = {
+				    OR = {
+					    has_government = democratic
+						has_government = market_liberalism
+					}
+				}
+				add_popularity = { ideology = socialism popularity = 0.05 }
+				add_popularity = { ideology = social_democracy popularity = 0.05 }
+			}
+		}
+		x = 2
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_war_memorial
+		icon = GFX_focus_generic_concessions
+		cost = 10
+		prerequisite = {
+			focus = SPR_apologize
+		}
+		prerequisite = {
+			focus = SPR_unite_people
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		    remove_ideas = SPR_cw_legacy3
+		}
+		x = 1
+		y = 4
+
+	}
+	shared_focus = {
+		id = SPR_non_negotiable
+		icon = GFX_goal_support_democracy
+		cost = 5
+		prerequisite = {
+			focus = SPR_stood
+		}
+		mutually_exclusive = {
+			focus = SPR_national_reconciliation
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		    swap_ideas = { remove_idea = SPR_cw_legacy add_idea = SPR_cw_legacy2 }
+		}
+		x = 7
+		y = 1
+
+	}
+	shared_focus = {
+		id = SPR_restore_parliament
+		icon = GFX_focus_Generic_Political
+		cost = 8
+		prerequisite = {
+			focus = SPR_national_reconciliation
+			focus = SPR_non_negotiable
+		}
+		completion_reward = {
+		    clr_country_flag = parliament_closed
+			custom_effect_tooltip = reopen_parliament
+		}
+		x = 4
+		y = 2
+
+	}
+	shared_focus = {
+		id = SPR_normalize_politics
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 8
+		prerequisite = {
+			focus = SPR_restore_parliament
+		}
+		completion_reward = {
+		    add_political_power = 100
+			if = {
+		        limit = {
+				    OR = {
+					    has_government = socialism
+						has_government = social_democracy
+					}
+				}
+				add_popularity = { ideology = democratic popularity = 0.05 }
+				add_popularity = { ideology = market_liberalism popularity = 0.05 }
+			}
+			if = {
+		        limit = {
+				    OR = {
+					    has_government = democratic
+						has_government = market_liberalism
+					}
+				}
+				add_popularity = { ideology = socialism popularity = 0.05 }
+				add_popularity = { ideology = social_democracy popularity = 0.05 }
+			}
+		}
+		x = 4
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_curtail_government
+		icon = GFX_focus_generic_self_management
+		cost = 8
+		prerequisite = {
+			focus = SPR_normalize_politics
+		}
+		completion_reward = {
+		    add_stability = 0.075
+		}
+		x = 4
+		y = 4
+
+	}
+	shared_focus = {
+		id = SPR_kill_traitors
+		icon = GFX_goal_generic_major_war
+		cost = 10
+		prerequisite = {
+			focus = SPR_non_negotiable
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		    add_popularity = { ideology = fascism popularity = -0.2 }
+			add_popularity = { ideology = communism popularity = -0.2 }
+			add_popularity = { ideology = authoritarian_socialism popularity = -0.1 }
+			add_popularity = { ideology = monarchism popularity = -0.1 }
+			add_popularity = { ideology = nationalism popularity = -0.1 }
+			add_popularity = { ideology = neutrality popularity = -0.1 }
+		}
+		x = 6
+		y = 2
+
+	}
+	shared_focus = {
+		id = SPR_ban_extremism
+		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
+		cost = 10
+		prerequisite = {
+			focus = SPR_kill_traitors
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		    add_stability = 0.1
+		}
+		x = 6
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_ensure_victory
+		icon = GFX_focus_generic_support_the_left_right
+		cost = 10
+		prerequisite = {
+			focus = SPR_non_negotiable
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		    add_war_support = 0.1
+		}
+		x = 8
+		y = 2
+
+	}
+	shared_focus = {
+		id = SPR_fifth_column
+		icon = GFX_focus_SPR_army
+		cost = 10
+		prerequisite = {
+			focus = SPR_ensure_victory
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		    swap_ideas = { remove_idea = SPR_cw_legacy2 add_idea = SPR_cw_legacy3 }
+		}
+		x = 8
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_militant_democracy
+		icon = GFX_focus_Republican_Mission
+		cost = 10
+		prerequisite = {
+			focus = SPR_ban_extremism
+		}
+		prerequisite = {
+			focus = SPR_fifth_column
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+		    remove_ideas = SPR_cw_legacy3
+		}
+		x = 7
+		y = 4
+
+	}
+	shared_focus = {
+		id = SPR_nunca_mas
+		icon = GFX_focus_Torch_of_Freedom
+		cost = 10
+		prerequisite = {
+			focus = SPR_curtail_government
+		}
+		available_if_capitulated = yes
+		prerequisite = {
+			focus = SPR_war_memorial
+			focus = SPR_militant_democracy
+		}
+		completion_reward = {
+		    add_ideas = SPR_never_again
+		}
+		x = 4
+		y = 5
+
+	}

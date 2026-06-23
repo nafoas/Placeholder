@@ -1,0 +1,954 @@
+﻿###########################
+# Ukraine Events
+###########################
+
+add_namespace = ukr_internal
+add_namespace = ukr_external
+add_namespace = ukr_civil_war #handles path changes and revolts. Other things go in internal
+add_namespace = ukr_flavor
+add_namespace = ukr_test
+add_namespace = ukr_ai
+
+country_event = { #Intro, SOV declares war
+	id = ukr_civil_war.1
+	title = ukr_civil_war.1.t
+	desc = ukr_civil_war.1.d
+	picture = GFX_event_Ukrainian_Independence
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			RUS = {
+				country_event = {
+					id = rus_civil_war.39 #informed of thing
+					days = 1
+				}
+			}
+			POL = {
+				country_event = {
+					id = ukr_civil_war.2 #alerted
+				}
+			}
+			random_list = {
+				72 = {
+					set_country_flag = UKR_AI_UNDO_personality
+				}
+				33 = {
+					set_country_flag = UKR_AI_Radical_personality
+				}
+				5 = {
+					set_country_flag = UKR_AI_OUN_personality
+				}
+			}
+			country_event = {
+				id = ukr_civil_war.23
+				days = 143
+			}
+		}
+	}
+	option = {
+		name = ukr_civil_war.1.a
+	}
+}
+country_event = { #POL knows what's going on
+	id = ukr_civil_war.2
+	title = ukr_civil_war.2.t
+	desc = ukr_civil_war.2.d
+	picture = GFX_event_Polish_Industry #Polish_Industry
+	is_triggered_only = yes
+	option = {
+		name = ukr_civil_war.2.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			POL = {
+				if = {
+					limit = {
+						any_owned_state = {
+							is_controlled_by = ROOT
+							is_core_of = UKR
+						}
+					}
+					country_event = {
+						id = ukr_civil_war.3 #clahes with OUN
+						days = 8
+					}
+				}
+				else = {
+					UKR = {
+						country_event = {
+							id = ukr_civil_war.4
+							days = 8
+						}
+					}
+				}
+			}
+		}
+	}
+}
+country_event = { #POL clashes with the OUN
+	id = ukr_civil_war.3
+	title = ukr_civil_war.3.t
+	desc = ukr_civil_war.3.d
+	picture = GFX_event_OUN
+	is_triggered_only = yes
+	trigger = {
+		POL = {
+			any_owned_state = {
+				is_controlled_by = ROOT
+				is_core_of = UKR
+			}
+		}
+	}
+	option = {
+		name = ukr_civil_war.3.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.02
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				is_core_of = UKR
+			}
+			add_manpower = -5000
+		}
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				is_core_of = UKR
+			}
+			add_manpower = -5000
+		}
+		UKR = {
+			country_event = {
+				id = ukr_civil_war.4
+			}
+		}
+	}
+}
+country_event = { #UKR gets OUN
+	id = ukr_civil_war.4
+	title = ukr_civil_war.4.t
+	desc = ukr_civil_war.4.d
+	picture = GFX_event_OUN
+	is_triggered_only = yes
+	option = {
+		name = ukr_civil_war.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.05
+		set_variable = { #sets up the influence
+			UKR_oun_influence = 0
+		}
+		set_variable = {
+			UKR_add_influence_value = 7
+		}
+		UKR_add_influence_oun = yes
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+		custom_effect_tooltip = UKR_oun_gain_7
+		set_country_flag = UKR_OUN_returned
+		load_oob = "UKR_2rcw_OUN"
+		COALITION_add_nat = yes
+		COALITION_add_fas = yes
+		add_corps_commander_role = {
+			character = UKR_mykola_kapustiansky
+			traits={ old_guard }
+			skill=2
+			attack_skill=2
+			defense_skill=1
+			planning_skill=2
+			logistics_skill=2
+			legacy_id=-1
+		}
+		add_corps_commander_role = {
+			character = UKR_victor_kurmanovych
+			skill=1
+			attack_skill=2
+			defense_skill=1
+			planning_skill=1
+			logistics_skill=1
+			legacy_id=-1
+		}
+	}
+}
+country_event = { #UKR gets RUS offer of alliance
+	id = ukr_civil_war.5
+	title = ukr_civil_war.5.t
+	desc = ukr_civil_war.5.d
+	picture = GFX_event_Russian_Revolt
+	is_triggered_only = yes
+	option = { #yes
+		name = ukr_civil_war.5.a
+		ai_chance = {
+			base = 1
+		}
+		add_stability = -0.05
+		add_war_support = -0.05
+		FROM = {
+			country_event = {
+				id = rus_civil_war.41
+			}
+			add_to_faction = ROOT
+		}
+	}
+	option = { #yes with Donetsk
+		name = ukr_civil_war.5.b
+		ai_chance = {
+			base = 9
+		}
+		FROM = {
+			country_event = {
+				id = ukr_civil_war.6
+				hours = 6
+			}
+		}
+	}
+	option = { #no
+		name = ukr_civil_war.5.c
+		ai_chance = {
+			base = 9
+		}
+		add_war_support = 0.05
+		set_country_flag = Second_RCW_rejected_russian_alliance
+		FROM = {
+			country_event = {
+				id = rus_civil_war.42
+				hours = 3
+			}
+		}
+	}
+}
+country_event = { #RUS gets demands for Donetsk
+	id = ukr_civil_war.6
+	title = ukr_civil_war.6.t
+	desc = ukr_civil_war.6.d
+	picture = GFX_event_Russian_Revolt
+	is_triggered_only = yes
+	option = { #yes
+		name = ukr_civil_war.6.a
+		ai_chance = {
+			base = 60
+		}
+		set_country_flag = UKR_get_donetsk
+		set_variable = {
+			RUS_add_influence_value = -3
+		}
+		RUS_add_influence_nationalists = yes
+		set_variable = {
+			RUS_add_influence_value = -3
+		}
+		RUS_add_influence_monarchists = yes
+		custom_effect_tooltip = RUS_nat_lose_3_points
+		custom_effect_tooltip = RUS_mon_lose_3_points
+		FROM = {
+			country_event = {
+				id = ukr_civil_war.7
+				hours = 4
+			}
+			effect_tooltip = {
+				add_to_faction = THIS
+			}
+		}
+	}
+	option = { #no
+		name = ukr_civil_war.6.b
+		ai_chance = {
+			base = 40
+		}
+		set_variable = {
+			RUS_add_influence_value = 3
+		}
+		RUS_add_influence_nationalists = yes
+		set_variable = {
+			RUS_add_influence_value = 3
+		}
+		RUS_add_influence_monarchists = yes
+		custom_effect_tooltip = RUS_nat_gain_3_points
+		custom_effect_tooltip = RUS_mon_gain_3_points
+		FROM = {
+			country_event = {
+				id = ukr_civil_war.8
+				hours = 2
+			}
+		}
+	}
+}
+country_event = { #RUS guarantees donetsk
+	id = ukr_civil_war.7
+	title = ukr_civil_war.7.t
+	desc = ukr_civil_war.7.d
+	picture = GFX_event_Russian_Revolt
+	is_triggered_only = yes
+	option = { #yes
+		name = ukr_civil_war.7.a
+		ai_chance = {
+			base = 100
+		}
+		FROM = {
+			add_to_faction = ROOT
+		}
+	}
+}
+country_event = { #RUS refuses to give donetsk
+	id = ukr_civil_war.8
+	title = ukr_civil_war.8.t
+	desc = ukr_civil_war.8.d
+	picture = GFX_event_Russian_Revolt
+	is_triggered_only = yes
+	option = { #yes
+		name = ukr_civil_war.8.a
+		ai_chance = {
+			base = 100
+		}
+		set_country_flag = Second_RCW_rejected_russian_alliance
+		add_war_support = 0.05
+	}
+}
+country_event = { #Party Politics
+	id = ukr_civil_war.9
+	title = ukr_civil_war.9.t
+	desc = ukr_civil_war.9.d
+	picture = GFX_event_Ukrainian_Politicians
+	is_triggered_only = yes
+	option = { #Total Fairness
+		name = ukr_civil_war.9.a
+		ai_chance = {
+			base = 40
+		}
+		add_political_power = -10
+		set_variable = {
+			UKR_add_influence_value = 4
+		}
+		UKR_add_influence_oun = yes
+		custom_effect_tooltip = UKR_oun_gain_4
+		set_variable = {
+			UKR_add_influence_value = 4
+		}
+		UKR_add_influence_usrp = yes
+		custom_effect_tooltip = UKR_radicals_gain_4
+	}
+	option = { #Weaken the OUN
+		name = ukr_civil_war.9.b
+		ai_chance = {
+			base = 59
+		}
+		add_political_power = -20
+		add_stability = 0.02
+		set_variable = {
+			UKR_add_influence_value = 4
+		}
+		UKR_add_influence_usrp = yes
+		custom_effect_tooltip = UKR_radicals_gain_4
+		set_variable = {
+			UKR_add_influence_value = -3
+		}
+		UKR_add_influence_oun = yes
+		custom_effect_tooltip = UKR_oun_lose_3
+	}
+	option = { #UNDO Prominance
+		name = ukr_civil_war.9.c
+		ai_chance = {
+			base = 1
+		}
+		add_political_power = -40
+		add_stability = 0.04
+		set_variable = {
+			UKR_add_influence_value = 6
+		}
+		UKR_add_influence_undo = yes
+		custom_effect_tooltip = UKR_undo_gain_6
+	}
+}
+country_event = { #Jewish Policy
+	id = ukr_civil_war.10
+	title = ukr_civil_war.10.t
+	desc = ukr_civil_war.10.d
+	picture = GFX_event_Jewish_Bund
+	is_triggered_only = yes
+	option = { #Total Equality
+		name = ukr_civil_war.10.a
+		ai_chance = {
+			base = 67
+		}
+		set_variable = {
+			UKR_add_influence_value = 5
+		}
+		UKR_add_influence_undo = yes
+		custom_effect_tooltip = UKR_undo_gain_5
+		set_variable = {
+			UKR_add_influence_value = 5
+		}
+		UKR_add_influence_usrp = yes
+		custom_effect_tooltip = UKR_radicals_gain_5
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.03
+		}
+	}
+	option = { #Dual Policy
+		name = ukr_civil_war.10.b
+		ai_chance = {
+			base = 33
+		}
+		set_variable = {
+			UKR_add_influence_value = 6
+		}
+		UKR_add_influence_undo = yes
+		custom_effect_tooltip = UKR_undo_gain_6
+		set_variable = {
+			UKR_add_influence_value = 3
+		}
+		UKR_add_influence_usrp = yes
+		custom_effect_tooltip = UKR_radicals_gain_3
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.03
+		}
+	}
+}
+country_event = { #Language
+	id = ukr_civil_war.11
+	title = ukr_civil_war.11.t
+	desc = ukr_civil_war.11.d
+	picture = GFX_event_Ukrainian_Ceremony
+	is_triggered_only = yes
+	option = { #Recognize Russian
+		name = ukr_civil_war.11.a
+		ai_chance = {
+			base = 3
+		}
+		add_stability = 0.06
+		RUS = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = UKR_recognized_russian_language
+			}
+		}
+	}
+	option = { #Ukrainian Only
+		name = ukr_civil_war.11.b
+		ai_chance = {
+			base = 97
+		}
+		add_stability = -0.06
+		add_political_power = 36
+		set_variable = {
+			UKR_add_influence_value = 5
+		}
+		UKR_add_influence_oun = yes
+		custom_effect_tooltip = UKR_oun_gain_5
+		RUS = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = UKR_persecute_russian_language
+			}
+		}
+	}
+}
+country_event = { #Economic System
+	id = ukr_civil_war.12
+	title = ukr_civil_war.12.t
+	desc = ukr_civil_war.12.d
+	picture = GFX_event_Small_Business
+	is_triggered_only = yes
+	option = { #Agrarian Socialism
+		name = ukr_civil_war.12.a
+		ai_chance = {
+			base = 25
+		}
+		set_variable = {
+			UKR_add_influence_value = 10
+		}
+		UKR_add_influence_usrp = yes
+		custom_effect_tooltip = UKR_radicals_gain_10
+		set_country_flag = UKR_agr_policy
+	}
+	option = { #Cooperativism
+		name = ukr_civil_war.12.b
+		ai_chance = {
+			base = 70
+		}
+		set_variable = {
+			UKR_add_influence_value = 10
+		}
+		UKR_add_influence_undo = yes
+		custom_effect_tooltip = UKR_undo_gain_10
+		set_country_flag = UKR_coop_policy
+	}
+	option = { #Corporatism
+		name = ukr_civil_war.12.c
+		ai_chance = {
+			base = 2
+		}
+		set_variable = {
+			UKR_add_influence_value = 10
+		}
+		UKR_add_influence_oun = yes
+		custom_effect_tooltip = UKR_oun_gain_10
+		remove_ideas_with_trait = ecomin
+		add_ideas = UKR_eco_Dimitry_Yatsiv
+		set_country_flag = UKR_corp_policy
+	}
+}
+country_event = { #2RCW Coop Congress
+	id = ukr_civil_war.13
+	title = ukr_civil_war.13.t
+	desc = ukr_civil_war.13.d
+	picture = GFX_event_Small_Business
+	is_triggered_only = yes
+	option = { #
+		name = ukr_civil_war.13.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = 0.05
+	}
+}
+country_event = { #UKR asks for industry
+	id = ukr_civil_war.14
+	title = ukr_civil_war.14.t
+	desc = ukr_civil_war.14.d
+	picture = GFX_event_Polish_Industry #Polish_Industry
+	is_triggered_only = yes
+	option = { #Yes
+		name = ukr_civil_war.14.a
+		ai_chance = {
+			base = 99
+			modifier = {
+				surrender_progress > 0.5
+				factor = 0.1
+			}
+		}
+		add_political_power = 20
+		FROM = {
+			random_owned_controlled_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			country_event = {
+				id = ukr_civil_war.15
+				days = 3
+			}
+		}
+	}
+	option = { #No
+		name = ukr_civil_war.14.b
+		ai_chance = {
+			base = 1
+		}
+		FROM = {
+			country_event = {
+				id = ukr_civil_war.16
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #UKR asks for industry - yes
+	id = ukr_civil_war.15
+	title = ukr_civil_war.15.t
+	desc = ukr_civil_war.15.d
+	picture = GFX_event_Polish_Industry #Polish_Industry
+	is_triggered_only = yes
+	option = { #Yes
+		name = ukr_civil_war.15.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -20
+		effect_tooltip = {
+			random_owned_controlled_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+}
+country_event = { #UKR asks for industry - no
+	id = ukr_civil_war.16
+	title = ukr_civil_war.16.t
+	desc = ukr_civil_war.16.d
+	picture = GFX_event_Polish_Industry #Polish_Industry
+	is_triggered_only = yes
+	option = { #Yes
+		name = ukr_civil_war.16.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #UKR asks for guns
+	id = ukr_civil_war.17
+	title = ukr_civil_war.17.t
+	desc = ukr_civil_war.17.d
+	picture = GFX_Event_USSR_Czech_Machine_Gunners
+	is_triggered_only = yes
+	option = { #Yes
+		name = ukr_civil_war.17.a
+		ai_chance = {
+			base = 99
+			modifier = {
+				surrender_progress > 0.5
+				factor = 0.1
+			}
+		}
+		add_political_power = 7
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 350
+			target = FROM
+		}
+
+		FROM = {
+			country_event = {
+				id = ukr_civil_war.18
+				days = 3
+			}
+		}
+	}
+	option = { #No
+		name = ukr_civil_war.17.b
+		ai_chance = {
+			base = 1
+		}
+		FROM = {
+			country_event = {
+				id = ukr_civil_war.19
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #UKR asks for guns - yes
+	id = ukr_civil_war.18
+	title = ukr_civil_war.18.t
+	desc = ukr_civil_war.18.d
+	picture = GFX_Event_USSR_Czech_Machine_Gunners
+	is_triggered_only = yes
+	option = { #Yes
+		name = ukr_civil_war.18.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -7
+		effect_tooltip = {
+			FROM = {
+				send_equipment = {
+					equipment = infantry_equipment
+					amount = 350
+					target = FROM
+				}
+			}
+		}
+	}
+}
+country_event = { #UKR asks for guns - no
+	id = ukr_civil_war.19
+	title = ukr_civil_war.19.t
+	desc = ukr_civil_war.19.d
+	picture = GFX_Event_USSR_Czech_Machine_Gunners
+	is_triggered_only = yes
+	option = { #Yes
+		name = ukr_civil_war.19.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #UKR asks for officers
+	id = ukr_civil_war.20
+	title = ukr_civil_war.20.t
+	desc = ukr_civil_war.20.d
+	picture = GFX_event_Swedish_Officer
+	is_triggered_only = yes
+	option = { #Yes
+		name = ukr_civil_war.20.a
+		ai_chance = {
+			base = 99
+			modifier = {
+				tag = RUS
+				factor = 0.1
+			}
+		}
+		FROM = {
+			add_ideas = UKR_attache
+			country_event = {
+				id = ukr_civil_war.21
+				days = 3
+			}
+		}
+	}
+	option = { #No
+		name = ukr_civil_war.20.b
+		ai_chance = {
+			base = 1
+		}
+		FROM = {
+			country_event = {
+				id = ukr_civil_war.22
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #UKR asks for officers - yes
+	id = ukr_civil_war.21
+	title = ukr_civil_war.21.t
+	desc = ukr_civil_war.21.d
+	picture = GFX_event_Swedish_Officer
+	is_triggered_only = yes
+	option = { #Yes
+		name = ukr_civil_war.21.a
+		ai_chance = {
+			base = 100
+		}
+		effect_tooltip = {
+			add_ideas = UKR_attache
+		}
+	}
+}
+country_event = { #UKR asks for officers - no
+	id = ukr_civil_war.22
+	title = ukr_civil_war.22.t
+	desc = ukr_civil_war.22.d
+	picture = GFX_event_Swedish_Officer
+	is_triggered_only = yes
+	option = { #Yes
+		ai_chance = {
+			base = 100
+		}
+		name = ukr_civil_war.22.a
+	}
+}
+country_event = { #Ethnic Tensions
+	id = ukr_civil_war.23
+	title = ukr_civil_war.23.t
+	desc = ukr_civil_war.23.d
+	picture = GFX_event_Podolians
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = ukr_civil_war.24 #OUN Incident
+				days = 286
+			}
+		}
+	}
+	option = { #
+		ai_chance = {
+			base = 100
+		}
+		name = ukr_civil_war.23.a
+		add_ideas = UKR_ethnic_tensions
+		set_variable = {
+			UKR_add_influence_value = 7
+		}
+		UKR_add_influence_oun = yes
+		custom_effect_tooltip = UKR_oun_gain_7
+	}
+}
+country_event = { #OUN Incident
+	id = ukr_civil_war.24
+	title = ukr_civil_war.24.t
+	desc = ukr_civil_war.24.d
+	picture = GFX_Event_USSR_Soviet_Czech_Soldiers
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = ukr_civil_war.25 #LibSoc entry
+				days = 196
+			}
+		}
+	}
+	option = { #
+		ai_chance = {
+			base = 100
+		}
+		name = ukr_civil_war.24.a
+		add_stability = -0.01
+		add_political_power = -10
+		set_variable = {
+			UKR_add_influence_value = -1
+		}
+		UKR_add_influence_oun = yes
+		custom_effect_tooltip = UKR_oun_lose_1
+	}
+}
+country_event = { #LibSoc Entry into the USPR
+	id = ukr_civil_war.25
+	title = ukr_civil_war.25.t
+	desc = ukr_civil_war.25.d
+	picture = GFX_Event_USSR_Protest_Riga
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = ukr_civil_war.26 #Communist Protest
+				days = 71
+			}
+		}
+	}
+	option = { #
+		ai_chance = {
+			base = 100
+		}
+		name = ukr_civil_war.25.a
+		set_party_name = {
+			ideology = authoritarian_socialism
+			name = UKR_libsoc_usrp_party
+			long_name = UKR_libsoc_usrp_party_long
+		}
+		create_country_leader = {
+			name = "Ivan Makukh"
+			picture = "gfx/leaders_cbts/UKR/Ivan Makukh.tga"
+			expire = "1953.3.1"
+			ideology = agrarian_socialism_rev
+			traits = {
+				
+			}
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.02
+		}
+		COALITION_add_revsoc = yes
+		set_variable = {
+			UKR_add_influence_value = 2
+		}
+		UKR_add_influence_usrp = yes
+		custom_effect_tooltip = UKR_radicals_gain_2
+	}
+}
+country_event = { #Communist Protest
+	id = ukr_civil_war.26
+	title = ukr_civil_war.26.t
+	desc = ukr_civil_war.26.d
+	picture = GFX_Event_USSR_Protest_Riga
+	is_triggered_only = yes
+	trigger = {
+		has_war_with = SOV
+	}
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = ukr_civil_war.27 #Theatre
+				days = 418
+			}
+		}
+	}
+	option = { #
+		ai_chance = {
+			base = 100
+		}
+		name = ukr_civil_war.26.a
+		add_popularity = {
+			ideology = communism
+			popularity = 0.02
+		}
+		add_stability = -0.02
+	}
+}
+country_event = { #Theatre
+	id = ukr_civil_war.27
+	title = ukr_civil_war.27.t
+	desc = ukr_civil_war.27.d
+	picture = GFX_Event_USSR_Soviet_Czech_Soldiers #Odessa_Stairs
+	is_triggered_only = yes
+	option = { #
+		ai_chance = {
+			base = 100
+		}
+		name = ukr_civil_war.27.a
+	}
+}
+country_event = { #TS Victory in Transnistria (1056)
+	id = ukr_civil_war.28
+	title = ukr_civil_war.28.t
+	desc = ukr_civil_war.28.d
+	picture = GFX_Event_USSR_Soviet_Czech_Soldiers #Odessa_Stairs
+	is_triggered_only = yes
+	hidden = yes
+	option = { #
+		name = ukr_civil_war.28.a
+		if = {
+			limit = { tag = ROM }
+			transfer_state = 1056
+		}
+	}
+}
+country_event = { #TS Offensive/Defensive loss
+	id = ukr_civil_war.29
+	title = ukr_civil_war.29.t
+	desc = ukr_civil_war.29.d
+	picture = GFX_Event_USSR_Soviet_Czech_Soldiers #Odessa_Stairs
+	is_triggered_only = yes
+	hidden = yes
+	option = { #
+		name = ukr_civil_war.29.a
+		add_political_power = -20
+	}
+}
+country_event = { #TS Total Loss
+	id = ukr_civil_war.30
+	title = ukr_civil_war.30.t
+	desc = ukr_civil_war.30.d
+	picture = GFX_Event_USSR_Soviet_Czech_Soldiers #Odessa_Stairs
+	is_triggered_only = yes
+	option = { #
+		name = ukr_civil_war.30.a
+		add_political_power = -60
+		add_war_support = 0.02
+		if = {
+			limit = {
+				tag = UKR
+			}
+			set_variable = {
+				UKR_add_influence_value = 10
+			}
+			UKR_add_influence_oun = yes
+			
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+	}
+}

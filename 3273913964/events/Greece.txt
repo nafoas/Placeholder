@@ -1,0 +1,474 @@
+﻿###########################
+# Greek Events
+###########################
+
+add_namespace = gre_internal 
+
+country_event = { #Greek Coup of 1935(March 1, 1935)
+	id = gre_internal.2
+	title = gre_internal.2.t
+	desc = gre_internal.2.d
+	picture = GFX_report_1935_coup 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = gre_internal.2.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			country_event = {
+				id = gre_internal.3
+				days = 223
+			}
+		}
+	}
+}
+
+country_event = { #Greek Monarchist Coup (October 10, 1935)
+	id = gre_internal.3
+	title = gre_internal.3.t
+	desc = gre_internal.3.d
+	picture = GFX_report_greek_coup 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {##Establish Regency Council
+		name = gre_internal.3.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.1
+		add_popularity = {
+			ideology = monarchism
+	 		popularity = 0.15
+		}
+		add_country_leader_role = {
+			character = "GRE_regency_council"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_conservatism
+				desc = "POLITICS_GREEK_REGENCY_DESC"
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "GRE_regency_council"
+			promote_leader = yes
+			country_leader = {
+				ideology = oligarchism
+				desc = "POLITICS_GREEK_REGENCY_DESC"
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "GRE_regency_council"
+			promote_leader = yes
+			country_leader = {
+				ideology = semi_constitutional
+				desc = "POLITICS_GREEK_REGENCY_DESC"
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "GRE_regency_council"
+			promote_leader = yes
+			country_leader = {
+				ideology = metaxism
+				desc = "POLITICS_GREEK_REGENCY_DESC"
+				expire = "1965.1.1.1"
+			}
+		}
+
+		set_politics = {
+			ruling_party = monarchism
+		}
+		
+		set_cosmetic_tag = GRE_kingdom
+
+		hidden_effect = {
+			country_event = {
+				id = gre_internal.4
+				days = 24
+			}
+			# load_focus_tree = {
+			# 	tree = GEN_rightist_EU
+			# 	keep_completed = yes
+			# }
+			COALITION_add_aut = yes
+			COALITION_add_nat = yes
+		}	
+	}
+}
+
+country_event = { #Referendum for Monarchy (November 3, 1935)
+	id = gre_internal.4
+	title = gre_internal.4.t
+	desc = gre_internal.4.d
+	picture = GFX_report_greek_referendum 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {#Referendum
+		name = gre_internal.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = monarchism
+	 		popularity = 0.07
+		}
+		hidden_effect = {
+			country_event = {
+				id = gre_internal.5
+				days = 22
+			}
+		}	
+	}
+}
+
+country_event = { #George II Return (November 25, 1935)
+	id = gre_internal.5
+	title = gre_internal.5.t
+	desc = gre_internal.5.d
+	picture = GFX_report_george_ii_1 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {#Coronation of George II
+		name = gre_internal.5.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = monarchism
+	 		popularity = 0.10
+		}
+		add_stability = 0.05
+		retire_character = GRE_regency_council
+		add_country_leader_role = {
+			character = "GRE_george_II"
+			promote_leader = yes
+			country_leader = {
+				ideology = social_conservatism
+				desc = "POLITICS_GEORGE_II_DESC"
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "GRE_george_II"
+			promote_leader = yes
+			country_leader = {
+				ideology = semi_constitutional
+				desc = "POLITICS_GEORGE_II_DESC"
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "GRE_george_II"
+			promote_leader = yes
+			country_leader = {
+				ideology = metaxism
+				desc = "POLITICS_GEORGE_II_DESC"
+				expire = "1965.1.1.1"
+			}
+		}
+		add_field_marshal_role = {
+			character = GRE_george_II
+			traits = {  }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+		hidden_effect = {
+			country_event = {
+				id = gre_internal.6
+				days = 5
+			}
+		}	
+	}
+}
+
+country_event = { #Konstantinos Demertzis as PM (November 30, 1935)
+	id = gre_internal.6
+	title = gre_internal.6.t
+	desc = gre_internal.6.d
+	picture = GFX_report_george_with_kondylis 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = gre_internal.6.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = frnmin
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = secmin
+			remove_ideas_with_trait = intmin
+			add_ideas = {
+				GRE_hog_Konstantinos_Demertzis
+				GRE_frn_Konstantinos_Demertzis
+				GRE_eco_George_Mantzavinos
+			}
+		}
+		country_event = {
+			id = gre_internal.7
+			days = 57
+		}		
+	}
+}
+
+country_event = { #Greek Election of 1936 (January 26, 1936)
+	id = gre_internal.7
+	title = gre_internal.7.t
+	desc = gre_internal.7.d
+	picture = GFX_report_greek_referendum 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = gre_internal.7.a
+		ai_chance = {
+			base = 100
+		}
+
+		set_popularities = {
+			communism = 2
+			authoritarian_socialism = 2
+			socialism = 2
+			social_democracy = 1
+			social_liberalism = 2
+			market_liberalism = 2
+			jacobin = 42 
+			democratic = 24
+			neutrality = 10
+			monarchism = 10
+			nationalism = 3
+			fascism = 0 
+		}
+
+		add_stability = -0.06
+
+		hidden_effect = {
+			country_event = {
+				id = gre_internal.8
+				days = 39
+			}
+		}	
+	}
+}
+
+country_event = { #George II appoints Metaxas the Minister of Defence (March 5, 1936)
+	id = gre_internal.8
+	title = gre_internal.8.t
+	desc = gre_internal.8.d
+	picture = GFX_report_george_ii_4_august 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = gre_internal.8.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = nationalism
+	 		popularity = 0.05
+		}
+
+		hidden_effect = {
+			remove_ideas_with_trait = coa
+			country_event = {
+				id = gre_internal.9
+				days = 9
+			}
+		}	
+		add_ideas = {
+			GRE_coa_Ioannis_Metaxas
+		}
+	}
+}
+
+country_event = { #Goverment of Demertzis (March 14, 1936)
+	id = gre_internal.9
+	title = gre_internal.9.t
+	desc = gre_internal.9.d
+	picture = GFX_report_panagis_tsaldaris
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = gre_internal.9.a
+		ai_chance = {
+			base = 100
+		}
+
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = frnmin
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = secmin
+			remove_ideas_with_trait = intmin
+			country_event = {
+				id = gre_internal.10
+				days = 30
+			}
+		}	
+		add_ideas = {
+			GRE_hog_Konstantinos_Demertzis
+			GRE_frn_Konstantinos_Demertzis
+			GRE_eco_George_Mantzavinos
+			GRE_sec_George_Logothetis
+		}
+	}
+}
+
+country_event = { #Demertzis Death, Metaxas as PM (April 13, 1936)
+	id = gre_internal.10
+	title = gre_internal.10.t
+	desc = gre_internal.10.d
+	picture = GFX_report_demertzis_funeral 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = gre_internal.10.a
+		ai_chance = {
+			base = 100
+		}
+
+		add_popularity = {
+			ideology = nationalism
+	 		popularity = 0.02
+		}
+
+		add_political_power = -20
+
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = frnmin
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = secmin
+			remove_ideas_with_trait = intmin
+			country_event = {
+				id = gre_internal.11
+				days = 14
+			}
+		}	
+		add_ideas = {
+			GRE_hog_Ioannis_Metaxas
+			GRE_frn_Ioannis_Metaxas
+			GRE_eco_Nikolaos_Kanellopoulos
+			GRE_sec_George_Logothetis
+		}	
+	}
+}
+
+country_event = { #Vote of Confidence for Metaxas (April 27, 1936)
+	id = gre_internal.11
+	title = gre_internal.11.t
+	desc = gre_internal.11.d
+	picture = GFX_report_royalist_protest
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = gre_internal.11.a
+		ai_chance = {
+			base = 100
+		}
+
+		add_popularity = {
+			ideology = nationalism
+	 		popularity = 0.15
+		}
+
+		add_political_power = 70
+		add_stability = -0.02
+
+		#głosowanie
+		hidden_effect = {
+			country_event = {
+				id = gre_internal.12
+				days = 2
+			}
+		}	
+	}
+}
+
+country_event = { #Macedonian Strikes (April 29, 1936)
+	id = gre_internal.12
+	title = gre_internal.12.t
+	desc = gre_internal.12.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = gre_internal.12.a
+		ai_chance = {
+			base = 100
+		}
+
+		add_stability = -0.07
+		#info
+
+		hidden_effect = {
+			country_event = {
+				id = gre_internal.13
+				days = 97
+			}
+		}	
+	}
+}
+
+country_event = { #State of Emergency, Creation of 4 August Regime (August 4, 1936)
+	id = gre_internal.13
+	title = gre_internal.13.t
+	desc = gre_internal.13.d
+	picture = GFX_report_george_ii_4_august
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = gre_internal.13.a
+		ai_chance = {
+			base = 100
+		}
+
+		set_politics = {
+			ruling_party = nationalism
+		}
+
+		hidden_effect = {
+			country_event = {
+				id = gre_internal.14
+				days = 750
+			}
+		}
+	}
+}
+country_event = { #King gets old portrait
+	id = gre_internal.14
+	title = gre_internal.14.t
+	desc = gre_internal.14.d
+	picture = GFX_report_george_ii_4_august
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = gre_internal.14.a
+		hidden_effect = {
+			set_portraits = {
+				character = GRE_george_II
+				civilian = { large ="gfx/leaders_cbts/GRE/Portrait_George_II_old.png" }
+			}
+		}
+	}
+}

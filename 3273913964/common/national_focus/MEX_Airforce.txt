@@ -1,0 +1,459 @@
+	#Focus for Reform the Airforce
+	shared_focus = {
+		id = MEX_reformtheairforce
+		icon = GFX_goal_generic_build_airforce
+		x = 40
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			OR = {
+			has_completed_focus = MEX_aunitedparty
+			has_completed_focus = MEX_aunitedleft
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	completion_reward = { air_experience = 15 }	
+	}
+	
+	#Focus for Follow Antonio Cardenas
+	shared_focus = {
+		id = MEX_followantoniocardenas
+		icon = GFX_focus_Follow_Antonio_Cardenas
+		x = 38
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_reformtheairforce }
+		mutually_exclusive = { 
+			focus = MEX_followrobertofierro 
+		}
+		mutually_exclusive = { 
+			focus = MEX_followluisfarrel 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+         add_ideas = antonioccoaf 
+		}
+	}
+
+	#Focus for Follow Luis Farrel
+	shared_focus = {
+		id = MEX_followluisfarrel
+		icon = GFX_focus_Follow_Luis_Farrel
+		x = 40
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_reformtheairforce }
+		mutually_exclusive = { 
+			focus = MEX_followantoniocardenas 
+		}
+		mutually_exclusive = { 
+			focus = MEX_followrobertofierro 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+         add_ideas = luisfcoaf
+		}
+	}
+
+	#Focus for Follow Roberto Fierro
+	shared_focus = {
+		id = MEX_followrobertofierro
+		icon = GFX_focus_Follow_Roberto_Fierro
+		x = 42
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_reformtheairforce }
+		mutually_exclusive = { 
+			focus = MEX_followluisfarrel 
+		}
+		mutually_exclusive = { 
+			focus = MEX_followantoniocardenas 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+         add_ideas = robertofcoaf
+		}
+	}
+
+	#Focus for Fighter Proyects
+	shared_focus = {
+		id = MEX_fighterproyects
+		icon = GFX_goal_generic_air_fighter
+		x = 38
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_followantoniocardenas }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		add_tech_bonus = {
+			name = light_fighter_bonus
+			uses = 2
+			bonus = 0.5
+			category = light_fighter
+		}
+	  }
+	}
+	
+	#Focus for Naval Bomber Experiments
+	shared_focus = {
+		id = MEX_navalbomberexperiments
+		icon = GFX_focus_Naval_Bombers
+		x = 38
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_fighterproyects }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		add_tech_bonus = {
+			name = naval_bomber_bonus
+			uses = 2
+			bonus = 0.5
+			category = naval_bomber
+		}
+	  }
+	}
+	
+	#Focus for Heavy Escorts
+	shared_focus = {
+		id = MEX_heavyescorts
+		icon = GFX_goal_generic_air_fighter2
+		x = 40
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_followluisfarrel }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		add_tech_bonus = {
+			name = heavy_fighter_bonus
+			uses = 1
+			bonus = 0.75
+			category = cat_heavy_fighter
+		}
+	  }
+	}
+
+	#Focus for New Bombers
+	shared_focus = {
+		id = MEX_newbombers
+		icon = GFX_focus_Aerial_Offensive
+		x = 40
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_heavyescorts }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		add_tech_bonus = {
+			name = strategic_bomber_bonus
+			uses = 1
+			bonus = 0.75
+			category = cat_strategic_bomber
+		}
+	  }
+	}
+
+	#Focus for Tactical Bomber Support
+	shared_focus = {
+		id = MEX_tacticalbombersupport
+		icon = GFX_goal_generic_air_bomber
+		x = 42
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_followrobertofierro }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		add_tech_bonus = {
+			name = tactical_bomber_bonus
+			uses = 2
+			bonus = 0.5
+			category = tactical_bomber
+		}
+	  }
+	}
+	
+	#Focus for CAS Designs
+	shared_focus = {
+		id = MEX_casdesigns
+		icon = GFX_focus_Bombs_Away
+		x = 42
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_tacticalbombersupport }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		add_tech_bonus = {
+			name = cas_bomber_bonus
+			uses = 2
+			bonus = 0.5
+			category = cas_bomber
+		}
+	  }	
+	}
+
+	#Focus for Expand Airfields
+	shared_focus = {
+		id = MEX_expandairfields
+		icon = GFX_focus_Airports
+		x = 39
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_navalbomberexperiments 
+			focus = MEX_newbombers 
+			focus = MEX_casdesigns 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = air_base
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = air_base
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+	
+	#Focus for Anti-Air Defenses
+	shared_focus = {
+		id = MEX_antiairdefenses
+		icon = GFX_Generic_Anti_Aircraft_Artillery
+		x = 39
+		y = 6
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_expandairfields }
+		ai_will_do = {
+			factor = 1
+		}
+completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = anti_air_building 
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = anti_air_building 
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = anti_air_building 
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = anti_air_building 
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+	}	
+	
+	#Focus for A Partner Company
+	shared_focus = {
+		id = MEX_apartnercompany
+		icon = GFX_focus_Business_Men
+		x = 41
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_newbombers 
+			focus = MEX_navalbomberexperiments 
+			focus = MEX_casdesigns 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			country_event = { days = 1 id = mex_army.1 }
+		}
+	}
+
+	#Focus for Paratrooper Proyects
+	shared_focus = {
+		id = MEX_paratrooperproyects
+		icon = GFX_focus_Paratroopers
+		x = 41
+		y = 6
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_apartnercompany }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		add_tech_bonus = {
+			name = paratrooper_bonus
+			uses = 1
+			bonus = 0.5
+			category = para_tech
+		}
+	  }	
+	}	
+
+	#Focus for Honor
+	shared_focus = {
+		id = MEX_honor
+		icon = GFX_focus_Air_Superiority_Doctrine
+		x = 38
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_navalbomberexperiments 
+		}
+		prerequisite = { 
+			focus = MEX_antiairdefenses 
+		}
+		prerequisite = { 
+			focus = MEX_paratrooperproyects 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			# add_tech_bonus = {
+			# 	name = operational_integrity_bonus
+			# 	uses = 2
+			# 	bonus = 0.5
+			# 	category = cat_operational_integrity
+			# }
+			add_doctrine_cost_reduction = {
+				name = operational_integrity_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = cat_operational_integrity
+			}
+	  	}
+	}
+
+	#Focus for Valor
+	shared_focus = {
+		id = MEX_valor
+		icon = GFX_focus_Bombers_Doctrine_Force_Rotation
+		x = 40
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_antiairdefenses 
+		}
+		prerequisite = { 
+			focus = MEX_paratrooperproyects 
+		}
+		prerequisite = { 
+			focus = MEX_newbombers 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		    # add_tech_bonus = {
+			# 	name = strategic_destruction_bonus
+			# 	uses = 2
+			# 	bonus = 0.5
+			# 	category = strategic_destruction_tree
+			# }
+			add_doctrine_cost_reduction = {
+				name = strategic_destruction_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = strategic_destruction_tree
+			}
+	  	}
+	}
+
+	#Focus for Lealtad
+	shared_focus = {
+		id = MEX_lealtad
+		icon = GFX_focus_Close_Air_Support
+		x = 42
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_antiairdefenses 
+		}
+		prerequisite = { 
+			focus = MEX_paratrooperproyects 
+		}
+		prerequisite = { 
+			focus = MEX_casdesigns 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		    # add_tech_bonus = {
+			# 	name = battlefield_support_bonus
+			# 	uses = 2
+			# 	bonus = 0.5
+			# 	category = cat_battlefield_support
+			# }
+			add_doctrine_cost_reduction = {
+				name = battlefield_support_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = cat_battlefield_support
+			}
+	  	}
+	}

@@ -1,0 +1,4915 @@
+
+spain_parliament = {
+
+	# Generics
+
+	# SPR_explain_parliament = {
+	# 	icon = generic_accord
+	# 	allowed = { tag = SPR }
+	# 	visible = {
+	# 		always = yes
+	# 	}
+	# 	available = { always = yes }
+	# 	ai_will_do = { factor = 0 } # computer's don't need to know how parliament works
+	# 	cost = 0
+	# 	fire_only_once = yes
+	# 	complete_effect = {}
+	# 	days_re_enable = 1
+	# }
+
+	SPR_italian_fund = {
+		icon = generic_tank
+		allowed = { tag = SPR }
+
+		available = {
+			NOT = { has_country_flag = law_passing }
+			NOT = {
+				OR = {
+					has_idea = SPR_parliament_protectionism
+					has_idea = SPR_gov_help
+					has_idea = SPR_public_spending
+					has_idea = SPR_worker_rights
+					has_idea = SPR_church_subsidy2
+				}
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = law_passing }
+			has_country_flag = SPR_italy_unlock
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = law_passing
+			custom_effect_tooltip = will_vote
+			set_country_flag = law_passing_gen
+			set_variable = { supseat = colseat }
+			effect_tooltip = {
+				add_political_power = 10
+				add_war_support = 0.05
+				custom_effect_tooltip = SPR_will_grant_funds
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_political_power = 10
+					add_war_support = 0.05
+					set_country_flag = SPR_parliament_ita_funds
+					if = {
+						limit = {
+							has_country_flag = protectionism_promised
+						}
+						add_timed_idea = {
+							idea = SPR_parliament_protectionism
+							days = 150
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = government_help
+						}
+						add_timed_idea = {
+							idea = SPR_gov_help
+							days = 150
+						}
+					}
+
+					if = {
+						limit = {
+							has_country_flag = public_spending
+						}
+						add_timed_idea = {
+							idea = SPR_public_spending
+							days = 150
+						}
+					}
+
+					if = {
+						limit = {
+							has_country_flag = promised_rights
+						}
+						add_timed_idea = {
+							idea = SPR_worker_rights
+							days = 150
+						}
+					}
+					if = {
+						limit = {
+							has_country_flag = promised_church
+						}
+						add_timed_idea = {
+							idea = SPR_church_subsidy2
+							days = 150
+						}
+					}
+
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_gen
+				clr_country_flag = protectionism_promised
+				clr_country_flag = government_help
+				clr_country_flag = public_spending
+				clr_country_flag = promised_rights
+				clr_country_flag = promised_church
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	# expand_secn = {
+	# 	icon = generic_naval
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		NOT = {
+	# 			has_government = social_democracy
+	# 			has_government = social_liberalism
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		has_country_flag = SPR_fund_secn_f
+	# 		NOT = { has_country_flag = law_passing }
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			has_country_flag = parliament_closed
+	# 		}
+	# 	}
+	# 	cost = 50
+	# 	fire_only_once = yes
+
+	# 	cancel_effect = {
+	# 		hidden_effect = {
+	# 			clr_country_flag = SPR_fund_secn_f
+	# 		}
+	# 	}
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		custom_effect_tooltip = will_vote
+	# 		set_country_flag = law_passing_gen
+	# 		if = {
+	# 			limit = {
+	# 				has_government = jacobin
+	# 			}
+	# 			set_variable = { supseat = SPR_lib_rep_seats }
+	# 			add_to_variable = { supseat = ceda_seats }
+	# 			add_to_variable = { supseat = agra_seats }
+	# 		}
+	# 		else_if = {
+	# 			limit = {
+	# 				has_government = neutrality
+	# 			}
+	# 			set_variable = { supseat = ceda_seats }
+	# 			add_to_variable = { supseat = agra_seats }
+	# 			add_to_variable = { supseat = prr_seats }
+	# 			add_to_variable = { supseat = prc_seats }
+	# 			add_to_variable = { supseat = prp_seats }
+	# 		}
+	# 		else = {
+	# 			set_variable = { supseat = colseat }
+	# 		}
+	# 		effect_tooltip = {
+	# 			168 = {
+	# 				if = {
+	# 					limit = {
+	# 						168 = {
+	# 							free_building_slots = {
+	# 								building = dockyard
+	# 								size < 1
+	# 							}
+	# 						}
+	# 					}
+	# 					add_extra_state_shared_building_slots = 1
+	# 				}
+	# 				add_building_construction = {
+	# 					type = dockyard
+	# 					level = 1
+	# 					instant_build = yes
+	# 				}
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					NOT = { has_idea = SPR_secn_company }
+	# 				}
+	# 				add_ideas = SPR_secn_company
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 30
+	# 	remove_effect = {
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = {
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				168 = {
+	# 					if = {
+	# 						limit = {
+	# 							168 = {
+	# 								free_building_slots = {
+	# 									building = dockyard
+	# 									size < 1
+	# 								}
+	# 							}
+	# 						}
+	# 						add_extra_state_shared_building_slots = 1
+	# 					}
+	# 					add_building_construction = {
+	# 						type = dockyard
+	# 						level = 1
+	# 						instant_build = yes
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						NOT = { has_idea = SPR_secn_company }
+	# 					}
+	# 					add_ideas = SPR_secn_company
+	# 				}
+
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = protectionism_promised
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_parliament_protectionism
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = government_help
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_gov_help
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = public_spending
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_public_spending
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_rights
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_worker_rights
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_church
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_church_subsidy2
+	# 						days = 150
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = SPR_fund_secn_f
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = law_passing_gen
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			if = {
+	# 				limit = {
+	# 					has_country_flag = government_help
+	# 				}
+	# 				clr_country_flag = government_help
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					has_country_flag = protectionism_promised
+	# 				}
+	# 				clr_country_flag = protectionism_promised
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					has_country_flag = public_spending
+	# 				}
+	# 				clr_country_flag = public_spending
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					has_country_flag = promised_rights
+	# 				}
+	# 				clr_country_flag = promised_rights
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					has_country_flag = promised_church
+	# 				}
+	# 				clr_country_flag = promised_church
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					has_country_flag = already_defend
+	# 				}
+	# 				clr_country_flag = already_defend
+	# 			}
+	# 		}
+	# 	}
+	# }
+
+	# infantry_mod = {
+	# 	icon = icon_soldiers
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		NOT = {
+	# 			OR = {
+	# 				has_idea = SPR_parliament_protectionism
+	# 				has_idea = SPR_gov_help
+	# 				has_idea = SPR_public_spending
+	# 				has_idea = SPR_worker_rights
+	# 				has_idea = SPR_church_subsidy2
+	# 			}
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			has_country_flag = parliament_closed
+	# 		}
+	# 	}
+	# 	cost = 50
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		custom_effect_tooltip = will_vote
+	# 		set_country_flag = law_passing_gen
+	# 		if = {
+	# 			limit = {
+	# 				has_government = social_democracy
+	# 				date < 1933.11.19
+	# 			}
+	# 			set_variable = { supseat = colseat }
+	# 			subtract_from_variable = { supseat = socialist_seats }
+	# 			subtract_from_variable = { supseat = prdf_seats }
+	# 			add_to_variable = { supseat = prr_seats }
+	# 			add_to_variable = { supseat = prp_seats }
+	# 		}
+	# 		else_if = {
+	# 			limit = {
+	# 				has_government = jacobin
+	# 				date < 1933.11.19
+	# 			}
+	# 			set_variable = { supseat = prr_seats }
+	# 			add_to_variable = { supseat = prp_seats }
+	# 			add_to_variable = { supseat = prrs_seats }
+	# 			add_to_variable = { supseat = lliga_seats }
+	# 		}
+	# 		else = {
+	# 			set_variable = { supseat = colseat }
+	# 		}
+	# 		effect_tooltip = {
+	# 			add_tech_bonus = {
+	# 				name = infantry_mod
+	# 				bonus = 0.25
+	# 				uses = 2
+	# 				category = infantry_weapons
+	# 				category = support_tech
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 45
+	# 	remove_effect = {
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = {
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_tech_bonus = {
+	# 					name = infantry_mod
+	# 					bonus = 0.25
+	# 					uses = 2
+	# 					category = infantry_weapons
+	# 					category = support_tech
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = protectionism_promised
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_parliament_protectionism
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = government_help
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_gov_help
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = public_spending
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_public_spending
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_rights
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_worker_rights
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_church
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_church_subsidy2
+	# 						days = 150
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_gen
+	# 			clr_country_flag = protectionism_promised
+	# 			clr_country_flag = government_help
+	# 			clr_country_flag = public_spending
+	# 			clr_country_flag = promised_rights
+	# 			clr_country_flag = promised_church
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# expand_jae = {
+	# 	icon = generic_research
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		NOT = {
+	# 			OR = {
+	# 				has_idea = SPR_parliament_protectionism
+	# 				has_idea = SPR_gov_help
+	# 				has_idea = SPR_public_spending
+	# 				has_idea = SPR_worker_rights
+	# 				has_idea = SPR_church_subsidy2
+	# 			}
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			has_country_flag = parliament_closed
+	# 		}
+	# 	}
+	# 	cost = 50
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		custom_effect_tooltip = will_vote
+	# 		set_country_flag = law_passing_gen
+	# 		set_variable = { supseat = colseat }
+	# 		effect_tooltip = {
+	# 			add_timed_idea = {
+	# 				idea = SPR_jae_expanded
+	# 				days = 300
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 90
+	# 	remove_effect = {
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = {
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_timed_idea = {
+	# 						idea = SPR_jae_expanded
+	# 						days = 300
+	# 					}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = protectionism_promised
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_parliament_protectionism
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = government_help
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_gov_help
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = public_spending
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_public_spending
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_rights
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_worker_rights
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_church
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_church_subsidy2
+	# 						days = 150
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_gen
+	# 			clr_country_flag = protectionism_promised
+	# 			clr_country_flag = government_help
+	# 			clr_country_flag = public_spending
+	# 			clr_country_flag = promised_rights
+	# 			clr_country_flag = promised_church
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# emergency_draft = {
+	# 	icon = icon_trumpet
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		NOT = {
+	# 			OR = {
+	# 				has_idea = SPR_parliament_protectionism
+	# 				has_idea = SPR_gov_help
+	# 				has_idea = SPR_public_spending
+	# 				has_idea = SPR_worker_rights
+	# 				has_idea = SPR_church_subsidy2
+	# 			}
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		has_war = no
+	# 		NOT = { has_country_flag = law_passing }
+	# 		NOT = {
+	# 			has_government = socialism
+	# 			has_government = social_democracy
+	# 			has_government = social_liberalism
+	# 		}
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			has_country_flag = parliament_closed
+	# 		}
+	# 	}
+	# 	cost = 150
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		custom_effect_tooltip = will_vote
+	# 		set_country_flag = law_passing_gen
+	# 		set_variable = { supseat = colseat }
+	# 		effect_tooltip = {
+	# 			add_manpower = 25000
+	# 		}
+	# 	}
+	# 	days_remove = 90
+	# 	remove_effect = {
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = {
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_manpower = 20000
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = protectionism_promised
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_parliament_protectionism
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = government_help
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_gov_help
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = public_spending
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_public_spending
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_rights
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_worker_rights
+	# 						days = 150
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_church
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_church_subsidy2
+	# 						days = 150
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_gen
+	# 			clr_country_flag = protectionism_promised
+	# 			clr_country_flag = government_help
+	# 			clr_country_flag = public_spending
+	# 			clr_country_flag = promised_rights
+	# 			clr_country_flag = promised_church
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+
+	################################################################################################
+	################################### REPUBLICAN SET #############################################
+	################################################################################################
+
+	# agrarian_sev1 = {
+	# 	icon = generic_barn
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+	# 	cost = 1
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		custom_effect_tooltip = will_vote
+	# 		set_country_flag = law_passing_agr
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = {
+	# 				NOT = { has_country_flag = SPR_third_azana_gov }
+	# 			}
+	# 			add_to_variable = { supseat = EC_seats }
+	# 			add_to_variable = { supseat = prdf_seats }
+	# 		}
+	# 		add_to_variable = { supseat = pce_seats }
+	# 		add_to_variable = { supseat = 1 } #Indep Socialista
+	# 		effect_tooltip = {
+	# 			add_political_power = 25
+	# 			169 = {
+	# 				add_extra_state_shared_building_slots = 1
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 30
+	# 	remove_effect = {
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = {
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_political_power = 10
+	# 				set_country_flag = passed_sev1
+	# 				169 = {
+	# 					add_extra_state_shared_building_slots = 1
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = protectionism_promised
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_parliament_protectionism
+	# 						days = 100
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_agr
+	# 			clr_country_flag = protectionism_promised
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# agrarian_hue1 = {
+	# 	icon = generic_barn
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+	# 	cost = 1
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_agr
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = {
+	# 				NOT = { has_country_flag = SPR_third_azana_gov }
+	# 			}
+	# 			add_to_variable = { supseat = EC_seats }
+	# 			add_to_variable = { supseat = prdf_seats }
+	# 		}
+	# 		add_to_variable = { supseat = pce_seats }
+	# 		add_to_variable = { supseat = 1 } #Indep Socialista
+	# 		effect_tooltip = {
+	# 			add_political_power = 50
+	# 			add_stability = 0.025
+	# 		}
+	# 	}
+	# 	days_remove = 30
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = {
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_political_power = 50
+	# 				add_stability = 0.025
+	# 				set_country_flag = passed_hue1
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = protectionism_promised
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_parliament_protectionism
+	# 						days = 100
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_agr
+	# 			clr_country_flag = protectionism_promised
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# agrarian_cad1 = {
+	# 	icon = generic_barn
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+	# 	cost = 1
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_agr
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = {
+	# 				NOT = { has_country_flag = SPR_third_azana_gov }
+	# 			}
+	# 			add_to_variable = { supseat = EC_seats }
+	# 			add_to_variable = { supseat = prdf_seats }
+	# 		}
+	# 		add_to_variable = { supseat = pce_seats }
+	# 		add_to_variable = { supseat = 1 } #Indep Socialista
+	# 		effect_tooltip = {
+	# 			add_political_power = 50
+	# 			add_stability = 0.025
+	# 		}
+	# 	}
+	# 	days_remove = 30
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = {
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_political_power = 50
+	# 				add_stability = 0.025
+	# 				set_country_flag = passed_cad1
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = protectionism_promised
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_parliament_protectionism
+	# 						days = 100
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 		}
+	# 		set_variable = { supseat = 0 }
+	# 		clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_agr
+	# 			clr_country_flag = protectionism_promised
+	# 			clr_country_flag = already_defend
+	# 	}
+	# }
+
+	# agrarian_bad1 = {
+	# 	icon = generic_barn
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+	# 	cost = 1
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_agr
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = {
+	# 				NOT = { has_country_flag = SPR_third_azana_gov }
+	# 			}
+	# 			add_to_variable = { supseat = EC_seats }
+	# 			add_to_variable = { supseat = prdf_seats }
+	# 		}
+	# 		add_to_variable = { supseat = pce_seats }
+	# 		add_to_variable = { supseat = 1 } #Indep Socialista
+	# 		effect_tooltip = {
+	# 			add_political_power = 50
+	# 			add_stability = 0.025
+	# 		}
+	# 	}
+	# 	days_remove = 30
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = {
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_political_power = 50
+	# 				add_stability = 0.025
+	# 				set_country_flag = passed_bad1
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = protectionism_promised
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_parliament_protectionism
+	# 						days = 100
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_agr
+	# 			clr_country_flag = protectionism_promised
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# agrarian_bad2 = {
+	# 	icon = generic_barn
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 		has_country_flag = passed_bad1
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+	# 	cost = 1
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_agr
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = {
+	# 				NOT = { has_country_flag = SPR_third_azana_gov }
+	# 			}
+	# 			add_to_variable = { supseat = EC_seats }
+	# 			add_to_variable = { supseat = prdf_seats }
+	# 		}
+	# 		add_to_variable = { supseat = pce_seats }
+	# 		add_to_variable = { supseat = 1 } #Indep Socialista
+	# 		effect_tooltip = {
+	# 			add_political_power = 25
+	# 			170 = {
+	# 				add_extra_state_shared_building_slots = 1
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 30
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = {
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_political_power = 25
+	# 				170 = {
+	# 					add_extra_state_shared_building_slots = 1
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = protectionism_promised
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_parliament_protectionism
+	# 						days = 100
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_agr
+	# 			clr_country_flag = protectionism_promised
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# agrarian_gra = {
+	# 	icon = generic_barn
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 		has_country_flag = passed_cad1
+	# 		has_country_flag = passed_sev1
+	# 		has_country_flag = passed_hue1
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+	# 	cost = 1
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_agr
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = {
+	# 				NOT = { has_country_flag = SPR_third_azana_gov }
+	# 			}
+	# 			add_to_variable = { supseat = EC_seats }
+	# 			add_to_variable = { supseat = prdf_seats }
+	# 		}
+	# 		add_to_variable = { supseat = pce_seats }
+	# 		add_to_variable = { supseat = 1 } #Indep Socialista
+	# 		effect_tooltip = {
+	# 			add_political_power = 25
+	# 			173 = {
+	# 				add_extra_state_shared_building_slots = 1
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 30
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = {
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_political_power = 25
+	# 				set_country_flag = passed_bad2
+	# 				173 = {
+	# 					add_extra_state_shared_building_slots = 1
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = protectionism_promised
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_parliament_protectionism
+	# 						days = 100
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_agr
+	# 			clr_country_flag = protectionism_promised
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	agrarian_subsidy = {
+		icon = ger_mefo_bills
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			NOT = { has_country_flag = law_passing }
+			has_government = social_democracy
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				OR = {
+					has_country_flag = parliament_closed
+					has_government = jacobin
+				}
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			base = 500
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_agr
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = colseat }
+			if = {
+				limit = {
+					NOT = { has_country_flag = SPR_third_azana_gov }
+				}
+				add_to_variable = { supseat = EC_seats }
+				add_to_variable = { supseat = prdf_seats }
+			}
+			add_to_variable = { supseat = asr_seats }
+			add_to_variable = { supseat = pce_seats }
+			add_to_variable = { supseat = 1 } #Indep Socialista
+			effect_tooltip = {
+				add_ideas = SPR_agr_sub
+			}
+		}
+		days_remove = 30
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_ideas = SPR_agr_sub
+					if = {
+						limit = {
+							has_country_flag = protectionism_promised
+						}
+						add_timed_idea = {
+							idea = SPR_parliament_protectionism
+							days = 100
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_agr
+				clr_country_flag = protectionism_promised
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	rustic_leases = {
+		icon = ger_mefo_bills
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			NOT = { has_country_flag = law_passing }
+			has_completed_focus = SPR_rustic_leases
+			has_government = social_democracy
+		}
+		cost = 5
+		fire_only_once = yes
+		ai_will_do = {
+			base = 200
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_agr
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = colseat }
+			if = {
+				limit = {
+					NOT = { has_country_flag = SPR_third_azana_gov }
+				}
+				add_to_variable = { supseat = EC_seats }
+				add_to_variable = { supseat = prdf_seats }
+			}
+			add_to_variable = { supseat = asr_seats }
+			add_to_variable = { supseat = pce_seats }
+			add_to_variable = { supseat = 1 } #Indep Socialista
+			effect_tooltip = {
+				add_political_power = 25
+				add_timed_idea = { idea = SPR_rustic_lease days = 365 }
+			}
+		}
+		days_remove = 30
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_political_power = 25
+					add_timed_idea = { idea = SPR_rustic_lease days = 365 }
+					if = {
+						limit = {
+							has_country_flag = protectionism_promised
+						}
+						add_timed_idea = {
+							idea = SPR_parliament_protectionism
+							days = 100
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_agr
+				clr_country_flag = protectionism_promised
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	# pef_funds1 = {
+	# 	icon = generic_railway
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 		NOT = { has_idea = SPR_pef_funds }
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 	}
+	# 	cost = 1
+	# 	fire_only_once = yes
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_pef
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = {
+	# 				NOT = { has_country_flag = SPR_third_azana_gov }
+	# 			}
+	# 			add_to_variable = { supseat = EC_seats }
+	# 			add_to_variable = { supseat = prdf_seats }
+	# 		}
+	# 		effect_tooltip = {
+	# 			add_political_power = 20
+	# 			add_timed_idea = {
+	# 				idea = SPR_pef_funds
+	# 				days = 100
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 30
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				set_country_flag = pef1_passed
+	# 				add_political_power = 20
+	# 				add_timed_idea = {
+	# 					idea = SPR_pef_funds
+	# 					days = 120
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = funds_private
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_funds_private
+	# 						days = 100
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_pef
+	# 			clr_country_flag = funds_private
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# pef_funds2 = {
+	# 	icon = generic_railway
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 		NOT = { has_idea = SPR_pef_funds }
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 		has_country_flag = pef1_passed
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+	# 	cost = 1
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_pef
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = {
+	# 				NOT = { has_country_flag = SPR_third_azana_gov }
+	# 			}
+	# 			add_to_variable = { supseat = EC_seats }
+	# 			add_to_variable = { supseat = prdf_seats }
+	# 		}
+	# 		effect_tooltip = {
+	# 			add_political_power = 20
+	# 			add_timed_idea = {
+	# 				idea = SPR_pef_funds
+	# 				days = 100
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 40
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				set_country_flag = pef2_passed
+	# 				add_political_power = 20
+	# 				add_timed_idea = {
+	# 					idea = SPR_pef_funds
+	# 					days = 120
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = funds_private
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_funds_private
+	# 						days = 100
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_pef
+	# 			clr_country_flag = funds_private
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# pef_funds3 = {
+	# 	icon = generic_railway
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 		NOT = { has_idea = SPR_pef_funds }
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 		has_country_flag = pef2_passed
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+	# 	cost = 1
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_pef
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		effect_tooltip = {
+	# 			add_political_power = 20
+	# 			add_timed_idea = {
+	# 				idea = SPR_pef_funds
+	# 				days = 120
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 40
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				set_country_flag = pef3_passed
+	# 				add_political_power = 20
+	# 				add_timed_idea = {
+	# 					idea = SPR_pef_funds
+	# 					days = 120
+	# 				}
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = funds_private
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_funds_private
+	# 						days = 100
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_pef
+	# 			clr_country_flag = funds_private
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# pef_funds4 = {
+	# 	icon = generic_railway
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 		NOT = { has_idea = SPR_pef_funds }
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 		has_country_flag = pef3_passed
+	# 	}
+	# 	cost = 1
+	# 	fire_only_once = yes
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_pef
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		effect_tooltip = {
+	# 			add_political_power = 20
+	# 			add_timed_idea = {
+	# 				idea = SPR_pef_funds
+	# 				days = 100
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 60
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_political_power = 20
+	# 				add_ideas = { SPR_pef_permanent }
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = funds_private
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_funds_private
+	# 						days = 100
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_pef
+	# 			clr_country_flag = funds_private
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# prog_tax = {
+	# 	icon = generic_trade
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+	# 	cost = 1
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_prg
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		add_to_variable = { supseat = pce_seats }
+	# 		add_to_variable = { supseat = 1 } #Indep Socialista
+	# 		effect_tooltip = {
+	# 			add_political_power = 70
+	# 			add_stability = -0.02
+	# 		}
+	# 	}
+	# 	days_remove = 40
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_political_power = 70
+	# 				add_stability = -0.02
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_prg
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	spr_ley_congregaciones = {
+		icon = generic_church
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			has_country_flag = SPR_congregaciones_debate
+			NOT = { has_country_flag = law_passing }
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			base = 600
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_ach
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = 278 }
+		}
+		days_remove = 101
+		remove_effect = {
+			hidden_effect = {
+				clr_country_flag = SPR_congregaciones_debate
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = spain.31 }
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				country_event = { id = spain.403 days = 22 } #President withdraws its confidence on the gov. Azaña and the cabinet resign
+				country_event = { id = spain.32 days = 8 } #Church denounces law
+				country_event = { id = spain.402 days = 18 } #Pope denounces law
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = law_passing_ach
+			}
+		}
+	}
+
+	# close_cath = {
+	# 	icon = generic_ban_press
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 	}
+	# 	visible = {
+	# 		NOT = { has_country_flag = law_passing }
+	# 		has_government = social_democracy
+	# 	}
+	# 	cost = 0
+	# 	fire_only_once = yes
+	# 	ai_will_do = {
+	# 		base = 300
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			OR = {
+	# 				has_country_flag = parliament_closed
+	# 				has_government = jacobin
+	# 			}
+	# 		}
+	# 	}
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_ach
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = {
+	# 				NOT = { has_country_flag = SPR_third_azana_gov }
+	# 			}
+	# 			add_to_variable = { supseat = EC_seats }
+	# 			add_to_variable = { supseat = prdf_seats }
+	# 		}
+	# 		add_to_variable = { supseat = asr_seats }
+	# 		add_to_variable = { supseat = pce_seats }
+	# 		add_to_variable = { supseat = 1 } #Indep Socialista
+	# 		effect_tooltip = {
+	# 			add_political_power = 30
+	# 			add_stability = -0.01
+	# 			# add_popularity = { ideology = neutrality popularity = -0.03 }
+	# 			# add_popularity = { ideology = monarchism popularity = -0.04 }
+	# 		}
+	# 	}
+	# 	days_remove = 40
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				add_political_power = 30
+	# 				add_stability = -0.01
+	# 				# add_popularity = { ideology = neutrality popularity = -0.03 }
+	# 				# add_popularity = { ideology = monarchism popularity = -0.04 }
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_ach
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	#TODO: Add restoration of the Generalitat of Catalonia
+
+	##################################################################################################
+	################################### CONSERVATIVE SET #############################################
+	##################################################################################################
+
+	spain_alb1 = {
+		icon = generic_citizens
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			NOT = { has_country_flag = law_passing }
+			has_government = democratic
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			base = 300
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_alb
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_rightist_seats }
+			hidden_effect = {
+				country_event = { id = parliament.18 days = 5 }
+			}
+			effect_tooltip = {
+				# add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }
+				add_stability = -0.025
+				add_political_power = 20
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					# add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }
+					add_stability = 0.025
+					add_political_power = 20
+					set_country_flag = passed_alb1
+					if = {
+						limit = {
+							has_country_flag = government_help
+						}
+						add_timed_idea = {
+							idea = SPR_gov_help
+							days = 150
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_alb
+				clr_country_flag = government_help
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_alb2 = {
+		icon = generic_citizens
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			NOT = { has_country_flag = law_passing }
+			has_government = democratic
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			base = 300
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_alb
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_rightist_seats }
+			hidden_effect = {
+				country_event = { id = parliament.18 days = 5 }
+			}
+			effect_tooltip = {
+				# add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }
+				add_stability = -0.025
+				add_war_support = 0.05
+				add_political_power = 20
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					# add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }
+				add_stability = -0.025
+				add_war_support = 0.05
+				add_political_power = 20
+				set_country_flag = passed_alb2
+				if = {
+						limit = {
+							has_country_flag = government_help
+						}
+						add_timed_idea = {
+							idea = SPR_gov_help
+							days = 150
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_alb
+				clr_country_flag = government_help
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_alb3 = {
+		icon = generic_citizens
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			NOT = { has_country_flag = law_passing }
+			has_government = democratic
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			base = 300
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_alb
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_rightist_seats }
+			hidden_effect = {
+				country_event = { id = parliament.18 days = 5 }
+			}
+			effect_tooltip = {
+				# add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }
+				add_stability = -0.025
+				add_political_power = 40
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					# add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }
+					add_stability = 0.025
+					add_political_power = 40
+					set_country_flag = passed_alb3
+					if = {
+						limit = {
+							has_country_flag = government_help
+						}
+						add_timed_idea = {
+							idea = SPR_gov_help
+							days = 150
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_alb
+				clr_country_flag = government_help
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_alb4 = {
+		icon = generic_citizens
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			NOT = { has_country_flag = law_passing }
+			has_government = democratic
+			has_country_flag = passed_alb1
+			has_country_flag = passed_alb2
+			has_country_flag = passed_alb3
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			base = 300
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_alb
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_rightist_seats }
+			hidden_effect = {
+				country_event = { id = parliament.18 days = 5 }
+			}
+			effect_tooltip = {
+				add_stability = 0.1
+				add_political_power = 50
+				add_war_support = 0.1
+				add_ideas = SPR_estabilidad_laboral
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_stability = 0.1
+					add_political_power = 50
+					add_war_support = 0.1
+					add_ideas = SPR_estabilidad_laboral
+					if = {
+						limit = {
+							has_country_flag = government_help
+						}
+						add_timed_idea = {
+							idea = SPR_gov_help
+							days = 150
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_alb
+				clr_country_flag = government_help
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_aag1 = {
+		icon = generic_barn
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			NOT = { has_country_flag = law_passing }
+			has_government = democratic
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			base = 100
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_aag
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_rightist_seats }
+			hidden_effect = {
+				country_event = { id = parliament.38 days = 5 }
+			}
+			effect_tooltip = {
+				add_stability = 0.03
+				# add_popularity = { ideology = democratic popularity = 0.03 }
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_stability = 0.03
+					# add_popularity = { ideology = democratic popularity = 0.03 }
+					set_country_flag = passed_aag1
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_aag
+				clr_country_flag = government_help
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_aag2 = {
+		icon = generic_barn
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			NOT = { has_country_flag = law_passing }
+			has_government = democratic
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			base = 100
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_aag
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_rightist_seats }
+			hidden_effect = {
+				country_event = { id = parliament.38 days = 5 }
+			}
+			effect_tooltip = {
+				add_stability = 0.03
+				# add_popularity = { ideology = democratic popularity = 0.03 }
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_stability = 0.03
+					# add_popularity = { ideology = democratic popularity = 0.03 }
+					set_country_flag = passed_aag2
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_aag
+				clr_country_flag = government_help
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_aag3 = {
+		icon = generic_barn
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			NOT = { has_country_flag = law_passing }
+			has_government = democratic
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			base = 100
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_aag
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_rightist_seats }
+			hidden_effect = {
+				country_event = { id = parliament.38 days = 5 }
+			}
+			effect_tooltip = {
+				add_stability = 0.03
+				# add_popularity = { ideology = democratic popularity = 0.03 }
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_stability = 0.03
+					# add_popularity = { ideology = democratic popularity = 0.03 }
+					set_country_flag = passed_aag3
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_aag
+				clr_country_flag = government_help
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_aag4 = {
+		icon = generic_barn
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			NOT = { has_country_flag = law_passing }
+			has_government = democratic
+			has_country_flag = passed_aag1
+			has_country_flag = passed_aag2
+			has_country_flag = passed_aag3
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			base = 100
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_aag
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_rightist_seats }
+			hidden_effect = {
+				country_event = { id = parliament.38 days = 5 }
+			}
+			effect_tooltip = {
+				add_stability = 0.03
+				add_timed_idea = {
+					idea = SPR_agr_counter_reform
+					days = 150
+				}
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_stability = 0.03
+					add_timed_idea = {
+						idea = SPR_agr_counter_reform
+						days = 150
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_aag
+				clr_country_flag = government_help
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+
+	###################################################################################################
+	######################################### LIBERAL SET #############################################
+	###################################################################################################
+
+	# spain_lbr1 = {
+	# 	icon = generic_railway
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 	}
+	# 	visible = {
+	# 		date > 1933.11.19
+	# 		NOT = { has_country_flag = law_passing }
+	# 		OR = {
+	# 			has_government = jacobin
+	# 			has_government = market_liberalism
+	# 		}
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			has_country_flag = parliament_closed
+	# 		}
+	# 	}
+	# 	cost = 20
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_lbr
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = { has_country_flag = PNV_support_parliament }
+	# 			add_to_variable = { supseat = pnv_seats }
+	# 		}
+
+	# 		hidden_effect = {
+	# 			#country_event = { id = parliament.18 days = 5 }
+	# 		}
+	# 		effect_tooltip = {
+	# 			41 = {
+	# 				add_building_construction = {
+	# 					type = infrastructure
+	# 					level = 1
+	# 					instant_build = yes
+	# 				}
+	# 			}
+	# 			add_political_power = -20
+	# 		}
+	# 	}
+	# 	days_remove = 70
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				41 = {
+	# 					add_building_construction = {
+	# 						type = infrastructure
+	# 						level = 1
+	# 						instant_build = yes
+	# 					}
+	# 				}
+	# 				add_political_power = -20
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_church
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_church_subsidy2
+	# 						days = 150
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_lbr
+	# 			clr_country_flag = promised_church
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# spain_lbr2 = {
+	# 	icon = generic_railway
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 	}
+	# 	visible = {
+	# 		date > 1933.11.19
+	# 		NOT = { has_country_flag = law_passing }
+	# 		OR = {
+	# 			has_government = jacobin
+	# 			has_government = market_liberalism
+	# 		}
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			has_country_flag = parliament_closed
+	# 		}
+	# 	}
+	# 	cost = 20
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_lbr
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = { has_country_flag = PNV_support_parliament }
+	# 			add_to_variable = { supseat = pnv_seats }
+	# 		}
+
+	# 		hidden_effect = {
+	# 			#country_event = { id = parliament.18 days = 5 }
+	# 		}
+	# 		effect_tooltip = {
+	# 			167 = {
+	# 				add_building_construction = {
+	# 					type = infrastructure
+	# 					level = 1
+	# 					instant_build = yes
+	# 				}
+	# 			}
+	# 			add_political_power = -20
+	# 		}
+	# 	}
+	# 	days_remove = 60
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				167 = {
+	# 					add_building_construction = {
+	# 						type = infrastructure
+	# 						level = 1
+	# 						instant_build = yes
+	# 					}
+	# 				}
+	# 				add_political_power = -20
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_church
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_church_subsidy2
+	# 						days = 150
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_lbr
+	# 			clr_country_flag = promised_church
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# spain_lbr3 = {
+	# 	icon = generic_railway
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 	}
+	# 	visible = {
+	# 		date > 1933.11.19
+	# 		NOT = { has_country_flag = law_passing }
+	# 		OR = {
+	# 			has_government = jacobin
+	# 			has_government = market_liberalism
+	# 		}
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			has_country_flag = parliament_closed
+	# 		}
+	# 	}
+	# 	cost = 20
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_lbr
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = { has_country_flag = PNV_support_parliament }
+	# 			add_to_variable = { supseat = pnv_seats }
+	# 		}
+
+	# 		hidden_effect = {
+	# 			#country_event = { id = parliament.18 days = 5 }
+	# 		}
+	# 		effect_tooltip = {
+	# 			176 = {
+	# 				add_building_construction = {
+	# 					type = infrastructure
+	# 					level = 1
+	# 					instant_build = yes
+	# 				}
+	# 			}
+	# 			add_political_power = -20
+	# 		}
+	# 	}
+	# 	days_remove = 70
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				176 = {
+	# 					add_building_construction = {
+	# 						type = infrastructure
+	# 						level = 1
+	# 						instant_build = yes
+	# 					}
+	# 				}
+	# 				add_political_power = -20
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_church
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_church_subsidy2
+	# 						days = 150
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_lbr
+	# 			clr_country_flag = promised_church
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# spain_lbr4 = {
+	# 	icon = generic_railway
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 	}
+	# 	visible = {
+	# 		date > 1933.11.19
+	# 		NOT = { has_country_flag = law_passing }
+	# 		OR = {
+	# 			has_government = jacobin
+	# 			has_government = market_liberalism
+	# 		}
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			has_country_flag = parliament_closed
+	# 		}
+	# 	}
+	# 	cost = 20
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_lbr
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		if = {
+	# 			limit = { has_country_flag = PNV_support_parliament }
+	# 			add_to_variable = { supseat = pnv_seats }
+	# 		}
+
+	# 		hidden_effect = {
+	# 			#country_event = { id = parliament.18 days = 5 }
+	# 		}
+	# 		effect_tooltip = {
+	# 			169 = {
+	# 				add_building_construction = {
+	# 					type = infrastructure
+	# 					level = 1
+	# 					instant_build = yes
+	# 				}
+	# 			}
+	# 			add_political_power = -20
+	# 		}
+	# 	}
+	# 	days_remove = 70
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				169 = {
+	# 					add_building_construction = {
+	# 						type = infrastructure
+	# 						level = 1
+	# 						instant_build = yes
+	# 					}
+	# 				}
+	# 				add_political_power = -20
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_church
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_church_subsidy2
+	# 						days = 150
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_lbr
+	# 			clr_country_flag = promised_church
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	# spain_lbr5 = {
+	# 	icon = generic_railway
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 	}
+	# 	visible = {
+	# 		date > 1933.11.19
+	# 		NOT = { has_country_flag = law_passing }
+	# 		OR = {
+	# 			has_government = jacobin
+	# 			has_government = market_liberalism
+	# 		}
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			has_country_flag = parliament_closed
+	# 		}
+	# 	}
+	# 	cost = 20
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_lbr
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+	# 		add_to_variable = { supseat = lliga_seats }
+	# 		if = {
+	# 			limit = { has_country_flag = PNV_support_parliament }
+	# 			add_to_variable = { supseat = pnv_seats }
+	# 		}
+
+	# 		hidden_effect = {
+	# 			#country_event = { id = parliament.18 days = 5 }
+	# 		}
+	# 		effect_tooltip = {
+	# 			166 = {
+	# 				add_building_construction = {
+	# 					type = infrastructure
+	# 					level = 1
+	# 					instant_build = yes
+	# 				}
+	# 			}
+	# 			add_political_power = -20
+	# 		}
+	# 	}
+	# 	days_remove = 70
+	# 	remove_effect = {
+	# 		#set_country_flag = law_passing
+	# 		#custom_effect_tooltip = will_vote
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 				166 = {
+	# 					add_building_construction = {
+	# 						type = infrastructure
+	# 						level = 1
+	# 						instant_build = yes
+	# 					}
+	# 				}
+	# 				add_political_power = -20
+	# 				if = {
+	# 					limit = {
+	# 						has_country_flag = promised_church
+	# 					}
+	# 					add_timed_idea = {
+	# 						idea = SPR_church_subsidy2
+	# 						days = 150
+	# 					}
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = law_passing_lbr
+	# 			clr_country_flag = promised_church
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	spain_tax1 = {
+		icon = generic_trade
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			date > 1933.11.19
+			NOT = { has_country_flag = law_passing }
+			OR = {
+				has_government = jacobin
+				has_government = market_liberalism
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_tax
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = colseat }
+			if = {
+				limit = { has_country_flag = PNV_support_parliament }
+				add_to_variable = { supseat = pnv_seats }
+			}
+
+			hidden_effect = {
+				#country_event = { id = parliament.18 days = 5 }
+			}
+			effect_tooltip = {
+				add_political_power = 100
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_political_power = 100
+					if = {
+						limit = {
+							has_country_flag = government_help
+						}
+						add_timed_idea = {
+							idea = SPR_gov_help
+							days = 150
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_tax
+				clr_country_flag = government_help
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_tax2 = {
+		icon = generic_trade
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			date > 1933.11.19
+			NOT = { has_country_flag = law_passing }
+			OR = {
+				has_government = jacobin
+				has_government = market_liberalism
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_tax
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_lib_rep_seats }
+			add_to_variable = { supseat = lliga_seats }
+			add_to_variable = { supseat = SPR_cen_seats }
+			if = {
+				limit = { has_country_flag = PNV_support_parliament }
+				add_to_variable = { supseat = pnv_seats }
+			}
+
+			hidden_effect = {
+				#country_event = { id = parliament.18 days = 5 }
+			}
+			effect_tooltip = {
+				add_stability = 0.075
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_stability = 0.075
+					if = {
+						limit = {
+							has_country_flag = government_help
+						}
+						add_timed_idea = {
+							idea = SPR_gov_help
+							days = 150
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_tax
+				clr_country_flag = government_help
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_tax3 = {
+		icon = generic_trade
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			date > 1933.11.19
+			NOT = { has_country_flag = law_passing }
+			OR = {
+				has_government = jacobin
+				has_government = market_liberalism
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_tax
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_lib_rep_seats }
+			add_to_variable = { supseat = lliga_seats }
+			add_to_variable = { supseat = SPR_cen_seats }
+			if = {
+				limit = { has_country_flag = PNV_support_parliament }
+				add_to_variable = { supseat = pnv_seats }
+			}
+			hidden_effect = {
+				#country_event = { id = parliament.18 days = 5 }
+			}
+			effect_tooltip = {
+				add_war_support = 0.1
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_war_support = 0.1
+					if = {
+						limit = {
+							has_country_flag = government_help
+						}
+						add_timed_idea = {
+							idea = SPR_gov_help
+							days = 150
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = law_passing_tax
+				clr_country_flag = government_help
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	SPR_ley_governadores_civ = {
+		icon = generic_civil_support
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			date > 1933.11.19
+			NOT = { has_country_flag = law_passing }
+			OR = {
+				has_government = jacobin
+				has_government = market_liberalism
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 50
+		fire_only_once = yes
+		ai_will_do = {
+			base = 500
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_cen
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = prr_seats }
+			add_to_variable = { var = supseat value = prc_seats }
+			add_to_variable = { var = supseat value = ceda_seats }
+			add_to_variable = { var = supseat value = agra_seats }
+			add_to_variable = { var = supseat value = mon_seats }
+
+			hidden_effect = {
+				# country_event = { id = parliament.32 days = 5 }
+			}
+			effect_tooltip = {
+				add_political_power = -10
+				add_timed_idea = { idea = SPR_gob_civ days = 365 }
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_political_power = -10
+					add_timed_idea = { idea = SPR_gob_civ days = 365 }
+					set_country_flag = cen_passed1
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = public_spending
+				clr_country_flag = law_passing_cen
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	# spain_basque_autonomy_vote = {
+	# 	icon = GFX_decision_generic_ballot
+	# 	allowed = { tag = SPR }
+
+	# 	available = {
+	# 		NOT = {
+	# 			has_government = neutrality
+	# 			has_government = monarchism
+	# 			has_government = nationalism
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		always = no #Temporary
+	# 		# has_country_flag = SPR_bas_autonomy_vote
+	# 		NOT = { has_country_flag = law_passing }
+	# 	}
+	# 	cancel_trigger = {
+	# 		hidden_trigger = {
+	# 			has_country_flag = parliament_closed
+	# 		}
+	# 	}
+	# 	cost = 0
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		set_country_flag = law_passing
+	# 		set_country_flag = law_passing_cen
+	# 		custom_effect_tooltip = will_vote
+	# 		set_variable = { supseat = colseat }
+
+	# 		effect_tooltip = {
+	# 			752 = {
+	# 				add_dynamic_modifier = { modifier = euzkadi_autonomy }
+	# 			}
+	# 		}
+	# 	}
+	# 	days_remove = 30
+	# 	remove_effect = {
+	# 		hidden_effect = {
+	# 			if = {
+	# 				limit = { 
+	# 					check_variable = {
+	# 						var = supseat
+	# 						value = min_sup_seat
+	# 						compare = greater_than_or_equals
+	# 					}
+	# 				}
+	# 				country_event = { id = parliament.41 }
+	# 				752 = {
+	# 					add_dynamic_modifier = { modifier = euzkadi_autonomy }
+	# 				}
+	# 			}
+	# 			else = {
+	# 				country_event = { id = parliament.42 }
+	# 			}
+	# 			set_variable = { supseat = 0 }
+	# 			clr_country_flag = law_passing
+	# 			clr_country_flag = SPR_already_neg_far_left
+	# 			clr_country_flag = already_socs
+	# 			clr_country_flag = already_socdems
+	# 			clr_country_flag = SPR_already_neg_cen_rep
+	# 			clr_country_flag = SPR_already_neg_libs
+	# 			clr_country_flag = SPR_already_neg_right
+	# 			clr_country_flag = already_aut
+	# 			clr_country_flag = SPR_already_neg_fas
+	# 			clr_country_flag = public_spending
+	# 			clr_country_flag = law_passing_cen
+	# 			clr_country_flag = already_defend
+	# 		}
+	# 	}
+	# }
+
+	SPR_end_generalitat = {
+		icon = GFX_decision_generic_arrest
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			has_country_flag = SPR_catalan_revolt_supressed
+			NOT = { has_country_flag = law_passing }
+			# OR = {
+			# 	has_government = neutrality
+			# 	has_government = democratic
+			# 	has_government = jacobin
+			# 	has_government = market_liberalism
+			# }
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			base = 2000
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_cen
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_lib_rep_seats }
+			add_to_variable = { var = supseat value = SPR_rightist_seats } 
+			add_to_variable = { var = supseat value = mon_seats }
+			add_to_variable = { var = supseat value = fas_seats }
+		}
+		days_remove = 10
+		remove_effect = {
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					set_country_flag = SPR_generalitat_suspended
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = public_spending
+				clr_country_flag = law_passing_cen
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_tax_cuts_mis_ped = {
+		icon = GFX_decision_eng_trade_unions_support
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			date > 1935.2.1
+			NOT = { has_country_flag = law_passing }
+			has_idea = SPR_misiones_peda
+			has_aut_in_coalition = yes
+			OR = {
+				has_government = democratic
+				has_government = jacobin
+				has_government = market_liberalism
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+
+		ai_will_do = {
+			base = 500
+		}
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_cen
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = prr_seats }
+			add_to_variable = { var = supseat value = prc_seats }
+			add_to_variable = { var = supseat value = prld_seats }
+			add_to_variable = { var = supseat value = prp_seats }
+			add_to_variable = { var = supseat value = pnv_seats }
+			add_to_variable = { var = supseat value = SPR_rightist_seats }
+			add_to_variable = { var = supseat value = mon_seats }
+			if = {
+				limit = { has_country_flag = PNV_support_parliament }
+				add_to_variable = { supseat = pnv_seats }
+			}
+			effect_tooltip = {
+				add_political_power = 5
+				swap_ideas = {
+					remove_idea = SPR_misiones_peda
+					add_idea = SPR_tax_cuts_ile
+				}
+			}
+		}
+		days_remove = 30
+		remove_effect = {
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					swap_ideas = {
+						remove_idea = SPR_misiones_peda
+						add_idea = SPR_tax_cuts_ile
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = public_spending
+				clr_country_flag = law_passing_cen
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_con2 = {
+		icon = generic_church
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			date > 1933.11.19
+			NOT = { has_country_flag = law_passing }
+			OR = {
+				has_government = jacobin
+				has_government = market_liberalism
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_con
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = colseat }
+			if = {
+				limit = { has_country_flag = PNV_support_parliament }
+				add_to_variable = { supseat = pnv_seats }
+			}
+			effect_tooltip = {
+				add_timed_idea = { idea = SPR_church_subsidy_ref days = 365 }
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_timed_idea = { idea = SPR_church_subsidy_ref days = 365 }
+					if = {
+						limit = {
+							has_country_flag = public_spending
+						}
+						add_timed_idea = {
+							idea = SPR_public_spending
+							days = 150
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = public_spending
+				clr_country_flag = law_passing_con
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_con1 = {
+		icon = generic_research
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			date > 1933.11.19
+			NOT = { has_country_flag = law_passing }
+			OR = {
+				has_government = jacobin
+				has_government = market_liberalism
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_con
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = colseat }
+			if = {
+				limit = { has_country_flag = PNV_support_parliament }
+				add_to_variable = { supseat = pnv_seats }
+			}
+			hidden_effect = {
+				# country_event = { id = parliament.34 days = 5 }
+			}
+			effect_tooltip = {
+				add_timed_idea = { idea = SPR_escuelas days = 200 }
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_timed_idea = { idea = SPR_escuelas days = 200 }
+					if = {
+						limit = {
+							has_country_flag = public_spending
+						}
+						add_timed_idea = {
+							idea = SPR_public_spending
+							days = 150
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = public_spending
+				clr_country_flag = law_passing_con
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_con3 = {
+		icon = generic_political_discourse
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			date > 1933.11.19
+			NOT = { has_country_flag = law_passing }
+			OR = {
+				has_government = jacobin
+				has_government = market_liberalism
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_con
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = colseat }
+			if = {
+				limit = { has_country_flag = PNV_support_parliament }
+				add_to_variable = { supseat = pnv_seats }
+			}
+			hidden_effect = {
+				# country_event = { id = parliament.34 days = 5 }
+			}
+			effect_tooltip = {
+				add_political_power = 150
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					add_political_power = 150
+					if = {
+						limit = {
+							has_country_flag = public_spending
+						}
+						add_timed_idea = {
+							idea = SPR_public_spending
+							days = 150
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = public_spending
+				clr_country_flag = law_passing_con
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	spain_con4 = {
+		icon = generic_freedom_of_press
+		allowed = { tag = SPR }
+
+		available = {
+		}
+		visible = {
+			date > 1933.11.19
+			NOT = { has_country_flag = law_passing }
+			OR = {
+				has_government = jacobin
+				has_government = market_liberalism
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = parliament_closed
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = law_passing
+			set_country_flag = law_passing_con
+			custom_effect_tooltip = will_vote
+			set_variable = { supseat = SPR_lib_rep_seats }
+			add_to_variable = { supseat = SPR_cen_seats }
+			if = {
+				limit = { has_country_flag = PNV_support_parliament }
+				add_to_variable = { supseat = pnv_seats }
+			}
+			hidden_effect = {
+				# country_event = { id = parliament.34 days = 5 }
+			}
+			effect_tooltip = {
+				# add_popularity = { ideology = market_liberalism popularity = 0.075 }
+				# add_popularity = { ideology = social_liberalism popularity = 0.05 }
+			}
+		}
+		days_remove = 90
+		remove_effect = {
+			#set_country_flag = law_passing
+			#custom_effect_tooltip = will_vote
+			hidden_effect = {
+				if = {
+					limit = { 
+						check_variable = {
+							var = supseat
+							value = min_sup_seat
+							compare = greater_than_or_equals
+						}
+					}
+					country_event = { id = parliament.100 }
+					# add_popularity = { ideology = market_liberalism popularity = 0.075 }
+					# add_popularity = { ideology = social_liberalism popularity = 0.05 }
+					if = {
+						limit = {
+							has_country_flag = public_spending
+						}
+						add_timed_idea = {
+							idea = SPR_public_spending
+							days = 150
+						}
+					}
+				}
+				else = {
+					country_event = { id = parliament.1 }
+				}
+				set_variable = { supseat = 0 }
+				clr_country_flag = law_passing
+				clr_country_flag = SPR_already_neg_far_left
+				clr_country_flag = already_socs
+				clr_country_flag = already_socdems
+				clr_country_flag = SPR_already_neg_cen_rep
+				clr_country_flag = SPR_already_neg_libs
+				clr_country_flag = SPR_already_neg_right
+				clr_country_flag = already_aut
+				clr_country_flag = SPR_already_neg_fas
+				clr_country_flag = public_spending
+				clr_country_flag = law_passing_con
+				clr_country_flag = already_defend
+			}
+		}
+	}
+
+	###########################################################################################################
+	########################################## NEGOTIATION DECISIONS ##########################################
+	###########################################################################################################
+
+
+	# SPR_defend_proposition = {
+
+	# 	allowed = { tag = SPR }
+	# 	icon = generic_civil_support
+	# 	available = {
+	# 		has_country_flag = law_passing
+	# 		NOT = { has_country_flag = already_defend }
+	# 	}
+	# 	visible = {
+	# 		has_country_flag = law_passing
+	# 		NOT = { has_country_flag = opposition_neg }
+	# 	}
+	# 	cost = 0
+
+	# 	complete_effect = {
+	# 		add_political_power = -50
+	# 		custom_effect_tooltip = gain_small_amount_seats
+	# 		add_to_variable = { var = supseat value = 10 }
+	# 		set_country_flag = already_defend
+	# 	}
+	# }
+
+	SPR_neg_far_left = {
+		icon = generic_accord
+		allowed = { tag = SPR }
+
+		available = {
+			hidden_trigger = {
+				#if = {
+					#limit = {
+						#has_country_flag = law_passing_agr
+					#}
+					#NOT = { has_country_flag = cons_stop_agr }
+					#}
+				NOT = { has_country_flag = law_passing_agr }
+				NOT = { has_country_flag = law_passing_pef }
+				NOT = { has_country_flag = law_passing_prg }
+				NOT = { has_country_flag = law_passing_ach }
+				NOT = { has_country_flag = law_passing_alb }
+				NOT = { has_country_flag = law_passing_gen }
+				NOT = { has_country_flag = law_passing_lbr }
+				NOT = { has_country_flag = law_passing_tax }
+				NOT = { has_country_flag = law_passing_cen }
+				NOT = { has_country_flag = law_passing_con }
+				NOT = { has_country_flag = law_passing_aag }
+				NOT = { has_country_flag = SPR_already_neg_far_left }
+			}
+		}
+		visible = {
+			has_country_flag = law_passing
+			check_variable = { supseat < min_sup_seat }
+			NOT = { has_government = communism }
+			check_variable = { far_left_seats > 0 }
+			NOT = { has_country_flag = opposition_neg }
+		}
+		cost = 0
+
+		complete_effect = {
+			set_country_flag = SPR_already_neg_far_left
+		}
+	}
+
+	SPR_neg_socialists = {
+		icon = generic_accord
+		allowed = { tag = SPR }
+
+		available = {
+			hidden_trigger = {
+				#if = {
+					#limit = {
+						#has_country_flag = law_passing_agr
+						#}
+					#NOT = { has_country_flag = cons_stop_agr }
+					#}
+				NOT = { has_country_flag = law_passing_agr }
+				NOT = { has_country_flag = law_passing_ile }
+				NOT = { has_country_flag = law_passing_pef }
+				NOT = { has_country_flag = law_passing_prg }
+				NOT = { has_country_flag = law_passing_ach }
+				NOT = { has_country_flag = law_passing_alb }
+				NOT = { has_country_flag = law_passing_lbr }
+				NOT = { has_country_flag = law_passing_tax }
+				NOT = { has_country_flag = law_passing_cen }
+				NOT = { has_country_flag = law_passing_con }
+				NOT = { has_country_flag = law_passing_aag }
+				NOT = { has_country_flag = already_socs }
+			}
+		}
+		visible = {
+			has_country_flag = law_passing
+			check_variable = { supseat < min_sup_seat }
+			NOT = {
+				OR = {
+					has_government = socialism
+					has_government = authoritarian_socialism
+				}
+			}
+			check_variable = { socialist_seats > 0 }
+			NOT = { has_country_flag = opposition_neg }
+		}
+		cost = 0
+
+		complete_effect = {
+			set_country_flag = already_socs
+			if = {
+				limit = {
+					has_country_flag = law_passing_gen
+				}
+				country_event = { id = parliament.26 days = 2 }
+			}
+		}
+	}
+
+	SPR_neg_left_rep = {
+		icon = generic_accord
+		allowed = { tag = SPR }
+
+		available = {
+			hidden_trigger = {
+				NOT = { has_country_flag = law_passing_alb }
+				NOT = { has_country_flag = already_socdems }
+				NOT = { has_country_flag = law_passing_lbr }
+				NOT = { has_country_flag = law_passing_cen }
+				NOT = { has_country_flag = law_passing_pef }
+				NOT = { has_country_flag = law_passing_agr }
+				NOT = { has_country_flag = law_passing_ach }
+				NOT = { has_country_flag = law_passing_prg }
+				NOT = { has_country_flag = law_passing_ile }
+				NOT = { has_country_flag = law_passing_aag }
+
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_tax
+				}
+				NOT = { has_country_flag = reps_stop_tax }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_con
+				}
+				NOT = { has_country_flag = reps_stop_con }
+			}
+		}
+		visible = {
+			has_country_flag = law_passing
+			check_variable = { supseat < min_sup_seat }
+			NOT = { has_government = social_democracy }
+			check_variable = { socdem_seats > 0 }
+			NOT = { has_country_flag = opposition_neg }
+		}
+		cost = 0
+
+		complete_effect = {
+			set_country_flag = already_socdems
+			if = {
+				limit = {
+					has_country_flag = law_passing_gen
+				}
+				country_event = { id = parliament.24 days = 5 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_tax
+				}
+				country_event = { id = parliament.31 days = 5 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_con
+				}
+				country_event = { id = parliament.35 days = 5 }
+			}
+		}
+	}
+
+	SPR_neg_left_nat = {
+		icon = generic_accord
+		allowed = { tag = SPR }
+
+		available = {
+			hidden_trigger = {
+				NOT = { has_country_flag = law_passing_alb }
+				NOT = { has_country_flag = already_neg_left_nat }
+				NOT = { has_country_flag = law_passing_lbr }
+				NOT = { has_country_flag = law_passing_cen }
+				NOT = { has_country_flag = law_passing_pef }
+				NOT = { has_country_flag = law_passing_agr }
+				NOT = { has_country_flag = law_passing_ach }
+				NOT = { has_country_flag = law_passing_prg }
+				NOT = { has_country_flag = law_passing_ile }
+				NOT = { has_country_flag = law_passing_aag }
+
+				if = {
+					limit = {
+						has_country_flag = law_passing_tax
+					}
+					NOT = { has_country_flag = reps_stop_tax }
+				}
+				if = {
+					limit = {
+						has_country_flag = law_passing_con
+					}
+					NOT = { has_country_flag = reps_stop_con }
+				}
+			}
+		}
+		visible = {
+			has_country_flag = law_passing
+			check_variable = { supseat < min_sup_seat }
+			check_variable = { lftnat_seats > 0 }
+			NOT = { has_country_flag = opposition_neg }
+		}
+		cost = 0
+
+		complete_effect = {
+			set_country_flag = already_neg_left_nat
+			
+		}
+	}
+
+	SPR_neg_centr_rep = {
+		icon = generic_accord
+		allowed = { tag = SPR }
+
+		available = {
+			hidden_trigger = {
+				NOT = {
+					has_country_flag = SPR_already_neg_cen_rep
+					has_country_flag = law_passing_ile
+					has_country_flag = law_passing_cen
+					has_country_flag = law_passing_con
+					has_country_flag = law_passing_aag
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_pef
+				}
+				NOT = { has_country_flag = soclibs_stop_pef }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_alb
+				}
+				NOT = { has_country_flag = soclibs_stop_alb }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_lbr
+				}
+				NOT = { has_country_flag = soclibs_stop_lbr }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_tax
+				}
+				NOT = { has_country_flag = soclibs_stop_ax }
+			}
+		}
+		visible = {
+			has_country_flag = law_passing
+			check_variable = { supseat < min_sup_seat }
+			NOT = { has_government = social_liberalism }
+			check_variable = { SPR_cen_seats > 0 }
+			NOT = { has_country_flag = opposition_neg }
+		}
+		cost = 0
+
+		complete_effect = {
+			set_country_flag = SPR_already_neg_cen_rep
+			if = {
+				limit = {
+					has_country_flag = law_passing_agr
+				}
+				country_event = { id = parliament.3 days = 2 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_prg
+				}
+				country_event = { id = parliament.15 days = 2 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_ach
+				}
+				country_event = { id = parliament.17 days = 2 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_alb
+				}
+				country_event = { id = parliament.19 days = 2 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_gen
+				}
+				country_event = { id = parliament.23 days = 5 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_lbr
+				}
+				country_event = { id = parliament.28 days = 2 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_tax
+				}
+				country_event = { id = parliament.29 days = 5 }
+			}
+		}
+	}
+
+	SPR_neg_lib_rep = {
+		icon = generic_accord
+		allowed = { tag = SPR }
+
+		available = {
+			hidden_trigger = {
+				NOT = { has_country_flag = SPR_already_neg_libs }
+				NOT = {
+					has_country_flag = law_passing_prg
+					has_country_flag = law_passing_ach
+					has_country_flag = law_passing_lbr
+					has_country_flag = law_passing_tax
+					has_country_flag = law_passing_cen
+					has_country_flag = law_passing_con
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_agr
+				}
+				NOT = { has_country_flag = lib_stop_agr }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_ile
+				}
+				NOT = { has_country_flag = libs_stop_ile }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_pef
+				}
+				NOT = { has_country_flag = libs_stop_pef }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_alb
+				}
+				NOT = { has_country_flag = libs_stop_alb }
+			}
+		}
+		visible = {
+			has_country_flag = law_passing
+			check_variable = { supseat < min_sup_seat }
+			NOT = {
+				OR = {
+					has_government = market_liberalism
+					has_government = jacobin
+				}
+			}
+			check_variable = { SPR_lib_rep_seats > 0 }
+			NOT = { has_country_flag = opposition_neg }
+		}
+		cost = 0
+
+		complete_effect = {
+			set_country_flag = SPR_already_neg_libs
+			if = {
+				limit = {
+					has_country_flag = law_passing_agr
+				}
+				country_event = { id = parliament.5 days = 2 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_alb
+				}
+				country_event = { id = parliament.20 days = 5 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_gen
+				}
+				country_event = { id = parliament.22 days = 5 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_aag
+				}
+				country_event = { id = parliament.39 days = 5 }
+			}
+		}
+	}
+
+	SPR_neg_rightists = {
+		icon = generic_accord
+		allowed = { tag = SPR }
+
+		available = {
+			hidden_trigger = {
+				has_country_flag = law_passing
+				NOT = { has_country_flag = law_passing_prg }
+				if = {
+					limit = {
+						has_country_flag = law_passing_agr
+					}
+					NOT = { has_country_flag = cons_stop_agr }
+				}
+				if = {
+					limit = {
+						has_country_flag = law_passing_pef
+					}
+					NOT = { has_country_flag = cons_stop_pef }
+				}
+				if = {
+					limit = {
+						has_country_flag = law_passing_tax
+					}
+					NOT = { has_country_flag = cons_stop_tax }
+				}
+				if = {
+					limit = {
+						has_country_flag = law_passing_cen
+					}
+					NOT = { has_country_flag = cons_stop_cen }
+				}
+				NOT = { has_country_flag = law_passing_ile }
+				NOT = { has_country_flag = law_passing_prg }
+				NOT = { has_country_flag = law_passing_ach }
+				NOT = { has_country_flag = law_passing_lbr }
+				NOT = { has_country_flag = law_passing_con }
+				NOT = { has_country_flag = law_passing_alb }
+				NOT = { has_country_flag = law_passing_aag }
+				NOT = { has_country_flag = SPR_already_neg_right }
+			}
+		}
+		visible = {
+			has_country_flag = law_passing
+			check_variable = { supseat < min_sup_seat }
+			NOT = { has_government = democratic }
+			check_variable = { SPR_rightist_seats > 0 }
+			NOT = { has_country_flag = opposition_neg }
+		}
+		cost = 0
+
+		complete_effect = {
+			set_country_flag = SPR_already_neg_right
+			# if = {
+			# 	limit = {
+			# 		has_country_flag = law_passing_agr
+			# 	}
+			# 	country_event = { id = parliament.4 days = 2 }
+			# }
+			# if = {
+			# 	limit = {
+			# 		has_country_flag = law_passing_pef
+			# 	}
+			# 	country_event = { id = parliament.12 days = 2 }
+			# }
+			# if = {
+			# 	limit = {
+			# 		has_country_flag = law_passing_gen
+			# 	}
+			# 	country_event = { id = parliament.21 days = 5 }
+			# }
+			# if = {
+			# 	limit = {
+			# 		has_country_flag = law_passing_tax
+			# 	}
+			# 	country_event = { id = parliament.30 days = 5 }
+			# }
+			# if = {
+			# 	limit = {
+			# 		has_country_flag = law_passing_cen
+			# 	}
+			# 	country_event = { id = parliament.33 days = 5 }
+			# }
+			if = {
+				limit = {
+					has_country_flag = law_passing_gen
+				}
+				country_event = { id = parliament.25 days = 2 }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_lbr
+				}
+				country_event = { id = parliament.27 days = 2 }
+			}
+
+		}
+	}
+
+	SPR_neg_aut = {
+		icon = generic_accord
+		allowed = { tag = SPR }
+
+		available = {
+			hidden_trigger = {
+				has_country_flag = law_passing
+				NOT = {
+					has_country_flag = law_passing_prg
+					has_country_flag = law_passing_ile
+					has_country_flag = law_passing_agr
+					has_country_flag = law_passing_ach
+					has_country_flag = law_passing_alb
+					has_country_flag = law_passing_tax
+					has_country_flag = law_passing_cen
+					has_country_flag = law_passing_con
+					has_country_flag = law_passing_aag
+					has_country_flag = already_aut
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_pef
+				}
+				NOT = { has_country_flag = auts_stop_pef }
+			}
+			if = {
+				limit = {
+					has_country_flag = law_passing_lbr
+				}
+				NOT = { has_country_flag = auts_stop_lbr }
+			}
+		}
+		visible = {
+			has_country_flag = law_passing
+			check_variable = { supseat < min_sup_seat }
+			NOT = { has_government = neutrality }
+			check_variable = { mon_seats > 0 }
+			NOT = { has_country_flag = opposition_neg }
+		}
+		cost = 0
+
+		complete_effect = {
+			set_country_flag = already_aut
+			
+		}
+	}
+
+	SPR_neg_fascists = {
+		icon = generic_accord
+		allowed = { tag = SPR }
+
+		available = {
+			hidden_trigger = {
+				has_country_flag = law_passing
+				NOT = {
+					has_country_flag = law_passing_prg
+					has_country_flag = law_passing_agr
+					has_country_flag = law_passing_pef
+					has_country_flag = law_passing_ach
+					has_country_flag = law_passing_alb
+					has_country_flag = law_passing_gen
+					has_country_flag = law_passing_lbr
+					has_country_flag = law_passing_tax
+					has_country_flag = law_passing_cen
+					has_country_flag = law_passing_con
+					has_country_flag = law_passing_ile
+					has_country_flag = law_passing_aag
+					has_country_flag = SPR_already_neg_fas
+				}
+			}
+		}
+		visible = {
+			has_country_flag = law_passing
+			check_variable = { supseat < min_sup_seat }
+			NOT = { has_government = fascism }
+			check_variable = { fas_seats > 0 }
+			NOT = { has_country_flag = opposition_neg }
+		}
+		cost = 0
+
+		complete_effect = {
+			set_country_flag = SPR_already_neg_fas
+		}
+	}
+
+	############################################################################################################
+	########################################### OPPOSITION DECISIONS ###########################################
+	############################################################################################################
+
+	SPR_gather_coalition = {
+		icon = generic_politicians2
+		allowed = { tag = SPR }
+
+		available = {
+			has_country_flag = law_passing
+			NOT = { has_country_flag = gathered_coalition }
+		}
+		visible = {
+			has_country_flag = law_passing
+			has_country_flag = opposition_neg
+			NOT = { has_country_flag = gathered_coalition }
+		}
+		cost = 10
+		ai_will_do = {
+			base = 100
+		}
+
+		complete_effect = {
+			set_country_flag = gathered_coalition
+			custom_effect_tooltip = gather_coalition
+		}
+	}
+
+	SPR_op_conservatives = {
+		icon = generic_accord
+		allowed = { tag = SPR }
+
+		available = {
+			has_country_flag = law_passing
+			NOT = { has_government = democratic }
+			NOT = { has_country_flag = spr_op_cons }
+			NOT = { has_country_flag = cons_support_opp }
+		}
+		visible = {
+			has_country_flag = law_passing
+			has_country_flag = opposition_neg
+			NOT = { has_country_flag = spr_op_cons }
+		}
+		cost = 80
+		ai_will_do = {
+			base = 0
+		}
+		complete_effect = {
+			set_country_flag = spr_op_cons
+		}
+	}
+
+	SPR_op_centrists = {
+		icon = generic_accord
+		allowed = { tag = SPR }
+
+		available = {
+			has_country_flag = law_passing
+			NOT = { has_government = social_liberalism }
+			NOT = { has_country_flag = spr_op_soclibs }
+			NOT = { has_country_flag = soclibs_support_opp }
+		}
+		visible = {
+			has_country_flag = law_passing
+			has_country_flag = opposition_neg
+			NOT = { has_country_flag = spr_op_soclibs }
+		}
+		cost = 60
+		ai_will_do = {
+			base = 0
+		}
+
+		complete_effect = {
+			set_country_flag = spr_op_soclibs
+		}
+	}
+
+	###########################################################################################################
+	########################################### OPPOSITION MISSIONS ###########################################
+	###########################################################################################################
+
+	SPR_op_lbr = {
+		icon = generic_railway
+		fire_only_once = yes
+		available = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 30
+		fire_only_once = yes
+
+		activation = {
+			always = no
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						var = supseat
+						value = min_sup_seat
+						compare = greater_than_or_equals
+					}
+				}
+				if = {
+					limit = {
+						NOT = { has_country_flag = op_supports_law }
+					}
+					country_event = { id = parliament.102 }
+				}
+				if = {
+					limit = {
+						has_country_flag = op_supports_law
+					}
+					country_event = { id = parliament.100 }
+				}
+				if = {
+					limit = {
+						has_country_flag = government_help
+					}
+					add_timed_idea = {
+						idea = SPR_gov_help
+						days = 150
+					}
+				}
+			}
+			else = {
+				country_event = { id = parliament.101 }
+			}
+			set_variable = { supseat = 0 }
+			clr_country_flag = law_passing
+			clr_country_flag = SPR_already_neg_far_left
+			clr_country_flag = already_socs
+			clr_country_flag = already_socdems
+			clr_country_flag = SPR_already_neg_cen_rep
+			clr_country_flag = SPR_already_neg_libs
+			clr_country_flag = SPR_already_neg_right
+			clr_country_flag = already_aut
+			clr_country_flag = SPR_already_neg_fas
+			clr_country_flag = law_passing_lbr
+			clr_country_flag = promised_church
+			clr_country_flag = opposition_neg
+			clr_country_flag = gathered_coalition
+			clr_country_flag = spr_op_cons
+			clr_country_flag = spr_op_soclibs
+			clr_country_flag = spr_op_cen
+			clr_country_flag = cons_support_opp
+			clr_country_flag = soclibs_support_opp
+			clr_country_flag = cen_support_opp
+			clr_country_flag = op_supports_law
+			clr_country_flag = right_sup_opp
+		}
+	}
+
+	# SPR_op_cen = {
+	# 	icon = generic_civil_support
+	# 	fire_only_once = yes
+	# 	available = {
+	# 		always = no
+	# 	}
+	# 	is_good = yes
+	# 	days_mission_timeout = 30
+	# 	fire_only_once = yes
+
+	# 	activation = {
+	# 		always = no
+	# 	}
+
+	# 	complete_effect = {
+	# 	}
+
+	# 	timeout_effect = {
+	# 		set_country_flag = op_cen_done
+	# 		if = {
+	# 			limit = {
+	# 				check_variable = {
+	# 					var = supseat
+	# 					value = min_sup_seat
+	# 					compare = greater_than_or_equals
+	# 				}
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					NOT = { has_country_flag = op_supports_law }
+	# 				}
+	# 				country_event = { id = parliament.102 }
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					has_country_flag = op_supports_law
+	# 				}
+	# 				country_event = { id = parliament.100 }
+	# 			}
+	# 			# add_popularity = { ideology = social_democracy popularity = -0.03 }
+	# 			# add_popularity = { ideology = democratic popularity = -0.03 }
+	# 			add_political_power = -50
+	# 			add_stability = 0.025
+	# 			if = {
+	# 				limit = {
+	# 					has_country_flag = government_help
+	# 				}
+	# 				add_timed_idea = {
+	# 					idea = SPR_gov_help
+	# 					days = 150
+	# 				}
+	# 			}
+	# 		}
+	# 		if = {
+	# 			limit = { check_variable = { supseat < 235 }
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					NOT = { has_country_flag = op_supports_law }
+	# 				}
+	# 				country_event = { id = parliament.101 }
+	# 			}
+	# 			if = {
+	# 				limit = {
+	# 					has_country_flag = op_supports_law
+	# 				}
+	# 				country_event = { id = parliament.1 }
+	# 			}
+	# 		}
+	# 		set_variable = { supseat = 0 }
+	# 		clr_country_flag = law_passing
+	# 		clr_country_flag = SPR_already_neg_far_left
+	# 		clr_country_flag = already_socs
+	# 		clr_country_flag = already_socdems
+	# 		clr_country_flag = SPR_already_neg_cen_rep
+	# 		clr_country_flag = SPR_already_neg_libs
+	# 		clr_country_flag = SPR_already_neg_right
+	# 		clr_country_flag = already_aut
+	# 		clr_country_flag = SPR_already_neg_fas
+	# 		clr_country_flag = law_passing_cen
+	# 		clr_country_flag = promised_church
+	# 		clr_country_flag = opposition_neg
+	# 		clr_country_flag = gathered_coalition
+	# 		clr_country_flag = spr_op_cons
+	# 		clr_country_flag = spr_op_soclibs
+	# 		clr_country_flag = spr_op_cen
+	# 		clr_country_flag = cons_support_opp
+	# 		clr_country_flag = soclibs_support_opp
+	# 		clr_country_flag = cen_support_opp
+	# 		clr_country_flag = op_supports_law
+	# 		clr_country_flag = right_sup_opp
+	# 	}
+	# }
+
+}

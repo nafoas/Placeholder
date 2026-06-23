@@ -1,0 +1,653 @@
+#	Example:
+# 
+#	example_effect = {
+#		add_political_power = 66
+#		add_popularity = {
+#			ideology = fascism
+#			popularity = 0.33
+#		}
+#	}
+#
+#
+#	In a script file:
+#
+#	effect = {
+#		example_effect = yes
+#	}
+#
+
+increase_spending = {
+	if = {
+		limit = {
+			has_idea = very_high_research_spending
+		}
+		add_command_power = 10
+	}
+	if = {
+		limit = {
+			has_idea = high_research_spending
+		}
+		swap_ideas = {
+			remove_idea = high_research_spending
+			add_idea = very_high_research_spending
+		}
+	}
+	if = {
+		limit = {
+			has_idea = moderate_research_spending
+		}
+		swap_ideas = {
+			remove_idea = moderate_research_spending
+			add_idea = high_research_spending
+		}
+	}
+	if = {
+		limit = {
+			has_idea = minimal_research_spending
+		}
+		swap_ideas = {
+			remove_idea = minimal_research_spending
+			add_idea = low_research_spending
+		}
+	}
+	if = {
+		limit = {
+			has_idea = no_research_spending
+		}
+		swap_ideas = {
+			remove_idea = no_research_spending
+			add_idea = minimal_research_spending
+		}
+	}
+}
+
+#####################################
+### emergency_factory_conversion ####
+#####################################
+
+#This is going to give misleading and ugly tooltips. Making it nice will take effort. TODO_WTT_CD make nice or ignore and remove comment. Easiest solution is just making a custom tooltip that says "5 civilian factories will be converted to military factories" and ignore telling the player the states where it will happen.
+
+replace_civ_with_arms_factories = {	
+
+	random_owned_controlled_state = {
+		limit = {
+			is_fully_controlled_by = ROOT
+			industrial_complex > 0
+		}
+		remove_building = {
+			type = industrial_complex
+			level = 1
+		}
+		add_building_construction = {
+			type = arms_factory
+			level = 1
+			instant_build = yes
+		}
+	}
+	
+	random_owned_controlled_state = {
+		limit = {
+			is_fully_controlled_by = ROOT
+			industrial_complex > 0
+		}
+		remove_building = {
+			type = industrial_complex
+			level = 1
+		}
+		add_building_construction = {
+			type = arms_factory
+			level = 1
+			instant_build = yes
+		}
+	}
+
+	random_owned_controlled_state = {
+		limit = {
+			is_fully_controlled_by = ROOT
+			industrial_complex > 0
+		}
+		remove_building = {
+			type = industrial_complex
+			level = 1
+		}
+		add_building_construction = {
+			type = arms_factory
+			level = 1
+			instant_build = yes
+		}
+	}
+
+	random_owned_controlled_state = {
+		limit = {
+			is_fully_controlled_by = ROOT
+			industrial_complex > 0
+		}
+		remove_building = {
+			type = industrial_complex
+			level = 1
+		}
+		add_building_construction = {
+			type = arms_factory
+			level = 1
+			instant_build = yes
+		}
+	}
+
+	random_owned_controlled_state = {
+		limit = {
+			is_fully_controlled_by = ROOT
+			industrial_complex > 0
+		}
+		remove_building = {
+			type = industrial_complex
+			level = 1
+		}
+		add_building_construction = {
+			type = arms_factory
+			level = 1
+			instant_build = yes
+		}
+	}
+}
+
+#Country scope
+ROOT_inherit_current_scope_wars_effect = {
+	custom_effect_tooltip = ROOT_inherit_current_scope_wars_effect
+	hidden_effect = {	
+		every_country = {
+			limit = {
+				has_defensive_war_with = PREV
+			}
+			ROOT = { declare_war_on = { target = PREV type = annex_everything } }
+		}
+		every_country = {
+			limit = {
+				has_offensive_war_with = PREV
+			}
+			declare_war_on = { target = ROOT type = annex_everything }
+		}
+	}
+}
+
+d_remove_embargo_closed_economy = {
+	every_other_country = {
+		limit = {
+			NOT = { is_ally_with = ROOT }
+		}
+		remove_opinion_modifier = {
+			target = ROOT
+			modifier = closed_economy_opinion
+		}
+		remove_opinion_modifier = {
+			target = ROOT
+			modifier = closed_economy_embargo
+		}
+		ROOT = {
+			remove_opinion_modifier = {
+				target = PREV
+				modifier = closed_economy_opinion
+			}
+		}
+	}
+}
+
+MOVE_UP_WAR_ECONOMY = {
+	if = {
+		limit = {
+			has_idea = tot_economic_mobilisation
+		}
+		add_political_power = 65
+	}
+	else_if = {
+		limit = {
+			has_idea = war_economy
+		}
+		swap_ideas = {
+			remove_idea = war_economy
+			add_idea = tot_economic_mobilisation
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = partial_economic_mobilisation
+		}
+		swap_ideas = {
+			remove_idea = partial_economic_mobilisation
+			add_idea = war_economy
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = low_economic_mobilisation
+		}
+		swap_ideas = {
+			remove_idea = low_economic_mobilisation
+			add_idea = partial_economic_mobilisation
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = civilian_economy
+		}
+		swap_ideas = {
+			remove_idea = civilian_economy
+			add_idea = low_economic_mobilisation
+		}
+	}
+}
+MOVE_DOWN_WAR_ECONOMY = {
+	if = {
+		limit = {
+			has_idea = civilian_economy
+		}
+		add_political_power = 65
+	}
+	else_if = {
+		limit = {
+			has_idea = civilian_economy
+		}
+		swap_ideas = {
+			remove_idea = civilian_economy
+			add_idea = low_economic_mobilisation
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = partial_economic_mobilisation
+		}
+		swap_ideas = {
+			remove_idea = partial_economic_mobilisation
+			add_idea = low_economic_mobilisation
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = war_economy
+		}
+		swap_ideas = {
+			remove_idea = war_economy
+			add_idea = partial_economic_mobilisation
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = tot_economic_mobilisation
+		}
+		swap_ideas = {
+			remove_idea = tot_economic_mobilisation
+			add_idea = war_economy
+		}
+	}
+}
+MOVE_UP_TRADE = { #towards free trade
+	if = {
+		limit = {
+			has_idea = free_trade
+		}
+		add_political_power = 65
+	}
+	else_if = {
+		limit = {
+			has_idea = free_trade
+		}
+		swap_ideas = {
+			remove_idea = export_focus
+			add_idea = free_trade
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = limited_exports
+		}
+		swap_ideas = {
+			remove_idea = limited_exports
+			add_idea = export_focus
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = closed_economy
+		}
+		swap_ideas = {
+			remove_idea = closed_economy
+			add_idea = limited_exports
+		}
+	}
+}
+MOVE_DOWN_TRADE = { #towards protectionism
+	if = {
+		limit = {
+			has_idea = closed_economy
+		}
+		add_political_power = 65
+	}
+	else_if = {
+		limit = {
+			has_idea = limited_exports
+		}
+		swap_ideas = {
+			remove_idea = limited_exports
+			add_idea = closed_economy
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = export_focus
+		}
+		swap_ideas = {
+			remove_idea = export_focus
+			add_idea = limited_exports
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = free_trade
+		}
+		swap_ideas = {
+			remove_idea = free_trade
+			add_idea = export_focus
+		}
+	}
+}
+MOVE_DOWN_TRADE2 = { #towards protectionism, exclude closed economy
+	if = {
+		limit = {
+			OR = {
+				has_idea = limited_exports
+				has_idea = closed_economy
+			}
+		}
+		add_political_power = 65
+	}
+	else_if = {
+		limit = {
+			has_idea = export_focus
+		}
+		swap_ideas = {
+			remove_idea = export_focus
+			add_idea = limited_exports
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = free_trade
+		}
+		swap_ideas = {
+			remove_idea = free_trade
+			add_idea = export_focus
+		}
+	}
+}
+MOVE_DOWN_TRADE = { #towards Free Trade
+	if = {
+		limit = {
+			has_idea = free_trade
+		}
+		add_political_power = 65
+	}
+	else_if = {
+		limit = {
+			has_idea = export_focus
+		}
+		swap_ideas = {
+			remove_idea = export_focus
+			add_idea = free_trade
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = limited_exports
+		}
+		swap_ideas = {
+			remove_idea = limited_exports
+			add_idea = export_focus
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = closed_economy
+		}
+		swap_ideas = {
+			remove_idea = closed_economy
+			add_idea = limited_exports
+		}
+	}
+}
+MOVE_UP_CONSCRIPTION = {
+	if = {
+		limit = {
+			has_idea = scraping_the_barrel
+		}
+		add_political_power = 65
+	}
+	else_if = {
+		limit = {
+			has_idea = all_adults_serve
+		}
+		swap_ideas = {
+			remove_idea = all_adults_serve
+			add_idea = scraping_the_barrel
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = service_by_requirement
+		}
+		swap_ideas = {
+			remove_idea = service_by_requirement
+			add_idea = all_adults_serve
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = extensive_conscription
+		}
+		swap_ideas = {
+			remove_idea = extensive_conscription
+			add_idea = service_by_requirement
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = limited_conscription
+		}
+		swap_ideas = {
+			remove_idea = limited_conscription
+			add_idea = extensive_conscription
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = volunteer_only
+		}
+		swap_ideas = {
+			remove_idea = volunteer_only
+			add_idea = limited_conscription
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = disarmed_nation
+		}
+		swap_ideas = {
+			remove_idea = disarmed_nation
+			add_idea = volunteer_only
+		}
+	}
+}
+clear_sabotaged_resources_if_necesary = {
+	if = {
+		limit = {
+			not = {
+				has_dynamic_modifier = {
+					modifier = sabotaged_resources
+				}
+			}
+		}
+		
+		clear_variable = sabotaged_oil
+		clear_variable = sabotaged_aluminium
+		clear_variable = sabotaged_rubber
+		clear_variable = sabotaged_tungsten
+		clear_variable = sabotaged_steel
+		clear_variable = sabotaged_chromium
+	}
+}
+remove_from_allowed_party = {
+	if = {
+		limit = { has_government = democratic }
+		set_temp_variable = { allowed_party_democratic = 0 }
+	}
+	else_if = {
+		limit = { has_government = fascism }
+		set_temp_variable = { allowed_party_fascism = 0 }
+	}
+	else_if = {
+		limit = { has_government = communism }
+		set_temp_variable = { allowed_party_communism = 0 }
+	}
+	else_if = {
+		limit = { has_government = neutrality }
+		set_temp_variable = { allowed_party_neutrality = 0 }
+	}
+}
+
+#expectes a temp variable country_to_initiate which should contain original_tag to instantiate as a collabration government
+instantiate_collaboration_government = {
+	custom_effect_tooltip = compliance_80_effect_tooltip
+	hidden_effect = {
+		set_variable = { collaboration_formed@var:country_to_initiate = 1 }
+		
+		if = {
+			# if country_to_initiate does not exist, simply release it as a puppet
+			limit = { 
+				var:country_to_initiate = {
+					exists = no
+				}
+			}
+			var:country_to_initiate = { set_variable = { collaboration_formed_by = PREV } }
+			release_autonomy = {
+				target = country_to_initiate
+				autonomy_state = autonomy_collaboration_government
+				freedom_level = 0.5
+				release_non_owned_controlled = yes
+			}
+		}
+		else = {
+			# if country_to_initiate exists, create a dynamic country as our new puppet
+			
+			create_dynamic_country = {
+				original_tag = country_to_initiate
+			
+				set_variable = { collaboration_formed_by = PREV }
+				set_temp_variable = { new_country = this }
+				
+				PREV = {
+					every_controlled_state = {
+						limit = { occupied_country_tag = country_to_initiate }
+						
+						var:new_country = {
+							transfer_state = PREV
+						}
+					}
+					
+					puppet = new_country
+					
+					set_autonomy = {
+						target = new_country
+						autonomy_state = autonomy_collaboration_government
+						freedom_level = 0.5
+					}
+				}
+			}
+		}
+	}
+}
+
+#Debug Scripted Effects
+d_Agency.CreateAgency = {
+	FROM = {
+		create_intelligence_agency = yes
+		log = "Created Agency"
+	}
+}
+
+d_Debug_Command_test = {
+	FROM = {
+		
+	}
+}
+
+# Use this effect to get the current ruling ideology's token.
+get_ruling_party_ideology = {
+			
+	if = {
+		limit = { has_government = communism }
+		set_temp_variable = { ruling_party_ideology_token = token:communism }
+	}
+	if = {
+		limit = { has_government = authoritarian_socialism }
+		set_temp_variable = { ruling_party_ideology_token = token:authoritarian_socialism }
+	}
+	if = {
+		limit = { has_government = socialism }
+		set_temp_variable = { ruling_party_ideology_token = token:socialism }
+	}
+	if = {
+		limit = { has_government = social_democracy }
+		set_temp_variable = { ruling_party_ideology_token = token:social_democracy }
+	}
+	if = {
+		limit = { has_government = social_liberalism }
+		set_temp_variable = { ruling_party_ideology_token = token:social_liberalism }
+	}
+	if = {
+		limit = { has_government = market_liberalism }
+		set_temp_variable = { ruling_party_ideology_token = token:market_liberalism }
+	}
+	if = {
+		limit = { has_government = jacobin }
+		set_temp_variable = { ruling_party_ideology_token = token:jacobin }
+	}
+	if = {
+		limit = { has_government = democratic }
+		set_temp_variable = { ruling_party_ideology_token = token:democratic }
+	}
+	if = {
+		limit = { has_government = neutrality }
+		set_temp_variable = { ruling_party_ideology_token = token:neutrality }
+	}
+	if = {
+		limit = { has_government = monarchism }
+		set_temp_variable = { ruling_party_ideology_token = token:monarchism }
+	}
+	if = {
+		limit = { has_government = nationalism }
+		set_temp_variable = { ruling_party_ideology_token = token:nationalism }
+	}
+	if = {
+		limit = { has_government = fascism }
+		set_temp_variable = { ruling_party_ideology_token = token:fascism }
+	}
+}
+
+add_potential_special_forces_tree = {
+	custom_effect_tooltip = add_potential_special_forces_tree_tt
+	if = {
+		limit = { NOT = { has_variable = sf_trees } }
+		set_variable = { sf_trees = 2 }
+	}
+	else = {
+		add_to_variable = { sf_trees = 1 }
+	}
+}
+
+remove_potential_special_forces_tree = {
+	if = {
+		limit = { NOT = { has_variable = sf_trees } }
+		set_variable = { sf_trees = 0 }
+	}
+	else = {
+		subtract_from_variable = { sf_trees = 1 }
+	}
+}

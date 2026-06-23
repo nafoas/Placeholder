@@ -1,0 +1,118 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			YUG = {
+				add_intel = {
+					target = ROM
+					army_intel = 40
+					airforce_intel = 30
+				}
+				add_intel = {
+					target = CZE
+					army_intel = 40
+					airforce_intel = 30
+				}
+			}
+			ROM = {
+				add_intel = {
+					target = YUG
+					army_intel = 40
+					airforce_intel = 30
+				}
+				add_intel = {
+					target = CZE
+					army_intel = 40
+					airforce_intel = 30
+				}
+			}
+			CZE = {
+				add_intel = {
+					target = ROM
+					army_intel = 40
+					airforce_intel = 30
+				}
+				add_intel = {
+					target = YUG
+					army_intel = 40
+					airforce_intel = 30
+				}
+			}
+		}
+	}
+
+	on_yearly = {
+		effect = {
+			for_each_scope_loop = {
+				array = little_entente_members_array
+				every_other_country = {
+					limit = {
+						has_country_flag = little_entente_member
+					}
+					add_intel = {
+						target = ROOT
+						army_intel = 3
+						airforce_intel = 3
+					}
+					ROOT = {
+						add_intel = {
+							target = PREV
+							army_intel = 3
+							airforce_intel = 3
+						}
+					}
+				}
+			}
+		}
+	}
+
+	### Franco-Polish alliance Stuff ###
+	on_declare_war = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+							tag = GRM
+							is_subject_of = GRM
+						}
+					}
+					FROM = {
+						OR = {
+							tag = POL
+							tag = FRA
+						}
+					}
+					NOT = {
+						POL = { has_war_with = FRA }
+						POL = { is_in_faction_with = FRA }
+						POL = { is_subject_of = FRA }
+						FRA = { is_subject_of = POL }
+						FRA = { has_capitulated = yes }
+						POL = { has_capitulated = yes }
+
+						GRM = { is_ally_with = FRA }
+						GRM = { is_ally_with = POL }
+					}
+					FRA = { has_country_flag = FRA_POL_alliance }
+				}
+				if = {
+					limit = {
+						FROM = { tag = POL }
+					}
+					FRA = {
+						country_event = { id = F_P_alliance.1 days = 2 }
+					}
+				}
+
+				if = {
+					limit = {
+						FROM = { tag = FRA }
+					}
+					POL = {
+						country_event = { id = F_P_alliance.4 days = 2 }
+					}
+				}
+			}
+		}
+	}
+}

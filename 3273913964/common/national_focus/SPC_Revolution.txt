@@ -1,0 +1,880 @@
+focus_tree = {
+	id = SPC_Revolution_tree
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = SPC
+		}
+	}
+	continuous_focus_position = { x = 50 y = 2500 }
+	default = no
+
+	focus = {
+		id = SPC_scw 
+		icon = GFX_focus_Revolucion
+		cost = 10
+		x = 2
+		y = 0
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+			has_global_flag = scr_ongoing
+		}
+	}
+	
+	focus = {
+		id = SPC_soviet
+		icon = GFX_Goal_Befriend_USSR
+		cost = 2
+		prerequisite = {
+			focus = SPC_scw
+		}
+		available = { has_war_with = SPR }
+		bypass = { SOV = { exists = no } }
+		completion_reward = {
+			SOV = { country_event = { id = scr.10 } }
+		}
+		ai_will_do = {
+			base = 50
+		}
+		x = 5
+		y = 1
+	
+	}
+	focus = {
+		id = SPC_international_brigades
+		icon = GFX_focus_Popular_Front
+		cost = 4
+		prerequisite = {
+			focus = SPC_scw
+		}
+		available = { has_war_with = SPR }
+		ai_will_do = {
+			base = 70
+		}
+		completion_reward = {
+			custom_effect_tooltip = spc_five_int_brigades
+			hidden_effect = {
+				division_template = {
+					name = "Brigada Internacional"
+				
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+						infantry = { x = 0 y = 3 }
+						# artillery_brigade = { x = 1 y = 0 } #Theorical: 1 bn. In practice: 1 batery  
+					}
+				
+					support = {
+						engineer = { x = 0 y = 0 }
+					}
+					is_locked = yes
+					template_counter = 69
+				}
+	
+				if = {
+					limit = {
+						controls_province = 6906
+					}
+					167 = {
+						create_unit = {
+							division = "name = \"Brigada 'La Marseillaise'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+							owner = SPC
+							prioritize_location = 6906
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Garibaldi'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+							owner = SPC
+							prioritize_location = 6906
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Abraham Lincoln'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+							owner = SPC
+							prioritize_location = 6906
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_province = 9979
+					}
+					173 = {
+						create_unit = {
+							division = "name = \"Brigada 'La Marseillaise'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+							owner = SPC
+							prioritize_location = 9979
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Garibaldi'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+							owner = SPC
+							prioritize_location = 9979
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Abraham Lincoln'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+							owner = SPC
+							prioritize_location = 9979
+						}
+					}
+				}
+				else = {
+					random_controlled_state = {
+						prioritize = { 168 165 }
+						create_unit = {
+							division = "name = \"Brigada 'La Marseillaise'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+							owner = SPC
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Garibaldi'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+							owner = SPC
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Abraham Lincoln'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+							owner = SPC
+						}
+					}
+				}
+	
+				if = {
+					limit = {
+						controls_province = 9764
+					}
+					165 = {
+						create_unit = {
+							division = "name = \"Brigada 'Thälmann'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.6"
+							owner = SPC
+							prioritize_location = 9764
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Comuna de París'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.6"
+							owner = SPC
+							prioritize_location = 9764
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Las Cuarenta Naciones'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.6"
+							owner = SPC
+							prioritize_location = 9764
+						}
+						
+					}
+				}
+				else_if = {
+					limit = {
+						controls_province = 6906
+					}
+					167 = {
+						create_unit = {
+							division = "name = \"Brigada 'Thälmann'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.6"
+							owner = SPC
+							prioritize_location = 6906
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Comuna de París'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.6"
+							owner = SPC
+							prioritize_location = 6906
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Las Cuarenta Naciones'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.6"
+							owner = SPC
+							prioritize_location = 6906
+						}
+						
+					}
+				}
+				else = {
+					random_controlled_state = {
+						prioritize = { 173 168 }
+						create_unit = {
+							division = "name = \"Brigada 'Thälmann'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.6"
+							owner = SPC
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Comuna de París'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.6"
+							owner = SPC
+						}
+						create_unit = {
+							division = "name = \"Brigada 'Las Cuarenta Naciones'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.6"
+							owner = SPC
+						}
+					}
+				}
+			}
+		}
+		x = 7
+		y = 1
+	
+	}
+	focus = {
+		id = SPC_anti_fascist_struggle
+		icon = GFX_focus_spr_the_anti_fascist_workers_revolution
+		cost = 5
+		prerequisite = {
+			focus = SPC_international_brigades
+		}
+		prerequisite = {
+			focus = SPC_soviet
+		}
+		allow_branch = {
+			SPR = {
+				has_autocratic_government = yes
+			}
+		}
+		available = { 
+			has_war_with = SPR
+			
+		}
+		completion_reward = {
+			custom_effect_tooltip = spc_three_int_brigades
+			hidden_effect = {
+				random_controlled_state = {
+					prioritize = { 167 165 168 173 }
+					create_unit = {
+						division = "name = \"Brigada 'Pancho Villa'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+						owner = SPC
+					}
+					create_unit = {
+						division = "name = \"Brigada 'Dombrowski'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+						owner = SPC
+					}
+					create_unit = {
+						division = "name = \"Brigada 'Dimitov'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+						owner = SPC
+					}
+				}
+			}
+		}
+		x = 6
+		y = 2
+	
+	}
+	focus = {
+		id = SPC_anti_capitalist_war
+		icon = GFX_focus_Swing_the_Sword
+		cost = 5
+		prerequisite = {
+			focus = SPC_international_brigades
+		}
+		prerequisite = {
+			focus = SPC_soviet
+		}
+		allow_branch = {
+			SPR = {
+				not_has_autocratic_government = yes
+			}
+		}
+		available = { 
+			has_war_with = SPR
+		}
+		completion_reward = {
+			custom_effect_tooltip = spc_two_int_brigades
+			hidden_effect = {
+				random_controlled_state = {
+					prioritize = { 167 165 168 173 }
+					create_unit = {
+						division = "name = \"Brigada 'Dombrowski'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+						owner = SPC
+					}
+					create_unit = {
+						division = "name = \"Brigada 'Henri Vuillemin'\" division_template = \"Brigada Internacional\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+						owner = SPC
+					}
+				}
+			}
+		}
+		x = 6
+		y = 2
+	
+	}
+	focus = {
+		id = SPC_secure_firearms
+		icon = GFX_focus_Renewed_Arms
+		cost = 1
+		prerequisite = {
+			focus = SPC_scw
+		}
+		ai_will_do = {
+			base = 300
+		}
+		available = {
+			scr_in_progress = yes
+		}
+		completion_reward = {
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 1000 producer = SPR }
+			add_equipment_to_stockpile = { type = support_equipment amount = 300 producer = SPR }
+			add_equipment_to_stockpile = { type = artillery_equipment amount = 500 producer = SPR }
+		}
+		x = -2
+		y = 1
+	
+	}
+	
+	focus = {
+		id = SPC_organize_militias
+		icon = GFX_focus_Peasant_Militias
+		cost = 7
+		prerequisite = {
+			focus = SPC_secure_firearms
+		}
+		available = { has_war_with = SPR }
+		completion_reward = {
+			hidden_effect = {
+				random_owned_controlled_state = {
+					create_unit = {
+						division = "name = \"1a Columna Revolucionaria 'Pablo Iglesias'\" division_template = \"Columna de Milicianos\" start_experience_factor = 0.2 start_equipment_factor = 0.9"
+						owner = SPC
+						allow_spawning_on_enemy_provs = yes
+					}
+				}
+				random_owned_controlled_state = {
+					create_unit = {
+						division = "name = \"2a Columna Revolucionaria 'Largo Caballero'\" division_template = \"Columna de Milicianos\" start_experience_factor = 0.2 start_equipment_factor = 0.9"
+						owner = SPC
+						allow_spawning_on_enemy_provs = yes
+					}
+				}
+				random_owned_controlled_state = {
+					create_unit = {
+						division = "name = \"3a Columna Revolucionaria 'Indalecio Prieto'\" division_template = \"Columna de Milicianos\" start_experience_factor = 0.2 start_equipment_factor = 0.9"
+						owner = SPC
+						allow_spawning_on_enemy_provs = yes
+					}
+				}
+				random_owned_controlled_state = {
+					create_unit = {
+						division = "name = \"4a Columna Revolucionaria 'Pasionaria'\" division_template = \"Columna de Milicianos\" start_experience_factor = 0.2 start_equipment_factor = 0.9"
+						owner = SPC
+						allow_spawning_on_enemy_provs = yes
+					}
+				}
+				random_owned_controlled_state = {
+					create_unit = {
+						division = "name = \"5a Columna Revolucionaria 'Julián Besteiro'\" division_template = \"Columna de Milicianos\" start_experience_factor = 0.2 start_equipment_factor = 0.9"
+						owner = SPC
+						allow_spawning_on_enemy_provs = yes
+					}
+				}
+			}
+			custom_effect_tooltip = spc_gain_infantry
+		}
+		x = -3
+		y = 2
+	}
+	
+	focus = {
+		id = SPC_a_las_barricadas_focus
+		icon = GFX_focus_Trench_Warfare
+		cost = 1
+		prerequisite = {
+			focus = SPC_secure_firearms
+		}
+		ai_will_do = {
+			base = 200
+		}
+		available = { has_war_with = SPR }
+		completion_reward = {
+			add_war_support = 0.1
+			add_timed_idea = {
+				idea = SPC_a_las_barricadas
+				days = 90
+			}
+			add_days_mission_timeout = {
+				mission = SPC_war_exhaustion_mission
+				days = 20
+			}
+		}
+		x = -1
+		y = 2
+	}
+	
+	focus = {
+		id = SPC_maintain_enthusiasm
+		icon = GFX_focus_Arm_Resistance
+		cost = 5
+		prerequisite = {
+			focus = SPC_a_las_barricadas_focus
+		}
+		prerequisite = {
+			focus = SPC_organize_militias
+		}
+		available = { has_war_with = SPR }
+		completion_reward = {
+			add_war_support = 0.1
+			SPC_increase_enthusiasm = yes
+		}
+		x = -2
+		y = 3
+	
+	}
+	focus = {
+		id = SPC_nationalize_industry
+		icon = GFX_focus_strengthen_small_production
+		cost = 3
+		prerequisite = {
+			focus = SPC_scw
+		}
+		ai_will_do = {
+			base = 100
+		}
+		available = { has_war_with = SPR }
+		completion_reward = {
+			add_stability = -0.05
+			add_equipment_to_stockpile = {
+				type = train_equipment
+				amount = 80
+				producer = SPR
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 300
+				producer = SPR
+			}
+			if = {
+				limit = {
+					controls_state = 165
+				}
+				165 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = arms_factory
+								size < 1
+							}
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+					if = {
+						limit = {
+							free_building_slots = {
+								building = industrial_complex
+								size < 1
+							}
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				if = {
+					limit = {
+						NOT = { has_idea = SPR_industria_de_guerra_de_cataluna }
+					}
+					add_ideas = SPR_industria_de_guerra_de_cataluna
+				}
+				if = {
+					limit = {
+						NOT = { has_idea = SPR_suiza }
+					}
+					add_ideas = SPR_suiza
+				}
+			}
+			else = {
+				167 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = arms_factory
+								size < 1
+							}
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+				1213 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = industrial_complex
+								size < 1
+							}
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+	
+			if = {
+				limit = {
+					controls_state = 173
+				}
+				173 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = arms_factory
+								size < 1
+							}
+						}
+						add_extra_state_shared_building_slots = 1
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					controls_state = 168
+				}
+				168 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					controls_state = 167
+				}
+				167 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_controlled_state = {
+					prioritize = { 168 169 }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+		x = 1
+		y = 1
+	
+	}
+	focus = {
+		id = SPC_seize_civilian_planes
+		icon = GFX_focus_Airports
+		cost = 1
+		prerequisite = {
+			focus = SPC_scw
+		}
+		ai_will_do = {
+			base = 80
+		}
+		available = { has_war_with = SPR }
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				add_equipment_to_stockpile = {
+					type = fighter_equipment_1
+					amount = 40
+					producer = SPC
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = small_plane_airframe_0
+					amount = 40
+					producer = SPC
+				}
+			}
+		}
+		x = 3
+		y = 1
+	
+	}
+	focus = {
+		id = SPC_mobilize_the_workers
+		icon = GFX_focus_Soviet_War_Economy
+		cost = 2
+		prerequisite = {
+			focus = SPC_nationalize_industry
+		}
+		prerequisite = {
+			focus = SPC_seize_civilian_planes
+		}
+		available = { has_war_with = SPR }
+		ai_will_do = {
+			base = 100
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_idea = partial_economic_mobilisation
+						has_idea = war_economy
+						has_idea = tot_economic_mobilisation
+					}
+				}
+				add_ideas = partial_economic_mobilisation
+			}
+			add_ideas = SPC_mobilize_workers_idea
+			add_days_mission_timeout = {
+				mission = SPC_war_exhaustion_mission
+				days = 20
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						country_exists = SPR
+						SPR = { has_war_with = SPC }
+					}
+					SPR = {
+						country_event = {
+							id = scr.26
+							days = 1
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						country_exists = SPA
+						SPA = { has_war_with = SPC }
+					}
+					SPA = {
+						country_event = {
+							id = scr.26
+							days = 1
+						}
+					}
+				}
+			}
+		}
+		x = 2
+		y = 2
+	
+	}
+	focus = {
+		id = SPC_merge_party_militias
+		icon = GFX_focus_Prepare_the_Troops
+		cost = 7
+		prerequisite = {
+			focus = SPC_mobilize_the_workers
+		}
+		available = { has_war_with = SPR }
+		completion_reward = {
+			add_political_power = -50
+			swap_ideas = { remove_idea = SPC_disunited_army add_idea = SPC_disunited_army2 }
+		}
+		x = 0
+		y = 3
+	
+	}
+	# focus = {
+	# 	id = SPC_seize_companies_industry
+	# 	icon = GFX_focus_Cooperatives
+	# 	cost = 7
+	# 	prerequisite = {
+	# 		focus = SPC_mobilize_the_workers
+	# 	}
+	# 	available = { has_war_with = SPR }
+	# 	completion_reward = {
+	# 		# swap_ideas = { remove_idea = SPC_war_socialism add_idea = SPC_war_socialism2 }
+	# 		add_stability = -0.1
+			
+	# 	}
+	# 	x = 2
+	# 	y = 3
+	
+	# }
+	focus = {
+		id = SPC_establish_rations
+		icon = GFX_focus_civilian_rations
+		cost = 1
+		prerequisite = {
+			focus = SPC_mobilize_the_workers
+		}
+		available = { has_war_with = SPR }
+		ai_will_do = {
+			base = 70
+		}
+		completion_reward = {
+			add_ideas = SPC_civilian_rationing
+		}
+		x = 2
+		y = 3
+	
+	}
+	# focus = {
+	# 	id = SPC_consejo_agrario
+	# 	icon = GFX_focus_Agrarian_Reform
+	# 	cost = 6
+	# 	prerequisite = {
+	# 		focus = SPC_seize_companies_industry
+	# 	}
+	# 	available = { has_war_with = SPR }
+	# 	completion_reward = {
+	# 		# swap_ideas = { remove_idea = SPC_war_socialism2 add_idea = SPC_war_socialism3 }
+	# 	}
+	# 	x = 3
+	# 	y = 4
+	
+	# }
+	focus = {
+		id = SPC_arsenal_de_madrid
+		icon = GFX_focus_Firearms
+		cost = 0.7
+		prerequisite = {
+			focus = SPC_consejo_obrero_mineria_acero
+		}
+		available = { 
+			has_war_with = SPR
+			controls_state = 41
+		}
+		completion_reward = {
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 1500 producer = SPR }
+			add_equipment_to_stockpile = { type = support_equipment amount = 300 producer = SPR }
+			add_equipment_to_stockpile = { type = artillery_equipment amount = 400 producer = SPR }
+		}
+		x = 3
+		y = 4
+	
+	}
+	focus = {
+		id = SPC_consejo_obrero_mineria_acero
+		icon = GFX_focus_generic_steel
+		cost = 5
+		prerequisite = {
+			focus = SPC_mobilize_the_workers
+		}
+		available = { 
+			has_war_with = SPR
+			controls_state = 173
+		}
+		completion_reward = {
+			add_resource = {
+				type = steel
+				amount = 20
+				state = 173
+			}
+		}
+		x = 4
+		y = 3
+	
+	}
+	focus = {
+		id = SPC_consejo_industrial_levante
+		icon = GFX_focus_Industrialization
+		cost = 6
+		prerequisite = {
+			focus = SPC_consejo_obrero_mineria_acero
+		}
+		available = { 
+			has_war_with = SPR
+			controls_state = 167
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = SPC_mobilize_workers_idea
+				add_idea = SPC_mobilize_workers_idea2
+			}
+		}
+		x = 5
+		y = 4
+	
+	}
+	focus = {
+		id = SPC_brigadas_mixtas
+		icon = GFX_focus_popular_force
+		cost = 9
+		prerequisite = {
+			focus = SPC_merge_party_militias
+		}
+		prerequisite = {
+			focus = SPC_maintain_enthusiasm
+		}
+		available = { has_war_with = SPR }
+		completion_reward = {
+			remove_ideas = SPC_disunited_army2
+			SPC_increase_enthusiasm = yes
+			division_template = {
+				name = "Brigada Mixta"
+				division_names_group = SPR_BRG_MIX
+			
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 0 y = 3 }
+					# artillery_brigade = { x = 1 y = 0 } #Theorical: 1 bn. In practice: 1 batery  
+				}
+			
+				support = {
+					engineer = { x = 0 y = 0 }
+				}
+			}
+			random_controlled_state = {
+				prioritize = { 169 165 167 }
+				create_unit = {
+					division = "name = \"1.ª Brigada Mixta\" division_template = \"Brigada Mixta\" start_experience_factor = 0.1 start_equipment_factor = 0.7"
+					owner = SPC
+				}
+			}
+		}
+		x = -1
+		y = 4
+	
+	}
+
+	focus = {
+		id = SPC_form_armour_regiment
+		icon = GFX_focus_Light_Tanks
+		cost = 5
+		prerequisite = {
+			focus = SPC_merge_party_militias
+		}
+
+		available = {
+			has_equipment = { light_tank_chassis > 119 }
+		}
+		completion_reward = {
+			division_template = { 
+				name = "Regimiento de Carros de Combate"
+				regiments = {
+					light_armor = { x = 0 y = 0 }
+					light_armor = { x = 0 y = 1 }
+				}
+				
+				support = {
+					engineer = { x = 0 y = 0 }
+				}
+			}
+			random_controlled_state = {
+				prioritize = { 169 168 }
+				create_unit = {
+					division = "name = \"1.º Regimiento de Carros de Combate\" division_template = \"Regimiento de Carros de Combate\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+					owner = SPC
+				}
+			}
+		}
+		x = 1
+		y = 4
+	
+	}
+}

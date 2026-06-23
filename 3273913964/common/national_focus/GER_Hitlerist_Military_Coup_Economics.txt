@@ -1,0 +1,656 @@
+#18 here
+#s_team337
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Economics_Start
+	icon = GFX_focus_Root_out_Funding
+	#prerequisite = { focus = GER_HitStr_Military_Coup_Economics_Start }
+	x = 13
+	y = 0
+	#relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 3.48
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = GER_Four_Year_Plan
+			}
+			remove_ideas = GER_Four_Year_Plan
+		}
+		else = {
+			add_political_power = 50
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Economics_Cut_Military_Spending
+	icon = GFX_focus_Root_out_Funding
+	prerequisite = { focus = GER_HitStr_Military_Coup_Economics_Start }
+	x = -1
+	y = 1
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 5.72
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+		NOT = { has_idea = GER_Increased_Military_Spending }
+	}
+	completion_reward = {
+		remove_ideas = {
+			GER_Increased_Military_Spending
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Economics_Mass_Privatizations
+	icon = GFX_focus_Capitalist_Systems
+	prerequisite = { focus = GER_HitStr_Military_Coup_Economics_Start }
+	x = 1
+	y = 1
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 7.58
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 40
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Dismantle_DAF
+	icon = GFX_focus_Rich_Focus
+	prerequisite = { focus = GER_HitStr_Military_Coup_Economics_Cut_Military_Spending }
+	prerequisite = { focus = GER_HitStr_Military_Coup_Economics_Mass_Privatizations }
+	x = -2
+	y = 2
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 4
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+		NOT = {
+			has_idea = GER_National_Socialist_Peoples_Welfare
+			has_country_flag = GER_KdF_Established
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = GER_National_Socialist_Peoples_Welfare
+			}
+			remove_ideas = GER_National_Socialist_Peoples_Welfare
+		}
+		if = {
+			limit = {
+				has_country_flag = GER_KdF_Established
+			}
+			clr_country_flag = GER_KdF_Established
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_idea = GER_National_Socialist_Peoples_Welfare
+					has_country_flag = GER_KdF_Established
+				}
+			}
+			add_political_power = 50
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Union_Question
+	icon = GFX_focus_Union_Workers
+	prerequisite = { focus = GER_HitStr_Military_Coup_Dismantle_DAF }
+	x = -2
+	y = 3
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 1.43
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_antinazi.2
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Dismantle_Reichswerke
+	icon = GFX_focus_Shady_Deals
+	prerequisite = { focus = GER_HitStr_Military_Coup_Economics_Cut_Military_Spending }
+	prerequisite = { focus = GER_HitStr_Military_Coup_Economics_Mass_Privatizations }
+	x = 0
+	y = 2
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 4.29
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.04
+		}
+		add_political_power = 30
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Dismantle_Corporate_Guilds
+	icon = GFX_focus_Business_Men
+	prerequisite = { focus = GER_HitStr_Military_Coup_Dismantle_Reichswerke }
+	x = 0
+	y = 3
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 2
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 30
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Close_Unprofitable_Industry
+	icon = GFX_focus_Ecomomic_Banditry
+	prerequisite = { focus = GER_HitStr_Military_Coup_Economics_Cut_Military_Spending }
+	prerequisite = { focus = GER_HitStr_Military_Coup_Economics_Mass_Privatizations }
+	x = 2
+	y = 2
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 8.58
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				industrial_complex > 1
+			}
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+		random_owned_state = {
+			limit = {
+				industrial_complex > 1
+			}
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}		
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Open_Trade
+	icon = GFX_focus_Free_Trade
+	prerequisite = { focus = GER_HitStr_Military_Coup_Close_Unprofitable_Industry }
+	x = 2
+	y = 3
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 4.27
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = free_trade
+			}
+			add_political_power = 30
+		}
+		if = {
+			limit = {
+				has_idea = export_focus
+			}
+			swap_ideas = {
+				remove_idea = export_focus
+				add_idea = free_trade
+			}
+		}
+		if = {
+			limit = {
+				has_idea = limited_exports
+			}
+			swap_ideas = {
+				remove_idea = limited_exports
+				add_idea = export_focus
+			}
+		}
+		if = {
+			limit = {
+				has_idea = closed_economy
+			}
+			swap_ideas = {
+				remove_idea = closed_economy
+				add_idea = export_focus
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Leave_War_Economy
+	icon = GFX_focus_Pacifist_State
+	prerequisite = { focus = GER_HitStr_Military_Coup_Union_Question }
+	prerequisite = { focus = GER_HitStr_Military_Coup_Dismantle_Corporate_Guilds }
+	prerequisite = { focus = GER_HitStr_Military_Coup_Open_Trade }
+	x = -1
+	y = 4
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 3.15
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+		has_war = no
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = civilian_economy
+			}
+			add_political_power = 50
+		}
+		else_if = {
+			limit = {
+				has_idea = low_economic_mobilisation
+			}
+			swap_ideas = {
+				remove_idea = low_economic_mobilisation
+				add_idea = civilian_economy
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = partial_economic_mobilisation
+			}
+			swap_ideas = {
+				remove_idea = partial_economic_mobilisation
+				add_idea = low_economic_mobilisation
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = war_economy
+			}
+			swap_ideas = {
+				remove_idea = war_economy
+				add_idea = partial_economic_mobilisation
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = tot_economic_mobilisation
+			}
+			swap_ideas = {
+				remove_idea = tot_economic_mobilisation
+				add_idea = partial_economic_mobilisation
+			}
+			add_political_power = -50
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Civilian_Spending
+	icon = GFX_focus_generic_concessions
+	prerequisite = { focus = GER_HitStr_Military_Coup_Union_Question }
+	prerequisite = { focus = GER_HitStr_Military_Coup_Dismantle_Corporate_Guilds }
+	prerequisite = { focus = GER_HitStr_Military_Coup_Open_Trade }
+	x = 1
+	y = 4
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 7.15
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+		has_war = no
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = GER_National_Socialist_Peoples_Welfare
+			}
+			swap_ideas = {
+				remove_idea = GER_National_Socialist_Peoples_Welfare
+				add_idea = GER_National_Socialist_Peoples_Welfare2
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_idea = GER_National_Socialist_Peoples_Welfare2
+				}
+			}
+			add_ideas = GER_National_Socialist_Peoples_Welfare2
+		}
+		else = {
+			add_political_power = -50
+		}
+		if = {
+			limit = {
+				has_idea = Legacy_of_Hitler
+			}
+			swap_ideas = {
+				remove_idea = Legacy_of_Hitler
+				add_idea = Legacy_of_Hitler2
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = Legacy_of_Hitler2
+			}
+			swap_ideas = {
+				remove_idea = Legacy_of_Hitler2
+				add_idea = Legacy_of_Hitler3
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = Legacy_of_Hitler3
+			}
+			swap_ideas = {
+				remove_idea = Legacy_of_Hitler3
+				add_idea = Legacy_of_Hitler4
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = Legacy_of_Hitler4
+			}
+			swap_ideas = {
+				remove_idea = Legacy_of_Hitler4
+				add_idea = Legacy_of_Hitler5
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = Legacy_of_Hitler5
+			}
+			remove_ideas = Legacy_of_Hitler5
+		}
+		else = {
+			add_stability = 0.05
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Decrease_State_Oversight
+	icon = GFX_focus_Capitalist_Rule
+	prerequisite = { focus = GER_HitStr_Military_Leave_War_Economy }
+	prerequisite = { focus = GER_HitStr_Military_Civilian_Spending }
+	x = -2
+	y = 5
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 2.86
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Increase_Taxes
+	icon = GFX_focus_Fundraising
+	prerequisite = { focus = GER_HitStr_Military_Coup_Decrease_State_Oversight }
+	x = -2
+	y = 6
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 5
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+		has_idea = GER_Hitler_Raise_Taxes
+	}
+	completion_reward = {
+		add_ideas = GER_Hitler_Raise_Taxes
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Sell_Loot
+	icon = GFX_focus_Tiger_Economy
+	prerequisite = { focus = GER_HitStr_Military_Leave_War_Economy }
+	prerequisite = { focus = GER_HitStr_Military_Civilian_Spending }
+	x = 0
+	y = 5
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 7
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 40
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Sell_Plunder
+	icon = GFX_focus_Excavations
+	prerequisite = { focus = GER_HitStr_Military_Coup_Sell_Loot }
+	x = 0
+	y = 6
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 7
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 20
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Limited_Bailouts
+	icon = GFX_focus_Dam_Focus
+	prerequisite = { focus = GER_HitStr_Military_Leave_War_Economy }
+	prerequisite = { focus = GER_HitStr_Military_Civilian_Spending }
+	x = 2
+	y = 5
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 8.58
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -10
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Small_Businesses
+	icon = GFX_focus_Agriculture
+	prerequisite = { focus = GER_HitStr_Military_Coup_Limited_Bailouts }
+	x = 2
+	y = 6
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 5
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Coup_Continue_Debt
+	icon = GFX_focus_Business_Men
+	prerequisite = { focus = GER_HitStr_Military_Coup_Increase_Taxes }
+	prerequisite = { focus = GER_HitStr_Military_Coup_Sell_Plunder }
+	prerequisite = { focus = GER_HitStr_Military_Coup_Small_Businesses }
+	x = 0
+	y = 7
+	relative_position_id = GER_HitStr_Military_Coup_Economics_Start
+	cost = 5.72
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Military_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		hidden_effect = {
+			if = {
+				limit = {
+					has_idea = GER_MEFO_Idea_20
+				}
+				swap_ideas = {
+					remove_idea = GER_MEFO_Idea_20
+					add_idea = GER_MEFO_Endsieg
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = GER_MEFO_Failed
+				}
+				swap_ideas = {
+					remove_idea = GER_MEFO_Failed
+					add_idea = GER_MEFO_Endsieg
+				}
+			}
+			else = {
+				add_political_power = 50
+			}
+		}
+		custom_effect_tooltip = GER_coup_repay_debts_tt
+	}
+}

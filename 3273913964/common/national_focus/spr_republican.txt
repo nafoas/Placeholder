@@ -1,0 +1,344 @@
+shared_focus = {
+	id = SPR_popular_front_cabinet
+	icon = GFX_focus_popular_front_spain
+	cost = 10
+	bypass = {
+	    has_government = social_democracy
+	}
+	available = { has_country_flag = never }
+	x = 5
+	y = 0
+}
+shared_focus = {
+	id = SPR_finish
+	icon = GFX_focus_Agrarian_Reform
+	cost = 5
+	prerequisite = {
+		focus = SPR_popular_front_cabinet
+	}
+	completion_reward = {
+	    remove_ideas = SPR_agrarian_problem
+		hidden_effect = {
+		    remove_ideas = SPR_agrarian_problem2
+		    remove_ideas = SPR_agrarian_problem3
+	    }
+	}
+	ai_will_do = {
+		base = 600
+	}
+	x = -3
+	y = 1
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_wage
+	icon = GFX_focus_Progressive_Taxation
+	cost = 6
+	prerequisite = {
+		focus = SPR_finish
+	}
+	completion_reward = {
+	    add_war_support = 0.08
+	}
+	x = -4
+	y = 2
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_workday
+	icon = GFX_Unemployeds_Help
+	cost = 6
+	prerequisite = {
+		focus = SPR_finish
+	}
+	completion_reward = {
+	    add_stability = 0.15
+	}
+	x = -2
+	y = 2
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_education_all
+	icon = GFX_focus_BRA_goal_literacy_effort
+	cost = 10
+	prerequisite = {
+		focus = SPR_wage
+	}
+	prerequisite = {
+		focus = SPR_workday
+	}
+	completion_reward = {
+		add_research_slot = 1
+	}
+	x = -3
+	y = 3
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_healthcare
+	icon = GFX_focus_Medicine
+	cost = 8
+	prerequisite = {
+		focus = SPR_education_all
+	}
+	completion_reward = {
+		add_popularity = { ideology = social_democracy popularity = 0.1 }
+		add_popularity = { ideology = socialism popularity = 0.1 }
+	}
+	x = -3
+	y = 4
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_basque_aut
+	icon = GFX_focus_Befriend_Basque
+	cost = 5
+	prerequisite = {
+		focus = SPR_popular_front_cabinet
+	}
+	completion_reward = {
+		hidden_effect = {
+			752 = {
+				add_dynamic_modifier = { modifier = euzkadi_autonomy }
+			}
+		}
+	}
+	ai_will_do = {
+		base = 300
+	}
+	x = 0
+	y = 1
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_vote_galicia
+	icon = GFX_focus_Befriend_Galicia
+	cost = 7
+	prerequisite = {
+		focus = SPR_basque_aut
+	}
+	completion_reward = {
+		#A vote in the cortes to decide Galician Autonomy should be added
+		hidden_effect = {
+			171 = {
+				add_dynamic_modifier = { modifier = galicia_autonomy }
+			}
+		}
+	}
+	x = 0
+	y = 2
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_andalusian
+	icon = GFX_focus_Andalucia
+	cost = 7
+	prerequisite = {
+		focus = SPR_vote_galicia
+	}
+	completion_reward = {
+		#A vote in the cortes to decide Andalucian Autonomy should be added
+		hidden_effect = {
+			169 = {
+				add_dynamic_modifier = { modifier = andalucia_autonomy }
+			}
+			173 = {
+				add_dynamic_modifier = { modifier = andalucia_autonomy }
+			}
+			1213 = {
+				add_dynamic_modifier = { modifier = andalucia_autonomy }
+			}
+		}
+	}
+	x = 0
+	y = 3
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_integral
+	icon = GFX_focus_Statutes_Autonomy
+	cost = 10
+	prerequisite = {
+		focus = SPR_andalusian
+	}
+	completion_reward = {
+		add_political_power = 80
+		#We should add a vote in the cortes for every autonomy (so it's more dynamic, it also adds flavour)
+		# hidden_effect = {
+		# 	172 = {
+		# 		add_dynamic_modifier = { modifier = navarra_autonomy }
+		# 	}
+		# 	167 = {
+		# 		add_dynamic_modifier = { modifier = valencia_autonomy }
+		# 	}
+		# 	166 = {
+		# 		add_dynamic_modifier = { modifier = aragon_autonomy }
+		# 	}
+		# 	168 = {
+		# 		add_dynamic_modifier = { modifier = murcia_autonomy }
+		# 	}
+		# 	177 = {
+		# 		add_dynamic_modifier = { modifier = baleares_autonomy }
+		# 	}
+		# 	170 = {
+		# 		add_dynamic_modifier = { modifier = extremadura_autonomy }
+		# 	}
+		# 	178 = {
+		# 		add_dynamic_modifier = { modifier = canarias_autonomy }
+		# 	}
+		# 	174 = {
+		# 		add_dynamic_modifier = { modifier = leon_autonomy }
+		# 	}
+		# 	1220 = {
+		# 		add_dynamic_modifier = { modifier = leon_autonomy }
+		# 	}
+		# }
+	}
+	x = 0
+	y = 4
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_defend_rep
+	icon = GFX_focus_Defend_The_Republic
+	cost = 2
+	prerequisite = {
+		focus = SPR_popular_front_cabinet
+	}
+	completion_reward = {
+	    add_stability = 0.05
+	    add_popularity = { ideology = fascism popularity = -0.1 }
+		add_popularity = { ideology = monarchism popularity = -0.1 }
+	}
+	x = 3
+	y = 1
+	relative_position_id = SPR_popular_front_cabinet
+	ai_will_do = {
+		base = 800
+	}
+}
+shared_focus = {
+	id = SPR_falange_crack
+	icon = GFX_focus_Eliminate_Jose_Antonio
+	cost = 0.1
+	prerequisite = {
+		focus = SPR_defend_rep
+	}
+	completion_reward = {
+	    swap_ideas = { remove_idea = SPR_violence add_idea = SPR_leftist_violence }
+		custom_effect_tooltip = SPR_arrest_ja_tt
+		set_country_flag = ja_arrested_flag
+		hidden_effect = {
+			retire_character = SPR_jose_antonio_primo_de_rivera
+			SPA = { retire_character = SPR_jose_antonio_primo_de_rivera }
+			generate_character = {
+				token_base = SCW_false_franco
+				name="Francisco Franco"
+				portraits={
+					civilian={
+						large="gfx/leaders_cbts/SPA/Portrait_Spain_Leader_Francisco_Franco.png"
+					}
+				}
+				country_leader={
+					ideology=francoism
+					expire="1965.1.1.1"
+					id=-1
+				}
+			}
+		}
+	}
+	x = 2
+	y = 2
+	relative_position_id = SPR_popular_front_cabinet
+	ai_will_do = {
+		base = 900
+	}
+}
+shared_focus = {
+	id = SPR_handle_cnt
+	icon = GFX_focus_Crush_Resistance
+	cost = 8
+	prerequisite = {
+		focus = SPR_falange_crack
+	}
+	completion_reward = {
+	    remove_ideas = SPR_leftist_violence
+	}
+	x = 2
+	y = 3
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_purge_army
+	icon = GFX_focus_Purge_Dissenters
+	cost = 9
+	prerequisite = {
+		focus = SPR_defend_rep
+	}
+	completion_reward = {
+	    add_ideas = SPR_ref_mil
+	}
+	x = 4
+	y = 2
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_catholic_influence
+	icon = GFX_focus_Fight_Christianity
+	cost = 9
+	prerequisite = {
+		focus = SPR_purge_army
+	}
+	completion_reward = {
+	    add_political_power = 150
+		add_stability = 0.1
+	}
+	x = 4
+	y = 3
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_republican_society
+	icon = GFX_focus_Spanish_Republicanism
+	cost = 10
+	prerequisite = {
+		focus = SPR_handle_cnt
+	}
+	prerequisite = {
+		focus = SPR_catholic_influence
+	}
+	completion_reward = {
+	    add_popularity = { ideology = democratic popularity = 0.025 }
+		add_popularity = { ideology = jacobin popularity = 0.025 }
+		add_popularity = { ideology = market_liberalism popularity = 0.05 }
+		add_popularity = { ideology = social_liberalism popularity = 0.05 }
+		add_popularity = { ideology = social_democracy popularity = 0.1 }
+		add_popularity = { ideology = socialism popularity = 0.1 }
+	}
+	x = 3
+	y = 4
+	relative_position_id = SPR_popular_front_cabinet
+}
+shared_focus = {
+	id = SPR_march_forward
+	icon = GFX_focus_Support_Spanish_Republic
+	cost = 10
+	prerequisite = {
+		focus = SPR_healthcare
+	}
+	prerequisite = {
+		focus = SPR_integral
+	}
+	prerequisite = {
+		focus = SPR_republican_society
+	}
+	completion_reward = {
+	    add_political_power = 200
+		add_stability = 0.1
+		add_war_support = 0.1
+	}
+	x = 0
+	y = 5
+	relative_position_id = SPR_popular_front_cabinet
+}

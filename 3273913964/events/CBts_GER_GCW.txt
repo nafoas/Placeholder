@@ -1,0 +1,542 @@
+###########################
+# German Civil War Nationalist Events
+###########################
+add_namespace = ger_civil_war
+
+#ITA - Germany Asks for Recognition and Equipment
+country_event = {
+	id = ger_civil_war.1
+	title = ger_civil_war.1.t
+	desc = ger_civil_war.1.d
+	picture = GFX_Events_Germany_Pact_of_Steel
+	is_triggered_only = yes
+	option = { #continue
+		name = ger_civil_war.1.a
+		ai_chance = {
+			base = 4
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 1200
+			target = FROM
+		}
+		FROM = {
+			country_event = {
+				id = ger_civil_war.2
+				days = 1
+			}
+			add_opinion_modifier = {
+				modifier = GER_GCW_Recognized_Nationalists
+				target = ROOT
+			}
+		}
+		every_country = {
+			limit = {
+				tag = GRM
+				has_war_with = FROM
+			}
+			add_opinion_modifier = {
+				modifier = GER_GCW_Recognized_Nationalists_Ext
+				target = ROOT
+			}
+		}
+	}
+	option = {
+		name = ger_civil_war.1.b
+		ai_chance = {
+			base = 96
+		}
+		FROM = {
+			country_event = {
+				id = ger_civil_war.3
+				days = 1
+			}
+			add_opinion_modifier = {
+				modifier = GER_GCW_Did_Not_Recognize_Nationalists
+				target = ROOT
+			}
+		}
+	}
+}
+#Italy Accepts
+country_event = {
+	id = ger_civil_war.2
+	title = ger_civil_war.2.t
+	desc = ger_civil_war.2.d
+	picture = GFX_Events_Germany_Pact_of_Steel
+	is_triggered_only = yes
+	option = { #continue
+		name = ger_civil_war.2.a
+		ai_chance = {
+			base = 100
+		}
+		effect_tooltip = {
+			FROM = {
+				send_equipment = {
+					equipment = infantry_equipment
+					amount = 1200
+					target = ROOT
+				}
+			}
+			add_opinion_modifier = {
+				modifier = GER_GCW_Recognized_Nationalists
+				target = FROM
+			}
+		}
+	}
+}
+#Italy Refuses
+country_event = {
+	id = ger_civil_war.3
+	title = ger_civil_war.3.t
+	desc = ger_civil_war.3.d
+	picture = GFX_Events_Germany_Pact_of_Steel
+	is_triggered_only = yes
+	option = { #continue
+		name = ger_civil_war.3.a
+		ai_chance = {
+			base = 100
+		}
+		effect_tooltip = {
+			add_opinion_modifier = {
+				modifier = GER_GCW_Did_Not_Recognize_Nationalists
+				target = FROM
+			}
+		}
+	}
+}
+#Demand #1: Reichswehr demand political autonomy
+country_event = {
+	id = ger_civil_war.4
+	title = ger_civil_war.4.t
+	desc = ger_civil_war.4.d
+	picture = GFX_Events_Germany_Beck_And_Fritsch
+	is_triggered_only = yes
+	option = { #Accept
+		name = ger_civil_war.4.a
+		ai_chance = {
+			base = 87
+		}
+		add_stability = 0.03
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.03
+		}
+		hidden_effect = {
+			country_event = {
+				id = ger_civil_war.5
+				days = 24
+			}
+		}
+	}
+	option = { #Refuse
+		name = ger_civil_war.4.b
+		ai_chance = {
+			base = 13
+		}
+		add_stability = 0.03
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.03
+		}
+		COALITION_clr_aut = yes
+		hidden_effect = {
+
+			country_event = {
+				id = ger_civil_war.10
+				days = 110
+			}
+		}
+	}
+}
+#Demand #2: DNVP Demands certain ministries
+country_event = {
+	id = ger_civil_war.5
+	title = ger_civil_war.5.t
+	desc = ger_civil_war.5.d
+	picture = GFX_Event_Germany_DNVP_Meeting
+	is_triggered_only = yes
+	option = { #Accept
+		name = ger_civil_war.5.a
+		ai_chance = {
+			base = 90
+		}
+		add_stability = 0.03
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.03
+		}
+		set_country_flag = GER_ministries_guarnateed_DNVP #might come in useful
+		hidden_effect = {
+			country_event = {
+				id = ger_civil_war.6
+				days = 25
+			}
+		}
+	}
+	option = { #Refuse
+		name = ger_civil_war.5.b
+		ai_chance = {
+			base = 10
+		}
+		add_stability = -0.03
+		hidden_effect = {
+			country_event = {
+				id = ger_civil_war.10
+				days = 90
+			}
+		}
+	}
+}
+#Demand #3: DNVP is concerned over the rights of major corporations
+country_event = {
+	id = ger_civil_war.6
+	title = ger_civil_war.6.t
+	desc = ger_civil_war.6.d
+	picture = GFX_report_event_Krupp
+	is_triggered_only = yes
+	option = { #Accept
+		name = ger_civil_war.6.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.03
+		}
+		hidden_effect = {
+			country_event = {
+				id = ger_civil_war.7
+				days = 31
+			}
+		}
+	}
+	option = { #Refuse
+		name = ger_civil_war.6.b
+		ai_chance = {
+			base = 0
+		}
+		add_stability = -0.03
+		hidden_effect = {
+			country_event = {
+				id = ger_civil_war.10
+				days = 70
+			}
+		}
+	}
+}
+#Demand #4: Reichswehr demands SA integration
+country_event = {
+	id = ger_civil_war.7
+	title = ger_civil_war.7.t
+	desc = ger_civil_war.7.d
+	picture = GFX_Events_Germany_Fall_Grun_Planning
+	is_triggered_only = yes
+	option = { #Accept
+		name = ger_civil_war.7.a
+		ai_chance = {
+			base = 93
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.03
+		}
+		hidden_effect = {
+			country_event = {
+				id = ger_civil_war.8
+				days = 26
+			}
+		}
+	}
+	option = { #Refuse
+		name = ger_civil_war.7.b
+		ai_chance = {
+			base = 7
+		}
+		add_stability = -0.03
+		COALITION_clr_aut = yes
+		hidden_effect = {
+			country_event = {
+				id = ger_civil_war.10
+				days = 50
+			}
+		}
+	}
+}
+#Demand #5: DNVP Worried about the Church
+country_event = {
+	id = ger_civil_war.8
+	title = ger_civil_war.8.t
+	desc = ger_civil_war.8.d
+	picture = GFX_Event_Germany_DNVP_Meeting
+	is_triggered_only = yes
+	option = { #Accept
+		name = ger_civil_war.8.a
+		ai_chance = {
+			base = 81
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.03
+		}
+		hidden_effect = {
+			country_event = {
+				id = ger_civil_war.9
+				days = 14
+			}
+		}
+	}
+	option = { #Refuse
+		name = ger_civil_war.7.b
+		ai_chance = {
+			base = 19
+		}
+		add_stability = -0.03
+		hidden_effect = {
+			country_event = {
+				id = ger_civil_war.10
+				days = 30
+			}
+		}
+	}
+}
+#All concessions given
+country_event = {
+	id = ger_civil_war.9
+	title = ger_civil_war.9.t
+	desc = ger_civil_war.9.d
+	picture = GFX_Event_Germany_DNVP_Meeting
+	is_triggered_only = yes
+	option = { #Accept
+		name = ger_civil_war.9.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = GER_GCW_open_harzburg_front
+		set_country_flag = GER_GCW_Harzburg_Front_survives
+	}
+}
+#Attempted Putsch
+country_event = {
+	id = ger_civil_war.10
+	title = ger_civil_war.10.t
+	desc = ger_civil_war.10.d
+	picture = GFX_event_Germany_Putsch
+	is_triggered_only = yes
+	option = {
+		name = ger_civil_war.10.a
+		ai_chance = {
+			base = 50
+		}
+		custom_effect_tooltip = GER_GCW_seize_Hitler
+		hidden_effect = {
+			country_event = {
+				id = ger_civil_war.11
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = ger_civil_war.10.b
+		ai_chance = {
+			base = 50
+		}
+		custom_effect_tooltip = GER_GCW_arrest_Hitler
+		hidden_effect = {
+			country_event = {
+				id = ger_civil_war.12
+				days = 1
+			}
+		}
+	}
+}
+#Successful Putsch
+country_event = {
+	id = ger_civil_war.11
+	title = ger_civil_war.11.t
+	desc = ger_civil_war.11.d
+	picture = GFX_event_GER_GCW_Coup
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			add_stability = -0.20
+			promote_character = GER_hermann_goring
+			set_politics = {
+				ruling_party = nationalism
+				elections_allowed = no
+			}
+			COALITION_clr_fas = yes
+			add_ideas = {
+				hugenberg
+				frn_Kleist
+				thomas
+				bumke
+			}
+			if = {
+				limit = {
+					has_idea = coa_adolf_hitler
+				}
+				add_ideas = coa_witzleben
+			}
+			every_unit_leader = {
+				limit = {
+					has_id = 42 #Röhm
+				}
+				retire = yes
+			}
+			retire_character = GER_adolf_hitler
+			clr_country_flag = GER_hitler_in_power
+			retire_character = GER_joseph_goebbels
+			retire_character = GER_heinrich_himmler
+			hidden_effect = {
+				GER = { retire_character = GER_heinrich_himmler }
+			}
+			set_country_flag = GER_krosigk_incapable
+			set_country_flag = GER_rosenberg_incapable
+			# set_country_flag = GER_speer_incapable
+			swap_ideas = {
+				remove_idea = GER_reactionary_plot
+				add_idea = GER_reactionary_plot_removed
+			}
+		}
+	}
+	option = {
+		name = ger_civil_war.11.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = GER_GCW_successful_coup_tt
+		effect_tooltip = {
+			add_stability = -0.20
+			promote_character = GER_hermann_goring
+			set_politics = {
+				ruling_party = nationalism
+				elections_allowed = no
+			}
+			COALITION_clr_fas = yes
+			add_ideas = {
+				hugenberg
+				frn_Kleist
+				thomas
+				bumke
+			}
+			swap_ideas = {
+				remove_idea = GER_reactionary_plot
+				add_idea = GER_reactionary_plot_removed
+			}
+		}
+		set_country_flag = GER_GCW_successful_coup
+	}
+}
+#Failed Putsch
+country_event = {
+	id = ger_civil_war.12
+	title = ger_civil_war.12.t
+	desc = ger_civil_war.12.d
+	picture = GFX_event_GER_GCW_Coup
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			add_stability = -0.20
+			COALITION_clr_aut = yes
+			COALITION_clr_mon = yes
+			COALITION_clr_nat = yes
+			add_ideas = {
+				hitler
+				ribbentrop
+				goring2
+				lutze
+			}
+			if = {
+				limit = {
+					has_idea = coa_witzleben
+				}
+				add_ideas = coa_adolf_hitler
+			}
+			swap_ideas = {
+				remove_idea = GER_reactionary_plot
+				add_idea = GER_reactionary_plot_removed
+			}
+			if = {
+				limit = {
+					has_character = GER_erwin_von_witzleben
+				}
+				retire_character = GER_erwin_von_witzleben
+			}
+			every_unit_leader = {
+				limit = {
+					OR = {
+						# has_id = 17
+						has_id = 39
+					}
+				}
+				retire = yes
+			}
+			set_country_flag = GER_hugenberg_incapable
+			set_country_flag = GER_hammerstein_equord_incapable
+			set_country_flag = GER_witzleben_incapable
+			set_country_flag = GER_oster_incapable
+			set_country_flag = GER_neurath_incapable
+			set_country_flag = GER_thyssen_incapable
+		}
+	}
+	option = {
+		name = ger_civil_war.12.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = GER_GCW_failed_coup_tt
+		effect_tooltip = {
+			add_stability = -0.20
+			COALITION_clr_aut = yes
+			COALITION_clr_mon = yes
+			COALITION_clr_nat = yes
+			add_ideas = {
+				hitler
+				ribbentrop
+				goring2
+				lutze
+			}
+			swap_ideas = {
+				remove_idea = GER_reactionary_plot
+				add_idea = GER_reactionary_plot_removed
+			}
+		}
+		set_country_flag = GER_GCW_failed_coup
+	}
+}
+
+#Only Konigsberg remaining: capitulate already
+#removed temporarily
+# country_event = {
+# 	id = ger_civil_war.20
+# 	title = ger_civil_war.20.t
+# 	desc = ger_civil_war.20.d
+# 	picture = GFX_event_GER_GCW_Coup
+# 	mean_time_to_happen = { days = 2 }
+	
+# 	trigger = {
+# 	    is_ai = yes
+# 	    OR = {
+# 		    tag = GER
+# 			tag = WGR
+# 		}
+# 		NOT = {
+# 		    any_owned_state = {
+# 	            is_controlled_by = ROOT
+# 	            NOT = {
+# 				    OR = {
+# 					    state = 762
+# 						state = 5
+# 					}
+# 				}
+#             }
+# 		}
+# 	}
+# 	option = { #
+# 		name = ger_civil_war.20.a
+# 		remove_ideas = GCW_civil_war_idea
+# 		add_war_support = -0.75
+# 		add_stability = -0.75
+# 	}
+# }

@@ -1,0 +1,2239 @@
+
+shared_focus = {
+	id = USA_main_military_start
+	icon = GFX_focus_American_Glory
+	cost = 2
+	search_filters = {FOCUS_FILTER_POLITICAL}
+	completion_reward = {
+		add_political_power = 50
+	}
+	x = 89
+	y = 0
+	offset = {
+		x = -1
+		y = 0
+		trigger = { has_focus_tree = USA_focus_war_tree }
+	}
+	offset = {
+		x = 6
+		y = 0
+		trigger = { has_focus_tree = USA_focus_robinson_tree }
+	}
+	offset = {
+		x = -10
+		y = 0
+		trigger = { has_focus_tree = USA_focus_postwar_tree }
+	}
+}
+
+shared_focus = {
+	id = USA_second_vinson
+	icon = GFX_focus_naval_reform
+	cost = 5
+	prerequisite = {
+		focus = USA_main_military_start
+	}
+	search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS_ACT}
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote_usa
+		custom_effect_tooltip = sv_law
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	x = 15
+	y = 1
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_two_ocean_act
+	icon = GFX_focus_usa_coa
+	cost = 5
+	prerequisite = {
+		focus = USA_second_vinson
+	}
+	search_filters = {FOCUS_FILTER_USA_CONGRESS_ACT}
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote_usa
+		custom_effect_tooltip = ton_law
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			custom_effect_tooltip = unlock_naval_tree_usa
+		}
+	}
+	x = 15
+	y = 2
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_fleet_being
+	icon = GFX_focus_Battlefleet
+	cost = 5
+	prerequisite = {
+		focus = USA_two_ocean_act
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	mutually_exclusive = { focus = USA_carrier_fleet }
+	available = { has_country_flag = usa_passed_ton_act }
+	completion_reward = {
+		navy_experience = 30
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = cat_fleet_in_being
+		}
+	}
+	x = 10
+	y = 3
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_follow_mahanian_doctrine
+	icon = GFX_goal_generic_navy_doctrines_tactics
+	cost = 5
+	prerequisite = {
+		focus = USA_fleet_being
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = cat_fleet_in_being
+		}
+	}
+	x = 9
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_decisive_battles
+	icon = GFX_focus_admiralty
+	cost = 5
+	prerequisite = {
+		focus = USA_follow_mahanian_doctrine
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 20
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 2
+			bonus = 1.0
+			category = cat_fleet_in_being
+		}
+	}
+	x = 9
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_fleet_concentration
+	icon = GFX_focus_Naval_Operations
+	cost = 5
+	prerequisite = {
+		focus = USA_decisive_battles
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 50
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 3
+			bonus = 1.0
+			category = cat_fleet_in_being
+		}
+	}
+	x = 9
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_battleship_modernization
+	icon = GFX_focus_Battleship
+	cost = 5
+	prerequisite = {
+		focus = USA_fleet_being
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 10
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = bb_tech
+		}
+	}
+	x = 11
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_heavy_cruisers_focus
+	icon = GFX_focus_generic_cruiser2
+	cost = 5
+	prerequisite = {
+		focus = USA_battleship_modernization
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 10
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = ca_tech
+		}
+	}
+	x = 11
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_super_heavy_battleships
+	icon = GFX_focus_capital_ships
+	cost = 5
+	prerequisite = {
+		focus = USA_heavy_cruisers_focus
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 10
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = bb_tech
+		}
+	}
+	x = 11
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_floating_fortresses
+	icon = GFX_focus_Gunship
+	cost = 5
+	prerequisite = {
+		focus = USA_super_heavy_battleships
+	}
+	prerequisite = {
+		focus = USA_fleet_concentration
+	}
+	search_filters = {}
+	completion_reward = {
+		add_ideas = USA_float_fort
+	}
+	x = 10
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_carrier_fleet
+	icon = GFX_focus_Carrier2
+	cost = 5
+	prerequisite = {
+		focus = USA_two_ocean_act
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	available = { has_country_flag = usa_passed_ton_act }
+	mutually_exclusive = { focus = USA_fleet_being }
+	completion_reward = {
+		navy_experience = 30
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = cat_base_strike
+		}
+	}
+	x = 20
+	y = 3
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_carrier_modernization
+	icon = GFX_focus_Carrier_Focus
+	cost = 5
+	prerequisite = {
+		focus = USA_carrier_fleet
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 10
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = cv_tech
+		}
+	}
+	x = 19
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_light_ships_focus
+	icon = GFX_goal_generic_navy_cruiser
+	cost = 5
+	prerequisite = {
+		focus = USA_carrier_modernization
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 10
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = cl_tech
+		}
+	}
+	x = 19
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_naval_radar
+	icon = GFX_goal_generic_radar
+	cost = 5
+	prerequisite = {
+		focus = USA_light_ships_focus
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 10
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = radar_tech
+		}
+	}
+	x = 19
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_floating_airfield
+	icon = GFX_focus_Airports
+	cost = 5
+	prerequisite = {
+		focus = USA_naval_radar
+	}
+	prerequisite = {
+		focus = USA_improved_carrier_aircraft
+	}
+	search_filters = {}
+	completion_reward = {
+		add_ideas = USA_float_air
+	}
+	x = 20
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_base_strike_doc
+	icon = GFX_focus_naval_bombing
+	cost = 5
+	prerequisite = {
+		focus = USA_carrier_fleet
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 20
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = cat_base_strike
+		}
+	}
+	x = 21
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_bureau_aereonautics
+	icon = GFX_focus_Airforce_Purges
+	cost = 5
+	prerequisite = {
+		focus = USA_base_strike_doc
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 20
+		air_experience = 10
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 2
+			bonus = 1.0
+			category = cat_base_strike
+		}
+	}
+	x = 21
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_improved_carrier_aircraft
+	icon = GFX_focus_Naval_Bombers
+	cost = 5
+	prerequisite = {
+		focus = USA_bureau_aereonautics
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 30
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = naval_air
+		}
+	}
+	x = 21
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_usmc_expansion_cbts
+	icon = GFX_focus_US_Navy
+	cost = 5
+	prerequisite = {
+		focus = USA_carrier_fleet
+		focus = USA_fleet_being
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+				name = USA_expand_the_USMC
+				bonus = 1.0
+				uses = 1
+				technology = marines2
+				technology = marines3
+			}
+	}
+	x = 15
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_improved_submarines
+	icon = GFX_goal_generic_navy_submarine
+	cost = 5
+	prerequisite = {
+		focus = USA_carrier_fleet
+		focus = USA_fleet_being
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+				name = USA_fleet_submarines
+				bonus = 1.0
+				uses = 1
+				category = ss_tech
+			}
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				set_technology = { cruiser_submarines = 1 }
+			}
+	}
+	x = 13
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_match_germans
+	icon = GFX_focus_attack_germany
+	cost = 5
+	prerequisite = {
+		focus = USA_improved_submarines
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		 add_tech_bonus = {
+				name = USA_fleet_submarines
+				bonus = 1.0
+				uses = 3
+				category = ss_tech
+			}
+	}
+	x = 13
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_improved_destroyers
+	icon = GFX_focus_naval_reform
+	cost = 5
+	prerequisite = {
+		focus = USA_carrier_fleet
+		focus = USA_fleet_being
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+	   navy_experience = 20
+	   add_tech_bonus = {
+				name = USA_fleet_submarines
+				bonus = 1.0
+				uses = 2
+				category = dd_tech
+			}
+	}
+	x = 17
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_liberty_ships
+	icon = GFX_focus_Liberty_Ships
+	cost = 5
+	prerequisite = {
+		focus = USA_improved_destroyers
+	}
+	search_filters = {}
+	completion_reward = {
+		add_ideas = USA_lib_ships
+	}
+	x = 17
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_amphibious_vehicles
+	icon = GFX_focus_Mechanization
+	cost = 5
+	prerequisite = {
+		focus = USA_usmc_expansion_cbts
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_fleet_submarines
+			bonus = 1.0
+			uses = 1
+			technology = amphibious_tank
+			technology = amphibious_tank_2
+		}
+	}
+	x = 16
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_improved_landing_tactics
+	icon = GFX_focus_recruit_sailors
+	cost = 5
+	prerequisite = {
+		focus = USA_usmc_expansion_cbts
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		navy_experience = 10
+		army_experience = 25
+		add_tech_bonus = {
+			name = USA_fleet_submarines
+			bonus = 1.0
+			uses = 2
+			category = tp_tech
+		}
+	}
+	x = 14
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_semper_fidelis
+	icon = GFX_focus_usa_seals
+	cost = 5
+	prerequisite = {
+		focus = USA_improved_landing_tactics
+	}
+	prerequisite = {
+		focus = USA_amphibious_vehicles
+	}
+	search_filters = {}
+	completion_reward = {
+		add_ideas = USA_semper_fi
+	}
+	x = 15
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_grand_naval_expansion
+	icon = GFX_Goal_Generic_Refit_Destroyers
+	cost = 5
+	prerequisite = {
+		focus = USA_semper_fidelis
+	}
+	prerequisite = {
+		focus = USA_match_germans
+	}
+	prerequisite = {
+		focus = USA_liberty_ships
+	}
+	search_filters = {FOCUS_FILTER_INDUSTRY}
+	available = { has_war = yes }
+	completion_reward = {
+		navy_experience = 50
+		random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+	}
+	x = 15
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_surpass_royal_navy
+	icon = GFX_focus_Surpass_British_Navy
+	cost = 5
+	prerequisite = {
+		focus = USA_grand_naval_expansion
+	}
+	search_filters = {FOCUS_FILTER_INDUSTRY}
+	completion_reward = {
+		navy_experience = 100
+		random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+	}
+	x = 15
+	y = 8
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_naval_base_construction
+	icon = GFX_focus_Naval_Effort
+	cost = 5
+	prerequisite = {
+		focus = USA_grand_naval_expansion
+	}
+	search_filters = {}
+	completion_reward = {
+		add_ideas = USA_naval_base_const_project
+	}
+	x = 13
+	y = 8
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_supress_revolt_admirals
+	icon = GFX_focus_Naval_Purges
+	cost = 5
+	prerequisite = {
+		focus = USA_grand_naval_expansion
+	}
+	search_filters = {}
+	available = { has_idea = USA_admiral_revolt }
+	completion_reward = {
+		remove_ideas = USA_admiral_revolt
+		add_war_support = -0.1
+	}
+	x = 17
+	y = 8
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_selective_train_act
+	icon = GFX_focus_Prepare_the_Troops
+	cost = 5
+	prerequisite = {
+		focus = USA_main_military_start
+	}
+	search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_USA_CONGRESS_ACT}
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote_usa
+		custom_effect_tooltip = st_law
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			custom_effect_tooltip = unlock_military_tree_usa
+			add_ideas = limited_conscription
+		}
+	}
+	x = 0
+	y = 1
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_louisiana_manoeuvers
+	icon = GFX_focus_Long_Planning
+	cost = 5
+	prerequisite = {
+		focus = USA_selective_train_act
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	available = { has_country_flag = usa_passed_st_act }
+	completion_reward = {
+		army_experience = 50
+		# add_tech_bonus = {
+		# 	name = USA_louisiana_manoeuvers
+		# 	bonus = 1.0
+		# 	uses = 1
+		# 	category = land_doctrine
+		# }
+		
+		#TODO: research.
+	}
+	x = 0
+	y = 2
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_use_power
+	icon = GFX_focus_Firearms
+	cost = 5
+	prerequisite = {
+		focus = USA_louisiana_manoeuvers
+	}
+	search_filters = {}
+	mutually_exclusive = { focus = USA_use_speed }
+	completion_reward = {
+		army_experience = 20
+	}
+	x = -5
+	y = 3
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_support_rock_island
+	icon = GFX_goal_generic_army_artillery
+	cost = 5
+	prerequisite = {
+		focus = USA_use_power
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+				name = USA_support_rock_island
+				uses = 2
+				bonus = 1.0
+				category = artillery
+			}
+	}
+	x = -4
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_equipment_modernization_focus
+	icon = GFX_focus_Renewed_Arms
+	cost = 5
+	prerequisite = {
+		focus = USA_support_rock_island
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = infantry_weapons
+		}
+		
+	}
+	x = -4
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_tank_destroyers
+	icon = GFX_focus_Anti-Tank
+	cost = 5
+	prerequisite = {
+		focus = USA_equipment_modernization_focus
+	}
+	search_filters = {}
+	completion_reward = {
+		custom_effect_tooltip = available_designer
+		show_ideas_tooltip = tank_destroyer_board
+	}
+	x = -4
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_support_companies
+	icon = GFX_focus_Military_Hospital
+	cost = 5
+	prerequisite = {
+		focus = USA_tank_destroyers
+	}
+	prerequisite = {
+		focus = USA_shock_awe
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = hospital_tech
+		}
+	}
+	x = -5
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_industrial_warfare
+	icon = GFX_focus_Military_Intervention
+	cost = 5
+	prerequisite = {
+		focus = USA_support_companies
+	}
+	search_filters = {FOCUS_FILTER_INDUSTRY}
+	mutually_exclusive = { focus = USA_top_notch }
+	completion_reward = {
+		add_ideas = USA_ind_warfare
+	}
+	x = -6
+	y = 8
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_top_notch
+	icon = GFX_goal_generic_artillery
+	cost = 5
+	prerequisite = {
+		focus = USA_support_companies
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	mutually_exclusive = { focus = USA_industrial_warfare }
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 2
+			bonus = 1.0
+			category = artillery
+		}
+	}
+	x = -4
+	y = 8
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_sup_firepower
+	icon = GFX_goal_generic_army_doctrines
+	cost = 5
+	prerequisite = {
+		focus = USA_use_power
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = cat_superior_firepower
+		}
+	}
+	x = -6
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_reduce_human_losses
+	icon = GFX_focus_Fight_Evil_Within_Yourself
+	cost = 5
+	prerequisite = {
+		focus = USA_sup_firepower
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 2
+			bonus = 1.0
+			category = cat_superior_firepower
+		}
+	}
+	x = -6
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_shock_awe
+	icon = GFX_focus_Urban_Warfare
+	cost = 5
+	prerequisite = {
+		focus = USA_reduce_human_losses
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 3
+			bonus = 1.0
+			category = cat_superior_firepower
+		}
+	}
+	x = -6
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_use_speed
+	icon = GFX_focus_Blitzkrieg_alt
+	cost = 5
+	prerequisite = {
+		focus = USA_louisiana_manoeuvers
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	search_filters = {}
+	mutually_exclusive = { focus = USA_use_power }
+	completion_reward = {
+		army_experience = 50
+		add_timed_idea = {
+			idea = usa_temporary_reorganization
+			days = 365
+		}
+		#TODO: rework this entire subtree. Armour should not be mutually exclusive with the other branch
+	}
+	x = 5
+	y = 3
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_new_speed_based
+	icon = GFX_focus_Tanks_Across_the_Border
+	cost = 5
+	prerequisite = {
+		focus = USA_use_speed
+	}
+	available = {
+		NOT = { has_idea = usa_temporary_reorganization }
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = cat_mobile_warfare
+		}
+	}
+	x = 6
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_reliance_armor
+	icon = GFX_focus_Light_Tanks
+	cost = 5
+	prerequisite = {
+		focus = USA_new_speed_based
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 2
+			bonus = 1.0
+			category = cat_mobile_warfare
+		}
+	}
+	x = 6
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_work_auto_industry
+	icon = GFX_focus_American_Automobiles
+	cost = 5
+	prerequisite = {
+		focus = USA_reliance_armor
+	}
+	search_filters = {FOCUS_FILTER_INDUSTRY}
+	completion_reward = {
+		add_ideas = USA_am_auto
+	}
+	x = 6
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_maintenance_comp
+	icon = GFX_focus_Mechanization
+	cost = 5
+	prerequisite = {
+		focus = USA_work_auto_industry
+	}
+	prerequisite = {
+		focus = USA_mechanized_infantry
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = maintenance_company_tech
+		}
+	}
+	x = 5
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_maintain_edge
+	icon = GFX_focus_generic_license_production
+	cost = 5
+	prerequisite = {
+		focus = USA_maintenance_comp
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	mutually_exclusive = { focus = USA_streamline_vehicle }
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 2
+			bonus = 1.0
+			category = armor
+		}
+	}
+	x = 4
+	y = 8
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_streamline_vehicle
+	icon = GFX_focus_Industrialization
+	cost = 5
+	prerequisite = {
+		focus = USA_maintenance_comp
+	}
+	search_filters = {FOCUS_FILTER_INDUSTRY}
+	mutually_exclusive = { focus = USA_maintain_edge }
+	completion_reward = {
+		 swap_ideas = { remove_idea = USA_am_auto add_idea = USA_streamlined_vehicle }
+	}
+	x = 6
+	y = 8
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_form_armored_divisions
+	icon = GFX_focus_army_tanks
+	cost = 5
+	prerequisite = {
+		focus = USA_use_speed
+	}
+	available = {
+		NOT = { has_idea = usa_temporary_reorganization }
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_form_armored_divisions
+			uses = 1
+			bonus = 1.0
+			category = armor
+		}
+		#TODO: spawn armoured divisions and add template
+	}
+	x = 4
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_modernized_tanks
+	icon = GFX_focus_Heavy_Tanks
+	cost = 5
+	prerequisite = {
+		focus = USA_form_armored_divisions
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = armor
+		}
+	}
+	x = 4
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_mechanized_infantry
+	icon = GFX_focus_Mechanized_Divisions
+	cost = 5
+	prerequisite = {
+		focus = USA_modernized_tanks
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = cat_mechanized_equipment
+		}
+	}
+	x = 4
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_ninety_divisions
+	icon = GFX_focus_Chinese_Army_Reform
+	cost = 5
+	prerequisite = {
+		focus = USA_use_power
+		focus = USA_use_speed
+	}
+	search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY}
+	mutually_exclusive = { focus = USA_increase_conscription }
+	completion_reward = {
+		add_ideas = USA_ninenty_plan
+		#TODO: rework into decisions
+	}
+	x = -1
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_increase_conscription
+	icon = GFX_focus_Recruitment
+	cost = 5
+	prerequisite = {
+		focus = USA_use_power
+		focus = USA_use_speed
+	}
+	search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY}
+	mutually_exclusive = { focus = USA_ninety_divisions }
+	completion_reward = {
+		if = {
+			limit = { has_idea = volunteer_only }
+			swap_ideas = {
+				remove_idea = volunteer_only
+				add_idea = extensive_conscription
+			}
+		}
+		if = {
+			limit = { has_idea = limited_conscription }
+			swap_ideas = {
+				remove_idea = limited_conscription
+				add_idea = extensive_conscription
+			}
+		}
+		if = {
+			limit = { has_idea = extensive_conscription }
+			swap_ideas = {
+				remove_idea = extensive_conscription
+				add_idea = service_by_requirement
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_idea = service_by_requirement
+					has_idea = all_adults_serve
+					has_idea = scraping_the_barrel
+				}
+			}
+			add_manpower = 90000
+		}
+	}
+	x = 1
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_training_infantryman
+	icon = GFX_focus_USA_Soldiers
+	cost = 5
+	prerequisite = {
+		focus = USA_increase_conscription
+		focus = USA_ninety_divisions
+	}
+	search_filters = {}
+	completion_reward = {
+		army_experience = 40
+	}
+	x = 0
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_walkie_talkies
+	icon = GFX_focus_Radio
+	cost = 4
+	prerequisite = {
+		focus = USA_use_power
+		focus = USA_use_speed
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_walkie_talkies
+			uses = 2
+			bonus = 1.0
+			category = signal_company_tech
+			# category = radio_category
+		}
+	}
+	x = 2
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_finish_motorization
+	icon = GFX_focus_Motorization_Effort
+	cost = 5
+	prerequisite = {
+		focus = USA_use_power
+		focus = USA_use_speed
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_finish_motorization
+			uses = 2
+			bonus = 1.0
+			category = motorized_equipment
+		}
+		#TODO: add temporal idea that gives motorization production increase?
+		#sets a country flag and adds division templates with motorized artillery/anti-tank/arnti-air
+		#the flag is for the AI templates to switch to the new motorized templates
+	}
+	x = -2
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_special_forces
+	icon = GFX_focus_Commando_Operations
+	cost = 5
+	prerequisite = {
+		focus = USA_finish_motorization
+	}
+	prerequisite = {
+		focus = USA_walkie_talkies
+	}
+	prerequisite = {
+		focus = USA_training_infantryman
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_special_forces
+			uses = 2
+			bonus = 1.0
+			category = category_special_forces
+		}
+	}
+	x = 0
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_the_army_rangers
+	icon = GFX_focus_Military_Attache
+	cost = 5
+	prerequisite = {
+		focus = USA_special_forces
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_the_army_rangers
+			uses = 1
+			bonus = 1.0
+			category = category_special_forces
+		}
+		#TODO: spawn disivision ranger units?
+	}
+	x = 2
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_munitions_board
+	icon = GFX_focus_Support_Equipment
+	cost = 5
+	prerequisite = {
+		focus = USA_special_forces
+	}
+	search_filters = {}
+	completion_reward = {
+		add_ideas = USA_munitions_idea
+	}
+	x = 0
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_airborne_divisions
+	icon = GFX_focus_Paratroopers
+	cost = 5
+	prerequisite = {
+		focus = USA_special_forces
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_airborne_divisions
+			uses = 1
+			bonus = 1.0
+			technology = paratroopers2
+			technology = paratroopers3
+			technology = paratroopers4
+		}
+		#TODO: add airborne division templates to the US
+	}
+	x = -2
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_expand_airforce
+	icon = GFX_focus_American_Air_Force
+	cost = 5
+	prerequisite = {
+		focus = USA_main_military_start
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_expand_airforce
+			bonus = 0.75
+			uses = 2
+			category = air_equipment
+		}
+	}
+	x = -17
+	y = 1
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_form_usaac
+	icon = GFX_focus_American_Army_Air_Corps
+	cost = 5
+	prerequisite = {
+		focus = USA_expand_airforce
+	}
+	search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT}
+	completion_reward = {
+		add_political_power = 40
+		add_war_support = 0.03
+		air_experience = 30
+		remove_ideas_with_trait = coaf
+		add_ideas = CAF_henry_h_arnold
+	}
+	x = -17
+	y = 2
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_under_the_army
+	icon = GFX_focus_Recruitment
+	cost = 5
+	prerequisite = {
+		focus = USA_form_usaac
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = air_doc_bonus
+			bonus = 0.75
+			uses = 1
+			category = air_doctrine
+		}
+		army_experience = 15
+	}
+	mutually_exclusive = { focus = USA_towards_independent }
+	x = -21
+	y = 3
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_cas_development
+	icon = GFX_goal_generic_CAS
+	cost = 5
+	prerequisite = {
+		focus = USA_under_the_army
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = CAS_effort
+			uses = 1
+			bonus = 1.0
+			category = cas_bomber
+		}
+	}
+	x = -23
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_battlefield_support_focus
+	icon = GFX_focus_Close_Air_Support
+	cost = 5
+	prerequisite = {
+		focus = USA_under_the_army
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_us_army_airforce
+			uses = 1
+			bonus = 1.0
+			category = battlefield_support_tree
+		}
+	}
+	x = -21
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_tac_bomber_projects
+	icon = GFX_focus_Aerial_Fleet_2
+	cost = 5
+	prerequisite = {
+		focus = USA_battlefield_support_focus
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_TAC
+			uses = 1
+			bonus = 1.0
+			category = tactical_bomber
+		}
+	}
+	x = -22
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_streamline_bomb_prod
+	icon = GFX_focus_Mechanization
+	cost = 5
+	prerequisite = {
+		focus = USA_tac_bomber_projects
+	}
+	search_filters = {FOCUS_FILTER_INDUSTRY}
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = { has_idea = USA_streamlined_fight_prod }
+			}
+			add_ideas = USA_streamlined_bomb_prod
+		}
+		if = {
+			limit = {
+				has_idea = USA_streamlined_fight_prod
+			}
+			swap_ideas = { remove_idea = USA_streamlined_fight_prod add_idea = USA_streamlined_air_prod }
+		}
+	}
+	x = -22
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_work_army
+	icon = GFX_focus_American_Army_Seal
+	cost = 5
+	prerequisite = {
+		focus = USA_battlefield_support_focus
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_us_army_airforce
+			uses = 2
+			bonus = 1.0
+			category = battlefield_support_tree
+		}
+	}
+	x = -20
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_from_land_skies
+	icon = GFX_focus_Eagle_Authority
+	cost = 5
+	prerequisite = {
+		focus = USA_work_army
+	}
+	search_filters = {}
+	completion_reward = {
+		add_ideas = USA_land_skies
+	}
+	x = -20
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_full_co_ordination
+	icon = GFX_focus_Assist_war_on_the_ground
+	cost = 5
+	prerequisite = {
+		focus = USA_from_land_skies
+	}
+	prerequisite = {
+		focus = USA_streamline_bomb_prod
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_us_army_airforce
+			uses = 2
+			bonus = 1.0
+			category = battlefield_support_tree
+		}
+	}
+	x = -21
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_combined_arms_air
+	icon = GFX_focus_Combined_Arms
+	cost = 5
+	prerequisite = {
+		focus = USA_full_co_ordination
+	}
+	search_filters = {}
+	completion_reward = {
+		swap_ideas = { remove_idea = USA_land_skies add_idea = USA_comb_arms_idea }
+	}
+	x = -21
+	y = 8
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_towards_independent
+	icon = GFX_goal_generic_air_fighter2
+	cost = 5
+	prerequisite = {
+		focus = USA_form_usaac
+	}
+	search_filters = {FOCUS_FILTER_POLITICAL}
+	mutually_exclusive = { focus = USA_under_the_army }
+	completion_reward = {
+		add_political_power = 50
+	}
+	x = -13
+	y = 3
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_air_help_navy
+	icon = GFX_focus_US_Navy
+	cost = 5
+	prerequisite = {
+		focus = USA_towards_independent
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_bureau_of_aeronautics
+			bonus = 1.0
+			uses = 1
+			category = naval_bomber
+		}
+	}
+	x = -9
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_skip_bombing_focus
+	icon = GFX_focus_Brainpower
+	cost = 5
+	prerequisite = {
+		focus = USA_air_help_navy
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		set_technology = {
+			skip_bombing = 1
+		}
+	}
+	x = -10
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_naval_bomber_mod
+	icon = GFX_focus_naval_bombing
+	cost = 5
+	prerequisite = {
+		focus = USA_air_help_navy
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_bureau_of_aeronautics
+			bonus = 1.0
+			uses = 1
+			category = naval_bomber
+		}
+	}
+	x = -8
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_control_seas_above
+	icon = GFX_focus_Small_Navy
+	cost = 5
+	prerequisite = {
+		focus = USA_naval_bomber_mod
+	}
+	prerequisite = {
+		focus = USA_skip_bombing_focus
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = air_doc_bonus
+			bonus = 1
+			uses = 1
+			category = air_doctrine
+		}
+		navy_experience = 25
+	}
+	x = -9
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_strategic_destruction_focus
+	icon = GFX_focus_Bombs_Away
+	cost = 5
+	prerequisite = {
+		focus = USA_towards_independent
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_us_army_airforce
+			uses = 1
+			bonus = 1.0
+			category = strategic_destruction_tree
+		}
+	}
+	x = -13
+	y = 4
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_strategic_bomb_mod
+	icon = GFX_focus_strategic_bomber
+	cost = 5
+	prerequisite = {
+		focus = USA_strategic_destruction_focus
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = bomber_bonus
+			bonus = 1
+			uses = 1
+			category = cat_strategic_bomber
+		}  
+	}
+	x = -12
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_flying_fortresses
+	icon = GFX_goal_generic_air_bomber
+	cost = 5
+	prerequisite = {
+		focus = USA_strategic_bomb_mod
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = bomber_bonus
+			bonus = 1
+			uses = 1
+			category = cat_strategic_bomber
+		}
+	}
+	x = -12
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_the_plane
+	icon = GFX_focus_Heavy_Fighters
+	cost = 5
+	prerequisite = {
+		focus = USA_flying_fortresses
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	mutually_exclusive = { focus = USA_the_pilot }
+	completion_reward = {
+		add_tech_bonus = {
+			name = bomber_bonus
+			bonus = 1
+			uses = 1
+			category = air_equipment
+		}
+	}
+	x = -12
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_usaf
+	icon = GFX_focus_US_Airforce2
+	cost = 5
+	prerequisite = {
+		focus = USA_the_pilot
+		focus = USA_the_plane
+	}
+	search_filters = {}
+	completion_reward = {
+		add_ideas = USA_created_airforce
+		remove_ideas_with_trait = coaf
+		add_ideas = CAF_carl_spaatz
+		if = {
+			limit = { has_dlc = "No Step Back" }
+			add_ideas = independent_air_force_spirit
+		}
+	}
+	x = -13
+	y = 8
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_improve_bombing
+	icon = GFX_focus_The_Big_Push
+	cost = 5
+	prerequisite = {
+		focus = USA_strategic_destruction_focus
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_us_army_airforce
+			uses = 2
+			bonus = 1.0
+			category = strategic_destruction_tree
+		}
+	}
+	x = -14
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_doctrinal_advances_air
+	icon = GFX_goal_generic_air_doctrine
+	cost = 5
+	prerequisite = {
+		focus = USA_improve_bombing
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_us_army_airforce
+			uses = 2
+			bonus = 1.0
+			category = strategic_destruction_tree
+		}
+	}
+	x = -14
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_the_pilot
+	icon = GFX_focus_Recruitment_Drive
+	cost = 5
+	prerequisite = {
+		focus = USA_doctrinal_advances_air
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	mutually_exclusive = { focus = USA_the_plane }
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_us_army_airforce
+			uses = 1
+			bonus = 1.0
+			category = strategic_destruction_tree
+		}
+	}
+	x = -14
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_air_sup_focus
+	icon = GFX_focus_Air_Superiority_Doctrine
+	cost = 5
+	prerequisite = {
+		focus = USA_strategic_destruction_focus
+		focus = USA_battlefield_support_focus
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = fighter_bonus
+			bonus = 1
+			uses = 1
+			category = light_fighter
+		}
+	}
+	x = -17
+	y = 5
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_air_rotation
+	icon = GFX_focus_Bombers_Doctrine_Force_Rotation
+	cost = 5
+	prerequisite = {
+		focus = USA_air_sup_focus
+	}
+	search_filters = {}
+	completion_reward = {
+		air_experience = 50
+	}
+	x = -18
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_long_range_scorts
+	icon = GFX_focus_usa_escort_fighters
+	cost = 5
+	prerequisite = {
+		focus = USA_air_sup_focus
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = USA_escort_fighters
+			bonus = 3.0
+			uses = 1
+			technology = heavy_fighter1
+			technology = heavy_fighter2
+			technology = heavy_fighter3
+		}
+	}
+	x = -16
+	y = 6
+	relative_position_id = USA_main_military_start
+}
+	
+shared_focus = {
+	id = USA_strealine_fight_prod
+	icon = GFX_focus_Aviation_industry
+	cost = 5
+	prerequisite = {
+		focus = USA_air_rotation
+	}
+	prerequisite = {
+		focus = USA_long_range_scorts
+	}
+	search_filters = {FOCUS_FILTER_INDUSTRY}
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = { has_idea = USA_streamlined_bomb_prod }
+			}
+			add_ideas = USA_streamlined_fight_prod
+		}
+		if = {
+			limit = {
+				has_idea = USA_streamlined_bomb_prod
+			}
+			swap_ideas = { remove_idea = USA_streamlined_bomb_prod add_idea = USA_streamlined_air_prod }
+		}
+	}
+	x = -17
+	y = 7
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_controlling_skies
+	icon = GFX_goal_generic_air_fighter
+	cost = 5
+	prerequisite = {
+		focus = USA_strealine_fight_prod
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = fighter_bonus
+			bonus = 1.5
+			uses = 2
+			category = light_fighter
+		}
+	}
+	x = -17
+	y = 8
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_build_pentagon
+	icon = GFX_focus_usa_build_the_pentagon
+	cost = 5
+	prerequisite = {
+		focus = USA_main_military_start
+	}
+	search_filters = {}
+	completion_reward = {
+		add_ideas = USA_the_pentagon
+	}
+	x = -8
+	y = 1
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_defense_depart
+	icon = GFX_focus_Department_Defense
+	cost = 5
+	prerequisite = {
+		focus = USA_build_pentagon
+	}
+	search_filters = {}
+	completion_reward = {
+		swap_ideas = { remove_idea = USA_the_pentagon add_idea = USA_the_pentagon2 }
+	}
+	x = -8
+	y = 2
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_uranium_comittee
+	icon = GFX_focus_Foreign_Diplomacy
+	cost = 5
+	prerequisite = {
+		focus = USA_main_military_start
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = fighter_bonus
+			bonus = 1
+			uses = 1
+			category = nuclear
+		}
+	}
+	x = 7
+	y = 1
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_manhattan_project
+	icon = GFX_focus_Manhattan_Project
+	cost = 5
+	prerequisite = {
+		focus = USA_uranium_comittee
+	}
+	available = {
+		is_in_faction = yes
+	}
+	search_filters = {FOCUS_FILTER_RESEARCH}
+	completion_reward = {
+		add_tech_bonus = {
+			name = fighter_bonus
+			bonus = 1
+			uses = 1
+			category = nuclear
+		}
+	}
+	x = 7
+	y = 2
+	relative_position_id = USA_main_military_start
+}
+
+shared_focus = {
+	id = USA_aec
+	icon = GFX_goal_generic_scientific_exchange
+	cost = 5
+	prerequisite = {
+		focus = USA_manhattan_project
+	}
+	search_filters = {FOCUS_FILTER_INDUSTRY}
+	completion_reward = {
+		add_ideas = USA_atomic_comission
+	}
+	x = 7
+	y = 3
+	relative_position_id = USA_main_military_start
+}

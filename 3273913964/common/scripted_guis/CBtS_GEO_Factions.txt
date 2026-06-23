@@ -1,0 +1,479 @@
+scripted_gui = {
+	GEO_Faction_Button = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "GEO_faction_button_container"
+		visible = {
+            tag = GEO
+			#has_global_flag = Second_Russian_Civil_War
+		}
+		effects = {
+			faction_button_click = {
+				if = {
+					limit = {
+						has_country_flag = GEO_show_factions
+					}
+					clr_country_flag = GEO_show_factions
+				}
+				else = {
+					set_country_flag = GEO_show_factions
+					GEO_Get_Men_Pop = yes
+					GEO_Get_Trad_Pop = yes
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = GEO_show_traditionalist
+						}
+					}
+					set_country_flag = GEO_show_menshevik
+				}
+			}
+		}
+		ai_enabled = {
+			tag = GEO
+			has_global_flag = Second_Russian_Civil_War
+		}
+		ai_test_interval = 240
+		ai_test_variance = 0
+		ai_check = {
+			tag = GEO
+			has_political_power > 39.99
+			OR = {
+				NOT = {
+					has_idea = RUS_faction_influence_block
+					has_idea = RUS_rally_block
+				}
+			}
+		}
+		ai_weights = {
+			faction_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = {
+							has_idea = RUS_faction_influence_block
+							has_idea = RUS_rally_block
+						}
+						NOT = {
+							has_country_flag = GEO_AI_Faction_Open
+						}
+						add = 100
+					}
+				}
+			}
+		}
+	}
+}
+#faction_panel_container
+scripted_gui = {
+	GEO_faction_container = {
+		context_type = player_context
+		window_name = "GEO_faction_panel_container"
+		visible = {
+			has_country_flag = GEO_show_factions
+		}
+		triggers = {
+			menshevik_button_visible = {
+				has_variable = GEO_menshevik_influence
+			}
+			GEO_traditionalist_button_visible = {
+				has_variable = GEO_traditionalist_influence
+			}
+			#traditionalist
+			GEO_traditionalist_portrait_visible = {
+				has_country_flag = GEO_show_traditionalist
+			}
+			GEO_Traditionalist_Faction_Influence_visible = {
+				has_country_flag = GEO_show_traditionalist
+			}
+			GEO_Traditionalist_Faction_Popularity_visible = {
+				has_country_flag = GEO_show_traditionalist
+			}			
+			#Menshevik
+			GEO_menshevik_portrait_visible = {
+				has_country_flag = GEO_show_menshevik
+			}
+			GEO_Menshevik_Faction_Influence_visible = {
+				has_country_flag = GEO_show_menshevik
+			}
+			GEO_Menshevik_Faction_Popularity_visible = {
+				has_country_flag = GEO_show_menshevik
+			}
+			GEO_Increase_Pop_button_click_enabled = {
+				has_political_power > 29.99
+				OR = {
+					AND = {
+						has_country_flag = GEO_show_traditionalist
+						check_variable = {
+							GEO_traditionalist_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = GEO_show_menshevik
+						check_variable = {
+							GEO_menshevik_influence < 100
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = RUS_every_90_days
+					NOT = {
+						has_idea = RUS_faction_influence_block
+					}
+				}
+			}
+			GEO_Decrease_Pop_button_click_enabled = {
+				has_political_power > 29.99
+				has_country_flag = GEO_show_traditionalist
+				check_variable = {
+					GEO_traditionalist_influence > 0
+				}
+				custom_trigger_tooltip = {
+					tooltip = GEO_every_90_days
+					NOT = {
+						has_idea = RUS_faction_influence_block
+					}
+				}
+			}
+			GEO_Rally_button_click_enabled = {
+				NOT = {
+					has_idea = RUS_rally_block
+				}
+				has_political_power > 49.99
+			}
+		}
+		effects = {
+			GEO_faction_container_close_button_click = {
+				clr_country_flag = GEO_show_factions
+			}
+			menshevik_button_click = {
+				clr_country_flag = GEO_show_traditionalist
+				set_country_flag = GEO_show_menshevik
+			}
+			GEO_traditionalist_button_click = {
+				clr_country_flag = GEO_show_menshevik
+				set_country_flag = GEO_show_traditionalist
+			}
+			GEO_Increase_Pop_button_click = {
+				add_political_power = -30
+				set_variable = {
+					GEO_add_influence_value = 3
+				}
+				if = {
+					limit = {
+						has_country_flag = GEO_show_menshevik
+					}
+					GEO_add_influence_menshevik = yes
+					add_popularity = {
+						ideology = socialism
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = 0.025
+					}
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = 0.01
+					}
+				}
+				else = {
+					GEO_add_influence_traditionalist = yes
+					add_popularity = {
+						ideology = democratic
+						popularity = 0.025
+					}
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = monarchism
+						popularity = 0.01
+					}
+					add_popularity = {
+						ideology = nationalism
+						popularity = 0.01
+					}
+				}
+				hidden_effect = {
+					add_timed_idea = {
+						idea = RUS_faction_influence_block
+						days = 90
+					}
+				}
+				GEO_Get_Men_Pop = yes
+				GEO_Get_Trad_Pop = yes
+				set_country_flag = GEO_AI_Faction_Open
+			}
+			GEO_Decrease_Pop_button_click = {
+				add_political_power = -30
+				set_variable = {
+					GEO_add_influence_value = -3
+				}
+				if = {
+					limit = {
+						has_country_flag = GEO_show_menshevik
+					}
+					GEO_add_influence_menshevik = yes
+					add_popularity = {
+						ideology = socialism
+						popularity = -0.02
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = -0.025
+					}
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = -0.01
+					}
+				}
+				else = {
+					GEO_add_influence_traditionalist = yes
+					add_popularity = {
+						ideology = democratic
+						popularity = -0.025
+					}
+					add_popularity = {
+						ideology = neutrality
+						popularity = -0.02
+					}
+					add_popularity = {
+						ideology = monarchism
+						popularity = -0.01
+					}
+					add_popularity = {
+						ideology = nationalism
+						popularity = -0.01
+					}
+				}
+				hidden_effect = {
+					add_timed_idea = {
+						idea = RUS_faction_influence_block
+						days = 90
+					}
+				}
+				GEO_Get_Men_Pop = yes
+				GEO_Get_Trad_Pop = yes
+				set_country_flag = GEO_AI_Faction_Open
+			}
+			GEO_Rally_button_click = {
+				add_political_power = -50
+				GEO_Rally_Supporters = yes
+				add_timed_idea = {
+					idea = RUS_rally_block
+					days = 150
+				}
+				set_country_flag = GEO_AI_Faction_Open
+			}
+		}
+		ai_enabled = {
+			tag = GEO
+			has_global_flag = Second_Russian_Civil_War
+		}
+		ai_test_interval = 120
+		ai_test_variance = 0
+		ai_check = {
+			tag = GEO
+			has_political_power > 39.99
+			OR = {
+				NOT = {
+					has_idea = RUS_faction_influence_block
+					has_idea = RUS_rally_block
+				}
+			}
+		}
+		ai_weights = {
+			GEO_faction_container_close_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						has_country_flag = GEO_AI_Faction_Open
+						add = 100
+					}
+				}
+			}
+			GEO_traditionalist_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = GEO_AI_Traditionalist_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									GEO_traditionalist_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = GEO_AI_Traditionalist_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									GEO_traditionalist_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									GEO_Trad_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			menshevik_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = GEO_AI_Bulak_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									GEO_menshevik_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = GEO_AI_Bulak_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									GEO_menshevik_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									party_popularity@neutrality > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			menshevik_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = GEO_AI_Menshevik_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									GEO_menshevik_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = GEO_AI_Menshevik_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									GEO_menshevik_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									GEO_Men_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			GEO_Increase_Pop_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = GEO_show_traditionalist
+								has_country_flag = GEO_AI_Traditionalist_Personality
+								check_variable = {
+									GEO_traditionalist_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = GEO_show_menshevik
+								has_country_flag = GEO_AI_Menshevik_Personality
+								check_variable = {
+									GEO_menshevik_influence < 100
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			GEO_Decrease_Pop_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = GEO_show_traditionalist
+								NOT = {
+									has_country_flag = GEO_AI_Traditionalist_Personality
+								}
+								check_variable = {
+									GEO_traditionalist_influence > 30
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			GEO_Rally_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = GEO_show_traditionalist
+								check_variable = {
+									GEO_Trad_Pop > 0.15
+								}
+							}
+							AND = {
+								has_country_flag = GEO_show_menshevik
+								check_variable = {
+									GEO_Men_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+		}
+	}
+}

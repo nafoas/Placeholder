@@ -1,0 +1,120 @@
+defined_text = {
+	name = GetAlliancesMapModeCountryListEntryContainer
+
+	text = {
+		trigger = {
+			exists = yes
+			ROOT = {
+				NOT = { check_variable = { alliances_mapmode_target = PREV.id } }
+			}
+			OR = {
+				NOT = { tag = ROOT }
+				ROOT = { has_variable = alliances_mapmode_target }
+			}
+		}
+		localization_key = alliances_mapmode_country_list_entry
+	}
+	# text = {
+	# 	trigger = {
+	# 		always = yes
+	# 	}
+	# 	localization_key = alliances_mapmode_country_list_entry_empty
+	# }
+}
+
+defined_text = {
+	name = GetAlliancesMapModeTooltip
+
+	text = {
+		trigger = {
+			var:ROOT.alliances_mapmode_target?ROOT.id = {
+				tag = PREV
+			}
+		}
+		localization_key = alliances_map_mode_tt_target
+	}
+	text = {
+		trigger = {
+			var:ROOT.alliances_mapmode_target?ROOT.id = {
+				NOT = {
+					tag = PREV
+					is_in_array = {
+						array = alliances_array
+						value = PREV
+					}
+				}
+			}
+		}
+		localization_key = alliances_non_allied_country_tt
+	}
+	text = {
+		trigger = {
+			var:ROOT.alliances_mapmode_target?ROOT.id = {
+				set_temp_variable = { temp_target = THIS.id }
+				NOT = {
+					tag = PREV
+				}
+				NOT = {
+					AND = {
+						tag = FRA
+						PREV = {
+							tag = POL
+						}
+					}
+					AND = {
+						tag = POL
+						PREV = {
+							tag = FRA
+						}
+					}
+				}
+				is_in_array = {
+					array = alliances_array
+					value = PREV
+				}
+			}
+		}
+		localization_key = alliances_map_mode_tt_is_allied
+	}
+	text = {
+		trigger = {
+			var:ROOT.alliances_mapmode_target?ROOT.id = {
+				set_temp_variable = { temp_target = THIS.id }
+				OR = {
+					AND = {
+						tag = FRA
+						PREV = {
+							tag = POL
+						}
+					}
+					AND = {
+						tag = POL
+						PREV = {
+							tag = FRA
+						}
+					}
+				}
+				is_in_array = {
+					array = alliances_array
+					value = PREV
+				}
+			}
+		}
+		localization_key = alliances_mapmode_FRA_POL
+	}
+}
+
+defined_text = {
+	name = FRA_POL_alliance_targets
+	text = {
+		trigger = {
+			ROOT = {
+				OR = {
+					tag = FRA
+					tag = POL
+				}
+			}
+		}
+		localization_key = FRA_POL_alliance_terms
+	}
+}

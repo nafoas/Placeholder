@@ -1,0 +1,61 @@
+focus_tree = {
+	id = SPA_cw_start
+	
+	country = {
+		factor = 0
+
+	}
+	default = no
+	continuous_focus_position = { x = 80 y = 3000 }
+    shared_focus = SPA_generalisimo_franco
+	shared_focus = SPA_junta_defensa
+	shared_focus = SPA_la_regencia
+	
+
+    focus = {
+		id = SPA_glorioso_alzamiento
+		icon = GFX_focus_Alzamiento
+		cost = 1
+		available = {
+		    always = no
+		}
+		bypass = {
+		    has_war_with = SPR
+		}
+		x = 27
+		y = 0
+	}
+	
+	focus = {
+		id = SPA_salamanca_meeting
+		icon = GFX_focus_Foreign_Diplomacy
+		cost = 2
+		prerequisite = { focus = SPA_glorioso_alzamiento }
+		mutually_exclusive = { focus = SPA_sanjurjo_returns }
+		available = {
+			has_country_flag = sanjurjo_dead
+		}
+		completion_reward = {
+		    country_event = { id = spa.1 }
+		}
+		x = 26
+		y = 1
+	}
+	
+	focus = {
+		id = SPA_sanjurjo_returns
+		icon = GFX_focus_Rally
+		cost = 2
+		prerequisite = { focus = SPA_glorioso_alzamiento }
+		mutually_exclusive = { focus = SPA_salamanca_meeting }
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+		    has_country_flag = sanjurjo_lives
+		    has_war_with = SPR
+		}
+		x = 28
+		y = 1
+	}
+}

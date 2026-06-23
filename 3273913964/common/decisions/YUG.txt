@@ -1,0 +1,3415 @@
+###########################
+# Yugoslavia Decisions
+###########################
+
+YUG_parliament1 = {
+	YUG_hold_elections1 = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {has_country_flag = YUG_jns_won}
+			NOT = {has_country_flag = YUG_opposition_won}
+			NOT = {has_country_flag = YUG_jrz_6pt_federation}
+			NOT = {has_country_flag = YUG_rad_peasant_won}
+			NOT = {has_country_flag = YUG_dem_agrarian_won}
+			NOT = {has_country_flag = YUG_nat_radical_won}
+			NOT = {has_country_flag = YUG_jrz_won}
+			NOT = {has_country_flag = YUG_pop_agreement_won}
+			NOT = {has_country_flag = YUG_jrz_3pt_federation}
+			NOT = {has_country_flag = YUG_precani_6pt_federation}
+			NOT = {has_country_flag = YUG_zivkovic_dictatorship}
+			NOT = {has_completed_focus = YUG_preterm_elections}
+		}
+		fire_only_once = yes
+		ai_will_do = { factor = 20 }
+		cost = 50
+		available = {
+			is_subject = no
+			NOT = {has_country_flag = YUG_jns_won}
+			NOT = {has_country_flag = YUG_opposition_won}
+			date > 1935.6.1
+			date < 1935.12.1
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						NOT = {has_country_flag = YUG_new_electoral_law}				
+					}
+				}
+				country_event = { 
+					id = yugoslavia.117 #elections with old electoral law
+				}
+			}
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						has_country_flag = YUG_new_electoral_law				
+					}
+				}
+				country_event = { 
+					id = yugoslavia.118 #elections with new electoral law
+				}
+			}
+		}
+	}
+}
+
+YUG_parliament2 = {
+	YUG_hold_elections2 = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			OR = {
+				has_country_flag = YUG_jns_won
+				has_country_flag = YUG_opposition_won
+			}
+			NOT = {has_completed_focus = YUG_open_up_the_talks}
+			NOT = {has_completed_focus = YUG_deal_our_terms}
+		}
+		fire_only_once = yes
+		ai_will_do = { factor = 20 }
+		cost = 50
+		available = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jns_won
+				has_country_flag = YUG_opposition_won
+			}
+			has_country_flag = YUG_election_time_2
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						has_country_flag = YUG_opposition_won
+						OR = {
+							NOT = {has_country_flag = YUG_nrs_government}
+							AND = {
+								has_country_flag = YUG_nrs_government
+								has_country_flag = YUG_hss_government
+							}
+						}
+					}
+				}
+				country_event = { 
+					id = yugoslavia.229 #Elections, radpeasant bloc vs demagrarians
+				}
+			}
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						has_country_flag = YUG_opposition_won
+						has_country_flag = YUG_nrs_government
+						NOT = {has_country_flag = YUG_hss_government}
+					}
+				}
+				country_event = { 
+					id = yugoslavia.230 #Elections, demagrarians vs natradical coalition
+				}
+			}
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						has_country_flag = YUG_jns_won
+					}
+				}
+				country_event = { 
+					id = yugoslavia.231 #Elections, jrz vs popular agreement bloc
+				}
+			}
+		}
+	}
+}
+
+YUG_parliament3 = {
+	YUG_call_for_peace = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 50
+		
+	
+		complete_effect = {
+			subtract_from_variable = {
+				var = YUG_tensions
+				value = 10
+			}
+		}
+	}
+	YUG_influence_leaders = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 70
+		
+		available = {
+			AND = {
+				has_completed_focus = YUG_croatian_local_elections
+				has_completed_focus = YUG_fighting_backlash
+			}
+		}
+		
+		complete_effect = {
+			subtract_from_variable = {
+				var = YUG_tensions
+				value = 20
+			}
+		}
+	}
+	YUG_enforce_order = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 100
+		
+		available = {
+			OR = {
+				has_completed_focus = YUG_elect_croatian_sabor
+				has_completed_focus = YUG_presence_in_bosnia
+			}
+		}
+		
+		complete_effect = {
+			subtract_from_variable = {
+				var = YUG_tensions
+				value = 25
+			}
+		}
+	}
+}
+
+YUG_3_parts_federation = {
+	YUG_call_for_peace1 = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_jrz_3pt_federation
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 50
+		
+	
+		complete_effect = {
+			subtract_from_variable = {
+				var = YUG_tensions
+				value = 10
+			}
+		}
+	}
+	YUG_influence_leaders1 = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_jrz_3pt_federation
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 70
+		
+		available = {
+			has_completed_focus = YUG_local_elections_3pf
+		}
+		
+		complete_effect = {
+			subtract_from_variable = {
+				var = YUG_tensions
+				value = 20
+			}
+		}
+	}
+	YUG_enforce_order1 = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_jrz_3pt_federation
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 100
+		
+		available = {
+			has_completed_focus = YUG_replace_local_administration
+		}
+		
+		complete_effect = {
+			subtract_from_variable = {
+				var = YUG_tensions
+				value = 25
+			}
+		}
+	}
+}
+
+YUG_missions = {
+	YUG_hold_first_elections = {
+		allowed = { tag = YUG }
+		available = {
+			OR = {
+				has_country_flag = YUG_jns_won
+				has_country_flag = YUG_opposition_won
+			}
+		}
+		activation = {
+			tag = YUG
+			is_subject = no
+			NOT = {has_country_flag = YUG_jns_won}
+			NOT = {has_country_flag = YUG_opposition_won}
+			date > 1935.6.1
+			date < 1935.12.1
+		}
+		is_good = yes
+		days_mission_timeout = 180
+		timeout_effect = {
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						NOT = {has_country_flag = YUG_new_electoral_law}				
+					}
+				}
+				country_event = {
+					id = yugoslavia.117 # elections with old electoral law
+				}
+			}
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						has_country_flag = YUG_new_electoral_law				
+					}
+				}
+				country_event = {
+					id = yugoslavia.118 # elections with new electoral law
+				}
+			}
+		}
+		complete_effect = {
+			add_political_power = 50
+		}
+	}
+	YUG_hold_second_elections = {
+		allowed = { tag = YUG }
+		available = {
+		}
+		activation = {
+			tag = YUG
+			is_subject = no
+			has_country_flag = YUG_election_time_2
+			OR = {
+				has_country_flag = YUG_jns_won
+				has_country_flag = YUG_opposition_won
+			}
+			NOT = {has_country_flag = YUG_jrz_6pt_federation}
+			NOT = {has_country_flag = YUG_rad_peasant_won}
+			NOT = {has_country_flag = YUG_dem_agrarian_won}
+			NOT = {has_country_flag = YUG_nat_radical_won}
+			NOT = {has_country_flag = YUG_jrz_won}
+			NOT = {has_country_flag = YUG_pop_agreement_won}
+			NOT = {has_country_flag = YUG_jrz_3pt_federation}
+		}
+		is_good = yes
+		days_mission_timeout = 180
+		timeout_effect = {
+			clr_country_flag = YUG_election_time_2
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						has_country_flag = YUG_opposition_won
+						OR = {
+							NOT = {has_country_flag = YUG_nrs_government}
+							AND = {
+								has_country_flag = YUG_nrs_government
+								has_country_flag = YUG_hss_government
+							}
+						}
+					}
+				}
+				country_event = { 
+					id = yugoslavia.229 #Elections, radpeasant bloc vs demagrarians
+				}
+			}
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						has_country_flag = YUG_opposition_won
+						has_country_flag = YUG_nrs_government
+						NOT = {has_country_flag = YUG_hss_government}
+					}
+				}
+				country_event = { 
+					id = yugoslavia.230 #Elections, demagrarians vs natradical coalition
+				}
+			}
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						has_country_flag = YUG_jns_won
+					}
+				}
+				country_event = { 
+					id = yugoslavia.231 #Elections, jrz vs popular agreement bloc
+				}
+			}
+		}
+		complete_effect = {
+			add_political_power = 50
+		}
+	}
+}
+
+YUG_national_policy = {
+	YUG_arrest_macek = {
+		allowed = {
+			tag = YUG
+		}
+		fire_only_once = yes
+		ai_will_do = { factor = 15 }
+		cost = 50
+		visible = {
+			has_war = no
+			is_subject = no
+			has_country_leader = {
+				name = "Alexander I"
+				ruling_only = yes
+			}
+			has_completed_focus = YUG_imprison_macek
+			NOT = {
+				has_country_flag = YUG_macek_imprisoned
+				has_country_flag = YUG_macek_cooperates
+			}
+			controls_state = 103
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+		}
+		complete_effect = {
+			set_country_flag = YUG_macek_imprisoned
+			add_stability = -0.08
+		}
+	}
+	YUG_exile_korosec = {
+		allowed = {
+			tag = YUG
+		}
+		fire_only_once = yes
+		ai_will_do = { factor = 12 }
+		cost = 30
+		visible = {
+			has_war = no
+			is_subject = no
+			has_country_leader = {
+				name = "Alexander I"
+				ruling_only = yes
+			}
+			has_completed_focus = YUG_exile_korosec
+			NOT = {
+				has_country_flag = YUG_korosec_exiled
+				has_country_flag = YUG_korosec_cooperates
+			}
+			controls_state = 102
+			controls_state = 838
+		}
+		complete_effect = {
+			set_country_flag = YUG_korosec_exiled
+			add_stability = -0.05
+			country_event = { 
+				id = yugoslavia.102
+				days = 400
+				random = 100
+			}
+		}
+	}
+	YUG_imprison_spaho = {
+		allowed = {
+			tag = YUG
+		}
+		fire_only_once = yes
+		ai_will_do = { factor = 10 }
+		cost = 30
+		visible = {
+			has_war = no
+			is_subject = no
+			has_country_leader = {
+				name = "Alexander I"
+				ruling_only = yes
+			}
+			has_completed_focus = YUG_imprison_spaho
+			NOT = {
+				has_country_flag = YUG_spaho_imprisoned
+				has_country_flag = YUG_spaho_cooperates
+			}
+			controls_state = 104
+			controls_state = 909
+			controls_state = 908
+			controls_state = 906
+		}
+		complete_effect = {
+			set_country_flag = YUG_spaho_imprisoned
+			add_stability = -0.05
+			country_event = { 
+				id = yugoslavia.103
+				days = 400
+				random = 100
+			}
+		}
+	}
+	YUG_rally_serbia = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		ai_will_do = { factor = 10 }
+		days_re_enable = 200
+		cost = 50
+		
+		custom_cost_trigger = {
+			command_power > 30
+		}
+		custom_cost_text = command_power_more_than_30
+		
+		available = {
+			is_subject = no
+			controls_state = 107
+			OR = {
+				has_completed_focus = YUG_secure_serbia
+				has_completed_focus = YUG_strengthen_the_liberals
+				has_completed_focus = YUG_favor_serb_settlets
+				has_completed_focus = YUG_rely_on_serbs
+			}
+			OR = {
+				check_variable = { serb_opinion = 3 }
+				check_variable = { serb_opinion = 4 }
+			}
+		}
+		complete_effect = {
+			add_political_power = 100
+			add_command_power = -30
+		}
+	}
+	YUG_rally_montenegro = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		ai_will_do = { factor = 10 }
+		days_re_enable = 200
+		
+		custom_cost_trigger = {
+			command_power > 30
+		}
+		custom_cost_text = command_power_more_than_30
+		
+		available = {
+			is_subject = no
+			controls_state = 105
+			OR = {
+				has_completed_focus = YUG_secure_montenegro
+				has_completed_focus = YUG_drljevic_support
+				has_completed_focus = YUG_montenegrin_statehood_rights
+			}
+			OR = {
+				check_variable = { montenegrin_opinion = 3 }
+				check_variable = { montenegrin_opinion = 4 }
+			}
+		}
+		complete_effect = {
+			add_political_power = 50
+			add_command_power = -30		
+		}
+	}
+	YUG_rally_slovenia = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		ai_will_do = { factor = 10 }
+		days_re_enable = 200
+		
+		custom_cost_trigger = {
+			command_power > 30
+		}
+		custom_cost_text = command_power_more_than_30
+		
+		available = {
+			is_subject = no
+			controls_state = 102
+			controls_state = 838
+			OR = {
+				has_completed_focus = YUG_secure_slovenia
+				has_completed_focus = YUG_support_the_straza
+				has_completed_focus = YUG_slovene_vatican
+			}
+			OR = {
+				check_variable = { slovene_opinion = 3 }
+				check_variable = { slovene_opinion = 4 }
+			}
+		}
+		complete_effect = {
+			add_political_power = 70
+			add_command_power = -30
+		}
+	}
+	YUG_rally_bosnia = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		ai_will_do = { factor = 10 }
+		days_re_enable = 200
+		
+		custom_cost_trigger = {
+			command_power > 30
+		}
+		custom_cost_text = command_power_more_than_30
+		
+		available = {
+			is_subject = no
+			controls_state = 104
+			controls_state = 909
+			controls_state = 908
+			controls_state = 906
+			OR = {
+				has_completed_focus = YUG_secure_bosnia
+				has_completed_focus = YUG_guarantee_muslim_rights
+				has_completed_focus = YUG_promote_bosnia
+			}
+			OR = {
+				check_variable = { bosniak_opinion = 3 }
+				check_variable = { bosniak_opinion = 4 }
+			}
+		}
+		complete_effect = {
+			add_political_power = 70
+			add_command_power = -30
+		}
+	}
+	YUG_rally_croatia = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		ai_will_do = { factor = 10 }
+		days_re_enable = 200
+		
+		custom_cost_trigger = {
+			command_power > 30
+		}
+		custom_cost_text = command_power_more_than_30
+		
+		available = {
+			is_subject = no
+			controls_state = 103
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+			OR = {
+				has_completed_focus = YUG_secure_croatia
+				has_completed_focus = YUG_back_to_basics
+				has_completed_focus = YUG_keep_promises
+			}
+			OR = {
+				check_variable = { croat_opinion = 3 }
+				check_variable = { croat_opinion = 4 }
+			}
+		}
+		complete_effect = {
+			add_political_power = 100
+			add_command_power = -30
+		}
+	}
+	YUG_albanian_schools = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			has_completed_focus = YUG_talk_dzemijet
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_generic_decision
+		fire_only_once = yes
+		ai_will_do = { factor = 9 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 765
+			OR = {
+				has_completed_focus = YUG_partner_albanians
+				has_completed_focus = YUG_fate_of_kosovo
+			}
+			NOT = {has_country_flag = YUG_kosovo_je_srbija}
+			NOT = {has_country_flag = YUG_kosovo_has_police}
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = -0.01 }
+		add_popularity = { ideology = nationalism popularity = -0.01 }
+		add_stability = 0.01
+		set_country_flag = YUG_alb_schools
+		}
+	}
+	YUG_independent_courts = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			has_completed_focus = YUG_talk_dzemijet
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_generic_accord
+		fire_only_once = yes
+		ai_will_do = { factor = 9 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 765
+			OR = {
+				has_completed_focus = YUG_partner_albanians
+				has_completed_focus = YUG_fate_of_kosovo
+			}
+			NOT = {has_country_flag = YUG_kosovo_je_srbija}
+			NOT = {has_country_flag = YUG_kosovo_has_police}
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = -0.01 }
+		add_popularity = { ideology = nationalism popularity = -0.01 }
+		add_stability = 0.01
+		set_country_flag = YUG_ind_courts
+		}
+	}
+	YUG_serbs_to_kosovo = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_generic_barn
+		fire_only_once = yes
+		ai_will_do = { factor = 10 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 765
+			OR = {
+				has_completed_focus = YUG_preserve_dusan_legacy
+				has_completed_focus = YUG_intensify_serb
+				has_completed_focus = YUG_fate_of_kosovo
+				has_completed_focus = YUG_favor_serb_settlets
+				has_completed_focus = YUG_bring_peace_old_serbia
+			}
+			NOT = {has_country_flag = YUG_alb_schools}
+			NOT = {has_country_flag = YUG_ind_courts}
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = 0.01 }
+		add_popularity = { ideology = nationalism popularity = 0.01 }
+		add_stability = -0.02
+		set_country_flag = YUG_kosovo_je_srbija
+		}
+	}
+	YUG_police_to_kosovo = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_oppression
+		fire_only_once = yes
+		ai_will_do = { factor = 10 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 765
+			OR = {
+				has_completed_focus = YUG_preserve_dusan_legacy
+				has_completed_focus = YUG_intensify_serb
+				has_completed_focus = YUG_fate_of_kosovo
+				has_completed_focus = YUG_favor_serb_settlets
+				has_completed_focus = YUG_bring_peace_old_serbia
+			}
+			NOT = {has_country_flag = YUG_alb_schools}
+			NOT = {has_country_flag = YUG_ind_courts}
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = 0.01 }
+		add_popularity = { ideology = nationalism popularity = 0.01 }
+		add_stability = -0.02
+		set_country_flag = YUG_kosovo_has_police
+		}
+	}
+	YUG_population_transfer_alb = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_generic_citizens
+		fire_only_once = yes
+		ai_will_do = { factor = 10 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 765
+			OR = {
+			has_completed_focus = YUG_treaty_albania
+			has_completed_focus = YUG_treaty_turkey
+			has_completed_focus = YUG_ZS_treaty_albania
+			}
+			OR = {
+			has_country_flag = YUG_albania_agreed
+			has_country_flag = TUR_albania_agreed
+			}
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = 0.01 }
+		add_popularity = { ideology = nationalism popularity = 0.01 }
+		add_stability = 0.01
+		set_country_flag = YUG_albanians_out
+		}
+	}
+	YUG_supply_chetniks_kosovo = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_generic_supplies
+		fire_only_once = yes
+		ai_will_do = { factor = 10 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 765
+			OR = {
+				has_completed_focus = YUG_ties_with_chetniks
+				has_completed_focus = YUG_control_chetniks
+			}
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = 0.01 }
+		add_popularity = { ideology = nationalism popularity = 0.01 }
+		add_stability = 0.01
+		set_country_flag = YUG_chetniks_kosovo
+		}
+	}
+	YUG_support_vmro_split = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			has_completed_focus = YUG_deal_VMRO_split
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_generic_supplies
+		fire_only_once = yes
+		ai_will_do = { factor = 10 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 106
+			OR = {			
+				has_completed_focus = YUG_strike_VMRO_jrz
+				has_completed_focus = YUG_legalize_vmro_protogerovists
+				has_completed_focus = YUG_look_macedonian
+			}
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = -0.01 }
+		add_popularity = { ideology = nationalism popularity = -0.01 }
+		add_stability = 0.01
+		set_country_flag = YUG_vmro_split_sup
+		hidden_effect = {
+			subtract_from_variable = { ygw_mac_s_pow = 15 }
+			add_to_variable = { ygw_mac_p_pow = 10 }
+			add_to_variable = { ygw_mac_m_pow = 5 }
+		}
+		}
+	}
+	YUG_support_vmro_moderates = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			has_completed_focus = YUG_deal_VMRO_split
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_generic_politicians2
+		fire_only_once = yes
+		ai_will_do = { factor = 10 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 106
+			OR = {			
+				has_completed_focus = YUG_strike_VMRO_jrz
+				has_completed_focus = YUG_legalize_vmro_protogerovists
+				has_completed_focus = YUG_look_macedonian
+			}
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = -0.01 }
+		add_popularity = { ideology = nationalism popularity = -0.01 }
+		add_stability = 0.01
+		set_country_flag = YUG_vmro_moderates
+		hidden_effect = {
+			subtract_from_variable = { ygw_mac_s_pow = 15 }
+			add_to_variable = { ygw_mac_m_pow = 10 }
+			add_to_variable = { ygw_mac_p_pow = 5 }
+		}
+		}
+	}
+	YUG_serbs_to_macedonia = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_generic_barn
+		fire_only_once = yes
+		ai_will_do = { factor = 10 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 106
+			OR = {
+				has_completed_focus = YUG_preserve_dusan_legacy
+				has_completed_focus = YUG_intensify_serb
+				has_completed_focus = YUG_favor_serb_settlets
+				has_completed_focus = YUG_bring_peace_old_serbia
+			}
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = 0.01 }
+		add_popularity = { ideology = nationalism popularity = 0.01 }
+		add_stability = -0.02
+		set_country_flag = YUG_makedonija_je_srbija
+		hidden_effect = {
+			subtract_from_variable = { ygw_mac_m_pop = 10 }
+			add_to_variable = { ygw_mac_s_pop = 10 }
+		}
+		}
+	}
+	YUG_police_to_macedonia = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_oppression
+		fire_only_once = yes
+		ai_will_do = { factor = 10 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 106
+			OR = {
+				has_completed_focus = YUG_new_ruling_party
+				has_completed_focus = YUG_issues_with_macedonia
+				has_completed_focus = YUG_favor_serb_settlets
+				has_completed_focus = YUG_bring_peace_old_serbia
+			}
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = 0.01 }
+		add_popularity = { ideology = nationalism popularity = 0.01 }
+		add_stability = -0.02
+		set_country_flag = YUG_macedonia_has_police
+		hidden_effect = {
+			subtract_from_variable = { ygw_mac_m_pow = 5 }
+			subtract_from_variable = { ygw_mac_p_pow = 5 }
+			add_to_variable = { ygw_mac_s_pow = 10 }
+		}
+		}
+	}
+	YUG_population_transfer_bul = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_generic_citizens
+		fire_only_once = yes
+		ai_will_do = { factor = 10 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 106
+			OR = {
+				has_completed_focus = YUG_treaty_bulgaria
+				has_completed_focus = YUG_ZS_treaty_bulgaria
+			}
+			has_country_flag = YUG_bulgaria_agreed
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = 0.01 }
+		add_popularity = { ideology = nationalism popularity = 0.01 }
+		add_stability = 0.01
+		set_country_flag = YUG_bulgarians_out
+		hidden_effect = {
+			subtract_from_variable = { ygw_mac_m_pop = 5 }
+			subtract_from_variable = { ygw_mac_p_pop = 5 }
+			add_to_variable = { ygw_mac_s_pop = 10 }
+		}
+		}
+	}
+	YUG_supply_chetniks_macedonia = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			NOT = {	has_country_flag = YUG_zivkovic_dictatorship	}
+		}
+		icon = GFX_decision_generic_supplies
+		fire_only_once = yes
+		ai_will_do = { factor = 10 }
+		cost = 30
+		available = {
+			is_subject = no
+			controls_state = 106
+			OR = {
+				has_completed_focus = YUG_ties_with_chetniks
+				has_completed_focus = YUG_control_chetniks
+			}
+		}
+		complete_effect = {
+		add_popularity = { ideology = monarchism popularity = 0.01 }
+		add_popularity = { ideology = nationalism popularity = 0.01 }
+		add_stability = 0.01
+		set_country_flag = YUG_chetniks_macedonia
+		hidden_effect = {
+			subtract_from_variable = { ygw_mac_m_pow = 5 }
+			subtract_from_variable = { ygw_mac_p_pow = 5 }
+			add_to_variable = { ygw_mac_s_pow = 10 }
+		}
+		}
+	}
+	##### Royal Dictatorship ###
+	YUG_find_strikebreakers = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			has_country_flag = YUG_zivkovic_dictatorship
+		}
+		icon = GFX_decision_generic_citizens
+		fire_only_once = yes
+		ai_will_do = { factor = 20 }
+		cost = 50
+		available = {
+			is_subject = no
+			has_completed_focus = YUG_mobilizing_state
+		}
+		complete_effect = {
+			set_country_flag = YUG_strikebreakers_found
+		}
+	}
+	YUG_imprison_strike_leaders = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			has_country_flag = YUG_zivkovic_dictatorship
+		}
+		icon = GFX_decision_generic_citizens
+		fire_only_once = yes
+		ai_will_do = { factor = 20 }
+		cost = 50
+		available = {
+			is_subject = no
+			has_completed_focus = YUG_expand_odz
+		}
+		complete_effect = {
+			set_country_flag = YUG_strike_leaders_imprisoned
+		}
+	}
+	YUG_harass_striking_workers = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			has_country_flag = YUG_zivkovic_dictatorship
+		}
+		icon = GFX_decision_generic_citizens
+		fire_only_once = yes
+		ai_will_do = { factor = 20 }
+		cost = 50
+		available = {
+			is_subject = no
+			has_completed_focus = YUG_revive_orjuna
+		}
+		complete_effect = {
+			set_country_flag = YUG_striking_workers_harassed
+		}
+	}
+}
+
+YUG_klubasi_vs_zborasi = {
+	YUG_fund_srpski_glas = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_cautious_stabilization
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 50
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = 2
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = -2
+				}
+			}
+		}
+	}
+	YUG_attend_club_meeting = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_cautious_stabilization
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 50
+		cost = 60
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = 3
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = -3
+				}
+			}
+		}
+	}
+	YUG_utilize_radical_network = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_align_former_radicals
+		}
+		ai_will_do = { factor = 20 }
+		fire_only_once = yes
+		cost = 80
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = 6
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = -6
+				}
+			}
+		}
+	}
+	YUG_celebrate_french_gratitude = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+			OR = {
+				AND = {
+					date > 1933.11.1
+					date < 1933.12.1
+				}
+				AND = {
+					date > 1934.11.1
+					date < 1934.12.1
+				}
+				AND = {
+					date > 1935.11.1
+					date < 1935.12.1
+				}
+				AND = {
+					date > 1936.11.1
+					date < 1936.12.1
+				}
+				AND = {
+					date > 1937.11.1
+					date < 1937.12.1
+				}
+				AND = {
+					date > 1938.11.1
+					date < 1938.12.1
+				}
+				AND = {
+					date > 1939.11.1
+					date < 1939.12.1
+				}
+				AND = {
+					date > 1940.11.1
+					date < 1940.12.1
+				}
+				AND = {
+					date > 1941.11.1
+					date < 1941.12.1
+				}
+				AND = {
+					date > 1942.11.1
+					date < 1942.12.1
+				}
+				AND = {
+					date > 1943.11.1
+					date < 1943.12.1
+				}
+				AND = {
+					date > 1944.11.1
+					date < 1944.12.1
+				}
+				AND = {
+					date > 1945.11.1
+					date < 1945.12.1
+				}
+				AND = {
+					date > 1946.11.1
+					date < 1946.12.1
+				}
+				AND = {
+					date > 1947.11.1
+					date < 1947.12.1
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_appoint_moderate_commanders
+		}
+		ai_will_do = { factor = 30 }
+		fire_only_once = yes
+		cost = 60
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = 6
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = -6
+				}
+			}
+		}
+	}
+	YUG_distribute_club_soldiers = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_appoint_moderate_commanders
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 40
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = 2
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = -2
+				}
+			}
+		}
+	}
+	YUG_prepare_to_ban_zbor = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_control_judiciary
+		}
+		ai_will_do = { factor = 20 }
+		fire_only_once = yes
+		cost = 60
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = 5
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = -5
+				}
+				set_country_flag = YUG_zbor_ban_prepared
+			}
+		}
+	}
+	YUG_employ_chetnik_param = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_change_chetnik_leadership
+		}
+		ai_will_do = { factor = 20 }
+		fire_only_once = yes
+		cost = 60
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = 5
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = -5
+				}
+				set_country_flag = YUG_chetniks_employed_param
+			}
+		}
+	}
+	YUG_protect_judges = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_country_flag = YUG_zbor_ban_prepared
+			has_country_flag = YUG_chetniks_employed_param
+		}
+		ai_will_do = { factor = 20 }
+		fire_only_once = yes
+		cost = 30
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = 20
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = -20
+				}
+			}
+		}
+	}
+	
+	YUG_fund_otadzbina = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_cautious_stabilization
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 50
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = -2
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = 2
+				}
+			}
+		}
+	}
+	YUG_attend_zbor_meeting = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_cautious_stabilization
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 50
+		cost = 60
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = -3
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = 3
+				}
+			}
+		}
+	}
+	YUG_form_white_eagles = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_increase_ties_zbor
+		}
+		ai_will_do = { factor = 20 }
+		fire_only_once = yes
+		cost = 80
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = -6
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = 6
+				}
+			}
+		}
+	}
+	YUG_celebrate_defenders_belgrade = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+			OR = {
+				AND = {
+					date > 1933.11.1
+					date < 1933.12.1
+				}
+				AND = {
+					date > 1934.11.1
+					date < 1934.12.1
+				}
+				AND = {
+					date > 1935.11.1
+					date < 1935.12.1
+				}
+				AND = {
+					date > 1936.11.1
+					date < 1936.12.1
+				}
+				AND = {
+					date > 1937.11.1
+					date < 1937.12.1
+				}
+				AND = {
+					date > 1938.11.1
+					date < 1938.12.1
+				}
+				AND = {
+					date > 1939.11.1
+					date < 1939.12.1
+				}
+				AND = {
+					date > 1940.11.1
+					date < 1940.12.1
+				}
+				AND = {
+					date > 1941.11.1
+					date < 1941.12.1
+				}
+				AND = {
+					date > 1942.11.1
+					date < 1942.12.1
+				}
+				AND = {
+					date > 1943.11.1
+					date < 1943.12.1
+				}
+				AND = {
+					date > 1944.11.1
+					date < 1944.12.1
+				}
+				AND = {
+					date > 1945.11.1
+					date < 1945.12.1
+				}
+				AND = {
+					date > 1946.11.1
+					date < 1946.12.1
+				}
+				AND = {
+					date > 1947.11.1
+					date < 1947.12.1
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_appoint_fascist_commanders
+		}
+		ai_will_do = { factor = 30 }
+		fire_only_once = yes
+		cost = 60
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = -6
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = 6
+				}
+			}
+		}
+	}
+	YUG_distribute_zbor_soldiers = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_appoint_fascist_commanders
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 40
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = -2
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = 2
+				}
+			}
+		}
+	}
+	YUG_indoctrinate_police = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_our_man_in_belgrade_police
+		}
+		ai_will_do = { factor = 20 }
+		fire_only_once = yes
+		cost = 60
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = -5
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = 5
+				}
+				set_country_flag = YUG_police_indoctrinated
+			}
+		}
+	}
+	YUG_share_zbor_orjuna = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_completed_focus = YUG_change_orjuna_leadership
+		}
+		ai_will_do = { factor = 20 }
+		fire_only_once = yes
+		cost = 60
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = -5
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = 5
+				}
+				set_country_flag = YUG_zbor_orjuna_share
+			}
+		}
+	}
+	YUG_intimidate_club = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			has_country_flag = YUG_zivkovic_dictatorship
+			has_completed_focus = YUG_cautious_stabilization
+			NOT = {	has_completed_focus = YUG_appoint_radical_government	}
+			NOT = {	has_completed_focus = YUG_appoint_fascist_government	}
+		}
+		available = {
+			has_country_flag = YUG_police_indoctrinated
+			has_country_flag = YUG_zbor_orjuna_share
+		}
+		ai_will_do = { factor = 20 }
+		fire_only_once = yes
+		cost = 30
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = klubasi_power
+					value = -20
+				}
+				add_to_variable = {
+					var = zborasi_power
+					value = 20
+				}
+			}
+		}
+	}
+}
+
+YUG_prime_minister_versus_regent = {
+	YUG_rumors_pm = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_intrigue_elite
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 50
+		
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = {
+					var = pm_influence
+					value = 5
+				}
+			}
+		}
+	}
+	YUG_rumors_regent = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_intrigue_elite
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 50
+		
+		complete_effect = {
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Prince Paul"
+							ruling_only = yes
+						}
+					}
+					subtract_from_variable = {
+						var = regent_influence
+						value = 5
+					}
+				}
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Nikola Uzunović"
+							ruling_only = yes
+						}
+					}
+					subtract_from_variable = {
+						var = regent_influence
+						value = 5
+					}
+				}
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Petar Živković"
+							ruling_only = yes
+						}
+					}
+					subtract_from_variable = {
+						var = regent_influence
+						value = 15
+					}
+				}
+			}
+		}
+	}
+	YUG_infuence_allies_pm = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_intrigue_elite
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 50
+		
+	
+		complete_effect = {
+			hidden_effect = {
+				subtract_from_variable = {
+					var = pm_influence
+					value = 15
+				}
+			}
+		}
+	}
+	YUG_infuence_allies_regent = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_intrigue_elite
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 50
+		
+	
+		complete_effect = {
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Prince Paul"
+							ruling_only = yes
+						}
+					}
+					add_to_variable = {
+						var = regent_influence
+						value = 5
+					}
+				}
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Nikola Uzunović"
+							ruling_only = yes
+						}
+					}
+					subtract_from_variable = {
+						var = regent_influence
+						value = 10
+					}
+				}
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Petar Živković"
+							ruling_only = yes
+						}
+					}
+					subtract_from_variable = {
+						var = regent_influence
+						value = 5
+					}
+				}
+			}
+		}
+	}
+	YUG_accuse_greed_pm = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_intrigue_elite
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 50
+		
+	
+		complete_effect = {
+			hidden_effect = {
+				subtract_from_variable = {
+					var = pm_influence
+					value = 15
+				}
+			}
+		}
+	}
+	YUG_accuse_greed_regent = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_intrigue_elite
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 50
+		
+	
+		complete_effect = {
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Prince Paul"
+							ruling_only = yes
+						}
+					}
+					subtract_from_variable = {
+						var = regent_influence
+						value = 5
+					}
+				}
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Nikola Uzunović"
+							ruling_only = yes
+						}
+					}
+					subtract_from_variable = {
+						var = regent_influence
+						value = 10
+					}
+				}
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Petar Živković"
+							ruling_only = yes
+						}
+					}
+					subtract_from_variable = {
+						var = regent_influence
+						value = 5
+					}
+				}
+			}
+		}
+	}
+	YUG_rally_against_pm = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_bring_dispute_people
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 75
+		
+	
+		complete_effect = {
+			add_stability = -0.04
+			hidden_effect = {
+				subtract_from_variable = {
+					var = pm_influence
+					value = 10
+				}
+			}
+		}
+	}
+	YUG_rally_against_regent = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_bring_dispute_people
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 75
+		
+	
+		complete_effect = {
+			add_stability = -0.04
+			hidden_effect = {
+				subtract_from_variable = {
+					var = regent_influence
+					value = 20
+				}
+			}
+		}
+	}
+	YUG_protests_against_pm = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_bring_dispute_people
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 75
+		
+	
+		complete_effect = {
+			add_stability = -0.04
+			hidden_effect = {
+				subtract_from_variable = {
+					var = pm_influence
+					value = 15
+				}
+			}
+		}
+	}
+	YUG_protests_against_regent = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_bring_dispute_people
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 75
+		
+		complete_effect = {
+			add_stability = -0.04
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Prince Paul"
+							ruling_only = yes
+						}
+					}
+					subtract_from_variable = {
+						var = regent_influence
+						value = 15
+					}
+				}
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Nikola Uzunović"
+							ruling_only = yes
+						}
+					}
+					subtract_from_variable = {
+						var = regent_influence
+						value = 15
+					}
+				}
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Petar Živković"
+							ruling_only = yes
+						}
+					}
+					subtract_from_variable = {
+						var = regent_influence
+						value = 20
+					}
+				}
+			}
+		}
+	}
+	YUG_paramilitaries_against_pm = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_armed_solutions
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 120
+		
+	
+		complete_effect = {
+			add_stability = -0.1
+			hidden_effect = {
+				set_variable = {
+					var = pm_influence
+					value = 0
+				}
+			}
+		}
+	}
+	YUG_paramilitaries_against_regent = {
+		allowed = {
+			tag = YUG
+		}
+		visible = {
+			is_subject = no
+			OR = {
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_rad_peasant_won
+			}
+			has_completed_focus = YUG_regent_vs_prime
+			has_idea = YUG_hog_Milan_Stojadinovic
+			NOT = {
+				has_country_leader = {
+					name = "Peter II"
+					ruling_only = yes
+				}
+			}
+		}
+		available = {
+			has_completed_focus = YUG_armed_solutions
+		}
+		ai_will_do = { factor = 20 }
+		days_re_enable = 30
+		cost = 120
+		
+	
+		complete_effect = {
+			add_stability = -0.1
+			hidden_effect = {
+				set_variable = {
+					var = regent_influence
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+YUG_city_development = {
+	YUG_finish_danube_bridge = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 12 }
+		fire_only_once = yes
+		highlight_states = { state = 107 }
+		cost = 40
+		visible = {
+			controls_state = 107
+			has_completed_focus = YUG_urban_development
+		}
+		complete_effect = { }
+		days_remove = 100
+		remove_effect = {
+			107 = {
+				add_extra_state_shared_building_slots = 2
+			}
+		}
+		
+	}
+	YUG_belgrade_stock_exchange = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 107 }
+		cost = 40
+		visible = {
+			controls_state = 107
+			has_completed_focus = YUG_urban_development
+		}
+		complete_effect = { }
+		days_remove = 60
+		remove_effect = {
+			set_country_flag = YUG_belgrade_stonks
+		}
+	}
+	YUG_belgrade_grand_prix = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 107 }
+		cost = 50
+		visible = {
+			controls_state = 107
+			has_completed_focus = YUG_urban_development
+		}
+		complete_effect = {
+			country_event = {
+				id = yugoslavia.140
+				days = 90
+				random = 10
+			}
+		}
+	}
+	YUG_belgrade_small_business = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 11 }
+		fire_only_once = yes
+		highlight_states = { state = 107 }
+		cost = 40
+		visible = {
+			controls_state = 107
+			has_completed_focus = YUG_urban_development
+		}
+		complete_effect = { }
+		days_remove = 80
+		remove_effect = {
+			set_country_flag = YUG_belgrade_business
+			107 = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	YUG_zagreb_stock_exchange = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 109 }
+		cost = 40
+		visible = {
+			controls_state = 109
+			has_completed_focus = YUG_urban_development
+		}
+		complete_effect = { }
+		days_remove = 80
+		remove_effect = {
+			set_country_flag = YUG_zagreb_stonks
+		}
+	}
+	YUG_zagreb_tramways = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 12 }
+		fire_only_once = yes
+		highlight_states = { state = 109 }
+		cost = 40
+		visible = {
+			controls_state = 109
+			has_completed_focus = YUG_urban_development
+		}
+		complete_effect = { }
+		days_remove = 50
+		remove_effect = {
+			109 = {
+				add_extra_state_shared_building_slots = 2
+			}
+		}
+	}
+	YUG_zagreb_small_business = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 11 }
+		fire_only_once = yes
+		highlight_states = { state = 109 }
+		cost = 40
+		visible = {
+			controls_state = 109
+			has_completed_focus = YUG_urban_development
+		}
+		complete_effect = { }
+		days_remove = 80
+		remove_effect = {
+			set_country_flag = YUG_zagreb_business
+			109 = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	YUG_joze_plecnik = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 12 }
+		fire_only_once = yes
+		highlight_states = { state = 838 }
+		cost = 40
+		visible = {
+			controls_state = 838
+			has_completed_focus = YUG_urban_development
+		}
+		complete_effect = { }
+		days_remove = 40
+		remove_effect = {
+			838 = {
+				add_extra_state_shared_building_slots = 2
+			}
+		}
+	}
+}
+YUG_rural_development = {
+	YUG_credit_serb = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 107	state = 917	state = 108	state = 918	}
+		cost = 70
+		visible = {
+			controls_state = 107
+			controls_state = 917
+			controls_state = 108
+			controls_state = 918
+			has_completed_focus = YUG_serbian_farmers
+			has_country_flag = YUG_belgrade_stonks
+		}
+		complete_effect = { }
+		days_remove = 150
+		remove_effect = {
+			107 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			917 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			108 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			918 = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	YUG_debt_freeze_serb = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 107	state = 917	state = 108	state = 918	}
+		cost = 100
+		visible = {
+			controls_state = 107
+			controls_state = 917
+			controls_state = 108
+			controls_state = 918
+			has_completed_focus = YUG_serbian_farmers
+		}
+		complete_effect = { }
+		days_remove = 100
+		remove_effect = {
+			107 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			917 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			108 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			918 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			set_country_flag = YUG_serb_debt_frozen
+		}
+	}
+	YUG_agri_subsidies_serb = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 107	state = 917	state = 108	state = 918	}
+		cost = 80
+		visible = {
+			controls_state = 107
+			controls_state = 917
+			controls_state = 108
+			controls_state = 918
+			has_completed_focus = YUG_serbian_farmers
+		}
+		complete_effect = { }
+		days_remove = 100
+		remove_effect = {
+			107 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			917 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			108 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			918 = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	YUG_credit_croat = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 109	state = 891	state = 910	state = 163	state = 103	}
+		cost = 70
+		visible = {
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+			controls_state = 163
+			controls_state = 103
+			has_completed_focus = YUG_precani_farmers
+			has_country_flag = YUG_zagreb_stonks
+		}
+		complete_effect = { }
+		days_remove = 80
+		remove_effect = {
+			109 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			891 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			910 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			163 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			103 = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	YUG_debt_freeze_precani = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 109	state = 891	state = 910	state = 104	state = 909	state = 908	}
+		cost = 100
+		visible = {
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+			controls_state = 104
+			controls_state = 909
+			controls_state = 908
+			has_completed_focus = YUG_precani_farmers
+		}
+		complete_effect = { }
+		days_remove = 70
+		remove_effect = {
+			109 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			891 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			910 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			104 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			909 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			908 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			set_country_flag = YUG_precani_debt_frozen
+		}
+	}
+	YUG_mechanization_precani = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 109	state = 891	state = 910	state = 104	state = 909	state = 908	}
+		cost = 120
+		visible = {
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+			controls_state = 104
+			controls_state = 909
+			controls_state = 908
+			has_completed_focus = YUG_precani_farmers
+		}
+		complete_effect = { }
+		days_remove = 120
+		remove_effect = {
+			109 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			891 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			910 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			104 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			909 = {
+				add_extra_state_shared_building_slots = 2
+			}
+			908 = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+}
+YUG_bauxite_development = {
+	YUG_niksic_mine = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 105 }
+		cost = 80
+		visible = {
+			controls_state = 105
+			has_completed_focus = YUG_bauxite_mining
+		}
+		complete_effect = { }
+		days_remove = 180
+		remove_effect = {
+			add_resource = {
+				type = aluminium
+				amount = 30
+				state = 105
+			}
+		}
+	}
+	YUG_vlasenica_mine = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 909 }
+		cost = 80
+		visible = {
+			controls_state = 909
+			has_completed_focus = YUG_bauxite_mining
+		}
+		complete_effect = { }
+		days_remove = 130
+		remove_effect = {
+			add_resource = {
+				type = aluminium
+				amount = 30
+				state = 909
+			}
+		}
+	}
+	YUG_obrovac_mine = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 103 }
+		cost = 80
+		visible = {
+			controls_state = 103
+			has_completed_focus = YUG_bauxite_mining
+		}
+		complete_effect = { }
+		days_remove = 100
+		remove_effect = {
+			add_resource = {
+				type = aluminium
+				amount = 30
+				state = 103
+			}
+		}
+	}
+	YUG_drnis_mine = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 163 }
+		cost = 80
+		visible = {
+			controls_state = 163
+			has_completed_focus = YUG_bauxite_mining
+		}
+		complete_effect = { }
+		days_remove = 100
+		remove_effect = {
+			add_resource = {
+				type = aluminium
+				amount = 30
+				state = 163
+			}
+		}
+	}
+	YUG_mostar_mine = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 908 }
+		cost = 80
+		visible = {
+			controls_state = 908
+			has_completed_focus = YUG_bauxite_mining
+		}
+		complete_effect = { }
+		days_remove = 100
+		remove_effect = {
+			add_resource = {
+				type = aluminium
+				amount = 30
+				state = 908
+			}
+		}
+	}
+}
+
+YUG_railways_development = {
+	YUG_slovenian_railways = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = {
+			state = 838
+			state = 102
+		}
+		cost = 50
+		visible = {
+			controls_state = 838
+			controls_state = 102
+			has_completed_focus = YUG_precani_railways
+		}
+		complete_effect = { }
+		days_remove = 140
+		remove_effect = {
+			# 838 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+			# 102 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+		}
+	}
+	YUG_croatian_railways = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 109	state = 891	state = 910	state = 907 }
+		cost = 50
+		visible = {
+			controls_state = 109
+			controls_state = 891
+			controls_state = 910
+			controls_state = 907
+			has_completed_focus = YUG_precani_railways
+		}
+		complete_effect = { }
+		days_remove = 170
+		remove_effect = {
+			# 109 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+			# 891 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+			# 910 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+			# 907 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+		}
+	}
+	YUG_dalmatian_railways = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { base = 10 }
+		fire_only_once = yes
+		highlight_states = {
+			state = 103
+			state = 163
+			state = 1036
+		}
+		cost = 50
+		visible = {
+			controls_state = 103
+			controls_state = 163
+			controls_state = 1036
+			has_completed_focus = YUG_precani_railways
+		}
+		complete_effect = { }
+		days_remove = 170
+		remove_effect = {
+			# 103 = {
+			# 	add_building_construction = { type = infrastructure	level = 2 instant_build = yes }
+			# }
+			# 163 = {
+			# 	add_building_construction = { type = infrastructure	level = 2 instant_build = yes }
+			# }
+			# 1036 = {
+			# 	add_building_construction = { type = infrastructure level = 2 instant_build = yes }
+			# }
+		}
+	}
+	YUG_vojvodina_railways = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = {
+			state = 45
+			state = 1031
+			state = 839
+			state = 840
+		}
+		cost = 50
+		visible = {
+			controls_state = 45
+			controls_state = 1031
+			controls_state = 839
+			controls_state = 840
+			has_completed_focus = YUG_precani_railways
+		}
+		complete_effect = { }
+		days_remove = 100
+		remove_effect = {
+			# 45 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+			# 1031 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+			# 839 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+			# 840 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+		}
+	}
+	YUG_bosnian_railways = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = {
+			state = 104
+			state = 909
+			state = 906
+			state = 908
+		}
+		cost = 50
+		visible = {
+			controls_state = 104
+			controls_state = 909
+			controls_state = 906
+			controls_state = 908
+			has_completed_focus = YUG_precani_railways
+		}
+		complete_effect = { }
+		days_remove = 250
+		remove_effect = {
+			# 104 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+			# 909 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+			# 906 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+			# 908 = { add_building_construction = { type = infrastructure	level = 2 instant_build = yes } }
+		}
+	}
+	YUG_srb_railways = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 917	state = 107	state = 108	state = 918 }
+		cost = 50
+		visible = {
+			controls_state = 917
+			controls_state = 107
+			controls_state = 108
+			controls_state = 918
+			has_completed_focus = YUG_serbian_railways
+		}
+		complete_effect = { }
+		days_remove = 250
+		remove_effect = {
+			# 917 = { add_building_construction = { type = infrastructure	level = 1 instant_build = yes } }
+			# 107 = { add_building_construction = { type = infrastructure	level = 1 instant_build = yes } }
+			# 108 = { add_building_construction = { type = infrastructure	level = 1 instant_build = yes } }
+			# 918 = { add_building_construction = { type = infrastructure	level = 1 instant_build = yes } }
+		}
+	}
+	YUG_old_serbian_railways = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 765	state = 916	state = 106 }
+		cost = 50
+		visible = {
+			controls_state = 765
+			controls_state = 916
+			controls_state = 106
+			has_completed_focus = YUG_serbian_railways
+		}
+		complete_effect = { }
+		days_remove = 300
+		remove_effect = {
+			# 765 = { add_building_construction = { type = infrastructure	level = 1 instant_build = yes } }
+			# 916 = { add_building_construction = { type = infrastructure	level = 1 instant_build = yes } }
+			# 106 = { add_building_construction = { type = infrastructure	level = 1 instant_build = yes } }
+		}
+	}
+	YUG_montenegrin_railways = {
+		allowed = {
+			tag = YUG
+		}
+		ai_will_do = { factor = 10 }
+		fire_only_once = yes
+		highlight_states = { state = 105	state = 914 }
+		cost = 50
+		visible = {
+			controls_state = 105
+			controls_state = 914
+			has_completed_focus = YUG_serbian_railways
+		}
+		complete_effect = { }
+		days_remove = 300
+		remove_effect = {
+			# 105 = { add_building_construction = { type = infrastructure	level = 1 instant_build = yes } }
+			# 914 = { add_building_construction = { type = infrastructure	level = 1 instant_build = yes } }
+		}
+	}
+}
+
+YUG_fortification_lines = {
+	YUG_rupnik_line = {
+		allowed = {
+			tag = YUG
+		}
+		icon = generic_construction
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 5000
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 837
+				state = 838
+				state = 102
+			}
+			highlight_provinces = { 11564 9627 3631 596 665 }
+		}
+		visible = {
+			date > 1937.1.1
+			is_neighbor_of = ITA
+		}
+		available = {
+			controls_province = 11564
+			controls_province = 9627
+			controls_province = 3631
+			# controls_province = 596 #optional
+			# controls_province = 665 #optional
+		}
+
+		modifier = {
+			production_speed_bunker_factor = -0.2
+			civilian_factory_use = 1
+		}
+		days_remove = 1610
+		remove_effect = {
+			837 = {
+				add_building_construction = { type = bunker province = 11564 level = 2 instant_build = yes }
+			}
+			838 = {
+				add_building_construction = { type = bunker province = 9627 level = 2 instant_build = yes }
+			}
+			102 = {
+				add_building_construction = { type = bunker province = 3631 level = 2 instant_build = yes }
+			}
+			if = {
+				limit = {
+					controls_province = 596
+				}
+				102 = {
+					#6th Sector
+					add_building_construction = { type = bunker province = 596 level = 1 instant_build = yes }
+				}
+			}
+			if = {
+				limit = {
+					controls_province = 665
+				}
+				102 = {
+					#6th Sector
+					add_building_construction = { type = bunker province = 665 level = 1 instant_build = yes }
+				}
+			}
+		}
+	}
+}
+
+YUG_purchase_ships = {
+	YUG_french_construction_beograd_class = {
+		icon = generic_merge_plant_ship
+
+		allowed = {
+			original_tag = YUG
+		}
+		visible = {
+			has_country_flag = YUG_beograd_class_french_build_flag
+		}
+		available = {
+			NOT = {
+				FRA = { has_war_with = YUG }
+			}
+		}
+		cost = 0
+		days_remove = 1332
+		fire_only_once = yes
+
+		modifier = {
+			civilian_factory_use = 1
+		}
+
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = YUG }
+				NOT = { country_exists = FRA }
+				FRA = {
+					OR = {
+						has_war_with = YUG
+						has_capitulated = yes
+					}
+				}
+				YUG = { has_war = yes }
+			}
+		}
+
+		#On Activation
+		complete_effect ={
+			FRA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+
+		cancel_effect = {
+			FRA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			clr_country_flag = YUG_beograd_class_french_build_flag
+		}
+
+		remove_effect = {
+			if = {
+				limit = { has_dlc = "Man the Guns" }
+				hidden_effect = { add_manpower = 650 }
+				create_ship = { name = "Beograd" type = ship_hull_light_1 equipment_variant = "Beograd Class" creator = YUG }
+			}
+			else = {
+				hidden_effect = { add_manpower = 325 }
+				create_ship = { name = "Beograd" type = destroyer_1 equipment_variant = "Beograd Class" creator = YUG }
+			}
+			FRA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			clr_country_flag = YUG_beograd_class_french_build_flag
+		}
+	}
+
+	YUG_order_beli_orao = {
+		icon = generic_merge_plant_ship
+
+		allowed = {
+			original_tag = YUG
+		}
+		visible = {
+			has_country_flag = YUG_beli_orao_building_flag
+		}
+		available = {
+			NOT = {
+				ITA = { has_war_with = YUG }
+				ITA = { has_capitulated = yes }
+			}
+		}
+		cost = 0
+		days_remove = 425
+		fire_only_once = yes
+
+		modifier = {
+			civilian_factory_use = 1
+		}
+
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = YUG }
+				NOT = { country_exists = ITA }
+				ITA = {
+					OR = {
+						has_war_with = YUG
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+
+		#On Activation
+		complete_effect ={
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+
+		cancel_effect = {
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			clr_country_flag = YUG_beli_orao_building_flag
+		}
+
+		remove_effect = {
+			if = {
+				limit = { has_dlc = "Man the Guns" }
+				hidden_effect = { add_manpower = 650 }
+				if = {
+					limit = {
+						NOT = { has_tech = basic_ship_hull_light }
+					}
+					set_technology = {
+						basic_ship_hull_light = 1
+					}
+				}
+				if = {
+					limit = {
+						NOT = { has_tech = basic_light_battery }
+					}
+					set_technology = {
+						basic_light_battery = 1
+					}
+				}
+				create_equipment_variant = {
+					name = "Beli Orao"	
+					type = ship_hull_light_2
+					# name_group = YUG_DD_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_battery_slot = ship_light_battery_1
+						fixed_ship_anti_air_slot = ship_anti_air_1
+						fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+						fixed_ship_radar_slot = empty
+						fixed_ship_engine_slot = light_ship_engine_1
+						fixed_ship_torpedo_slot = ship_torpedo_1
+						mid_1_custom_slot = ship_mine_layer_1
+						rear_1_custom_slot = empty
+					}
+				}
+				create_ship = { name = "Beli Orao" type = ship_hull_light_2 equipment_variant = "Beli Orao" creator = YUG }
+			}
+			else = {
+				hidden_effect = { add_manpower = 600 }
+				if = {
+					limit = {
+						NOT = { has_tech = basic_destroyer }
+					}
+					set_technology = {
+						basic_destroyer = 1
+					}
+				}
+				create_equipment_variant = {
+					name = "Beli Orao"
+					type = destroyer_2
+					upgrades = {
+						ship_torpedo_upgrade = 0
+						destroyer_engine_upgrade = 1
+						ship_ASW_upgrade = 0
+						ship_anti_air_upgrade = 1
+					}
+				}
+				create_ship = { name = "Beli Orao" type = destroyer_2 equipment_variant = "Beli Orao" creator = YUG }
+			}
+			ITA = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			clr_country_flag = YUG_beli_orao_building_flag
+		}
+	}
+
+	YUG_order_type_IIB_subs = {
+		icon = GFX_decision_icon_submarine
+
+		allowed = {
+			original_tag = YUG
+		}
+		visible = {
+			has_country_flag = YUG_type_IIB_subs_order_flag
+		}
+		available = {
+			NOT = {
+				GER = { has_war_with = YUG }
+				GER = { has_capitulated = yes }
+			}
+		}
+		cost = 0
+		days_remove = 1203
+		fire_only_once = yes
+
+		modifier = {
+			civilian_factory_use = 2
+		}
+
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = YUG }
+				NOT = { country_exists = GER }
+				GER = {
+					OR = {
+						has_war_with = YUG
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+
+		#On Activation
+		complete_effect ={
+			GER = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+
+		cancel_effect = {
+			GER = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -2
+				}
+			}
+			clr_country_flag = YUG_type_IIB_subs_order_flag
+		}
+
+		remove_effect = {
+			if = {
+				limit = { has_dlc = "Man the Guns" }
+				hidden_effect = { add_manpower = 200 }
+				if = {
+					limit = {
+						NOT = { has_tech = basic_ship_hull_submarine }
+					}
+					set_technology = {
+						basic_ship_hull_submarine = 1
+					}
+				}
+				if = {
+					limit = {
+						NOT = { has_tech = improved_ship_torpedo_launcher }
+					}
+					set_technology = {
+						improved_ship_torpedo_launcher = 1
+					}
+				}
+				create_equipment_variant = {
+					name = "Type IIB"	
+					type = ship_hull_submarine_2
+					# name_group = YUG_DD_HISTORICAL
+					parent_version = 0
+					modules = {
+						fixed_ship_engine_slot = sub_ship_engine_2
+						fixed_ship_torpedo_slot = ship_torpedo_sub_2
+						rear_1_custom_slot = ship_torpedo_sub_2
+					}
+				}
+				create_ship = { name = "KB Zeta" type = ship_hull_light_2 equipment_variant = "Type IIB" creator = YUG }
+				create_ship = { name = "KB Vardar" type = ship_hull_light_2 equipment_variant = "Type IIB" creator = YUG }
+			}
+			else = {
+				hidden_effect = { add_manpower = 200 }
+				if = {
+					limit = {
+						NOT = { has_tech = basic_destroyer }
+					}
+					set_technology = {
+						basic_destroyer = 1
+					}
+				}
+				create_equipment_variant = {
+					name = "Type IIB"
+					type = submarine_2
+					upgrades = {
+						sub_torpedo_upgrade = 2
+						sub_engine_upgrade = 2
+					}
+				}
+				create_ship = { name = "KB Zeta" type = submarine_2 equipment_variant = "Type IIB" creator = YUG }
+				create_ship = { name = "KB Vardar" type = submarine_2 equipment_variant = "Type IIB" creator = YUG }
+			}
+			GER = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -2
+				}
+			}
+			clr_country_flag = YUG_type_IIB_subs_order_flag
+		}
+	}
+}

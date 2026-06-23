@@ -1,0 +1,652 @@
+add_namespace = mongolia_internal
+
+##Triggered in common/on_actions/00_mongolia_on_actions.txt
+##Generic while the countries are not being worked on
+
+country_event = { # These events replace the HoS - MON's leader was changed to the HoG
+	id = mongolia_internal.1
+	title = mongolia_internal.1.t
+	desc = mongolia_internal.1.d
+	picture = GFX_event_generic_elections
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			remove_country_leader_role = {
+				character = "MON_peljidiin_genden"
+				ideology = stalinism
+			}
+			add_country_leader_role = {
+				character = "MON_dansranbilegiin_dogsom"
+				promote_leader = yes
+				country_leader = {
+					ideology = stalinism
+					expire = "1965.1.1.1"
+				}
+			}
+			country_event = {
+				id = mongolia_internal.2
+				days = 1567
+			}
+		}
+	}
+
+	option = {
+		name = mongolia_internal.1.a		
+	}
+}
+
+country_event = { #
+	id = mongolia_internal.2
+	title = mongolia_internal.2.t
+	desc = mongolia_internal.2.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			retire_character = MON_dansranbilegiin_dogsom
+			add_country_leader_role = {
+				character = "MON_gonchigiin_bumtsend"
+				promote_leader = yes
+				country_leader = {
+					ideology = stalinism
+					expire = "1965.1.1.1"
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mongolia_internal.2.a
+		effect_tooltip = {
+			retire_character = MON_dansranbilegiin_dogsom
+		}
+	}
+}
+
+country_event = { # Agreement with the USSR
+	id = mongolia_internal.3
+	title = mongolia_internal.3.t
+	desc = mongolia_internal.3.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.3.a
+		add_popularity = {
+				ideology = communism
+				popularity = -0.01
+		}
+		SOV = {
+			country_event = {
+				id = mongolia_internal.4
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { # Agreement with the USSR
+	id = mongolia_internal.4
+	title = mongolia_internal.4.t
+	desc = mongolia_internal.4.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.4.a
+		add_to_faction = MON
+
+		if = {
+			limit = {
+				has_dlc = "Together for Victory"
+			}
+			set_autonomy = {
+				target = MON
+				autonomous_state = autonomy_ussr_satellite
+			}
+
+			else = {
+				puppet = MON
+			}
+		}
+		hidden_effect = {
+			diplomatic_relation = {
+				country = MON
+				relation = military_access
+				active = no
+			}
+			MON = {
+				set_popularities = {
+					communism = 36
+					authoritarian_socialism = 14
+					socialism = 3
+					social_democracy = 0
+					social_liberalism = 0
+					market_liberalism = 0
+					jacobin = 0
+					democratic = 0
+					neutrality = 24
+					monarchism = 23
+					nationalism = 0
+					fascism = 0
+				}
+			}
+		}
+	}
+}
+
+country_event = { # MON purges
+	id = mongolia_internal.5
+	title = mongolia_internal.5.t
+	desc = mongolia_internal.5.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.5.a
+		remove_ideas = MON_legacy_of_1932
+
+		set_country_flag = MON_purges_begin
+		add_ideas = MON_purged
+		add_stability = -0.25
+		add_popularity = {
+				ideology = communism
+				popularity = 0.05
+		}
+		hidden_effect = {
+			country_event = {
+				id = mongolia_internal.7
+				days = 1250
+			}
+			country_event = {
+				id = mongolia_internal.13
+				days = 1005
+			}
+			country_event = {
+				id = mongolia_internal.14
+				days = 430 # demid dies
+			}
+		}
+	}
+}
+
+country_event = { # MON - Khorloogiin Choibalsan declares martial law
+	id = mongolia_internal.6
+	title = mongolia_internal.6.t
+	desc = mongolia_internal.6.d
+	picture = GFX_event_Mongolia_Khalkhin_Gol
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			add_country_leader_role = {
+				character = "MON_khorloogiin_choibalsan"
+				promote_leader = yes
+				country_leader = {
+					ideology = stalinism
+					expire = "1965.1.1.1"
+				}
+			}
+			MON_khorloogiin_choibalsan = {
+				promote_leader = yes #Becomes Marshal of the Mongolian People's Republic
+			}
+			set_country_flag = MON_military_dictatorship_flag
+			country_event = {
+				id = mongolia_internal.15
+				days = 10
+			}
+		}
+	}
+
+	option = {
+		name = mongolia_internal.6.a
+		effect_tooltip = {
+			add_country_leader_role = {
+				character = "MON_khorloogiin_choibalsan"
+				promote_leader = yes
+				country_leader = {
+					ideology = stalinism
+					expire = "1965.1.1.1"
+				}
+			}
+			MON_khorloogiin_choibalsan = {
+				promote_leader = yes
+			}
+		}
+		add_ideas = MON_military_dictatorship
+		add_popularity = {
+			ideology = communism
+			popularity = -0.1
+		}
+	}
+}
+
+country_event = { # MON purges end
+	id = mongolia_internal.7
+	title = mongolia_internal.7.t
+	desc = mongolia_internal.7.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.7.a
+		remove_ideas = MON_purged
+		add_political_power = 50
+		add_stability = 0.15
+		add_popularity = {
+			ideology = communism
+			popularity = 0.25
+		}
+
+	}
+}
+
+country_event = { # Lkhümbe affair
+	id = mongolia_internal.8
+	title = mongolia_internal.8.t
+	desc = mongolia_internal.8.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.8.a
+		add_ideas = MON_military_purge
+		add_stability = -0.05
+		add_war_support = -0.05
+		hidden_effect = {
+			country_event = {
+				id = mongolia_internal.9
+				days = 1200
+			}
+		}
+	}
+}
+
+country_event = { # The military recovers
+	id = mongolia_internal.9
+	title = mongolia_internal.9.t
+	desc = mongolia_internal.9.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.9.a
+		remove_ideas = MON_military_purge
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
+	}
+}
+
+country_event = { # Soviet pressure to purge lamas - 1934
+	id = mongolia_internal.10
+	title = mongolia_internal.10.t
+	desc = mongolia_internal.10.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.10.a # Bah! They should stay away from our affairs
+		add_political_power = 50
+		add_popularity = {
+				ideology = communism
+				popularity = -0.02
+		}
+		hidden_effect = {
+			country_event = {
+				id = mongolia_internal.11
+				days = 540
+			}
+		}
+	}
+}
+
+country_event = { # Genden goes to moscow
+	id = mongolia_internal.11
+	title = mongolia_internal.11.t
+	desc = mongolia_internal.11.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.11.a # Maybe we should consider an alliance with the japanese!
+		add_political_power = -25
+		add_popularity = {
+			ideology = communism
+			popularity = -0.03
+		}
+		hidden_effect = {
+			country_event = {
+				id = mongolia_internal.12
+				days = 100
+			}
+		}
+	}
+}
+
+country_event = { # Choibalsan removes Genden from office
+	id = mongolia_internal.12
+	title = mongolia_internal.12.t
+	desc = mongolia_internal.12.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.12.a # Oh dear!
+		retire_character = MON_peljidiin_genden
+		#Anandyn Amar becomes HoS
+		add_country_leader_role = {
+			character = "MON_anandyn_amar"
+			promote_leader = yes
+			country_leader = {
+				ideology = stalinism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_political_power = -100
+		add_popularity = {
+			ideology = communism
+			popularity = -0.04
+		}
+		
+	}
+}
+
+country_event = { # Anandyn Amar purged - Choibalsan becomes leader of everything
+	id = mongolia_internal.13
+	title = mongolia_internal.13.t
+	desc = mongolia_internal.13.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.13.a # Good!
+		retire_character = MON_anandyn_amar
+		add_country_leader_role = {
+			character = "MON_khorloogiin_choibalsan"
+			promote_leader = yes
+			country_leader = {
+				ideology = stalinism
+				expire = "1965.1.1.1"
+			}
+		}
+		MON_khorloogiin_choibalsan = {
+			promote_leader = yes #Becomes Marshal of the Mongolian People's Republic
+		}
+		MON_gelegdorjiin_demid = {
+			promote_leader = yes #Becomes Marshal of the Mongolian People's Republic
+		}
+		add_political_power = -50
+		add_popularity = {
+			ideology = communism
+			popularity = -0.02
+		}
+	}
+}
+
+country_event = { # Demid Purged
+	id = mongolia_internal.14
+	title = mongolia_internal.14.t
+	desc = mongolia_internal.14.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.14.a # Good!
+		retire_character = MON_gelegdorjiin_demid
+		add_political_power = 25
+	}
+}
+country_event = { # Soviet exile divisions arive
+	id = mongolia_internal.15
+	title = mongolia_internal.15.t
+	desc = mongolia_internal.15.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	option = {
+		name = mongolia_internal.15.a # Good!
+		custom_effect_tooltip = MON_2_exiles_tt
+
+		hidden_effect = {
+			division_template = {
+				name = "Strelkovaya Diviziya"	#	
+
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 1 y = 2 }
+					infantry = { x = 2 y = 0 }
+					infantry = { x = 2 y = 1 }
+					infantry = { x = 2 y = 2 }
+					artillery_brigade = { x = 3 y = 0 }
+					artillery_brigade = { x = 3 y = 1 }
+					artillery_brigade = { x = 3 y = 2 }
+				}
+			}
+			330 = {
+				create_unit = {
+					division = "name = \"1. Strelkovaya Diviziya\" division_template = \"Strelkovaya Diviziya\" start_experience_factor = 0.5 start_equipment_factor = 0.8"
+					owner = MON
+				}
+				create_unit = {
+					division = "name = \"2. Strelkovaya Diviziya\" division_template = \"Strelkovaya Diviziya\" start_experience_factor = 0.5 start_equipment_factor = 0.8"
+					owner = MON
+				}
+			}
+		}
+	}
+}
+
+add_namespace = mongolia_external
+
+country_event = { # Japan - an invasion of Mongolia? DISABLED MOVED TO DECISIONS
+	id = mongolia_external.1
+	title = mongolia_external.1.t
+	desc = mongolia_external.1.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mongolia_external.1.a # In we go!
+		ai_chance = {
+			base = 60
+			modifier = {
+				has_war_with = CHI
+				surrender_progress < 0.05
+				factor = 40
+			}
+		}
+		declare_war_on = {
+				target = MON
+				type = annex_everything
+		}
+		every_state = {
+			limit = {
+				is_owned_by = MON
+			}
+			add_claim_by = MEN
+		}
+		IF = {
+			limit = {
+				has_war_with = CHI
+			}
+			CHI = {
+				country_event = {
+					id = mongolia_external.3
+					days = 10
+				}
+			}
+		}
+		MON = {
+			country_event = {
+				id = mongolia_external.4
+				days = 2
+			}
+		}
+	}
+	option = {
+		name = mongolia_external.1.b # Lets wait until the war ends
+		trigger = {
+			has_war = yes
+		}
+		ai_chance = {
+			base = 60
+
+		}
+		set_country_flag = MON_JAP_lets_wait
+		custom_effect_tooltip = MON_JAP_lets_wait_tt
+	}
+	option = {
+		name = mongolia_external.1.c # Lets not touch Mongolia at all
+
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = -5
+	}
+}
+
+country_event = { # Japan - an invasion of Mongolia now that we are at peace?
+	id = mongolia_external.2
+	title = mongolia_external.2.t
+	desc = mongolia_external.2.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mongolia_external.2.a # In we go!
+		ai_chance = {
+			base = 99
+		}
+		declare_war_on = {
+				target = MON
+				type = annex_everything
+		}
+		every_state = {
+			limit = {
+				is_owned_by = MON
+			}
+			add_claim_by = MEN
+		}
+	}
+
+	option = {
+		name = mongolia_external.2.b # Lets not touch Mongolia at all
+
+		ai_chance = {
+			base = 1
+		}
+		add_political_power = -25
+		add_war_support = -0.025
+	}
+}
+
+country_event = { # China - a counter invasion of Mongolia?
+	id = mongolia_external.3
+	title = mongolia_external.3.t
+	desc = mongolia_external.3.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = mongolia_external.3.a # In we go!
+		trigger = {
+			any_country = {
+				OR = {
+					is_in_faction_with = CHI
+					tag = CHI
+				}
+				is_neighbor_of = MON
+			}
+			surrender_progress < 0.33
+
+		}
+		ai_chance = {
+			base = 50
+		}
+		declare_war_on = {
+			target = MON
+			type = annex_everything
+		}
+
+	}
+
+	option = {
+		name = mongolia_external.3.b # We can't risk that right now
+
+		ai_chance = {
+			base = 50
+		}
+
+	}
+}
+
+country_event = { # MON - Japanese invasion!
+	id = mongolia_external.4
+	title = mongolia_external.4.t
+	desc = mongolia_external.4.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mongolia_external.4.a # This will be our final battle
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_manpower = 15000
+		custom_effect_tooltip = MON_3_divs_tt
+
+		hidden_effect = {
+
+			330 = {
+				create_unit = {
+					division = "name = \"1. Tsergiin Diviziin\" division_template = \"Morit Diviziin\" start_experience_factor = 0.0 start_equipment_factor = 0.5"
+					owner = MON
+				}
+				create_unit = {
+					division = "name = \"3. Tsergiin Diviziin\" division_template = \"Morit Diviziin\" start_experience_factor = 0.0 start_equipment_factor = 0.5"
+					owner = MON
+				}
+			}
+			1143 = {
+				create_unit = {
+					division = "name = \"2. Tsergiin Diviziin\" division_template = \"Morit Diviziin\" start_experience_factor = 0.0 start_equipment_factor = 0.5"
+					owner = MON
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Japan - an invasion of Tuva?
+	id = mongolia_external.5
+	title = mongolia_external.5.t
+	desc = mongolia_external.5.d
+	picture = GFX_event_generic_coup
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mongolia_external.5.a # In we go!
+		ai_chance = {
+			base = 100
+		}
+		declare_war_on = {
+    			target = TAN
+    			type = annex_everything
+		}
+		every_state = {
+			limit = {
+				is_owned_by = TAN
+			}
+			add_claim_by = MEN
+		}
+
+	}
+	option = {
+		name = mongolia_external.5.b # Lets not
+		ai_chance = {
+			base = 0
+
+		}
+
+	}
+
+}

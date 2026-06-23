@@ -1,0 +1,471 @@
+
+
+shared_focus = {
+	id = GEN_asia_diplomacy
+	icon = GFX_focus_Befriend_Asia
+	cost = 6
+	offset = {
+		trigger = {
+			has_focus_tree = GEN_leftist_asia
+		}
+		x = -2
+	}
+	offset = {
+		trigger = {
+			has_focus_tree = GEN_right_asia
+		}
+		x = -3
+	}
+	offset = {
+		trigger = {
+			has_focus_tree = GEN_china_provisional
+		}
+		x = -3
+	}
+	available = {
+	    date > 1935.1.1
+	}
+	completion_reward = {
+	    add_political_power = 50
+	}
+	x = 22
+    y = 0
+}
+
+shared_focus = {
+	id = GEN_asia_neutrality_policy
+	icon = GFX_goal_generic_neutrality_focus
+	cost = 10
+	prerequisite = {
+	    focus = GEN_asia_diplomacy
+	}
+	mutually_exclusive = {
+	    focus = GEN_asia_take_position
+	}
+	completion_reward = {
+	    if = {
+		    limit = {
+			    has_idea = neutrality_idea
+			}
+			add_stability = 0.05
+		}
+		if = {
+		    limit = {
+			    NOT = { has_idea = neutrality_idea }
+			}
+			add_ideas = neutrality_idea
+		}
+	}
+	x = -3
+    y = 1
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_peaceful_neutrality
+	icon = GFX_focus_Pacifist_State
+	cost = 10
+	prerequisite = {
+	    focus = GEN_asia_neutrality_policy
+	}
+	mutually_exclusive = {
+	    focus = GEN_asia_armed_neutrality
+	}
+	completion_reward = {
+	    add_stability = 0.05
+	}
+	x = -4
+    y = 2
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_reduce_spending_mil
+	icon = GFX_focus_Root_out_Funding
+	cost = 10
+	prerequisite = {
+	    focus = GEN_asia_peaceful_neutrality
+	}
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_reduced_mil_spending
+            days = 400
+        }
+	}
+	x = -4
+    y = 3
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_improve_global_opinion
+	icon = GFX_focus_Risky_Deal
+	cost = 10
+	prerequisite = {
+	    focus = GEN_asia_reduce_spending_mil
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = idea_improve_global_opinion
+			days = 180
+		}
+	}
+	x = -4
+    y = 4
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_war_profiteering
+	icon = GFX_focus_Free_Trade
+	cost = 10
+	available = {
+	    any_country = {
+			is_major = yes
+			has_war = yes
+		}
+	}
+	prerequisite = {
+	    focus = GEN_asia_improve_global_opinion
+	}
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_war_profits
+            days = 200
+        }
+	}
+	x = -4
+    y = 5
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_armed_neutrality
+	icon = GFX_focus_Swing_the_Sword
+	cost = 10
+	prerequisite = {
+	    focus = GEN_asia_neutrality_policy
+	}
+	mutually_exclusive = {
+	    focus = GEN_asia_peaceful_neutrality
+	}
+	completion_reward = {
+	    add_war_support = 0.05
+	}
+	x = -2
+    y = 2
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_defend_borders
+	icon = GFX_focus_Fortification_Effort
+	cost = 10
+	prerequisite = {
+	    focus = GEN_asia_armed_neutrality
+	}
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_defense_plans
+            days = 400
+        }
+	}
+	x = -2
+    y = 3
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_mobilization_plans
+	icon = GFX_focus_Prepare_the_Troops
+	cost = 10
+	prerequisite = {
+	    focus = GEN_asia_defend_borders
+	}
+	completion_reward = {
+	    add_ideas = idea_permanent_mobilization
+	}
+	x = -2
+    y = 4
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_defend_interests
+	icon = GFX_focus_Aggresion
+	cost = 10
+	prerequisite = {
+	    focus = GEN_asia_mobilization_plans
+	}
+	completion_reward = {
+	    add_ideas = foreign_expeditions_focus
+	}
+	x = -2
+    y = 5
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_take_position
+	icon = GFX_focus_Burning_Globe
+	cost = 10
+	mutually_exclusive = {
+	    focus = GEN_asia_neutrality_policy
+	}
+	prerequisite = {
+	    focus = GEN_asia_diplomacy
+	}
+	completion_reward = {
+	    add_war_support = 0.05
+	}
+	x = 3
+    y = 1
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_weapon_purchases
+	icon = GFX_focus_Buy_Foreign_Weapons
+	cost = 10
+	prerequisite = {
+	    focus = GEN_asia_take_position
+	}
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_weapon_sales
+            days = 400
+        }
+	}
+	x = 3
+    y = 2
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_approach_ussr
+	icon = GFX_Goal_Befriend_USSR
+	cost = 10
+	mutually_exclusive = {
+	    focus = GEN_asia_approach_britain
+		focus = GEN_asia_approach_japan
+		focus = GEN_asia_approach_france
+	}
+	prerequisite = {
+	    focus = GEN_asia_weapon_purchases
+	}
+	completion_reward = {
+	    SOV = {
+		    add_opinion_modifier = {
+                target = ROOT
+                modifier = medium_increase 
+            }
+		}
+		add_opinion_modifier = {
+            target = SOV
+            modifier = medium_increase 
+        }
+	}
+	x = 6
+    y = 3
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_approach_britain
+	icon = GFX_focus_Befriend_United_Kingdom
+	cost = 10
+	mutually_exclusive = {
+	    focus = GEN_asia_approach_ussr
+		focus = GEN_asia_approach_japan
+		focus = GEN_asia_approach_france
+	}
+	prerequisite = {
+	    focus = GEN_asia_weapon_purchases
+	}
+	completion_reward = {
+	    ENG = {
+		    add_opinion_modifier = {
+                target = ROOT
+                modifier = medium_increase 
+            }
+		}
+		add_opinion_modifier = {
+            target = ENG
+            modifier = medium_increase 
+        }
+	}
+	x = 2
+    y = 3
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_approach_japan
+	icon = GFX_focus_Befriend_Japan
+	cost = 10
+	mutually_exclusive = {
+	    focus = GEN_asia_approach_britain
+		focus = GEN_asia_approach_ussr
+		focus = GEN_asia_approach_france
+	}
+	prerequisite = {
+	    focus = GEN_asia_weapon_purchases
+	}
+	completion_reward = {
+	    JAP = {
+		    add_opinion_modifier = {
+                target = ROOT
+                modifier = medium_increase 
+            }
+		}
+		add_opinion_modifier = {
+            target = JAP
+            modifier = medium_increase 
+        }
+	}
+	x = 4
+    y = 3
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_approach_france
+	icon = GFX_Focus_Agreemente_with_France
+	cost = 10
+	mutually_exclusive = {
+	    focus = GEN_asia_approach_ussr
+		focus = GEN_asia_approach_japan
+		focus = GEN_asia_approach_britain
+	}
+	prerequisite = {
+	    focus = GEN_asia_weapon_purchases
+	}
+	completion_reward = {
+	    FRA = {
+		    add_opinion_modifier = {
+                target = ROOT
+                modifier = medium_increase 
+            }
+		}
+		add_opinion_modifier = {
+            target = FRA
+            modifier = medium_increase 
+        }
+	}
+	x = 0
+    y = 3
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_new_trade_policies
+	icon = GFX_goal_generic_positive_trade_relations
+	cost = 10
+	prerequisite = {
+	    focus = GEN_asia_approach_japan
+		focus = GEN_asia_approach_britain
+		focus = GEN_asia_approach_ussr
+		focus = GEN_asia_approach_france
+	}
+	completion_reward = {
+	    custom_effect_tooltip = generic_trade_foreign_tooltip
+	    if = {
+		    limit = {
+			    has_completed_focus = GEN_asia_approach_britain
+			}
+			add_opinion_modifier = {
+                target = ENG
+                modifier = USA_trade_deal_opp  
+            }
+		}
+		if = {
+		    limit = {
+			    has_completed_focus = GEN_asia_approach_france
+			}
+			add_opinion_modifier = {
+                target = FRA
+                modifier = USA_trade_deal_opp  
+            }
+		}
+		if = {
+		    limit = {
+			    has_completed_focus = GEN_asia_approach_ussr
+			}
+			add_opinion_modifier = {
+                target = SOV
+                modifier = USA_trade_deal_opp  
+            }
+		}
+		if = {
+		    limit = {
+			    has_completed_focus = GEN_asia_approach_japan
+			}
+			add_opinion_modifier = {
+                target = JAP
+                modifier = USA_trade_deal_opp  
+            }
+		}
+	}
+	x = 3
+    y = 4
+	relative_position_id = GEN_asia_diplomacy
+}
+
+shared_focus = {
+	id = GEN_asia_military_cooperation
+	icon = GFX_goal_generic_military_deal
+	cost = 10
+	prerequisite = {
+	    focus = GEN_asia_new_trade_policies
+	}
+	completion_reward = {
+	    custom_effect_tooltip = generic_military_foreign_tooltip
+	    if = {
+		    limit = {
+			    has_completed_focus = GEN_asia_approach_britain
+			}
+			add_tech_bonus = {
+			    name = USA_armored_infantry
+			    uses = 2
+			    bonus = 1.0
+			    category = light_fighter
+		    }
+		}
+		if = {
+		    limit = {
+			    has_completed_focus = GEN_asia_approach_japan
+			}
+			add_tech_bonus = {
+			    name = USA_armored_infantry
+			    uses = 2
+			    bonus = 1.0
+			    category = dd_tech
+		    }
+		}
+		if = {
+		    limit = {
+			    has_completed_focus = GEN_asia_approach_ussr
+			}
+			add_tech_bonus = {
+			    name = USA_armored_infantry
+			    uses = 2
+			    bonus = 1.0
+			    category = artillery
+		    }
+		}
+		if = {
+		    limit = {
+			    has_completed_focus = GEN_asia_approach_france
+			}
+			add_tech_bonus = {
+			    name = USA_armored_infantry
+			    uses = 2
+			    bonus = 1.0
+			    category = armor
+		    }
+		}
+	}
+	x = 3
+    y = 5
+	relative_position_id = GEN_asia_diplomacy
+}

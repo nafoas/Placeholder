@@ -1,0 +1,668 @@
+#20 focuses here
+#s_team337
+shared_focus = {
+	id = UKR_2RCW_Economics_Start
+	icon = GFX_focus_Business_Men
+	#prerequisite = { focus = UKR_2RCW_Economics_Start }
+	x = 16 # was 12
+	y = 0
+	#relative_position_id = UKR_2RCW_Economics_Start
+	cost = 2
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		country_event = {
+			id = ukr_civil_war.12
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Reform_Collective_System
+	icon = GFX_focus_Bread_Trade
+	prerequisite = {
+		focus = UKR_2RCW_Economics_Start
+	}
+	mutually_exclusive = {
+		focus = UKR_2RCW_Decollectivization
+	}
+	x = -1
+	y = 1
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 5.75
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			has_country_flag = UKR_agr_policy
+			has_country_flag = UKR_coop_policy
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = UKR_reform_coops
+			days = 365
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Decollectivization
+	icon = GFX_focus_Agriculture
+	prerequisite = {
+		focus = UKR_2RCW_Economics_Start
+	}
+	mutually_exclusive = {
+		focus = UKR_2RCW_Reform_Collective_System
+	}
+	x = 1
+	y = 1
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			has_country_flag = UKR_coop_policy
+			has_country_flag = UKR_corp_policy
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = RUS_decollectivize
+			days = 720
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Voluntary_Cooperatives
+	icon = GFX_focus_strengthen_small_production
+	prerequisite = {
+		focus = UKR_2RCW_Reform_Collective_System
+		focus = UKR_2RCW_Decollectivization
+	}
+	x = -2
+	y = 2
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 2.38
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			has_country_flag = UKR_agr_policy
+			has_country_flag = UKR_coop_policy
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_stability = 0.04
+		if = {
+			limit = {
+				has_country_flag = UKR_agr_policy
+			}
+			set_variable = {
+				UKR_add_influence_value = 4
+			}
+			UKR_add_influence_undo = yes
+			custom_effect_tooltip = UKR_undo_gain_4
+			set_variable = {
+				UKR_add_influence_value = 4
+			}
+			UKR_add_influence_usrp = yes
+			custom_effect_tooltip = UKR_radicals_gain_4
+		}
+		else = {
+			set_variable = {
+				UKR_add_influence_value = 5
+			}
+			UKR_add_influence_usrp = yes
+			custom_effect_tooltip = UKR_radicals_gain_4
+			set_variable = {
+				UKR_add_influence_value = 5
+			}
+			UKR_add_influence_undo = yes
+			custom_effect_tooltip = UKR_undo_gain_4
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Mixed_Economy
+	icon = GFX_focus_Capitalist_Systems
+	prerequisite = {
+		focus = UKR_2RCW_Reform_Collective_System
+		focus = UKR_2RCW_Decollectivization
+	}
+	x = 0
+	y = 2
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 2.58
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_ideas = RUS_capitalism
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Disband_Sovkhoz
+	icon = GFX_focus_Agriculture_2
+	prerequisite = {
+		focus = UKR_2RCW_Reform_Collective_System
+		focus = UKR_2RCW_Decollectivization
+	}
+	x = 2
+	y = 2
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = 30
+		add_popularity = {
+			ideology = communism
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Inf
+	icon = GFX_focus_Trains
+	prerequisite = {
+		focus = UKR_2RCW_Mixed_Economy
+	}
+	x = 0
+	y = 3
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 5.86
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = infrastructure
+					size > 1
+					include_locked = yes
+				}
+				is_core_of = UKR
+			}
+			#add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Civ
+	icon = GFX_focus_Industrialization
+	prerequisite = {
+		focus = UKR_2RCW_Inf
+	}
+	x = -1
+	y = 4
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 6.43
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Civ2
+	icon = GFX_focus_Mechanization
+	prerequisite = {
+		focus = UKR_2RCW_Civ
+	}
+	mutually_exclusive = {
+		focus = UKR_2RCW_Mil2
+	}
+	x = -1
+	y = 5
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 6.43
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Mil
+	icon = GFX_focus_Renewed_Arms
+	prerequisite = {
+		focus = UKR_2RCW_Inf
+	}
+	x = 1
+	y = 4
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 6
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Mil2
+	icon = GFX_focus_Firearms
+	prerequisite = {
+		focus = UKR_2RCW_Mil
+	}
+	mutually_exclusive = {
+		focus = UKR_2RCW_Civ2
+	}
+	x = 1
+	y = 5
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 6
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Inf2
+	icon = GFX_focus_Highways
+	prerequisite = {
+		focus = UKR_2RCW_Civ2
+		focus = UKR_2RCW_Mil2
+	}
+	x = 0
+	y = 6
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 6
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		#TODO: add highways
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_No_Union_Restrictions
+	icon = GFX_focus_Union_Workers
+	prerequisite = {
+		focus = UKR_2RCW_Voluntary_Cooperatives
+	}
+	x = -2
+	y = 3
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 4
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			has_country_flag = UKR_agr_policy
+			has_country_flag = UKR_coop_policy
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_ideas = UKR_trade_unions
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Encourage_Coops
+	icon = GFX_focus_Cooperatives
+	prerequisite = {
+		focus = UKR_2RCW_No_Union_Restrictions
+	}
+	x = -3
+	y = 4
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			has_country_flag = UKR_agr_policy
+			has_country_flag = UKR_coop_policy
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = UKR_trade_unions
+			add_idea = UKR_cooperatism
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Encourage_Banking
+	icon = GFX_focus_Progressive_Taxation
+	prerequisite = {
+		focus = UKR_2RCW_Encourage_Coops
+	}
+	x = -3
+	y = 5
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 3
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			has_country_flag = UKR_agr_policy
+			has_country_flag = UKR_coop_policy
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = 40
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Coop_Congress
+	icon = GFX_focus_Radio
+	prerequisite = {
+		focus = UKR_2RCW_Encourage_Banking
+	}
+	prerequisite = {
+		focus = UKR_2RCW_Inf2
+	}
+	x = -2
+	y = 7
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 2
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			has_country_flag = UKR_agr_policy
+			has_country_flag = UKR_coop_policy
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		country_event = {
+			id = ukr_civil_war.13
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_National_Trade_Union
+	icon = GFX_focus_Fascist_Trade_Union
+	prerequisite = {
+		focus = UKR_2RCW_Disband_Sovkhoz
+	}
+	x = 2
+	y = 3
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 4
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		has_country_flag = UKR_corp_policy
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_ideas = UKR_national_trade_union
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Vocational_Assemblies
+	icon = GFX_focus_Corporatism
+	prerequisite = {
+		focus = UKR_2RCW_National_Trade_Union
+	}
+	x = 3
+	y = 4
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		has_country_flag = UKR_corp_policy
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = UKR_national_trade_union
+			add_idea = UKR_corporatism
+		}
+		set_variable = {
+			UKR_add_influence_value = 4
+		}
+		UKR_add_influence_oun = yes
+		custom_effect_tooltip = UKR_oun_gain_4
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_National_Mobilization
+	icon = GFX_focus_Planned_Economy
+	prerequisite = {
+		focus = UKR_2RCW_Vocational_Assemblies
+	}
+	x = 3
+	y = 5
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 7
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		has_country_flag = UKR_corp_policy
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		add_political_power = -60
+		set_variable = {
+			UKR_add_influence_value = 4
+		}
+		UKR_add_influence_oun = yes
+		custom_effect_tooltip = UKR_oun_gain_4
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Producerism
+	icon = GFX_focus_Fascist_Bills
+	prerequisite = {
+		focus = UKR_2RCW_Inf2
+	}
+	prerequisite = {
+		focus = UKR_2RCW_National_Mobilization
+	}
+	x = 2
+	y = 7
+	relative_position_id = UKR_2RCW_Economics_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		has_country_flag = UKR_corp_policy
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = 40
+		add_stability = -0.04
+		set_variable = {
+			UKR_add_influence_value = 3
+		}
+		UKR_add_influence_oun = yes
+		custom_effect_tooltip = UKR_oun_gain_3
+	}
+}

@@ -1,0 +1,46 @@
+scw_in_progress = {
+	custom_trigger_tooltip = {
+		tooltip = "The Spanish Civil War is Ongoing"
+		has_global_flag = scw_ongoing
+		SPR = { has_war_with = SPA }
+		# country_exists = SPR
+		# country_exists = SPA
+	}
+}
+scr_in_progress = {
+	custom_trigger_tooltip = {
+		tooltip = "The Spanish Revolution is Ongoing"
+		has_global_flag = scr_ongoing
+		country_exists = SPC
+		SPC = {
+			has_war_with = SPR
+		}
+	}
+}
+scw_not_in_progress = { #for tooltips
+	custom_trigger_tooltip = {
+		tooltip = scw_not_ongoing_tt
+		NOT = {
+			has_global_flag = scw_ongoing
+			SPR = { has_war_with = SPA }
+		}
+		OR = {
+			NOT = { country_exists = SPA }
+			NOT = { country_exists = SPR }
+		}
+	}
+}
+scr_not_in_progress = {  #for tooltips
+	custom_trigger_tooltip = {
+		tooltip = scr_not_ongoing_tt
+		NOT = {
+			has_global_flag = scr_ongoing
+		}
+		OR = {
+			SPC = { exists = no }
+			SPC = {
+				NOT = { has_war_with = SPR }
+			}
+		}
+	}
+}

@@ -1,0 +1,1116 @@
+# focuses here
+#s_team337
+shared_focus = {
+	id = ENG_War_Politics_Start
+	icon = GFX_focus_Prepare_the_Troops
+	#prerequisite = { focus = ENG_War_Politics_Start }
+	x = 21
+	y = 0
+	#relative_position_id = ENG_War_Politics_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 2400
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_War_Politics_Secrets
+	icon = GFX_focus_Counter_Intelligence
+	prerequisite = {
+		focus = ENG_War_Politics_Start
+	}
+	x = -1
+	y = 1
+	relative_position_id = ENG_War_Politics_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 1600
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_stability = 0.02
+	}
+}
+shared_focus = {
+	id = ENG_War_Politics_War_Damage
+	icon = GFX_focus_Consensus_with_Peasants
+	prerequisite = {
+		focus = ENG_War_Politics_Secrets
+	}
+	x = -1
+	y = 2
+	relative_position_id = ENG_War_Politics_Start
+	cost = 1.28
+	ai_will_do = {
+		factor = 1400
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_stability = 0.012
+		if = {
+			limit = {
+				has_government = socialism
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.012
+			}
+		}
+		if = {
+			limit = {
+				has_government = democratic
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.012
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Politics_Prepare_People
+	icon = GFX_focus_Rally
+	prerequisite = {
+		focus = ENG_War_Politics_War_Damage
+	}
+	x = -1
+	y = 3
+	relative_position_id = ENG_War_Politics_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 1500
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_War_Politics_National_Loans
+	icon = GFX_focus_Capitalist_Systems
+	prerequisite = {
+		focus = ENG_War_Politics_Start
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_War_Politics_Start
+	cost = 2.43
+	ai_will_do = {
+		factor = 1600
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_political_power = 85
+		add_ideas = ENG_war_loans
+	}
+}
+shared_focus = {
+	id = ENG_War_Politics_Finance_War
+	icon = GFX_focus_Fundraising
+	prerequisite = {
+		focus = ENG_War_Politics_National_Loans
+	}
+	x = 1
+	y = 2
+	relative_position_id = ENG_War_Politics_Start
+	cost = 2.15
+	ai_will_do = {
+		factor = 1600
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		ENG_raise_defense_spending_large = yes
+	}
+}
+shared_focus = {
+	id = ENG_War_Politics_Compensation
+	icon = GFX_focus_Compensate_Landowners
+	prerequisite = {
+		focus = ENG_War_Politics_Finance_War
+	}
+	x = 1
+	y = 3
+	relative_position_id = ENG_War_Politics_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 1200
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_political_power = -20
+		add_stability = 0.02
+	}
+}
+shared_focus = {
+	id = ENG_War_Labour
+	icon = GFX_focus_Pride_of_The_Left
+	prerequisite = {
+		focus = ENG_War_Politics_Prepare_People
+	}
+	prerequisite = {
+		focus = ENG_War_Politics_Compensation
+	}
+	x = -4
+	y = 4
+	relative_position_id = ENG_War_Politics_Start
+	cost = 1
+	ai_will_do = {
+		factor = 1800
+	}
+	available = {
+		has_war = yes
+		has_government = socialism
+		has_country_flag = ENG_lib_lab_gov
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.025
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.015
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Tenancy_Act
+	icon = GFX_focus_Deal_with_the_Housing_Crisis
+	prerequisite = {
+		focus = ENG_War_Labour
+	}
+	x = -1
+	y = 1
+	relative_position_id = ENG_War_Labour
+	cost = 4.29
+	ai_will_do = {
+		factor = 320
+		modifier = {
+			date < 1941.3.7
+			factor = 0.2
+		}
+		modifier = {
+			date > 1943.1.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		has_government = socialism
+		has_country_flag = ENG_lib_lab_gov
+		date > 1941.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				is_on_continent = europe
+				OR = {
+					region = 238
+					region = 3
+					region = 2
+					region = 1
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				is_on_continent = europe
+				OR = {
+					region = 238
+					region = 3
+					region = 2
+					region = 1
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Damage_Act
+	icon = GFX_focus_Common_Identity
+	prerequisite = {
+		focus = ENG_War_Labour
+		focus = ENG_War_Coalition
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_War_Labour
+	cost = 3.86
+	ai_will_do = {
+		factor = 320
+		modifier = {
+			date < 1941.4.20
+			factor = 0.2
+		}
+		modifier = {
+			date > 1943.1.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1941.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_timed_idea = {
+			idea = ENG_war_damage_act
+			days = 730
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Housing_Law
+	icon = GFX_focus_Build_Houses
+	prerequisite = {
+		focus = ENG_War_Tenancy_Act
+	}
+	prerequisite = {
+		focus = ENG_War_Damage_Act
+	}
+	x = 0
+	y = 2
+	relative_position_id = ENG_War_Labour
+	cost = 3.86
+	ai_will_do = {
+		factor = 320
+		modifier = {
+			date < 1942.8.10
+			factor = 0.4
+		}
+		modifier = {
+			date > 1944.1.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		has_government = socialism
+		has_country_flag = ENG_lib_lab_gov
+		date > 1942.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				is_on_continent = europe
+				OR = {
+					region = 238
+					region = 3
+					region = 2
+					region = 1
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Increase_Spending
+	icon = GFX_focus_Economic_Stimulus
+	prerequisite = {
+		focus = ENG_War_Housing_Law
+	}
+	mutually_exclusive = {
+		focus = ENG_War_Austerity
+	}
+	x = -1
+	y = 3
+	relative_position_id = ENG_War_Labour
+	cost = 3.86
+	ai_will_do = {
+		factor = 600
+		modifier = {
+			date < 1945.4.15
+			factor = 0.4
+		}
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+		has_government = socialism
+		has_country_flag = ENG_lib_lab_gov
+		date > 1945.1.1
+		all_country = {
+			OR = {
+				capital_scope = {
+					NOT = { is_on_continent = europe }
+				}
+				NOT = { has_war_with = ROOT }
+			}
+		}
+		
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		ENG_add_medium_public_works = yes
+	}
+}
+shared_focus = {
+	id = ENG_War_Prohibit_BUF
+	icon = GFX_focus_Target_Fascism
+	prerequisite = {
+		focus = ENG_War_Politics_Prepare_People
+	}
+	prerequisite = {
+		focus = ENG_War_Politics_Compensation
+	}
+	x = -2
+	y = 4
+	relative_position_id = ENG_War_Politics_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 2000
+	}
+	available = {
+		any_country = {
+			has_war_with = ROOT
+			has_government = fascism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.05
+		}
+		add_war_support = 0.05
+		if = {
+			limit = {
+				check_variable = {
+					ENG_fas_seats > 0
+				}
+			}
+			add_to_variable = {
+				ENG_soccon_seats = ENG_fas_seats
+			}
+			set_variable = {
+				ENG_fas_seats = 0
+			}
+			custom_effect_tooltip = ENG_buf_seats
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Coalition
+	icon = GFX_focus_British_Bulldog
+	prerequisite = {
+		focus = ENG_War_Politics_Prepare_People
+	}
+	prerequisite = {
+		focus = ENG_War_Politics_Compensation
+	}
+	x = 0
+	y = 4
+	relative_position_id = ENG_War_Politics_Start
+	cost = 1
+	ai_will_do = {
+		factor = 1800
+	}
+	available = {
+		has_war = yes
+		has_government = democratic
+		has_country_flag = ENG_wartime_government
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.025
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.015
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Superannuation_Act
+	icon = GFX_Unemployeds_Help
+	prerequisite = {
+		focus = ENG_War_Labour
+		focus = ENG_War_Coalition
+	}
+	x = 3
+	y = 1
+	relative_position_id = ENG_War_Labour
+	cost = 1.43
+	ai_will_do = {
+		factor = 480
+		modifier = {
+			date < 1940.6.1
+			factor = 0.2
+		}
+		modifier = {
+			date > 1941.6.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_political_power = -20
+		add_stability = 0.02
+		add_2_percent_pop = yes
+	}
+}
+shared_focus = {
+	id = ENG_War_Education_Act
+	icon = GFX_focus_Education_Reform
+	prerequisite = {
+		focus = ENG_War_Superannuation_Act
+	}
+	x = 2
+	y = 2
+	relative_position_id = ENG_War_Labour
+	cost = 5.75
+	ai_will_do = {
+		factor = 600
+		modifier = {
+			date < 1944.6.1
+			factor = 0.2
+		}
+		modifier = {
+			date > 1945.6.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1944.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		ENG_add_large_education_spending = yes
+	}
+}
+shared_focus = {
+	id = ENG_War_Austerity
+	icon = GFX_focus_Reduce_Employer_Contributions
+	prerequisite = {
+		focus = ENG_War_Education_Act
+	}
+	mutually_exclusive = {
+		focus = ENG_War_Increase_Spending
+	}
+	x = 1
+	y = 3
+	relative_position_id = ENG_War_Labour
+	cost = 3.86
+	ai_will_do = {
+		factor = 600
+		modifier = {
+			date < 1945.4.15
+			factor = 0.4
+		}
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1945.1.1
+		all_country = {
+			OR = {
+				capital_scope = {
+					NOT = { is_on_continent = europe }
+				}
+				NOT = { has_war_with = ROOT }
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		ENG_add_medium_public_works = yes
+	}
+}
+shared_focus = {
+	id = ENG_War_Minister_of_Works
+	icon = GFX_focus_Industrialization
+	prerequisite = {
+		focus = ENG_War_Superannuation_Act
+	}
+	x = 4
+	y = 2
+	relative_position_id = ENG_War_Labour
+	cost = 3.58
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			date < 1942.5.1
+			factor = 0.2
+		}
+		modifier = {
+			date > 1943.5.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1942.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_political_power = 20
+		add_timed_idea = {
+			idea = ENG_minister_of_works
+			days = 730
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Public_Works
+	icon = GFX_focus_strengthen_small_production
+	prerequisite = {
+		focus = ENG_War_Minister_of_Works
+	}
+	x = 3
+	y = 3
+	relative_position_id = ENG_War_Labour
+	cost = 3
+	ai_will_do = {
+		factor = 350
+		modifier = {
+			date < 1944.5.1
+			factor = 0.2
+		}
+		modifier = {
+			date > 1945.5.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1944.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {
+		ENG_take_loans = yes
+	}
+}
+shared_focus = {
+	id = ENG_War_Local_Authorities_Loans
+	icon = GFX_focus_Money_Bags
+	prerequisite = {
+		focus = ENG_War_Public_Works
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_War_Public_Works
+	cost = 2.86
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			date < 1945.6.7
+			factor = 0.2
+		}
+		modifier = {
+			date > 1946.6.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1945.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_political_power = -40
+		add_stability = 0.04
+	}
+}
+shared_focus = {
+	id = ENG_War_Fuel_and_Power
+	icon = GFX_focus_Oil_Industry
+	prerequisite = {
+		focus = ENG_War_Public_Works
+	}
+	x = 2
+	y = 4
+	relative_position_id = ENG_War_Labour
+	cost = 4.29
+	ai_will_do = {
+		factor = 375
+		modifier = {
+			date < 1945.3.1
+			factor = 0.2
+		}
+		modifier = {
+			date > 1946.3.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1945.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = ENG_fuel_power
+			days = 730
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Prohibit_CPGB
+	icon = GFX_focus_Anti_Communist
+	prerequisite = {
+		focus = ENG_War_Politics_Prepare_People
+	}
+	prerequisite = {
+		focus = ENG_War_Politics_Compensation
+	}
+	x = 2
+	y = 4
+	relative_position_id = ENG_War_Politics_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 2000
+	}
+	available = {
+		any_country = {
+			has_war_with = ROOT
+			has_government = communism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_popularity = {
+			ideology = communism
+			popularity = -0.05
+		}
+		add_war_support = 0.05
+		if = {
+			limit = {
+				check_variable = {
+					ENG_com_seats > 0
+				}
+			}
+			add_to_variable = {
+				ENG_revsoc_seats = ENG_com_seats
+			}
+			set_variable = {
+				ENG_com_seats = 0
+			}
+			custom_effect_tooltip = ENG_cpgb_seats
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Tory_National_Coalition
+	icon = GFX_focus_UK_National_Government
+	prerequisite = {
+		focus = ENG_War_Politics_Prepare_People
+	}
+	prerequisite = {
+		focus = ENG_War_Politics_Compensation
+	}
+	x = 4
+	y = 4
+	relative_position_id = ENG_War_Politics_Start
+	cost = 1
+	ai_will_do = {
+		factor = 1800
+	}
+	available = {
+		has_war = yes
+		has_government = democratic
+		has_country_flag = ENG_national_government_wartime
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.025
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.015
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Landlord_and_Tenant
+	icon = GFX_focus_National_Assurance_Service
+	prerequisite = {
+		focus = ENG_War_Coalition
+		focus = ENG_War_Tory_National_Coalition
+	}
+	mutually_exclusive = {
+		focus = ENG_War_Landlord_Act
+	}
+	x = -3
+	y = 1
+	relative_position_id = ENG_War_Tory_National_Coalition
+	cost = 5
+	ai_will_do = {
+		factor = 280
+		modifier = {
+			date < 1941.3.7
+			factor = 0.2
+		}
+		modifier = {
+			date > 1943.1.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1941.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_political_power = 18
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				is_on_continent = europe
+				OR = {
+					region = 238
+					region = 3
+					region = 2
+					region = 1
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Landlord_Act
+	icon = GFX_focus_Control_the_Economy
+	prerequisite = {
+		focus = ENG_War_Tory_National_Coalition
+	}
+	mutually_exclusive = {
+		focus = ENG_War_Landlord_and_Tenant
+	}
+	x = -1
+	y = 1
+	relative_position_id = ENG_War_Tory_National_Coalition
+	cost = 2.58
+	ai_will_do = {
+		factor = 280
+		modifier = {
+			date < 1941.3.7
+			factor = 0.2
+		}
+		modifier = {
+			date > 1943.1.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1941.1.1
+		has_government = democratic
+		has_country_flag = ENG_national_government_wartime
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_political_power = 35
+	}
+}
+shared_focus = {
+	id = ENG_War_Pensions_Appeal
+	icon = GFX_focus_Pensions
+	prerequisite = {
+		focus = ENG_War_Landlord_and_Tenant
+		focus = ENG_War_Landlord_Act
+	}
+	x = -2
+	y = 2
+	relative_position_id = ENG_War_Tory_National_Coalition
+	cost = 4.29
+	ai_will_do = {
+		factor = 400
+		modifier = {
+			date < 1943.6.7
+			factor = 0.2
+		}
+		modifier = {
+			date > 1944.6.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1943.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		add_stability = 0.035
+	}
+}
+shared_focus = {
+	id = ENG_War_Local_Gov_War_Damage
+	icon = GFX_focus_Green_Belts
+	prerequisite = {
+		focus = ENG_War_Tory_National_Coalition
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_War_Tory_National_Coalition
+	cost = 5
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			date < 1941.9.15
+			factor = 0.2
+		}
+		modifier = {
+			date > 1942.9.14
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1941.1.1
+		has_government = democratic
+		has_country_flag = ENG_national_government_wartime
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -20
+		add_timed_idea = {
+			idea = ENG_war_damage_act_local_gov
+			days = 730
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Private_Education_Act
+	icon = GFX_focus_Brainpower
+	prerequisite = {
+		focus = ENG_War_Local_Gov_War_Damage
+	}
+	x = 0
+	y = 2
+	relative_position_id = ENG_War_Tory_National_Coalition
+	cost = 4.43
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			date < 1943.7.28
+			factor = 0.2
+		}
+		modifier = {
+			date > 1943.7.28
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1943.1.1
+		has_government = democratic
+		has_country_flag = ENG_national_government_wartime
+	}
+	bypass = {
+	}
+	completion_reward = {
+		ENG_add_small_education_spending = yes
+	}
+}
+shared_focus = {
+	id = ENG_War_Naval_Pensions
+	icon = GFX_focus_naval_reform
+	prerequisite = {
+		focus = ENG_War_Private_Education_Act
+	}
+	x = -1
+	y = 3
+	relative_position_id = ENG_War_Tory_National_Coalition
+	cost = 5
+	ai_will_do = {
+		factor = 280
+		modifier = {
+			date < 1944.2.28
+			factor = 0.2
+		}
+		modifier = {
+			date > 1944.2.28
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1944.1.1
+		has_government = democratic
+		has_country_flag = ENG_national_government_wartime
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 30
+		navy_experience = 5
+	}
+}
+shared_focus = {
+	id = ENG_War_Coal_Act
+	icon = GFX_focus_Excavations
+	prerequisite = {
+		focus = ENG_War_Minister_of_Works
+		focus = ENG_War_Pensions_Appeal
+	}
+	x = -3
+	y = 3
+	relative_position_id = ENG_War_Tory_National_Coalition
+	cost = 2.86
+	ai_will_do = {
+		factor = 450
+		modifier = {
+			date < 1943.6.7
+			factor = 0.2
+		}
+		modifier = {
+			date > 1944.6.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1943.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		random_owned_controlled_state = {
+			limit = {
+				has_resources_amount = {
+					resource = steel
+					amount > 6
+				}
+				is_on_continent = europe
+			}
+			add_resource = {
+				type = steel
+				amount = 6
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				has_resources_amount = {
+					resource = steel
+					amount > 6
+				}
+				is_on_continent = europe
+			}
+			add_resource = {
+				type = steel
+				amount = 6
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Water_Act
+	icon = GFX_focus_Dam_Focus
+	prerequisite = {
+		focus = ENG_War_Coal_Act
+	}
+	x = -2
+	y = 4
+	relative_position_id = ENG_War_Tory_National_Coalition
+	cost = 1
+	ai_will_do = {
+		factor = 450
+		modifier = {
+			date < 1945.4.7
+			factor = 0.2
+		}
+		modifier = {
+			date > 1946.4.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = yes
+		date > 1945.1.1
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		custom_effect_tooltip = ENG_water_act
+	}
+}

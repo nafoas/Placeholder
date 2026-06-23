@@ -1,0 +1,640 @@
+#15 focuses here
+#s_team337
+shared_focus = {
+	id = SOV_2RCW_Coup_Economics_Start
+	icon = GFX_focus_Planned_Economy
+	#prerequisite = { focus = SOV_2RCW_Coup_Economics_Start }
+	x = 13
+	y = 0
+	#relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 5
+	ai_will_do = {
+		factor = 1600
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		has_completed_focus = SOV_2RCW_Economics_Start
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = tot_economic_mobilisation
+			}
+			add_political_power = 65
+		}
+		else_if = {
+			limit = {
+				has_idea = war_economy
+			}
+			swap_ideas = {
+				remove_idea = war_economy
+				add_idea = tot_economic_mobilisation
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = partial_economic_mobilisation
+			}
+			swap_ideas = {
+				remove_idea = partial_economic_mobilisation
+				add_idea = war_economy
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = low_economic_mobilisation
+			}
+			swap_ideas = {
+				remove_idea = low_economic_mobilisation
+				add_idea = partial_economic_mobilisation
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = civilian_economy
+			}
+			swap_ideas = {
+				remove_idea = civilian_economy
+				add_idea = low_economic_mobilisation
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_End_Collectivization
+	icon = GFX_focus_Agriculture
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Economics_Start
+	}
+	x = 0
+	y = 1
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 3.29
+	ai_will_do = {
+		factor = 900
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		NOT = {
+			has_idea = SOV_famine
+			has_idea = SOV_big_famine
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = SOV_famine
+			}
+			hidden_effect = {
+				country_event = {
+					id = sov_internal.4
+					days = 1200
+				}
+			}
+		}
+		add_stability = 0.05
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Feed_Soldiers
+	icon = GFX_focus_Tractors
+	prerequisite = {
+		focus = SOV_2RCW_Coup_End_Collectivization
+	}
+	x = -1
+	y = 2
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 3
+	ai_will_do = {
+		factor = 1400
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = SOV_Prodnalog
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Rations
+	icon = GFX_goal_generic_consumer_goods
+	prerequisite = {
+		focus = SOV_2RCW_Coup_End_Collectivization
+	}
+	x = 1
+	y = 2
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 2000
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = SOV_rations
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Steel_Mills
+	icon = GFX_focus_generic_steel
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Feed_Soldiers
+	}
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Rations
+	}
+	x = -1
+	y = 3
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 6
+	ai_will_do = {
+		factor = 480
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		NOT = {
+			any_state = {
+				is_controlled_by = ROOT
+				has_resources_amount = {
+					resource = steel
+					amount > 7
+				}
+			}
+		}
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				has_resources_amount = {
+					resource = steel
+					amount > 7
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 8
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Oil
+	icon = GFX_focus_Oil_Industry
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Steel_Mills
+	}
+	x = -2
+	y = 4
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 6.42
+	ai_will_do = {
+		factor = 400
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		NOT = {
+			any_state = {
+				is_controlled_by = ROOT
+				has_resources_amount = {
+					resource = oil
+					amount > 7
+				}
+			}
+		}
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				has_resources_amount = {
+					resource = oil
+					amount > 7
+				}
+			}
+			add_resource = {
+				type = oil
+				amount = 8
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Aluminium
+	icon = GFX_focus_generic_aluminum
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Oil
+	}
+	x = -2
+	y = 5
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 700
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		NOT = {
+			any_state = {
+				is_controlled_by = ROOT
+				has_resources_amount = {
+					resource = aluminium
+					amount > 7
+				}
+			}
+		}
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				has_resources_amount = {
+					resource = aluminium
+					amount > 7
+				}
+			}
+			add_resource = {
+				type = aluminium
+				amount = 8
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Military_Factories
+	icon = GFX_focus_Renewed_Arms
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Feed_Soldiers
+	}
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Rations
+	}
+	x = 1
+	y = 3
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 7.15
+	ai_will_do = {
+		factor = 1000
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Convert_Factories
+	icon = GFX_goal_generic_construct_mil_factory
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Military_Factories
+	}
+	x = 2
+	y = 4
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 6.86
+	ai_will_do = {
+		factor = 500
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				industrial_complex > 0
+			}
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				industrial_complex > 0
+			}
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Mil2
+	icon = GFX_focus_Recruitment_Drive
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Convert_Factories
+	}
+	x = 2
+	y = 5
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 7.15
+	ai_will_do = {
+		factor = 750
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Infrastructure
+	icon = GFX_focus_Trains
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Steel_Mills
+		focus = SOV_2RCW_Coup_Military_Factories
+	}
+	x = 0
+	y = 4
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 600
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		#TODO:add railways
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Infrastructure2
+	icon = GFX_goal_generic_construct_infrastructure
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Infrastructure
+	}
+	x = 0
+	y = 5
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 1
+	ai_will_do = {
+		factor = 200
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = infrastructure
+					size > 1
+					include_locked = yes
+				}
+				is_on_continent = europe
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				# instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = infrastructure
+					size > 1
+					include_locked = yes
+				}
+				is_on_continent = europe
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				# instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = { #What the fuck is this supposed to do. Add infra absolutely not, thats fore sure
+	id = SOV_2RCW_Coup_Infrastructure3
+	icon = GFX_focus_Mechanization
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Aluminium
+	}
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Infrastructure2
+	}
+	mutually_exclusive = {
+		focus = SOV_2RCW_Coup_Convert_Factories2
+	}
+	x = -1
+	y = 6
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 800
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Convert_Factories2
+	icon = GFX_focus_Tanks_Across_the_Border
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Infrastructure2
+	}
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Mil2
+	}
+	mutually_exclusive = {
+		focus = SOV_2RCW_Coup_Infrastructure3
+	}
+	x = 1
+	y = 6
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 6.5
+	ai_will_do = {
+		factor = 200
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				industrial_complex > 0
+				is_on_continent = europe
+			}
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Coup_Militarize
+	icon = GFX_focus_Prepare_the_Troops
+	prerequisite = {
+		focus = SOV_2RCW_Coup_Infrastructure3
+		focus = SOV_2RCW_Coup_Convert_Factories2
+	}
+	x = 0
+	y = 7
+	relative_position_id = SOV_2RCW_Coup_Economics_Start
+	cost = 7.55
+	ai_will_do = {
+		factor = 500
+	}
+	available = {
+		has_country_flag = SOV_Zhukov_Coup
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = tot_economic_mobilisation
+			}
+			add_political_power = 65
+		}
+		else_if = {
+			limit = {
+				has_idea = war_economy
+			}
+			swap_ideas = {
+				remove_idea = war_economy
+				add_idea = tot_economic_mobilisation
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = partial_economic_mobilisation
+			}
+			swap_ideas = {
+				remove_idea = partial_economic_mobilisation
+				add_idea = war_economy
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = low_economic_mobilisation
+			}
+			swap_ideas = {
+				remove_idea = low_economic_mobilisation
+				add_idea = partial_economic_mobilisation
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = civilian_economy
+			}
+			swap_ideas = {
+				remove_idea = civilian_economy
+				add_idea = low_economic_mobilisation
+			}
+		}
+	}
+}

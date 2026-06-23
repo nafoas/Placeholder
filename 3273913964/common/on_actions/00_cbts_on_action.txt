@@ -1,0 +1,557 @@
+on_actions = {
+	#FROM is country getting invited.
+	on_offer_join_faction = {
+		effect = {
+			FROM = { #Stay with your pal dummy
+				add_ai_strategy = {
+					type = alliance
+					id = ROOT
+					value = 200
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						FROM = {
+							tag = event_target:new_faction_member
+						}
+					}
+				}
+				save_global_event_target_as = faction_leader
+				FROM = {
+					save_global_event_target_as = new_faction_member
+				}
+				every_country = {
+					limit = {
+						is_ai = no
+					}
+					sound_effect = "diplomatic_notification_08"
+					if = {
+						limit = {
+							NOT = {
+								has_country_flag = JOINED_FACTION_POPUP1
+							}
+						}
+						set_country_flag = JOINED_FACTION_POPUP1
+					}
+					else_if = {
+						limit = {
+							NOT = {
+								has_country_flag = JOINED_FACTION_POPUP2
+							}
+						}
+						set_country_flag = JOINED_FACTION_POPUP2
+					}
+					else_if = {
+						limit = {
+							NOT = {
+								has_country_flag = JOINED_FACTION_POPUP3
+							}
+						}
+						set_country_flag = JOINED_FACTION_POPUP3
+					}
+					else = {
+						random_list = {
+							50 = {
+								clr_country_flag = JOINED_FACTION_POPUP1
+								set_country_flag = JOINED_FACTION_POPUP1
+							}
+							50 = {
+								clr_country_flag = JOINED_FACTION_POPUP2
+								set_country_flag = JOINED_FACTION_POPUP2
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	on_leave_faction = {
+		effect = {
+			FROM = { #Make null previus strategy
+				add_ai_strategy = {
+					type = alliance
+					id = ROOT
+					value = -200
+				}
+			}
+		}
+	}
+
+	on_assume_faction_leadership = {
+		effect = {
+			if = {
+				limit = {
+					FROM = {
+						tag = event_target:allies_leader
+					}
+				}
+				save_global_event_target_as = allies_leader
+			}
+		}
+	}
+
+	on_startup = {
+		effect = {
+			POL = {
+				add_equipment_to_stockpile = {
+					type = motorized_equipment_1
+					producer = POL
+					amount = 25
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					always = no
+				}
+				set_global_flag = CBTS_Music_Mod_Active
+			}
+			every_country = {
+				limit = {
+					OR = {
+						tag = ENG
+						tag = FRA
+						tag = GER
+						tag = SOV
+						tag = BRA
+						tag = USA
+						tag = MEX
+						tag = SPR
+						tag = ITA
+						tag = AUS
+						tag = CHI
+						tag = JAP
+						tag = POL
+						tag = NOR
+						tag = DEN
+						tag = HUN
+						tag = YUG
+					}
+				}
+				country_event = { #Explain dynamic trees
+					id = ger_introduction.6
+				}
+			}
+
+			BHU = { country_lock_all_division_template = yes }
+			NEP = { country_lock_all_division_template = yes }
+			AFG = { country_lock_all_division_template = yes }
+			OMA = { country_lock_all_division_template = yes }
+			DZG = { country_lock_all_division_template = yes }
+			TGR = { country_lock_all_division_template = yes }
+
+			### Faction Tags ###
+			ENG = {
+				save_global_event_target_as = allies_leader
+			}
+		}
+		effect = {
+			#Turin-Brescia Autostrada (A4)
+			158 = {
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=6780}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=3782}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=776}
+				}
+			}
+			159 = {
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=13307}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=3780}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=969}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=773}
+				}
+				add_province_modifier = { #Milan-Varese. First Highway in the world for motor vehicles (the first not used exclusively for races but for normal transportation)
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=607}
+				}
+			}
+			160 = { #Venecia-Padua tract
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=11584}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=13935}
+				}
+			}
+
+			# Autostrada Firenze-Mare (A7)
+			162 = {
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=1616}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=13937}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=3336}
+				}
+			}
+		}
+
+		effect = {
+			# SIK = {
+			# 	every_owned_state = {
+			# 		limit = {
+			# 			is_owned_by = SIK
+			# 		}
+			# 		add_dynamic_modifier = {
+			# 			modifier = Xinjiang_wars_state_modifier
+			# 		}
+			# 	}
+			# }
+			# KML = {
+			# 	every_owned_state = {
+			# 		limit = {
+			# 			is_owned_by = KML
+			# 		}
+			# 		add_dynamic_modifier = {
+			# 			modifier = Xinjiang_wars_state_modifier
+			# 		}
+			# 	}
+			# }
+			# UTP = {
+			# 	every_owned_state = {
+			# 		limit = {
+			# 			is_owned_by = UTP
+			# 		}
+			# 		add_dynamic_modifier = {
+			# 			modifier = Xinjiang_wars_state_modifier
+			# 		}
+			# 	}
+			# }
+
+			# every_country = {
+			# 	limit = {
+			# 		is_chinese_warlord = yes
+			# 	}
+			# 	every_other_country = {
+			# 		limit = {
+			# 			NOT = {
+			# 				tag = CHI
+			# 				is_chinese_warlord = yes
+			# 			}
+			# 		}
+			# 		add_opinion_modifier = {
+			# 			target = PREV.PREV
+			# 			modifier = insignificant_nation
+			# 		}
+			# 	}
+			# }
+		}
+	}
+
+	on_declare_war = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = { tag = GER }
+					FROM = { tag = DEN }
+				}
+				hidden_effect = {
+					# GER = {
+					# 	set_province_controller = 11251
+					# 	set_province_controller = 332
+					# 	set_province_controller = 3305
+					# 	set_province_controller = 3277
+					# 	set_province_controller = 6364
+					# 	set_province_controller = 13745
+					# 	set_province_controller = 6235
+					# 	set_province_controller = 13744
+					# }
+					DEN = {
+						country_event = { hours = 6 id = den.1 }
+						delete_unit = {
+							disband = yes
+						}
+					}
+					if = {
+						limit = {
+							NOT = {
+								ICE = { has_idea = neutrality_idea }
+							}
+						}
+						ICE = { add_ideas = neutrality_idea }
+					}
+				}
+			}
+			### Germany declares war on Poland ###
+			if = {
+				limit = {
+					ROOT = { tag = GER }
+					FROM = { tag = POL }
+				}
+				hidden_effect = {
+					log = "[GetDateText]: Germany declares war on Poland."
+
+					POL = {
+						add_ideas = POL_is_not_yet_lost
+					}
+
+					random_list = {
+						90 = {
+							GER = { set_country_flag = GER_has_good_luck }
+							log = "[GetDateText]: Germany has Good luck with the French."
+						}
+						10 = {
+							GER = { set_country_flag = GER_has_bad_luck }
+							log = "[GetDateText]: Germany has Bad Luck with the French."
+						}
+					}
+
+					GER = { news_event = { id = ger_news.10 } }
+
+					if = {
+						limit = { has_global_flag = MR_pact_flag }
+						log = "[GetDateText]: Soviets get event that starts mission to invade Poland. MR pact"
+						SOV = {
+							country_event = {
+								id = mr_pact_event.7
+								days = 4
+							}
+						}
+					}
+
+					#Netral countries declare neutrality
+					DEN = { add_ideas = neutrality_idea }
+					NOR = { add_ideas = neutrality_idea }
+					ICE = { add_ideas = neutrality_idea }
+					SWE = { add_ideas = neutrality_idea }
+					LUX = { add_ideas = neutrality_idea }
+					HOL = { add_ideas = neutrality_idea }
+					BEL = { add_ideas = neutrality_idea }
+				}
+			}
+		}
+	}
+
+	on_capitulation = {
+		effect = {
+			if = { #If Denmark capitulates while being a puppet of Germany
+				limit = {
+					ROOT = { tag = DEN }
+					NOT = { 
+						FROM = { tag = GER }
+					}
+					DEN = { has_idea = DEN_german_occupation }
+				}
+				if = {
+					limit = {
+						DEN = { has_cosmetic_tag = DEN_GER }
+					}
+					DEN = { drop_cosmetic_tag = yes }
+				}
+				DEN = {
+					remove_ideas = DEN_german_occupation
+					remove_ideas = DEN_danish_neutrality
+				}
+			}
+			if = { #If Germany capitulates and Denmark is their puppet
+				limit = {
+					ROOT = { tag = GER }
+					DEN = { is_subject_of = GER }
+				}
+				if = {
+					limit = {
+						DEN = { has_idea = DEN_german_occupation }
+					}
+					DEN = { remove_ideas = DEN_german_occupation }
+				}
+				if = {
+					limit = {
+						DEN = { has_cosmetic_tag = DEN_GER }
+					}
+					DEN = { drop_cosmetic_tag = yes }
+				}
+				GER = {
+					set_autonomy = {
+						target = DEN
+						autonomy_state = autonomy_free
+						end_wars = yes
+					}
+				}
+				DEN = {
+					remove_ideas = DEN_danish_neutrality
+					leave_faction = yes
+					country_event = { id = den.11 } #Liberation of Denmark
+				}
+			}
+
+			if = { #Italy is in faction with GER, is not a puppet and capitulates after Germany does
+				limit = {
+					ROOT = { tag = ITA }
+					ITA = {
+						is_subject = no
+						is_in_faction_with = GER
+					}
+					GER = { has_capitulated = yes }
+				}
+
+				FROM = {
+					country_event = {
+						id = postwar.4
+					}
+				}
+			}
+
+			if = { #End of WW2. German surrender
+				limit = {
+					ROOT = { tag = GER }
+					FROM = {
+						OR = {
+							tag = ALY
+							is_in_faction_with = ALY
+							is_subject_of = ALY
+							AND = {
+								tag = SOV
+								NOT = { has_war_with = ALY }
+							}
+							AND = {
+								tag = RUS
+								NOT = { has_war_with = ALY }
+							}
+							#What if it capitulates to a country that is neither of these? TO THINK
+						}
+					}
+				}
+				FROM = {
+					country_event = { id = postwar.1 hours = 20 }
+				}
+				
+				if = { #Italy
+					limit = {
+						ITA = {
+							is_subject_of = GER
+						}
+					}
+					FROM = {
+						country_event = {
+							id = postwar.4
+						}
+					}
+				}
+
+				if = {
+					limit = {
+						OR = {
+							HUN = { has_country_flag = axis_country }
+							HUN = { is_in_faction_with = GER } #just in case
+						}
+					}
+					FROM = {
+						country_event = {
+							id = postwar.3
+							hours = 2
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	on_annex = {
+		effect = {
+			FROM = {
+				clr_country_flag = RK_ger_only
+				clr_country_flag = RK_locals_allowed
+				clr_country_flag = colonization_focus
+				clr_country_flag = assimilation_focus
+				clr_country_flag = cultural_traditions
+			}
+		}
+	}
+
+	on_war = {
+		effect = {
+			if = {
+				limit = {
+					THIS = {
+						tag = USA
+						has_war_with = JAP
+					}
+				}
+				set_victory_points = {
+					province = 13025
+					value = 10
+				}
+				set_victory_points = {
+					province = 3995
+					value = 5
+				}
+				set_victory_points = {
+					province = 12140
+					value = 7
+				}
+				set_victory_points = {
+					province = 13047
+					value = 8
+				}
+				set_victory_points = {
+					province = 13052
+					value = 10
+				}
+				set_victory_points = {
+					province = 10124
+					value = 15
+				}
+				set_victory_points = {
+					province = 4357
+					value = 3
+				}
+				set_victory_points = {
+					province = 4286
+					value = 3
+				}
+				set_province_name = {
+					id = 13024
+					name = "Tinian"
+				}
+				set_victory_points = {
+					province = 13024
+					value = 1
+				}
+				set_victory_points = {
+					province = 13035
+					value = 1
+				}
+				set_province_name = {
+					id = 13035
+					name = "Tofol"
+				}
+				set_victory_points = {
+					province = 4378
+					value = 1
+				}
+				set_province_name = {
+					id = 4378
+					name = "Buin"
+				}
+			}
+		}
+	}
+}

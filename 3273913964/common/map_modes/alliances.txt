@@ -1,0 +1,59 @@
+scripted_map_modes = {
+	alliances_mapmode = {
+		top = {
+			type = country
+
+			color = {
+				var:ROOT.alliances_mapmode_target?ROOT.id = {
+					set_temp_variable = { alpha = 0.8 }
+					set_temp_variable = { thickness = 1.0 }
+					if = {
+						limit = {
+							tag = FROM
+						}
+						set_temp_variable = { red = 0.08 }
+						set_temp_variable = { green = 0.60 }
+						set_temp_variable = { blue = 0.14 }
+					}
+					else_if = {
+						limit = {
+							is_in_array = {
+								array = alliances_array
+								value = FROM
+							}
+						}
+						set_temp_variable = { red = 0.0 }
+						set_temp_variable = { green = 0.5 }
+						set_temp_variable = { blue = 0.9 }
+					}
+				}
+			}
+
+			thickness = yes
+
+			targets = {
+				target_array = global.countries
+				target_trigger = {
+					var:ROOT.alliances_mapmode_target?ROOT.id = {
+						OR = {
+							tag = FROM
+							is_in_array = {
+								array = alliances_array
+								value = FROM
+							}
+						}
+					}
+				}
+			}
+		}
+
+		bottom = {
+			type = none
+		}
+
+		far_text = country
+		near_text = state
+
+		update_daily = yes
+	}
+}

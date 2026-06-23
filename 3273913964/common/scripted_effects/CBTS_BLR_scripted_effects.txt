@@ -1,0 +1,730 @@
+BLR_Get_Aut_Pop = {
+	set_variable = {
+		BLR_Aut_Pop = party_popularity@authoritarian_socialism
+	}
+	add_to_variable = {
+		BLR_Aut_Pop = party_popularity@socialism
+	}
+}
+BLR_Get_Nat_Pop = {
+	set_variable = {
+		BLR_Nat_Pop = party_popularity@market_liberalism
+	}
+	add_to_variable = {
+		BLR_Nat_Pop = party_popularity@social_democracy
+	}
+	add_to_variable = {
+		BLR_Nat_Pop = party_popularity@social_liberalism
+	}
+	add_to_variable = {
+		BLR_Nat_Pop = party_popularity@jacobin
+	}
+	add_to_variable = {
+		BLR_Nat_Pop = party_popularity@democratic
+	}
+	if = {
+		limit = {
+			has_country_flag = BLR_Fascists_Rturn
+		}
+		add_to_variable = {
+			BLR_Nat_Pop = party_popularity@nationalism
+		}
+		add_to_variable = {
+			BLR_Nat_Pop = party_popularity@fascism
+		}
+	}
+}
+BLR_add_influence_nationalist = {
+	if = {
+		limit = {
+			check_variable = {
+				BLR_nationalist_influence < 100
+			}
+		}
+		add_to_variable = {
+			BLR_nationalist_influence = BLR_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = BLR_nationalist_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = BLR_autonomist_influence
+				check_variable = {
+					BLR_autonomist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = BLR_bulak_influence
+				check_variable = {
+					BLR_bulak_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = BLR_triunionist_influence
+				check_variable = {
+					BLR_triunionist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				BLR_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				BLR_add_influence_value = 100
+			}
+			round_variable = BLR_add_influence_value
+			divide_variable = {
+				BLR_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = BLR_autonomist_influence
+					check_variable = {
+						BLR_autonomist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_autonomist_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_autonomist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = BLR_triunionist_influence
+					check_variable = {
+						BLR_triunionist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_triunionist_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_triunionist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = BLR_bulak_influence
+					check_variable = {
+						BLR_bulak_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_bulak_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_bulak_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			BLR_add_influence_value = 0
+		}
+		BLR_check_for_hundred = yes
+		BLR_Get_Nat_Pop = yes
+		BLR_Get_Aut_Pop = yes
+	}
+}
+BLR_add_influence_autonomist = {
+	if = {
+		limit = {
+			check_variable = {
+				BLR_autonomist_influence < 100
+			}
+		}
+		add_to_variable = {
+			BLR_autonomist_influence = BLR_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = BLR_autonomist_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = BLR_nationalist_influence
+				check_variable = {
+					BLR_nationalist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = BLR_bulak_influence
+				check_variable = {
+					BLR_bulak_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = BLR_triunionist_influence
+				check_variable = {
+					BLR_triunionist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				BLR_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				BLR_add_influence_value = 100
+			}
+			round_variable = BLR_add_influence_value
+			divide_variable = {
+				BLR_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = BLR_nationalist_influence
+					check_variable = {
+						BLR_nationalist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_nationalist_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_nationalist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = BLR_triunionist_influence
+					check_variable = {
+						BLR_triunionist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_triunionist_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_triunionist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = BLR_bulak_influence
+					check_variable = {
+						BLR_bulak_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_bulak_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_bulak_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			BLR_add_influence_value = 0
+		}
+		BLR_check_for_hundred = yes
+		BLR_Get_Nat_Pop = yes
+		BLR_Get_Aut_Pop = yes
+	}
+}
+BLR_add_influence_triunionist = {
+	if = {
+		limit = {
+			check_variable = {
+				BLR_triunionist_influence < 100
+			}
+		}
+		add_to_variable = {
+			BLR_triunionist_influence = BLR_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = BLR_triunionist_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = BLR_nationalist_influence
+				check_variable = {
+					BLR_nationalist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = BLR_bulak_influence
+				check_variable = {
+					BLR_bulak_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = BLR_autonomist_influence
+				check_variable = {
+					BLR_autonomist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				BLR_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				BLR_add_influence_value = 100
+			}
+			round_variable = BLR_add_influence_value
+			divide_variable = {
+				BLR_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = BLR_nationalist_influence
+					check_variable = {
+						BLR_nationalist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_nationalist_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_nationalist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = BLR_bulak_influence
+					check_variable = {
+						BLR_bulak_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_bulak_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_bulak_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = BLR_autonomist_influence
+					check_variable = {
+						BLR_autonomist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_autonomist_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_autonomist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			BLR_add_influence_value = 0
+		}
+		BLR_check_for_hundred = yes
+		BLR_Get_Nat_Pop = yes
+		BLR_Get_Aut_Pop = yes
+	}
+}
+BLR_add_influence_bulakovich = {
+	if = {
+		limit = {
+			check_variable = {
+				BLR_bulak_influence < 100
+			}
+		}
+		add_to_variable = {
+			BLR_bulak_influence = BLR_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = BLR_bulak_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = BLR_nationalist_influence
+				check_variable = {
+					BLR_nationalist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = BLR_autonomist_influence
+				check_variable = {
+					BLR_autonomist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = BLR_triunionist_influence
+				check_variable = {
+					BLR_triunionist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				BLR_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				BLR_add_influence_value = 100
+			}
+			round_variable = BLR_add_influence_value
+			divide_variable = {
+				BLR_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = BLR_nationalist_influence
+					check_variable = {
+						BLR_nationalist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_nationalist_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_nationalist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = BLR_autonomist_influence
+					check_variable = {
+						BLR_autonomist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_autonomist_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_autonomist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = BLR_triunionist_influence
+					check_variable = {
+						BLR_triunionist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					BLR_triunionist_influence = BLR_add_influence_value
+				}
+				clamp_variable = {
+					var = BLR_triunionist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			BLR_add_influence_value = 0
+		}
+		BLR_check_for_hundred = yes
+		BLR_Get_Nat_Pop = yes
+		BLR_Get_Aut_Pop = yes
+	}
+}
+BLR_Rally_Supporters = {
+	if = {
+		limit = {
+			has_country_flag = BLR_show_blr_nationalist
+		}
+		BLR_Get_Nat_Pop = yes
+		set_variable = {
+			BLR_manpower_add = BLR_Nat_Pop
+		}
+		multiply_variable = {
+			BLR_manpower_add = 50000
+		}
+		add_manpower = BLR_manpower_add
+		set_variable = {
+			BLR_manpower_add = BLR_manpower_add
+		}
+		round_variable = BLR_manpower_add
+		set_variable = {
+			BLR_add_influence_value = 5
+		}
+		BLR_add_influence_nationalist = yes
+		BLR_Get_Nat_Pop = yes
+		BLR_Get_Aut_Pop = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = BLR_show_autonomist
+		}
+		BLR_Get_Aut_Pop = yes
+		set_variable = {
+			BLR_manpower_add = BLR_Aut_Pop
+		}
+		multiply_variable = {
+			BLR_manpower_add = 50000
+		}
+		add_manpower = BLR_manpower_add
+		set_variable = {
+			BLR_manpower_add = BLR_manpower_add
+		}
+		round_variable = BLR_manpower_add
+		set_variable = {
+			BLR_add_influence_value = 5
+		}
+		BLR_add_influence_autonomist = yes
+		BLR_Get_Nat_Pop = yes
+		BLR_Get_Aut_Pop = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = BLR_show_triunionist
+		}
+		set_variable = {
+			BLR_manpower_add = party_popularity@monarchism
+		}
+		multiply_variable = {
+			BLR_manpower_add = 50000
+		}
+		add_manpower = BLR_manpower_add
+		set_variable = {
+			BLR_manpower_add = BLR_manpower_add
+		}
+		round_variable = BLR_manpower_add
+		set_variable = {
+			BLR_add_influence_value = 5
+		}
+		BLR_add_influence_triunionist = yes
+		BLR_Get_Nat_Pop = yes
+		BLR_Get_Aut_Pop = yes
+	}
+	else = {
+		set_variable = {
+			BLR_manpower_add = party_popularity@neutrality
+		}
+		multiply_variable = {
+			BLR_manpower_add = 50000
+		}
+		add_manpower = BLR_manpower_add
+		set_variable = {
+			BLR_manpower_add = BLR_manpower_add
+		}
+		round_variable = BLR_manpower_add
+		set_variable = {
+			BLR_add_influence_value = 5
+		}
+		BLR_add_influence_bulakovich = yes
+		BLR_Get_Nat_Pop = yes
+		BLR_Get_Aut_Pop = yes
+	}
+}
+BLR_check_for_hundred = {
+	set_variable = {
+		BLR_discrepency_check = 0
+	}
+	if = {
+		limit = {
+			has_variable = BLR_nationalist_influence
+		}
+		add_to_variable = {
+			BLR_discrepency_check = BLR_nationalist_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = BLR_autonomist_influence
+		}
+		add_to_variable = {
+			BLR_discrepency_check = BLR_autonomist_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = BLR_bulak_influence
+		}
+		add_to_variable = {
+			BLR_discrepency_check = BLR_bulak_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = BLR_triunionist_influence
+		}
+		add_to_variable = {
+			BLR_discrepency_check = BLR_triunionist_influence
+		}
+	}
+	subtract_from_variable = {
+		BLR_discrepency_check = 100
+	}
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					BLR_discrepency_check = 0
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = BLR_show_blr_nationalist
+			}
+			subtract_from_variable = {
+				BLR_nationalist_influence = BLR_discrepency_check
+			}
+			clamp_variable = {
+				var = BLR_nationalist_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = BLR_show_autonomist
+			}
+			subtract_from_variable = {
+				BLR_autonomist_influence = BLR_discrepency_check
+			}
+			clamp_variable = {
+				var = BLR_autonomist_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = BLR_show_triunionist
+			}
+			subtract_from_variable = {
+				BLR_show_triunionist = BLR_discrepency_check
+			}
+			clamp_variable = {
+				var = BLR_show_triunionist
+				min = 0
+				max = 100
+			}
+		}
+		else = {
+			subtract_from_variable = {
+				BLR_bulak_influence = BLR_discrepency_check
+			}
+			clamp_variable = {
+				var = BLR_bulak_influence
+				min = 0
+				max = 100
+			}
+		}
+	}
+	set_variable = {
+		BLR_discrepency_check = 0
+	}
+}

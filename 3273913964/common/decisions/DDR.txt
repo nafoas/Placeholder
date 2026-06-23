@@ -1,0 +1,650 @@
+    
+DDR_power_struggle = {	
+
+    DDR_combat_kpd_dominance = {
+		allowed = { tag = DDR }
+		icon = eng_propaganda_campaigns
+		visible = {
+		    OR = {
+			    has_war_with = WGR
+				has_war_with = GER
+			}
+		}
+		available = { 
+		}
+		#ai_will_do = { factor = 1 }
+		cost = 40
+		days_remove = 30
+		remove_effect = {
+            custom_effect_tooltip = ddr_5_kpd_d_tt
+			add_to_variable = { DDR_kpd_power = -5 }
+			add_stability = -0.05
+        }
+	}
+	
+	DDR_increase_kpd_dominance = {
+		allowed = { tag = DDR }
+		icon = eng_propaganda_campaigns
+		visible = {
+		    OR = {
+			    has_war_with = WGR
+				has_war_with = GER
+			}
+		}
+		available = { 
+		}
+		#ai_will_do = { factor = 1 }
+		cost = 40
+		days_remove = 30
+		remove_effect = {
+            custom_effect_tooltip = ddr_5_kpd_tt
+			add_to_variable = { DDR_kpd_power = 5 }
+			add_war_support = -0.05
+        }
+	}
+	
+	DDR_limit_sapd_influence = {
+		allowed = { tag = DDR }
+		fire_only_once = yes
+		visible = {
+		    OR = {
+			    has_war_with = WGR
+				has_war_with = GER
+			}
+		}
+		available = { 
+		    custom_trigger_tooltip = {
+                tooltip = kpd_70_tt		
+                check_variable = { DDR_kpd_power > 69 }
+            }
+			has_idea = DDR_kpd_primacy
+		}
+		ai_will_do = { factor = 1 }
+		cost = 25
+		complete_effect = {
+            swap_ideas = { remove_idea = DDR_kpd_primacy add_idea = DDR_kpd_leadership }
+        }
+	}
+	
+	DDR_remove_disloyal_ministers = {
+		allowed = { tag = DDR }
+		fire_only_once = yes
+		visible = {
+		    OR = {
+			    has_war_with = WGR
+				has_war_with = GER
+			}
+		}
+		available = { 
+		    custom_trigger_tooltip = {
+                tooltip = kpd_90_tt		
+                check_variable = { DDR_kpd_power > 89 }
+            }
+			has_idea = DDR_kpd_leadership
+		}
+		ai_will_do = { factor = 1 }
+		cost = 25
+		complete_effect = {
+            swap_ideas = { remove_idea = DDR_kpd_leadership add_idea = DDR_kpd_control }
+        }
+	}
+	
+	DDR_decentralize_power = {
+		allowed = { tag = DDR }
+		fire_only_once = yes
+		visible = {
+		    OR = {
+			    has_war_with = WGR
+				has_war_with = GER
+			}
+		}
+		available = { 
+		    custom_trigger_tooltip = {
+                tooltip = kpd_50_tt		
+                check_variable = { DDR_kpd_power < 51 }
+            }
+			has_idea = DDR_kpd_primacy
+		}
+		ai_will_do = { factor = 1 }
+		cost = 25
+		complete_effect = {
+            swap_ideas = { remove_idea = DDR_kpd_primacy add_idea = DDR_contested_leadership }
+        }
+	}
+	
+	DDR_remove_kpd_ministers = {
+		allowed = { tag = DDR }
+		fire_only_once = yes
+		visible = {
+		    OR = {
+			    has_war_with = WGR
+				has_war_with = GER
+			}
+		}
+		available = { 
+		    custom_trigger_tooltip = {
+                tooltip = kpd_30_tt		
+                check_variable = { DDR_kpd_power < 31 }
+            }
+			has_idea = DDR_contested_leadership
+		}
+		ai_will_do = { factor = 1 }
+		cost = 25
+		complete_effect = {
+            swap_ideas = { remove_idea = DDR_contested_leadership add_idea = DDR_opposition_leadership }
+        }
+	}
+	
+	DDR_remove_thalmann = {
+		allowed = { tag = DDR }
+		fire_only_once = yes
+		visible = {
+		    OR = {
+			    has_war_with = WGR
+				has_war_with = GER
+			}
+		}
+		available = { 
+		    custom_trigger_tooltip = {
+                tooltip = kpd_10_tt		
+                check_variable = { DDR_kpd_power < 11 }
+            }
+			has_idea = DDR_opposition_leadership
+		}
+		ai_will_do = { factor = 1 }
+		cost = 25
+		complete_effect = {
+            swap_ideas = { remove_idea = DDR_opposition_leadership add_idea = DDR_opposition_control }
+        }
+	}
+}
+
+DDR_reconstruction_germany = {
+
+    DDR_rebuild_rhineland = {
+		allowed = { tag = DDR }
+		icon = GFX_decision_generic_construction
+		fire_only_once = yes
+		visible = {
+		    
+		}
+		available = { 
+		    NOT = { has_country_flag = DDR_already_rebuilding }
+		}
+		ai_will_do = { factor = 1 }
+		cost = 60
+		complete_effect = {
+		    set_country_flag = DDR_already_rebuilding
+		}
+		modifier = {
+            consumer_goods_factor = 0.05
+			production_speed_buildings_factor = -0.2
+        }
+		days_remove = 90
+		remove_effect = {
+		    clr_country_flag = DDR_already_rebuilding
+			set_country_flag = DDR_rhineland_rebuilt
+            hidden_effect = {
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CG = -0.05
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CS = 0.05
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_EC = 0.05
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_FO = 0.05
+			    }
+			    force_update_dynamic_modifier = yes
+		    }
+			custom_effect_tooltip = DDR_rebuild_rhineland_tt
+        }
+	}
+	
+	DDR_rebuild_munich = {
+		allowed = { tag = DDR }
+		icon = GFX_decision_generic_construction
+		fire_only_once = yes
+		visible = {
+		    
+		}
+		available = { 
+		    NOT = { has_country_flag = DDR_already_rebuilding }
+		}
+		ai_will_do = { factor = 1 }
+		cost = 25
+		complete_effect = {
+		    set_country_flag = DDR_already_rebuilding
+		}
+		modifier = {
+            consumer_goods_factor = 0.05
+			production_speed_buildings_factor = -0.2
+        }
+		days_remove = 60
+		remove_effect = {
+		    clr_country_flag = DDR_already_rebuilding
+			set_country_flag = DDR_munich_rebuilt
+            hidden_effect = {
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CG = -0.04
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CS = 0.06
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_EC = 0.02
+			    }
+			    force_update_dynamic_modifier = yes
+		    }
+			custom_effect_tooltip = DDR_rebuild_munich_tt
+        }
+	}
+	
+	DDR_rebuild_saxony = {
+		allowed = { tag = DDR }
+		icon = GFX_decision_generic_construction
+		fire_only_once = yes
+		visible = {
+		    
+		}
+		available = { 
+		    NOT = { has_country_flag = DDR_already_rebuilding }
+		}
+		ai_will_do = { factor = 1 }
+		cost = 45
+		complete_effect = {
+		    set_country_flag = DDR_already_rebuilding
+		}
+		modifier = {
+            consumer_goods_factor = 0.05
+			production_speed_buildings_factor = -0.2
+        }
+		days_remove = 90
+		remove_effect = {
+		    clr_country_flag = DDR_already_rebuilding
+			set_country_flag = DDR_saxony_rebuilt
+            hidden_effect = {
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CG = -0.04
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CS = 0.06
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_EC = 0.03
+			    }
+				add_to_variable = {
+				    DDR_PostWarDestruction_FO = 0.03
+			    }
+			    force_update_dynamic_modifier = yes
+		    }
+			custom_effect_tooltip = DDR_rebuild_saxony_tt
+        }
+	}
+	
+	DDR_rebuild_hamburg = {
+		allowed = { tag = DDR }
+		icon = GFX_decision_generic_construction
+		fire_only_once = yes
+		visible = {
+		    
+		}
+		available = { 
+		    NOT = { has_country_flag = DDR_already_rebuilding }
+		}
+		ai_will_do = { factor = 1 }
+		cost = 25
+		complete_effect = {
+		    set_country_flag = DDR_already_rebuilding
+		}
+		modifier = {
+            consumer_goods_factor = 0.05
+			production_speed_buildings_factor = -0.2
+        }
+		days_remove = 50
+		remove_effect = {
+		    clr_country_flag = DDR_already_rebuilding
+			set_country_flag = DDR_hamburg_rebuilt
+            hidden_effect = {
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CG = -0.01
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CS = 0.05
+			    }
+				add_to_variable = {
+				    DDR_PostWarDestruction_DO = 0.05
+			    }
+			    force_update_dynamic_modifier = yes
+		    }
+			custom_effect_tooltip = DDR_rebuild_hamburg_tt
+        }
+	}
+	
+	DDR_rebuild_berlin = {
+		allowed = { tag = DDR }
+		icon = GFX_decision_generic_construction
+		fire_only_once = yes
+		visible = {
+		    
+		}
+		available = { 
+		    NOT = { has_country_flag = DDR_already_rebuilding }
+		}
+		ai_will_do = { factor = 1 }
+		cost = 20
+		complete_effect = {
+		    set_country_flag = DDR_already_rebuilding
+		}
+		modifier = {
+            consumer_goods_factor = 0.05
+			production_speed_buildings_factor = -0.2
+        }
+		days_remove = 50
+		remove_effect = {
+		    clr_country_flag = DDR_already_rebuilding
+			set_country_flag = DDR_berlin_rebuilt
+            hidden_effect = {
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CS = 0.05
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_EC = 0.05
+			    }
+			    force_update_dynamic_modifier = yes
+		    }
+			custom_effect_tooltip = DDR_rebuild_berlin_tt
+        }
+	}
+	
+	DDR_rebuild_frankfurt = {
+		allowed = { tag = DDR }
+		icon = GFX_decision_generic_construction
+		fire_only_once = yes
+		visible = {
+		    
+		}
+		available = { 
+		    NOT = { has_country_flag = DDR_already_rebuilding }
+		}
+		ai_will_do = { factor = 1 }
+		cost = 25
+		complete_effect = {
+		    set_country_flag = DDR_already_rebuilding
+		}
+		modifier = {
+            consumer_goods_factor = 0.05
+			production_speed_buildings_factor = -0.2
+        }
+		days_remove = 50
+		remove_effect = {
+		    clr_country_flag = DDR_already_rebuilding
+			set_country_flag = DDR_frankfurt_rebuilt
+            hidden_effect = {
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CG = -0.04
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CS = 0.02
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_EC = 0.03
+			    }
+				add_to_variable = {
+				    DDR_PostWarDestruction_FO = 0.02
+			    }
+			    force_update_dynamic_modifier = yes
+		    }
+			custom_effect_tooltip = DDR_rebuild_frankfurt_tt
+        }
+	}
+	
+	DDR_rebuild_hannover = {
+		allowed = { tag = DDR }
+		icon = GFX_decision_generic_construction
+		fire_only_once = yes
+		visible = {
+		    
+		}
+		available = { 
+		    NOT = { has_country_flag = DDR_already_rebuilding }
+		}
+		ai_will_do = { factor = 1 }
+		cost = 20
+		complete_effect = {
+		    set_country_flag = DDR_already_rebuilding
+		}
+		modifier = {
+            consumer_goods_factor = 0.05
+			production_speed_buildings_factor = -0.2
+        }
+		days_remove = 60
+		remove_effect = {
+		    clr_country_flag = DDR_already_rebuilding
+			set_country_flag = DDR_hannover_rebuilt
+            hidden_effect = {
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CG = -0.03
+			    }
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CS = 0.04
+			    }
+				add_to_variable = {
+				    DDR_PostWarDestruction_DO = 0.05
+			    }
+			    force_update_dynamic_modifier = yes
+		    }
+			custom_effect_tooltip = DDR_rebuild_hannover_tt
+        }
+	}
+	
+	DDR_create_staatsbank = {
+		allowed = { tag = DDR }
+		icon = GFX_decision_SOV_place_hq
+		fire_only_once = yes
+		visible = {
+		    
+		}
+		available = { 
+		    has_completed_focus = DDR_currency_reform
+		}
+		ai_will_do = { factor = 1 }
+		cost = 50
+		complete_effect = {
+		}
+		modifier = {
+            political_power_factor = -0.2
+        }
+		days_remove = 70
+		remove_effect = {
+		    set_country_flag = DDR_central_bank_created
+		    add_stability = 0.05
+            hidden_effect = {
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CG = -0.03
+			    }
+			    force_update_dynamic_modifier = yes
+		    }
+			custom_effect_tooltip = DDR_create_staatsbank_tt
+        }
+	}
+	
+	DDR_issue_new_mark = {
+		allowed = { tag = DDR }
+		icon = GFX_decision_hol_attract_foreign_investors
+		fire_only_once = yes
+		visible = {
+		    
+		}
+		available = { 
+		    #has_completed_focus = DDR_currency_reform
+			has_country_flag = DDR_central_bank_created
+		}
+		ai_will_do = { factor = 1 }
+		cost = 65
+		complete_effect = {
+		}
+		modifier = {
+            political_power_factor = -0.2
+        }
+		days_remove = 30
+		remove_effect = {
+		    add_stability = 0.05
+			set_country_flag = DDR_currency_issued
+            hidden_effect = {
+			    add_to_variable = {
+				    DDR_PostWarDestruction_CG = -0.03
+			    }
+			    force_update_dynamic_modifier = yes
+		    }
+			custom_effect_tooltip = DDR_create_staatsbank_tt
+        }
+	}
+	
+	DDR_one_year_plan_mission = {
+		priority = 2
+
+		icon = GFX_decision_generic_industry
+
+		is_good = yes
+
+		activation = {
+			always = no
+		}
+		allowed = {
+			tag = DDR
+		}
+		days_mission_timeout = 365
+
+		available = {
+			always = no
+		}
+		timeout_effect = {
+			custom_effect_tooltip = DDR_one_year_plan_mission_tt
+			if = { 
+			    limit = {
+				    has_country_flag = DDR_rhineland_rebuilt
+				}
+				51 = {
+				    add_extra_state_shared_building_slots = 1
+				    add_building_construction = {
+					    type = industrial_complex
+					    level = 1
+					    instant_build = yes
+				    }
+				}
+				745 = {
+				    add_extra_state_shared_building_slots = 1
+				    add_building_construction = {
+					    type = industrial_complex
+					    level = 1
+					    instant_build = yes
+				    }
+				}
+				42 = {
+				    add_extra_state_shared_building_slots = 1
+				    add_building_construction = {
+					    type = industrial_complex
+					    level = 1
+					    instant_build = yes
+				    }
+				}
+			}
+			if = { 
+			    limit = {
+				    has_country_flag = DDR_munich_rebuilt
+				}
+				52 = {
+				    add_extra_state_shared_building_slots = 1
+				    add_building_construction = {
+					    type = industrial_complex
+					    level = 1
+					    instant_build = yes
+				    }
+				}
+			}
+			
+			if = { 
+			    limit = {
+				    has_country_flag = DDR_saxony_rebuilt
+				}
+				65 = {
+				    add_extra_state_shared_building_slots = 1
+				    add_building_construction = {
+					    type = industrial_complex
+					    level = 1
+					    instant_build = yes
+				    }
+				}
+			}
+			
+			if = { 
+			    limit = {
+				    has_country_flag = DDR_berlin_rebuilt
+				}
+				64 = {
+				    add_extra_state_shared_building_slots = 1
+				    add_building_construction = {
+					    type = industrial_complex
+					    level = 1
+					    instant_build = yes
+				    }
+				}
+			}
+			
+			if = { 
+			    limit = {
+				    has_country_flag = DDR_hamburg_rebuilt
+				}
+				58 = {
+				    add_extra_state_shared_building_slots = 1
+				    add_building_construction = {
+					    type = industrial_complex
+					    level = 1
+					    instant_build = yes
+				    }
+				}
+			}
+			
+			if = { 
+			    limit = {
+				    has_country_flag = DDR_hannover_rebuilt
+				}
+				59 = {
+				    add_extra_state_shared_building_slots = 1
+				    add_building_construction = {
+					    type = industrial_complex
+					    level = 1
+					    instant_build = yes
+				    }
+				}
+			}
+			
+			if = { 
+			    limit = {
+				    has_country_flag = DDR_frankfurt_rebuilt
+				}
+				1176 = {
+				    add_extra_state_shared_building_slots = 1
+				    add_building_construction = {
+					    type = industrial_complex
+					    level = 1
+					    instant_build = yes
+				    }
+				}
+			}
+			
+			if = { 
+			    limit = {
+				    has_country_flag = DDR_currency_issued
+				}
+				add_offsite_building = { type = industrial_complex level = 1 }
+			}
+		}
+		complete_effect = {
+		}
+	}
+ 
+}	

@@ -1,0 +1,463 @@
+UKR_Get_USRP_Pop = {
+	set_variable = {
+		UKR_USRP_Pop = party_popularity@socialism
+	}
+	add_to_variable = {
+		UKR_USRP_Pop = party_popularity@social_democracy
+	}
+	add_to_variable = {
+		UKR_USRP_Pop = party_popularity@social_liberalism
+	}
+}
+UKR_Get_OUN_Pop = {
+	set_variable = {
+		UKR_OUN_Pop = party_popularity@nationalism
+	}
+	add_to_variable = {
+		UKR_OUN_Pop = party_popularity@fascism
+	}
+}
+UKR_add_influence_oun = {
+	if = {
+		limit = {
+			check_variable = {
+				UKR_oun_influence < 100
+			}
+		}
+		add_to_variable = {
+			UKR_oun_influence = UKR_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = UKR_oun_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = UKR_usrp_influence
+				check_variable = {
+					UKR_usrp_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = UKR_undo_influence
+				check_variable = {
+					UKR_undo_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				UKR_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				UKR_add_influence_value = 100
+			}
+			round_variable = UKR_add_influence_value
+			divide_variable = {
+				UKR_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = UKR_usrp_influence
+					check_variable = {
+						UKR_usrp_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					UKR_usrp_influence = UKR_add_influence_value
+				}
+				clamp_variable = {
+					var = UKR_usrp_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = UKR_undo_influence
+					check_variable = {
+						UKR_undo_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					UKR_undo_influence = UKR_add_influence_value
+				}
+				clamp_variable = {
+					var = UKR_undo_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			UKR_add_influence_value = 0
+		}
+		UKR_check_for_hundred = yes
+		UKR_Get_OUN_Pop = yes
+		UKR_Get_USRP_Pop = yes
+	}
+}
+UKR_add_influence_usrp = {
+	if = {
+		limit = {
+			check_variable = {
+				UKR_usrp_influence < 100
+			}
+		}
+		add_to_variable = {
+			UKR_usrp_influence = UKR_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = UKR_usrp_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = UKR_oun_influence
+				check_variable = {
+					UKR_oun_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = UKR_undo_influence
+				check_variable = {
+					UKR_undo_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				UKR_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				UKR_add_influence_value = 100
+			}
+			round_variable = UKR_add_influence_value
+			divide_variable = {
+				UKR_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = UKR_oun_influence
+					check_variable = {
+						UKR_oun_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					UKR_oun_influence = UKR_add_influence_value
+				}
+				clamp_variable = {
+					var = UKR_oun_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = UKR_undo_influence
+					check_variable = {
+						UKR_undo_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					UKR_undo_influence = UKR_add_influence_value
+				}
+				clamp_variable = {
+					var = UKR_undo_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			UKR_add_influence_value = 0
+		}
+		UKR_check_for_hundred = yes
+		UKR_Get_OUN_Pop = yes
+		UKR_Get_USRP_Pop = yes
+	}
+}
+UKR_add_influence_undo = {
+	if = {
+		limit = {
+			check_variable = {
+				UKR_undo_influence < 100
+			}
+		}
+		add_to_variable = {
+			UKR_undo_influence = UKR_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = UKR_undo_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = UKR_oun_influence
+				check_variable = {
+					UKR_oun_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = UKR_usrp_influence
+				check_variable = {
+					UKR_usrp_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				UKR_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				UKR_add_influence_value = 100
+			}
+			round_variable = UKR_add_influence_value
+			divide_variable = {
+				UKR_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = UKR_oun_influence
+					check_variable = {
+						UKR_oun_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					UKR_oun_influence = UKR_add_influence_value
+				}
+				clamp_variable = {
+					var = UKR_oun_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = UKR_usrp_influence
+					check_variable = {
+						UKR_usrp_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					UKR_usrp_influence = UKR_add_influence_value
+				}
+				clamp_variable = {
+					var = UKR_usrp_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			UKR_add_influence_value = 0
+		}
+		UKR_check_for_hundred = yes
+		UKR_Get_OUN_Pop = yes
+		UKR_Get_USRP_Pop = yes
+	}
+}
+UKR_Rally_Supporters = {
+	if = {
+		limit = {
+			has_country_flag = UKR_show_cos
+		}
+		UKR_Get_OUN_Pop = yes
+		set_variable = {
+			UKR_manpower_add = UKR_OUN_Pop
+		}
+		multiply_variable = {
+			UKR_manpower_add = 50000
+		}
+		add_manpower = UKR_manpower_add
+		set_variable = {
+			UKR_manpower_add = UKR_manpower_add
+		}
+		round_variable = UKR_manpower_add
+		set_variable = {
+			UKR_add_influence_value = 5
+		}
+		UKR_add_influence_oun = yes
+		UKR_Get_OUN_Pop = yes
+		UKR_Get_USRP_Pop = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = UKR_show_usrp
+		}
+		UKR_Get_USRP_Pop = yes
+		set_variable = {
+			UKR_manpower_add = UKR_USRP_Pop
+		}
+		multiply_variable = {
+			UKR_manpower_add = 50000
+		}
+		add_manpower = UKR_manpower_add
+		set_variable = {
+			UKR_manpower_add = UKR_manpower_add
+		}
+		round_variable = UKR_manpower_add
+		set_variable = {
+			UKR_add_influence_value = 5
+		}
+		UKR_add_influence_usrp = yes
+		UKR_Get_OUN_Pop = yes
+		UKR_Get_USRP_Pop = yes
+	}
+	else = {
+		set_variable = {
+			UKR_manpower_add = party_popularity@democratic
+		}
+		multiply_variable = {
+			UKR_manpower_add = 50000
+		}
+		add_manpower = UKR_manpower_add
+		set_variable = {
+			UKR_manpower_add = UKR_manpower_add
+		}
+		round_variable = UKR_manpower_add
+		set_variable = {
+			UKR_add_influence_value = 5
+		}
+		UKR_add_influence_undo = yes
+		UKR_Get_OUN_Pop = yes
+		UKR_Get_USRP_Pop = yes
+	}
+}
+UKR_check_for_hundred = {
+	set_variable = {
+		UKR_discrepency_check = 0
+	}
+	if = {
+		limit = {
+			has_variable = UKR_oun_influence
+		}
+		add_to_variable = {
+			UKR_discrepency_check = UKR_oun_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = UKR_usrp_influence
+		}
+		add_to_variable = {
+			UKR_discrepency_check = UKR_usrp_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = UKR_undo_influence
+		}
+		add_to_variable = {
+			UKR_discrepency_check = UKR_undo_influence
+		}
+	}
+	subtract_from_variable = {
+		UKR_discrepency_check = 100
+	}
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					UKR_discrepency_check = 0
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = UKR_show_oun
+			}
+			subtract_from_variable = {
+				UKR_oun_influence = UKR_discrepency_check
+			}
+			clamp_variable = {
+				var = UKR_oun_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = UKR_show_usrp
+			}
+			subtract_from_variable = {
+				UKR_usrp_influence = UKR_discrepency_check
+			}
+			clamp_variable = {
+				var = UKR_usrp_influence
+				min = 0
+				max = 100
+			}
+		}
+		else = {
+			subtract_from_variable = {
+				UKR_undo_influence = UKR_discrepency_check
+			}
+			clamp_variable = {
+				var = UKR_undo_influence
+				min = 0
+				max = 100
+			}
+		}
+	}
+	set_variable = {
+		UKR_discrepency_check = 0
+	}
+}

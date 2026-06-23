@@ -1,0 +1,688 @@
+scripted_gui = {
+	BLR_Faction_Button = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "BLR_faction_button_container"
+		visible = {
+            tag = BLR
+			#has_global_flag = Second_Russian_Civil_War
+		}
+		effects = {
+			faction_button_click = {
+				if = {
+					limit = {
+						has_country_flag = BLR_show_factions
+					}
+					clr_country_flag = BLR_show_factions
+				}
+				else = {
+					set_country_flag = BLR_show_factions
+					BLR_Get_Aut_Pop = yes
+					BLR_Get_Nat_Pop = yes
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = BLR_show_blr_nationalist
+							has_country_flag = BLR_show_autonomist
+							has_country_flag = BLR_show_triunionist
+						}
+					}
+					set_country_flag = BLR_show_bulak
+				}
+			}
+		}
+		ai_enabled = {
+			tag = BLR
+			has_global_flag = Second_Russian_Civil_War
+		}
+		ai_test_interval = 240
+		ai_test_variance = 0
+		ai_check = {
+			tag = BLR
+			has_political_power > 39.99
+			OR = {
+				NOT = {
+					has_idea = RUS_faction_influence_block
+					has_idea = RUS_rally_block
+				}
+			}
+		}
+		ai_weights = {
+			faction_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = {
+							has_idea = RUS_faction_influence_block
+							has_idea = RUS_rally_block
+						}
+						NOT = {
+							has_country_flag = BLR_AI_Faction_Open
+						}
+						add = 100
+					}
+				}
+			}
+		}
+	}
+}
+#faction_panel_container
+scripted_gui = {
+	BLR_faction_container = {
+		context_type = player_context
+		window_name = "BLR_faction_panel_container"
+		visible = {
+			has_country_flag = BLR_show_factions
+		}
+		triggers = {
+			triunionist_button_visible = {
+				has_variable = BLR_triunionist_influence
+			}
+			autonomist_button_visible = {
+				has_variable = BLR_autonomist_influence
+			}
+			BLR_nationalist_button_visible = {
+				has_variable = BLR_nationalist_influence
+			}
+			bulak_button_visible = {
+				has_variable = BLR_bulak_influence
+			}
+			#blr_nationalist
+			BLR_nationalist_portrait_visible = {
+				has_country_flag = BLR_show_blr_nationalist
+			}
+			BLR_Nationalist_Faction_Influence_visible = {
+				has_country_flag = BLR_show_blr_nationalist
+			}
+			BLR_Nationalist_Faction_Popularity_visible = {
+				has_country_flag = BLR_show_blr_nationalist
+			}
+			#bulak
+			BLR_bulak_portrait_visible = {
+				has_country_flag = BLR_show_bulak
+			}
+			BLR_Bulak_Faction_Influence_visible = {
+				has_country_flag = BLR_show_bulak
+			}
+			BLR_Bulak_Faction_Popularity_visible = {
+				has_country_flag = BLR_show_bulak
+			}
+			#Triunionist
+			BLR_triunionist_portrait_visible = {
+				has_country_flag = BLR_show_triunionist
+			}
+			BLR_Triunionist_Faction_Influence_visible = {
+				has_country_flag = BLR_show_triunionist
+			}
+			BLR_Triunionist_Faction_Popularity_visible = {
+				has_country_flag = BLR_show_triunionist
+			}
+			#Autonomist
+			BLR_autonomist_portrait_visible = {
+				has_country_flag = BLR_show_autonomist
+			}
+			BLR_Autonomist_Faction_Influence_visible = {
+				has_country_flag = BLR_show_autonomist
+			}
+			BLR_Autonomist_Faction_Popularity_visible = {
+				has_country_flag = BLR_show_autonomist
+			}
+			BLR_Increase_Pop_button_click_enabled = {
+				has_political_power > 29.99
+				OR = {
+					AND = {
+						has_country_flag = BLR_show_triunionist
+						check_variable = {
+							BLR_triunionist_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = BLR_show_blr_nationalist
+						check_variable = {
+							BLR_nationalist_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = BLR_show_bulak
+						check_variable = {
+							BLR_bulak_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = BLR_show_autonomist
+						check_variable = {
+							BLR_autonomist_influence < 100
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = RUS_every_90_days
+					NOT = {
+						has_idea = RUS_faction_influence_block
+					}
+				}
+			}
+			BLR_Decrease_Pop_button_click_enabled = {
+				has_political_power > 29.99
+				OR = {
+					AND = {
+						has_country_flag = BLR_show_triunionist
+						check_variable = {
+							BLR_triunionist_influence > 0
+						}
+					}
+					AND = {
+						has_country_flag = BLR_show_blr_nationalist
+						check_variable = {
+							BLR_nationalist_influence > 0
+						}
+					}
+					AND = {
+						has_country_flag = BLR_show_autonomist
+						check_variable = {
+							BLR_autonomist_influence > 0
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = BLR_every_90_days
+					NOT = {
+						has_idea = RUS_faction_influence_block
+					}
+				}
+			}
+			BLR_Rally_button_click_enabled = {
+				NOT = {
+					has_idea = RUS_rally_block
+				}
+				has_political_power > 49.99
+			}
+		}
+		effects = {
+			BLR_faction_container_close_button_click = {
+				clr_country_flag = BLR_show_factions
+			}
+			autonomist_button_click = {
+				clr_country_flag = BLR_show_bulak
+				clr_country_flag = BLR_show_blr_nationalist
+				clr_country_flag = BLR_show_triunionist
+				set_country_flag = BLR_show_autonomist
+			}
+			triunionist_button_click = {
+				clr_country_flag = BLR_show_bulak
+				clr_country_flag = BLR_show_blr_nationalist
+				set_country_flag = BLR_show_triunionist
+				clr_country_flag = BLR_show_autonomist
+			}
+			bulak_button_click = {
+				clr_country_flag = BLR_show_triunionist
+				clr_country_flag = BLR_show_blr_nationalist
+				set_country_flag = BLR_show_bulak
+				clr_country_flag = BLR_show_autonomist
+			}
+			BLR_nationalist_button_click = {
+				clr_country_flag = BLR_show_triunionist
+				clr_country_flag = BLR_show_bulak
+				set_country_flag = BLR_show_blr_nationalist
+				clr_country_flag = BLR_show_autonomist
+			}
+			BLR_Increase_Pop_button_click = {
+				add_political_power = -30
+				set_variable = {
+					BLR_add_influence_value = 3
+				}
+				if = {
+					limit = {
+						has_country_flag = BLR_show_triunionist
+					}
+					BLR_add_influence_triunionist = yes
+					add_popularity = {
+						ideology = monarchism
+						popularity = 0.03
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = BLR_show_bulak
+					}
+					BLR_add_influence_bulakovich = yes
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = democratic
+						popularity = 0.02
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = BLR_show_autonomist
+					}
+					BLR_add_influence_autonomist = yes
+					add_popularity = {
+						ideology = authoritarian_socialism
+						popularity = 0.01
+					}
+					add_popularity = {
+						ideology = socialism
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = 0.01
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = BLR_show_blr_nationalist
+					}
+					BLR_add_influence_nationalist = yes
+					add_popularity = {
+						ideology = nationalism
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = jacobin
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = fascism
+						popularity = 0.005
+					}
+				}
+				hidden_effect = {
+					add_timed_idea = {
+						idea = RUS_faction_influence_block
+						days = 90
+					}
+				}
+				BLR_Get_Aut_Pop = yes
+				BLR_Get_Nat_Pop = yes
+				set_country_flag = BLR_AI_Faction_Open
+			}
+			BLR_Decrease_Pop_button_click = {
+				add_political_power = -30
+				set_variable = {
+					BLR_add_influence_value = -3
+				}
+				if = {
+					limit = {
+						has_country_flag = BLR_show_triunionist
+					}
+					BLR_add_influence_triunionist = yes
+					add_popularity = {
+						ideology = monarchism
+						popularity = -0.03
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = BLR_show_bulak
+					}
+					BLR_add_influence_bulakovich = yes
+					add_popularity = {
+						ideology = neutrality
+						popularity = -0.02
+					}
+					add_popularity = {
+						ideology = democratic
+						popularity = -0.02
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = BLR_show_autonomist
+					}
+					BLR_add_influence_autonomist = yes
+					add_popularity = {
+						ideology = authoritarian_socialism
+						popularity = -0.01
+					}
+					add_popularity = {
+						ideology = socialism
+						popularity = -0.02
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = -0.02
+					}
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = -0.01
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = BLR_show_blr_nationalist
+					}
+					BLR_add_influence_nationalist = yes
+					add_popularity = {
+						ideology = nationalism
+						popularity = -0.02
+					}
+					add_popularity = {
+						ideology = jacobin
+						popularity = -0.02
+					}
+					add_popularity = {
+						ideology = fascism
+						popularity = -0.005
+					}
+				}
+				hidden_effect = {
+					add_timed_idea = {
+						idea = RUS_faction_influence_block
+						days = 90
+					}
+				}
+				BLR_Get_Aut_Pop = yes
+				
+				BLR_Get_Nat_Pop = yes
+				set_country_flag = BLR_AI_Faction_Open
+			}
+			BLR_Rally_button_click = {
+				add_political_power = -50
+				BLR_Rally_Supporters = yes
+				add_timed_idea = {
+					idea = RUS_rally_block
+					days = 150
+				}
+				set_country_flag = BLR_AI_Faction_Open
+			}
+		}
+		ai_enabled = {
+			tag = BLR
+			has_global_flag = Second_Russian_Civil_War
+		}
+		ai_test_interval = 120
+		ai_test_variance = 0
+		ai_check = {
+			tag = BLR
+			has_political_power > 39.99
+			OR = {
+				NOT = {
+					has_idea = RUS_faction_influence_block
+					has_idea = RUS_rally_block
+				}
+			}
+		}
+		ai_weights = {
+			BLR_faction_container_close_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						has_country_flag = BLR_AI_Faction_Open
+						add = 100
+					}
+				}
+			}
+			BLR_nationalist_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = BLR_AI_Nationalist_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									BLR_nationalist_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = BLR_AI_Nationalist_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									BLR_nationalist_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									BLR_Nat_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			bulak_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = BLR_AI_Bulak_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									BLR_bulak_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = BLR_AI_Bulak_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									BLR_bulak_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									party_popularity@neutrality > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			autonomist_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = BLR_AI_Autonomous_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									BLR_autonomist_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = BLR_AI_Autonomous_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									BLR_autonomist_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									BLR_Aut_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			triunionist_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = BLR_AI_Triunionist_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									BLR_triunionist_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = BLR_AI_Triunionist_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									BLR_triunionist_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									party_popularity@monarchism > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			BLR_Increase_Pop_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = BLR_show_blr_nationalist
+								has_country_flag = BLR_AI_Nationalist_Personality
+								check_variable = {
+									BLR_nationalist_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = BLR_show_bulak
+								has_country_flag = BLR_AI_Bulak_Personality
+								check_variable = {
+									BLR_bulak_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = BLR_show_triunionist
+								has_country_flag = BLR_AI_Triunionist_Personality
+								check_variable = {
+									BLR_triunionist_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = BLR_show_autonomist
+								has_country_flag = BLR_AI_Autonomist_Personality
+								check_variable = {
+									BLR_autonomist_influence < 100
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			BLR_Decrease_Pop_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = BLR_show_bulak
+								NOT = {
+									has_country_flag = BLR_AI_Bulak_Personality
+								}
+								check_variable = {
+									BLR_bulak_influence > 30
+								}
+							}
+							AND = {
+								has_country_flag = BLR_show_triunionist
+								NOT = {
+									has_country_flag = BLR_AI_Triunionist_Personality
+								}
+								check_variable = {
+									BLR_triunionist_influence > 30
+								}
+							}
+							AND = {
+								has_country_flag = BLR_show_autonomist
+								NOT = {
+									has_country_flag = BLR_AI_Autonomist_Personality
+								}
+								check_variable = {
+									BLR_autonomist_influence > 30
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			BLR_Rally_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = BLR_show_blr_nationalist
+								check_variable = {
+									BLR_Nat_Pop > 0.15
+								}
+							}
+							AND = {
+								has_country_flag = BLR_show_bulak
+								check_variable = {
+									party_popularity@neutrality > 0.15
+								}
+							}
+							AND = {
+								has_country_flag = BLR_show_autonomist
+								check_variable = {
+									BLR_Aut_Pop > 0.15
+								}
+							}
+							AND = {
+								has_country_flag = BLR_show_triunionist
+								check_variable = {
+									partypopularity@monarchism > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+		}
+	}
+}

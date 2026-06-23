@@ -1,0 +1,1459 @@
+SOV_Congress_Point_Malenkov = { #tries to clamp the variable towards the center
+	if = {
+		limit = {
+			check_variable = {
+				SOV_Congress_Points < 1
+			}
+		}
+		add_to_variable = {
+			SOV_Congress_Points = 1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				SOV_Congress_Points > 0
+			}
+		}
+		add_to_variable = {
+			SOV_Congress_Points = -1
+		}
+	}
+}
+SOV_Congress_Point_Zinoviev = { #shifts left
+	add_to_variable = {
+		SOV_Congress_Points = -1
+	}
+}
+SOV_Congress_Point_Bukharin = { #shifts right
+	add_to_variable = {
+		SOV_Congress_Points = 1
+	}
+}
+SOV_Congress_Finish = { #selects winner
+	custom_effect_tooltip = SOV_congress_over
+	if = {
+		limit = {
+			check_variable = {
+				SOV_Congress_Points > 3
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = sov_civil_war.22 #Bukharin
+				hours = 1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				SOV_Congress_Points < -3
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = sov_civil_war.21 #Zinoviev
+				hours = 1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				SOV_Congress_Points = 0
+			}
+			NOT = {
+				has_country_flag = SOV_Red_Army_Defects
+			}
+			has_country_flag = SOV_Zin_Available
+			NOT = {
+				has_country_flag = SOV_stop_bukharinists
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = sov_civil_war.23 #Army
+				days = 1
+			}
+		}	
+	}
+	else = {
+		hidden_effect = {
+			country_event = {
+				id = sov_civil_war.20 #malenkov
+				hours = 1
+			}
+		}
+	}
+}
+
+SOV_2rcw_collapse = { #Collapse of the USSR upon capitulation in the 2RCW
+	####################
+	###### Europe ######
+	####################
+
+	### Ukraine ###
+	if = {
+		limit = {
+			UKR = { has_war_with = RUS }
+		}
+		UKR = {
+			every_controlled_state = {
+				limit = {
+					NOT = { is_owned_by = UKR }
+					OR = {
+						region = 224
+						region = 130
+						state = 240
+						state = 220
+						state = 260
+						state = 218
+						state = 234
+						state = 556
+						state = 233
+					}
+				}
+				transfer_state_to = UKR
+				if = {
+					limit = {
+						NOT = { is_core_of = UKR }
+					}
+					add_core_of = UKR
+				}
+			}
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				NOT = {
+					RUS = { controls_state = 1059 }
+				}
+			}
+			1059 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				NOT = {
+					RUS = { controls_state = 259 }
+				}
+			}
+			259 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 193
+					owns_state = 1059
+				}
+			}
+			193 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 225
+					owns_state = 193
+					owns_state = 259
+				}
+			}
+			225 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				NOT = {
+					RUS = { controls_state = 1071 }
+				}
+			}
+			1071 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 221
+					owns_state = 1071
+					owns_state = 259
+				}
+			}
+			221 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 240
+					owns_state = 221
+				}
+			}
+			240 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 220
+					owns_state = 240
+					owns_state = 225
+				}
+			}
+			220 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				NOT = {
+					RUS = { controls_state = 200 }
+				}
+			}
+			200 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				NOT = {
+					RUS = { controls_state = 196 }
+				}
+			}
+			196 = { transfer_state_to = UKR }
+
+			else_if = {
+				limit = {
+					UKR = { controls_state = 200 }
+					NOT = {
+						RUS = { has_war_with = UKR }
+					}
+				}
+				196 = { transfer_state_to = UKR }
+			}
+			else = {
+				196 = { transfer_state_to = RUS }
+			}
+		}
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 227
+					OR = {
+						owns_state = 200
+						AND = {
+							owns_state = 1071
+							owns_state = 221
+						}
+					}
+				}
+			}
+			227 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 228
+					owns_state = 227
+				}
+			}
+			228 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 260
+					owns_state = 240
+				}
+			}
+			260 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 218
+					OR = {
+						owns_state = 227
+						owns_state = 228
+					}
+				}
+			}
+			218 = { transfer_state_to = UKR }
+		}
+
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 234
+				}
+			}
+			234 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 556
+					owns_state = 234
+				}
+			}
+			556 = { transfer_state_to = UKR }
+		}
+		if = {
+			limit = {
+				UKR = {
+					controls_state = 233
+					owns_state = 556
+				}
+			}
+			233 = { transfer_state_to = UKR }
+		}
+	}
+
+	if = {
+		limit = {
+			has_war_with = UKR
+		}
+		white_peace = {
+			tag = UKR
+			message = SOV_Collapse_2rcw_Message
+		}
+	}
+
+	### Crimea ###
+
+	if = {
+		limit = {
+			CRI = {
+				exists = yes
+				has_capitulated = no
+				controls_state = 137
+			}
+		}
+		137 = { transfer_state_to = CRI }
+
+		else_if = {
+			limit = {
+				UKR = { controls_state = 137 }
+			}
+			137 = { transfer_state_to = UKR }
+		}
+	}
+	if = {
+		limit = {
+			CRI = {
+				exists = yes
+				has_capitulated = no
+				controls_state = 1072
+			}
+		}
+		1072 = { transfer_state_to = CRI }
+
+		else_if = {
+			limit = {
+				UKR = { controls_state = 1072 }
+			}
+			1072 = { transfer_state_to = UKR }
+		}
+	}
+
+	if = {
+		limit = {
+			has_war_with = CRI
+		}
+		white_peace = {
+			tag = CRI
+			message = SOV_Collapse_2rcw_Message
+		}
+	}
+
+	### Belarus ###
+
+	if = {
+		limit = {
+			BLR = {
+				exists = yes
+				has_capitulated = no
+			}
+		}
+		207 = { transfer_state_to = BLR }
+		204 = { transfer_state_to = BLR }
+	}
+
+	if = {
+		limit = {
+			194 = {
+				is_controlled_by = UKR
+			}
+		}
+		194 = { transfer_state_to = UKR }
+
+		else_if = {
+			limit = {
+				BLR = {
+					exists = yes
+					has_capitulated = no
+				}
+			}
+			194 = { transfer_state_to = BLR }
+		}
+	}
+
+	if = {
+		limit = {
+			241 = {
+				is_controlled_by = BLR
+			}
+		}
+		241 = { transfer_state_to = BLR }
+	}
+
+	if = {
+		limit = {
+			has_war_with = BLR
+		}
+		white_peace = {
+			tag = BLR
+			message = SOV_Collapse_2rcw_Message
+		}
+	}
+
+	##########################
+	###### Central Asia ######
+	##########################
+
+	if = {
+		limit = {
+			UZB = {
+				exists = yes
+				has_capitulated = no
+			}
+		}
+
+		if = {
+			limit = {
+				405 = {
+					NOT = {
+						is_controlled_by = RUS
+						is_controlled_by = RFP
+					}
+				}
+			}
+			405 = { transfer_state_to = UZB }
+		}
+		if = {
+			limit = {
+				1232 = {
+					NOT = {
+						is_controlled_by = RUS
+						is_controlled_by = RFP
+					}
+				}
+			}
+			1232 = { transfer_state_to = UZB }
+		}
+		if = {
+			limit = {
+				1233 = {
+					NOT = {
+						is_controlled_by = RUS
+						is_controlled_by = RFP
+					}
+				}
+			}
+			1233 = { transfer_state_to = UZB }
+		}
+		if = {
+			limit = {
+				584 = {
+					NOT = {
+						is_controlled_by = RUS
+						is_controlled_by = RFP
+					}
+				}
+			}
+			584 = { transfer_state_to = UZB }
+		}
+		if = {
+			limit = {
+				406 = {
+					NOT = {
+						is_controlled_by = RUS
+						is_controlled_by = RFP
+					}
+				}
+			}
+			406 = { transfer_state_to = UZB }
+		}
+		if = {
+			limit = {
+				732 = {
+					NOT = {
+						is_controlled_by = RUS
+						is_controlled_by = RFP
+					}
+				}
+			}
+			732 = { transfer_state_to = UZB }
+		}
+		if = {
+			limit = {
+				585 = {
+					NOT = {
+						is_controlled_by = RUS
+						is_controlled_by = RFP
+					}
+				}
+				1233 = { is_controlled_by = UZB }
+			}
+			585 = { transfer_state_to = UZB }
+		}
+		if = {
+			limit = {
+				587 = {
+					NOT = {
+						is_controlled_by = RUS
+						is_controlled_by = RFP
+					}
+				}
+				585 = { is_controlled_by = UZB }
+			}
+			587 = { transfer_state_to = UZB }
+		}
+
+		#
+		if = {
+			limit = {
+				UZB = {
+					OR = {
+						controls_state = 405
+						controls_state = 1233
+					}
+				}
+				586 = {
+					NOT = {
+						is_controlled_by = RUS
+						is_controlled_by = RFP
+					}
+				}
+			}
+			586 = { transfer_state_to = UZB }
+		}
+
+		if = {
+			limit = {
+				UZB = {
+					owns_state = 586 #if state 586 has been transfered
+					controls_state = 402
+				}
+			}
+			402 = { transfer_state_to = UZB }
+		}
+		if = {
+			limit = {
+				UZB = {
+					owns_state = 402 #if state 402 has been transfered
+					controls_state = 407
+				}
+			}
+			407 = { transfer_state_to = UZB }
+		}
+
+		if = {
+			limit = {
+				UZB = {
+					owns_state = 586 #if state 586 has been transfered
+					controls_state = 589
+				}
+			}
+			589 = { transfer_state_to = UZB } #Transfers both states
+			404 = { transfer_state_to = UZB }
+		}
+
+		if = {
+			limit = {
+				UZB = {
+					owns_state = 589 #if state 589 has been transfered
+					controls_state = 590
+				}
+			}
+			590 = { transfer_state_to = UZB } #the three states go in a bundle
+			588 = { transfer_state_to = UZB }
+			583 = { transfer_state_to = UZB }
+		}
+
+		white_peace = {
+			tag = UZB
+			message = SOV_Collapse_2rcw_Message
+		}
+	}
+
+	#The rest of states in the region are given to RUS and/or RFP 
+	#RFP gets the states they control in the region, if they do
+	#RUS gets the rest
+	#If UZB capitulated and stopped existing before the peace, the Rusian tags get all states in the region
+	every_owned_state = {
+		limit = {
+			OR = {
+				region = 136
+				region = 237
+			}
+		}
+		if = {
+			limit = { is_controlled_by = RFP }
+			transfer_state_to = RFP
+		}
+		else = {
+			transfer_state_to = RUS
+		}
+	}
+
+	####################
+	##### Caucasus #####
+	####################
+	if = { #Kizlyar
+		limit = {
+			831 = { is_controlled_by = CHC }
+		}
+		831 = { transfer_state_to = CHC }
+
+		else_if = {
+			limit = {
+				831 = { is_controlled_by = DAG }
+				CHC = {
+					exists = yes
+					is_in_faction_with = DAG
+				}
+			}
+			831 = { transfer_state_to = CHC }
+		}
+		else_if = {
+			limit = {
+				831 = { is_controlled_by = DAG }
+				CHC = {
+					OR = {
+						exists = no
+						NOT = { is_in_faction_with = DAG }
+					}
+				}
+			}
+			831 = { transfer_state_to = DAG }
+		}
+		else = {
+			831 = { transfer_state_to = RUS }
+		}
+	}
+	if = { #North Ossetia
+		limit = {
+			772 = { is_controlled_by = CHC }
+		}
+		772 = { transfer_state_to = CHC }
+
+		else_if = {
+			limit = {
+				772 = { is_controlled_by = DAG }
+				CHC = {
+					exists = yes
+					is_in_faction_with = DAG
+				}
+			}
+			772 = { transfer_state_to = CHC }
+		}
+		else_if = {
+			limit = {
+				772 = { is_controlled_by = DAG }
+				CHC = {
+					OR = {
+						exists = no
+						NOT = { is_in_faction_with = DAG }
+					}
+				}
+			}
+			772 = { transfer_state_to = DAG }
+		}
+		else = {
+			772 = { transfer_state_to = RUS }
+		}
+	}
+	if = { #Kabardino-Balkaria
+		limit = {
+			933 = { is_controlled_by = CHC }
+		}
+		933 = { transfer_state_to = CHC }
+
+		else_if = {
+			limit = {
+				933 = { is_controlled_by = DAG }
+				CHC = {
+					exists = yes
+					is_in_faction_with = DAG
+				}
+			}
+			933 = { transfer_state_to = CHC }
+		}
+		else_if = {
+			limit = {
+				933 = { is_controlled_by = DAG }
+				CHC = {
+					OR = {
+						exists = no
+						NOT = { is_in_faction_with = DAG }
+					}
+				}
+			}
+			933 = { transfer_state_to = DAG }
+		}
+		else = {
+			933 = { transfer_state_to = RUS }
+		}
+	}
+	if = { #Karachai-Cherkessia
+		limit = {
+			945 = { is_controlled_by = CHC }
+		}
+		945 = { transfer_state_to = CHC }
+
+		else_if = {
+			limit = {
+				945 = { is_controlled_by = DAG }
+				CHC = {
+					exists = yes
+					is_in_faction_with = DAG
+				}
+			}
+			945 = { transfer_state_to = CHC }
+		}
+		else_if = {
+			limit = {
+				945 = { is_controlled_by = DAG }
+				CHC = {
+					OR = {
+						exists = no
+						NOT = { is_in_faction_with = DAG }
+					}
+				}
+			}
+			945 = { transfer_state_to = DAG }
+		}
+		else = {
+			945 = { transfer_state_to = RUS }
+		}
+	}
+	if = {
+		limit = {
+			1075 = { is_controlled_by = RUS }
+			RUS = { has_war_with = GEO }
+		}
+		1075 = { transfer_state_to = RUS }
+
+		else = {
+			1075 = { transfer_state_to = GEO }
+		}
+	}
+	if = {
+		limit = {
+			819 = { is_controlled_by = GEO }
+			NOT = {
+				1075 = { is_controlled_by = RUS }
+			}
+		}
+		819 = { transfer_state_to = GEO }
+		
+		else = {
+			1075 = { transfer_state_to = RUS }
+		}
+	}
+	if = {
+		limit = {
+			899 = { is_controlled_by = GEO }
+			819 = { is_controlled_by = GEO }
+			NOT = {
+				1075 = { is_controlled_by = RUS }
+			}
+		}
+		899 = { transfer_state_to = GEO }
+
+		else = {
+			899 = { transfer_state_to = RUS }
+		}
+	}
+	if = {
+		limit = {
+			1074 = { is_controlled_by = RUS }
+			772 = { is_controlled_by = RUS }
+		}
+		1074 = { transfer_state_to = RUS }
+
+		else_if = {
+			limit = {
+				772 = {
+					OR  = {
+						is_controlled_by = CHC
+						is_controlled_by = DAG
+					}
+				}
+				1074 = {
+					OR  = {
+						is_controlled_by = CHC
+						is_controlled_by = DAG
+					}
+				}
+			}
+			1080 =  {
+				owner = {
+					transfer_state = 1074
+				}
+			}
+		}
+		else = {
+			1074 = { transfer_state_to = GEO }
+		}
+	}
+	if = {
+		limit = {
+			967 = { is_controlled_by = GEO }
+		}
+		967 = { transfer_state_to = GEO }
+
+		else_if = {
+			limit = {
+				AZR = { owns_state = 229 }
+			}
+			967 = { transfer_state_to = AZR }
+		}
+		else = {
+			967 = { transfer_state_to = AZR }
+		}
+	}
+	if = {
+		limit = {
+			1231 = { is_controlled_by = GEO }
+		}
+		1231 = { transfer_state_to = GEO }
+
+		else_if = {
+			limit = {
+				ARM = { owns_state = 230 }
+			}
+			1231 = { transfer_state_to = ARM }
+		}
+		else = {
+			1231 = { transfer_state_to = GEO }
+		}
+	}
+
+	1078 = { transfer_state_to = AZR }
+
+	if = { #Nakhchivan
+		limit = {
+			NOT = {
+				1076 = { is_controlled_by = AZR }
+			}
+		}
+		1076 = { transfer_state_to = ARM }
+
+		else = {
+			1076 = { transfer_state_to = AZR }
+		}
+	}
+	if = { #Zangezur
+		limit = {
+			NOT = {
+				1077 = { is_controlled_by = AZR }
+			}
+		}
+		1077 = { transfer_state_to = ARM }
+
+		else = {
+			1077 = { transfer_state_to = AZR }
+		}
+	}
+	if = { #Nagorno-Karabakh
+		limit = {
+			NOT = {
+				1079 = { is_controlled_by = AZR }
+			}
+		}
+		1079 = { transfer_state_to = ARM }
+
+		else = {
+			1079 = { transfer_state_to = AZR }
+		}
+	}
+
+	if = {
+		limit = {
+			has_war_with = GEO
+		}
+		white_peace = {
+			tag = GEO
+			message = SOV_Collapse_2rcw_Message
+		}
+	}
+	if = {
+		limit = {
+			has_war_with = ARM
+		}
+		white_peace = {
+			tag = ARM
+			message = SOV_Collapse_2rcw_Message
+		}
+	}
+	if = {
+		limit = {
+			has_war_with = AZR
+		}
+		white_peace = {
+			tag = AZR
+			message = SOV_Collapse_2rcw_Message
+		}
+	}
+	if = {
+		limit = {
+			has_war_with = DAG
+		}
+		white_peace = {
+			tag = DAG
+			message = SOV_Collapse_2rcw_Message
+		}
+	}
+	if = {
+		limit = {
+			has_war_with = CHC
+		}
+		white_peace = {
+			tag = CHC
+			message = SOV_Collapse_2rcw_Message
+		}
+	}
+}
+
+SOV_collapse_into_rus = {
+	if = {
+		limit = {
+			country_exists = RUS
+		}
+		#TODO: transfer Characters (generals specially)
+		#TODO: get rid of ideas
+		if = {
+			limit = {
+				FER = { is_in_faction_with = RUS }
+			}
+			FER = {
+				transfer_units_fraction = {
+					target = RUS
+					size = 1.0
+					stockpile_ratio = 1.0
+					army_ratio = 1.0
+					navy_ratio = 1.0
+					air_ratio = 1.0
+					keep_unit_leaders_trigger = {
+						always = no
+					}
+				}
+			}
+			RUS = {
+				annex_country = {
+					target = FER
+					transfer_troops = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				SBR = { is_in_faction_with = RUS }
+			}
+			SBR = {
+				transfer_units_fraction = {
+					target = RUS
+					size = 1.0
+					stockpile_ratio = 1.0
+					army_ratio = 1.0
+					navy_ratio = 1.0
+					air_ratio = 1.0
+					keep_unit_leaders_trigger = {
+						always = no
+					}
+				}
+			}
+			RUS = {
+				annex_country = {
+					target = SBR
+					transfer_troops = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				MOS = { is_in_faction_with = RUS }
+			}
+			MOS = {
+				transfer_units_fraction = {
+					target = RUS
+					size = 1.0
+					stockpile_ratio = 1.0
+					army_ratio = 1.0
+					navy_ratio = 1.0
+					air_ratio = 1.0
+					keep_unit_leaders_trigger = {
+						always = no
+					}
+				}
+			}
+			RUS = {
+				annex_country = {
+					target = MOS
+					transfer_troops = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				RFP = { is_in_faction_with = RUS }
+			}
+			RFP = {
+				transfer_units_fraction = {
+					target = RUS
+					size = 1.0
+					stockpile_ratio = 1.0
+					army_ratio = 1.0
+					navy_ratio = 1.0
+					air_ratio = 1.0
+					keep_unit_leaders_trigger = {
+						always = no
+					}
+				}
+			}
+			RUS = {
+				annex_country = {
+					target = RFP
+					transfer_troops = yes
+				}
+			}
+		}
+		#TODO: retire soviet generals. Retire communist politicians. Set leader for RUS communism party from soviet characters (the ones who escape imprisionment)
+		RUS = {
+			dismantle_faction = yes
+			remove_ideas = {
+				RUS_civil_war
+				#more
+			}
+			annex_country = {
+				target = SOV
+			}
+		}
+	}
+	else_if = { #TODO
+		limit = {
+			country_exists = RFP
+			NOT = {
+				country_exists = RUS
+			}
+		}
+		every_country = {
+			limit = {
+				OR = {
+					tag = FER
+					tag = SBR
+					tag = MOS
+				}
+				is_in_faction_with = RFP
+			}
+			RFP = {
+				annex_country = {
+					target = PREV
+					transfer_troops = yes
+				}
+			}
+		}
+		RFP = {
+			annex_country = {
+				target = SOV
+			}
+		}
+		every_state = {
+			limit = {
+				is_owned_by = RFP
+			}
+			add_core_of = RFP
+		}
+	}
+	else = { #TODO
+		if = {
+			limit = {
+				country_exists = FER
+			}
+			every_country = {
+				limit = {
+					OR = {
+						tag = SBR
+						tag = MOS
+					}
+					is_in_faction_with = FER
+				}
+				FER = {
+					annex_country = {
+						target = PREV
+						transfer_troops = yes
+					}
+					set_cosmetic_tag = RUS
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				country_exists = SBR
+			}
+			every_country = {
+				limit = {
+					OR = {
+						tag = FER
+						tag = MOS
+					}
+					is_in_faction_with = SBR
+				}
+				SBR = {
+					annex_country = {
+						target = PREV
+						transfer_troops = yes
+					}
+					set_cosmetic_tag = RUS
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				country_exists = MOS
+			}
+			every_country = {
+				limit = {
+					OR = {
+						tag = FER
+						tag = SBR
+					}
+					is_in_faction_with = MOS
+				}
+				MOS = {
+					annex_country = {
+						target = PREV
+						transfer_troops = yes
+					}
+					set_cosmetic_tag = RUS
+				}
+			}
+		}
+	}
+
+	clr_global_flag = Russian_Civil_War
+	clr_global_flag = Second_Russian_Civil_War
+}
+
+SOV_set_purge_idea = {
+	divide_variable = {
+		var = SOV_purge_count
+		value = 3.4
+	}
+	round_variable = SOV_purge_count
+	if = {
+		limit = {
+			check_variable = { SOV_purge_count = 10 }
+		}
+		add_ideas = SOV_purged_10
+	}
+	else_if = {
+		limit = {
+			check_variable = { SOV_purge_count = 9 }
+		}
+		add_ideas = SOV_purged_9
+	}
+	else_if = {
+		limit = {
+			check_variable = { SOV_purge_count = 8 }
+		}
+		add_ideas = SOV_purged_8
+	}
+	else_if = {
+		limit = {
+			check_variable = { SOV_purge_count = 7 }
+		}
+		add_ideas = SOV_purged_7
+	}
+	else_if = {
+		limit = {
+			check_variable = { SOV_purge_count = 6 }
+		}
+		add_ideas = SOV_purged_6
+	}
+	else_if = {
+		limit = {
+			check_variable = { SOV_purge_count = 5 }
+		}
+		add_ideas = SOV_purged_5
+	}
+	else_if = {
+		limit = {
+			check_variable = { SOV_purge_count = 4 }
+		}
+		add_ideas = SOV_purged_4
+	}
+	else_if = {
+		limit = {
+			check_variable = { SOV_purge_count = 3 }
+		}
+		add_ideas = SOV_purged_3
+	}
+	else_if = {
+		limit = {
+			check_variable = { SOV_purge_count = 2 }
+		}
+		add_ideas = SOV_purged_2
+	}
+	else_if = {
+		limit = {
+			check_variable = { SOV_purge_count = 1 }
+		}
+		add_ideas = SOV_purged_1
+	}
+}
+SOV_figure_out_2rcw = {
+	if = {
+		limit = {
+			OR = {
+				is_historical_focus_on = yes
+				has_game_rule = {
+					rule = SOV_2rcw_enabled
+					option = SOV_2RCW_DISABLED
+				}
+			}
+		}
+		log = "Disabled 2rcw: Either hist focuses are on or disabled through game rules" #No 2rcw
+	}
+	else_if = {
+		limit = {
+			has_game_rule = {
+				rule = SOV_2rcw_enabled
+				option = SOV_2RCW_DEFAULT
+			}
+		}
+		random_list = {
+			15 = {
+				set_country_flag = SOV_enable_2rcw
+				log = "15% chance of 2rcw: YES"
+			}
+			85 = {
+				log = "15% chance of 2rcw: NO"
+			}
+		}
+	}
+	else = {
+		set_country_flag = SOV_enable_2rcw
+		log = "Enabled 2RCW because of game rule"
+	}
+}
+
+# cancel_soviet_polish_border_wars_on_polish_capitulation = {
+# 	if = {
+# 		limit = {
+# 			has_border_war_between = {
+# 				attacker = 206
+# 				defender = 95
+# 			}
+# 		}
+# 		finalize_border_war = {
+# 			attacker_win = yes
+# 			attacker = 206
+# 			defender = 95
+# 		}
+# 		if = {
+# 			limit = {
+# 				NOT = {
+# 					SOV = { owns_state = 1068 }
+# 				}
+# 			}
+# 			SOV = {
+# 				set_state_owner = 1068
+# 			}
+# 		}
+# 	}
+# 	if = {
+# 		limit = {
+# 			has_border_war_between = {
+# 				attacker = 207
+# 				defender = 749
+# 			}
+# 		}
+# 		finalize_border_war = {
+# 			attacker_win = yes
+# 			attacker = 207
+# 			defender = 749
+# 		}
+# 	}
+# 	if = {
+# 		limit = {
+# 			has_border_war_between = {
+# 				attacker = 95
+# 				defender = 96
+# 			}
+# 		}
+# 		finalize_border_war = {
+# 			attacker_win = yes
+# 			attacker = 95
+# 			defender = 96
+# 		}
+# 	}
+# 	if = {
+# 		limit = {
+# 			has_border_war_between = {
+# 				attacker = 199
+# 				defender = 91
+# 			}
+# 		}
+# 		finalize_border_war = {
+# 			attacker_win = yes
+# 			attacker = 199
+# 			defender = 91
+# 		}
+# 	}
+# 	if = {
+# 		limit = {
+# 			has_border_war_between = {
+# 				attacker = 91
+# 				defender = 93
+# 			}
+# 		}
+# 		finalize_border_war = {
+# 			attacker_win = yes
+# 			attacker = 91
+# 			defender = 93
+# 		}
+# 		if = {
+# 			limit = {
+# 				NOT = {
+# 					SOV = { owns_state = 1068 }
+# 				}
+# 			}
+# 			SOV = {
+# 				set_state_owner = 1068
+# 			}
+# 		}
+# 	}
+# 	if = {
+# 		limit = {
+# 			has_border_war_between = {
+# 				attacker = 91
+# 				defender = 89
+# 			}
+# 		}
+# 		finalize_border_war = {
+# 			attacker_win = yes
+# 			attacker = 91
+# 			defender = 89
+# 		}
+# 	}
+# }
+
+activate_soviet_invasion_of_poland = {
+	#State 249
+	if = {
+		limit = {
+			POL = { controls_state = 749 }
+		}
+		start_border_war = {
+			change_state_after_war = no
+			combat_width = 80
+			
+			attacker = {
+				state = 207
+				num_provinces = 3
+				on_win = sov_test.5
+				on_lose = sov_test.13
+				#on_cancel = 
+				#leader_score = {
+				#	base = 1
+				#	modifier = {
+				#		check_variable = { likes_border_wars = 1 }
+				#		add = 2
+				#	}
+				#}
+				modifier = 1.6
+				##dig_in_factor = -0.1 
+				#terrain_factor = 0.5
+			}
+			
+			defender = {
+				state = 749
+				num_provinces = 2
+				#on_win =
+				#on_lose = 
+				#on_cancel = 
+				modifier = -0.9
+			}
+		}
+	}
+
+	#State 95
+	if = {
+		limit = {
+			POL = { controls_state = 95 }
+		}
+		start_border_war = {
+			change_state_after_war = no
+			combat_width = 80
+			
+			attacker = {
+				state = 206
+				num_provinces = 3
+				on_win = sov_test.7
+				on_lose = sov_test.14
+				#on_cancel = 
+				#leader_score = {
+				#	base = 1
+				#	modifier = {
+				#		check_variable = { likes_border_wars = 1 }
+				#		add = 2
+				#	}
+				#}
+				modifier = 1.8
+				##dig_in_factor = -0.1 
+				#terrain_factor = 0.9
+			}
+			
+			defender = {
+				state = 95
+				num_provinces = 3
+				#on_win =
+				#on_lose = 
+				#on_cancel = 
+				modifier = -0.9
+			}
+		}
+	}
+
+	#State 91
+	if = {
+		limit = {
+			POL = { controls_state = 91 }
+		}
+		start_border_war = {
+			change_state_after_war = no
+			combat_width = 80
+			
+			attacker = {
+				state = 199
+				num_provinces = 3
+				on_win = sov_test.8
+				on_lose = sov_test.15
+				#on_cancel = 
+				#leader_score = {
+				#	base = 1
+				#	modifier = {
+				#		check_variable = { likes_border_wars = 1 }
+				#		add = 2
+				#	}
+				#}
+				modifier = 1.6
+				##dig_in_factor = -0.1 
+				#terrain_factor = 0.9
+			}
+			
+			defender = {
+				state = 91
+				num_provinces = 2
+				#on_win =
+				#on_lose = 
+				#on_cancel = 
+				modifier = -0.9
+			}
+		}
+	}
+}

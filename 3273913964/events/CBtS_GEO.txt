@@ -1,0 +1,553 @@
+﻿###########################
+# Belarus Events
+###########################
+
+add_namespace = geo_internal
+add_namespace = geo_elections
+add_namespace = geo_external
+add_namespace = geo_civil_war #handles path changes and revolts. Other things go in internal
+add_namespace = geo_flavor
+add_namespace = geo_test
+add_namespace = geo_ai
+
+country_event = { #Intro, SOV declares war
+	id = geo_civil_war.1
+	title = geo_civil_war.1.t
+	desc = geo_civil_war.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			RUS = {
+				country_event = {
+					id = rus_civil_war.39 #informed of thing
+					days = 1
+				}
+			}
+			country_event = {
+				id = geo_civil_war.2 #Traditionalists come back
+				days = 21
+			}
+			random_list = {
+				67 = {
+					set_country_flag = GEO_AI_Menshevik_personality
+				}
+				33 = {
+					set_country_flag = GEO_AI_Traditionalist_personality
+				}
+			}
+		}
+	}
+	option = {
+		name = geo_civil_war.1.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Traditionalists
+	id = geo_civil_war.2
+	title = geo_civil_war.2.t
+	desc = geo_civil_war.2.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = geo_civil_war.3 #soclibs come back
+				days = 9
+			}
+		}
+	}
+	option = {
+		name = geo_civil_war.2.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			GEO_traditionalist_influence = 0
+		}
+		set_variable = {
+			GEO_add_influence_value = 30
+		}
+		GEO_add_influence_traditionalist = yes
+		custom_effect_tooltip = GEO_trad_gain_30
+		COALITION_add_con = yes
+		COALITION_add_aut = yes
+		COALITION_add_mon = yes
+		COALITION_add_nat = yes
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.02
+		}
+		add_political_power = 40
+		add_stability = 0.04
+		add_war_support = 0.08
+	}
+}
+country_event = { #Soclibs
+	id = geo_civil_war.3
+	title = geo_civil_war.3.t
+	desc = geo_civil_war.3.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = geo_civil_war.4 #libcons come back
+				days = 4
+			}
+		}
+	}
+	option = {
+		name = geo_civil_war.3.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			GEO_add_influence_value = 3
+		}
+		GEO_add_influence_menshevik = yes
+		custom_effect_tooltip = GEO_men_gain_3
+		COALITION_add_soclib = yes
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.03
+		}
+		set_country_flag = GEO_soclibs_returned
+	}
+}
+country_event = { #Libcons
+	id = geo_civil_war.4
+	title = geo_civil_war.4.t
+	desc = geo_civil_war.4.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = {
+		name = geo_civil_war.4.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			GEO_add_influence_value = 3
+		}
+		GEO_add_influence_traditionalist = yes
+		custom_effect_tooltip = GEO_trad_gain_3
+		COALITION_add_cen = yes
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.03
+		}
+		set_country_flag = GEO_libcons_returned
+	}
+}
+country_event = { #Negotiation with Nationalists - Success
+	id = geo_internal.1
+	title = geo_internal.1.t
+	desc = geo_internal.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = {
+		name = geo_internal.1.a
+		if = {
+			limit = {
+				has_idea = GEO_uncooperative_minorities
+			}
+			swap_ideas = {
+				remove_idea = GEO_uncooperative_minorities
+				add_idea = GEO_uncooperative_minorities2
+			}
+		}
+		else = {
+			remove_ideas = GEO_uncooperative_minorities
+		}
+		set_variable = {
+			GEO_add_influence_value = 4
+		}
+		GEO_add_influence_menshevik = yes
+		custom_effect_tooltip = GEO_men_gain_4
+		ai_chance = {
+			base = 100
+		}
+	}
+	option = {
+		name = geo_internal.1.b
+		add_political_power = -40
+		add_stability = -0.04
+		set_variable = {
+			GEO_add_influence_value = 4
+		}
+		GEO_add_influence_traditionalist = yes
+		custom_effect_tooltip = GEO_trad_gain_4
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+country_event = { #Georgia First Elections
+	id = geo_elections.1
+	title = geo_elections.1.t
+	desc = geo_elections.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	immediate = {
+		set_variable = {
+			GEO_election_results = random
+		}
+		round_variable = GEO_election_results
+	}
+	option = {
+		name = geo_elections.1.a
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				check_variable = {
+					GEO_election_results = 0 #leftist victory
+				}
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = social_democracy
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = social_liberalism
+				popularity = 0.02
+			}
+			set_variable = {
+				GEO_add_influence_value = 10
+			}
+			GEO_add_influence_menshevik = yes
+			custom_effect_tooltip = GEO_men_gain_10
+			set_politics = {
+				ruling_party = social_democracy
+				elections_allowed = yes
+				election_frequency = 60
+			}
+		}
+		else = { #Rightist Victory
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.04
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.04
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = 0.02
+			}
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.02
+			}
+			set_variable = {
+				GEO_add_influence_value = 10
+			}
+			GEO_add_influence_traditionalist = yes
+			custom_effect_tooltip = GEO_trad_gain_10
+			set_politics = {
+				ruling_party = social_democracy
+				elections_allowed = yes
+				election_frequency = 60
+			}
+		}
+	}
+}
+country_event = { #GEO asks for guns
+	id = geo_civil_war.5
+	title = geo_civil_war.5.t
+	desc = geo_civil_war.5.d
+	picture = GFX_Event_USSR_Czech_Machine_Gunners
+	is_triggered_only = yes
+	option = { #Yes
+		name = geo_civil_war.5.a
+		ai_chance = {
+			base = 99
+			modifier = {
+				surrender_progress > 0.5
+				factor = 0.1
+			}
+		}
+		add_political_power = 10
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 350
+			target = FROM
+		}
+
+		FROM = {
+			country_event = {
+				id = ukr_civil_war.18
+				days = 3
+			}
+		}
+	}
+	option = { #No
+		name = geo_civil_war.5.b
+		ai_chance = {
+			base = 1
+		}
+		FROM = {
+			country_event = {
+				id = ukr_civil_war.19
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #GEO asks for officers
+	id = geo_civil_war.6
+	title = geo_civil_war.6.t
+	desc = geo_civil_war.6.d
+	picture = GFX_event_Swedish_Officer
+	is_triggered_only = yes
+	option = { #Yes
+		name = geo_civil_war.6.a
+		ai_chance = {
+			base = 99
+			modifier = {
+				tag = RUS
+				factor = 0.1
+			}
+		}
+		FROM = {
+			add_ideas = UKR_attache
+			country_event = {
+				id = ukr_civil_war.21
+				days = 3
+			}
+		}
+	}
+	option = { #No
+		name = geo_civil_war.6.b
+		ai_chance = {
+			base = 1
+		}
+		FROM = {
+			country_event = {
+				id = ukr_civil_war.22
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #GEO wants friendship
+	id = geo_civil_war.7
+	title = geo_civil_war.7.t
+	desc = geo_civil_war.7.d
+	picture = GFX_event_BRY_Supplies
+	is_triggered_only = yes
+	option = { 
+		name = geo_civil_war.7.a
+		add_political_power = 20	
+	}
+}
+country_event = { #GEO asks for trade
+	id = geo_civil_war.8
+	title = geo_civil_war.8.t
+	desc = geo_civil_war.8.d
+	picture = GFX_event_BRY_Supplies
+	is_triggered_only = yes
+	option = { #Yes
+		name = geo_civil_war.8.a
+		ai_chance = {
+			base = 99
+		}
+		add_ideas = GEO_trade
+		FROM = {
+			country_event = {
+				id = geo_civil_war.9
+				days = 3
+			}
+		}
+	}
+	option = { #No
+		name = geo_civil_war.8.b
+		ai_chance = {
+			base = 1
+		}
+		FROM = {
+			country_event = {
+				id = geo_civil_war.10
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #trade deal accepted
+	id = geo_civil_war.9
+	title = geo_civil_war.9.t
+	desc = geo_civil_war.9.d
+	picture = GFX_event_BRY_Supplies
+	is_triggered_only = yes
+	option = { 
+		name = geo_civil_war.9.a
+		add_political_power = 10	
+	}
+}
+country_event = { #trade deal refused
+	id = geo_civil_war.10
+	title = geo_civil_war.10.t
+	desc = geo_civil_war.10.d
+	picture = GFX_event_BRY_Supplies
+	is_triggered_only = yes
+	option = { 
+		name = geo_civil_war.10.a
+		add_political_power = -10	
+	}
+}
+country_event = { #GEO wants guarantees 
+	id = geo_civil_war.11
+	title = geo_civil_war.11.t
+	desc = geo_civil_war.11.d
+	picture = GFX_event_BRY_Speech
+	is_triggered_only = yes
+	option = { #Yes
+		name = geo_civil_war.11.a
+		ai_chance = {
+			base = 100
+		}
+		give_guarantee = GEO
+		FROM = {
+			country_event = {
+				id = geo_civil_war.12
+				days = 1
+			}
+		}
+	}
+	option = { #No
+		name = geo_civil_war.11.b
+		ai_chance = {
+			base = 0
+		}
+		FROM = {
+			country_event = {
+				id = geo_civil_war.13
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #recieved guarantee
+	id = geo_civil_war.12
+	title = geo_civil_war.12.t
+	desc = geo_civil_war.12.d
+	picture = GFX_event_BRY_Speech
+	is_triggered_only = yes
+	option = { 
+		name = geo_civil_war.12.a
+		add_political_power = 10	
+	}
+}
+country_event = { #did not recieve guarantee
+	id = geo_civil_war.13
+	title = geo_civil_war.13.t
+	desc = geo_civil_war.13.d
+	picture = GFX_event_BRY_Speech
+	is_triggered_only = yes
+	option = { 
+		name = geo_civil_war.13.a
+		add_political_power = -10	
+	}
+}
+country_event = { #choosing economy minister
+	id = geo_internal.2
+	title = geo_internal.2.t
+	desc = geo_internal.2.d
+	picture = GFX_event_BRY_Speech
+	is_triggered_only = yes
+	option = {
+		name = geo_internal.2.a #social democrat 
+			unlock_national_focus = GEO_socialist_minister
+			set_variable = {
+			GEO_add_influence_value = 5
+			}
+			GEO_add_influence_menshevik = yes
+			custom_effect_tooltip = GEO_men_gain_5
+	}
+	
+	option = {
+		name = geo_internal.2.b #traditionalist 
+		unlock_national_focus = GEO_conservative_minister
+		set_variable = {
+			GEO_add_influence_value = 5
+		}
+		GEO_add_influence_traditionalist = yes
+		custom_effect_tooltip = GEO_trad_gain_5
+		remove_ideas_with_trait = ecomin
+		add_ideas = GEO_eco_Aleksandre_Asatiani
+	}
+}
+
+country_event = { #cooperatives
+	id = geo_internal.3
+	title = geo_internal.3.t
+	desc = geo_internal.3.d
+	picture = GFX_event_ENG_Dockworkers
+	is_triggered_only = yes
+	option = {
+		name = geo_internal.3.a #yes 
+		add_ideas = {
+			GEO_cooperatives
+		}
+		set_variable = {
+			GEO_add_influence_value = 2
+		}
+		GEO_add_influence_menshevik = yes
+		custom_effect_tooltip = GEO_men_gain_2
+		add_political_power = -80
+		add_stability = -0.05
+	}
+	
+	option = {
+		name = geo_internal.3.b #no 
+		add_political_power = 40
+		add_stability = 0.10
+	}
+}
+
+country_event = { #free market bolshevik destroyers
+	id = geo_internal.4
+	title = geo_internal.4.t
+	desc = geo_internal.4.d
+	picture = GFX_event_ENG_Dockworkers
+	is_triggered_only = yes
+	option = {
+		name = geo_internal.4.a #yes
+		add_ideas = {
+			GEO_free_the_market
+		}
+		set_variable = {
+			GEO_add_influence_value = 2
+		}
+		GEO_add_influence_traditionalist = yes
+		custom_effect_tooltip = GEO_trad_gain_2
+		add_political_power = -80
+		add_stability = -0.05
+	}
+	
+	option = {
+		name = geo_internal.4.b #no
+		add_political_power = 40
+		add_stability = 0.10
+	}
+}

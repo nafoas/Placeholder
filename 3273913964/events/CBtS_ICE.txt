@@ -1,0 +1,409 @@
+add_namespace = iceland
+
+country_event = { #Iceland establishes a regency and takes full control of their foreign policy
+	id = iceland.1
+	title = iceland.1.t
+	desc = iceland.1.d
+	picture = GFX_Event_Iceland_Althing
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			ICE = {
+				retire_character = ICE_christian_x
+				if = {
+					limit = { is_in_faction = yes }
+					leave_faction = yes
+				}
+				every_enemy_country = {
+					limit = { has_war_with = ICE }
+					white_peace = ICE
+				}
+			}
+		}
+	}
+
+	option = {
+		name = iceland.1.a
+	}
+}
+
+country_event = { #British ask to join the war
+	id = iceland.2
+	title = iceland.2.t
+	desc = iceland.2.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = iceland.2.a
+	}
+}
+country_event = { #British invade Iceland. For Ice
+	id = iceland.3
+	title = iceland.3.t
+	desc = iceland.3.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = iceland.3.a
+		if = {
+			limit = {
+				has_dlc = "Together for Victory"
+			}
+			ENG = {
+				set_autonomy = {
+					target = ICE
+					autonomy_state = autonomy_occupied
+					end_wars = yes
+				}
+			}
+		}
+		else = {
+			ENG = { puppet = ICE }
+			ICE = { set_cosmetic_tag = ICE_UK_OCC }
+		}
+		hidden_effect = {
+			ICE = {
+				set_politics = {
+					ruling_party = market_liberalism
+				}
+				set_popularities = { #1937 election results
+					communism = 8.44
+					authoritarian_socialism = 0
+					socialism = 0
+					social_democracy = 19
+					social_liberalism = 0
+					market_liberalism = 25
+					jacobin = 47.36
+					democratic = 0
+					neutrality = 0
+					monarchism = 0
+					nationalism = 0
+					fascism = 0.2
+				}
+				COALITION_RESET = yes
+				COALITION_add_socdem = yes
+				COALITION_add_soclib = yes
+				COALITION_add_marlib = yes
+				COALITION_add_cen = yes
+			}
+		}
+	}
+}
+country_event = { #Canadians replace british garrison
+	id = iceland.4
+	title = iceland.4.t
+	desc = iceland.4.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = iceland.4.a
+	}
+}
+country_event = { #Althing adopts the American–Icelandic defence agreement, passing responsibility for Iceland's defence to the United States
+	id = iceland.5
+	title = iceland.5.t
+	desc = iceland.5.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = iceland.5.a
+	}
+}
+country_event = { #Event for USA
+	id = iceland.6
+	title = iceland.6.t
+	desc = iceland.6.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = iceland.6.a
+	}
+}
+country_event = { #The Americans agree. iceland
+	id = iceland.7
+	title = iceland.7.t
+	desc = iceland.7.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = iceland.7.a
+		if = {
+			limit = {
+				ICE = { is_in_faction = yes }
+			}
+			ICE = { leave_faction = yes }
+		}
+		if = {
+			limit = {
+				has_dlc = "Together for Victory"
+			}
+			USA = {
+				set_autonomy = {
+					target = ICE
+					autonomy_state = autonomy_occupied
+					end_wars = yes
+				}
+			}
+		}
+		else = {
+			USA = { puppet = ICE }
+			ICE = { set_cosmetic_tag = ICE_USA }
+		}
+		hidden_effect = {
+			ICE = {
+				set_politics = {
+					ruling_party = market_liberalism
+				}
+				set_popularities = { #1937 election results
+					communism = 8.44
+					authoritarian_socialism = 0
+					socialism = 0
+					social_democracy = 19
+					social_liberalism = 0
+					market_liberalism = 25
+					jacobin = 47.36
+					democratic = 0
+					neutrality = 0
+					monarchism = 0
+					nationalism = 0
+					fascism = 0.2
+				}
+				COALITION_RESET = yes
+				COALITION_add_socdem = yes
+				COALITION_add_soclib = yes
+				COALITION_add_marlib = yes
+				COALITION_add_cen = yes
+			}
+		}
+	}
+}
+country_event = { #Americans replace canadians in Iceland. For Uk and Canada
+	id = iceland.8
+	title = iceland.8.t
+	desc = iceland.8.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = iceland.8.a
+	}
+}
+country_event = { #Sveinn Björnsson is named Regent
+	id = iceland.9
+	title = iceland.9.t
+	desc = iceland.9.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = iceland.9.a
+	}
+}
+
+country_event = { #Iceland becomes a republic
+	id = iceland.10
+	title = iceland.10.t
+	desc = iceland.10.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = iceland.10.a
+	}
+}
+
+### Iceland Parlamentary Elections ###
+country_event = { #1933 Icelandic parliamentary election
+	id = iceland.11
+	title = iceland.11.t
+	desc = iceland.11.d
+	picture = GFX_report_event_1933_norwegian_elections
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = iceland.12
+				days = 343
+			}
+		}
+	}
+
+	option = {
+		name = iceland.11.a
+		set_popularities = {
+			communism = 7.5
+			authoritarian_socialism = 0
+			socialism = 0
+			social_democracy = 19.2
+			social_liberalism = 0
+			market_liberalism = 23.9
+			jacobin = 48
+			democratic = 1.4
+			neutrality = 0
+			monarchism = 0
+			nationalism = 0
+			fascism = 0
+		}
+	}
+}
+country_event = { #1934 Icelandic parliamentary election
+	id = iceland.12
+	title = iceland.12.t
+	desc = iceland.12.d
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = iceland.14
+				days = 1101
+			}
+		}
+	}
+
+	option = {
+		name = iceland.12.a
+		remove_ideas = HoG_Asgeir_Asgeirsson
+		add_ideas = HoG_Hermann_Jonasson
+		COALITION_clr_cen = yes
+		COALITION_add_socdem = yes
+		set_popularities = {
+			communism = 5.97
+			authoritarian_socialism = 0
+			socialism = 0
+			social_democracy = 21.7
+			social_liberalism = 0
+			market_liberalism = 21.9
+			jacobin = 48.77
+			democratic = 0.96
+			neutrality = 0
+			monarchism = 0
+			nationalism = 0
+			fascism = 0.7
+		}
+		#Hermann Jónasson (F), Prime Minister and Minister of Justice
+		#Eysteinn Jónsson (F), Minister of Finance
+	}
+}
+country_event = { #1937 Icelandic parliamentary election
+	id = iceland.13
+	title = iceland.13.t
+	desc = iceland.13.d
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = iceland.14
+				days = 482
+			}
+		}
+	}
+
+	option = {
+		name = iceland.13.a
+		set_popularities = {
+			communism = 8.44
+			authoritarian_socialism = 0
+			socialism = 0
+			social_democracy = 19
+			social_liberalism = 0
+			market_liberalism = 25
+			jacobin = 47.36
+			democratic = 0
+			neutrality = 0
+			monarchism = 0
+			nationalism = 0
+			fascism = 0.2
+		}
+	}
+}
+country_event = { # People's Unification Party - The Socialist Party is formed
+	id = iceland.14
+	title = iceland.14.t
+	desc = iceland.14.d
+	picture = x
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = iceland.15
+				days = 175
+			}
+		}
+	}
+
+	option = {
+		name = iceland.14.a
+		set_party_name = {
+			ideology = communism
+			long_name = ICE_peoples_unity_party_long
+			name = ICE_peoples_unity_party
+		}
+		set_party_name = {
+			ideology = authoritarian_socialism
+			long_name = ICE_peoples_unity_party_long
+			name = ICE_peoples_unity_party
+		}
+		set_party_name = {
+			ideology = socialism
+			long_name = ICE_peoples_unity_party_long
+			name = ICE_peoples_unity_party
+		}
+	}
+}
+country_event = { #17 of April 1939, National Government is formed between the Progressive Party , the People's Party and the Independence Party.
+	id = iceland.15
+	title = iceland.15.t
+	desc = iceland.15.d
+	picture = x
+	is_triggered_only = yes
+
+	option = {
+		name = iceland.15.a
+		COALITION_add_cen = yes
+	}
+}
+country_event = { #July 1942 Icelandic parliamentary election
+	id = iceland.16
+	title = iceland.16.t
+	desc = iceland.16.d
+	picture = x
+	is_triggered_only = yes
+
+	option = {
+		name = iceland.16.a
+	}
+}
+country_event = { #October 1942 Icelandic parliamentary election
+	id = iceland.17
+	title = iceland.17.t
+	desc = iceland.17.d
+	picture = x
+	is_triggered_only = yes
+
+	option = {
+		name = iceland.17.a
+	}
+}

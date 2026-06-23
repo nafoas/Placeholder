@@ -1,0 +1,2768 @@
+technologies = {
+	### GERMAN TANK NAMES IN COMMENTS SO YOU CAN FIND STUFF MORE EASILY
+	gwtank = { #Leichttraktor
+
+		enable_equipments = {
+			gw_tank_equipment
+		}
+		
+		dependencies = {
+			tank_engine1 = 1
+        }
+	
+		path = {
+			leads_to_tech = light_tank_1
+			research_cost_coeff = 1
+		}
+	
+		path = {
+			leads_to_tech = gw_heavytank
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1918
+		folder = {
+			name = armour_folder
+			position = { x = 0 y = 0 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1939.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+			cat_light_armor
+		}
+	}	
+
+	light_tank_1 = { #Panzer I
+
+		enable_equipments = {
+			light_tank_equipment_1 
+		}
+
+		on_research_complete = {
+			hidden_effect = {
+				if = {
+					limit = {
+						has_tech = motorised_infantry
+					}
+
+					load_oob = "unlock_tanks_mot"
+				}
+				if = {
+					limit = {
+						NOT = { has_tech = motorised_infantry }
+					}
+
+					load_oob = "unlock_tanks"
+				}
+			}
+
+			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
+		}
+		on_research_complete_limit = {
+			NOT = {	has_template_containing_unit = light_armor }
+			NOT = {	has_template_containing_unit = heavy_armor }
+			NOT = {	has_template_containing_unit = medium_armor }
+		}
+		
+		path = {
+			leads_to_tech = light_tank_2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1934
+		folder = {
+			name = armour_folder
+			position = { x = -4 y = 3 }
+		}
+		
+		sub_technologies = {
+			light_1_td
+			light_1_art
+			light_1_spaa
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1939.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+			cat_light_armor
+		}
+	}	
+	
+	light_1_td = {
+
+		enable_equipments = {
+			light_tank_destroyer_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1934
+		
+		ai_will_do = {
+			factor = 0.5
+			
+			modifier = {
+				factor = 100
+				OR = {
+					tag = GER
+					tag = SOV
+				}
+				has_war = yes
+				any_enemy_country = {
+					ROOT = {
+						estimated_intel_max_armor = {
+							tag = PREV
+							value > 25
+						}
+					}
+				}
+			}
+			modifier = {
+				has_template_containing_unit = light_tank_destroyer_brigade
+				factor = 2
+			}
+			modifier = {
+				num_of_military_factories > 50
+				num_of_military_factories < 120
+				factor = 2
+			}
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = light_2_td
+					can_research = light_2_td
+					is_researching_technology = light_tank_2
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	light_1_art = {
+
+		enable_equipments = {
+			light_tank_artillery_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1934
+		
+		ai_will_do = {
+			factor = 0.25
+			modifier = {
+				has_template_containing_unit = light_sp_artillery_brigade
+				add = 2
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = light_2_art
+					can_research = light_2_art
+					is_researching_technology = light_tank_2
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	light_1_spaa = {
+
+		enable_equipments = {
+			light_tank_aa_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1934
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				is_major = yes
+				add = 0.25
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = light_2_spaa
+					can_research = light_2_spaa
+					is_researching_technology = light_tank_2
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+
+	light_tank_2 = { #Panzer II
+
+		enable_equipments = {
+			light_tank_equipment_2 
+		}
+		
+		path = {
+			leads_to_tech = light_tank_3
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = amphibious_tank
+			research_cost_coeff = 1
+		}
+		
+		path = {
+			leads_to_tech = medium_tank_0
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1936
+		
+		folder = {
+			name = armour_folder
+			position = { x = -4 y = 6 }
+		}
+		
+		sub_technologies = {
+			light_2_td
+			light_2_art
+			light_2_spaa
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+				not = {
+					tag = JAP
+					num_of_military_factories < 50
+				}
+			}
+			modifier = {
+				is_major = yes
+				not = { tag = JAP }
+				has_war = yes
+				factor = 10 #you are embarassing yourself
+			}
+			modifier = {
+				tag = SOV
+				factor = 3
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1939.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+			cat_light_armor
+		}
+	}
+	
+	light_2_td = {
+
+		enable_equipments = {
+			light_tank_destroyer_equipment_2
+		}
+	
+		research_cost = 0.5
+		start_year = 1936
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 120
+				OR = {
+					#tag = GER
+					tag = SOV
+				}
+				has_war = yes
+				any_enemy_country = {
+					ROOT = {
+						estimated_intel_max_armor = {
+							tag = PREV
+							value > 27
+						}
+					}
+				}
+			}
+			modifier = {
+				has_template_containing_unit = light_tank_destroyer_brigade
+				factor = 2
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = light_3_td
+					can_research = light_3_td
+					is_researching_technology = light_tank_3
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	light_2_art = {
+
+		enable_equipments = {
+			light_tank_artillery_equipment_2
+		}
+	
+		research_cost = 0.5
+		start_year = 1936
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				has_template_containing_unit = light_sp_artillery_brigade
+				add = 2
+			}
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = light_3_art
+					can_research = light_3_art
+					is_researching_technology = light_tank_3
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	light_2_spaa = {
+
+		enable_equipments = {
+			light_tank_aa_equipment_2
+		}
+	
+		research_cost = 0.5
+		start_year = 1936
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = light_3_spaa
+					can_research = light_3_spaa
+					is_researching_technology = light_tank_3
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+
+	amphibious_tank = { #SchwimmPanzer II
+
+		enable_equipments = {
+			amphibious_tank_equipment_1
+		}
+
+		path = {
+			leads_to_tech = amphibious_tank_2
+			research_cost_coeff = 1
+		}
+
+		enable_subunits = {
+			amphibious_armor
+		}
+
+		allow_branch = {
+			has_dlc = "Man the Guns"
+		}
+		
+		research_cost = 2
+		start_year = 1936
+		
+		folder = {
+			name = armour_folder
+			position = { x = -8 y = 6 }
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			modifier = {
+				OR = {
+					original_tag = USA
+					original_tag = JAP
+				}
+				factor = 2
+			}
+			modifier = {
+				not = {
+					any_state = {
+						is_controlled_by = ROOT
+						is_coastal = yes
+					}
+				}
+				factor = 0
+			}
+		}
+		
+		categories = {
+			armor
+			tp_tech
+		}
+	}
+
+	amphibious_tank_2 = { #tauchPanzer III
+
+		enable_equipments = {
+			amphibious_tank_equipment_2
+		}
+		
+		dependencies = {
+			tank_engine2 = 1
+        }
+
+		path = {
+			leads_to_tech = amphibious_tank_3
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1941
+		
+		folder = {
+			name = armour_folder
+			position = { x = -8 y = 11 }
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			modifier = {
+				OR = {
+					original_tag = USA
+					original_tag = JAP
+				}
+				factor = 2
+			}
+			modifier = {
+				not = {
+					any_state = {
+						is_controlled_by = ROOT
+						is_coastal = yes
+					}
+				}
+				factor = 0
+			}
+		}
+		
+		categories = {
+			armor
+			tp_tech
+		}
+	}
+	
+	light_tank_3 = { #Leopard
+
+		enable_equipments = {
+			light_tank_equipment_3 
+		}
+		
+		dependencies = {
+			tank_engine2 = 1
+        }
+
+		path = {
+			leads_to_tech = light_tank_4
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1941
+		
+		folder = {
+			name = armour_folder
+			position = { x = -4 y = 11 }
+		}
+		
+		sub_technologies = {
+			light_3_td
+			light_3_art
+			light_3_spaa
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+			modifier = {
+				is_major = no
+				factor = 2
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1942.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1944.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+			cat_light_armor
+		}
+	}
+	
+	light_3_td = {
+
+		enable_equipments = {
+			light_tank_destroyer_equipment_3
+		}
+	
+		research_cost = 0.5
+		start_year = 1941
+		
+		ai_will_do = {
+			factor = 0
+			
+			modifier = {
+				factor = 130
+				OR = {
+					#tag = GER
+					tag = SOV
+				}
+				has_war = yes
+				any_enemy_country = {
+					ROOT = {
+						estimated_intel_max_armor = {
+							tag = PREV
+							value > 27
+						}
+					}
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	light_3_art = {
+
+		enable_equipments = {
+			light_tank_artillery_equipment_3
+		}
+	
+		research_cost = 0.5
+		start_year = 1941
+	
+		ai_will_do = {
+			factor = 0.1
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	light_3_spaa = {
+
+		enable_equipments = {
+			light_tank_aa_equipment_3
+		}
+	
+		research_cost = 0.5
+		start_year = 1941
+		
+		ai_will_do = {
+			factor = 0
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	light_tank_4 = {
+
+		enable_equipments = {
+			light_tank_equipment_4
+		}	
+		
+		research_cost = 2
+		start_year = 1944
+		
+		dependencies = {
+			tank_engine3 = 1
+        }
+		
+		folder = {
+			name = armour_folder
+			position = { x = -4 y = 15 }
+		}
+		
+		sub_technologies = {
+			light_4_td
+			light_4_art
+			light_4_spaa
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+			modifier = {
+				is_major = no
+				factor = 2
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1942.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1944.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+			cat_light_armor
+		}
+	}
+	
+	light_4_td = {
+
+		enable_equipments = {
+			light_tank_destroyer_equipment_4
+		}
+	
+		research_cost = 0.5
+		start_year = 1944
+		
+		ai_will_do = {
+			factor = 0
+			
+			modifier = {
+				factor = 130
+				OR = {
+					#tag = GER
+					tag = SOV
+				}
+				has_war = yes
+				any_enemy_country = {
+					ROOT = {
+						estimated_intel_max_armor = {
+							tag = PREV
+							value > 27
+						}
+					}
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	light_4_art = {
+
+		enable_equipments = {
+			light_tank_artillery_equipment_4
+		}
+	
+		research_cost = 0.5
+		start_year = 1944
+	
+		ai_will_do = {
+			factor = 0.1
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	light_4_spaa = {
+
+		enable_equipments = {
+			light_tank_aa_equipment_4
+		}
+	
+		research_cost = 0.5
+		start_year = 1944
+		
+		ai_will_do = {
+			factor = 0
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_tank_0 = { #Panzer III
+
+		enable_equipments = {
+			medium_tank_equipment_0 
+		}
+		
+		path = {
+			leads_to_tech = medium_tank_1
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1936
+
+		folder = {
+			name = armour_folder
+			position = { x = 0 y = 6 }
+		}
+		
+		sub_technologies = {
+			medium_0_td
+			medium_0_art
+			medium_0_spaa
+		}
+		
+		ai_will_do = {
+			factor = 2
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+				not = {
+					tag = JAP
+					num_of_military_factories < 50
+				}
+				date > "1938.1.1"
+			}
+			modifier = {
+				tag = SOV
+				factor = 1.5
+			}
+			modifier = {
+				factor = 1.1
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1942.1.1"
+			}
+			
+			modifier = {
+				factor = 15.0
+				tag = GER
+				has_opinion_modifier = sov_ger_treaty
+			}
+		}
+		
+		categories = {
+			armor
+			cat_medium_armor
+		}
+	}
+	
+	medium_0_td = {
+
+		enable_equipments = {
+			medium_tank_destroyer_equipment_0
+		}
+	
+		research_cost = 0.5
+		start_year = 1936
+
+		
+		ai_will_do = {
+			factor = 0
+			
+			modifier = {
+				factor = 140
+				OR = {
+					#tag = GER
+					tag = SOV
+				}
+				any_enemy_country = {
+					ROOT = {
+						estimated_intel_max_armor = {
+							tag = PREV
+							value > 30
+						}
+					}
+				}
+			}
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = medium_1_td
+					can_research = medium_1_td
+					is_researching_technology = medium_tank_1
+				}
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1942.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_0_art = {
+
+		enable_equipments = {
+			medium_tank_artillery_equipment_0
+		}
+	
+		research_cost = 0.5
+		start_year = 1936
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = medium_1_art
+					can_research = medium_1_art
+					is_researching_technology = medium_tank_1
+				}
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1942.1.1"
+			}
+			modifier = {
+				factor = 100
+				tag = Ger
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_0_spaa = {
+
+		enable_equipments = {
+			medium_tank_aa_equipment_0
+		}
+	
+		research_cost = 0.5
+		start_year = 1936
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = medium_1_spaa
+					can_research = medium_1_spaa
+					is_researching_technology = medium_tank_1
+				}
+			}
+			modifier = {
+				factor = 0 # we dont use it
+				tag = GER
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_tank_1 = { #Panzer III
+
+		enable_equipments = {
+			medium_tank_equipment_1 
+		}
+		dependencies = {
+			tank_engine2 = 1
+        }
+		
+		path = {
+			leads_to_tech = medium_tank_2 
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = heavy_tank_1
+			research_cost_coeff = 0.9
+		}
+		
+		research_cost = 2
+		start_year = 1939
+
+		folder = {
+			name = armour_folder
+			position = { x = 0 y = 9 }
+		}
+		
+		sub_technologies = {
+			medium_1_td
+			medium_1_art
+			medium_1_spaa
+		}
+		
+		ai_will_do = {
+			factor = 2
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+				not = {
+					tag = JAP
+					num_of_military_factories < 50
+				}
+				date > "1938.1.1"
+			}
+			modifier = {
+				tag = SOV
+				factor = 1.5
+			}
+			modifier = {
+				factor = 1.1
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1942.1.1"
+			}
+			
+			modifier = {
+				factor = 15.0
+				tag = GER
+				has_opinion_modifier = sov_ger_treaty
+			}
+		}
+		
+		categories = {
+			armor
+			cat_medium_armor
+		}
+	}
+	
+	medium_1_td = {
+
+		enable_equipments = {
+			medium_tank_destroyer_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1939
+
+		
+		ai_will_do = {
+			factor = 0
+			
+			modifier = {
+				factor = 140
+				OR = {
+					#tag = GER
+					tag = SOV
+				}
+				any_enemy_country = {
+					ROOT = {
+						estimated_intel_max_armor = {
+							tag = PREV
+							value > 30
+						}
+					}
+				}
+			}
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = medium_2_td
+					can_research = medium_2_td
+					is_researching_technology = medium_tank_2
+				}
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1942.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_1_art = {
+
+		enable_equipments = {
+			medium_tank_artillery_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1939
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = medium_2_art
+					can_research = medium_2_art
+					is_researching_technology = medium_tank_2
+				}
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1942.1.1"
+			}
+			modifier = {
+				factor = 100
+				tag = Ger
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_1_spaa = {
+
+		enable_equipments = {
+			medium_tank_aa_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1939
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = medium_2_spaa
+					can_research = medium_2_spaa
+					is_researching_technology = medium_tank_2
+				}
+			}
+			modifier = {
+				factor = 0 # we dont use it
+				tag = GER
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_tank_2 = { #Panzer IV
+
+		enable_equipments = {
+			medium_tank_equipment_2 
+		}
+		
+		
+		path = {
+			leads_to_tech = medium_tank_3
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = heavy_tank_2
+			research_cost_coeff = 0.9
+		}
+		
+		research_cost = 2
+		start_year = 1941
+		
+		folder = {
+			name = armour_folder
+			position = { x = 0 y = 11 }
+		}
+		
+		sub_technologies = {
+			medium_2_td
+			medium_2_art
+			medium_2_spaa
+		}
+		
+		ai_will_do = {
+			factor = 3
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+				not = {
+					tag = JAP
+					num_of_military_factories < 50
+				}
+			}
+			modifier = {
+				date < "1941.1.1"
+				factor = 0.3
+			}
+			modifier = {
+				factor = 2
+				tag = GER
+			}
+			
+			modifier = {
+				factor = 2
+				tag = SOV
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1942.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1944.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+			cat_medium_armor
+		}
+	}
+	
+	medium_2_td = {
+
+		enable_equipments = {
+			medium_tank_destroyer_equipment_2
+		}
+	
+		research_cost = 0.5
+		start_year = 1941
+
+		ai_will_do = {
+			factor = 0
+			
+			modifier = {
+				factor = 150
+				OR = {
+					#tag = GER
+					tag = SOV
+				}
+				has_war = yes
+				any_enemy_country = {
+					ROOT = {
+						estimated_intel_max_armor = {
+							tag = PREV
+							value > 32
+						}
+					}
+				}
+			}
+			modifier = {
+				has_template_containing_unit = medium_tank_destroyer_brigade
+				factor = 3
+			}
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = medium_3_td
+					can_research = medium_3_td
+					is_researching_technology = medium_tank_3
+				}
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1942.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1944.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_2_art = {
+
+		enable_equipments = {
+			medium_tank_artillery_equipment_2
+		}
+	
+		research_cost = 0.5
+		start_year = 1941
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = medium_3_art
+					can_research = medium_3_art
+					is_researching_technology = medium_tank_3
+				}
+			}
+			modifier = {
+				has_template_containing_unit = medium_sp_artillery_brigade
+				factor = 3
+			}
+			modifier = {
+				factor = 1.1
+				date > "1942.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1944.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_2_spaa = {
+
+		enable_equipments = {
+			medium_tank_aa_equipment_2
+		}
+	
+		research_cost = 0.5
+		start_year = 1941
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = medium_3_spaa
+					can_research = medium_3_spaa
+					is_researching_technology = medium_tank_3
+				}
+			}
+			modifier = {
+				factor = 0 # we dont use it
+				tag = GER
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_tank_3 = { #Panther
+
+		enable_equipments = {
+			medium_tank_equipment_3 
+		}
+		
+		dependencies = {
+			tank_engine3 = 1
+        }
+		
+		path = {
+			leads_to_tech = medium_tank_4 
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = heavy_tank_3
+			research_cost_coeff = 0.9
+		}
+		
+		research_cost = 2
+		start_year = 1943
+		
+		folder = {
+			name = armour_folder
+			position = { x = 0 y = 13 }
+		}
+		
+		sub_technologies = {
+			medium_3_td
+			medium_3_art
+			medium_3_spaa
+		}
+		
+
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1945.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1946.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+			cat_medium_armor
+		}
+	}
+	
+	medium_3_td = {
+
+		enable_equipments = {
+			medium_tank_destroyer_equipment_3
+		}
+	
+		research_cost = 0.5
+		start_year = 1943
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 160
+				OR = {
+					tag = GER
+					tag = SOV
+				}
+				any_enemy_country = {
+					ROOT = {
+						estimated_intel_max_armor = {
+							tag = PREV
+							value > 35
+						}
+					}
+				}
+			}
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_td
+					can_research = modern_td
+					is_researching_technology = main_battle_tank
+				}
+			}
+			modifier = {
+				has_template_containing_unit = medium_tank_destroyer_brigade
+				factor = 3
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1945.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1946.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_3_art = {
+
+		enable_equipments = {
+			medium_tank_artillery_equipment_3
+		}
+	
+		research_cost = 0.5
+		start_year = 1943
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_art
+					can_research = modern_art
+					is_researching_technology = main_battle_tank
+				}
+			}
+			modifier = {
+				has_template_containing_unit = medium_sp_artillery_brigade
+				factor = 3
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1945.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1946.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_3_spaa = {
+
+		enable_equipments = {
+			medium_tank_aa_equipment_3
+		}
+	
+		research_cost = 0.5
+		start_year = 1943
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_spaa
+					can_research = modern_spaa
+					is_researching_technology = main_battle_tank
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_tank_4 = {
+	
+		enable_equipments = {
+			medium_tank_equipment_4
+		}
+		
+		dependencies = {
+			tank_engine4 = 1
+        }
+		
+		path = {
+			leads_to_tech = main_battle_tank 
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = heavy_tank_4
+			research_cost_coeff = 0.9
+		}
+		
+		research_cost = 2
+		start_year = 1945
+		
+		folder = {
+			name = armour_folder
+			position = { x = 0 y = 17 }
+		}
+		
+		sub_technologies = {
+			medium_4_td
+			medium_4_art
+			medium_4_spaa
+		}
+		
+
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1945.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1946.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+			cat_medium_armor
+		}
+	}
+	
+	medium_4_td = {
+
+		enable_equipments = {
+			medium_tank_destroyer_equipment_4
+		}
+	
+		research_cost = 0.5
+		start_year = 1945
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 160
+				OR = {
+					tag = GER
+					tag = SOV
+				}
+				any_enemy_country = {
+					ROOT = {
+						estimated_intel_max_armor = {
+							tag = PREV
+							value > 35
+						}
+					}
+				}
+			}
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_td
+					can_research = modern_td
+					is_researching_technology = main_battle_tank
+				}
+			}
+			modifier = {
+				has_template_containing_unit = medium_tank_destroyer_brigade
+				factor = 3
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1945.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1946.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_4_art = {
+
+		enable_equipments = {
+			medium_tank_artillery_equipment_4
+		}
+	
+		research_cost = 0.5
+		start_year = 1945
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_art
+					can_research = modern_art
+					is_researching_technology = main_battle_tank
+				}
+			}
+			modifier = {
+				has_template_containing_unit = medium_sp_artillery_brigade
+				factor = 3
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1945.1.1"
+			}
+			
+			modifier = {
+				factor = 1.1
+				date > "1946.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	medium_4_spaa = {
+
+		enable_equipments = {
+			medium_tank_aa_equipment_4
+		}
+	
+		research_cost = 0.5
+		start_year = 1945
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_spaa
+					can_research = modern_spaa
+					is_researching_technology = main_battle_tank
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	main_battle_tank = { #E-50
+
+		enable_equipments = {
+			modern_tank_equipment_1
+		}	
+		
+		research_cost = 3
+		start_year = 1948
+		
+		folder = {
+			name = armour_folder
+			position = { x = 0 y = 19 }
+		}
+		
+		sub_technologies = {
+			modern_td
+			modern_art
+			modern_spaa
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1948.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+			cat_medium_armor
+		}
+	}
+	
+	modern_td = {
+
+		enable_equipments = {
+			modern_tank_destroyer_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1948
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1948.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	modern_art = {
+
+		enable_equipments = {
+			modern_tank_artillery_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1948
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1948.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	modern_spaa = {
+
+		enable_equipments = {
+			modern_tank_aa_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1948
+		
+		ai_will_do = {
+			factor = 0
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	gw_heavytank = {
+
+		enable_equipments = {
+			gw_heavy_tank_equipment 
+		}
+		
+		path = {
+			leads_to_tech = heavy_tank_1
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1.5
+		start_year = 1934
+		
+		folder = {
+			name = armour_folder
+			position = { x = 4 y = 3 }
+		}
+		
+		sub_technologies = {
+			gw_heavytank_td
+			gw_heavytank_art
+			gw_heavytank_spaa
+		}
+		
+		ai_will_do = {
+			factor = 0.8
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1939.1.1"
+			}
+			modifier = {
+				tag = FRA
+				factor = 3
+			}
+			modifier = {
+				tag = JAP
+				num_of_military_factories < 100
+				factor = 0
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					can_research = heavy_tank_2
+					has_tech = heavy_tank_2
+				}
+			}
+		}
+		
+		categories = {
+			armor
+			cat_heavy_armor
+		}
+	}
+	
+	gw_heavytank_td = {
+
+		enable_equipments = {
+			gw_heavy_tank_destroyer_equipment
+		}
+	
+		research_cost = 0.5
+		start_year = 1934
+
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = heavy_1_td
+					can_research = heavy_1_td
+					is_researching_technology = heavy_tank_1
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	gw_heavytank_art = {
+
+		enable_equipments = {
+			gw_heavy_tank_artillery_equipment
+		}
+	
+		research_cost = 0.5
+		start_year = 1934
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = heavy_1_art
+					can_research = heavy_1_art
+					is_researching_technology = heavy_tank_1
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+
+	
+	gw_heavytank_spaa = {
+
+		enable_equipments = {
+			gw_heavy_tank_aa_equipment
+		}
+	
+		research_cost = 0.5
+		start_year = 1934
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = heavy_1_spaa
+					can_research = heavy_1_spaa
+					is_researching_technology = heavy_tank_1
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	heavy_tank_1 = { #Grosstraktor
+
+		enable_equipments = {
+			heavy_tank_equipment_1 
+		}
+		
+		dependencies = {
+			tank_engine2 = 1
+        }
+		
+		path = {
+			leads_to_tech = heavy_tank_2
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = medium_tank_1
+			research_cost_coeff = 0.9
+		}
+		
+		research_cost = 2
+		start_year = 1939
+		
+		folder = {
+			name = armour_folder
+			position = { x = 4 y = 9 }
+		}
+		
+		sub_technologies = {
+			heavy_1_td
+			heavy_1_art
+			heavy_1_spaa
+		}
+		
+		ai_will_do = {
+			factor = 0.8
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1939.1.1"
+			}
+			modifier = {
+				tag = FRA
+				factor = 3
+			}
+			modifier = {
+				tag = JAP
+				num_of_military_factories < 100
+				factor = 0
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					can_research = heavy_tank_2
+					has_tech = heavy_tank_2
+				}
+			}
+		}
+		
+		categories = {
+			armor
+			cat_heavy_armor
+		}
+	}
+	
+	heavy_1_td = {
+
+		enable_equipments = {
+			heavy_tank_destroyer_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1939
+
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = heavy_2_td
+					can_research = heavy_2_td
+					is_researching_technology = heavy_tank_2
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	heavy_1_art = {
+
+		enable_equipments = {
+			heavy_tank_artillery_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1939
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = heavy_2_art
+					can_research = heavy_2_art
+					is_researching_technology = heavy_tank_2
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+
+	
+	heavy_1_spaa = {
+
+		enable_equipments = {
+			heavy_tank_aa_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1939
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = heavy_2_spaa
+					can_research = heavy_2_spaa
+					is_researching_technology = heavy_tank_2
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	heavy_tank_2 = { #Tiger
+
+		enable_equipments = {
+			heavy_tank_equipment_2 
+		}
+		
+		path = {
+			leads_to_tech = heavy_tank_3
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = super_heavy_tank
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = medium_tank_2
+			research_cost_coeff = 0.9
+		}
+		
+		research_cost = 2.5
+		start_year = 1941
+		
+		folder = {
+			name = armour_folder
+			position = { x = 4 y = 11 }
+		}
+		
+		sub_technologies = {
+			heavy_2_td
+			heavy_2_art
+			heavy_2_spaa
+		}
+		
+		ai_will_do = {
+			factor = 0.8
+			modifier = {
+				tag = JAP
+				num_of_military_factories < 100
+				factor = 0
+			}
+			modifier = {
+				factor = 1.2
+				date > "1942.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1944.1.1"
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					can_research = heavy_tank_3
+					has_tech = heavy_tank_3
+				}
+			}
+		}
+		
+		categories = {
+			armor
+			cat_heavy_armor
+		}
+	}
+	
+	heavy_2_td = {
+
+		enable_equipments = {
+			heavy_tank_destroyer_equipment_2
+		}
+	
+		research_cost = 0.5
+		start_year = 1941
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = heavy_3_td
+					can_research = heavy_3_td
+					is_researching_technology = heavy_tank_3
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	heavy_2_art = {
+
+		enable_equipments = {
+			heavy_tank_artillery_equipment_2
+		}
+	
+		research_cost = 0.5
+		start_year = 1941
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = heavy_3_art
+					can_research = heavy_3_art
+					is_researching_technology = heavy_tank_3
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+
+	
+	heavy_2_spaa = {
+
+		enable_equipments = {
+			heavy_tank_aa_equipment_2
+		}
+	
+		research_cost = 0.5
+		start_year = 1941
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = heavy_3_spaa
+					can_research = heavy_3_spaa
+					is_researching_technology = heavy_tank_3
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	heavy_tank_3 = { #King Tiger
+
+		enable_equipments = {
+			heavy_tank_equipment_3 
+		}
+		
+		research_cost = 2.5
+		start_year = 1943
+		
+		dependencies = {
+			tank_engine3 = 1
+        }
+		path = {
+			leads_to_tech = heavy_tank_4 
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = medium_tank_3
+			research_cost_coeff = 0.9
+		}
+		
+		folder = {
+			name = armour_folder
+			position = { x = 4 y = 13 }
+		}
+		
+		sub_technologies = {
+			heavy_3_td
+			heavy_3_art
+			heavy_3_spaa
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.5
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1945.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1946.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+			cat_heavy_armor
+		}
+	}
+	
+	heavy_3_td = {
+
+		enable_equipments = {
+			heavy_tank_destroyer_equipment_3
+		}
+	
+		research_cost = 0.5
+		start_year = 1943
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_td
+					can_research = modern_td
+					is_researching_technology = main_battle_tank
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	heavy_3_art = {
+
+		enable_equipments = {
+			heavy_tank_artillery_equipment_3
+		}
+	
+		research_cost = 0.5
+		start_year = 1943
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_art
+					can_research = modern_art
+					is_researching_technology = main_battle_tank
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	heavy_3_spaa = {
+
+		enable_equipments = {
+			heavy_tank_aa_equipment_3
+		}
+	
+		research_cost = 0.5
+		start_year = 1943
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_spaa
+					can_research = modern_spaa
+					is_researching_technology = main_battle_tank
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	heavy_tank_4 = {
+		
+		enable_equipments = {
+			heavy_tank_equipment_4 
+		}
+
+		dependencies = {
+			tank_engine4 = 1
+        }
+		
+		research_cost = 2.5
+		start_year = 1945
+		
+		folder = {
+			name = armour_folder
+			position = { x = 4 y = 17 }
+		}
+		
+		sub_technologies = {
+			heavy_4_td
+			heavy_4_art
+			heavy_4_spaa
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1948.1.1"
+			}
+		}
+		
+		categories = {
+			armor
+			cat_heavy_armor
+		}
+	}
+	
+	heavy_4_td = {
+
+		enable_equipments = {
+			heavy_tank_destroyer_equipment_4
+		}
+	
+		research_cost = 0.5
+		start_year = 1945
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_td
+					can_research = modern_td
+					is_researching_technology = main_battle_tank
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	heavy_4_art = {
+
+		enable_equipments = {
+			heavy_tank_artillery_equipment_4
+		}
+	
+		research_cost = 0.5
+		start_year = 1945
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_art
+					can_research = modern_art
+					is_researching_technology = main_battle_tank
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	heavy_4_spaa = {
+
+		enable_equipments = {
+			heavy_tank_aa_equipment_4
+		}
+	
+		research_cost = 0.5
+		start_year = 1945
+		
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = modern_spaa
+					can_research = modern_spaa
+					is_researching_technology = main_battle_tank
+				}
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	super_heavy_tank = { #Maus
+
+		enable_equipments = {
+			super_heavy_tank_equipment_1
+		}
+		
+		dependencies = {
+			tank_engine3 = 1
+        }
+	
+		research_cost = 2.5
+		start_year = 1943
+		folder = {
+			name = armour_folder
+			position = { x = 8 y = 13 }
+		}
+		
+		sub_technologies = {
+			super_heavy_td
+			super_heavy_art
+			super_heavy_spaa
+		}
+		
+		ai_will_do = {
+			factor = 0 # Hitler cries on the inside
+		}
+		
+		categories = {
+			armor
+			cat_heavy_armor
+		}
+	}
+	
+	super_heavy_td = {
+
+		enable_equipments = {
+			super_heavy_tank_destroyer_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1943
+		
+		ai_will_do = {
+			factor = 0
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	super_heavy_art = {
+
+		enable_equipments = {
+			super_heavy_tank_artillery_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1943
+		
+		ai_will_do = {
+			factor = 0
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+	super_heavy_spaa = {
+
+		enable_equipments = {
+			super_heavy_tank_aa_equipment_1
+		}
+	
+		research_cost = 0.5
+		start_year = 1943
+		
+		ai_will_do = {
+			factor = 0
+		}
+		
+		categories = {
+			armor
+		}
+	}
+	
+}

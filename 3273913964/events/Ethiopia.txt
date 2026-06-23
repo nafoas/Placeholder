@@ -1,0 +1,522 @@
+
+add_namespace = ETH_event
+add_namespace = ETH_focus_event
+
+country_event = { #ENG: ETH wants to join the Allies
+	id = ETH_event.1
+	title = ETH_event.1.t
+	desc = ETH_event.1.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+
+	is_triggered_only = yes
+
+	option = { #yes
+		name = ETH_event.1.a
+		ETH = {
+			country_event = {
+				id = ETH_event.2
+				hours = 12
+			}
+		}
+		ai_chance = {
+			factor = 5
+		}
+	}
+	option = { #no
+		name = ETH_event.1.b
+		ETH = {
+			country_event = {
+				id = ETH_event.3
+				hours = 12
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = { #ETH: Britain accepts
+	id = ETH_event.2
+	title = ETH_event.2.t
+	desc = ETH_event.2.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+
+	is_triggered_only = yes
+
+	option = { #yes
+		name = ETH_event.2.a
+		ENG = {
+			add_to_faction = ETH
+		}
+		ETH = {
+			declare_war_on = {
+    			target = ITA
+    			type = annex_everything
+			}	
+		}
+	}
+}
+
+country_event = { #ETH: Britain refuses
+	id = ETH_event.3
+	title = ETH_event.3.t
+	desc = ETH_event.3.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+
+	is_triggered_only = yes
+
+	option = { #damn it
+		name = ETH_event.3.a	
+	}
+	option = { #invade italy anyway
+		name = ETH_event.3.b
+		declare_war_on = {
+    		target = ITA
+    		type = annex_everything
+		}	
+	}
+}
+
+
+
+
+#Pre-War Foreign Relations Events!
+
+country_event = { #ETH: state visit to the US
+	id = ETH_event.4
+	title = ETH_event.4.t
+	desc = ETH_event.4.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+
+	is_triggered_only = yes
+
+	option = { 
+		name = ETH_event.4.a
+		USA = {
+			country_event = {
+				id = ETH_event.5
+				hours = 6
+			}
+		}
+	}
+}
+
+country_event = { #USA: state visit to the US
+	id = ETH_event.5
+	title = ETH_event.5.t
+	desc = ETH_event.5.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+
+	is_triggered_only = yes
+
+	option = { 
+		name = ETH_event.5.a
+		hidden_effect = {
+			USA ={
+				add_opinion_modifier = {
+					target = ETH
+					modifier = ETH_friendship
+				}
+			}
+			ETH ={
+				add_opinion_modifier = {
+					target = USA
+					modifier = ETH_friendship
+				}
+			}	
+		}	
+	}
+}
+
+country_event = { #SWI: Friendship Agreement with the Ethiopians
+	id = ETH_event.6
+	title = ETH_event.6.t
+	desc = ETH_event.6.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+
+	is_triggered_only = yes
+
+	option = { 
+		name = ETH_event.6.a
+		hidden_effect = {
+			SWI ={
+				add_opinion_modifier = {
+					target = ETH
+					modifier = ETH_friendship
+				}
+				add_opinion_modifier = {
+					target = ETH
+					modifier = ETH_trade
+				}
+			}
+			ETH ={
+				add_opinion_modifier = {
+					target = SWI
+					modifier = ETH_friendship
+				}
+				add_opinion_modifier = {
+					target = SWI
+					modifier = ETH_trade
+				}
+				country_event = {
+					id = ETH_event.7
+					hours = 12
+				}
+			}
+		}
+	}
+}
+
+country_event = { #ETH: Agreement signed w swi
+	id = ETH_event.7
+	title = ETH_event.7.t
+	desc = ETH_event.7.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.7.a
+	}
+}
+
+country_event = { #CZE: Agreement with Ethiopia
+	id = ETH_event.8
+	title = ETH_event.8.t
+	desc = ETH_event.8.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.7.a
+		hidden_effect = {
+			CZE ={
+				add_opinion_modifier = {
+					target = ETH
+					modifier = ETH_friendship
+				}
+			}
+			ETH ={
+				add_opinion_modifier = {
+					target = CZE
+					modifier = ETH_friendship
+				}
+				country_event = {
+					id = ETH_event.9
+					hours = 12
+				}
+			}
+		}
+	}
+}
+
+country_event = { #ETH: Agreement signed w cze
+	id = ETH_event.9
+	title = ETH_event.9.t
+	desc = ETH_event.9.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.9.a
+	}
+}
+
+country_event = { #CZE: ethiopia buy czech guns
+	id = ETH_event.10
+	title = ETH_event.10.t
+	desc = ETH_event.10.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+
+	is_triggered_only = yes
+
+	option = { #YES
+		name = ETH_event.10.a
+		send_equipment = {
+    		equipment = infantry_equipment
+    		amount = 300
+    		target = ETH
+		}
+		ETH = {
+			country_event = {
+				id = ETH_event.11
+				hours = 10
+			}
+		}
+		CZE = {
+			add_timed_idea = {
+    			idea = ETH_czechoslovakia_guns
+    			days = 50
+			}
+		}
+	}
+	option = { #NO
+		name = ETH_event.10.b
+		ETH = {
+			country_event = {
+				id = ETH_event.12
+				hours = 10
+			}
+		}
+	}
+}
+
+country_event = { #ETH: receives gun
+	id = ETH_event.11
+	title = ETH_event.11.t
+	desc = ETH_event.11.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.11.a
+		effect_tooltip = {
+			CZE = {
+				send_equipment = {
+    				equipment = infantry_equipment
+    				amount = 300
+   					target = ETH
+				}
+			}
+		}
+		add_timed_idea = {
+    		idea = ETH_receiving_czech_guns
+    		days = 50
+		}
+	}
+}
+
+country_event = { #ETH: cze stops the agreement
+	id = ETH_event.12
+	title = ETH_event.12.t
+	desc = ETH_event.12.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.12.a
+		hidden_effect = {
+			ETH ={
+				add_opinion_modifier = {
+					target = CZE
+					modifier = ETH_deal_stopped
+				}
+			}
+		}
+	}
+}
+
+country_event = { #ETH: embassy in Japan
+	id = ETH_event.13
+	title = ETH_event.13.t
+	desc = ETH_event.13.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.13.a
+		hidden_effect = {
+			ETH ={
+				add_opinion_modifier = {
+					target = JAP
+					modifier = ETH_friendship
+				}
+			}
+		}
+	}
+}
+
+country_event = { #JAP: eth embassy
+	id = ETH_event.14
+	title = ETH_event.14.t
+	desc = ETH_event.14.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.14.a
+		hidden_effect = {
+			JAP ={
+				add_opinion_modifier = {
+					target = ETH
+					modifier = ETH_friendship
+				}
+			}
+		}
+	}
+}
+
+country_event = { #ETH: receives visit from Japan
+	id = ETH_event.15
+	title = ETH_event.15.t
+	desc = ETH_event.15.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.15.a
+		hidden_effect = {
+			ETH ={
+				add_opinion_modifier = {
+					target = JAP
+					modifier = ETH_friendship
+				}
+			}
+		}
+	}
+}
+
+country_event = { #ETH: embassy in turkey
+	id = ETH_event.16
+	title = ETH_event.16.t
+	desc = ETH_event.16.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.16.a
+		hidden_effect = {
+			ETH ={
+				add_opinion_modifier = {
+					target = TUR
+					modifier = ETH_friendship
+				}
+			}
+			TUR = {
+        		country_event = {
+        			id = ETH_event.17
+        			hours = 5
+        		}
+        	}
+		}
+	}
+}
+
+country_event = { #TUR: eth embassy 
+	id = ETH_event.17
+	title = ETH_event.17.t
+	desc = ETH_event.17.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.17.a
+		hidden_effect = {
+			TUR ={
+				add_opinion_modifier = {
+					target = ETH
+					modifier = ETH_friendship
+				}
+			}
+		}
+	}
+}
+
+country_event = { #ETH: embassy in greece
+	id = ETH_event.18
+	title = ETH_event.18.t
+	desc = ETH_event.18.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.18.a
+		hidden_effect = {
+			ETH ={
+				add_opinion_modifier = {
+					target = GRE
+					modifier = ETH_friendship
+				}
+			}
+			GRE = {
+        		country_event = {
+        			id = ETH_event.19
+        			hours = 5
+        		}
+        	}
+		}
+	}
+}
+
+country_event = { #GRE: eth embassy 
+	id = ETH_event.19
+	title = ETH_event.19.t
+	desc = ETH_event.19.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.19.a
+		hidden_effect = {
+			GRE ={
+				add_opinion_modifier = {
+					target = ETH
+					modifier = ETH_friendship
+				}
+			}
+		}
+	}
+}
+
+country_event = { #John Robinson arrives
+	id = ETH_event.20
+	title = ETH_event.20.t
+	desc = ETH_event.20.d
+	picture = GFX_report_event_generic_ethiopia_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = ETH_event.20.a
+		hidden_effect = {
+			set_country_flag = new_air_chief
+			add_ace = {
+				name = "John"
+				surname = "Robinson"
+				callsign = "Brown Condor"
+				type = "fighter_good"
+				is_female = no
+			}
+		}
+		add_ideas = {
+			ETH_coaf_John_Robinson
+		}
+		custom_effect_tooltip = ETH_ace_Robinson_tooltip
+	}
+	option = {
+		name = ETH_event.20.b
+		add_ace = {
+			name = "John"
+			surname = "Robinson"
+			callsign = "Brown Condor"
+			type = "fighter_good"
+			is_female = no
+		}
+		add_political_power = 75
+		air_experience = 10
+	}
+}
+
+
+
+#Focus events

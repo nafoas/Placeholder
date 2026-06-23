@@ -1,0 +1,626 @@
+AST_parl_init = {
+	add_to_array = { AST_senate_seat_array = 10 } # ALP
+	add_to_array = { AST_senate_seat_array = 0 } # ALP (Lang)
+	add_to_array = { AST_senate_seat_array = 0 } # Independent
+	add_to_array = { AST_senate_seat_array = 21 } # UAP
+	add_to_array = { AST_senate_seat_array = 5 } # Country
+	add_to_array = { AST_senate_seat_array = 0 } # LCL
+
+	add_to_array = { AST_house_seat_array = 14 } # ALP
+	add_to_array = { AST_house_seat_array = 4 } # ALP (Lang)
+	add_to_array = { AST_house_seat_array = 2 } # Independent
+	add_to_array = { AST_house_seat_array = 34 } # UAP
+	add_to_array = { AST_house_seat_array = 16 } # Country
+	add_to_array = { AST_house_seat_array = 5 } # LCL
+	
+	#1: Nonexistant, 2: Extraparliamentary, 3: Crossbench, 4: Opposition, 5: Government
+	add_to_array = { AST_party_status_array = 4 }
+	add_to_array = { AST_party_status_array = 3 }
+	add_to_array = { AST_party_status_array = 3 }
+	add_to_array = { AST_party_status_array = 5 }
+	add_to_array = { AST_party_status_array = 3 }
+	add_to_array = { AST_party_status_array = 5 }
+}
+
+AST_parl_calc_seats = {
+	clear_array = AST_senate_member_array
+	clear_array = AST_senate_member_status_array
+	clear_array = AST_house_member_array
+	clear_array = AST_house_member_status_array
+	clear_array = AST_party_status_array_prep_empty
+	clear_variable = AST_senate_seat_count
+	clear_variable = AST_house_seat_count
+	clear_variable = AST_senate_quorum
+	clear_variable = AST_house_quorum
+	add_to_array = { AST_party_status_array_prep_empty = 0 }
+	for_each_loop = {
+		array = AST_party_status_array
+		set_temp_variable = { bdr_id = v }
+		set_temp_variable = { frame_id = i }
+		add_to_temp_variable = { frame_id = 1 }
+		add_to_array = { AST_party_status_array_prep_empty = v }
+		for_loop_effect = {
+			start = 0
+			end = AST_senate_seat_array^i
+			add_to_array = { AST_senate_member_array = frame_id }
+			add_to_array = { AST_senate_member_status_array = bdr_id }
+			add_to_variable = { AST_senate_seat_count = 1 }
+		}
+		for_loop_effect = {
+			start = 0
+			end = AST_house_seat_array^i
+			add_to_array = { AST_house_member_array = frame_id }
+			add_to_array = { AST_house_member_status_array = bdr_id }
+			add_to_variable = { AST_house_seat_count = 1 }
+		}
+	}
+	set_variable = { AST_senate_quorum = AST_senate_seat_count }
+	divide_variable = { AST_senate_quorum = 2 }
+	round_variable = AST_senate_quorum
+	set_variable = { AST_house_quorum = AST_house_seat_count }
+	divide_variable = { AST_house_quorum = 2 }
+	round_variable = AST_house_quorum
+	if = {
+		limit = { check_variable = { AST_parl_status = 1 } }
+		AST_bill_calc_votes = yes
+	}
+}
+
+AST_parl_load_bills = {
+	set_variable = { AST_bills_visible_array^num = 0 }
+	
+	add_to_array = { AST_billdb_has_intro_effect = 1 }
+	add_to_array = { AST_billdb_has_fail_effect = 1 }
+	add_to_array = { AST_bills_allowed_array = 1 }
+}
+
+AST_parl_bill_recheck_conditions = {
+	clear_array = AST_bills_visible_array
+	set_variable = { AST_bills_visible_array^num = 0 }
+	for_each_loop = {
+		array = AST_bills_allowed_array
+		if = {
+			limit = {
+				meta_trigger = {
+					text = {
+						AST_bill_[BILL]_visible = yes
+					}
+					BILL = "[?v]"
+				}
+			}
+			add_to_array = { AST_bills_visible_array = v }
+		}
+	}
+}
+
+AST_bill_calc_votes = {
+	set_variable = { AST_bill_senate_votes = 0 }
+	set_variable = { AST_bill_house_votes = 0 }
+	clr_country_flag = AST_bill_passing
+	for_each_loop = {
+		array = AST_senate_seat_array
+		if = {
+			limit = {
+				check_variable = { AST_party_status_array^i = 5 }
+			}
+			add_to_variable = { AST_bill_senate_votes = v }
+		}
+	}
+	for_each_loop = {
+		array = AST_house_seat_array
+		if = {
+			limit = {
+				check_variable = { AST_party_status_array^i = 5 }
+			}
+			add_to_variable = { AST_bill_house_votes = v }
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				var = AST_bill_senate_votes
+				value = AST_senate_quorum
+				compare = greater_than_or_equals
+			}
+			check_variable = {
+				var = AST_bill_house_votes
+				value = AST_house_quorum
+				compare = greater_than_or_equals
+			}
+		}
+		set_country_flag = AST_bill_passing
+	}
+}
+
+AST_parl_daily = {
+	if = {
+		limit = {
+			check_variable = { AST_parl_status = 1 }
+		}
+		subtract_from_variable = { AST_parl_vote_countdown = 1 }
+		if = {
+			limit = {
+				check_variable = { AST_parl_vote_countdown = 0 }
+			}
+			AST_bill_calc_votes = yes
+			if = {
+				limit = {
+					has_country_flag = AST_bill_passing
+				}
+				AST_bill_pass = yes
+				else = { AST_bill_fail = yes }
+			}
+		}
+	}
+}
+
+AST_bill_pass = {
+	remove_from_array = { AST_bills_visible_array = v }
+	remove_from_array = { AST_bills_allowed_array = v }
+	meta_effect = {
+		text = {
+			AST_bill_[BILL]_pass = yes
+		}
+		BILL = "[?AST_parl_selected_bill]"
+	}
+	set_variable = { AST_parl_status = 2 }
+	AST_parl_bill_recheck_conditions = yes
+}
+
+AST_bill_fail = {
+	if = {
+		limit = {
+			is_in_array = {
+				array = AST.AST_billdb_has_fail_effect
+				value = AST_parl_selected_bill
+			}
+		}
+		meta_effect = {
+			text = {
+				AST_bill_[BILL]_fail = yes
+			}
+			BILL = "[?AST_parl_selected_bill]"
+		}
+	}
+	set_variable = { AST_parl_status = 2 }
+	AST_parl_bill_recheck_conditions = yes
+}
+
+AST_bill_clear = {
+	clear_variable = AST_bill_senate_votes
+	clear_variable = AST_bill_house_votes
+	clear_variable = AST_parl_vote_countdown
+	clear_variable = AST_parl_selected_bill
+	clr_country_flag = AST_bill_passing
+	set_variable = { AST_parl_status = 0 }
+}
+
+AST_bill_1_introduce = {
+	add_popularity = {
+		ideology = fascism
+		popularity = 0.05
+	}
+}
+
+AST_bill_1_pass = {
+	add_popularity = {
+		ideology = fascism
+		popularity = 0.45
+	}
+	set_politics = {
+		ruling_party = fascism
+		elections_allowed = no
+	}
+}
+
+AST_bill_1_fail = {
+	add_popularity = {
+		ideology = authoritarian_socialism
+		popularity = 0.65
+	}
+	add_popularity = {
+		ideology = communism
+		popularity = 0.30
+	}
+	set_politics = {
+		ruling_party = authoritarian_socialism
+		elections_allowed = no
+	}
+}
+
+AST_Set_Parliament = {
+	custom_effect_tooltip = AST_Reshuffle_Parliament_tt
+	#Sets variable to check for discrepencies
+	set_variable = {
+		AST_old_total_seats = AST_total_seats
+	}
+	set_variable = {
+		AST_com_seats = party_popularity@communism
+	}
+	set_variable = {
+		AST_revsoc_seats = party_popularity@authoritarian_socialism
+	}
+	set_variable = {
+		AST_demsoc_seats = party_popularity@socialism
+	}
+	set_variable = {
+		AST_socdem_seats = party_popularity@social_democracy
+	}
+	set_variable = {
+		AST_soclib_seats = party_popularity@social_liberalism
+	}
+	set_variable = {
+		AST_marlib_seats = party_popularity@market_liberalism
+	}
+	set_variable = {
+		AST_libcon_seats = party_popularity@jacobin
+	}
+	set_variable = {
+		AST_soccon_seats = party_popularity@democratic
+	}
+	set_variable = {
+		AST_aut_seats = party_popularity@neutrality
+	}
+	set_variable = {
+		AST_autdes_seats = party_popularity@monarchism
+	}
+	set_variable = {
+		AST_faraut_seats = party_popularity@nationalism
+	}
+	set_variable = {
+		AST_fas_seats = party_popularity@fascism
+	}
+	#Gets seats
+	multiply_variable = {
+		AST_com_seats = AST_total_seats
+	}
+	multiply_variable = {
+		AST_revsoc_seats = AST_total_seats
+	}
+	multiply_variable = {
+		AST_demsoc_seats = AST_total_seats
+	}
+	multiply_variable = {
+		AST_socdem_seats = AST_total_seats
+	}
+	multiply_variable = {
+		AST_soclib_seats = AST_total_seats
+	}
+	multiply_variable = {
+		AST_marlib_seats = AST_total_seats
+	}
+	multiply_variable = {
+		AST_libcon_seats = AST_total_seats
+	}
+	multiply_variable = {
+		AST_soccon_seats = AST_total_seats
+	}
+	multiply_variable = {
+		AST_aut_seats = AST_total_seats
+	}
+	multiply_variable = {
+		AST_autdes_seats = AST_total_seats
+	}
+	multiply_variable = {
+		AST_faraut_seats = AST_total_seats
+	}
+	multiply_variable = {
+		AST_fas_seats = AST_total_seats
+	}
+	#rounds
+	round_variable = AST_com_seats
+	round_variable = AST_revsoc_seats
+	round_variable = AST_demsoc_seats
+	round_variable = AST_socdem_seats
+	round_variable = AST_soclib_seats
+	round_variable = AST_marlib_seats
+	round_variable = AST_libcon_seats
+	round_variable = AST_soccon_seats
+	round_variable = AST_aut_seats
+	round_variable = AST_autdes_seats
+	round_variable = AST_faraut_seats
+	round_variable = AST_fas_seats
+	#Gets new total seat value
+	set_variable = {
+		AST_total_seats = 0
+	}
+	add_to_variable = {
+		AST_total_seats = AST_com_seats
+	}
+	add_to_variable = {
+		AST_total_seats = AST_revsoc_seats
+	}
+	add_to_variable = {
+		AST_total_seats = AST_demsoc_seats
+	}
+	add_to_variable = {
+		AST_total_seats = AST_socdem_seats
+	}
+	add_to_variable = {
+		AST_total_seats = AST_soclib_seats
+	}
+	add_to_variable = {
+		AST_total_seats = AST_marlib_seats
+	}
+	add_to_variable = {
+		AST_total_seats = AST_libcon_seats
+	}
+	add_to_variable = {
+		AST_total_seats = AST_soccon_seats
+	}
+	add_to_variable = {
+		AST_total_seats = AST_aut_seats
+	}
+	add_to_variable = {
+		AST_total_seats = AST_autdes_seats
+	}
+	add_to_variable = {
+		AST_total_seats = AST_faraut_seats
+	}
+	add_to_variable = {
+		AST_total_seats = AST_fas_seats
+	}
+	#gets discrepency
+	subtract_from_variable = {
+		AST_old_total_seats = AST_total_seats
+	}
+	#deals with discrepency, if needed
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					AST_old_total_seats = 0
+				}
+			}
+		}
+		add_to_variable = {
+			AST_total_seats = AST_old_total_seats
+		}
+		if = {
+			limit = {
+				has_government = communism
+			}
+			add_to_variable = {
+				AST_com_seats = AST_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = authoritarian_socialism
+			}
+			add_to_variable = {
+				AST_revsoc_seats = AST_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = socialism
+			}
+			add_to_variable = {
+				AST_demsoc_seats = AST_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_democracy
+			}
+			add_to_variable = {
+				AST_socdem_seats = AST_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_liberalism
+			}
+			add_to_variable = {
+				AST_soclib_seats = AST_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = market_liberalism
+			}
+			add_to_variable = {
+				AST_marlib_seats = AST_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = jacobin
+			}
+			add_to_variable = {
+				AST_libcon_seats = AST_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = democratic
+			}
+			add_to_variable = {
+				AST_soccon_seats = AST_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = neutrality
+			}
+			add_to_variable = {
+				AST_aut_seats = AST_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = monarchism
+			}
+			add_to_variable = {
+				AST_autdes_seats = AST_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = nationalism
+			}
+			add_to_variable = {
+				AST_faraut_seats = AST_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = fascism
+			}
+			add_to_variable = {
+				AST_fas_seats = AST_old_total_seats
+			}
+		}
+	}
+	#gets half
+	set_variable = {
+		AST_seats_needed = AST_total_seats
+	}
+	divide_variable = {
+		AST_seats_needed = 2
+	}
+	round_variable = AST_seats_needed
+	#Gets coalition
+	set_variable = {
+		AST_coalition_seats = 0
+	}
+	AST_get_coalition_seats = yes
+}
+AST_get_coalition_seats = {
+	set_variable = {
+		AST_coalition_seats = 0
+	}
+	if = {
+		limit = {
+			is_in_array = { #communist
+				array = coalition_party_list
+				value = 0
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_com_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #revolutionary socialist
+				array = coalition_party_list
+				value = 1
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_revsoc_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #democratic socialist
+				array = coalition_party_list
+				value = 2
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_demsoc_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocDem
+				array = coalition_party_list
+				value = 3
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_socdem_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #soclib
+				array = coalition_party_list
+				value = 4
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_soclib_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #marlib
+				array = coalition_party_list
+				value = 5
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_marlib_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #LibCon
+				array = coalition_party_list
+				value = 6
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_libcon_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocCon
+				array = coalition_party_list
+				value = 7
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_soccon_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #Aut
+				array = coalition_party_list
+				value = 9
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_aut_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #monarchist
+				array = coalition_party_list
+				value = 8
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_autdes_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #nationalist
+				array = coalition_party_list
+				value = 10
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_faraut_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #fascist
+				array = coalition_party_list
+				value = 11
+			}
+		}
+		add_to_variable = {
+			AST_coalition_seats = AST_fas_seats
+		}
+	}
+}

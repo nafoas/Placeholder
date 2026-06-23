@@ -1,0 +1,5804 @@
+political_actions = {
+	
+	NOR_established_the_ministry_of_provisioning = {
+		allowed = {
+			tag = NOR
+        }
+		visible = {
+			tag = NOR
+			OR = {
+				has_country_flag = NOR_began_establishing_the_ministry_of_provisioning
+				has_country_flag = NOR_establish_the_ministry_of_provisioning_cf
+				has_war = yes
+				DEN = { has_war = yes }
+				SWE = { has_war = yes }
+				count_triggers = {
+					amount = 3
+					GER = { has_war = yes }
+					FRA = { has_war = yes }
+					ENG = { has_war = yes }
+					ITA = { has_war = yes }
+					SOV = { has_war = yes }
+				}
+			}
+		}
+		available = {
+			has_country_flag = NOR_establish_the_ministry_of_provisioning_cf
+		}
+		days_remove = 720
+		icon = GFX_decision_generic_supplies
+		fire_only_once = yes
+		modifier = {
+			stability_factor = -0.05
+			political_power_gain = -0.04
+			consumer_goods_factor = -0.10
+		}
+	}
+	
+	NOR_mobilize_the_economy = {
+		allowed = {
+			tag = NOR
+        }
+		visible = {
+			tag = NOR
+			has_war = yes
+			has_completed_focus = NOR_send_out_an_order_of_mobilization
+			OR = {
+				has_idea = NOR_low_military_spending1
+				has_idea = NOR_low_military_spending2
+				has_idea = NOR_low_military_spending3
+				has_idea = NOR_low_military_spending4
+				has_idea = NOR_low_military_spending7
+				has_idea = NOR_low_military_spending8
+			}
+		}
+		available = {
+			tag = NOR
+			has_war = yes
+			has_completed_focus = NOR_send_out_an_order_of_mobilization
+			custom_trigger_tooltip = {
+				tooltip = NOR_low_military_spending_tt
+				OR = {
+					has_idea = NOR_low_military_spending1
+					has_idea = NOR_low_military_spending2
+					has_idea = NOR_low_military_spending3
+					has_idea = NOR_low_military_spending4
+					has_idea = NOR_low_military_spending7
+					has_idea = NOR_low_military_spending8
+				}
+			}
+		}
+		days_remove = 10
+		icon = ger_military_buildup
+		fire_only_once = no
+		ai_will_do = {
+			factor = 5000
+		}
+		modifier = {
+			political_power_gain = -0.50
+		}
+		remove_effect = {
+			add_stability = -0.05
+			NOR_better_military_production = yes
+		}
+	}
+	
+	NOR_increase_military_organization_decision = {
+		allowed = {
+			tag = NOR
+        }
+		visible = {
+			has_war = yes
+			has_completed_focus = NOR_send_out_an_order_of_mobilization
+			OR = {
+				has_idea = NOR_low_military_spending1
+				has_idea = NOR_low_military_spending2
+				has_idea = NOR_low_military_spending3
+				has_idea = NOR_low_military_spending4
+				has_idea = NOR_low_military_spending5
+				has_idea = NOR_low_military_spending6
+			}
+		}
+		available = {
+			tag = NOR
+			has_war = yes
+			has_completed_focus = NOR_send_out_an_order_of_mobilization
+			custom_trigger_tooltip = {
+				tooltip = NOR_low_military_organization_tt
+				OR = {
+					has_idea = NOR_low_military_spending1
+					has_idea = NOR_low_military_spending2
+					has_idea = NOR_low_military_spending3
+					has_idea = NOR_low_military_spending4
+					has_idea = NOR_low_military_spending5
+					has_idea = NOR_low_military_spending6
+				}
+			}
+		}
+		days_remove = 10
+		icon = generic_army_support
+		fire_only_once = no
+		ai_will_do = {
+			factor = 5000
+		}
+		modifier = {
+			political_power_gain = -0.50
+		}
+		remove_effect = {
+			add_stability = -0.05
+			NOR_better_military_organization = yes
+		}
+	}
+}
+
+foreign_politics = {
+
+	NOR_money_from_ENG = {
+
+        cost = 25
+        fire_only_once = yes
+		icon = generic_naval
+        cosmetic_tag = ENG
+		
+		visible = {
+			tag = NOR
+			has_completed_focus = NOR_open_up_for_european_investments
+		    ENG = { exists = yes }
+			NOT = { has_war_with = ENG }
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_open_up_for_european_investments
+		    ENG = { exists = yes }
+			NOT = { has_war_with = ENG }
+		}
+
+        complete_effect = {
+			ENG = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = NOR_monetary_investments 
+				}
+			}
+			custom_effect_tooltip = NOR_change_modifer
+			add_ideas = NOR_ENG_money_idea
+			hidden_effect = {
+				add_to_variable = {
+					NOR_WELFARE_DOCKYARD = 0.05
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+	NOR_money_from_WGR = {
+
+        cost = 25
+        fire_only_once = yes
+		icon = generic_industry
+        cosmetic_tag = WGR
+		
+		visible = {
+			tag = NOR
+			has_completed_focus = NOR_open_up_for_european_investments
+		    WGR = { exists = yes }
+			NOT = { has_war_with = WGR }
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_open_up_for_european_investments
+		    WGR = { exists = yes }
+			NOT = { has_war_with = WGR }
+		}
+
+        complete_effect = {
+			WGR = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = NOR_monetary_investments 
+				}
+			}
+			custom_effect_tooltip = NOR_change_modifer
+			add_ideas = NOR_WGR_money_idea
+			hidden_effect = {
+				add_to_variable = {
+					NOR_WELFARE_EFFCIENCY_MAX = 0.02
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+	NOR_money_from_USA = {
+
+        cost = 25
+        fire_only_once = yes
+		icon = GFX_decision_generic_construction
+        cosmetic_tag = USA
+		
+		visible = {
+			tag = NOR
+			has_completed_focus = NOR_open_up_for_european_investments
+		    USA = { exists = yes }
+			NOT = { has_war_with = USA }
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_open_up_for_european_investments
+		    USA = { exists = yes }
+			NOT = { has_war_with = USA }
+		}
+
+        complete_effect = {
+			USA = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = NOR_monetary_investments 
+				}
+			}
+			custom_effect_tooltip = NOR_change_modifer
+			add_ideas = NOR_USA_money_idea
+			hidden_effect = {
+				add_to_variable = {
+					NOR_WELFARE_INDUSTRY_CONSTRUCTION = 0.05
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+	NOR_money_from_FRA = {
+
+        cost = 75
+        fire_only_once = yes
+		icon = hol_attract_foreign_investors
+        cosmetic_tag = FRA
+		
+		visible = {
+			tag = NOR
+			has_completed_focus = NOR_open_up_for_european_investments
+		    FRA = { exists = yes }
+			NOT = { has_war_with = FRA }
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_open_up_for_european_investments
+		    FRA = { exists = yes }
+			NOT = { has_war_with = FRA }
+		}
+
+        complete_effect = {
+			FRA = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = NOR_monetary_investments 
+				}
+			}
+			add_offsite_building = { type = industrial_complex level = 1 }
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	NOR_seek_out_british_guarantee = {
+
+        cost = 25
+        fire_only_once = yes
+		icon = eng_ally_imperialist_coup
+        cosmetic_tag = ENG
+		
+		visible = {
+			tag = NOR
+			OR = {
+				AND = {
+					NOT = {
+						has_completed_focus = NOR_british_ties
+					}
+					NOT = {
+						has_completed_focus = NOR_german_ties
+					}
+				}
+				AND = {
+					ENG = { exists = yes }
+					has_completed_focus = NOR_british_ties
+				}
+			}
+			has_completed_focus = NOR_abandon_neutrality
+			NOT = { has_war_with = ENG }
+			is_in_faction = no
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_increase_foreign_opinions
+		    ENG = { exists = yes }
+			NOT = { has_war_with = ENG }
+			is_in_faction = no
+		}
+
+        complete_effect = {
+			ENG = {
+				country_event = { id = norway_external.17 }
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	NOR_british_investments = {
+
+        cost = 25
+        fire_only_once = yes
+		icon = hol_attract_foreign_investors
+        cosmetic_tag = ENG
+		
+		visible = {
+			tag = NOR
+			OR = {
+				AND = {
+					NOT = {
+						has_completed_focus = NOR_british_ties
+					}
+					NOT = {
+						has_completed_focus = NOR_german_ties
+					}
+				}
+				AND = {
+					ENG = { exists = yes }
+					has_completed_focus = NOR_british_ties
+				}
+			}
+			has_completed_focus = NOR_abandon_neutrality
+			NOT = { has_war_with = ENG }
+			is_in_faction = no
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_increase_foreign_opinions
+		    ENG = { exists = yes }
+			NOT = { has_war_with = ENG }
+		}
+
+        complete_effect = {
+			add_timed_idea = { idea = NOR_british_investments_idea days = 360 }
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	NOR_british_research = {
+
+        cost = 50
+        fire_only_once = yes
+		icon = generic_research
+        cosmetic_tag = ENG
+		
+		visible = {
+			tag = NOR
+			OR = {
+				AND = {
+					NOT = {
+						has_completed_focus = NOR_british_ties
+					}
+					NOT = {
+						has_completed_focus = NOR_german_ties
+					}
+				}
+				AND = {
+					ENG = { exists = yes }
+					has_completed_focus = NOR_british_ties
+				}
+			}
+			has_completed_focus = NOR_abandon_neutrality
+			NOT = { has_war_with = ENG }
+			is_in_faction = no
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_increase_foreign_opinions
+		    ENG = { exists = yes }
+			NOT = { has_war_with = ENG }
+		}
+
+        complete_effect = {
+			add_tech_bonus = {
+				name = industry_bonus
+				bonus = 0.5
+				uses = 2
+				category = computing_tech
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	NOR_improved_british_naval_production = {
+
+        cost = 10
+		days_remove = 360
+        fire_only_once = yes
+		icon = generic_naval
+        cosmetic_tag = ENG
+		
+		visible = {
+			tag = NOR
+			OR = {
+				AND = {
+					NOT = {
+						has_completed_focus = NOR_british_ties
+					}
+					NOT = {
+						has_completed_focus = NOR_german_ties
+					}
+				}
+				AND = {
+					ENG = { exists = yes }
+					has_completed_focus = NOR_british_ties
+				}
+			}
+			has_completed_focus = NOR_abandon_neutrality
+			NOT = { has_war_with = ENG }
+			is_in_faction = no
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_increase_foreign_opinions
+		    ENG = { exists = yes }
+			NOT = { has_war_with = ENG }
+		}
+		modifier = {
+			industrial_capacity_dockyard = 0.10
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	#TODO: join the allies decision rework
+	NOR_join_the_allies = {
+
+        cost = 100
+        fire_only_once = yes
+		icon = generic_form_nation
+        cosmetic_tag = ENG
+		
+		visible = {
+			date > 1938.6.1
+			tag = NOR
+			OR = {
+				AND = {
+					NOT = {
+						has_completed_focus = NOR_british_ties
+					}
+					NOT = {
+						has_completed_focus = NOR_german_ties
+					}
+				}
+				AND = {
+					ENG = { exists = yes }
+					has_completed_focus = NOR_british_ties
+				}
+			}
+			has_completed_focus = NOR_abandon_neutrality
+			NOT = { has_war_with = ENG }
+			is_in_faction = no
+		}
+		available = {
+			tag = NOR
+			has_war_support > 0.65
+			has_completed_focus = NOR_increase_foreign_opinions
+		    ENG = { exists = yes }
+			NOT = { has_war_with = ENG }
+            ENG = { is_faction_leader = yes }
+			OR = {
+				ENG = {
+					has_war = yes
+				}
+				is_guaranteed_by = ENG
+			}
+		}
+
+		complete_effect = {
+			ENG = {
+				country_event = { id = norway_external.18 }
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	NOR_seek_out_a_german_guarantee = {
+
+        cost = 25
+        fire_only_once = yes
+		icon = eng_puppet_usa
+        cosmetic_tag = GER
+		cosmetic_ideology = monarchism
+		
+		visible = {
+			tag = NOR
+			OR = {
+				AND = {
+					NOT = {
+						has_completed_focus = NOR_british_ties
+					}
+					NOT = {
+						has_completed_focus = NOR_german_ties
+					}
+				}
+				AND = {
+					ENG = { exists = yes }
+					has_completed_focus = NOR_german_ties
+				}
+			}
+			has_completed_focus = NOR_abandon_neutrality
+			NOT = { has_war_with = WGR }
+			is_in_faction = no
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_increase_foreign_opinions
+		    WGR = { exists = yes }
+			NOT = { has_war_with = WGR }
+			is_in_faction = no
+		}
+
+        complete_effect = {
+			WGR = {
+				country_event = { id = norway_external.19 }
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	NOR_german_capital = {
+
+        cost = 25
+		days_remove = 360
+        fire_only_once = yes
+		icon = hol_attract_foreign_investors
+		cosmetic_tag = GER
+		
+		visible = {
+			tag = NOR
+			OR = {
+				AND = {
+					NOT = {
+						has_completed_focus = NOR_british_ties
+					}
+					NOT = {
+						has_completed_focus = NOR_german_ties
+					}
+				}
+				AND = {
+					ENG = { exists = yes }
+					has_completed_focus = NOR_german_ties
+				}
+			}
+			has_completed_focus = NOR_abandon_neutrality
+			NOT = { has_war_with = WGR }
+			is_in_faction = no
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_increase_foreign_opinions
+		    WGR = { exists = yes }
+			NOT = { has_war_with = WGR }
+		}
+		modifier = {
+			production_speed_buildings_factor = 0.075
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	NOR_german_engineering = {
+
+        cost = 50
+        fire_only_once = yes
+		icon = generic_research
+        cosmetic_tag = GER
+		
+		visible = {
+			tag = NOR
+			OR = {
+				AND = {
+					NOT = {
+						has_completed_focus = NOR_british_ties
+					}
+					NOT = {
+						has_completed_focus = NOR_german_ties
+					}
+				}
+				AND = {
+					ENG = { exists = yes }
+					has_completed_focus = NOR_german_ties
+				}
+			}
+			has_completed_focus = NOR_abandon_neutrality
+			NOT = { has_war_with = WGR }
+			is_in_faction = no
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_increase_foreign_opinions
+		    WGR = { exists = yes }
+			NOT = { has_war_with = WGR }
+		}
+
+        complete_effect = {
+			add_tech_bonus = {
+				name = industry_bonus
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	NOR_german_industrial_production = {
+
+        cost = 25
+		days_remove = 360
+        fire_only_once = yes
+		icon = ger_military_buildup
+        cosmetic_tag = GER
+		
+		visible = {
+			tag = NOR
+			OR = {
+				AND = {
+					NOT = {
+						has_completed_focus = NOR_british_ties
+					}
+					NOT = {
+						has_completed_focus = NOR_german_ties
+					}
+				}
+				AND = {
+					ENG = { exists = yes }
+					has_completed_focus = NOR_german_ties
+				}
+			}
+			has_completed_focus = NOR_abandon_neutrality
+			NOT = { has_war_with = WGR }
+		}
+		available = {
+			tag = NOR
+			has_completed_focus = NOR_increase_foreign_opinions
+		    WGR = { exists = yes }
+			NOT = { has_war_with = WGR }
+		}
+		modifier = {
+			industrial_capacity_factory = 0.5
+		}
+		complete_effect = {
+		}
+		remove_effect = {
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	NOR_join_the_germans = {
+
+        cost = 100
+        fire_only_once = yes
+		icon = generic_form_nation
+        cosmetic_tag = GER
+		
+		visible = {
+			tag = NOR
+			date > 1938.6.1
+			OR = {
+				NOT = {
+					has_completed_focus = NOR_german_ties
+				}
+				AND = {
+					WGR = { exists = yes }
+					has_completed_focus = NOR_german_ties
+					WGR = { is_faction_leader = yes }
+				}
+			}
+			has_completed_focus = NOR_abandon_neutrality
+			NOT = {
+				has_completed_focus = NOR_british_ties
+			}
+			NOT = { has_war_with = WGR }
+		}
+		available = {
+			tag = NOR
+			has_war_support > 0.65
+		    WGR = { exists = yes }
+			NOT = { has_war_with = WGR }
+            WGR = { is_faction_leader = yes }
+			OR = {
+				WGR = {
+					has_war = yes
+				}
+				is_guaranteed_by = WGR
+			}
+			is_in_faction = no
+		}
+
+		complete_effect = {
+			WGR = {
+				country_event = { id = norway_external.20 }
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+}
+
+NOR_expand_the_railnetwork = {
+
+	NOR_expand_railways_soerlandet = {
+		icon = GFX_decision_generic_railway
+		visible = {
+			has_completed_focus = NOR_expand_the_railroad_network
+			controls_state = 1185
+		}
+		available = {
+			controls_state = 1185
+			NOT = { has_country_flag = NOR_infrastructure_construction }
+		}
+		highlight_states = {
+			state = 1185
+		}
+		days_remove = 180
+		fire_only_once = yes
+		cost = 0
+		modifier = {
+			#civilian factories
+		}
+		complete_effect = {
+	        set_country_flag = NOR_infrastructure_construction
+		}
+		remove_effect = {
+			1185 = {
+				#TODO: expand railways
+			}
+			clr_country_flag = NOR_infrastructure_construction
+	        set_country_flag = NOR_railway_soerlandet
+			if = {
+				limit = {
+					#has_country_flag = NOR_railway_soerlandet
+					has_country_flag = NOR_railway_oestlandet
+					has_country_flag = NOR_railway_troendelag
+					has_country_flag = NOR_railway_nordland
+				}
+				NOR_better_unemployment = yes
+			}
+		}
+	}
+
+	NOR_expand_railways_oestlandet = { #TODO: make this a decision
+		icon = GFX_decision_generic_railway
+		visible = {
+			has_completed_focus = NOR_expand_the_railroad_network
+			controls_state = 110
+		}
+		available = {
+			controls_state = 110
+			NOT = { has_country_flag = NOR_infrastructure_construction }
+		}
+		highlight_states = {
+			state = 110
+		}
+		days_remove = 180
+		fire_only_once = yes
+		cost = 0
+		modifier = {
+			#Civilian factories
+		}
+		complete_effect = {
+	        set_country_flag = NOR_infrastructure_construction
+		}
+		remove_effect = {
+			110 = {
+				#TODO: expand railways
+			}
+			clr_country_flag = NOR_infrastructure_construction
+	        set_country_flag = NOR_railway_oestlandet
+			if = {
+				limit = {
+					has_country_flag = NOR_railway_soerlandet
+					#has_country_flag = NOR_railway_oestlandet
+					has_country_flag = NOR_railway_troendelag
+					has_country_flag = NOR_railway_nordland
+				}
+				NOR_better_unemployment = yes
+			}
+		}
+	}
+
+	NOR_expand_railways_troendelag = { #TODO: make this a decision
+		icon = GFX_decision_generic_railway
+		visible = {
+			has_completed_focus = NOR_expand_the_railroad_network
+			controls_state = 143
+		}
+		available = {
+			controls_state = 143
+			NOT = { has_country_flag = NOR_infrastructure_construction }
+		}
+		highlight_states = {
+			state = 143
+		}
+		days_remove = 180
+		fire_only_once = yes
+		cost = 0
+		modifier = {
+			#civilian factories
+		}
+		complete_effect = {
+	        set_country_flag = NOR_infrastructure_construction
+		}
+		remove_effect = {
+			143 = {
+				#TODO: expand railways
+			}
+			clr_country_flag = NOR_infrastructure_construction
+	        set_country_flag = NOR_railway_troendelag
+			if = {
+				limit = {
+					has_country_flag = NOR_railway_soerlandet
+					has_country_flag = NOR_railway_oestlandet
+					#has_country_flag = NOR_railway_troendelag
+					has_country_flag = NOR_railway_nordland
+				}
+				NOR_better_unemployment = yes
+			}
+		}
+	}
+
+	NOR_expand_railways_nordland = { #
+		icon = GFX_decision_generic_railway
+		visible = {
+			has_completed_focus = NOR_expand_the_railroad_network
+			controls_state = 144
+		}
+		available = {
+			controls_state = 144
+			NOT = { has_country_flag = NOR_infrastructure_construction }
+		}
+		highlight_states = {
+			state = 144
+		}
+		days_remove = 180
+		fire_only_once = yes
+		cost = 0
+		modifier = {
+			#Civilian factories
+		}
+		complete_effect = {
+	        set_country_flag = NOR_infrastructure_construction
+		}
+		remove_effect = {
+			144 = {
+				#TODO: expand railways
+			}
+			clr_country_flag = NOR_infrastructure_construction
+	        set_country_flag = NOR_railway_nordland
+			if = {
+				limit = {
+					has_country_flag = NOR_railway_soerlandet
+					has_country_flag = NOR_railway_oestlandet
+					has_country_flag = NOR_railway_troendelag
+					#has_country_flag = NOR_railway_nordland
+				}
+				NOR_better_unemployment = yes
+			}
+		}
+	}
+}
+
+NOR_parliament = {
+
+	NOR_parliament_explanation = {
+		allowed = { tag = NOR }
+		visible = {
+		}
+		available = { always = yes }
+		ai_will_do = { factor = 0 } # computers don't need to know how parliament works
+		cost = 0
+		complete_effect = { country_event = { id = norway.4 } }
+		days_re_enable = 1
+	}
+	
+	NOR_focus_on_military_industry = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			has_war_support > 0.30
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_focus_on_military_industry_cf }
+			NOT = { has_country_flag = NOR_focus_on_military_industry_mutually_exclusive }
+		}
+        visible = {
+			NOT = { has_country_flag = NOR_focus_on_military_industry_cf }
+			NOT = { has_country_flag = NOR_focus_on_civilian_industry_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_focus_on_military_industry
+			}
+        }
+		cost = 0
+		icon = generic_prepare_civil_war
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_hoyre_positive_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				add_ideas = NOR_focus_on_military_industry_idea
+				NOR_AP_neutral = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_ARMY_CONSTRUCTION = 0.10
+					}
+					add_to_variable = {
+						NOR_WELFARE_INDUSTRY_CONSTRUCTION = -0.05
+					}
+					add_to_variable = {
+						NOR_WELFARE_INFRASTRUCTURE_CONSTRUCTION = 0.05
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_focus_on_military_industry_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }
+        }
+    }
+	
+	NOR_focus_on_civilian_industry = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			has_stability > 0.40
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_focus_on_civilian_industry_cf }
+			NOT = { has_country_flag = NOR_focus_on_civilian_industry_mutually_exclusive }
+		}
+        visible = {
+			NOT = { has_country_flag = NOR_focus_on_civilian_industry_cf }
+			NOT = { has_country_flag = NOR_focus_on_military_industry_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_focus_on_civilian_industry
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_construction
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_venstre_positive_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				add_ideas = NOR_focus_on_civilian_industry_idea
+				NOR_AP_neutral = yes
+				NOR_venstre_positive = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_ARMY_CONSTRUCTION = -0.05
+					}
+					add_to_variable = {
+						NOR_WELFARE_INDUSTRY_CONSTRUCTION = 0.10
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_focus_on_civilian_industry_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }
+        }
+    }
+	
+	NOR_help_out_the_civilian_sector_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			controls_state = 110
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_help_out_the_civilian_sector_decision_cf }
+			has_completed_focus = NOR_help_out_the_civilian_sector
+		}
+        visible = {
+			has_completed_focus = NOR_help_out_the_civilian_sector
+			NOT = { has_country_flag = NOR_help_out_the_civilian_sector_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_help_out_the_civilian_sector_decision
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_construction
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			effect_tooltip = {
+				add_timed_idea = {
+					idea = NOR_help_out_the_civilian_sector_idea
+					days = 360
+				}
+				custom_effect_tooltip = NOR_when_idea_runs_out
+				NOR_better_economic_depression = yes
+			}
+		}
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					country_event = { id = norwegian_parliament.52 days = 360 }
+					add_timed_idea = {
+						idea = NOR_help_out_the_civilian_sector_idea
+						days = 360
+					}
+					set_country_flag = NOR_help_out_the_civilian_sector_decision_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }
+        }
+    }
+	
+	NOR_open_nhh = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_open_nhh_cf }
+			OR = {
+				has_completed_focus = NOR_the_nygaardsvold_government
+				has_completed_focus = NOR_universities_expansion
+			}
+		}
+		
+        visible = {
+			OR = {
+				has_completed_focus = NOR_the_nygaardsvold_government
+				has_completed_focus = NOR_universities_expansion
+			}
+			NOT = { has_country_flag = NOR_open_nhh_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_open_nhh
+			}
+        }
+		cost = 0
+		icon = generic_research
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_open_nhh_idea
+			}
+			add_tech_bonus = {
+				name = industry_bonus
+				bonus = 0.75
+				uses = 1
+				category = industry
+			}
+		}
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_EFFCIENCY_MAX = 0.02
+					}
+					add_to_variable = {
+						NOR_WELFARE_FACTORY = 0.02
+					}
+					force_update_dynamic_modifier = yes
+					add_tech_bonus = {
+						name = industry_bonus
+						bonus = 0.75
+						uses = 1
+						category = industry
+					}
+					set_country_flag = NOR_open_nhh_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }			
+        }
+    }
+	
+	NOR_expand_norsk_hydro_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_expand_norsk_hydro_decision_cf }
+			has_completed_focus = NOR_norsk_hydro_focus
+			controls_state = 142
+		}
+		highlight_states = {
+			state = 142
+		}
+        visible = {
+			has_completed_focus = NOR_norsk_hydro_focus
+			NOT = { has_country_flag = NOR_expand_norsk_hydro_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_expand_norsk_hydro_decision
+			}
+        }
+		cost = 0
+		icon = GFX_decision_Mine_and_Cart
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			effect_tooltip = {
+				add_resource = {
+					type = aluminium
+					amount = 7
+					state = 142
+				}
+				add_resource = {
+					type = chromium
+					amount = 3
+					state = 142
+				}
+			}
+		}
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_resource = {
+						type = aluminium
+						amount = 3
+						state = 142
+					}
+					add_resource = {
+						type = chromium
+						amount = 2
+						state = 142
+					}
+					set_country_flag = NOR_expand_norsk_hydro_decision_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }			
+        }
+    }
+	
+	NOR_boost_gun_production = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			has_completed_focus = NOR_increase_equipment_production
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_boost_gun_production_cf }
+			custom_trigger_tooltip = {
+				tooltip = NOR_low_military_spending_tt
+				OR = {
+					has_idea = NOR_low_military_spending1
+					has_idea = NOR_low_military_spending2
+					has_idea = NOR_low_military_spending3
+					has_idea = NOR_low_military_spending4
+					has_idea = NOR_low_military_spending7
+					has_idea = NOR_low_military_spending8
+				}
+			}
+		}
+        visible = {
+			has_completed_focus = NOR_increase_equipment_production
+			NOT = { has_country_flag = NOR_boost_gun_production_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_boost_gun_production
+			}
+        }
+		cost = 0
+		icon = generic_industry
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_against_proposal = yes
+			NOR_hoyre_positive_proposal = yes
+            effect_tooltip = {
+				add_timed_idea = {
+					idea = NOR_increased_gun_production
+					days = 360
+				}
+				custom_effect_tooltip = NOR_when_idea_runs_out
+				NOR_better_military_production = yes
+				NOR_AP_against = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					country_event = { id = norwegian_parliament.50 days = 360 }
+					add_timed_idea = {
+						idea = NOR_increased_gun_production
+						days = 360
+					}
+					set_country_flag = NOR_boost_gun_production_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }
+        }
+    }
+	
+	NOR_recruitment_campaign = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			OR = {
+				has_completed_focus = NOR_increase_military_expenses
+				has_completed_focus = NOR_decrease_the_military_budget
+			}
+			OR = {
+				threat > 0.10
+				has_war_support > 0.25
+				has_war = yes
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_recruitment_campaign_cf }
+			custom_trigger_tooltip = {
+				tooltip = NOR_low_military_spending_tt
+				OR = {
+					has_idea = NOR_low_military_spending1
+					has_idea = NOR_low_military_spending2
+					has_idea = NOR_low_military_spending3
+					has_idea = NOR_low_military_spending4
+					has_idea = NOR_low_military_spending7
+					has_idea = NOR_low_military_spending8
+				}
+			}
+		}
+        visible = {
+			OR = {
+				has_completed_focus = NOR_increase_military_expenses
+				has_completed_focus = NOR_decrease_the_military_budget
+			}
+			NOT = { has_country_flag = NOR_recruitment_campaign_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_recruitment_campaign
+			}
+        }
+		cost = 0
+		icon = generic_prepare_civil_war
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_hoyre_positive_proposal = yes
+            effect_tooltip = {
+				add_timed_idea = {
+					idea = NOR_conscription_campaign
+					days = 360
+				}
+				NOR_AP_neutral = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_timed_idea = {
+						idea = NOR_conscription_campaign
+						days = 360
+					}
+					set_country_flag = NOR_recruitment_campaign_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_military_armament = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			OR = {
+				AND = {
+					threat > 0.20
+					has_completed_focus = NOR_increase_military_expenses
+				}
+				AND = {
+					threat > 0.40
+					has_completed_focus = NOR_norwegian_arms_producers
+					has_completed_focus = NOR_decrease_the_military_budget
+				}
+				has_war_support > 0.40
+				has_war = yes
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_military_armament_cf }
+			custom_trigger_tooltip = {
+				tooltip = NOR_low_military_spending_tt
+				OR = {
+					has_idea = NOR_low_military_spending1
+					has_idea = NOR_low_military_spending2
+					has_idea = NOR_low_military_spending3
+					has_idea = NOR_low_military_spending4
+					has_idea = NOR_low_military_spending7
+					has_idea = NOR_low_military_spending8
+				}
+			}
+		}
+        visible = {
+			OR = {
+				has_completed_focus = NOR_increase_military_expenses
+				has_completed_focus = NOR_decrease_the_military_budget
+			}
+			NOT = { has_country_flag = NOR_military_armament_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_military_armament
+			}
+        }
+		cost = 0
+		icon = ger_military_buildup
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_hoyre_positive_proposal = yes
+			NOR_venstre_against_proposal = yes
+            effect_tooltip = {
+				add_timed_idea = {
+					idea = NOR_support_armament_industry
+					days = 360
+				}
+				custom_effect_tooltip = NOR_when_idea_runs_out
+				NOR_better_military_production = yes
+				NOR_AP_neutral = yes
+				NOR_venstre_against = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					country_event = { id = norwegian_parliament.50 days = 360 }
+					add_timed_idea = {
+						idea = NOR_support_armament_industry
+						days = 360
+					}
+					set_country_flag = NOR_military_armament_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_train_new_officers = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			OR = {
+				AND = {
+					threat > 0.20
+					has_completed_focus = NOR_increase_military_expenses
+				}
+				AND = {
+					threat > 0.40
+					has_completed_focus = NOR_norwegian_arms_producers
+					has_completed_focus = NOR_decrease_the_military_budget
+				}
+				has_war_support > 0.50
+				has_war = yes
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_train_new_officers_cf }
+			OR = {
+				has_idea = NOR_low_military_spending1
+				has_idea = NOR_low_military_spending2
+				has_idea = NOR_low_military_spending3
+				has_idea = NOR_low_military_spending4
+				has_idea = NOR_low_military_spending5
+				has_idea = NOR_low_military_spending6
+			}
+		}
+        visible = {
+			OR = {
+				has_completed_focus = NOR_decrease_the_military_budget
+				has_completed_focus = NOR_increase_military_expenses
+			}
+			custom_trigger_tooltip = {
+				tooltip = NOR_low_military_organization_tt
+				OR = {
+					has_idea = NOR_low_military_spending1
+					has_idea = NOR_low_military_spending2
+					has_idea = NOR_low_military_spending3
+					has_idea = NOR_low_military_spending4
+					has_idea = NOR_low_military_spending5
+					has_idea = NOR_low_military_spending6
+				}
+			}
+			NOT = { has_country_flag = NOR_train_new_officers_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_train_new_officers
+			}
+        }
+		cost = 0
+		icon = generic_army_support
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_hoyre_positive_proposal = yes
+			NOR_AP_against_proposal = yes
+			NOR_venstre_against_proposal = yes
+            effect_tooltip = {
+				add_timed_idea = {
+					idea = NOR_training_of_new_officers
+					days = 360
+				}
+				custom_effect_tooltip = NOR_when_idea_runs_out
+				NOR_better_military_organization = yes
+				NOR_AP_against = yes
+				NOR_venstre_against = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					country_event = { id = norwegian_parliament.53 days = 360 }
+					add_timed_idea = {
+						idea = NOR_training_of_new_officers
+						days = 360
+					}
+					set_country_flag = NOR_train_new_officers_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_aid_rural_farmers_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_aid_rural_farmers_decision_cf }
+			has_completed_focus = NOR_aid_rural_farmers
+		}
+        visible = {
+			has_completed_focus = NOR_aid_rural_farmers
+			NOT = { has_country_flag = NOR_aid_rural_farmers_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_aid_rural_farmers_decision
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_tractor
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_positive_proposal = yes
+			NOR_venstre_against_proposal = yes
+			NOR_BP_supports_proposal = yes
+			NOR_hoyre_against_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				add_ideas = NOR_aided_rural_farmers
+				NOR_AP_positive = yes
+				NOR_venstre_against = yes
+				NOR_BP_supportive = yes
+				NOR_hoyre_against = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_PP_GAIN = -0.02
+					}
+					add_to_variable = {
+						NOR_WELFARE_FACTORY = 0.07
+					}
+					set_country_flag = NOR_aid_rural_farmers_decision_cf
+					set_country_flag = NOR_aid_rural_farmers_decision_cf_ft
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_improve_workers_conditions_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_improve_workers_conditions_decision_cf }
+			has_completed_focus = NOR_improved_workers_conditions
+		}
+        visible = {
+			has_completed_focus = NOR_improved_workers_conditions
+			NOT = { has_country_flag = NOR_improve_workers_conditions_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_improve_workers_conditions_decision
+			}
+        }
+		cost = 0
+		icon = generic_political_rally
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_supports_proposal = yes
+			NOR_venstre_positive_proposal = yes
+			NOR_BP_against_proposal = yes
+			NOR_hoyre_against_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_improve_workers_conditions_idea
+				NOR_AP_supportive = yes
+				NOR_venstre_positive = yes
+				NOR_BP_against = yes
+				NOR_hoyre_against = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_PP_GAIN = -0.01
+					}
+					add_to_variable = {
+						NOR_WELFARE_EFFICIENCY_GAIN = 0.03
+					}
+					add_to_variable = {
+						NOR_WELFARE_BUILDING_SLOTS = 0.15
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_improve_workers_conditions_decision_cf
+					set_country_flag = NOR_improve_workers_conditions_decision_cf_ft
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_promote_technological_innovativeness_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_promote_technological_innovativeness_decision_cf }
+			has_completed_focus = NOR_promote_technogical_innovativeness
+		}
+        visible = {
+			has_completed_focus = NOR_promote_technogical_innovativeness
+			NOT = { has_country_flag = NOR_promote_technological_innovativeness_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_promote_technological_innovativeness_decision
+			}
+        }
+		cost = 0
+		icon = generic_research
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_supports_proposal = yes
+			NOR_BP_against_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_promote_technological_innovativeness_idea
+				NOR_AP_supportive = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_against = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_PP_GAIN = -0.03
+					}
+					add_to_variable = {
+						NOR_WELFARE_EFFCIENCY_MAX = 0.05
+					}
+					add_to_variable = {
+						NOR_WELFARE_EFFICIENCY_GAIN = 0.03
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_promote_technological_innovativeness_decision_cf
+					set_country_flag = NOR_promote_technological_innovativeness_decision_cf_ft
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_expand_the_oslo_breakfast = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_expand_the_oslo_breakfast_cf }
+			has_completed_focus = NOR_nygaardsvold_cabinet
+		}
+        visible = {
+			has_completed_focus = NOR_nygaardsvold_cabinet
+			NOT = { has_country_flag = NOR_expand_the_oslo_breakfast_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_expand_the_oslo_breakfast
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_supplies
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_supports_proposal = yes
+			NOR_BP_against_proposal = yes
+			NOR_hoyre_against_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_expanded_the_oslo_breakfast
+				NOR_AP_supportive = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_against = yes
+				NOR_hoyre_against = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_STABILITY = 0.01
+					}
+					add_to_variable = {
+						NOR_WELFARE_BUILDING_SLOTS = 0.10
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_expand_the_oslo_breakfast_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_agricultural_loan_fund = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_agricultural_loan_fund_cf }
+			has_completed_focus = NOR_mowinckels_third_cabinet
+		}
+        visible = {
+			has_completed_focus = NOR_mowinckels_third_cabinet
+			NOT = { has_country_flag = NOR_agricultural_loan_fund_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_agricultural_loan_fund
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_barn
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_hoyre_supports_proposal = yes
+			NOR_BP_positive_proposal = yes
+			NOR_hoyre_against_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_agricultural_loan_fund_idea
+				NOR_AP_neutral = yes
+				NOR_venstre_supportive = yes
+				NOR_BP_positive = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_STABILITY = 0.02
+					}
+					add_to_variable = {
+						NOR_WELFARE_BUILDING_SLOTS = 0.10
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_agricultural_loan_fund_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_new_school_law = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_new_school_law_cf }
+			has_completed_focus = NOR_law_about_public_schools
+		}
+        visible = {
+			has_completed_focus = NOR_law_about_public_schools
+			NOT = { has_country_flag = NOR_new_school_law_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_new_school_law
+			}
+        }
+		cost = 0
+		icon = eng_trade_unions_support
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_supports_proposal = yes
+			NOR_venstre_positive_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_new_school_law_idea
+				NOR_AP_supportive = yes
+				NOR_venstre_positive = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_RESEARCH = 0.04
+					}
+					add_to_variable = {
+						NOR_WELFARE_BUILDING_SLOTS = 0.10
+					}
+					add_to_variable = {
+						NOR_WELFARE_PP_GAIN = -0.02
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_new_school_law_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_delete_farmer_debt = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_delete_farmer_debt_cf }
+			has_completed_focus = NOR_debt_deletion
+		}
+        visible = {
+			has_completed_focus = NOR_debt_deletion
+			NOT = { has_country_flag = NOR_delete_farmer_debt_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_delete_farmer_debt
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_barn
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_against_proposal = yes
+			NOR_BP_supports_proposal = yes
+            effect_tooltip = {
+				add_timed_idea = {
+					idea = NOR_deletion_of_debt
+					days = 360
+				}
+				custom_effect_tooltip = NOR_when_idea_runs_out
+				NOR_better_economic_depression = yes
+				NOR_AP_against = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_supportive = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					country_event = { id = norwegian_parliament.52 days = 360 }
+					add_timed_idea = {
+						idea = NOR_deletion_of_debt
+						days = 360
+					}
+					set_country_flag = NOR_delete_farmer_debt_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_reform_the_police = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_reform_the_police_cf }
+			has_completed_focus = NOR_police_reform
+		}
+        visible = {
+			has_completed_focus = NOR_police_reform
+			NOT = { has_country_flag = NOR_reform_the_police_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_reform_the_police
+			}
+        }
+		cost = 0
+		icon = generic_army_support
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_supports_proposal = yes
+			NOR_BP_against_proposal = yes
+			NOR_hoyre_against_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_reformed_the_police
+				NOR_AP_supportive = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_against = yes
+				NOR_hoyre_against = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					#add_to_variable = {
+					#	NOR_WELFARE_BUILDING_SLOTS = 0.20
+					#}
+					add_to_variable = {
+						NOR_WELFARE_STABILITY = 0.06
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_reform_the_police_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_public_works_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			has_completed_focus = NOR_create_new_jobs
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_public_works_decision_cf }
+			custom_trigger_tooltip = {
+				tooltip = NOR_huge_employment_tt
+				OR = {
+					has_idea = NOR_huge_unemployment4
+					has_idea = NOR_huge_unemployment3
+					has_idea = NOR_huge_unemployment2
+					has_idea = NOR_huge_unemployment1
+				}
+			}
+		}
+        visible = {
+			has_completed_focus = NOR_create_new_jobs
+			NOT = { has_country_flag = NOR_public_works_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_public_works_decision
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_build_highway
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_supports_proposal = yes
+			NOR_hoyre_against_proposal = yes
+			NOR_BP_against_proposal = yes
+            effect_tooltip = {
+				add_timed_idea = {
+					idea = NOR_public_works
+					days = 360
+				}
+				custom_effect_tooltip = NOR_when_idea_runs_out
+				NOR_better_unemployment = yes
+				NOR_AP_supportive = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_against = yes
+				NOR_hoyre_against = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					country_event = { id = norwegian_parliament.51 days = 360 }
+					add_timed_idea = {
+						idea = NOR_public_works
+						days = 360
+					}
+					set_country_flag = NOR_public_works_decision_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_expand_the_budget_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_expand_the_budget_decision_cf }
+			custom_trigger_tooltip = {
+				tooltip = NOR_great_depression_tt
+				OR = {
+					has_idea = NOR_the_great_depression4
+					has_idea = NOR_the_great_depression3
+					has_idea = NOR_the_great_depression2
+					has_idea = NOR_the_great_depression1
+				}
+			}
+			has_completed_focus = NOR_expand_the_budget
+		}
+        visible = {
+			has_completed_focus = NOR_expand_the_budget
+			NOT = { has_country_flag = NOR_expand_the_budget_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_expand_the_budget_decision
+			}
+        }
+		cost = 0
+		icon = eng_trade_unions_support
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_positive_proposal = yes
+			NOR_venstre_against_proposal = yes
+            effect_tooltip = {
+				NOR_better_economic_depression = yes
+				swap_ideas = {
+					remove_idea = NOR_a_new_economic_plan8
+					add_idea = NOR_a_new_economic_plan10
+				}
+				NOR_AP_positive = yes
+				NOR_venstre_against = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					NOR_better_economic_depression = yes
+					if = {
+						limit = {
+							has_idea = NOR_a_new_economic_plan8
+						}
+						swap_ideas = {
+							remove_idea = NOR_a_new_economic_plan8
+							add_idea = NOR_a_new_economic_plan10
+						}
+					}
+					else_if = {
+						limit = {
+							has_idea = NOR_a_new_economic_plan9
+						}
+						swap_ideas = {
+							remove_idea = NOR_a_new_economic_plan9
+							add_idea = NOR_a_new_economic_plan11
+						}
+					}
+					set_country_flag = NOR_expand_the_budget_decision_cf
+					set_country_flag = NOR_expand_the_budget_decision_cf_ft
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }			
+        }
+    }
+	
+	NOR_help_out_the_unemployed_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_help_out_the_unemployed_decision_cf }
+			custom_trigger_tooltip = {
+				tooltip = NOR_huge_employment_tt
+				OR = {
+					has_idea = NOR_huge_unemployment4
+					has_idea = NOR_huge_unemployment3
+					has_idea = NOR_huge_unemployment2
+					has_idea = NOR_huge_unemployment1
+				}
+			}
+			has_completed_focus = NOR_help_out_the_unemployed
+		}
+        visible = {
+			has_completed_focus = NOR_help_out_the_unemployed
+			NOT = { has_country_flag = NOR_help_out_the_unemployed_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_help_out_the_unemployed_decision
+			}
+        }
+		cost = 0
+		icon = generic_political_rally
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_positive_proposal = yes
+			NOR_hoyre_against_proposal = yes
+            effect_tooltip = {
+				NOR_better_unemployment = yes
+				NOR_AP_positive = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_against = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					NOR_better_unemployment = yes
+					set_country_flag = NOR_help_out_the_unemployed_decision_cf
+					set_country_flag = NOR_help_out_the_unemployed_decision_cf_ft
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_arbeidervernloven_av_1936_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_arbeidervernloven_av_1936_decision_cf }
+			has_completed_focus = NOR_arbeidervernloven_av_1936
+		}
+        visible = {
+			has_completed_focus = NOR_arbeidervernloven_av_1936
+			NOT = { has_country_flag = NOR_arbeidervernloven_av_1936_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_arbeidervernloven_av_1936_decision
+			}
+        }
+		cost = 0
+		icon = GFX_decision_eng_trade_unions_support
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_supports_proposal = yes
+			NOR_venstre_positive_proposal = yes
+			NOR_BP_against_proposal = yes
+			NOR_hoyre_against_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_arbeidervernloven_av_1936_idea
+				NOR_AP_supportive = yes
+				NOR_venstre_positive = yes
+				NOR_BP_against = yes
+				NOR_hoyre_against = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_FACTORY = 0.06
+					}
+					add_to_variable = {
+						NOR_WELFARE_EFFICIENCY_GAIN = 0.03
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_arbeidervernloven_av_1936_decision_cf
+					set_country_flag = NOR_arbeidervernloven_av_1936_decision_cf_ft
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_aid_bankrupt_businesses_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_aid_bankrupt_businesses_decision_cf }
+		}
+		visible = {
+			has_completed_focus = NOR_aid_bankrupt_businesses
+			has_country_flag = NOR_allow_to_aid_businesses
+			NOT = { has_country_flag = NOR_aid_bankrupt_businesses_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_aid_bankrupt_businesses_decision
+			}
+        }
+		cost = 0
+		icon = hol_attract_foreign_investors
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_positive_proposal = yes
+			NOR_hoyre_positive_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_negative_change_modifer
+				show_ideas_tooltip = NOR_aid_bankrupt_businesses_idea
+				NOR_better_economic_depression = yes
+				NOR_AP_positive = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_FACTORY = -0.02
+					}
+					add_to_variable = {
+						NOR_WELFARE_PP_GAIN = 0.05
+					}
+					NOR_better_economic_depression = yes
+					set_country_flag = NOR_aid_bankrupt_businesses_decision_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_age_pension_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_age_pension_decision_cf }
+			has_completed_focus = NOR_age_pension
+		}
+        visible = {
+			has_completed_focus = NOR_age_pension
+			NOT = { has_country_flag = NOR_age_pension_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_age_pension_decision
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_citizens
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_positive_proposal = yes
+			NOR_venstre_positive_proposal = yes
+			NOR_BP_against_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_age_pension_idea
+				NOR_AP_positive = yes
+				NOR_venstre_positive = yes
+				NOR_BP_against = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_FACTORY = 0.06
+					}
+					add_to_variable = {
+						NOR_WELFARE_EFFICIENCY_START = 0.05
+					}
+					add_to_variable = {
+						NOR_WELFARE_PP_GAIN = -0.02
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_age_pension_decision_cf
+					set_country_flag = NOR_age_pension_decision_cf_ft
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_employment_efforts = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_employment_efforts_cf }
+			custom_trigger_tooltip = {
+				tooltip = NOR_huge_employment_tt
+				OR = {
+					has_idea = NOR_huge_unemployment4
+					has_idea = NOR_huge_unemployment3
+					has_idea = NOR_huge_unemployment2
+					has_idea = NOR_huge_unemployment1
+				}
+			}
+			has_completed_focus = NOR_employments_programs
+		}
+        visible = {
+			has_completed_focus = NOR_employments_programs
+			NOT = { has_country_flag = NOR_employment_efforts_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_employment_efforts
+			}
+        }
+		cost = 0
+		icon = generic_political_discourse
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_positive_proposal = yes
+			NOR_venstre_positive_proposal = yes
+			NOR_hoyre_against_proposal = yes
+            effect_tooltip = {
+				NOR_better_unemployment = yes
+				NOR_AP_positive = yes
+				NOR_venstre_positive = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_against = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					NOR_better_unemployment = yes
+					set_country_flag = NOR_employment_efforts_cf
+					set_country_flag = NOR_employment_efforts_cf_ft
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_budget_cuts_decision = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_budget_cuts_decision_cf }
+			custom_trigger_tooltip = {
+				tooltip = NOR_great_depression_tt
+				OR = {
+					has_idea = NOR_the_great_depression4
+					has_idea = NOR_the_great_depression3
+					has_idea = NOR_the_great_depression2
+					has_idea = NOR_the_great_depression1
+				}
+			}
+			has_completed_focus = NOR_budget_cuts
+		}
+        visible = {
+			has_completed_focus = NOR_budget_cuts
+			NOT = { has_country_flag = NOR_budget_cuts_decision_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_budget_cuts_decision
+			}
+        }
+		cost = 0
+		icon = generic_break_treaty
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_against_proposal = yes
+			NOR_venstre_supports_proposal = yes
+			NOR_hoyre_positive_proposal = yes
+            effect_tooltip = {
+				swap_ideas = {
+					remove_idea = NOR_a_new_economic_plan4
+					add_idea = NOR_a_new_economic_plan5
+				}
+				NOR_better_economic_depression = yes
+				NOR_AP_against = yes
+				NOR_venstre_supportive = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					NOR_better_economic_depression = yes
+					swap_ideas = {
+						remove_idea = NOR_a_new_economic_plan4
+						add_idea = NOR_a_new_economic_plan5
+					}
+					set_country_flag = NOR_budget_cuts_decision_cf
+					set_country_flag = NOR_budget_cuts_decision_cf_ft
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }			
+        }
+    }
+	
+	NOR_establish_den_norske_industribank = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_establish_den_norske_industribank_cf }
+			has_completed_focus = NOR_the_nygaardsvold_government
+		}
+        visible = {
+			has_completed_focus = NOR_the_nygaardsvold_government
+			NOT = { has_country_flag = NOR_establish_den_norske_industribank_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_establish_den_norske_industribank
+			}
+        }
+		cost = 0
+		icon = hol_attract_foreign_investors
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_positive_proposal = yes
+            effect_tooltip = {
+				add_tech_bonus = {
+					name = industry_bonus
+					bonus = 0.75
+					uses = 2
+					category = industry
+				}
+				NOR_AP_positive = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_neutral = yes
+		    }
+		}
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_tech_bonus = {
+						name = industry_bonus
+						bonus = 0.75
+						uses = 2
+						category = industry
+					}
+					set_country_flag = NOR_establish_den_norske_industribank_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }
+        }
+    }
+	
+	NOR_det_brukne_gevaers_politikk = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			has_war = no
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_det_brukne_gevaers_politikk_cf }
+			has_completed_focus = NOR_neutral_foreign_policy
+		}
+        visible = {
+			hidden_trigger ={
+				NOT = {
+					OR = {
+						has_government = democratic
+						has_government = nationalism
+						has_government = fascism
+					}
+				}
+			}
+			has_completed_focus = NOR_neutral_foreign_policy
+			NOT = { has_country_flag = NOR_det_brukne_gevaers_politikk_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_det_brukne_gevaers_politikk
+			}
+        }
+		cost = 0
+		icon = generic_political_rally
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_positive_proposal = yes
+			NOR_venstre_positive_proposal = yes
+			set_country_flag = NOR_hoyre_never_support_cf
+            effect_tooltip = {
+				add_stability = 0.05
+				add_war_support = -0.02
+				add_popularity = { ideology = social_democracy popularity = 0.01 }
+				NOR_AP_positive = yes
+				NOR_venstre_positive = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_opposed = yes
+		    }
+		}
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 }
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_stability = 0.05
+					add_war_support = -0.02
+					add_popularity = { ideology = social_democracy popularity = 0.01 }
+					set_country_flag = NOR_det_brukne_gevaers_politikk_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }
+        }
+    }
+	
+	NOR_expand_the_term_of_office = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_expand_the_term_of_office_cf }
+			has_completed_focus = NOR_the_nygaardsvold_government
+		}
+        visible = {
+			has_completed_focus = NOR_the_nygaardsvold_government
+			date > 1937.6.1
+			NOT = { has_country_flag = NOR_expand_the_term_of_office_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_expand_the_term_of_office
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_politicians2
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_hoyre_positive_proposal = yes
+			NOR_venstre_positive_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_expand_the_term_of_office_tt
+				add_political_power = 50
+				NOR_AP_neutral = yes
+				NOR_venstre_positive = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 }
+					}
+					country_event = { id = norwegian_parliament.1 }
+					set_country_flag = NOR_expand_the_term_of_office_cf
+					add_political_power = 50
+					if = {
+						limit = {
+							has_government = communism
+						}
+						set_politics = {
+							ruling_party = communism
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					if = {
+						limit = {
+							has_government = authoritarian_socialism
+						}
+						set_politics = {
+							ruling_party = authoritarian_socialism
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					if = {
+						limit = {
+							has_government = socialism
+						}
+						set_politics = {
+							ruling_party = socialism
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					if = {
+						limit = {
+							has_government = social_democracy
+						}
+						set_politics = {
+							ruling_party = social_democracy
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					if = {
+						limit = {
+							has_government = social_liberalism
+						}
+						set_politics = {
+							ruling_party = social_liberalism
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					if = {
+						limit = {
+							has_government = market_liberalism
+						}
+						set_politics = {
+							ruling_party = market_liberalism
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					if = {
+						limit = {
+							has_government = jacobin
+						}
+						set_politics = {
+							ruling_party = jacobin
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					if = {
+						limit = {
+							has_government = democratic
+						}
+						set_politics = {
+							ruling_party = democratic
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					if = {
+						limit = {
+							has_government = neutrality
+						}
+						set_politics = {
+							ruling_party = neutrality
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					if = {
+						limit = {
+							has_government = monarchism
+						}
+						set_politics = {
+							ruling_party = monarchism
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					if = {
+						limit = {
+							has_government = nationalism
+						}
+						set_politics = {
+							ruling_party = nationalism
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+					if = {
+						limit = {
+							has_government = fascism
+						}
+						set_politics = {
+							ruling_party = fascism
+							election_frequency = 48
+							elections_allowed = yes
+						}
+					}
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_establish_the_ministry_of_provisioning = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			has_completed_focus = NOR_modern_doctrines
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_establish_the_ministry_of_provisioning_cf }
+		}
+        visible = {
+			has_completed_focus = NOR_modern_doctrines
+			NOT = { has_country_flag = NOR_establish_the_ministry_of_provisioning_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_establish_the_ministry_of_provisioning
+			}
+			OR = {
+				has_country_flag = NOR_began_establishing_the_ministry_of_provisioning
+				has_war = yes
+				DEN = { has_war = yes }
+				SWE = { has_war = yes }
+				count_triggers = {
+					amount = 3
+					GER = { has_war = yes }
+					FRA = { has_war = yes }
+					ENG = { has_war = yes }
+					ITA = { has_war = yes }
+					SOV = { has_war = yes }
+				}
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_supplies
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			set_country_flag = NOR_began_establishing_the_ministry_of_provisioning
+			NOR_hoyre_positive_proposal = yes
+			NOR_AP_positive_proposal = yes
+            effect_tooltip = {
+				activate_decision = NOR_established_the_ministry_of_provisioning
+				NOR_AP_positive = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 }
+					}
+					country_event = { id = norwegian_parliament.1 }
+					activate_decision = NOR_established_the_ministry_of_provisioning
+					set_country_flag = NOR_establish_the_ministry_of_provisioning_cf
+					clr_country_flag = NOR_began_establishing_the_ministry_of_provisioning
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_create_the_NRK = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_create_the_NRK_cf }
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+		}
+        visible = {
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+			NOT = { has_country_flag = NOR_create_the_NRK_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_create_the_NRK
+			}
+        }
+		cost = 0
+		icon = NOR_NRK_logo
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_positive_proposal = yes
+			NOR_venstre_positive_proposal = yes
+            effect_tooltip = {
+				add_tech_bonus = {
+					name = industry_bonus
+					bonus = 0.50
+					uses = 1
+					category = radio_category
+				}
+				add_stability = 0.02
+				NOR_AP_positive = yes
+				NOR_venstre_positive = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 }
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_tech_bonus = {
+						name = industry_bonus
+						bonus = 0.50
+						uses = 1
+						category = radio_category
+					}
+					add_stability = 0.02
+					set_country_flag = NOR_create_the_NRK_cf
+					set_country_flag = NOR_create_the_NRK_cf_ft
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_christian_school_books = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_christian_school_books_cf }
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+		}
+        visible = {
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+			NOT = { has_country_flag = NOR_christian_school_books_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_christian_school_books
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_church
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_hoyre_supports_proposal = yes
+			NOR_BP_positive_proposal = yes
+			NOR_venstre_against_proposal = yes
+            effect_tooltip = {
+				add_stability = 0.04
+				add_popularity = { ideology = democratic popularity = 0.01 }
+				NOR_AP_neutral = yes
+				NOR_venstre_against = yes
+				NOR_BP_positive = yes
+				NOR_hoyre_supportive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 }
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_stability = 0.04
+					add_popularity = { ideology = democratic popularity = 0.01 }
+					set_country_flag = NOR_christian_school_books_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_idrettsforliket = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			has_stability > 0.55
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_idrettsforliket_cf }
+		}
+        visible = {
+			has_completed_focus = NOR_the_nygaardsvold_government
+			NOT = { has_country_flag = NOR_idrettsforliket_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_idrettsforliket
+			}
+        }
+		cost = 0
+		icon = hol_exchange_intelligence_data
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_BP_against_proposal = yes
+			NOR_hoyre_against_proposal = yes
+            effect_tooltip = {
+				add_stability = 0.04
+				add_popularity = { ideology = social_democracy popularity = 0.01 }
+				NOR_AP_neutral = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_against = yes
+				NOR_hoyre_against = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 }
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_stability = 0.04
+					add_popularity = { ideology = social_democracy popularity = 0.01 }
+					set_country_flag = NOR_idrettsforliket_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_start_work_on_a_language_reform = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_start_work_on_a_language_reform_cf }
+		}
+        visible = {
+			NOT = { has_country_flag = NOR_start_work_on_a_language_reform_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_start_work_on_a_language_reform
+			}
+        }
+		cost = 0
+		icon = eng_trade_unions_support
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_BP_against_proposal = yes
+			NOR_venstre_positive_proposal = yes
+            effect_tooltip = {
+				add_timed_idea = {
+					idea = NOR_start_work_on_a_language_reform_idea
+					days = 720
+				}
+				NOR_AP_neutral = yes
+				NOR_venstre_positive = yes
+				NOR_BP_against = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_timed_idea = {
+						idea = NOR_start_work_on_a_language_reform_idea
+						days = 720
+					}
+					set_country_flag = NOR_start_work_on_a_language_reform_cf
+					set_country_flag = NOR_start_work_on_a_language_reform_cf_ft
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_finish_the_language_reform = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_finish_the_language_reform_cf }
+		}
+        visible = {
+			NOT = { has_country_flag = NOR_finish_the_language_reform_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_finish_the_language_reform
+			}
+			has_completed_focus = NOR_the_language_issue
+        }
+		cost = 0
+		icon = eng_trade_unions_support
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_positive_proposal = yes
+			NOR_BP_against_proposal = yes
+			NOR_hoyre_against_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_finish_the_language_reform_idea
+				NOR_AP_positive = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_against = yes
+				NOR_hoyre_against = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					set_country_flag = NOR_finish_the_language_reform_cf
+					add_to_variable = {
+						NOR_WELFARE_PP_GAIN = 0.06
+					}
+					add_to_variable = {
+						NOR_WELFARE_RESEARCH = 0.03
+					}
+					force_update_dynamic_modifier = yes
+					country_event = { id = norway.3 days = 20 }
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_wartime_protocols = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_wartime_protocols_cf }
+			OR = {
+				threat > 0.15
+				has_war = yes
+				has_completed_focus = NOR_increase_military_expenses
+			}
+		}
+        visible = {
+			has_completed_focus = NOR_the_nygaardsvold_government
+			NOT = { has_country_flag = NOR_wartime_protocols_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_wartime_protocols
+			}
+        }
+		cost = 0
+		icon = eng_propaganda_campaigns
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_venstre_against_proposal = yes
+			NOR_AP_against_proposal = yes
+			NOR_hoyre_positive_proposal = yes
+            effect_tooltip = {
+				add_war_support = 0.08
+				add_political_power = -40
+				NOR_AP_against = yes
+				NOR_venstre_against = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_war_support = 0.08
+					add_political_power = -30
+					set_country_flag = NOR_wartime_protocols_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }	
+        }
+    }
+	
+	NOR_anti_pacifism_effort = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			hidden_trigger ={
+				NOT = {
+					OR = {
+						has_government = socialism
+						has_government = social_democracy
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+			OR = {
+				AND = {
+					has_stability > 0.45
+					has_war_support < 0.3
+				}
+				has_war = yes
+				threat > 0.40
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_anti_pacifism_effort_cf }
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+		}
+        visible = {
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+			NOT = { has_country_flag = NOR_anti_pacifism_effort_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_anti_pacifism_effort
+			}
+        }
+		cost = 0
+		icon = hol_war_on_pacifism
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_hoyre_supports_proposal = yes
+			set_country_flag = NOR_AP_never_support_cf
+			NOR_venstre_against_proposal = yes
+            effect_tooltip = {
+				add_war_support = 0.08
+				add_stability = -0.04
+				NOR_AP_opposed = yes
+				NOR_venstre_against = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_supportive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_war_support = 0.08
+					add_stability = -0.04
+					set_country_flag = NOR_anti_pacifism_effort_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }	
+        }
+    }
+	
+	NOR_research_institutions_help = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_research_institutions_help_cf }
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+		}
+        visible = {
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+			NOT = { has_country_flag = NOR_research_institutions_help_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_research_institutions_help
+			}
+        }
+		cost = 0
+		icon = generic_research
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_venstre_positive_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_research_institutions_help_idea
+				NOR_AP_neutral = yes
+				NOR_venstre_positive = yes
+				NOR_BP_neutral = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_RESEARCH = 0.04
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_research_institutions_help_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }	
+        }
+    }
+	
+	NOR_aid_public_schools = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_aid_public_schools_cf }
+			has_completed_focus = NOR_the_nygaardsvold_government
+		}
+        visible = {
+			has_completed_focus = NOR_the_nygaardsvold_government
+			NOT = { has_country_flag = NOR_aid_public_schools_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_aid_public_schools
+			}
+        }
+		cost = 0
+		icon = GFX_decision_hol_exchange_intelligence_data
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_venstre_positive_proposal = yes
+			NOR_BP_against_proposal = yes
+            effect_tooltip = {
+				add_popularity = { ideology = social_democracy popularity = 0.005 }
+				add_timed_idea = {
+					idea = NOR_aid_public_schools_idea
+					days = 360
+				}
+				NOR_AP_neutral = yes
+				NOR_venstre_positive = yes
+				NOR_BP_against = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_popularity = { ideology = social_democracy popularity = 0.05 }
+					add_timed_idea = {
+						idea = NOR_aid_public_schools_idea
+						days = 360
+					}
+					set_country_flag = NOR_aid_public_schools_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_municipalty_support = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_municipalty_support_cf }
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+		}
+        visible = {
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+			NOT = { has_country_flag = NOR_municipalty_support_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_municipalty_support
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_construction
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_against_proposal = yes
+			NOR_venstre_against_proposal = yes
+			NOR_BP_supports_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_municipalty_support_idea
+				NOR_AP_against = yes
+				NOR_venstre_against = yes
+				NOR_BP_supportive = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_BUILDING_SLOTS = 0.10
+					}
+					add_to_variable = {
+						NOR_WELFARE_RESOURCE_GAIN = 0.10
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_municipalty_support_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }		
+        }
+    }
+	
+	NOR_more_foreign_investors = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_more_foreign_investors_cf }
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+			OR = {
+				has_idea = free_trade
+				has_idea = export_focus
+			}
+		}
+        visible = {
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+			NOT = { has_country_flag = NOR_more_foreign_investors_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_more_foreign_investors
+			}
+        }
+		cost = 0
+		icon = hol_attract_foreign_investors
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_hoyre_positive_proposal = yes
+			NOR_BP_against_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_more_foreign_investors_idea
+				NOR_AP_neutral = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_against = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 }
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_PP_GAIN = -0.01
+					}
+					add_to_variable = {
+						NOR_WELFARE_EFFCIENCY_MAX = 0.01
+					}
+					add_to_variable = {
+						NOR_WELFARE_FACTORY = 0.04
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_more_foreign_investors_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }
+        }
+    }
+	
+	NOR_foreign_investors2 = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_foreign_investors2_cf }
+			OR = {
+				has_idea = free_trade
+				has_idea = export_focus
+			}
+		}
+        visible = {
+			NOT = { has_country_flag = NOR_foreign_investors2_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_foreign_investors2
+			}
+			has_completed_focus = NOR_foreign_investors
+			NOT = {
+				has_idea = NOR_foreign_investors_idea
+			}
+			has_country_flag = NOR_more_foreign_investors_cf
+        }
+		cost = 0
+		icon = hol_attract_foreign_investors
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_against_proposal = yes
+			NOR_venstre_supports_proposal = yes
+			NOR_BP_against_proposal = yes
+			NOR_hoyre_positive_proposal = yes
+            effect_tooltip = {
+				add_timed_idea = {
+					idea = NOR_foreign_investors_idea2
+					days = 360
+				}
+				NOR_AP_against = yes
+				NOR_venstre_supportive = yes
+				NOR_BP_against = yes
+				NOR_hoyre_positive = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 }
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_timed_idea = {
+						idea = NOR_foreign_investors_idea2
+						days = 360
+					}
+					set_country_flag = NOR_foreign_investors2
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }
+        }
+    }
+	
+	NOR_fish_exports = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			OR = {
+				controls_state = 748
+				controls_state = 144
+				controls_state = 143
+				controls_state = 142
+				controls_state = 1182
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_fish_exports_cf }
+		}
+        visible = {
+			has_completed_focus = NOR_parliamental_support
+			NOT = { has_country_flag = NOR_fish_exports_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_fish_exports
+			}
+			has_country_flag = NOR_increased_fishing_rights_cf
+        }
+		cost = 0
+		icon = GFX_decision_generic_trade
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_against_proposal = yes
+			NOR_BP_positive_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_fish_exports_idea
+				NOR_AP_against = yes
+				NOR_venstre_neutral = yes
+				NOR_BP_positive = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 }
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_BUILDING_SLOTS = 0.10
+					}
+					add_to_variable = {
+						NOR_WELFARE_DOCKYARD = 0.07
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_fish_exports_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }	
+        }
+    }
+	
+	NOR_increased_fishing_rights = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			controls_state = 144
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_increased_fishing_rights_cf }
+			has_completed_focus = NOR_the_nygaardsvold_government
+		}
+		highlight_states = {
+			state = 144
+		}
+        visible = {
+			has_completed_focus = NOR_the_nygaardsvold_government
+			NOT = { has_country_flag = NOR_increased_fishing_rights_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_increased_fishing_rights
+			}
+        }
+		cost = 0
+		icon = eng_trade_unions_demand
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_BP_positive_proposal = yes
+			NOR_venstre_against_proposal = yes
+            effect_tooltip = {
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_expanded_fishing_rights_idea
+				NOR_AP_neutral = yes
+				NOR_venstre_against = yes
+				NOR_BP_positive = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 }
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_POPULATION = 0.20
+					}
+					add_to_variable = {
+						NOR_WELFARE_DOCKYARD = 0.05
+					}
+					force_update_dynamic_modifier = yes
+					set_country_flag = NOR_increased_fishing_rights_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }	
+        }
+    }
+	
+	NOR_rural_farm_jobs = {
+	
+		allowed = { tag = NOR }
+		
+		ai_will_do = {
+			factor = 500
+		}
+		
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = NOR_not_changing_ruling_party
+				NOT = {
+					OR = {
+						AND = {
+							focus_progress = {
+								focus = NOR_mistillitsvotumet_av_1933
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_mistillitsvotumet_av_1933
+							}
+						}
+						AND = {
+							focus_progress = {
+								focus = NOR_kriseforliket
+								progress > 0.0
+							}
+							NOT = {
+								has_completed_focus = NOR_kriseforliket
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_country_flag = NOR_voting }
+			NOT = { has_country_flag = NOR_rural_farm_jobs_cf }
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+			controls_state = 748
+		}
+		highlight_states = {
+			state = 748
+		}
+        visible = {
+			OR = {
+				has_completed_focus = NOR_mowinckels_third_cabinet
+				has_completed_focus = NOR_nygaardsvold_cabinet
+			}
+			NOT = { has_country_flag = NOR_rural_farm_jobs_cf }
+			OR = {
+				NOT = {
+					has_country_flag = NOR_voting
+				}
+				has_decision = NOR_rural_farm_jobs
+			}
+        }
+		cost = 0
+		icon = GFX_decision_generic_tractor
+		
+		complete_effect = {
+			NOR_add_governing_seats = yes
+			NOR_AP_positive_proposal = yes
+			NOR_BP_supports_proposal = yes
+			NOR_venstre_against_proposal = yes
+            effect_tooltip = {
+				748 = {
+					add_extra_state_shared_building_slots = 1
+				}
+				add_stability = 0.01
+				add_popularity = { ideology = jacobin popularity = 0.01 }
+				custom_effect_tooltip = NOR_change_modifer
+				show_ideas_tooltip = NOR_secure_rural_employment_idea
+				NOR_AP_positive = yes
+				NOR_venstre_against = yes
+				NOR_BP_supportive = yes
+				NOR_hoyre_neutral = yes
+		    }
+        }
+		days_remove = 60
+		remove_effect = {
+			hidden_effect = {
+			    if = {
+				    limit = { check_variable = { NOR_supseat > 76 } 
+					}
+					country_event = { id = norwegian_parliament.1 }
+					add_to_variable = {
+						NOR_WELFARE_PP_GAIN = -0.01
+					}
+					add_to_variable = {
+						NOR_WELFARE_POPULATION = 0.25
+					}
+					force_update_dynamic_modifier = yes
+					748 = {
+						add_extra_state_shared_building_slots = 1
+					}
+					add_stability = 0.01
+					add_popularity = { ideology = jacobin popularity = 0.01 }
+					set_country_flag = NOR_rural_farm_jobs_cf
+				}
+				if = {
+				    limit = { check_variable = { NOR_supseat < 77 }
+					}
+				    country_event = { id = norwegian_parliament.10 }
+				}
+				set_variable = { NOR_supseat = 0 }
+            }	
+        }
+    }
+	
+	
+	
+	### NEGOTIATIONS ###
+	
+	
+	
+	NOR_negotiate_with_NKP = {
+		available = {
+			NOT = {
+				has_country_flag = NOR_negotiating
+			}
+			custom_trigger_tooltip = {
+				tooltip = NOR_already_gained_support_tt
+				NOT = {
+					has_country_flag = NOR_NKP_supports
+				}
+			}
+			check_variable = { NOR_com_seats > 1 }
+		}
+		visible = {
+			has_country_flag = NOR_voting
+			check_variable = { NOR_com_seats > 1 }
+			NOT = {
+				has_government = communism
+			}
+		}
+		icon = GFX_decision_generic_politicians2
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { NOR_supseat > NOR_seats_needed }
+					check_variable = { NOR_com_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			set_country_flag = NOR_negotiating
+		    country_event = { id = norwegian_parliament.100 }
+		}
+	}
+	NOR_negotiate_with_AP = {
+		available = {
+			NOT = {
+				has_country_flag = NOR_negotiating
+			}
+			NOT = {
+				has_country_flag = NOR_AP_will_support_cf
+			}
+			NOT = {
+				has_country_flag = NOR_AP_never_support_cf
+			}
+			custom_trigger_tooltip = {
+				tooltip = NOR_already_gained_support_tt
+				NOT = {
+					has_country_flag = NOR_AP_supports
+				}
+			}
+		}
+		visible = {
+			has_country_flag = NOR_voting
+			NOT = {
+				has_country_flag = NOR_AP_must_support
+			}
+			OR = {
+				check_variable = { NOR_revsoc_seats < 1 }
+				check_variable = { NOR_demsoc_seats < 1 }
+				check_variable = { NOR_socdem_seats < 1 }
+			}
+			NOT = {
+				OR = {
+					has_government = social_democracy
+					has_government = socialism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		icon = GFX_decision_generic_politicians2
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				check_variable = { NOR_supseat > NOR_seats_needed }
+				factor = 0
+			}
+		}
+		complete_effect = {
+			set_country_flag = NOR_negotiating
+			if = {
+				limit = {
+					has_country_flag = NOR_AP_will_support_cf
+				}
+				custom_effect_tooltip = NOR_will_support_AP
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_AP_never_support_cf
+				}
+				custom_effect_tooltip = NOR_never_support_AP
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_AP_no_support_cf
+					OR = {
+						is_in_array = {
+							array = coalition_party_list
+							value = 1
+						}
+						is_in_array = {
+							array = coalition_party_list
+							value = 2
+						}
+						is_in_array = {
+							array = coalition_party_list
+							value = 3
+						}
+					}
+				}
+				custom_effect_tooltip = NOR_noalition_support_AP
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_AP_no_support_cf
+				}
+				custom_effect_tooltip = NOR_no_support_AP
+			}
+			else_if = {
+				limit = {
+					OR = {
+						is_in_array = {
+							array = coalition_party_list
+							value = 1
+						}
+						is_in_array = {
+							array = coalition_party_list
+							value = 2
+						}
+						is_in_array = {
+							array = coalition_party_list
+							value = 3
+						}
+					}
+				}
+				custom_effect_tooltip = NOR_coalition_support_AP
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_AP_may_support_cf
+				}
+				custom_effect_tooltip = NOR_may_support_AP
+			}
+			else = {
+			}
+			country_event = { id = norwegian_parliament.111 }
+		}
+	}
+	NOR_negotiate_with_venstre = {
+		available = {
+			NOT = {
+				has_country_flag = NOR_negotiating
+			}
+			NOT = {
+				has_country_flag = NOR_venstre_will_support_cf
+			}
+			NOT = {
+				has_country_flag = NOR_venstre_never_support_cf
+			}
+			check_variable = { NOR_soclib_seats > 1 }
+			custom_trigger_tooltip = {
+				tooltip = NOR_already_gained_support_tt
+				NOT = {
+					has_country_flag = NOR_venstre_supports
+				}
+			}
+		}
+		visible = {
+			has_country_flag = NOR_voting
+			check_variable = { NOR_soclib_seats > 1 }
+			NOT = {
+				OR = {
+					has_government = social_liberalism
+					has_government = market_liberalism
+				}
+			}
+		}
+		icon = GFX_decision_generic_politicians2
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { NOR_supseat > NOR_seats_needed }
+					check_variable = { NOR_soclib_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			set_country_flag = NOR_negotiating
+			if = {
+				limit = {
+					has_country_flag = NOR_venstre_will_support_cf
+				}
+				custom_effect_tooltip = NOR_will_support_venstre
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_venstre_never_support_cf
+				}
+				custom_effect_tooltip = NOR_never_support_venstre
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_venstre_no_support_cf
+					OR = {
+						is_in_array = {
+							array = coalition_party_list
+							value = 4
+						}
+						is_in_array = {
+							array = coalition_party_list
+							value = 5
+						}
+					}
+				}
+				custom_effect_tooltip = NOR_noalition_support_venstre
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_venstre_no_support_cf
+				}
+				custom_effect_tooltip = NOR_no_support_venstre
+			}
+			else_if = {
+				limit = {
+					OR = {
+						is_in_array = {
+							array = coalition_party_list
+							value = 4
+						}
+						is_in_array = {
+							array = coalition_party_list
+							value = 5
+						}
+					}
+				}
+				custom_effect_tooltip = NOR_coalition_support_venstre
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_venstre_may_support_cf
+				}
+				custom_effect_tooltip = NOR_may_support_venstre
+			}
+			else = {
+			}
+			country_event = { id = norwegian_parliament.121 }
+		}
+	}
+	NOR_negotiate_with_BP = {
+		available = {
+			NOT = {
+				has_country_flag = NOR_negotiating
+			}
+			NOT = {
+				has_country_flag = NOR_BP_will_support_cf
+			}
+			NOT = {
+				has_country_flag = NOR_BP_never_support_cf
+			}
+			check_variable = { NOR_libcon_seats > 1 }
+			custom_trigger_tooltip = {
+				tooltip = NOR_already_gained_support_tt
+				NOT = {
+					has_country_flag = NOR_BP_supports
+				}
+			}
+		}
+		visible = {
+			has_country_flag = NOR_voting
+			check_variable = { NOR_libcon_seats > 1 }
+			NOT = {
+				OR = {
+					has_government = jacobin
+					has_government = neutrality
+				}
+			}
+		}
+		icon = GFX_decision_generic_politicians2
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { NOR_supseat > NOR_seats_needed }
+					check_variable = { NOR_libcon_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			set_country_flag = NOR_negotiating
+			if = {
+				limit = {
+					has_country_flag = NOR_BP_will_support_cf
+				}
+				custom_effect_tooltip = NOR_will_support_BP
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_BP_never_support_cf
+				}
+				custom_effect_tooltip = NOR_never_support_BP
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_BP_no_support_cf
+					OR = {
+						is_in_array = {
+							array = coalition_party_list
+							value = 6
+						}
+						is_in_array = {
+							array = coalition_party_list
+							value = 8
+						}
+					}
+				}
+				custom_effect_tooltip = NOR_noalition_support_BP
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_BP_no_support_cf
+				}
+				custom_effect_tooltip = NOR_no_support_BP
+			}
+			else_if = {
+				limit = {
+					OR = {
+						is_in_array = {
+							array = coalition_party_list
+							value = 6
+						}
+						is_in_array = {
+							array = coalition_party_list
+							value = 8
+						}
+					}
+				}
+				custom_effect_tooltip = NOR_coalition_support_BP
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_BP_may_support_cf
+				}
+				custom_effect_tooltip = NOR_may_support_BP
+			}
+			else = {
+			}
+			country_event = { id = norwegian_parliament.131 }
+		}
+	}
+	NOR_negotiate_with_hoyre = {
+		available = {
+			NOT = {
+				has_country_flag = NOR_negotiating
+			}
+			NOT = {
+				has_country_flag = NOR_hoyre_will_support_cf
+			}
+			NOT = {
+				has_country_flag = NOR_hoyre_never_support_cf
+			}
+			check_variable = { NOR_soccon_seats > 1 }
+			custom_trigger_tooltip = {
+				tooltip = NOR_already_gained_support_tt
+				NOT = {
+					has_country_flag = NOR_hoyre_supports
+				}
+			}
+		}
+		visible = {
+			has_country_flag = NOR_voting
+			check_variable = { NOR_soccon_seats > 1 }
+			NOT = {
+				has_government = democratic
+			}
+		}
+		icon = GFX_decision_generic_politicians2
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { NOR_supseat > NOR_seats_needed }
+					check_variable = { NOR_soccon_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			set_country_flag = NOR_negotiating
+			if = {
+				limit = {
+					has_country_flag = NOR_hoyre_will_support_cf
+				}
+				custom_effect_tooltip = NOR_will_support_hoyre
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_hoyre_never_support_cf
+				}
+				custom_effect_tooltip = NOR_never_support_hoyre
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_hoyre_no_support_cf
+					is_in_array = {
+						array = coalition_party_list
+						value = 7
+					}
+				}
+				custom_effect_tooltip = NOR_noalition_support_hoyre
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_hoyre_no_support_cf
+				}
+				custom_effect_tooltip = NOR_no_support_hoyre
+			}
+			else_if = {
+				limit = {
+					is_in_array = {
+						array = coalition_party_list
+						value = 7
+					}
+				}
+				custom_effect_tooltip = NOR_coalition_support_hoyre
+			}
+			else_if = {
+				limit = {
+					has_country_flag = NOR_hoyre_may_support_cf
+				}
+				custom_effect_tooltip = NOR_may_support_hoyre
+			}
+			else = {
+			}
+			country_event = { id = norwegian_parliament.151 }
+		}
+	}
+	NOR_negotiate_with_NS = {
+		available = {
+			NOT = {
+				has_country_flag = NOR_negotiating
+			}
+			check_variable = { NOR_fas_seats > 1 }
+			custom_trigger_tooltip = {
+				tooltip = NOR_already_gained_support_tt
+				NOT = {
+					has_country_flag = NOR_NS_supports
+				}
+			}
+		}
+		visible = {
+			has_country_flag = NOR_voting
+			check_variable = { NOR_fas_seats > 1 }
+			NOT = {
+				has_government = fascism
+			}
+		}
+		icon = GFX_decision_generic_politicians2
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { NOR_supseat > NOR_seats_needed }
+					check_variable = { NOR_fas_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			set_country_flag = NOR_negotiating
+		    country_event = { id = norwegian_parliament.106
+		}
+	}
+}
+}

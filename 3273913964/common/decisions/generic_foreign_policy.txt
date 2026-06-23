@@ -1,0 +1,972 @@
+generic_foreign_decisions = {
+
+	GEN_join_allies = {
+		fire_only_once = yes
+		icon = generic_army_support
+		cosmetic_tag = ENG
+		cosmetic_ideology = democratic
+		allowed = {
+			NOT = {
+				tag = ENG
+				tag = SPA
+				tag = CAN
+				tag = RAJ
+				tag = AST
+				tag = NZL
+				tag = NEW
+				tag = SAF
+				tag = ZIM
+				tag = EGY
+				tag = JOR
+				tag = OMA
+			}
+		}
+		visible = {
+			is_in_faction = no
+			# is_major = no
+			is_puppet = no
+			has_war = yes
+			NOT = {
+				tag = ALY
+			}
+			OR = {
+				tag = BRA
+				tag = ARG
+				capital_scope = {
+					is_on_continent = europe
+				}
+			}
+		}
+		available = {
+			# threat > 0.2
+			NOT = { has_war_with = ALY }
+			if = { #If you are a communist country and could join the soviet faction, dont join the allies
+				limit = {
+					has_government = communism
+					SOV = {
+						has_far_left_government = yes
+						NOT = { has_war_with = ROOT }
+						is_faction_leader = yes
+						ROOT = {
+							any_other_country = {
+								is_in_faction = yes
+								has_war_with = PREV
+								has_war_with = SOV
+							}
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = should_go_with_soviet_faction_tt
+					always = no
+				}
+			}
+			else = { #Default for everyone. if you are communist and cant join the soviet faction for whatever reason it will be available.	
+				custom_trigger_tooltip = {
+					tooltip = has_war_with_a_faction_allies_tt
+					any_other_country = {
+						has_war_with = ROOT
+						is_in_faction = yes
+						set_temp_variable = { target_faction = THIS.id }
+						ALY = {
+							has_war_with = var:target_faction
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 500
+			modifier = {
+				has_defensive_war = no
+				factor = 0
+			}
+		}
+		cost = 0
+		complete_effect = {
+			hidden_effect = {
+				log = "[GetDateText]: [Root.GetName]: Selected decision GEN_join_allies (decision to join the allies)"
+				every_country = {
+					limit = {
+						is_faction_leader = yes
+					}
+					if = {
+						limit = {
+							any_of_scopes = {
+								array = faction_members
+								has_war_with = ROOT
+							}
+							all_of_scopes = {
+								array = faction_members
+								NOT = {
+									has_war_with = ALY
+									ALY = {
+										any_allied_country = {
+											has_war_with = PREV.PREV
+										}
+									}
+								}
+							}
+						}
+						ROOT = { set_country_flag = will_cause_faction_conflict }
+					}
+				}
+			}
+			ALY = {
+				country_event = { id = genf.1 }
+			}
+		}
+	}
+
+	GEN_join_soviet_bloc = {
+		fire_only_once = yes
+		icon = Soviet_Cap
+		cosmetic_tag = SOV
+		cosmetic_ideology = communism
+		allowed = {
+			NOT = {
+				tag = SPA
+				tag = SOV
+			}
+		}
+		visible = {
+			SOV = {
+				is_faction_leader = yes
+				is_puppet = no
+				has_capitulated = no
+			}
+			is_in_faction = no
+			is_major = no
+			is_puppet = no
+			has_war = yes
+			NOT = {
+				tag = SOV
+				is_puppet_of = SOV
+			}
+			OR = {
+				capital_scope = {
+					is_on_continent = europe
+				}
+				capital_scope = {
+					is_on_continent = asia
+				}
+			}
+		}
+		available = {
+			threat > 0.2
+			NOT = { has_war_with = SOV }
+			has_far_left_government = yes
+			SOV = {
+				has_far_left_government = yes
+				is_faction_leader = yes
+				ROOT = {
+					any_other_country = {
+						is_in_faction = yes
+						has_war_with = ROOT
+						has_war_with = SOV
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 200
+			modifier = {
+				has_defensive_war = no
+				factor = 0
+			}
+		}
+		cost = 0
+		complete_effect = {
+			hidden_effect = {
+				log = "[GetDateText]: [Root.GetName]: Selected decision GEN_join_soviet_bloc (decision to join the soviet bloc)"
+				every_country = {
+					limit = {
+						is_faction_leader = yes
+					}
+					if = {
+						limit = {
+							any_of_scopes = {
+								array = faction_members
+								has_war_with = ROOT
+							}
+							all_of_scopes = {
+								array = faction_members
+								NOT = {
+									has_war_with = SOV
+									SOV = {
+										any_allied_country = {
+											has_war_with = PREV.PREV
+										}
+									}
+								}
+							}
+						}
+						ROOT = { set_country_flag = will_cause_faction_conflict }
+					}
+				}
+			}
+			SOV = {
+				country_event = { id = genf.1 }
+			}
+		}
+
+	}
+
+	# GEN_join_germany_right = {
+	# 	fire_only_once = yes
+	# 	icon = generic_army_support
+	# 	cosmetic_tag = GER
+	# 	cosmetic_ideology = monarchism
+	# 	visible = {
+	# 		GER = { exists = yes }
+	# 		NOT = { has_war_with = GER }
+	# 		is_in_faction = no
+	# 		capital_scope = {
+	# 			is_on_continent = europe
+	# 		}
+	# 	}
+	# 	available = {
+	# 		threat > 0.2
+	# 		GER = { is_faction_leader = yes }
+	# 		OR = {
+	# 			AND = {
+	# 				OR = {
+	# 					has_completed_focus = GEN_approach_germany
+	# 				}
+	# 			}
+	# 			has_war_together_with = GER
+	# 		}
+	# 		AND = {
+	# 			NOT = { has_government = communism }
+	# 			NOT = { has_government = socialism }
+	# 			NOT = { has_government = authoritarian_socialism }
+	# 			NOT = { has_government = social_democracy }
+	# 			NOT = { has_government = social_liberalism }
+	# 			NOT = { has_government = market_liberalism }
+ 	# 		}
+	# 	}
+	# 	ai_will_do = {
+	# 		base = 100
+	# 		modifier = {
+	# 			factor = 0
+	# 			AND = {
+	# 				has_defensive_war = no
+	# 				NOT = {
+	# 					OR = {
+	# 						tag = BUL
+	# 						tag = ROM
+	# 					}
+	# 				}
+	# 			}
+	# 		}
+	# 		modifier = {
+	# 			factor = 0
+	# 			AND = {
+	# 				tag = BUL
+	# 				date < 1941.4.1
+	# 			}
+	# 		}
+	# 		modifier = {
+	# 			factor = 0
+	# 			AND = {
+	# 				tag = ROM
+	# 				POL = {
+	# 					has_capitulated = no
+	# 				}
+	# 			}
+	# 		}
+	# 		modifier = {
+	# 			factor = 0
+	# 			AND = {
+	# 				tag = ROM
+	# 				date < 1941.4.1
+	# 			}
+	# 		}
+	# 	}
+	# 	cost = 0
+	# 	complete_effect = {
+	# 		log = "[GetDateText]: [Root.GetName]: Selected decision GEN_join_germany_right (decision to join the axis)"
+	# 		GER = { country_event = { id = genf.1 } }
+	# 	}
+
+	# }
+
+	GEN_join_germany_dem = {
+		fire_only_once = yes
+		icon = generic_army_support
+		cosmetic_tag = GER
+		cosmetic_ideology = democratic
+		visible = {
+			NOt = { tag = WGR }
+			WGR = { exists = yes }
+			NOT = { has_war_with = WGR }
+			is_in_faction = no
+			capital_scope = {
+				is_on_continent = europe
+			}
+		}
+		available = {
+			threat > 0.3
+			WGR = { is_faction_leader = yes }
+			OR = {
+				AND = {
+					OR = {
+						has_completed_focus = GEN_approach_germany
+					}
+				}
+				AND = {
+					OR = {
+						has_completed_focus = GEN_approach_ussr
+						has_completed_focus = GEN_asia_approach_ussr
+					}
+					SOV = { is_in_faction_with = WGR }
+				}
+				AND = {
+					OR = {
+						has_completed_focus = GEN_asia_approach_britain
+						has_completed_focus = GEN_approach_britain
+					}
+					ENG = { is_in_faction_with = WGR }
+				}
+				AND = {
+					OR = {
+						has_completed_focus = GEN_asia_approach_france
+						has_completed_focus = GEN_approach_france
+					}
+					FRA = { is_in_faction_with = WGR }
+				}
+				AND = {
+					OR = {
+						has_completed_focus = GEN_ties_america
+					}
+					USA = { is_in_faction_with = WGR }
+				}
+				has_war_together_with = WGR
+			}
+			AND = {
+				NOT = { has_government = communism }
+				NOT = { has_government = fascism }
+ 			}
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				has_defensive_war = no
+			}
+		}
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Selected decision GEN_join_germany_dem (decision to join german faction)"
+			WGR = { country_event = { id = genf.1 } }
+		}
+
+	}
+
+	GEN_join_FRA_little_entente = {
+		fire_only_once = yes
+		icon = generic_army_support
+		visible = {
+			FRA = {
+				is_faction_leader = yes
+				is_puppet = no
+				has_capitulated = no
+				has_country_flag = little_entente_FRA
+			}
+			is_in_faction = no
+			is_major = no
+			is_puppet = no
+			has_war = yes
+			FRA = { exists = yes }
+			NOT = { has_war_with = FRA }
+			is_balkans_nation = yes
+		}
+		available = {
+			threat > 0.25
+			FRA = {
+				ROOT = {
+					any_other_country = {
+						is_in_faction = yes
+						has_war_with = ROOT
+						has_war_with = FRA
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 20
+			modifier = {
+				add = 50
+				has_defensive_war = yes
+			}
+			modifier = {
+				factor = 0.05
+				has_far_right_government = yes
+			}
+			modifier = {
+				factor = 0
+				has_far_left_government = yes
+			}
+		}
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Selected decision GEN_join_FRA_little_entente (decision to join french faction)"
+			FRA = { country_event = { id = genf.1 } }
+		}
+
+	}
+
+	GEN_join_usa = {
+		fire_only_once = yes
+		icon = generic_army_support
+		cosmetic_tag = USA
+		cosmetic_ideology = democratic
+		visible = {
+			has_country_flag = USA_monroe_alliance
+			USA = {
+				is_faction_leader = yes
+				is_puppet = no
+				has_capitulated = no
+			}
+			is_in_faction = no
+			is_major = no
+			is_puppet = no
+			OR = {
+				capital_scope = {
+					is_on_continent = south_america
+				}
+				capital_scope = {
+					is_on_continent = north_america
+				}
+			}
+		}
+		available = {
+			has_war = yes
+			threat > 0.3
+			USA = { is_faction_leader = yes }
+			NOT = {
+				has_far_left_government = yes
+				has_government = fascism
+			}
+		}
+		ai_will_do = {
+			base = 0
+		}
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Selected decision GEN_join_usa"
+			USA = { country_event = { id = genf.1 } }
+		}
+
+	}
+
+	# GEN_join_japan = {
+	# 	fire_only_once = yes
+	# 	icon = generic_army_support
+	# 	cosmetic_tag = JAP
+	# 	allowed = {
+	# 		NOT = { tag = JAP }
+	# 	}
+	# 	visible = {
+	# 		JAP = { exists = yes }
+	# 		NOT = { has_war_with = JAP }
+	# 		is_in_faction = no
+	# 		capital_scope = {
+	# 			is_on_continent = asia
+	# 		}
+	# 	}
+	# 	available = {
+	# 		threat > 0.15
+	# 		JAP = { is_faction_leader = yes }
+	# 		OR = {
+	# 			AND = {
+	# 				OR = {
+	# 					has_completed_focus = GEN_asia_approach_japan
+	# 				}
+	# 			}
+	# 			AND = {
+	# 				OR = {
+	# 					has_completed_focus = GEN_asia_approach_britain
+	# 					has_completed_focus = GEN_approach_britain
+	# 				}
+	# 				ENG = { is_in_faction_with = JAP }
+	# 			}
+	# 			AND = {
+	# 				OR = {
+	# 					has_completed_focus = GEN_approach_germany
+	# 				}
+	# 				GER = { is_in_faction_with = JAP }
+	# 			}
+	# 			has_war_together_with = JAP
+	# 		}
+	# 		AND = {
+	# 			NOT = { has_government = communism }
+	# 			NOT = { has_government = socialism }
+	# 			NOT = { has_government = authoritarian_socialism }
+	# 			NOT = { has_government = social_democracy }
+ 	# 		}
+	# 	}
+	# 	ai_will_do = {
+	# 		base = 100
+	# 		modifier = {
+	# 			factor = 0
+	# 			has_defensive_war = no
+	# 		}
+	# 	}
+	# 	cost = 0
+	# 	complete_effect = {
+	# 		log = "[GetDateText]: [Root.GetName]: Selected decision GEN_join_japan (decision to join japan's faction)"
+	# 		JAP = { country_event = { id = genf.1 } }
+	# 	}
+
+	# }
+
+	GEN_nap_japan = {
+		fire_only_once = yes
+		icon = generic_accord
+		cosmetic_tag = JAP
+		visible = {
+			JAP = { exists = yes }
+			NOT = { has_war_with = JAP }
+			is_in_faction = no
+			OR = {
+				has_government = communism
+				has_government = socialism
+				has_government = authoritarian_socialism
+				has_government = social_democracy
+ 			}
+			capital_scope = {
+				is_on_continent = asia
+			}
+			NOT = { is_chinese_TAG = yes }
+		}
+		available = {
+			threat > 0.15
+			JAP = { is_faction_leader = yes }
+			OR = {
+				AND = {
+					OR = {
+						has_completed_focus = GEN_asia_approach_japan
+					}
+				}
+				AND = {
+					OR = {
+						has_completed_focus = GEN_asia_approach_britain
+						has_completed_focus = GEN_approach_britain
+					}
+					ENG = { is_in_faction_with = JAP }
+				}
+				AND = {
+					OR = {
+						has_completed_focus = GEN_approach_germany
+					}
+					GER = { is_in_faction_with = JAP }
+				}
+				has_war_together_with = JAP
+			}
+			OR = {
+				has_government = communism
+				has_government = socialism
+				has_government = authoritarian_socialism
+				has_government = social_democracy
+ 			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Selected decision GEN_nap_japan (non-aggression pact with Japan)"
+			JAP = { country_event = { id = genf.4 } }
+		}
+
+	}
+
+	# GEN_nap_ussr = {
+	# 	fire_only_once = yes
+	# 	icon = generic_accord
+	# 	cosmetic_tag = SOV
+	# 	cosmetic_ideology = communism
+	# 	visible = {
+	# 		SOV = { exists = yes }
+	# 		NOT = { tag = SOV }
+	# 		NOT = {
+	# 			has_war_with = SOV
+	# 			is_in_faction_with = SOV
+	# 			is_subject_of = SOV
+	# 		}
+	# 		NOT = {
+	# 			has_non_aggression_pact_with = SOV
+	# 		}
+	# 		is_in_faction = no
+	# 		NOT = {
+	# 			has_government = communism
+	# 			has_government = authoritarian_socialism
+	# 			has_government = socialism
+	# 			has_government = social_democracy
+ 	# 		}
+	# 		OR = {
+	# 			has_focus_tree = GEN_democratic_europe
+	# 			has_focus_tree = GEN_democratic_am
+	# 			has_focus_tree = GEN_right_am
+	# 			has_focus_tree = GEN_rightist_EU
+	# 			has_focus_tree = GEN_right_america
+	# 			has_focus_tree = GEN_monarchy_asia
+	# 		}
+	# 	}
+	# 	available = {
+	# 		threat > 0.2
+	# 		SOV = { is_faction_leader = yes }
+	# 		OR = {
+	# 			AND = {
+	# 				OR = {
+	# 					has_completed_focus = GEN_approach_ussr
+	# 					has_completed_focus = GEN_asia_approach_ussr
+	# 				}
+	# 			}
+	# 			AND = {
+	# 				OR = {
+	# 					has_completed_focus = GEN_asia_approach_britain
+	# 					has_completed_focus = GEN_approach_britain
+	# 				}
+	# 				ENG = { is_in_faction_with = SOV }
+	# 			}
+	# 			AND = {
+	# 				OR = {
+	# 					has_completed_focus = GEN_asia_approach_france
+	# 					has_completed_focus = GEN_approach_france
+	# 				}
+	# 				FRA = { is_in_faction_with = SOV }
+	# 			}
+	# 			AND = {
+	# 				OR = {
+	# 					has_completed_focus = GEN_ties_america
+	# 				}
+	# 				USA = { is_in_faction_with = SOV }
+	# 			}
+	# 			has_war_together_with = SOV
+	# 		}
+	# 		NOT = {
+	# 			OR = {
+	# 				has_government = communism
+	# 				has_government = authoritarian_socialism
+	# 				has_government = socialism
+	# 				has_government = social_democracy
+	# 			}
+ 	# 		}
+	# 	}
+	# 	ai_will_do = {
+	# 		base = 100
+	# 	}
+	# 	cost = 0
+	# 	complete_effect = {
+	# 		log = "[GetDateText]: [Root.GetName]: Selected decision GEN_nap_ussr (non-aggression pact with the USSR)"
+	# 		SOV = { country_event = { id = genf.4 } }
+	# 	}
+
+	# }
+
+	GEN_scw_intervention = {
+		fire_only_once = yes
+		icon = generic_prepare_civil_war
+		visible = {
+			OR = {
+				has_focus_tree = GEN_democratic_europe
+				has_focus_tree = GEN_rightist_EU
+				has_focus_tree = GEN_right_america
+				has_focus_tree = GEN_democratic_am
+			}
+			has_completed_focus = GEN_defend_interests
+		}
+		available = {
+			scw_in_progress = yes
+			has_war = no
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				NOT = { tag = POR }
+			}
+		}
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Selected decision GEN_scw_intervention"
+			add_ideas = GEN_scw_interv
+			add_stability = -0.1
+			add_political_power = -80
+		}
+
+	}
+
+	GEN_join_italian_sanctions = {
+		fire_only_once = yes
+		icon = generic_trade
+		priority = 10
+		cosmetic_tag = ITA
+		cosmetic_ideology = fascism
+		visible = {
+			NOT = {
+				has_government = fascism
+				tag = ITA
+				tag = ETH
+				tag = SPN
+				tag = POR
+				is_in_faction_with = ITA
+				has_war_with = ITA
+			}
+			capital_scope = {
+				is_on_continent = europe
+			}
+			ITA = {
+				has_war_with = ETH
+			}
+		}
+		available = {
+			always = yes
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 100
+				OR = {
+					tag = ENG
+					is_puppet_of = ENG
+					tag = FRA
+					is_puppet_of = FRA
+					tag = MEX
+					tag = USA
+					tag = SOV
+					tag = YUG
+					tag = GRE
+					tag = SPR
+					tag = CZE
+					tag = DEN
+					tag = NOR
+					tag = SWE
+					tag = FIN
+					tag = IRE
+					tag = TUR
+				}
+			}
+		}
+		cost = 10
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Selected decision GEN_join_italian_sanctions"
+			if = {
+				limit = { tag = ENG }
+				add_opinion_modifier = {
+					target = ITA
+					modifier = GEN_lon_sanctions
+				}
+				ITA = {
+					add_popularity = {
+						ideology = fascism
+						popularity = 0.0015
+					}
+				}
+				ENG = {
+					every_subject_country = {
+						add_opinion_modifier = {
+							target = ITA
+							modifier = GEN_lon_sanctions
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { tag = FRA }
+				add_opinion_modifier = {
+					target = ITA
+					modifier = GEN_lon_sanctions
+				}
+				ITA = {
+					add_popularity = {
+						ideology = fascism
+						popularity = 0.0015
+					}
+				}
+				FRA = {
+					every_subject_country = {
+						add_opinion_modifier = {
+							target = ITA
+							modifier = GEN_lon_sanctions
+						}
+					}
+				}
+			}
+			else = {
+				add_opinion_modifier = {
+					target = ITA
+					modifier = GEN_lon_sanctions
+				}
+			}
+		}
+
+	}
+
+	GEN_support_paraguay = {
+		fire_only_once = yes
+		icon = generic_prepare_civil_war
+		cosmetic_tag = PAR
+		visible = {
+			OR = {
+				is_neighbor_of = PAR
+				is_neighbor_of = BOL
+				tag = USA
+				tag = ENG
+				tag = FRA
+				tag = ITA
+			}
+			NOT = {
+				tag = BOL
+				tag = PAR
+			}
+			NOT = { has_country_flag = supported_BOL_chaco_war }
+			has_global_flag = SA_chaco_war_flag
+		}
+		available = {
+			BOL = {
+				has_war_with = PAR
+			}
+			has_war = no
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 100
+				OR = {
+					tag = ENG
+					tag = ITA
+				}
+			}
+		}
+		cost = 20
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Selected decision GEN_support_paraguay" 
+			PAR = { country_event = { id = genf.7 } }
+			set_country_flag = supported_PAR_chaco_war
+		}
+
+	}
+
+	GEN_support_bolivia = {
+		fire_only_once = yes
+		icon = generic_prepare_civil_war
+		cosmetic_tag = BOL
+		visible = {
+			OR = {
+				is_neighbor_of = PAR
+				is_neighbor_of = BOL
+				tag = USA
+				tag = ENG
+				tag = FRA
+				tag = ITA
+			}
+			NOT = {
+				tag = BOL
+				tag = PAR
+			}
+			has_global_flag = SA_chaco_war_flag
+			NOT = { has_country_flag = supported_PAR_chaco_war }
+		}
+		available = {
+			BOL = {
+				has_war_with = PAR
+			}
+			has_global_flag = SA_chaco_war_flag
+			has_war = no
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 100
+				tag = BRA
+			}
+		}
+		cost = 20
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Selected decision GEN_support_bolivia"
+			BOL = { country_event = { id = genf.7 } }
+			set_country_flag = supported_BOL_chaco_war
+		}
+
+	}
+
+	FRA_send_FT_to_republicans = {
+		allowed = {
+			tag = FRA
+		}
+		cosmetic_tag = SPR
+		icon = GFX_decision_generic_trade
+		priority = 100
+		fire_only_once = yes
+		visible = {
+			scw_in_progress = yes
+			NOT = {
+				has_completed_focus = FRA_AD_victoy
+			}
+		}
+		cost = 0
+		ai_will_do = {
+			base = 500
+		}
+		days_remove = 7
+		remove_effect = {
+			custom_effect_tooltip = FRA_send_FTs_to_republicans_tt
+			effect_tooltip = {
+				send_equipment = {
+					equipment = gw_tank_equipment
+					amount = 32
+					target = SPR
+					old_prioritised = yes
+				}
+			}
+			hidden_effect = {
+				SPR = {
+					country_event = {
+						id = fra_scw.1
+					}
+				}
+			}
+		}
+	}
+
+	POL_send_FT_to_republicans = {
+		allowed = {
+			tag = POL
+		}
+		cosmetic_tag = SPR
+		icon = GFX_decision_generic_trade
+		priority = 100
+		fire_only_once = yes
+		visible = {
+			scw_in_progress = yes
+			date > 1937.1.1
+		}
+		cost = 0
+		ai_will_do = {
+			base = 500
+		}
+		days_remove = 7
+		remove_effect = {
+			custom_effect_tooltip = POL_send_FTs_to_republicans_tt
+			add_political_power = 5
+			effect_tooltip = {
+				send_equipment = {
+					equipment = gw_tank_equipment
+					amount = 16
+					target = SPR
+					old_prioritised = yes
+				}
+			}
+			hidden_effect = {
+				SPR = {
+					country_event = {
+						id = fra_scw.2
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,530 @@
+focus_tree = {
+	id = USA_focus_fdr_second
+
+	country = {
+		factor = 0
+
+		modifier = {
+			add = 0
+			tag = USA
+		}
+
+	}
+	default = no
+	continuous_focus_position = { x = 80 y = 3000 }
+	shared_focus = USA_main_foreign_start
+	shared_focus = USA_main_military_start
+
+	focus = {
+		id = USA_fdr_reelected
+		icon = GFX_focus_USA_Roosevelt
+		cost = 1
+		available = {
+			always = no
+		}
+		search_filters = {}
+		bypass = {
+			has_government = social_liberalism
+		}
+		x = 4
+		y = 0
+	}
+
+	focus = {
+		id = USA_reorganize_administration
+		icon = GFX_goal_Delegate_Bureaucracy
+		cost = 6
+		prerequisite = {
+			focus = USA_fdr_reelected
+		}
+		available = {
+			date > 1938.1.1
+		}
+		search_filters = {FOCUS_FILTER_STABILITY}
+		completion_reward = {
+			add_stability = 0.05
+		}
+		x = 1
+		y = 1
+	}
+
+	focus = {
+		id = USA_strengthen_president
+		icon = GFX_focus_president_focus
+		cost = 5
+		prerequisite = {
+			focus = USA_reorganize_administration
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			add_political_power = 200
+		}
+		x = 0
+		y = 2
+	}
+
+	focus = {
+		id = USA_brownlown_comittee
+		icon = GFX_manage_administration
+		cost = 5
+		prerequisite = {
+			focus = USA_reorganize_administration
+		}
+		search_filters = {FOCUS_FILTER_STABILITY}
+		completion_reward = {
+			add_stability = 0.05
+		}
+		x = 2
+		y = 2
+	}
+
+	focus = {
+		id = USA_reorganization_act
+		icon = GFX_focus_bills_and_acts
+		cost = 8
+		prerequisite = {
+			focus = USA_strengthen_president
+		}
+		prerequisite = {
+			focus = USA_brownlown_comittee
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_USA_CONGRESS_ACT}
+		completion_reward = {
+			custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = reorg_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				custom_effect_tooltip = usa_reorg_effects_tooltip
+			}
+		}
+		x = 1
+		y = 3
+	}
+
+	focus = {
+		id = USA_obey_court
+		icon = GFX_focus_Judicial_System
+		cost = 2
+		prerequisite = {
+			focus = USA_fdr_reelected
+		}
+		mutually_exclusive = {
+			focus = USA_pack_court
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			add_political_power = 100
+		}
+		x = 3
+		y = 1
+	}
+
+	focus = {
+		id = USA_pack_court
+		icon = GFX_focus_Plotting_Against_The_Supreme_Court
+		cost = 3
+		prerequisite = {
+			focus = USA_fdr_reelected
+		}
+		mutually_exclusive = {
+			focus = USA_obey_court
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			custom_effect_tooltip = begin_pack_chain
+			hidden_effect = {
+				 country_event = { id = unitedstates.71 days = 10 }
+			}
+		}
+		x = 5
+		y = 1
+	}
+
+	focus = {
+		id = USA_continue_new_deal
+		icon = GFX_focus_bills_and_acts
+		cost = 4
+		prerequisite = {
+			focus = USA_fdr_reelected
+		}
+		search_filters = {FOCUS_FILTER_USA_DEPRESSION_RECOVERY FOCUS_FILTER_STABILITY}
+		completion_reward = {
+			add_to_variable = { usa_president_popularity = 1 }
+			USA_clamp_president_pop = yes
+			add_stability = 0.03
+			effect_depression_recovery = yes
+		}
+		x =7
+		y = 1
+	}
+
+	focus = {
+		id = USA_secure_funding
+		icon = GFX_focus_Fundraising_alt
+		cost = 8
+		prerequisite = {
+			focus = USA_continue_new_deal
+		}
+		available = {
+			if = {
+				limit = { is_ai = no }
+				congress_medium_support_trigger = yes
+			}
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			add_political_power = 100
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			USA_congress_medium_opposition = yes
+		}
+		x = 5
+		y = 2
+	}
+
+	focus = {
+		id = USA_fight_new_recession
+		icon = GFX_focus_intervene_in_wage_market
+		cost = 10
+		prerequisite = {
+			focus = USA_continue_new_deal
+		}
+		search_filters = {FOCUS_FILTER_USA_DEPRESSION_RECOVERY}
+		available = { has_country_flag = usa_can_fix_recession }
+		completion_reward = {
+			effect_depression_recovery = yes
+		}
+		x = 7
+		y = 2
+	}
+
+	focus = {
+		id = USA_eradicate_slums
+		icon = GFX_focus_Give_Democracy
+		cost = 7
+		prerequisite = {
+			focus = USA_continue_new_deal
+		}
+		search_filters = {FOCUS_FILTER_USA_SLUM_CLEARANCE FOCUS_FILTER_USA_CONGRESS_ACT}
+		completion_reward = {
+			custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = housing2_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				remove_ideas = us_slums
+			}
+		}
+		x = 9
+		y = 2
+	}
+
+	focus = {
+		id = USA_restore_aaa
+		icon = GFX_focus_Agriculture
+		cost = 7
+		prerequisite = {
+			focus = USA_fight_new_recession
+		}
+		prerequisite = {
+			focus = USA_secure_funding
+		}
+		search_filters = {FOCUS_FILTER_USA_DEPRESSION_RECOVERY FOCUS_FILTER_USA_CONGRESS_ACT}
+		completion_reward = {
+			custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = aaa_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				effect_depression_recovery = yes
+			}
+		}
+		x = 6
+		y = 3
+	}
+
+	focus = {
+		id = USA_abandon_fiscal
+		icon = GFX_focus_Money_Bags
+		cost = 8
+		prerequisite = {
+			focus = USA_fight_new_recession
+		}
+		prerequisite = {
+			focus = USA_eradicate_slums
+		}
+		available = {
+			if = {
+				limit = { is_ai = no }
+				congress_medium_support_trigger = yes
+			}
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			add_political_power = 35
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			USA_congress_medium_opposition = yes
+		}
+		x = 8
+		y = 3
+	}
+
+	focus = {
+		id = USA_fair_labor
+		icon = GFX_Relief_Plans
+		cost = 7
+		prerequisite = {
+			focus = USA_restore_aaa
+		}
+		search_filters = {FOCUS_FILTER_USA_DEPRESSION_RECOVERY FOCUS_FILTER_USA_CONGRESS_ACT}
+		completion_reward = {
+			custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = fls_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				effect_depression_recovery = yes
+			}
+		}
+		x = 6
+		y = 4
+	}
+
+	focus = {
+		id = USA_loans_to_private
+		icon = GFX_focus_Business_Men
+		cost = 8
+		prerequisite = {
+			focus = USA_abandon_fiscal
+		}
+		search_filters = {}
+		completion_reward = {
+			add_ideas = USA_private_ind_loans
+		}
+		x = 8
+		y = 4
+	}
+
+	focus = {
+		id = USA_begin_economic_mob
+		icon = GFX_focus_Eagle_Industry
+		cost = 10
+		prerequisite = {
+			focus = USA_fair_labor
+		}
+		prerequisite = {
+			focus = USA_loans_to_private
+		}
+		available = {
+			threat > 0.3
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_DEPRESSION_RECOVERY FOCUS_FILTER_WAR_SUPPORT}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = civilian_economy
+				}
+				swap_ideas = {
+					remove_idea = civilian_economy
+					add_idea = low_economic_mobilisation
+				}
+			}
+			if = {
+				limit = {
+					has_idea = isolation
+				}
+				swap_ideas = {
+					remove_idea = isolation
+					add_idea = low_economic_mobilisation
+				}
+			}
+			if = {
+				limit = {
+					has_idea = undisturbed_isolation
+				}
+				swap_ideas = {
+					remove_idea = undisturbed_isolation
+					add_idea = low_economic_mobilisation
+				}
+			}
+			add_war_support = 0.03
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			effect_depression_recovery = yes
+		}
+		x = 7
+		y = 5
+	}
+}

@@ -1,0 +1,579 @@
+WGR_coming_civil_war = {
+	
+	WGR_revolution_countdown = {
+		icon = generic_civil_support
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = DDR
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		priority = 10
+		days_mission_timeout = 200
+		timeout_effect = {
+			country_event = {
+					id = wgr_civil_war.6 #Nationalist Revolution
+				}
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_rebellion_countdown = {
+		icon = generic_army_support
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = GER
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		priority = 9
+		days_mission_timeout = 200
+		timeout_effect = {
+			country_event = {
+					id = wgr_civil_war.7 #Nationalist Revolution
+				}
+		}
+		complete_effect = {
+		}
+	}
+	
+	##Communist Preparations
+	
+	WGR_DDR_additional_militias = {
+		icon = generic_citizens
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = DDR
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		priority = 4
+		days_mission_timeout = 25
+		timeout_effect = {
+			custom_effect_tooltip = WGR_DDR_gain_more_militia
+			add_to_variable = { var = DDR_starting_militia value = 2 }
+			WGR_DDR_reroll_preparation = yes
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_DDR_smuggle_arms = {
+		icon = generic_ignite_civil_war
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = DDR
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		priority = 4
+		days_mission_timeout = 25
+		timeout_effect = {
+			custom_effect_tooltip = WGR_DDR_gain_more_arms
+			add_to_variable = { var = DDR_starting_arms value = 1000 }
+			WGR_DDR_reroll_preparation = yes
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_DDR_prepare_collectivization = {
+		icon = generic_industry
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = DDR
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		priority = 4
+		days_mission_timeout = 25
+		timeout_effect = {
+			custom_effect_tooltip = WGR_DDR_gain_more_factories
+			add_to_variable = { var = DDR_starting_factories value = 1 }
+			WGR_DDR_reroll_preparation = yes
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_DDR_infiltrate_army = {
+		icon = generic_operation
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = DDR
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		priority = 4
+		days_mission_timeout = 25
+		timeout_effect = {
+			custom_effect_tooltip = WGR_DDR_gain_more_infantry
+			add_to_variable = { var = DDR_starting_infantry value = 1 }
+			WGR_DDR_reroll_preparation = yes
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_DDR_expand_popular_support = {
+		icon = eng_propaganda_campaigns
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = DDR
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		priority = 4
+		days_mission_timeout = 25
+		timeout_effect = {
+			custom_effect_tooltip = WGR_DDR_gain_more_pop
+			add_to_variable = { var = DDR_starting_stb_ws value = 1 }
+			add_stability = -0.02
+			add_war_support = 0.02
+			if = {
+				limit = {
+					NOT = { has_completed_focus = WGR_focus_communists }
+				}
+				WGR_DDR_reroll_preparation = yes
+			}
+			if = {
+				limit = {
+					has_completed_focus = WGR_focus_communists
+				}
+				WGR_DDR_reroll_preparation_strong = yes
+			}
+		}
+		complete_effect = {
+		}
+	}
+	
+	##Communist Preparations: Areas
+	
+	WGR_DDR_seize_thuringia = {
+		icon = infiltrate_state
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = DDR
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 35
+		highlight_states = {
+			highlight_state_targets = {
+				state = 60
+			}
+		}
+		on_map_mode = map_only
+		timeout_effect = {
+			activate_mission = WGR_DDR_seize_hamburg
+			set_country_flag = WGR_DDR_Thuringia_secured
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_DDR_seize_hamburg = {
+		icon = infiltrate_state
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = DDR
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		highlight_states = {
+			highlight_state_targets = {
+				state = 64
+			}	
+		}
+		on_map_mode = map_only
+		days_mission_timeout = 35
+		timeout_effect = {
+			activate_mission = WGR_DDR_seize_magdeberg
+			set_country_flag = WGR_DDR_Brandenburg_secured
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_DDR_seize_magdeberg = {
+		icon = infiltrate_state
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = DDR
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		highlight_states = {	
+			highlight_state_targets = {
+				state = 810
+			}
+		}
+		on_map_mode = map_only
+		days_mission_timeout = 35
+		timeout_effect = {
+			set_country_flag = WGR_DDR_Mainz_secured
+		}
+		complete_effect = {
+		}
+	}
+	
+	##Nationalist Preparations
+	WGR_GER_additional_militias = {
+		icon = ger_reichskommissariats
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = GER
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		priority = 3
+		days_mission_timeout = 25
+		timeout_effect = {
+			custom_effect_tooltip = WGR_GER_gain_more_militia
+			WGR_GER_reroll_preparation = yes
+			add_to_variable = { var = GER_starting_militia value = 1 }
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_GER_additional_military_support = {
+		icon = generic_nationalism
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = GER
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		priority = 3
+		days_mission_timeout = 25
+		timeout_effect = {
+			custom_effect_tooltip = WGR_GER_gain_more_inf
+			random_army_leader = {
+				limit = {
+					NOT = {
+						OR = {
+							has_trait = germany_rightist
+							has_id = 39
+							has_id = 1
+						}
+					}
+				}
+				add_unit_leader_trait = germany_rightist
+				set_unit_leader_flag = ger_gcw_swayed_leader
+			}
+			WGR_GER_reroll_preparation = yes
+			add_to_variable = { var = GER_starting_inf value = 2 }
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_GER_contact_industrialists = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = GER
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		priority = 3
+		days_mission_timeout = 25
+		timeout_effect = {
+			custom_effect_tooltip = WGR_GER_gain_more_ind
+			WGR_GER_reroll_preparation = yes
+			add_to_variable = { var = GER_starting_fct value = 1 }
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_GER_secret_army_plans = {
+		icon = generic_operation
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = GER
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		priority = 3
+		days_mission_timeout = 25
+		timeout_effect = {
+			custom_effect_tooltip = WGR_GER_gain_more_atck
+			WGR_GER_reroll_preparation = yes
+			add_to_variable = { var = GER_starting_attack value = 30 }
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_GER_nsdap_rallies = {
+		icon = ger_reichskommissariats
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = GER
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		priority = 3
+		days_mission_timeout = 25
+		timeout_effect = {
+			custom_effect_tooltip = WGR_GER_gain_more_stab
+			add_stability = -0.03
+			add_war_support = 0.03
+			WGR_GER_reroll_preparation = yes
+			add_to_variable = { var = GER_starting_stb value = 1 }
+		}
+		complete_effect = {
+		}
+	}
+	
+	##Nationalist Preparations: Areas
+	WGR_GER_secure_silesia = {
+		icon = infiltrate_state
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = GER
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 35
+		highlight_states = {	
+			highlight_state_targets = {
+				state = 67
+			}
+		}
+		on_map_mode = map_only
+		timeout_effect = {
+			activate_mission = WGR_GER_secure_pommerania
+			set_country_flag = WGR_GER_Silesia_secured
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_GER_secure_pommerania = {
+		icon = infiltrate_state
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = GER
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 35
+		highlight_states = {	
+			highlight_state_targets = {
+				state = 61
+			}
+		}
+		on_map_mode = map_only
+		timeout_effect = {
+			activate_mission = WGR_GER_secure_bavaria
+			set_country_flag = WGR_GER_Pomerania_secured
+		}
+		complete_effect = {
+		}
+	}
+	
+	WGR_GER_secure_bavaria = {
+		icon = infiltrate_state
+		allowed = {
+			tag = WGR
+		}
+		available = {
+			has_war_with = GER
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 35
+		highlight_states = {	
+			highlight_state_targets = {
+				state = 829
+			}
+		}
+		on_map_mode = map_only
+		timeout_effect = {
+			set_country_flag = WGR_GER_Northwest_secured	
+		}
+		complete_effect = {
+		}
+	}
+	
+	#Republican Preparations
+	WGR_arms_imports = {
+		allowed = { tag = WGR }
+		visible = {
+			has_completed_focus = WGR_strengthen_our_position
+		}
+		icon = generic_trade
+		available = { 
+			has_completed_focus = WGR_secret_imports
+			NOT = { has_country_flag = WGR_gcw_running_decision }
+		}
+		days_remove = 15	
+		priority = 8	
+		ai_will_do = { factor = 1 }
+		cost = 0
+		complete_effect = {
+			set_country_flag = WGR_gcw_running_decision
+		}
+		remove_effect = {
+			clr_country_flag = WGR_gcw_running_decision
+			custom_effect_tooltip = WGR_arms_imports_tt
+			add_to_variable = { var = WGR_starting_arms value = 1200 }
+		}
+	}
+	
+	WGR_expand_reichsbanner = {
+		allowed = { tag = WGR }
+		visible = {
+			has_completed_focus = WGR_strengthen_our_position
+		}
+		icon = generic_citizens
+		available = { 
+			has_completed_focus = WGR_arm_reichsbanner
+			NOT = { has_country_flag = WGR_gcw_running_decision }
+		}
+		days_remove = 15		
+		ai_will_do = { factor = 1 }
+		cost = 0
+		priority = 7
+		complete_effect = {
+			set_country_flag = WGR_gcw_running_decision
+		}
+		remove_effect = {
+			clr_country_flag = WGR_gcw_running_decision
+			custom_effect_tooltip = WGR_expand_reichsbanner_tt
+			add_to_variable = { var = WGR_starting_militia value = 3 }
+		}
+	}
+	
+	WGR_secret_business = {
+		allowed = { tag = WGR }
+		visible = {
+			has_completed_focus = WGR_strengthen_our_position
+		}
+		icon = generic_accord
+		available = { 
+			has_completed_focus = WGR_sway_industrialists
+			NOT = { has_country_flag = WGR_gcw_running_decision }
+		}
+		days_remove = 15
+		priority = 6		
+		ai_will_do = { factor = 1 }
+		cost = 0
+		complete_effect = {
+			set_country_flag = WGR_gcw_running_decision
+		}
+		remove_effect = {
+			clr_country_flag = WGR_gcw_running_decision
+			custom_effect_tooltip = WGR_secret_business_tt
+			add_to_variable = { var = WGR_starting_factories value = 3 }
+		}
+	}
+	
+	WGR_reichswehr_inspection = {
+		allowed = { tag = WGR }
+		visible = {
+			has_completed_focus = WGR_strengthen_our_position
+		}
+		icon = generic_army_support
+		available = { 
+			has_completed_focus = WGR_sway_military_leaders
+			NOT = { has_country_flag = WGR_gcw_running_decision }
+		}
+		days_remove = 15		
+		ai_will_do = { factor = 1 }
+		cost = 0
+		priority = 5
+		complete_effect = {
+			set_country_flag = WGR_gcw_running_decision
+		}
+		remove_effect = {
+			clr_country_flag = WGR_gcw_running_decision
+			custom_effect_tooltip = WGR_reichswehr_inspection_tt
+			random_army_leader = {
+				limit = {
+					has_unit_leader_flag = ger_gcw_swayed_leader
+					has_trait = germany_rightist
+				}
+				remove_unit_leader_trait = germany_rightist
+				clr_unit_leader_flag = ger_gcw_swayed_leader
+			}
+			add_to_variable = { var = WGR_starting_infantry value = 1 }
+		}
+	}
+	
+	
+}

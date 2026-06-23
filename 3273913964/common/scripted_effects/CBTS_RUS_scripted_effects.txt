@@ -1,0 +1,1059 @@
+RUS_Get_Soc_Pop = {
+	set_variable = {
+		RUS_Soc_Pop = party_popularity@socialism
+	}
+	add_to_variable = {
+		RUS_Soc_Pop = party_popularity@authoritarian_socialism
+	}
+}
+RUS_Get_Dem_Pop = {
+	set_variable = {
+		RUS_Dem_Pop = party_popularity@social_liberalism
+	}
+	if = {
+		limit = {
+			has_country_flag = RUS_Trud_Return
+		}
+		add_to_variable = {
+			RUS_Dem_Pop = party_popularity@social_democracy
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = RUS_PSR_Return
+			NOT = {
+				has_variable = RUS_socialist_influence
+			}
+		}
+		add_to_variable = {
+			RUS_Dem_Pop = party_popularity@socialism
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = RUS_Prog_Return
+		}
+		add_to_variable = {
+			RUS_Dem_Pop = party_popularity@market_liberalism
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = RUS_Octo_Return
+		}
+		add_to_variable = {
+			RUS_Dem_Pop = party_popularity@jacobin
+		}
+		add_to_variable = {
+			RUS_Dem_Pop = party_popularity@democratic
+		}
+	}
+}
+RUS_add_influence_socialists = {
+	if = {
+		limit = {
+			check_variable = {
+				RUS_socialist_influence < 100
+			}
+		}
+		add_to_variable = {
+			RUS_socialist_influence = RUS_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = RUS_socialist_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = RUS_democrat_influence
+				check_variable = {
+					RUS_democrat_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_vlasov_influence
+				check_variable = {
+					RUS_vlasov_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_monarchist_influence
+				check_variable = {
+					RUS_monarchist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_nationalist_influence
+				check_variable = {
+					RUS_nationalist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				RUS_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				RUS_add_influence_value = 100
+			}
+			round_variable = RUS_add_influence_value
+			divide_variable = {
+				RUS_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = RUS_democrat_influence
+					check_variable = {
+						RUS_democrat_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_democrat_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_democrat_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_vlasov_influence
+					check_variable = {
+						RUS_vlasov_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_vlasov_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_vlasov_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_monarchist_influence
+					check_variable = {
+						RUS_monarchist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_monarchist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_monarchist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_nationalist_influence
+					check_variable = {
+						RUS_nationalist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_nationalist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_nationalist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 0
+		}
+		RUS_check_for_hundred = yes
+		RUS_Get_Soc_Pop = yes
+		RUS_Get_Dem_Pop = yes
+	}
+}
+RUS_add_influence_democrats = {
+	if = {
+		limit = {
+			check_variable = {
+				RUS_democrat_influence < 100
+			}
+		}
+		add_to_variable = {
+			RUS_democrat_influence = RUS_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = RUS_democrat_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = RUS_socialist_influence
+				check_variable = {
+					RUS_socialist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_vlasov_influence
+				check_variable = {
+					RUS_vlasov_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_monarchist_influence
+				check_variable = {
+					RUS_monarchist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_nationalist_influence
+				check_variable = {
+					RUS_nationalist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				RUS_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				RUS_add_influence_value = 100
+			}
+			round_variable = RUS_add_influence_value
+			divide_variable = {
+				RUS_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = RUS_socialist_influence
+					check_variable = {
+						RUS_socialist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_socialist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = socialist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_vlasov_influence
+					check_variable = {
+						RUS_vlasov_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_vlasov_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_vlasov_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_monarchist_influence
+					check_variable = {
+						RUS_monarchist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_monarchist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_monarchist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_nationalist_influence
+					check_variable = {
+						RUS_nationalist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_nationalist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_nationalist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 0
+		}
+		RUS_check_for_hundred = yes
+		RUS_Get_Soc_Pop = yes
+		RUS_Get_Dem_Pop = yes
+	}
+}
+RUS_add_influence_vlasov = {
+	if = {
+		limit = {
+			check_variable = {
+				RUS_vlasov_influence < 100
+			}
+		}
+		add_to_variable = {
+			RUS_vlasov_influence = RUS_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = RUS_vlasov_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = RUS_socialist_influence
+				check_variable = {
+					RUS_socialist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_democrat_influence
+				check_variable = {
+					RUS_democrat_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_monarchist_influence
+				check_variable = {
+					RUS_monarchist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_nationalist_influence
+				check_variable = {
+					RUS_nationalist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				RUS_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				RUS_add_influence_value = 100
+			}
+			round_variable = RUS_add_influence_value
+			divide_variable = {
+				RUS_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = RUS_socialist_influence
+					check_variable = {
+						RUS_socialist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_socialist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = socialist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_democrat_influence
+					check_variable = {
+						RUS_democrat_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_democrat_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_democrat_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_monarchist_influence
+					check_variable = {
+						RUS_monarchist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_monarchist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_monarchist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_nationalist_influence
+					check_variable = {
+						RUS_nationalist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_nationalist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_nationalist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 0
+		}
+		RUS_check_for_hundred = yes
+		RUS_Get_Soc_Pop = yes
+		RUS_Get_Dem_Pop = yes
+	}
+}
+RUS_add_influence_monarchists = {
+	if = {
+		limit = {
+			check_variable = {
+				RUS_monarchist_influence < 100
+			}
+		}
+		add_to_variable = {
+			RUS_monarchist_influence = RUS_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = RUS_monarchist_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = RUS_socialist_influence
+				check_variable = {
+					RUS_socialist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_democrat_influence
+				check_variable = {
+					RUS_democrat_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_vlasov_influence
+				check_variable = {
+					RUS_vlasov_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_nationalist_influence
+				check_variable = {
+					RUS_nationalist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				RUS_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				RUS_add_influence_value = 100
+			}
+			round_variable = RUS_add_influence_value
+			divide_variable = {
+				RUS_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = RUS_socialist_influence
+					check_variable = {
+						RUS_socialist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_socialist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = socialist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_democrat_influence
+					check_variable = {
+						RUS_democrat_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_democrat_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_democrat_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_vlasov_influence
+					check_variable = {
+						RUS_vlasov_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_vlasov_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_vlasov_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_nationalist_influence
+					check_variable = {
+						RUS_nationalist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_nationalist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_nationalist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 0
+		}
+		RUS_check_for_hundred = yes
+		RUS_Get_Soc_Pop = yes
+		RUS_Get_Dem_Pop = yes
+	}
+}
+RUS_add_influence_nationalists = {
+	if = {
+		limit = {
+			check_variable = {
+				RUS_nationalist_influence < 100
+			}
+		}
+		add_to_variable = {
+			RUS_nationalist_influence = RUS_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = RUS_nationalist_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = RUS_socialist_influence
+				check_variable = {
+					RUS_socialist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_democrat_influence
+				check_variable = {
+					RUS_democrat_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_vlasov_influence
+				check_variable = {
+					RUS_vlasov_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RUS_monarchist_influence
+				check_variable = {
+					RUS_monarchist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				RUS_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				RUS_add_influence_value = 100
+			}
+			round_variable = RUS_add_influence_value
+			divide_variable = {
+				RUS_add_influence_value = 100
+			}
+			#if = {
+			#	limit = {
+			#		check_variable = {
+			#			faction_number = 3
+			#		}
+			#	}
+			#	add_to_variable = {
+			#		RUS_nationalist_influence = -0.01
+			#	}
+			#}
+			if = {
+				limit = {
+					has_variable = RUS_socialist_influence
+					check_variable = {
+						RUS_socialist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_socialist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = socialist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_democrat_influence
+					check_variable = {
+						RUS_democrat_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_democrat_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_democrat_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_vlasov_influence
+					check_variable = {
+						RUS_vlasov_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_vlasov_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_vlasov_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RUS_monarchist_influence
+					check_variable = {
+						RUS_monarchist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RUS_monarchist_influence = RUS_add_influence_value
+				}
+				clamp_variable = {
+					var = RUS_monarchist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 0
+		}
+		RUS_check_for_hundred = yes
+		RUS_Get_Soc_Pop = yes
+		RUS_Get_Dem_Pop = yes
+	}
+}
+RUS_Rally_Supporters = {
+	if = {
+		limit = {
+			has_country_flag = RUS_show_socs
+		}
+		RUS_Get_Soc_Pop = yes
+		set_variable = {
+			RUS_manpower_add = RUS_Soc_pop
+		}
+		multiply_variable = {
+			RUS_manpower_add = 50000
+		}
+		add_manpower = RUS_manpower_add
+		set_variable = {
+			RUS_manpower_add = RUS_manpower_add
+		}
+		round_variable = RUS_manpower_add
+		set_variable = {
+			RUS_add_influence_value = 5
+		}
+		RUS_add_influence_socialists = yes
+		RUS_Get_Soc_Pop = yes
+		RUS_Get_Dem_Pop = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = RUS_show_dems
+		}
+		RUS_Get_Dem_Pop = yes
+		set_variable = {
+			RUS_manpower_add = RUS_Dem_pop
+		}
+		multiply_variable = {
+			RUS_manpower_add = 50000
+		}
+		add_manpower = RUS_manpower_add
+		set_variable = {
+			RUS_manpower_add = RUS_manpower_add
+		}
+		round_variable = RUS_manpower_add
+		set_variable = {
+			RUS_add_influence_value = 5
+		}
+		RUS_add_influence_democrats = yes
+		RUS_Get_Soc_Pop = yes
+		RUS_Get_Dem_Pop = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = RUS_show_konr
+		}
+		set_variable = {
+			RUS_manpower_add = party_popularity@neutrality
+		}
+		multiply_variable = {
+			RUS_manpower_add = 50000
+		}
+		add_manpower = RUS_manpower_add
+		set_variable = {
+			RUS_manpower_add = RUS_manpower_add
+		}
+		round_variable = RUS_manpower_add
+		set_variable = {
+			RUS_add_influence_value = 5
+		}
+		RUS_add_influence_vlasov = yes
+		RUS_Get_Soc_Pop = yes
+		RUS_Get_Dem_Pop = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = RUS_show_mons
+		}
+		set_variable = {
+			RUS_manpower_add = party_popularity@monarchism
+		}
+		multiply_variable = {
+			RUS_manpower_add = 50000
+		}
+		add_manpower = RUS_manpower_add
+		set_variable = {
+			RUS_manpower_add = RUS_manpower_add
+		}
+		round_variable = RUS_manpower_add
+		set_variable = {
+			RUS_add_influence_value = 5
+		}
+		RUS_add_influence_monarchists = yes
+		RUS_Get_Soc_Pop = yes
+		RUS_Get_Dem_Pop = yes
+	}
+	else = {
+		set_variable = {
+			RUS_manpower_add = party_popularity@nationalism
+		}
+		multiply_variable = {
+			RUS_manpower_add = 50000
+		}
+		add_manpower = RUS_manpower_add
+		set_variable = {
+			RUS_manpower_add = RUS_manpower_add
+		}
+		round_variable = RUS_manpower_add
+		set_variable = {
+			RUS_add_influence_value = 5
+		}
+		RUS_add_influence_nationalists = yes
+		RUS_Get_Soc_Pop = yes
+		RUS_Get_Dem_Pop = yes
+	}
+}
+RUS_check_for_hundred = {
+	set_variable = {
+		RUS_discrepency_check = 0
+	}
+	if = {
+		limit = {
+			has_variable = RUS_socialist_influence
+		}
+		add_to_variable = {
+			RUS_discrepency_check = RUS_socialist_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = RUS_democrat_influence
+		}
+		add_to_variable = {
+			RUS_discrepency_check = RUS_democrat_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = RUS_vlasov_influence
+		}
+		add_to_variable = {
+			RUS_discrepency_check = RUS_vlasov_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = RUS_monarchist_influence
+		}
+		add_to_variable = {
+			RUS_discrepency_check = RUS_monarchist_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = RUS_nationalist_influence
+		}
+		add_to_variable = {
+			RUS_discrepency_check = RUS_nationalist_influence
+		}
+	}
+	subtract_from_variable = {
+		RUS_discrepency_check = 100
+	}
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					RUS_discrepency_check = 0
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = RUS_show_socs
+			}
+			subtract_from_variable = {
+				RUS_socialist_influence = RUS_discrepency_check
+			}
+			clamp_variable = {
+				var = RUS_socialist_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = RUS_show_dems
+			}
+			subtract_from_variable = {
+				RUS_democrat_influence = RUS_discrepency_check
+			}
+			clamp_variable = {
+				var = RUS_democrat_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = RUS_show_nats
+			}
+			subtract_from_variable = {
+				RUS_nationalist_influence = RUS_discrepency_check
+			}
+			clamp_variable = {
+				var = RUS_nationalist_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = RUS_show_mons
+			}
+			subtract_from_variable = {
+				RUS_monarchist_influence = RUS_discrepency_check
+			}
+			clamp_variable = {
+				var = RUS_monarchist_influence
+				min = 0
+				max = 100
+			}
+		}
+		else = {
+			subtract_from_variable = {
+				RUS_vlasov_influence = RUS_discrepency_check
+			}
+			clamp_variable = {
+				var = RUS_vlasov_influence
+				min = 0
+				max = 100
+			}
+		}
+	}
+	set_variable = {
+		RUS_discrepency_check = 0
+	}
+}

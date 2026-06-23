@@ -1,0 +1,946 @@
+# focuses here
+#s_team337
+
+shared_focus = {
+	id = GEN_UK_COLONIAL_start
+	icon = GFX_focus_Commonwealth
+	dynamic = yes
+	#prerequisite = { focus = GEN_UK_COLONIAL_start }
+	x = 20
+	y = 0
+	offset = {
+	    x = 3
+		y = 0
+	    trigger = {
+            OR = {		
+				has_focus_tree = GEN_british_protectorate 
+			}
+		}
+	}
+	#relative_position_id = GEN_UK_COLONIAL_start
+	cost = 8
+	ai_will_do = {
+		factor = 10
+	}
+	available = {
+	    OR = {
+		    is_subject_of = ENG
+			tag = IRQ
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+	add_political_power = 35
+		every_country = {
+			limit = {
+				is_subject_of = ENG
+			}
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = GEN_commonwealth
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_pro_empire
+	icon = GFX_focus_Befriend_United_Kingdom
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_start
+	}
+	mutually_exclusive = {
+		focus = GEN_UK_COLONIAL_balance
+	}
+	mutually_exclusive = {
+		focus = GEN_UK_COLONIAL_autonomy
+	}
+	x = -3
+	y = 1
+	relative_position_id = GEN_UK_COLONIAL_start
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 30
+		add_autonomy_score = {
+			value = -50
+			localization = GEN_pro_empire
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_increase_economic_ties
+	icon = GFX_focus_Business_Men
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_pro_empire
+	}
+	x = -1
+	y = 1
+	relative_position_id = GEN_UK_COLONIAL_pro_empire
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_increased_economic_britain
+		add_autonomy_score = {
+			value = -10
+			localization = GEN_pro_empire
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				state_population > 4999
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}	
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_import_agricultural_tech
+	icon = GFX_focus_Tractors
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_increase_economic_ties
+	}
+	x = -2
+	y = 2
+	relative_position_id = GEN_UK_COLONIAL_pro_empire
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_autonomy_score = {
+			value = -10
+			localization = GEN_pro_empire
+		}
+		swap_ideas = {
+			remove_idea = GEN_increased_economic_britain
+			add_idea = GEN_increased_economic_britain2
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_railways
+	icon = GFX_focus_Trains
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_import_agricultural_tech
+	}
+	x = -2
+	y = 3
+	relative_position_id = GEN_UK_COLONIAL_pro_empire
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_autonomy_score = {
+			value = -10
+			localization = GEN_pro_empire
+		}
+		#TODO: add railways
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_increase_military_presence
+	icon = GFX_focus_British_Soldiers
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_pro_empire
+	}
+	x = 1
+	y = 1
+	relative_position_id = GEN_UK_COLONIAL_pro_empire
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_autonomy_score = {
+			value = -25
+			localization = GEN_pro_empire
+		}
+		add_ideas = GEN_increased_military_britain
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_british_weapons
+	icon = GFX_focus_Firearms
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_increase_economic_ties
+	}
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_increase_military_presence
+	}
+	x = 0
+	y = 2
+	relative_position_id = GEN_UK_COLONIAL_pro_empire
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -30
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 300
+			producer = ENG
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_british_officers
+	icon = GFX_focus_Military_Attache
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_british_weapons
+	}
+	x = 0
+	y = 3
+	relative_position_id = GEN_UK_COLONIAL_pro_empire
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_autonomy_score = {
+			value = -15
+			localization = GEN_pro_empire
+		}
+		swap_ideas = {
+			remove_idea = GEN_increased_military_britain
+			add_idea = GEN_increased_military_britain2
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_emulate_british_politics
+	icon = GFX_focus_Party_Politics
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_railways
+	}
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_british_officers
+	}
+	x = -1
+	y = 4
+	relative_position_id = GEN_UK_COLONIAL_pro_empire
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.07
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.07
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.07
+		}
+		if = {
+			limit = {
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+				}
+			}
+			COALITION_add_demsoc = yes
+			COALITION_add_socdem = yes
+		}
+		else_if = {
+			limit = {
+				has_government = social_liberalism
+			}
+			COALITION_add_socdem = yes
+			COALITION_add_cen = yes
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+			}
+			COALITION_add_cen = yes
+			COALITION_add_con = yes
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_government = neutrality
+					has_government = monarchism
+				}
+			}
+			COALITION_add_con = yes
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_balance
+	icon = GFX_focus_Colonial_Focus
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_start
+	}
+	mutually_exclusive = {
+		focus = GEN_UK_COLONIAL_pro_empire
+	}
+	mutually_exclusive = {
+		focus = GEN_UK_COLONIAL_autonomy
+	}
+	x = 0
+	y = 1
+	relative_position_id = GEN_UK_COLONIAL_start
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_balanced_presence
+	icon = GFX_focus_Foreign_Diplomacy
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_balance
+	}
+	x = 0
+	y = 1
+	relative_position_id = GEN_UK_COLONIAL_balance
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.05
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_Legitimacy_from_Britain
+	icon = GFX_focus_Coronation
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_balanced_presence
+	}
+	x = -1
+	y = 2
+	relative_position_id = GEN_UK_COLONIAL_balance
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.05
+		add_political_power = 30
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_Legitimacy_from_People
+	icon = GFX_focus_Rally
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_Legitimacy_from_Britain
+	}
+	x = -1
+	y = 3
+	relative_position_id = GEN_UK_COLONIAL_balance
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.03
+		add_political_power = 50
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_Negotiate_with_Nationalists
+	icon = GFX_focus_Civil_Unrest
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_balanced_presence
+	}
+	x = 1
+	y = 2
+	relative_position_id = GEN_UK_COLONIAL_balance
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.05
+		add_popularity = {
+			ideology = communism
+			popularity = -0.035
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.035
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.035
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.035
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_assembly
+	icon = GFX_focus_Parliament
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_Negotiate_with_Nationalists
+	}
+	x = 1
+	y = 3
+	relative_position_id = GEN_UK_COLONIAL_balance
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.035
+		add_political_power = 35
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.015
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.015
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.015
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.015
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.015
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.015
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.015
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_improve_economy
+	icon = GFX_focus_Industrialization
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_Legitimacy_from_People
+	}
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_assembly
+	}
+	mutually_exclusive = {
+		focus = GEN_UK_COLONIAL_improve_military
+	}
+	x = -1
+	y = 4
+	relative_position_id = GEN_UK_COLONIAL_balance
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_sq_improve_economy
+			days = 430
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_improve_military
+	icon = GFX_focus_Recruitment_Drive
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_Legitimacy_from_People
+	}
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_assembly
+	}
+	mutually_exclusive = {
+		focus = GEN_UK_COLONIAL_improve_economy
+	}
+	x = 1
+	y = 4
+	relative_position_id = GEN_UK_COLONIAL_balance
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_sq_improve_military
+			days = 430
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_support_moderates
+	icon = GFX_focus_Give_Democracy
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_improve_economy
+		focus = GEN_UK_COLONIAL_improve_military
+	}
+	x = 0
+	y = 5
+	relative_position_id = GEN_UK_COLONIAL_balance
+	cost = 8
+	ai_will_do = {
+		factor = 12
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+					has_government = socialism
+					has_government = social_democracy
+				}
+			}
+			COALITION_add_demsoc = yes
+			COALITION_add_socdem = yes
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+				}
+			}
+			COALITION_add_socdem = yes
+			COALITION_add_soclib = yes
+			COALITION_add_marlib = yes
+			COALITION_add_cen = yes
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_government = democratic
+					has_government = monarchism
+					has_government = neutrality
+					has_government = nationalism
+					has_government = fascism
+				}
+			}
+			COALITION_add_con = yes
+			COALITION_add_aut = yes
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_autonomy
+	icon = GFX_focus_Burning_Globe
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_start
+	}
+	mutually_exclusive = {
+		focus = GEN_UK_COLONIAL_pro_empire
+	}
+	mutually_exclusive = {
+		focus = GEN_UK_COLONIAL_balance
+	}
+	x = 3
+	y = 1
+	relative_position_id = GEN_UK_COLONIAL_start
+	cost = 8
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			has_autonomy_state = autonomy_dominion
+			factor = 0
+		}
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		is_subject_of = ENG
+		NOT = {
+			has_autonomy_state = autonomy_dominion
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_war_support = 0.03
+		add_autonomy_score = {
+			value = 50
+			localization = GEN_anti_empire
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_decrease_british_presence
+	icon = GFX_focus_Gunboat_Diplomacy
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_autonomy
+	}
+	x = -1
+	y = 1
+	relative_position_id = GEN_UK_COLONIAL_autonomy
+	cost = 8
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -30
+		add_ideas = GEN_decreased_military_britain
+		add_autonomy_score = {
+			value = 25
+			localization = GEN_anti_empire
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_train_officers
+	icon = GFX_focus_Officers_Command
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_decrease_british_presence
+	}
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_decrease_british_economy
+	}
+	x = 0
+	y = 2
+	relative_position_id = GEN_UK_COLONIAL_autonomy
+	cost = 8
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GEN_decreased_military_britain
+			add_idea = GEN_decreased_military_britain2
+		}
+		add_autonomy_score = {
+			value = 5
+			localization = GEN_anti_empire
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_import_foreign_weapons
+	icon = GFX_focus_Buy_Foreign_Weapons
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_train_officers
+	}
+	x = 0
+	y = 3
+	relative_position_id = GEN_UK_COLONIAL_autonomy
+	cost = 8
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 100
+			producer = GER
+		}
+		add_autonomy_score = {
+			value = 5
+			localization = GEN_anti_empire
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_decrease_british_economy
+	icon = GFX_focus_Mechanization
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_autonomy
+	}
+	x = 1
+	y = 1
+	relative_position_id = GEN_UK_COLONIAL_autonomy
+	cost = 8
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_decreased_economic_britain
+		add_autonomy_score = {
+			value = 10
+			localization = GEN_anti_empire
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_hire_foreign_experts
+	icon = GFX_focus_Progressive_Taxation
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_decrease_british_economy
+	}
+	x = 2
+	y = 2
+	relative_position_id = GEN_UK_COLONIAL_autonomy
+	cost = 8
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GEN_decreased_economic_britain
+			add_idea = GEN_decreased_economic_britain2
+		}
+		add_autonomy_score = {
+			value = 7
+			localization = GEN_anti_empire
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_build_universities
+	icon = GFX_focus_Brainpower
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_hire_foreign_experts
+	}
+	x = 2
+	y = 3
+	relative_position_id = GEN_UK_COLONIAL_autonomy
+	cost = 8
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_uk_universities
+			days = 180
+		}
+	}
+}
+shared_focus = {
+	id = GEN_UK_COLONIAL_support_radical_nationalists
+	icon = GFX_focus_Risky_Deal
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_import_foreign_weapons
+	}
+	prerequisite = {
+		focus = GEN_UK_COLONIAL_build_universities
+	}
+	x = 1
+	y = 4
+	relative_position_id = GEN_UK_COLONIAL_autonomy
+	cost = 8
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		is_subject_of = ENG
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+					has_government = socialism
+					has_government = social_democracy
+					AND = {
+						has_government = social_liberalism
+						fascism < 0.05
+						communism > 0.049
+					}
+				}
+			}
+			COALITION_add_LEFTIST = yes
+			add_popularity = {
+				ideology = communism
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.03
+			}
+		}
+		else = {
+			COALITION_add_RIGHTIST = yes
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.045
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.045
+			}
+		}
+	}
+}

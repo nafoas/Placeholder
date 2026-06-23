@@ -1,0 +1,290 @@
+PAR_ignore_neighbours_when_chaco_war = {
+	allowed = { 
+		tag = PAR
+	}
+	enable = {
+		has_war_with = BOL
+	}
+
+	abort = {
+		OR = {
+			has_war_with = BRA
+			has_war_with = ARG
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				tag = BRA
+				tag = ARG
+			}
+		}
+
+		value = -200
+	}
+}
+
+Active_defense = {
+	allowed = {
+		tag = PAR
+	}
+	enable = {
+		has_global_flag = SA_chaco_war_flag
+		has_active_mission = PAR_hold_out_until_stalemate
+	}
+
+	abort = {
+		OR = {
+			NOT = { has_active_mission = PAR_hold_out_until_stalemate }
+			OR = {
+				BOL = { controls_province = 13243 }
+				BOL = { controls_province = 10138 }
+				BOL = { controls_province = 2209 }
+			}
+		}
+	}
+
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = -500
+	}
+	ai_strategy = {
+ 		type = front_control
+		tag = BOL
+		#country_trigger = { always = no } 	# a trigger to check agaisnt a specific country. scope is enemy country from scope is our country
+		#state_trigger = { always = no } 	# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+	
+		#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+		priority = 0
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+}
+
+second_paraguayan_offensive = {
+	allowed = {
+		tag = PAR
+	}
+	enable = {
+		has_global_flag = SA_chaco_war_flag
+		date < 1933.12.12
+		OR = {
+			NOT = { has_active_mission = PAR_hold_out_until_stalemate }
+			OR = {
+				BOL = { controls_province = 13243 }
+				BOL = { controls_province = 10138 }
+				BOL = { controls_province = 2209 }
+			}
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+ 		type = front_control
+
+		tag = BOL
+		#country_trigger = { always = no } 	# a trigger to check agaisnt a specific country. scope is enemy country from scope is our country
+		#state_trigger = { always = no } 	# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+	
+		#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+		priority = 0
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+armistice_time = {
+	allowed = {
+		tag = PAR
+	}
+	enable = {
+		has_global_flag = SA_chaco_war_flag
+		date > 1933.12.12
+		NOT = {
+			BOL = { controls_province = 13243 }
+			BOL = { controls_province = 10138 }
+			BOL = { controls_province = 2209 }
+		}
+	}
+
+	abort = {
+		date > 1934.2.7
+	}
+
+	ai_strategy = {
+ 		type = front_control
+
+		tag = BOL
+		#country_trigger = { always = no } 	# a trigger to check agaisnt a specific country. scope is enemy country from scope is our country
+		#state_trigger = { always = no } 	# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+	
+		#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+		priority = 1
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = no
+	}
+}
+
+third_paraguayan_offensive = {
+	allowed = {
+		tag = PAR
+	}
+	enable = {
+		has_global_flag = SA_chaco_war_flag
+		date > 1934.2.8
+		OR = {
+			NOT = { has_active_mission = PAR_hold_out_until_stalemate }
+			OR = {
+				BOL = { controls_province = 13243 }
+				BOL = { controls_province = 10138 }
+				BOL = { controls_province = 2209 }
+			}
+		}
+	}
+
+	abort = {
+		PAR = {
+			controls_province = 10917
+			controls_province = 7939
+		}
+	}
+
+	ai_strategy = {
+ 		type = front_control
+
+		#you can define a target in following ways. you can define more than one
+
+		tag = BOL
+		#country_trigger = { always = no } 	# a trigger to check agaisnt a specific country. scope is enemy country from scope is our country
+		#state_trigger = { always = no } 	# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+	
+		#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+		priority = 2
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+rush_to_villamontes = {
+	allowed = {
+		tag = PAR
+	}
+	enable = {
+		has_global_flag = SA_chaco_war_flag
+		date > 1934.7.1
+		NOT = {
+			BOL = { controls_province = 13243 }
+			BOL = { controls_province = 10138 }
+			BOL = { controls_province = 2209 }
+		}
+	}
+
+	abort = {
+		PAR = {
+			controls_province = 12979
+			controls_province = 2226
+			controls_province = 8203 
+		}
+	}
+
+	ai_strategy = {
+ 		type = front_control
+
+		tag = BOL
+		#country_trigger = { always = no } 	# a trigger to check agaisnt a specific country. scope is enemy country from scope is our country
+		#state_trigger = { always = no } 	# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+	
+		#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+		priority = 3
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+death_or_victory = {
+	allowed = {
+		tag = PAR
+	}
+	enable = {
+		has_global_flag = SA_chaco_war_flag
+		OR = {
+			BOL = {
+				controls_province = 13243
+			}
+			BOL = {
+				controls_province = 2195
+			}
+		}
+	}
+
+	abort = {
+		PAR = {
+			controls_province = 2209
+			controls_province = 13243
+			controls_province = 10138
+		}
+	}
+
+	ai_strategy = {
+ 		type = front_control
+
+		tag = BOL
+		#country_trigger = { always = no } 	# a trigger to check agaisnt a specific country. scope is enemy country from scope is our country
+		#state_trigger = { always = no } 	# a trigger to check agaisnt a state. scope is state. from scope is enemy country from.from scope is our country
+	
+		#ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+		priority = 3
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+PAR_dont_garrison = {
+	allowed = {
+		tag = PAR
+	}
+	enable = {
+		has_war_with = BOL
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = garrison
+		value = 0
+	}
+}
+
+PAR_dont_upgrade_weapons_too_fast = {
+	allowed = {
+		tag = PAR
+	}
+	enable = {
+		has_global_flag = SA_chaco_war_flag
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = production_upgrade_desire_offset
+		id = infantry_equipment_2
+		value = -100
+	}
+}
+

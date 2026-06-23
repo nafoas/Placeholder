@@ -1,0 +1,536 @@
+shared_focus = {
+	id = ITA_control_confindustria
+	icon = GFX_focus_Puppet_Businesses
+	cost = 5
+	x = 7
+	y = 0
+	ai_will_do = {
+		factor = 5000
+		modifier = {
+			add = 10
+			is_historical_focus_on = yes
+		}
+	}
+	completion_reward = {
+		country_event = {
+			id = ita_economic.1
+		}
+	}
+}
+shared_focus = {
+	id = ITA_new_labour_legislation
+	icon = GFX_focus_Reduce_work_hour
+	cost = 5
+	prerequisite = {
+		focus = ITA_control_confindustria
+	}
+	relative_position_id = ITA_control_confindustria
+	x = -2
+	y = 1
+	ai_will_do = {
+		factor = 500
+		modifier = {
+			add = 10
+			is_historical_focus_on = yes
+		}
+	}
+	completion_reward = {
+		country_event = {
+			id = ita_economic.3
+		}
+	}
+}
+shared_focus = {
+	id = ITA_found_the_INAIL
+	icon = GFX_focus_Workers_Rights
+	cost = 5
+	prerequisite = {
+		focus = ITA_new_labour_legislation
+	}
+	relative_position_id = ITA_control_confindustria
+	x = -4
+	y = 2
+	ai_will_do = {
+		factor = 1000
+		modifier = {
+			add = 10
+			is_historical_focus_on = yes
+		}
+	}
+	completion_reward = {
+		add_stability = 0.02
+		#custom_effect_tooltip = ITA_slight_increase_in_popularity_outside_the_party_tt
+		hidden_effect = {
+			add_to_variable = { var = ITA_Mussolini_Popularity value = 3 }
+			clamp_variable = {
+				var = ITA_Mussolini_Popularity
+				min = 0
+				max = 100
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ITA_expand_the_EIAR
+	icon = GFX_goal_generic_propaganda
+	cost = 5
+	prerequisite = {
+		focus = ITA_found_the_INAIL
+	}
+	relative_position_id = ITA_control_confindustria
+	x = -5
+	y = 3
+	ai_will_do = {
+		factor = 2000
+		modifier = {
+			add = 10
+			is_historical_focus_on = yes
+		}
+	}
+	completion_reward = {
+		add_war_support = 0.03
+		# unlock_decision_tooltip = ITA_radio_propaganda_campaign
+	}
+
+}
+shared_focus = {
+	id = ITA_found_the_INPS
+	icon = GFX_Unemployeds_Help
+	cost = 5
+	prerequisite = {
+		focus = ITA_new_labour_legislation
+	}
+	relative_position_id = ITA_control_confindustria
+	x = -2
+	y = 2
+	ai_will_do = {
+		factor = 1000
+		modifier = {
+			add = 10
+			is_historical_focus_on = yes
+		}
+	}
+	completion_reward = {
+		add_stability = 0.02
+		add_popularity = {
+			ideology = communism
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.01
+		}
+	}
+
+}
+shared_focus = {
+	id = ITA_fund_the_INA
+	icon = GFX_focus_Fascist_Trade_Union
+	cost = 5
+	ai_will_do = {
+		factor = 2000
+		modifier = {
+			add = 10
+			is_historical_focus_on = yes
+		}
+	}
+	prerequisite = {
+		focus = ITA_found_the_INPS
+	}
+	prerequisite = {
+		focus = ITA_found_the_INAIL
+	}
+	relative_position_id = ITA_control_confindustria
+	x = -3
+	y = 3
+	completion_reward = {
+		add_timed_idea = {
+			idea = ITA_expanded_INA
+			days = 360
+		}
+	}
+}
+shared_focus = {
+	id = ITA_expand_the_OMNI
+	icon = GFX_focus_Agriculture
+	cost = 5
+	ai_will_do = {
+		factor = 2000
+		modifier = {
+			add = 10
+			is_historical_focus_on = yes
+		}
+	}
+	prerequisite = {
+		focus = ITA_found_the_INPS
+	}
+	relative_position_id = ITA_control_confindustria
+	x = -1
+	y = 3
+	completion_reward = {
+		add_timed_idea = {
+			idea = ITA_OMNI_expansion
+			days = 600
+		}
+	}
+
+}
+shared_focus = {
+	id = ITA_monumental_projects
+	icon = GFX_goal_generic_construct_civilian
+	cost = 5
+	ai_will_do = {
+		factor = 2000
+	}
+	prerequisite = {
+		focus = ITA_expand_the_OMNI
+	}
+	prerequisite = {
+		focus = ITA_fund_the_INA
+	}
+	prerequisite = {
+		focus = ITA_expand_the_EIAR
+	}
+	relative_position_id = ITA_control_confindustria
+	x = -2
+	y = 4
+	completion_reward = {
+		add_political_power = 50
+		random_state = {
+			limit = { 
+				AND = { 
+					is_core_of = ITA
+					is_owned_by = ITA
+					is_fully_controlled_by = ITA
+				}
+			}
+			add_building_construction = {
+   				type = industrial_complex
+					level = 1
+					instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+
+	}
+
+
+}
+shared_focus = {
+	id = ITA_found_the_IRI
+	icon = GFX_focus_Planned_Economy
+	cost = 5
+	ai_will_do = {
+		factor = 500
+		modifier = {
+			add = 10
+			is_historical_focus_on = yes
+		}
+	}
+	prerequisite = {
+		focus = ITA_control_confindustria
+	}
+	relative_position_id = ITA_control_confindustria
+	x = 2
+	y = 1
+	completion_reward = {
+		unlock_decision_category_tooltip = ITA_Istituto_di_Ricostruzione_Industriale
+		custom_effect_tooltip = ITA_IRI_gain_15_billion_lire_from_bank_of_italy
+		add_to_variable = { var = ITA_IRI_share_capital_var value = 15 }
+		set_country_flag = ITA_IRI_loan_from_the_bank_of_italy
+	}
+
+}
+shared_focus = {
+	id = ITA_save_the_banks
+	icon = GFX_focus_Capitalist_Rule
+	cost = 5
+	ai_will_do = {
+		factor = 1000
+	}
+	prerequisite = {
+		focus = ITA_found_the_IRI
+	}
+	relative_position_id = ITA_control_confindustria
+	x = 2
+	y = 2
+	completion_reward = {
+		add_stability = 0.02
+		unlock_decision_tooltip = ITA_nationalise_the_banco_di_roma
+		unlock_decision_tooltip = ITA_nationalise_the_credito_italiano
+		unlock_decision_tooltip = ITA_nationalise_the_banca_commerciale_italiana
+	}
+
+}
+shared_focus = {
+	id = ITA_refund_the_bank_of_italy
+	icon = GFX_focus_found_the_investment_bank
+	cost = 5
+	ai_will_do = {
+		factor = 1500
+	}
+	prerequisite = {
+		focus = ITA_save_the_banks
+	}
+	available = {
+		has_country_flag = ITA_IRI_liquidated_the_SFI
+		has_country_flag = ITA_IRI_liquidated_the_Sofindit
+		has_country_flag = ITA_IRI_liquidated_the_societa_elettrofinanziaria
+		custom_trigger_tooltip = {
+			tooltip = ITA_at_least_20_billion_in_share_capital
+			check_variable = { ITA_IRI_share_capital_var > 19 }
+		}
+	}
+	relative_position_id = ITA_control_confindustria
+	x = 1
+	y = 3
+	completion_reward = {
+		custom_effect_tooltip = ITA_IRI_bank_of_italy_refunded
+		remove_ideas = ITA_grande_depressione_4
+		clr_country_flag = ITA_IRI_loan_from_the_bank_of_italy
+		add_to_variable = { var = ITA_IRI_share_capital_var value = -20 }
+	}
+
+}
+shared_focus = {
+	id = ITA_emit_industrial_obligations
+	icon = GFX_focus_Fascist_Bills
+	cost = 5
+	ai_will_do = {
+		factor = 500
+	}
+	prerequisite = {
+		focus = ITA_found_the_IRI
+	}
+	relative_position_id = ITA_control_confindustria
+	x = 4
+	y = 2
+	completion_reward = {
+		unlock_decision_tooltip = ITA_emit_obligations
+	}
+}
+shared_focus = {
+	id = ITA_intervene_in_the_civilian_sector
+	icon = GFX_focus_Control_the_Economy
+	cost = 3
+	ai_will_do = {
+		factor = 500
+	}
+	prerequisite = {
+		focus = ITA_save_the_banks
+	}
+	available = {
+			any_state = {
+				is_owned_by = ITA
+				is_core_of = ITA
+			is_fully_controlled_by = ITA
+			}
+	}
+	relative_position_id = ITA_control_confindustria
+	prerequisite = {
+		focus = ITA_emit_industrial_obligations
+	}
+	x = 3
+	y = 3
+	completion_reward = {
+		unlock_decision_tooltip = ITA_civilian_sector
+	}
+
+}
+shared_focus = {
+	id = ITA_intervene_in_the_military_sector
+	icon = GFX_focus_Military_Intervention
+	cost = 3
+	ai_will_do = {
+		factor = 500
+	}
+	prerequisite = {
+		focus = ITA_emit_industrial_obligations
+	}
+	available = {
+			any_state = {
+				is_owned_by = ITA
+				is_core_of = ITA
+			is_fully_controlled_by = ITA
+			}
+	}
+	relative_position_id = ITA_control_confindustria
+	x = 5
+	y = 3
+	completion_reward = {
+		unlock_decision_tooltip = ITA_military_sector
+	}
+
+}
+shared_focus = {
+	id = ITA_cement_the_institute
+	icon = GFX_focus_generic_self_management
+	cost = 5
+	ai_will_do = {
+		factor = 1000
+	}
+	prerequisite = {
+		focus = ITA_refund_the_bank_of_italy
+	}
+	prerequisite = {
+		focus = ITA_intervene_in_the_civilian_sector
+	}
+	prerequisite = {
+		focus = ITA_intervene_in_the_military_sector
+	}
+	relative_position_id = ITA_control_confindustria
+	x = 2
+	y = 4
+	completion_reward = {
+		custom_effect_tooltip = ITA_IRI_granted_10_billion_lire
+		add_to_variable = { var = ITA_IRI_share_capital_var value = 10 }
+	}
+}
+shared_focus = {
+	id = ITA_create_the_STET
+	icon = GFX_focus_Radio
+	cost = 5
+	ai_will_do = {
+		factor = 500
+	}
+	prerequisite = {
+		focus = ITA_cement_the_institute
+	}
+	relative_position_id = ITA_control_confindustria
+	x = 1
+	y = 5
+	completion_reward = {
+		add_tech_bonus = {
+				bonus = 0.25
+   			uses = 3
+				category = electronics
+		}
+	}
+
+}
+
+shared_focus = {
+	id = ITA_create_the_finmare
+	icon = GFX_goal_generic_construct_naval_dockyard
+	cost = 4
+	ai_will_do = {
+		factor = 500
+	}
+	prerequisite = {
+		focus = ITA_cement_the_institute
+	}
+	available = {
+			any_state = {
+				is_owned_by = ITA
+				is_core_of = ITA
+				is_coastal = yes
+			}
+	}
+	relative_position_id = ITA_control_confindustria
+	x = 3
+	y = 5
+	completion_reward = {
+		unlock_decision_tooltip = ITA_create_the_finmare_des
+	}
+
+}
+
+shared_focus = {
+	id = ITA_create_the_finsider
+	icon = GFX_focus_Industrialization
+	cost = 4
+	ai_will_do = {
+		factor = 500
+	}
+	prerequisite = {
+		focus = ITA_cement_the_institute
+	}
+	relative_position_id = ITA_control_confindustria
+	x = 5
+	y = 5
+	completion_reward = {
+		add_tech_bonus = {
+				bonus = 0.25
+   			uses = 1
+				category = industry
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_finish_the_direttissima
+	icon = GFX_focus_Railways
+	cost = 4
+	ai_will_do = {
+		factor = 4000
+	}
+	prerequisite = {
+		focus = ITA_monumental_projects
+	}
+	available = {
+		controls_province = 1616
+		controls_province = 6985
+		controls_province = 6606
+	}
+	relative_position_id = ITA_control_confindustria
+	x = -1
+	y = 5
+	completion_reward = {
+		build_railway = {
+			level = 2		  
+			fallback = yes
+			# option 1
+			path = { 1616 6985 6606 }
+			# option 2
+			start_province = 1616
+			target_province = 6606
+		}
+	}
+
+}
+
+shared_focus = {
+	id = ITA_promote_architectural_rationalism
+	icon = GFX_focus_Avante_Gard_Art
+	cost = 5
+	ai_will_do = {
+		factor = 800
+	}
+	prerequisite = {
+		focus = ITA_monumental_projects
+	}
+	relative_position_id = ITA_control_confindustria
+	x = -3
+	y = 5
+	completion_reward = {
+		add_political_power = 35
+		add_popularity = {
+				ideology = fascism
+				popularity = 0.03
+		}
+
+	}
+
+}
+
+shared_focus = {
+	id = ITA_drain_the_pontine_marshes
+	icon = GFX_goal_generic_construction2
+	cost = 3
+	ai_will_do = {
+		factor = 2000
+	}
+	prerequisite = {
+		focus = ITA_monumental_projects
+	}
+	relative_position_id = ITA_control_confindustria
+	x = -5
+	y = 5
+	completion_reward = {
+		unlock_decision_tooltip = ITA_drain_the_marshes
+	}
+}

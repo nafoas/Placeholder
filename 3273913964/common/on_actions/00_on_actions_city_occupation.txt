@@ -1,0 +1,567 @@
+
+on_actions = {
+	#ROOT is new controller, FROM is old controller, FROM.FROM is state ID
+	on_state_control_changed = {
+		effect = {
+			if = {
+				limit = {
+					has_war_with = FROM
+					FROM.FROM = {
+						is_owned_by = FROM
+						NOT = { has_state_flag = state_has_fallen }
+					}
+				}
+				
+				#Warsaw
+				if = {
+					limit = {
+						FROM.FROM = { state = 10 }
+						ROOT = { controls_province = 3544 }
+						FROM = { tag = POL }
+					}
+					news_event = { id = occ_news.1 }
+				}
+
+				# Rome
+				if = {
+					limit = {
+						FROM.FROM = { state = 2 }
+						ROOT = { controls_province = 9904 }
+						OR = {
+							NOT = {
+								FROM = {
+									tag = ITA
+								}
+								ROOT = {
+									tag = RIT
+								}
+							}
+							NOT = {
+								FROM = {
+									tag = RIT
+								}
+								ROOT = {
+									tag = ITA
+								}
+							}
+						}
+					}
+					news_event = { id = occ_news.4 }
+				}
+
+				# Berlin
+				if = {
+					limit = {
+						FROM.FROM = { state = 64 }
+						ROOT = { controls_province = 11505 }
+						NOT = { has_global_flag = GCW_ongoing_flag }
+					}
+					news_event = { id = occ_news.5 }
+				}
+
+				# Berlin (GCW)
+				if = {
+					limit = {
+						FROM.FROM = { state = 64 }
+						ROOT = { controls_province = 11505 }
+						FROM = { tag = WGR }
+						has_global_flag = GCW_ongoing_flag
+					}
+					news_event = { id = occ_news.6 }
+				}
+
+				# Paris Generic
+				if = {
+					limit = {
+						FROM.FROM = { state = 16 }
+						ROOT = { controls_province = 11491 }
+						FROM = { tag = FRA }
+						NOT = { ROOT = { tag = GER } }
+					}
+					news_event = { id = occ_news.7 }
+				}
+
+				# Paris Germans
+				if = {
+					limit = {
+						FROM.FROM = { state = 16 }
+						ROOT = { controls_province = 11491 }
+						FROM = { tag = FRA }
+						ROOT = { tag = GER }
+					}
+					news_event = { id = occ_news.8 }
+					log = "Paris has fallen, news event"
+				}
+
+				# London
+				if = {
+					limit = {
+						FROM.FROM = { state = 126 }
+						ROOT = { controls_province = 6103 }
+					}
+					news_event = { id = occ_news.10 }
+				}
+				# Moscow (Germans)
+				if = {
+					limit = {
+						FROM.FROM = { state = 219 }
+						ROOT = { controls_province = 6380 }
+						FROM = { tag = SOV }
+						ROOT = { tag = GER }
+					}
+					news_event = { id = occ_news.11 }
+				}
+				# Kiev (Germans)
+				if = {
+					limit = {
+						FROM.FROM = { state = 202 }
+						ROOT = { controls_province = 525 }
+						FROM = { tag = SOV }
+						ROOT = {
+							OR = {
+								tag = GER
+								is_subject_of = GER
+								is_in_faction_with = GER
+							}
+						}
+					}
+					news_event = { id = occ_news.13 }
+				}
+				## Leningrad
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 195 }
+				#		ROOT = { controls_province = 3151 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Stalingrad
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 217 }
+				#		ROOT = { controls_province = 3529 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Kiev
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 202 }
+				#		ROOT = { controls_province = 525 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Minsk
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 206 }
+				#		ROOT = { controls_province = 11370 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Vienna
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 4 }
+				#		ROOT = { controls_province = 11666 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Madrid (Generic)
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 41 }
+				#		ROOT = { controls_province = 3938 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Madrid (SCW)
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 41 }
+				#		ROOT = { controls_province = 3938 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Barcelona (Generic)
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 165 }
+				#		ROOT = { controls_province = 9764 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Barcelona (SCW)
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 165 }
+				#		ROOT = { controls_province = 9764 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Athens
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 47 }
+				#		ROOT = { controls_province = 4109 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Istambul
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 341 }
+				#		ROOT = { controls_province = 9833 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Ankara
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 49 }
+				#		ROOT = { controls_province = 11747 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Lisbon
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 112 }
+				#		ROOT = { controls_province = 11805 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Brussels
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 6 }
+				#		ROOT = { controls_province = 516 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Amsterdam
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 7 }
+				#		ROOT = { controls_province = 391 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Budapest
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 834 }
+				#		ROOT = { controls_province = 9690 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Belgrade
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 107 }
+				#		ROOT = { controls_province = 11586 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Prague
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 9 }
+				#		ROOT = { controls_province = 11542 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Sofia
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 48 }
+				#		ROOT = { controls_province = 6857 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Bucharest
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 46 }
+				#		ROOT = { controls_province = 9617 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Oslo
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 110 }
+				#		ROOT = { controls_province = 6115 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Helsinki
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 111 }
+				#		ROOT = { controls_province = 11105 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Stockholm
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 141 }
+				#		ROOT = { controls_province = 6050 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Copenhagen
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 37 }
+				#		ROOT = { controls_province = 6287 }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Washington DC
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## New York
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Los Angeles
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## San Francisco
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Mexico DF
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Rio de Janeiro
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Buenos Aires
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Cairo
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Alexandria
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Algers
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Casablanca
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Pretoria
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Addis Abeba
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Suez
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Tokyo
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Beijing
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Nanjing
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Chongqing
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Hong Kong
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Manila
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Singapore
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Yakarta
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## Bangkok
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+				## 
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state =  }
+				#		ROOT = { controls_province =  }
+				#	}
+				#	news_event = { id = occ_news. }
+				#}
+			}
+		}
+	}
+
+	### Liberation Events ###
+	on_state_control_changed = {
+		effect = {
+			if = {
+				limit =  {
+					has_war_with = FROM
+					FROM.FROM = {
+						is_owned_by = FROM
+						has_state_flag = state_has_fallen
+						NOT = { has_state_flag = state_has_been_liberated }
+					}
+				}
+
+				#Liberation of Warsaw (Historical)
+				if = {
+					limit = {
+						FROM.FROM = { state = 10 }
+						ROOT = { controls_province = 3544 }
+						FROM = { original_tag = GER }
+						ROOT = { tag = SOV }
+					}
+					news_event = { id = occ_news.2 }
+				}
+
+				##Liberation of Warsaw (A-historical)
+				#if = {
+				#	limit = {
+				#		FROM.FROM = { state = 10 }
+				#		ROOT = { controls_province = 3544 }
+				#	}
+				#	news_event = { id = occ_news.3 }
+				#}
+
+				# Liberation of Paris
+				if = {
+					limit = {
+						FROM.FROM = { state = 16 }
+						ROOT = { controls_province = 11491 }
+						has_global_flag = FRA_has_fallen
+						OR = {
+							FROM = { tag = GER }
+							FROM = { is_in_faction_with = GER }
+						}
+					}
+					news_event = { id = occ_news.9 }
+				}
+			}
+		}
+	}
+}

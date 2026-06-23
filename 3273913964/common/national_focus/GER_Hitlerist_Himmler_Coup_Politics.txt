@@ -1,0 +1,792 @@
+#s_team337
+#33 focuses here
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_Start
+	icon = GFX_focus_Form_the_SS
+	#prerequisite = { focus = GER_Hitler_Himmler_Coup_Start }
+	x = 2
+	y = 0
+	#relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 1
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+		has_country_flag = GER_Himmler_Coup
+	}
+	completion_reward = {
+		custom_effect_tooltip = GER_unlocks_below_focuses
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_Denounce_Reactionaries
+	icon = GFX_focus_Crush_the_Monarchy
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Start }
+	x = -2
+	y = 1
+	relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 2.15
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.03
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_Destroy_Junkers
+	icon = GFX_focus_Champagne_Repression
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Denounce_Reactionaries }
+	x = -2
+	y = 2
+	relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 5.72
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -50
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_Increase_Police_Presence
+	icon = GFX_focus_Enlist_the_Police
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Start }
+	x = 0
+	y = 1
+	relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 4
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = GER_Gestapo
+			}
+			swap_ideas = {
+				remove_idea = GER_Gestapo
+				add_idea = GER_Himmler_Police_Presence
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = GER_Gestapo_Himmler
+			}
+			swap_ideas = {
+				remove_idea = GER_Gestapo_Himmler
+				add_idea = GER_Himmler_Police_Presence
+			}
+		}
+		else = {
+			add_ideas = GER_Himmler_Police_Presence
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_Infiltrate_Rebels
+	icon = GFX_focus_Subterfuge
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Increase_Police_Presence }
+	x = 0
+	y = 2
+	relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 6.15
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GER_Himmler_Police_Presence
+			add_idea = GER_Himmler_Police_Presence2
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_More_Cult_Stuff
+	icon = GFX_focus_Reduce_Catholic_Dominance
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Start }
+	x = 2
+	y = 1
+	relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 3.72
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		custom_effect_tooltip = GER_unlock_cult_stuff_tt
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_Mandatory_Membership
+	icon = GFX_focus_SS_Government
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_More_Cult_Stuff }
+	x = 2
+	y = 2
+	relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 7.58
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GER_SS_Mandatory_Membership
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_Meritocracy
+	icon = GFX_focus_Oath_of_Loyalty
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Destroy_Junkers }
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Infiltrate_Rebels }
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Mandatory_Membership }
+	x = -1
+	y = 3
+	relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 5
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 50
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_German_Elite
+	icon = GFX_focus_The_Scourge
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Meritocracy }
+	x = -1
+	y = 4
+	relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 2.86
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_Purge_Dissenters
+	icon = GFX_focus_Purge_Dissenters
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Destroy_Junkers }
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Infiltrate_Rebels }
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Mandatory_Membership }
+	x = 1
+	y = 3
+	relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 7.15
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = -0.04
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.04
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_SS_Law_Code
+	icon = GFX_focus_The_Noose
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_Purge_Dissenters }
+	x = 1
+	y = 4
+	relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 10
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GER_Sondergehricht2
+			add_idea = GER_SS_Law_Code
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Coup_The_New_Order
+	icon = GFX_focus_Swing_the_Sword
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_German_Elite }
+	prerequisite = { focus = GER_Hitler_Himmler_Coup_SS_Law_Code }
+	x = 0
+	y = 5
+	relative_position_id = GER_Hitler_Himmler_Coup_Start
+	cost = 3
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 100
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Start
+	icon = GFX_focus_Heims_in_reich
+	#prerequisite = { focus = GER_Hitler_Himmler_Religion_Start }
+	x = 8
+	y = 0
+	#relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 1.86
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+		has_completed_focus = GER_Hitler_Himmler_Coup_More_Cult_Stuff
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -20
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_New_Castles
+	icon = GFX_focus_Extravagance
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Start }
+	x = -1
+	y = 1
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 8.58
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_himmler.1
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_New_Ceremonies
+	icon = GFX_focus_Hidden_Pacts
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Start }
+	x = 1
+	y = 1
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 5.72
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_himmler.2
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Move_Against_Protestants
+	icon = GFX_focus_Reich_Coopt_Church
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_New_Castles }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_New_Ceremonies }
+	x = -1
+	y = 2
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 7
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_himmler.3
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Move_Against_Catholics
+	icon = GFX_focus_Skorenzy
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_New_Castles }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_New_Ceremonies }
+	x = 1
+	y = 2
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 12.86
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_himmler.4
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Burn_Bibles
+	icon = GFX_focus_Into_the_Flames
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Move_Against_Protestants }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Move_Against_Catholics }
+	x = -2
+	y = 3
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 14
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_himmler.5
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_SS_Preachers
+	icon = GFX_goal_generic_propaganda
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Move_Against_Protestants }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Move_Against_Catholics }
+	x = 0
+	y = 3
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 4.58
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -50
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.04
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_In_Schools
+	icon = GFX_focus_Treaty_Sabotage
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Move_Against_Protestants }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Move_Against_Catholics }
+	x = 2
+	y = 3
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 6
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_himmler.6
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Ideology_Of_Violence
+	icon = GFX_focus_Aggresion
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Burn_Bibles }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_SS_Preachers }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_In_Schools }
+	x = -2
+	y = 4
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 6
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_war_support = 0.06
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Indoctrinate_Hitler_Youth
+	icon = GFX_focus_Recruitment_Drive
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Burn_Bibles }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_SS_Preachers }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_In_Schools }
+	x = 0
+	y = 4
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 5.72
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.02
+		}
+		add_political_power = -40
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Four_Child_Policy
+	icon = GFX_focus_Mothers_Cross
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Burn_Bibles }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_SS_Preachers }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_In_Schools }
+	x = 2
+	y = 4
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 3.58
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GER_Himmler_Four_Child
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism #Ok while this whole focus tree is basically Himmler Unloading His Garbage Onto Everyone (tm) this bit is even more garbage than the rest because THESE KINDS OF PEOPLE ARE LITERALLY THE WORST PEOPLE. And that's putting it midly.
+	icon = GFX_focus_Cult_of_Personality
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Ideology_Of_Violence }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Indoctrinate_Hitler_Youth }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Four_Child_Policy }
+	mutually_exclusive = { focus = GER_Hitler_Himmler_Religion_Focus_On_Himmler }
+	x = -2
+	y = 5
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 4
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 20
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism_Hitlers_Death
+	icon = GFX_focus_Dark_Arms
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism }
+	x = -1
+	y = 1
+	relative_position_id = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism
+	cost = 2.15
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_himmler.7
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism_Germanic_Origins
+	icon = GFX_focus_Skull_Pile
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism_Hitlers_Death }
+	x = -1
+	y = 2
+	relative_position_id = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism
+	cost = 3.29
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_war_support = 0.03
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism_Collective_Unconsious_Trash
+	icon = GFX_goal_generic_national_unity
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism }
+	x = 1
+	y = 1
+	relative_position_id = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism
+	cost = 3
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_himmler.8
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism_Avatar_Garbage
+	icon = GFX_focus_Repress_Freedom
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism_Collective_Unconsious_Trash }
+	x = 1
+	y = 2
+	relative_position_id = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism
+	cost = 2.86
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_himmler.9
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Focus_On_Himmler
+	icon = GFX_focus_Form_the_SS
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Ideology_Of_Violence }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Indoctrinate_Hitler_Youth }
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Four_Child_Policy }
+	mutually_exclusive = { focus = GER_Hitler_Himmler_Religion_Esoteric_Hitlerism }
+	x = 2
+	y = 5
+	relative_position_id = GER_Hitler_Himmler_Religion_Start
+	cost = 4
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.02
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Focus_On_Himmler_Creator_God
+	icon = GFX_focus_Protestantism
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Focus_On_Himmler }
+	x = -1
+	y = 1
+	relative_position_id = GER_Hitler_Himmler_Religion_Focus_On_Himmler
+	cost = 3.43
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = ger_himmler.10
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Focus_On_Himmler_Teutons
+	icon = GFX_focus_Teutonic_Man
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Focus_On_Himmler_Creator_God }
+	x = -1
+	y = 2
+	relative_position_id = GER_Hitler_Himmler_Religion_Focus_On_Himmler
+	cost = 5
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.02
+		}
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Focus_On_Himmler_Mandatory_Membership
+	icon = GFX_focus_SS_Recruitment
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Focus_On_Himmler }
+	x = 1
+	y = 1
+	relative_position_id = GER_Hitler_Himmler_Religion_Focus_On_Himmler
+	cost = 4.29
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 30
+		add_stability = -0.03
+	}
+}
+shared_focus = {
+	id = GER_Hitler_Himmler_Religion_Focus_On_Himmler_More_Expeditions
+	icon = GFX_focus_Black_Service
+	prerequisite = { focus = GER_Hitler_Himmler_Religion_Focus_On_Himmler_Mandatory_Membership }
+	x = 1
+	y = 2
+	relative_position_id = GER_Hitler_Himmler_Religion_Focus_On_Himmler
+	cost = 6.43
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_Himmler_Coup
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GER_Himmler_Expeditions
+	}
+}

@@ -1,0 +1,151 @@
+scripted_gui = {
+	AST_parl_open = {
+		context_type = player_context
+		window_name = "AST_parl_open_container"
+		parent_window_token = politics_tab
+
+		visible = {
+			tag = AST
+			NOT = {
+				has_country_flag = AST_parliament_disabled
+			}
+		}
+
+		effects = {
+			AST_parl_open_click = {
+				if = {
+					limit = {
+						has_country_flag = AST_show_parl
+					}
+					clr_country_flag = AST_show_parl
+				}
+				else = {
+					set_country_flag = AST_show_parl
+				}
+			}
+		}
+	}
+	AST_parl = {
+		context_type = player_context
+		window_name = "AST_parl_container"
+		
+		visible = {
+			has_country_flag = AST_show_parl
+		}
+		
+		dynamic_lists = {
+			AST_parl_senate_grid = {
+				array = AST.AST_senate_member_array
+				index = idx
+				entry_container = AST_senate_member_dot_container
+			}
+			AST_parl_house_grid = {
+				array = AST.AST_house_member_array
+				index = idx
+				entry_container = AST_house_member_dot_container
+			}
+		}
+		
+		properties = {
+			AST_senate_member_dot = {
+				frame = v
+			}
+			AST_house_member_dot = {
+				frame = v
+			}
+			AST_senate_member_border = {
+				frame = AST.AST_senate_member_status_array^idx
+			}
+			AST_house_member_border = {
+				frame = AST.AST_house_member_status_array^idx
+			}
+		}
+		
+		effects = {
+			AST_parl_close_click = {
+				clr_country_flag = AST_show_parl
+			}
+		}
+	}
+	AST_newbills = {
+		context_type = player_context
+		window_name = "AST_newbills_container"
+		parent_window_name = "AST_parl_container"
+		
+		visible = {
+			check_variable = { AST_parl_status = 0 }
+		}
+		
+		dynamic_lists = {
+			AST_newbills_list = {
+				array = AST.AST_bills_visible_array
+				index = idx
+				entry_container = AST_newbills_item
+			}
+		}
+		
+		triggers = {
+			AST_newbills_introduce_click_enabled = {
+				meta_trigger = {
+					text = {
+						AST_bill_[BILL]_visible = yes
+					}
+					BILL = "[?v]"
+				}
+				meta_trigger = {
+					text = {
+						AST_bill_[BILL]_available = yes
+					}
+					BILL = "[?v]"
+				}
+			}
+		}
+		
+		effects = {
+			AST_newbills_introduce_click = {
+				set_variable = { AST_parl_selected_bill = v }
+				set_variable = { AST_parl_status = 1 }
+				set_variable = { AST_parl_vote_countdown = 15 }
+				set_temp_variable = { vvv = v }
+				AST_bill_calc_votes = yes
+				set_temp_variable = { v = vvv }
+				if = {
+					limit = {
+						is_in_array = {
+							array = AST.AST_billdb_has_intro_effect
+							value = v
+						}
+					}
+					log = "executing introduce effect for [?v]"
+					meta_effect = {
+						text = {
+							AST_bill_[BILL]_introduce = yes
+						}
+						BILL = "[?v]"
+					}
+				}
+			}
+		}
+	}
+	AST_thisbill = {
+		context_type = player_context
+		window_name = "AST_thisbill_container"
+		parent_window_name = "AST_parl_container"
+		
+		visible = {
+			check_variable = { AST_parl_status > 0 }
+		}
+		
+		triggers = {
+			AST_thisbill_clear_visible = {
+				check_variable = { AST_parl_status = 2 }
+			}
+		}
+		
+		effects = {
+			AST_thisbill_clear_click = {
+				AST_bill_clear = yes
+			}
+		}
+	}
+}

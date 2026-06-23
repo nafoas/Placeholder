@@ -1,0 +1,398 @@
+#19 focuses here
+#Fuegoto935
+
+	#Focus for El Ejercito Mexicano
+    shared_focus = {
+		id = MEX_el_ejercito_mexicano
+		icon = GFX_focus_MEX_Army_1
+		x = 15
+		y = 1
+		cost = 1
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+		}
+		bypass = {
+			date > 1932.12.12
+		}
+	}
+
+	#Focus for Armament Manufacter
+    shared_focus = {
+		id = MEX_armament_manufacter
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 15
+		y = 2
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_el_ejercito_mexicano }
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			date > 1934.1.1
+		}
+		completion_reward = {
+			army_experience = 15
+		}
+	}
+
+	#Focus for Foreign Equipment
+    shared_focus = {
+		id = MEX_foreign_equipment
+		icon = GFX_focus_Buy_Foreign_Weapons
+		x = 12
+		y = 4
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_armament_manufacter }
+		mutually_exclusive = { focus = MEX_local_equipment }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+        add_stability = -0.05
+		add_political_power = 50
+		}
+	}
+
+	#Focus for Local Equipment
+    shared_focus = {
+		id = MEX_local_equipment
+		icon = GFX_focus_a_necessary_force
+		x = 18
+		y = 4
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_armament_manufacter }
+		mutually_exclusive = { focus = MEX_foreign_equipment }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+        add_stability = 0.05
+		add_political_power = -50
+		}
+	}
+
+	#Focus for American Artillery
+    shared_focus = {
+		id = MEX_american_artillery
+		icon = GFX_focus_Befriend_USA
+		x = 11
+		y = 5
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_foreign_equipment }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			USA = { 
+					country_event = { id = mex_foreign.1 }
+		}
+	}
+}
+	#Focus for British Guns
+    shared_focus = {
+		id = MEX_british_guns
+		icon = GFX_focus_Befriend_United_Kingdom
+		x = 13
+		y = 5
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_foreign_equipment }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			ENG = {
+					country_event = { id = mex_foreign.2 }
+		}
+	}
+}
+	#Focus for Soviet Trucks
+    shared_focus = {
+		id = MEX_soviet_trucks
+		icon = GFX_Goal_Befriend_USSR
+		x = 13
+		y = 6
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_british_guns }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			SOV = {
+					country_event = { id = mex_foreign.3 }
+		}
+	}
+}
+
+	#Focus for Italian Planes
+    shared_focus = {
+		id = MEX_italian_planes
+		icon = GFX_focus_cbts_Befriend_Italy
+		x = 11
+		y = 6
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_american_artillery }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			ITA = { 
+					country_event = { id = mex_foreign.4 }
+		}		
+	}
+}
+
+	#Focus for German Tanks
+    shared_focus = {
+		id = MEX_german_tanks
+		icon = GFX_focus_Befriend_Weimar_Germany
+		x = 13
+		y = 7
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_soviet_trucks }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			GER = { 
+					country_event = { id = mex_foreign.5 }
+		}		
+	}
+}
+
+	#Focus for Japanese Ships
+    shared_focus = {
+		id = MEX_japanese_ships
+		icon = GFX_focus_Befriend_Japan
+		x = 11
+		y = 7
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_italian_planes }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			JAP = { 
+					country_event = { id = mex_foreign.6 }
+		}		
+	}
+}
+
+	#Focus for Foreign Licenses
+    shared_focus = {
+		id = MEX_foreign_licenses
+		icon = GFX_focus_Befriend_Mexico
+		x = 12
+		y = 8
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_german_tanks 
+		}
+		prerequisite = { 
+			focus = MEX_japanese_ships 
+		}
+		mutually_exclusive = { focus = MEX_a_real_mexican_army }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+                        add_ideas = {
+                         MEX_foreign_licenses
+                        }
+		}
+	}
+
+	#Focus for Revive Mondragon´s Business
+    shared_focus = {
+		id = MEX_revive_mondragon_business
+		icon = GFX_focus_Revive_Mondragons_Business
+		x = 17
+		y = 5
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_local_equipment }
+		ai_will_do = {
+			factor = 1
+		}
+			completion_reward = {
+		add_tech_bonus = {
+			name = artillery_bonus
+			uses = 1
+			bonus = 0.5
+			category = artillery
+		}
+	}
+}
+
+	#Focus for The Mondragon Rifle
+    shared_focus = {
+		id = MEX_the_mondragon_rifle
+		icon = GFX_focus_Firearms
+		x = 19
+		y = 5
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_local_equipment }
+		ai_will_do = {
+			factor = 1
+		}
+	completion_reward = {
+		add_tech_bonus = {
+			name = infantry_bonus
+			uses = 1
+			bonus = 0.5
+			category = infantry_weapons
+		}
+	}
+}
+
+	#Focus for New Truck Industry
+    shared_focus = {
+		id = MEX_new_truck_industry
+		icon = GFX_focus_Motorization_Effort
+		x = 19
+		y = 6
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_the_mondragon_rifle }
+		ai_will_do = {
+			factor = 1
+		}
+	completion_reward = {
+		add_tech_bonus = {
+			name = motorized_bonus
+			uses = 1
+			bonus = 1
+			category = motorized_equipment
+			category = cat_mechanized_equipment
+		}
+	}
+}
+
+	#Focus for Home Made Mexican Air Force
+    shared_focus = {
+		id = MEX_home_made_mexican_air_force
+		icon = GFX_focus_Aerial_Fleet
+		x = 17
+		y = 6
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_revive_mondragon_business }
+		ai_will_do = {
+			factor = 1
+		}
+	completion_reward = {
+		add_tech_bonus = {
+			name = fighter_bonus
+			uses = 1
+			bonus = 0.25
+			category = light_fighter
+		}
+	}
+}
+
+	#Focus for Naval Designers
+    shared_focus = {
+		id = MEX_naval_designers
+		icon = GFX_focus_naval_reform
+		x = 17
+		y = 7
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_home_made_mexican_air_force }
+		ai_will_do = {
+			factor = 1
+		}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				is_coastal = yes
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+	#Focus for Remember the Salina
+    shared_focus = {
+		id = MEX_remember_the_salina
+		icon = GFX_focus_Work_In_The_Salinas
+		x = 19
+		y = 7
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_new_truck_industry }
+		ai_will_do = {
+			factor = 1
+		}
+	completion_reward = {
+		add_tech_bonus = {
+			name = armor_bonus
+			uses = 1
+			bonus = 0.5
+			category = armor
+		}
+	}
+}
+	#Focus for A Real Mexican Army
+    shared_focus = {
+		id = MEX_a_real_mexican_army
+		icon = GFX_focus_Combined_Arms
+		x = 18
+		y = 8
+		cost = 4
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_naval_designers 
+		}
+		prerequisite = { 
+			focus = MEX_remember_the_salina 
+		}
+		mutually_exclusive = { focus = MEX_foreign_licenses }
+		ai_will_do = { 
+			factor = 1
+		}
+		completion_reward = {
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 1000 producer = MEX }
+		}
+	}
+
+	#Focus for Reform the Army
+    shared_focus = {
+		id = MEX_reform_the_army
+		icon = GFX_focus_attack_mexico
+		x = 15
+		y = 9
+		cost = 2
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_foreign_licenses 
+			focus = MEX_a_real_mexican_army 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_war_support = 0.10
+		}
+	}

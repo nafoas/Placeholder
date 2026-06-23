@@ -1,0 +1,793 @@
+# focuses here
+#s_team337
+shared_focus = {
+	id = ENG_War_Homefront_Start
+	icon = GFX_focus_Victory_Britain
+	#prerequisite = { focus = ENG_War_Homefront_Start }
+	x = 30
+	y = 0
+	#relative_position_id = ENG_War_Homefront_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 1800
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {	
+		MOVE_UP_WAR_ECONOMY = yes
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Purchase_Supplies
+	icon = GFX_focus_Firearms
+	prerequisite = {
+		focus = ENG_War_Homefront_Start
+	}
+	mutually_exclusive = {
+		focus = ENG_War_Homefront_Invest_Industry
+	}
+	x = -3
+	y = 1
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 600
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1200
+			producer = ENG
+		}
+		add_equipment_to_stockpile = {
+			type = artillery_equipment
+			amount = 320
+			producer = ENG
+		}
+		add_equipment_to_stockpile = {
+			type = small_plane_airframe
+			amount = 48
+			producer = ENG
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Invest_Industry
+	icon = GFX_focus_Mechanization
+	prerequisite = {
+		focus = ENG_War_Homefront_Start
+	}
+	mutually_exclusive = {
+		focus = ENG_War_Homefront_Purchase_Supplies
+	}
+	x = -1
+	y = 1
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 6
+	ai_will_do = {
+		factor = 1800
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 3
+					region = 4
+					region = 238
+					region = 241
+				}
+				NOT = {
+					state = 1177
+					has_state_category = pastoral
+					has_state_category = small_island
+					has_state_category = wasteland
+					has_state_category = enclave
+					has_state_category = tiny_island
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 3
+					region = 4
+					region = 238
+					region = 241
+				}
+				NOT = {
+					state = 1177
+					has_state_category = pastoral
+					has_state_category = small_island
+					has_state_category = wasteland
+					has_state_category = enclave
+					has_state_category = tiny_island
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Dockyard
+	icon = GFX_focus_Small_Navy
+	prerequisite = {
+		focus = ENG_War_Homefront_Invest_Industry
+	}
+	x = -1
+	y = 3
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 6
+	ai_will_do = {
+		factor = 350
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				is_coastal = yes
+				OR = {
+					region = 1
+					region = 2
+					region = 3
+					region = 4
+					region = 238
+					region = 241
+				}
+				NOT = {
+					state = 1177
+					has_state_category = pastoral
+					has_state_category = small_island
+					has_state_category = wasteland
+					has_state_category = enclave
+					has_state_category = tiny_island
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Civilian_Industry
+	icon = GFX_focus_Textile_Focus
+	prerequisite = {
+		focus = ENG_War_Homefront_Invest_Industry
+		focus = ENG_War_Homefront_Purchase_Supplies
+	}
+	x = -4
+	y = 2
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 5.75
+	ai_will_do = {
+		factor = 280
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 3
+					region = 4
+					region = 238
+					region = 241
+				}
+				NOT = {
+					state = 1177
+					has_state_category = pastoral
+					has_state_category = small_island
+					has_state_category = wasteland
+					has_state_category = enclave
+					has_state_category = tiny_island
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_More_Military
+	icon = GFX_focus_Planned_Economy
+	prerequisite = {
+		focus = ENG_War_Homefront_Invest_Industry
+		focus = ENG_War_Homefront_Purchase_Supplies
+	}
+	x = -2
+	y = 2
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 5.75
+	ai_will_do = {
+		factor = 480
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 3
+					region = 4
+					region = 238
+					region = 241
+				}
+				NOT = {
+					state = 1177
+					has_state_category = pastoral
+					has_state_category = small_island
+					has_state_category = wasteland
+					has_state_category = enclave
+					has_state_category = tiny_island
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Equality_of_Sacrifice
+	icon = GFX_focus_Promote_Social_Solidarism
+	prerequisite = {
+		focus = ENG_War_Homefront_More_Military
+	}
+	prerequisite = {
+		focus = ENG_War_Homefront_Civilian_Industry
+	}
+	x = -3
+	y = 3
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 4.86
+	ai_will_do = {
+		factor = 540
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 3
+					region = 4
+					region = 238
+					region = 241
+				}
+				NOT = {
+					state = 1177
+					has_state_category = pastoral
+					has_state_category = small_island
+					has_state_category = wasteland
+					has_state_category = enclave
+					has_state_category = tiny_island
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 2
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 3
+					region = 4
+					region = 238
+					region = 241
+				}
+				NOT = {
+					state = 1177
+					has_state_category = pastoral
+					has_state_category = small_island
+					has_state_category = wasteland
+					has_state_category = enclave
+					has_state_category = tiny_island
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 2
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 3
+					region = 4
+					region = 238
+					region = 241
+				}
+				NOT = {
+					state = 1177
+					has_state_category = pastoral
+					has_state_category = small_island
+					has_state_category = wasteland
+					has_state_category = enclave
+					has_state_category = tiny_island
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 2
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 3
+					region = 4
+					region = 238
+					region = 241
+				}
+				NOT = {
+					state = 1177
+					has_state_category = pastoral
+					has_state_category = small_island
+					has_state_category = wasteland
+					has_state_category = enclave
+					has_state_category = tiny_island
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 2
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 3
+					region = 4
+					region = 238
+					region = 241
+				}
+				NOT = {
+					state = 1177
+					has_state_category = pastoral
+					has_state_category = small_island
+					has_state_category = wasteland
+					has_state_category = enclave
+					has_state_category = tiny_island
+				}
+			}
+			add_resource = {
+				type = aluminium
+				amount = 2
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 1
+					region = 2
+					region = 3
+					region = 4
+					region = 238
+					region = 241
+				}
+				NOT = {
+					state = 1177
+					has_state_category = pastoral
+					has_state_category = small_island
+					has_state_category = wasteland
+					has_state_category = enclave
+					has_state_category = tiny_island
+				}
+			}
+			add_resource = {
+				type = aluminium
+				amount = 2
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Expand_Womens_Land_Army
+	icon = GFX_focus_Tractors
+	prerequisite = {
+		focus = ENG_War_Homefront_Start
+	}
+	x = 1
+	y = 1
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 5
+	ai_will_do = {
+		factor = 320
+		modifier = {
+			OR = {
+				has_idea = extensive_conscription
+				has_idea = service_by_requirement
+				has_idea = all_adults_serve
+				has_idea = scraping_the_barrel
+			}
+		}
+	}
+	available = {
+		has_war = yes
+		OR = {
+			has_idea = limited_conscription
+			has_idea = extensive_conscription
+			has_idea = service_by_requirement
+			has_idea = all_adults_serve
+			has_idea = scraping_the_barrel
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = ENG_womens_land_army
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Rationing
+	icon = GFX_focus_Promote_Social_Solidarism
+	prerequisite = {
+		focus = ENG_War_Homefront_Expand_Womens_Land_Army
+	}
+	x = 0
+	y = 2
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 3
+	ai_will_do = {
+		factor = 600
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = ENG_rationing
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Timber_Corps
+	icon = GFX_focus_Agriculture_2
+	prerequisite = {
+		focus = ENG_War_Homefront_Expand_Womens_Land_Army
+	}
+	x = 2
+	y = 2
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 480
+	}
+	available = {
+		has_war = yes
+		date > 1942.1.1
+		has_idea = ENG_womens_land_army
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = ENG_womens_land_army
+			add_idea = ENG_womens_corps
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Mobilize_Women
+	icon = GFX_focus_Womens_Rights
+	prerequisite = {
+		focus = ENG_War_Homefront_Timber_Corps
+	}
+	x = 3
+	y = 3
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 5
+	ai_will_do = {
+		factor = 700
+	}
+	available = {
+		has_war = yes
+		has_idea = ENG_womens_corps
+		OR = {
+			has_idea = war_economy
+			has_idea = tot_economic_mobilisation
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = ENG_womens_corps
+			add_idea = ENG_mobilize_women
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Victory_Gardens
+	icon = GFX_focus_Agriculture
+	prerequisite = {
+		focus = ENG_War_Homefront_Rationing
+	}
+	x = 1
+	y = 3
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 2.15
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			date > 1941.1.1
+			factor = 3
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = ENG_rationing
+			add_idea = ENG_victory_gardens
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Continue_Electronics_Research
+	icon = GFX_focus_Brainpower
+	prerequisite = {
+		focus = ENG_War_Homefront_Start
+	}
+	x = 5
+	y = 1
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 5
+	ai_will_do = {
+		factor = 340
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = electronics_bonus
+			uses = 1
+			bonus = 0.5
+			category = electronics
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_MI5
+	icon = GFX_focus_Counter_Intelligence
+	prerequisite = {
+		focus = ENG_War_Homefront_Continue_Electronics_Research
+	}
+	x = 4
+	y = 2
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 5.75
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_dlc = "La Resistance"
+			}
+			add_ideas = ENG_security_service_lar
+		}
+		else = {
+			add_ideas = ENG_security_service
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_Bletchley
+	icon = GFX_focus_Fire_Control_Systems
+	prerequisite = {
+		focus = ENG_War_Homefront_Continue_Electronics_Research
+	}
+	x = 6
+	y = 2
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 5.75
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = ENG_bletchley_park
+	}
+}
+shared_focus = {
+	id = ENG_War_Homefront_MI6
+	icon = GFX_focus_Espionage
+	prerequisite = {
+		focus = ENG_War_Homefront_Continue_Electronics_Research
+	}
+	x = 8
+	y = 2
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 5.75
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_dlc = "La Resistance"
+			}
+			add_ideas = ENG_intelligence_service_lar
+		}
+		else = {
+			add_ideas = ENG_intelligence_service
+		}
+	}
+}
+#TODO:colossus
+shared_focus = {
+	id = ENG_War_Homefront_bombe
+	icon = GFX_focus_Enigma_Machine
+	prerequisite = {
+		focus = ENG_War_Homefront_MI5
+	}
+	prerequisite = {
+		focus = ENG_War_Homefront_Bletchley
+	}
+	prerequisite = {
+		focus = ENG_War_Homefront_MI6
+	}
+	x = 6
+	y = 3
+	relative_position_id = ENG_War_Homefront_Start
+	cost = 5
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		set_technology = {
+			bombe_tech = 1
+		}
+	}
+}

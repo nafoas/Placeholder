@@ -1,0 +1,1486 @@
+#Chooses which party wins the election
+# 0 - Left Victory (Com, DemSoc, SocDem)
+# 1 - Center Left (SocDem, SocLib, MarLib)
+# 2 - Center Right (MarLib, LibCon, SocCon)
+# 3 - Right (SocCon, Aut, Mon, Nat)
+GER_Goerdeler_Set_Victorious_Party = {
+	set_variable = {
+		Winning_Group = random
+	}
+	multiply_variable = {
+		Winning_Group = 3
+	}
+	if = {
+		limit = {
+			has_stability > 0.9
+		}
+		add_to_variable = {
+			Winning_Group = 0.5
+		}
+	}
+	else_if = {
+		limit = {
+			has_stability > 0.6
+		}
+		add_to_variable = {
+			Winning_Group = 0.15
+		}
+	}
+	else_if = {
+		limit = {
+			has_stability < 0.1
+		}
+		add_to_variable = {
+			Winning_Group = -0.5
+		}
+	}
+	else_if = {
+		limit = {
+			has_stability < 0.4
+		}
+		add_to_variable = {
+			Winning_Group = -0.15
+		}
+	}
+	if = {
+		limit = {
+			has_war_support > 0.8
+		}
+		add_to_variable = {
+			Winning_Group = 0.6
+		}
+	}
+	else_if = {
+		limit = {
+			has_war_support > 0.6
+		}
+		add_to_variable = {
+			Winning_Group = 0.2
+		}
+	}
+	else_if = {
+		limit = {
+			has_war_support < 0.3
+		}
+		add_to_variable = {
+			Winning_Group = -0.2
+		}
+	}
+	if = { #inflation moves towards center
+		limit = {
+			has_idea = GER_DNVP_Inflation
+		}
+		if = {
+			limit = {
+				check_variable = {
+					Winning_Group > 2.49
+				}
+			}
+			add_to_variable = {
+				Winning_Group = -0.5
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					Winning_Group < 1.5
+				}
+			}
+			add_to_variable = {
+				Winning_Group = 0.5
+			}
+		}
+	}
+}
+GER_Goerdeler_Set_Win_Size_Party = {
+	set_variable = {
+		Win_Size = random
+	}
+	multiply_variable = {
+		Win_Size = 2
+	}
+	round_variable = Win_Size
+}
+#Generic Parliament Action
+GER_Set_Parliament = {
+	custom_effect_tooltip = Reshuffle_Parliament_tt
+	#Sets variable to check for discrepencies
+	set_variable = {
+		GER_old_total_seats = GER_total_seats
+	}
+	set_variable = {
+		GER_com_seats = party_popularity@communism
+	}
+	set_variable = {
+		GER_rso_seats = party_popularity@authoritarian_socialism
+	}
+	set_variable = {
+		GER_dso_seats = party_popularity@socialism
+	}
+	set_variable = {
+		GER_sde_seats = party_popularity@social_democracy
+	}
+	set_variable = {
+		GER_sli_seats = party_popularity@social_liberalism
+	}
+	set_variable = {
+		GER_mli_seats = party_popularity@market_liberalism
+	}
+	set_variable = {
+		GER_cen_seats = party_popularity@jacobin
+	}
+	set_variable = {
+		GER_dem_seats = party_popularity@democratic
+	}
+	set_variable = {
+		GER_neu_seats = party_popularity@neutrality
+	}
+	set_variable = {
+		GER_mon_seats = party_popularity@monarchism
+	}
+	set_variable = {
+		GER_nat_seats = party_popularity@nationalism
+	}
+	set_variable = {
+		GER_fas_seats = party_popularity@fascism
+	}
+	#Gets seats
+	multiply_variable = {
+		GER_com_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_rso_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_dso_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_sde_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_sli_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_mli_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_cen_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_dem_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_neu_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_mon_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_nat_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_fas_seats = GER_total_seats
+	}
+	#rounds
+	round_variable = GER_com_seats
+	round_variable = GER_rso_seats
+	round_variable = GER_dso_seats
+	round_variable = GER_sde_seats
+	round_variable = GER_sli_seats
+	round_variable = GER_mli_seats
+	round_variable = GER_cen_seats
+	round_variable = GER_dem_seats
+	round_variable = GER_neu_seats
+	round_variable = GER_mon_seats
+	round_variable = GER_nat_seats
+	round_variable = GER_fas_seats
+	#Gets new total seat value
+	set_variable = {
+		GER_total_seats = 0
+	}
+	add_to_variable = {
+		GER_total_seats = GER_com_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_rso_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_dso_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_sde_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_sli_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_mli_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_cen_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_dem_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_neu_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_mon_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_nat_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_fas_seats
+	}
+	#gets discrepency
+	subtract_from_variable = {
+		GER_old_total_seats = GER_total_seats
+	}
+	#deals with discrepency, if needed
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					GER_old_total_seats = 0
+				}
+			}
+		}
+		add_to_variable = {
+			GER_total_seats = GER_old_total_seats
+		}
+		if = {
+			limit = {
+				has_government = communism
+			}
+			add_to_variable = {
+				GER_com_seats = GER_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = authoritarian_socialism
+			}
+			add_to_variable = {
+				GER_rso_seats = GER_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = socialism
+			}
+			add_to_variable = {
+				GER_dso_seats = GER_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_democracy
+			}
+			add_to_variable = {
+				GER_sde_seats = GER_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_liberalism
+			}
+			add_to_variable = {
+				GER_sli_seats = GER_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = market_liberalism
+			}
+			add_to_variable = {
+				GER_mli_seats = GER_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = jacobin
+			}
+			add_to_variable = {
+				GER_cen_seats = GER_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = democratic
+			}
+			add_to_variable = {
+				GER_dem_seats = GER_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = neutrality
+			}
+			add_to_variable = {
+				GER_neu_seats = GER_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = monarchism
+			}
+			add_to_variable = {
+				GER_mon_seats = GER_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = nationalism
+			}
+			add_to_variable = {
+				GER_nat_seats = GER_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = fascism
+			}
+			add_to_variable = {
+				GER_fas_seats = GER_old_total_seats
+			}
+		}
+	}
+	#gets half
+	set_variable = {
+		GER_seats_needed = GER_total_seats
+	}
+	divide_variable = {
+		GER_seats_needed = 2
+	}
+	round_variable = GER_seats_needed
+	#Gets coalition
+	set_variable = {
+		GER_coalition_seats = 0
+	}
+	GER_get_coalition_seats = yes
+}
+GER_get_coalition_seats = {
+	set_variable = {
+		GER_coalition_seats = 0
+	}
+	if = {
+		limit = {
+			is_in_array = { #communist
+				array = coalition_party_list
+				value = 0
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_com_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #revolutionary socialist
+				array = coalition_party_list
+				value = 1
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_rso_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #democratic socialist
+				array = coalition_party_list
+				value = 2
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_dso_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocDem
+				array = coalition_party_list
+				value = 3
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_sde_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #soclib
+				array = coalition_party_list
+				value = 4
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_sli_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #marlib
+				array = coalition_party_list
+				value = 5
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_mli_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #LibCon
+				array = coalition_party_list
+				value = 6
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_cen_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocCon
+				array = coalition_party_list
+				value = 7
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_dem_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #Aut
+				array = coalition_party_list
+				value = 9
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_neu_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #monarchist
+				array = coalition_party_list
+				value = 8
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_mon_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #nationalist
+				array = coalition_party_list
+				value = 10
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_nat_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #fascist
+				array = coalition_party_list
+				value = 11
+			}
+		}
+		add_to_variable = {
+			GER_coalition_seats = GER_fas_seats
+		}
+	}
+}
+GER_Set_Parliament_Conservative_Bias = {
+	custom_effect_tooltip = Reshuffle_Parliament_tt
+	#Sets variable to check for discrepencies
+	set_variable = {
+		GER_old_total_seats = GER_total_seats
+	}
+	set_variable = { # comes in useful when doing final check
+		GER_old_total_seats2 = GER_total_seats
+	}
+	set_variable = {
+		GER_com_seats = party_popularity@communism
+	}
+	set_variable = {
+		GER_rso_seats = party_popularity@authoritarian_socialism
+	}
+	set_variable = {
+		GER_dso_seats = party_popularity@socialism
+	}
+	set_variable = {
+		GER_sde_seats = party_popularity@social_democracy
+	}
+	set_variable = {
+		GER_sli_seats = party_popularity@social_liberalism
+	}
+	set_variable = {
+		GER_mli_seats = party_popularity@market_liberalism
+	}
+	set_variable = {
+		GER_cen_seats = party_popularity@jacobin
+	}
+	set_variable = {
+		GER_dem_seats = party_popularity@democratic
+	}
+	set_variable = {
+		GER_neu_seats = party_popularity@neutrality
+	}
+	set_variable = {
+		GER_mon_seats = party_popularity@monarchism
+	}
+	set_variable = {
+		GER_nat_seats = party_popularity@nationalism
+	}
+	set_variable = {
+		GER_fas_seats = party_popularity@fascism
+	}
+	#Gets seats for conservatives
+	multiply_variable = {
+		GER_cen_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_dem_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_neu_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_mon_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_nat_seats = GER_total_seats
+	}
+	round_variable = GER_cen_seats
+	round_variable = GER_dem_seats
+	round_variable = GER_neu_seats
+	round_variable = GER_mon_seats
+	round_variable = GER_nat_seats
+	#lowers seats for everyone else
+	subtract_from_variable = {
+		GER_total_seats = GER_cen_seats
+	}
+	subtract_from_variable = {
+		GER_total_seats = GER_dem_seats
+	}
+	subtract_from_variable = {
+		GER_total_seats = GER_neu_seats
+	}
+	subtract_from_variable = {
+		GER_total_seats = GER_mon_seats
+	}
+	subtract_from_variable = {
+		GER_total_seats = GER_nat_seats
+	}
+	#Gets seats for everyone else
+	multiply_variable = {
+		GER_com_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_rso_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_dso_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_sde_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_sli_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_mli_seats = GER_total_seats
+	}
+	multiply_variable = {
+		GER_fas_seats = GER_total_seats
+	}
+	#rounds
+	round_variable = GER_com_seats
+	round_variable = GER_rso_seats
+	round_variable = GER_dso_seats
+	round_variable = GER_sde_seats
+	round_variable = GER_sli_seats
+	round_variable = GER_mli_seats
+	round_variable = GER_fas_seats
+	#Gets new total seat value
+		set_variable = {
+		GER_total_seats = 0
+	}
+	add_to_variable = {
+		GER_total_seats = GER_com_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_rso_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_dso_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_sde_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_sli_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_mli_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_cen_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_dem_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_neu_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_mon_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_nat_seats
+	}
+	add_to_variable = {
+		GER_total_seats = GER_fas_seats
+	}
+	#gets discrepency
+	subtract_from_variable = {
+		GER_old_total_seats = GER_total_seats
+	}
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					GER_old_total_seats = 0
+				}
+			}
+		}
+		divide_variable = {
+			GER_old_total_seats = 5
+		}
+		round_variable = GER_old_total_seats
+		#clears old values
+		subtract_from_variable = {
+			GER_total_seats = GER_cen_seats
+		}
+		subtract_from_variable = {
+			GER_total_seats = GER_dem_seats
+		}
+		subtract_from_variable = {
+			GER_total_seats = GER_neu_seats
+		}
+		subtract_from_variable = {
+			GER_total_seats = GER_mon_seats
+		}
+		subtract_from_variable = {
+			GER_total_seats = GER_nat_seats
+		}
+		#gets new seat values
+		add_to_variable = {
+			GER_cen_seats = GER_old_total_seats
+		}
+		add_to_variable = {
+			GER_dem_seats = GER_old_total_seats
+		}
+		add_to_variable = {
+			GER_neu_seats = GER_old_total_seats
+		}
+		add_to_variable = {
+			GER_mon_seats = GER_old_total_seats
+		}
+		add_to_variable = {
+			GER_nat_seats = GER_old_total_seats
+		}
+		#adds to toal seats
+		add_to_variable = {
+			GER_total_seats = GER_cen_seats
+		}
+		add_to_variable = {
+			GER_total_seats = GER_dem_seats
+		}
+		add_to_variable = {
+			GER_total_seats = GER_neu_seats
+		}
+		add_to_variable = {
+			GER_total_seats = GER_mon_seats
+		}
+		add_to_variable = {
+			GER_total_seats = GER_nat_seats
+		}
+		subtract_from_variable = {
+			GER_old_total_seats2 = GER_total_seats
+		}
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						GER_old_total_seats2 = 0
+					}
+				}
+			}
+			add_to_variable = {
+				GER_total_seats = GER_old_total_seats2
+			}
+			if = {
+				limit = {
+					has_government = communism
+				}
+				add_to_variable = {
+					GER_com_seats = GER_old_total_seats2
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = authoritarian_socialism
+				}
+				add_to_variable = {
+					GER_rso_seats = GER_old_total_seats2
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = socialism
+				}
+				add_to_variable = {
+					GER_dso_seats = GER_old_total_seats2
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = social_democracy
+				}
+				add_to_variable = {
+					GER_sde_seats = GER_old_total_seats2
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = social_liberalism
+				}
+				add_to_variable = {
+					GER_sli_seats = GER_old_total_seats2
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = market_liberalism
+				}
+				add_to_variable = {
+					GER_mli_seats = GER_old_total_seats2
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = jacobin
+				}
+				add_to_variable = {
+					GER_cen_seats = GER_old_total_seats2
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = democratic
+				}
+				add_to_variable = {
+					GER_dem_seats = GER_old_total_seats2
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = neutrality
+				}
+				add_to_variable = {
+					GER_neu_seats = GER_old_total_seats2
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = monarchism
+				}
+				add_to_variable = {
+					GER_mon_seats = GER_old_total_seats2
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = nationalism
+				}
+				add_to_variable = {
+					GER_nat_seats = GER_old_total_seats2
+				}
+			}
+			else_if = {
+				limit = {
+					has_government = fascism
+				}
+				add_to_variable = {
+					GER_fas_seats = GER_old_total_seats2
+				}
+			}
+		}
+	}
+	#gets half
+	set_variable = {
+		GER_seats_needed = GER_total_seats
+	}
+	divide_variable = {
+		GER_seats_needed = 2
+	}
+	round_variable = GER_seats_needed
+	#Gets coalition
+	set_variable = {
+		GER_coalition_seats = 0
+	}
+	GER_get_coalition_seats = yes
+}
+
+GER_Parliament_Add_Coalition_Seats = {
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 0
+			}
+		}
+		set_country_flag = WGR_negotiated_with_communists
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 1
+			}
+		}
+		set_country_flag = WGR_negotiated_with_RevSocs
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 2
+			}
+		}
+		set_country_flag = WGR_negotiated_with_DemSocs
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 3
+			}
+		}
+		set_country_flag = WGR_negotiated_with_SocDems
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 4
+			}
+		}
+		set_country_flag = WGR_negotiated_with_SocLibs
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 5
+			}
+		}
+		set_country_flag = WGR_negotiated_with_MarLibs
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 6
+			}
+		}
+		set_country_flag = WGR_negotiated_with_Centrists
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 7
+			}
+		}
+		set_country_flag = WGR_negotiated_with_Conservatives
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 9
+			}
+		}
+		set_country_flag = WGR_negotiated_with_Authoritarians
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 8
+			}
+		}
+		set_country_flag = WGR_negotiated_with_Monarchists
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 10
+			}
+		}
+		set_country_flag = WGR_negotiated_with_Nationalists
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = coalition_party_list
+				value = 11
+			}
+		}
+		set_country_flag = WGR_negotiated_with_Nazis
+	}
+	add_to_variable = {
+		WGR_supseat = GER_coalition_seats
+	}
+}
+GER_Rightist_Victory = {
+	if = {
+		limit = {
+			check_variable = {
+				Win_Size = 2
+			}
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.06
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.10
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.08
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				Win_Size = 1
+			}
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.06
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.02
+		}
+	}
+}
+GER_Centre_Rightist_Victory = {
+	if = {
+		limit = {
+			check_variable = {
+				Win_Size = 2
+			}
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.06
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.10
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.07
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				Win_Size = 1
+			}
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.08
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.06
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.04
+		}
+	}
+}
+GER_Centre_Victory = {
+	if = {
+		limit = {
+			check_variable = {
+				Win_Size = 2
+			}
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.07
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.04
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				Win_Size = 1
+			}
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.02
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.01
+		}
+	}
+}
+GER_Centre_Leftist_Victory = {
+	if = {
+		limit = {
+			check_variable = {
+				Win_Size = 2
+			}
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.09
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.06
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				Win_Size = 1
+			}
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.08
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.01
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.06
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.03
+		}
+	}
+}
+GER_Leftist_Victory = {
+	if = {
+		limit = {
+			check_variable = {
+				Win_Size = 2
+			}
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.07
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.07
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				Win_Size = 1
+			}
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.06
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = communism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.01
+		}
+	}
+}
+
+GER_antinazi_coup_iterate_Legacy_of_Hitler = {
+	if = {
+		limit = {
+			has_idea = Legacy_of_Hitler
+		}
+		swap_ideas = {
+			remove_idea = Legacy_of_Hitler
+			add_idea = Legacy_of_Hitler2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = Legacy_of_Hitler2
+		}
+		swap_ideas = {
+			remove_idea = Legacy_of_Hitler2
+			add_idea = Legacy_of_Hitler3
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = Legacy_of_Hitler3
+		}
+		swap_ideas = {
+			remove_idea = Legacy_of_Hitler3
+			add_idea = Legacy_of_Hitler4
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = Legacy_of_Hitler4
+		}
+		swap_ideas = {
+			remove_idea = Legacy_of_Hitler4
+			add_idea = Legacy_of_Hitler5
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = Legacy_of_Hitler5
+		}
+		remove_ideas = Legacy_of_Hitler5
+	}
+	else = {
+		add_stability = 0.05
+	}
+}
+
+GER_autobahnen_cost_update = {
+	if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 0
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 1 }
+		}
+		set_variable = { num_civ_autobahn_use = 0 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 1
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 2 }
+		}
+		set_variable = { num_civ_autobahn_use = 1 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 2
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 3 }
+		}
+		set_variable = { num_civ_autobahn_use = 2 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 3
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 4 }
+		}
+		set_variable = { num_civ_autobahn_use = 3 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 4
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 5 }
+		}
+		set_variable = { num_civ_autobahn_use = 4 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 5
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 6 }
+		}
+		set_variable = { num_civ_autobahn_use = 5 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 6
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 7 }
+		}
+		set_variable = { num_civ_autobahn_use = 6 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 7
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 8 }
+		}
+		set_variable = { num_civ_autobahn_use = 7 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 8
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 9 }
+		}
+		set_variable = { num_civ_autobahn_use = 8 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 9
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 10 }
+		}
+		set_variable = { num_civ_autobahn_use = 9 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 10
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 11 }
+		}
+		set_variable = { num_civ_autobahn_use = 10 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 11
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 12 }
+		}
+		set_variable = { num_civ_autobahn_use = 11 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 12
+				compare = greater_than_or_equals
+			}
+			check_variable = { autobahnen_value < 13 }
+		}
+		set_variable = { num_civ_autobahn_use = 12 }
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = autobahnen_value
+				value = 13
+				compare = greater_than_or_equals
+			}
+		}
+		set_variable = { num_civ_autobahn_use = 13 }
+	}
+}

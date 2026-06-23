@@ -1,0 +1,2377 @@
+technologies = {
+
+
+#####################################################################################################################
+	#Light Aircraft (single-engine)
+	#Fighter Path
+
+	iw_20s_fighter = {
+
+		enable_equipments = {
+			iw_fighter_equipment
+		}
+	
+		path = {
+			leads_to_tech = early_fighter
+			research_cost_coeff = 1
+		}
+		# path = {
+		# 	leads_to_tech = iw_light_bomber
+		# 	research_cost_coeff = 1
+		# }
+
+		# dependencies = {
+		# 	plane_engine1 = 1
+		# }
+		
+		research_cost = 1
+		start_year = 1920
+		folder = {
+			name = air_techs_folder
+			position = { x = 0 y = 2 }
+		}
+		
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1933.1.1"
+			}			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+	}
+	
+	early_fighter = {
+
+		enable_equipments = {
+			early_fighter_equipment
+		}
+	
+		path = {
+			leads_to_tech = fighter1
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = heavy_fighter1
+			research_cost_coeff = 2
+		}
+		
+		research_cost = 1.7
+		start_year = 1933
+		folder = {
+			name = air_techs_folder
+			position = { x = 0 y = 4 }
+		}
+		
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+		
+		sub_technologies = {
+			cv_early_fighter
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1933.1.1"
+			}			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	cv_early_fighter = {
+
+		enable_equipments = {
+			cv_fighter_equipment_0
+		}
+	
+		research_cost = 1.0 #Carrier Variant
+		start_year = 1933
+		
+		categories = {
+			naval_air
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = fighter1
+					is_researching_technology = fighter1
+				}
+			}
+			modifier = {
+				factor = 0
+				has_navy_size = { type = carrier size < 1 }# if nation has no carriers, don't bother
+			}
+			modifier = {
+				factor = 3
+				has_navy_size = { type = carrier size > 3 }
+			}
+		}
+	}
+	
+	fighter1 = {
+
+		enable_equipments = {
+			fighter_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = fighter2
+			research_cost_coeff = 1
+		}
+		
+
+		# dependencies = {
+		# 	plane_engine2 = 1
+		# }
+		
+		research_cost = 2
+		start_year = 1935
+
+		folder = {
+			name = air_techs_folder
+			position = { x = 0 y = 6 }
+		}
+		
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+		
+		sub_technologies = {
+			cv_fighter1
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1936.1.1"
+			}
+
+			modifier = {
+				factor = 4
+				is_major = yes
+			}
+
+			modifier = {
+				factor = 20
+				OR = {
+					tag = ENG
+					tag = FRA
+				}
+			}
+
+			modifier = {
+				factor = 20
+				tag = GER
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1939.1.1"
+			}
+			
+			modifier = {
+				factor = 5
+				date > "1940.1.1"
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	cv_fighter1 = {
+
+		enable_equipments = {
+			cv_fighter_equipment_1
+		}
+	
+		research_cost = 1 #Carrier Variant
+		start_year = 1935
+		
+		categories = {
+			naval_air
+			air_equipment
+			cv_fighters
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1936.1.1"
+			}
+			modifier = {
+				factor = 2
+				tag = USA
+			}
+			
+			modifier = {
+				factor = 2
+				tag = JAP
+			}
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = fighter2
+					is_researching_technology = fighter2
+				}
+			}
+
+			modifier = {
+				factor = 2
+				has_navy_size = { type = carrier size > 3 }# if nation has carriers, more likely
+			}
+			modifier = {
+				factor = 0
+				has_navy_size = { type = carrier size < 1 }# if nation has no carriers, don't bother
+			}
+		}
+	}
+	
+	fighter2 = {
+
+		enable_equipments = {
+			fighter_equipment_2
+		}
+	
+		path = {
+			leads_to_tech = fighter3
+			research_cost_coeff = 1
+		}
+		
+
+		research_cost = 2
+		start_year = 1940
+		folder = {
+			name = air_techs_folder
+			position = { x = 0 y = 8 }
+		}
+		
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+		
+		sub_technologies = {
+			cv_fighter2
+		}
+		
+		ai_will_do = {
+			factor = 3
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 4
+				is_major = yes
+			}
+
+			modifier = {
+				factor = 30
+				OR = {
+					tag = ENG
+					tag = GER
+				}
+			}
+
+			modifier = {
+				factor = 30
+				tag = SOV
+				has_war_with = GER
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1942.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 5
+				date > "1943.1.1"
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	cv_fighter2 = {
+
+		enable_equipments = {
+			cv_fighter_equipment_2
+		}
+	
+		research_cost = 1.0 #Carrier Variant
+		start_year = 1940
+		
+		categories = {
+			naval_air
+			air_equipment
+			cv_fighters
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1940.1.1"
+			}
+			modifier = {
+				factor = 2
+				tag = USA
+			}
+
+			modifier = {
+				factor = 10
+				AND = {
+					is_historical_focus_on = yes
+					tag = JAP
+				}
+			}
+
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = fighter3
+					is_researching_technology = fighter3
+				}
+			}
+			modifier = {
+				factor = 2
+				has_navy_size = { type = carrier size > 3 }# if nation has carriers, more likely
+			}
+			modifier = {
+				factor = 0
+				has_navy_size = { type = carrier size < 1 }# if nation has no carriers, don't bother
+			}
+		}
+	}
+	
+	fighter3 = {
+
+		enable_equipments = {
+			fighter_equipment_3
+		}
+		
+		path = {
+			leads_to_tech = jet_fighter1
+			research_cost_coeff = 1
+		}
+
+		# dependencies = {
+		# 	plane_engine3 = 1
+		# }
+		
+		research_cost = 2
+		start_year = 1943
+
+		folder = {
+			name = air_techs_folder
+			position = { x = 0 y = 10 }
+		}
+		
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+		
+		sub_technologies = {
+			cv_fighter3
+		}
+		
+		ai_will_do = {
+			factor = 3
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 10
+				is_major = yes
+				has_war = yes
+			}
+
+			modifier = {
+				factor = 2
+				OR = {
+					tag = GER
+					tag = DDR
+					tag = ENG
+					tag = USA
+					tag = SOV
+				}
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1945.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 5
+				date > "1948.1.1"
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	cv_fighter3 = {
+
+		enable_equipments = {
+			cv_fighter_equipment_3
+		}
+	
+		research_cost = 1.0 #Carrier Variant
+		start_year = 1943
+		
+		categories = {
+			naval_air
+			air_equipment
+			cv_fighters
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1943.1.1"
+			}
+			modifier = {
+				factor = 2
+				tag = USA
+			}
+			
+			modifier = {
+				factor = 2
+				tag = JAP
+			}
+			modifier = {
+				factor = 2.5
+				has_navy_size = { type = carrier size > 3 }# if nation has carriers, more likely
+			}
+			modifier = {
+				factor = 0
+				has_navy_size = { type = carrier size < 1 }# if nation has no carriers, don't bother
+			}
+		}
+	}
+	
+	jet_fighter1 = {
+
+		enable_equipments = {
+				jet_fighter_equipment_1
+		}
+			
+		path = {
+			leads_to_tech = jet_fighter2
+			research_cost_coeff = 1
+		}
+
+		dependencies = {
+			jet_engines = 1
+		}
+		
+		research_cost = 2
+		start_year = 1945
+
+		folder = {
+			name = air_techs_folder
+			position = { x = 0 y = 12 }
+		}
+		
+		categories = {
+			light_air
+			jet_technology
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				is_major = yes
+				factor = 5
+			}
+			modifier = {
+				tag = GER
+				factor = 20
+				date > 1944.1.1
+			}
+		}
+	}
+	
+	jet_fighter2 = {
+
+		enable_equipments = {
+			jet_fighter_equipment_2
+		}
+		
+		research_cost = 2
+		start_year = 1948
+
+		folder = {
+			name = air_techs_folder
+			position = { x = 0 y = 14 }
+		}
+		
+		categories = {
+			light_air
+			jet_technology
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	#####################################################################################################################
+	#Light Bomber Path
+
+	iw_light_bomber = {
+
+		enable_equipments = {
+			light_bomber_equipment_1
+		}
+
+		path = {
+			leads_to_tech = early_light_bomber
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1
+		start_year = 1920
+		folder = {
+			name = air_techs_folder
+			position = { x = 3 y = 2 }
+		}
+		
+		categories = {
+			light_air
+			air_equipment
+		}
+
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1933.1.1"
+			}			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+	}
+
+	early_light_bomber = {
+
+		enable_equipments = {
+			light_bomber_equipment_2
+		}
+
+		path = {
+			leads_to_tech = CAS1
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = naval_bomber1
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = single_engine_light_bomber_1
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = twin_engine_light_bomber_1
+			research_cost_coeff = 1.5
+		}
+		
+		research_cost = 1.7
+		start_year = 1930
+		folder = {
+			name = air_techs_folder
+			position = { x = 3 y = 4 }
+		}
+		
+		categories = {
+			light_air
+			air_equipment
+		}
+
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1933.1.1"
+			}			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+
+	}
+
+	# single_engine_light_bomber_1 = {
+
+	# 	enable_equipments = {
+	# 		light_bomber_equipment_2
+	# 	}
+
+	# 	path = {
+	# 		leads_to_tech = single_engine_light_bomber_2
+	# 		research_cost_coeff = 1
+	# 	}
+		
+	# 	research_cost = 2
+	# 	start_year = 1935
+	# 	folder = {
+	# 		name = air_techs_folder
+	# 		position = { x = 1 y = 6 }
+	# 	}
+		
+	# 	categories = {
+	# 		light_air
+	# 		air_equipment
+	# 	}
+
+		
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 		modifier = { #Decrease weighting if ahead
+	# 			factor = 0.001
+	# 			date < "1933.1.1"
+	# 		}			
+	# 		modifier = {
+	# 			factor = 2
+	# 			is_major = yes
+	# 		}
+	# 	}
+	# }
+
+	# single_engine_light_bomber_2 = {
+
+	# 	enable_equipments = {
+	# 		light_bomber_equipment_2
+	# 	}
+		
+	# 	research_cost = 1.7
+	# 	start_year = 1939
+	# 	folder = {
+	# 		name = air_techs_folder
+	# 		position = { x = 1 y = 8 }
+	# 	}
+		
+	# 	categories = {
+	# 		light_air
+	# 		air_equipment
+	# 	}
+
+		
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 		modifier = { #Decrease weighting if ahead
+	# 			factor = 0.001
+	# 			date < "1933.1.1"
+	# 		}			
+	# 		modifier = {
+	# 			factor = 2
+	# 			is_major = yes
+	# 		}
+	# 	}
+	# }
+
+	# twin_engine_light_bomber_1 = {
+
+	# 	enable_equipments = {
+	# 		light_bomber_equipment_2
+	# 	}
+
+	# 	path = {
+	# 		leads_to_tech = twin_engine_light_bomber_2
+	# 		research_cost_coeff = 1
+	# 	}
+		
+	# 	research_cost = 1.7
+	# 	start_year = 1935
+	# 	folder = {
+	# 		name = air_techs_folder
+	# 		position = { x = 5 y = 6 }
+	# 	}
+		
+	# 	categories = {
+	# 		light_air
+	# 		air_equipment
+	# 	}
+
+		
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 		modifier = { #Decrease weighting if ahead
+	# 			factor = 0.001
+	# 			date < "1933.1.1"
+	# 		}			
+	# 		modifier = {
+	# 			factor = 2
+	# 			is_major = yes
+	# 		}
+	# 	}
+	# }
+
+	# twin_engine_light_bomber_2 = {
+
+	# 	enable_equipments = {
+	# 		light_bomber_equipment_2
+	# 	}
+		
+	# 	research_cost = 2
+	# 	start_year = 1939
+	# 	folder = {
+	# 		name = air_techs_folder
+	# 		position = { x = 5 y = 8 }
+	# 	}
+		
+	# 	categories = {
+	# 		light_air
+	# 		air_equipment
+	# 	}
+
+		
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 		modifier = { #Decrease weighting if ahead
+	# 			factor = 0.001
+	# 			date < "1933.1.1"
+	# 		}			
+	# 		modifier = {
+	# 			factor = 2
+	# 			is_major = yes
+	# 		}
+	# 	}
+	# }
+#####################################################################################################################
+	#Close-Air-Support (CAS) Path
+
+		CAS1 = {
+
+		enable_equipments = {
+			CAS_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = CAS2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1935
+
+		folder = {
+			name = air_techs_folder
+			position = { x = -3 y = 6 }
+		}
+		
+		sub_technologies = {
+			cv_CAS1
+		}
+		
+		categories = {
+			light_air
+			cas_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 2
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1936.1.1"
+			}
+			modifier = {
+				factor = 20
+				tag = GER
+			}
+			modifier = {
+				tag = SOV
+				has_war_with = GER
+				factor = 2
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	cv_CAS1 = {
+
+		enable_equipments = {
+			cv_CAS_equipment_1
+		}
+	
+		research_cost = 1.0 #Carrier Variant
+		start_year = 1935
+		
+		categories = {
+			naval_air
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1936.1.1"
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = CAS2
+					is_researching_technology = CAS2
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					tag = USA
+					tag = JAP
+				}
+			}
+			modifier = {
+				factor = 2
+				has_navy_size = { type = carrier size > 0 }
+			}
+			modifier = {
+				factor = 0
+				has_navy_size = { type = carrier size < 1 }
+			}
+		}
+	}
+	
+	CAS2 = {
+
+		enable_equipments = {
+			CAS_equipment_2
+		}
+	
+		path = {
+			leads_to_tech = CAS3
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1940
+
+		folder = {
+			name = air_techs_folder
+			position = { x = -3 y = 8 }
+		}
+		
+		sub_technologies = {
+			cv_CAS2
+		}
+		
+		categories = {
+			light_air
+			cas_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1940.1.1"
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					tag = GER
+					tag = SOV
+				}
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	cv_CAS2 = {
+
+		enable_equipments = {
+			cv_CAS_equipment_2
+		}
+	
+		research_cost = 1.0 #Carrier Variant
+		start_year = 1940
+		
+		categories = {
+			naval_air
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1940.1.1"
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = CAS3
+					is_researching_technology = CAS3
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					tag = USA
+					tag = JAP
+				}
+			}
+			modifier = {
+				factor = 2
+				has_navy_size = { type = carrier size > 0 }
+			}
+			modifier = {
+				factor = 0
+				has_navy_size = { type = carrier size < 1 }
+			}
+		}
+	}
+	
+	CAS3 = {
+
+		enable_equipments = {
+			CAS_equipment_3
+		}
+		
+		#path = {
+		#	leads_to_tech = jet_fighter1
+		#	research_cost_coeff = 1
+		#}
+
+		# dependencies = {
+		# 	plane_engine3 = 1
+		# }
+		
+		research_cost = 2
+		start_year = 1943
+		folder = {
+			name = air_techs_folder
+			position = { x = -3 y = 10 }
+		}
+		
+		sub_technologies = {
+			cv_CAS3
+		}
+		
+		categories = {
+			light_air
+			cas_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1943.1.1"
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					tag = SOV
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					tag = GER
+					tag = WGR
+					tag = DDR
+				}
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	cv_CAS3 = {
+
+		enable_equipments = {
+			cv_CAS_equipment_3
+		}
+	
+		research_cost = 1.0 #Carrier Variant
+		start_year = 1943
+		
+		categories = {
+			naval_air
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1943.1.1"
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					tag = USA
+					tag = JAP
+				}
+			}
+			modifier = {
+				factor = 2
+				has_navy_size = { type = carrier size > 0 }
+			}
+			modifier = {
+				factor = 0
+				has_navy_size = { type = carrier size < 1 }
+			}
+		}
+	}
+
+#####################################################################################################################
+	#Naval Bomber Path
+
+	naval_bomber1 = {
+
+		enable_equipments = {
+			nav_bomber_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = naval_bomber2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1935
+		folder = {
+			name = air_techs_folder
+			position = { x = 9 y = 6 }
+		}
+		
+		sub_technologies = {
+			cv_naval_bomber1
+		}
+		
+		categories = {
+			naval_air
+			naval_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1936.1.1"
+			}
+			modifier = {
+				factor = 3
+				tag = ENG
+			}
+			modifier = {
+				factor = 5
+				OR = {
+					tag = USA
+					tag = JAP
+				}
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	cv_naval_bomber1 = {
+
+		enable_equipments = {
+			cv_nav_bomber_equipment_1
+		}
+	
+		research_cost = 1.0 #Carrier Variant
+		start_year = 1935
+		
+		categories = {
+			naval_air
+			air_equipment
+			cv_bombers
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1936.1.1"
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = naval_bomber2
+					is_researching_technology = naval_bomber2
+				}
+			}
+			modifier = {
+				factor = 2.5
+				OR = {
+					tag = USA
+					tag = JAP
+				}
+			}
+			modifier = {
+				factor = 2
+				has_navy_size = { type = carrier size > 0 }
+			}
+			modifier = {
+				factor = 0
+				has_navy_size = { type = carrier size < 2 }
+			}
+		}
+	}
+	
+	naval_bomber2 = {
+
+		enable_equipments = {
+			nav_bomber_equipment_2
+		}
+	
+		path = {
+			leads_to_tech = naval_bomber3
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1940
+		folder = {
+			name = air_techs_folder
+			position = { x = 9 y = 8 }
+		}
+		
+		sub_technologies = {
+			cv_naval_bomber2
+		}
+		
+		categories = {
+			naval_air
+			air_equipment
+			naval_bomber
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1940.1.1"
+			}
+			modifier = {
+				has_deployed_air_force_size = {
+					size > 500
+					type = naval_bomber
+				}
+				factor = 1.5
+			}
+			modifier = {
+				factor = 5
+				OR = {
+					tag = USA
+					tag = JAP
+				}
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	cv_naval_bomber2 = {
+
+		enable_equipments = {
+			cv_nav_bomber_equipment_2
+		}
+	
+		research_cost = 1.0 #Carrier Variant
+		start_year = 1940
+		
+		categories = {
+			naval_air
+			air_equipment
+			cv_bombers
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1940.1.1"
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_tech = naval_bomber3
+					is_researching_technology = naval_bomber3
+				}
+			}
+			modifier = {
+				factor = 2.5
+				OR = {
+					tag = USA
+					tag = JAP
+				}
+			}
+			modifier = {
+				factor = 2
+				has_navy_size = { type = carrier size > 0 }
+			}
+			modifier = {
+				factor = 0
+				has_navy_size = { type = carrier size < 2 }
+			}
+		}
+	}
+	
+	naval_bomber3 = {
+
+		enable_equipments = {
+			nav_bomber_equipment_3
+		}
+		
+		#path = {
+		#	leads_to_tech = jet_fighter1
+		#	research_cost_coeff = 1
+		#}
+
+		# dependencies = {
+		# 	plane_engine3 = 1
+		# }
+		
+		research_cost = 2
+		start_year = 1943
+		folder = {
+			name = air_techs_folder
+			position = { x = 9 y = 10 }
+		}
+		
+		sub_technologies = {
+			cv_naval_bomber3
+		}
+		
+		categories = {
+			naval_air
+			naval_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1943.1.1"
+			}
+			modifier = {
+				has_deployed_air_force_size = {
+					size > 500
+					type = naval_bomber
+				}
+				factor = 1.5
+			}
+			modifier = {
+				factor = 5
+				OR = {
+					tag = USA
+					tag = JAP
+					tag = ENG
+				}
+			}
+		}
+	}
+	
+	cv_naval_bomber3 = {
+
+		enable_equipments = {
+			cv_nav_bomber_equipment_3
+		}
+	
+		research_cost = 1.0 #Carrier Variant
+		start_year = 1943
+		
+		categories = {
+			naval_air
+			air_equipment
+			cv_bombers
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1943.1.1"
+			}
+			modifier = {
+				factor = 2.5
+				OR = {
+					tag = USA
+					tag = JAP
+				}
+			}
+			modifier = {
+				factor = 2
+				has_navy_size = { type = carrier size > 0 }
+			}
+			modifier = {
+				factor = 0
+				has_navy_size = { type = carrier size < 2 }
+			}
+		}
+	}
+
+#########################################################
+	#Scout Planes Tree
+
+	# gw_scout_plane = {
+
+	# 	enable_equipments = {
+	# 		gw_scout_plane_equipment
+	# 	}
+	
+	# 	path = {
+	# 		leads_to_tech = scout_plane1
+	# 		research_cost_coeff = 1
+	# 	}
+
+		# dependencies = {
+		# 	plane_engine1 = 1
+		# }
+
+	# 	allow_branch = { has_dlc = "La Resistance" }
+	# 	research_cost = 2
+	# 	start_year = 1920
+	# 	folder = {
+	# 		name = air_techs_folder
+	# 		position = { x = 3 y = 0 }
+	# 	}
+		
+	# 	categories = {
+	# 		medium_air
+	# 		air_equipment
+	# 		cat_scout_plane
+	# 	}
+		
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 		modifier = {
+	# 			is_major = yes
+	# 			factor = 2
+	# 		}
+	# 		modifier = {
+	# 			has_war = yes
+	# 			factor = 1.5
+	# 		}
+	# 		modifier = {
+	# 			has_tech = early_fighter
+	# 			has_tech = early_bomber
+	# 			has_tech = transport_plane_technology
+	# 			factor = 3
+	# 		}
+	# 		modifier = {
+	# 			factor = 2
+	# 			original_tag = GER
+	# 		}
+	# 	}
+	# }
+
+	scout_plane1 = {
+
+		enable_equipments = {
+			scout_plane_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = scout_plane2
+			research_cost_coeff = 1
+		}
+
+		# dependencies = {
+		# 	plane_engine2 = 1
+		# }
+
+		allow_branch = { has_dlc = "La Resistance" }
+		
+		# allow_branch = { has_dlc = "La Resistance" }
+		research_cost = 2
+		start_year = 1934
+		folder = {
+			name = air_techs_folder
+			position = { x = 16 y = 6 }
+		}
+		
+		categories = {
+			medium_air
+			air_equipment
+			cat_scout_plane
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				is_major = yes
+				factor = 2
+			}
+			modifier = {
+				has_war = yes
+				factor = 1.5
+			}
+			modifier = {
+				has_tech = fighter1
+				has_tech = tactical_bomber1
+				has_tech = CAS1
+				factor = 3
+			}
+			modifier = {
+				factor = 2
+				original_tag = GER
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	scout_plane2 = {
+
+		enable_equipments = {
+			scout_plane_equipment_2
+		}
+		
+		research_cost = 2
+		start_year = 1940
+		folder = {
+			name = air_techs_folder
+			position = { x = 16 y = 8 }
+		}
+		
+		categories = {
+			medium_air
+			air_equipment
+			cat_scout_plane
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				is_major = yes
+				factor = 2
+			}
+			modifier = {
+				has_war = yes
+				factor = 1.5
+			}
+			modifier = {
+				has_tech = fighter2
+				has_tech = tactical_bomber2
+				has_tech = CAS2
+				factor = 3
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+
+#####################################################################################################################
+	#Medium Aircraft Tree (twin-engine)
+	#Tactical Bomber Path
+
+	gw_bomber = {
+
+		enable_equipments = {
+			gw_bomber_equipment
+		}
+		
+		path = {
+			leads_to_tech = early_bomber
+			research_cost_coeff = 1
+		}
+
+		# dependencies = {
+		# 	plane_engine1 = 1
+		# }
+		
+		research_cost = 1
+		start_year = 1918
+		folder = {
+			name = air_techs_folder
+			position = { x = 9 y = 2 }
+		}
+		
+		categories = {
+			medium_air
+			tactical_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1933.1.1"
+			}
+		}
+	}
+	
+	early_bomber = {
+
+		enable_equipments = {
+			tac_bomber_equipment_0
+		}
+		
+		path = {
+			leads_to_tech = tactical_bomber1
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1.5
+		start_year = 1933
+		folder = {
+			name = air_techs_folder
+			position = { x = 9 y = 4 }
+		}
+		
+		categories = {
+			medium_air
+			tactical_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1933.1.1"
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	tactical_bomber1 = {
+
+		enable_equipments = {
+			tac_bomber_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = tactical_bomber2
+			research_cost_coeff = 1
+		}
+
+		# dependencies = {
+		# 	plane_engine2 = 1
+		# }
+
+		research_cost = 2
+		start_year = 1935
+
+		folder = {
+			name = air_techs_folder
+			position = { x = 9 y = 6 }
+		}
+		
+		categories = {
+			medium_air
+			tactical_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 3
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < 1936.1.1
+			}
+			modifier = {
+				factor = 10
+				tag = USA
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					tag = GER
+					tag = SOV
+					tag = ENG
+				}
+			}
+			modifier = {
+				factor = 1.2
+				is_major = yes
+				date > 1936.1.1
+			}
+			
+			modifier = {
+				factor = 1.5
+				is_major = yes
+				date > 1937.1.1
+			}
+			
+			modifier = {
+				factor = 1.5
+				is_major = yes
+				date > 1938.1.1
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	tactical_bomber2 = {
+
+		enable_equipments = {
+			tac_bomber_equipment_2
+		}
+	
+		path = {
+			leads_to_tech = tactical_bomber3
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1940
+		folder = {
+			name = air_techs_folder
+			position = { x = 9 y = 8 }
+		}
+		
+		categories = {
+			medium_air
+			tactical_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1940.1.1"
+			}
+			modifier = {
+				has_deployed_air_force_size = {
+					size > 1000
+					type = tactical_bomber
+				}
+				factor = 2
+			}
+			modifier = {
+				factor = 1.2
+				is_major = yes
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				is_major = yes
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 5
+				is_major = yes
+				date > "1943.1.1"
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	tactical_bomber3 = {
+
+		enable_equipments = {
+			tac_bomber_equipment_3
+		}
+		
+		path = {
+			leads_to_tech = jet_tactical_bomber1
+			research_cost_coeff = 1
+		}
+
+		# dependencies = {
+		# 	plane_engine3 = 1
+		# }
+
+		research_cost = 2
+		start_year = 1943
+		folder = {
+			name = air_techs_folder
+			position = { x = 9 y = 10 }
+		}
+		
+		categories = {
+			medium_air
+			tactical_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1943.1.1"
+			}
+			modifier = {
+				has_deployed_air_force_size = {
+					size > 2000
+					type = tactical_bomber
+				}
+				factor = 2
+			}
+			modifier = {
+				factor = 1.2
+				is_major = yes
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				is_major = yes
+				date > "1945.1.1"
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	jet_tactical_bomber1 = {
+
+		enable_equipments = {
+			jet_tac_bomber_equipment_1
+		}
+		
+		path = {
+			leads_to_tech = jet_tactical_bomber2
+			research_cost_coeff = 1
+		}
+		
+		dependencies = {
+			jet_engines = 1
+		}
+
+		research_cost = 2
+		start_year = 1945
+		
+		folder = {
+			name = air_techs_folder
+			position = { x = 9 y = 14 }
+		}
+		
+		categories = {
+			medium_air
+			jet_technology
+			tactical_bomber
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1945.1.1"
+			}
+		}
+	}
+	
+	jet_tactical_bomber2 = {
+
+		enable_equipments = {
+			jet_tac_bomber_equipment_2
+		}
+		
+		research_cost = 2
+		start_year = 1950
+		folder = {
+			name = air_techs_folder
+			position = { x = 9 y = 16 }
+		}
+		
+		categories = {
+			medium_air
+			jet_technology
+			tactical_bomber
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1950.1.1"
+			}
+		}
+	}
+
+#####################################################################################################################
+	#Heavy Fighter Path
+	
+	heavy_fighter1 = {
+
+		enable_equipments = {
+			heavy_fighter_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = heavy_fighter2
+			research_cost_coeff = 1
+		}
+
+		# dependencies = {
+		# 	plane_engine2 = 1
+		# }
+		
+		research_cost = 2
+		start_year = 1935
+		folder = {
+			name = air_techs_folder
+			position = { x = -4 y = 6 }
+		}
+		
+		categories = {
+			medium_air
+			air_equipment
+			cat_heavy_fighter
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1936.1.1"
+			}
+			modifier = {
+				factor = 12
+				OR = {
+					tag = ENG
+					tag = GER
+				}
+			}
+			modifier = {
+				factor = 20
+				tag = USA
+				has_war = yes
+			}
+			modifier = {
+				factor = 5
+				tag = SOV
+				date > "1939.5.5"
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	heavy_fighter2 = {
+
+		enable_equipments = {
+			heavy_fighter_equipment_2
+		}
+	
+		path = {
+			leads_to_tech = heavy_fighter3
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1940
+		folder = {
+			name = air_techs_folder
+			position = { x = -4 y = 8 }
+		}
+		
+		categories = {
+			medium_air
+			air_equipment
+			cat_heavy_fighter
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1940.1.1"
+			}
+			modifier = {
+				factor = 5
+				OR = {
+					tag = ENG
+					tag = GER
+				}
+			}
+			modifier = {
+				factor = 5
+				tag = USA
+				date > "1941.1.1"
+				has_war = yes
+			}
+			modifier = {
+				factor = 5
+				tag = SOV
+				date > "1941.1.1"
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	heavy_fighter3 = {
+
+		enable_equipments = {
+			heavy_fighter_equipment_3
+		}
+
+		# dependencies = {
+		# 	plane_engine3 = 1
+		# }
+
+		research_cost = 2
+		start_year = 1943
+		folder = {
+			name = air_techs_folder
+			position = { x = -4 y = 10 }
+		}
+		
+		categories = {
+			medium_air
+			air_equipment
+			cat_heavy_fighter
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1943.1.1"
+			}
+			modifier = {
+				factor = 2
+				is_major = yes
+				has_war = yes
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+
+#####################################################################################################################
+	#Heavy Aircraft (four-engine aircraft)
+
+	transport_plane_technology = {
+
+		enable_equipments = {
+			transport_plane_equipment_1
+		}
+
+		# dependencies = {
+		# 	plane_engine1 = 1
+		# }
+
+		research_cost = 0.6
+		start_year = 1920
+		folder = {
+			name = air_techs_folder
+			position = { x = 5 y = 2 }
+		}
+		
+		categories = {
+			heavy_air
+			air_equipment
+			cat_strategic_bomber
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				is_major = yes
+			}
+			modifier = {
+				factor = 3
+				num_of_military_factories > 4
+			}
+			modifier = {
+				factor = 3
+				num_of_military_factories > 9
+			}
+			modifier = {
+				factor = 3
+				num_of_military_factories > 24
+			}
+			modifier = {
+				factor = 1.5
+				date > "1940.1.1"
+			}
+			modifier = {
+				factor = 1.5
+				date > "1942.1.1"
+			}
+			modifier = {
+				factor = 1.5
+				date > "1944.1.1"
+			}
+			modifier = {
+				factor = 1.5
+				date > "1946.1.1"
+			}
+		}
+	}
+
+	strategic_bomber1 = {
+
+		enable_equipments = {
+			strat_bomber_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = strategic_bomber2
+			research_cost_coeff = 1
+		}
+
+		# dependencies = {
+		# 	plane_engine2 = 1
+		# }
+
+		research_cost = 2
+		start_year = 1935
+		folder = {
+			name = air_techs_folder
+			position = { x = 6 y = 6 }
+		}
+		
+		categories = {
+			heavy_air
+			air_equipment
+			cat_strategic_bomber
+		}
+		
+		ai_will_do = {
+			factor = 2
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1936.1.1"
+			}
+			modifier = {
+				factor = 5
+				OR = {
+					tag = SOV
+					tag = GER
+				}
+			}
+			
+			modifier = {
+				factor = 10
+				tag = USA
+			}
+			modifier = {
+				factor = 5
+				tag = ENG
+				has_war_with = GER
+				FRA = { has_capitulated = yes }
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	strategic_bomber2 = {
+
+		enable_equipments = {
+			strat_bomber_equipment_2
+		}
+	
+		path = {
+			leads_to_tech = strategic_bomber3
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1940
+		folder = {
+			name = air_techs_folder
+			position = { x = 6 y = 8 }
+		}
+		
+		categories = {
+			heavy_air
+			air_equipment
+			cat_strategic_bomber
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1940.1.1"
+			}
+			modifier = {
+				factor = 15
+				tag = ENG
+				SOV = { has_war_with = GER }
+			}
+			modifier = {
+				factor = 15
+				tag = ENG
+				has_war_with = SOV
+			}
+			modifier = {
+				factor = 5
+				tag = GER
+				GER = { has_war_with = ENG }
+			}
+			
+			modifier = {
+				factor = 20
+				tag = USA
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	strategic_bomber3 = {
+
+		enable_equipments = {
+			strat_bomber_equipment_3
+		}
+		
+		path = {
+			leads_to_tech = jet_strategic_bomber1
+			research_cost_coeff = 1
+		}
+
+		# dependencies = {
+		# 	plane_engine3 = 1
+		# }
+
+		research_cost = 2
+		start_year = 1943
+		folder = {
+			name = air_techs_folder
+			position = { x = 6 y = 10 }
+		}
+		
+		categories = {
+			heavy_air
+			air_equipment
+			cat_strategic_bomber
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1943.1.1"
+			}
+			modifier = {
+				factor = 15
+				tag = ENG
+			}
+			
+			modifier = {
+				factor = 20
+				tag = USA
+			}
+
+			modifier = {
+				factor = 0
+				tag = SPR
+			}
+		}
+	}
+	
+	jet_strategic_bomber1 = {
+
+		enable_equipments = {
+			jet_strat_bomber_equipment_1
+		}
+		
+		research_cost = 2
+		start_year = 1948
+
+		dependencies = {
+			jet_engines = 1
+		}
+
+		folder = {
+			name = air_techs_folder
+			position = { x = 6 y = 14 }
+		}
+		
+		categories = {
+			heavy_air
+			jet_technology
+			cat_strategic_bomber
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = { #Decrease weighting if ahead
+				factor = 0.001
+				date < "1950.1.1"
+			}
+		}
+	}
+
+#####################################################################################################################
+	#Hidden tech for USA
+	
+	skip_bombing  = {
+		
+		naval_strike_attack_factor = 0.05 
+		naval_strike_targetting_factor = 0.05
+		
+		research_cost = 1
+		start_year = 1937
+		allow = {
+			always = no
+		}
+	}
+
+#####################################################################################################################
+#End
+}

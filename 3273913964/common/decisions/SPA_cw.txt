@@ -1,0 +1,1023 @@
+spain_estabilish_control = {
+
+	SPA_control_newspapers = {
+		allowed = { tag = SPA }
+		fire_only_once = yes
+		visible = {
+			has_war_with = SPR
+			check_variable = { spa_control < 100 }
+		}
+		icon = generic_ban_press
+		available = { }
+		ai_will_do = { base = 100 }
+		cost = 25
+		complete_effect = {
+			custom_effect_tooltip = 7_control
+			add_to_variable = { var = spa_control value = 7.5 }
+		}
+
+	}
+
+	SPA_dissolve_jdn = {
+		allowed = {
+			OR = {
+				tag = SPA
+				tag = SPR
+			}
+		}
+		fire_only_once = yes
+		visible = {
+			tag = SPN
+			OR = {
+				scw_in_progress = yes
+				scr_in_progress = yes
+			}
+			check_variable = { spa_control < 100 }
+		}
+		icon = generic_political_discourse
+		available = {
+			OR = {
+				has_completed_focus = SPA_consejo_ministros
+				has_completed_focus = SPA_consejo_real_guerra
+				has_completed_focus = SPA_institution_ume
+				has_completed_focus = SPA_provisional_auth
+				has_completed_focus = SPA_gobierno_tecnico_provisional
+				has_completed_focus = SPA_franco_rules_alone
+				has_completed_focus = SPA_gobierno_salvacion
+			}
+		}
+		ai_will_do = {
+			base = 500
+		}
+		cost = 30
+		complete_effect = {
+			custom_effect_tooltip = 15_control
+			add_to_variable = { var = spa_control value = 15 }
+			set_country_flag = spa_jdn_dissolved
+		}
+
+	}
+
+	SPA_ideological_propaganda = {
+		allowed = {
+			OR = {
+				tag = SPA
+				tag = SPR
+			}
+		}
+		visible = {
+			tag = SPN
+			OR = {
+				scw_in_progress = yes
+				scr_in_progress = yes
+			}
+			check_variable = { spa_control < 100 }
+		}
+		icon = eng_propaganda_campaigns
+		available = { }
+		modifier = { political_power_gain = -0.3 }
+		days_remove = 100
+		ai_will_do = { base = 100 }
+		cost = 50
+		remove_effect = {
+			custom_effect_tooltip = 7_control
+			add_to_variable = { var = spa_control value = 7.5 }
+			if = {
+				limit = {
+					has_government = neutrality
+				}
+				add_popularity = { ideology = neutrality popularity = 0.08 }
+			}
+			if = {
+				limit = {
+					has_government = nationalism
+				}
+				add_popularity = { ideology = nationalism popularity = 0.08 }
+			}
+			if = {
+				limit = {
+					has_government = monarchism
+				}
+				add_popularity = { ideology = monarchism popularity = 0.08 }
+			}
+			if = {
+				limit = {
+					has_government = fascism
+				}
+				add_popularity = { ideology = fascism popularity = 0.08 }
+			}
+		}
+
+	}
+
+	SPA_personalist_propaganda = {
+		allowed = {
+			OR = {
+				tag = SPA
+				tag = SPR
+			}
+		}
+		visible = {
+			tag = SPN
+			OR = {
+				scw_in_progress = yes
+				scr_in_progress = yes
+			}
+			check_variable = { spa_control < 100 }
+		}
+		icon = generic_nationalism
+		available = { }
+		modifier = { political_power_gain = -0.3 }
+		days_remove = 80
+		ai_will_do = { base = 100 }
+		cost = 50
+		remove_effect = {
+			custom_effect_tooltip = 5_control
+			add_to_variable = { var = spa_control value = 5 }
+			add_stability = 0.05
+		}
+
+	}
+
+	SPA_declare_crusade = {
+		allowed = {
+			OR = {
+				tag = SPA
+				tag = SPR
+			}
+		}
+		fire_only_once = yes
+		visible = {
+			tag = SPN
+			OR = {
+				scw_in_progress = yes
+				scr_in_progress = yes
+			}
+			check_variable = { spa_control < 100 }
+		}
+		icon = generic_church
+		ai_will_do = { base = 900 }
+		available = { always = yes }
+		cost = 100
+		complete_effect = {
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+			add_war_support = 0.1
+		}
+	}
+}
+
+natspain_spanish_cw = {
+
+	SPA_take_madrid_mission = {
+		icon = generic_prepare_civil_war
+		allowed = { tag = SPA }
+		days_mission_timeout = 168
+		fire_only_once = yes
+		highlight_states = {
+			highlight_provinces = {
+				3938
+			}
+		}
+
+		activation = {
+			always = no
+		}
+
+		is_good = no
+
+		available = {
+			scw_in_progress = yes
+			hidden_trigger = {
+			}
+			SPA = { controls_province = 3938 }
+		}
+
+		complete_effect = {
+
+			if = {
+				limit = {
+					has_country_flag = {
+						flag = SPA_momentum_flag
+						days < 90
+					}
+				}
+				#Max number of days - (days until today - days when started counting) = days remaining
+				set_temp_variable = { momentum_days_f = Global.num_days }
+				subtract_from_temp_variable = { momentum_days_f = 705545 } #1933*365
+				subtract_from_temp_variable = { momentum_days_f = momentum_days_s }
+				subtract_from_variable = { max_momentum_days = momentum_days_f }
+				country_event = {
+					id = test.6
+					days = var:max_momentum_days
+				}
+				multiply_variable = { morale_momentum_var = 1.7 }
+				multiply_variable = { breaktrough_momentum_var = 1.7 }
+			}
+			else_if = {
+				limit = {
+					has_country_flag = {
+						flag = SPA_momentum_flag
+						days > 89
+					}
+				}
+				add_to_variable = { max_momentum_days = 30 } #adds 30 more days to the momentum idea
+				#Max number of days - (days until today - days when started counting) = days remaining
+				set_temp_variable = { momentum_days_f = Global.num_days }
+				subtract_from_temp_variable = { momentum_days_f = 705545 } #1933*365
+				subtract_from_temp_variable = { momentum_days_f = momentum_days_s }
+				subtract_from_variable = { max_momentum_days = momentum_days_f }
+				#Force update the timer of the idea
+				remove_dynamic_modifier = {
+					modifier = SPA_stagnating_momentum
+				}
+				add_dynamic_modifier = {
+					modifier = SPA_stagnating_momentum
+					days = var:max_momentum_days
+				}
+				country_event = {
+					id = test.6
+					days = var:max_momentum_days
+				}
+
+				multiply_variable = { morale_momentum_var = 1.4 }
+				multiply_variable = { breaktrough_momentum_var = 1.4 }
+			}
+
+		}
+
+		timeout_effect = {
+			effect_tooltip = {
+				remove_dynamic_modifier = {
+					modifier = SPA_stagnating_momentum
+				}
+			}
+			hidden_effect = {
+				country_event = {
+					id = test.6
+				}
+				#TODO: Event that informs both sides of the solidification of the frontlines
+			}
+		}
+	}
+
+	SPA_connect_extr_sev_mission = {
+		icon = generic_prepare_civil_war
+		allowed = { tag = SPA }
+		fire_only_once = yes
+
+		days_mission_timeout = 17
+		highlight_states = {
+			highlight_provinces = {
+				7183
+				13697
+			}
+		}
+
+		is_good = no
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = x
+			}
+			AND = {
+				AND = {
+					controls_province = 13697 #Caceres
+					controls_province = 9839
+				}
+				controls_province = 7183 #sevilla
+				OR = {
+					controls_province = 6902
+					controls_province = 9925
+					controls_province = 6866
+				}
+				OR = {
+					controls_province = 11851
+					controls_province = 931
+					AND = {
+						controls_province = 3930
+						controls_province = 879
+					}
+				}
+				OR = {
+					controls_province = 11798
+					controls_province = 809
+					AND = {
+						controls_province = 3930
+						controls_province = 879
+					}
+				}
+				OR = {
+					AND = {
+						controls_province = 3940
+						controls_province = 9815
+						controls_province = 4080
+					}
+					AND = {
+						controls_province = 11749
+						controls_province = 4080
+					}
+					AND = {
+						controls_province = 11749
+						controls_province = 7098
+					}
+					AND = {
+						controls_province = 6954
+						controls_province = 7098
+					}
+					AND = {
+						controls_province = 7098
+						controls_province = 9891
+					}
+					AND = {
+						controls_province = 9891
+						controls_province = 1178
+					}
+					AND = {
+						controls_province = 1178
+						controls_province = 12033
+					}
+				}
+			}
+		}
+
+		activation = {
+			always = no
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_to_variable = { morale_momentum_var = 0.06 }
+				add_to_variable = { breaktrough_momentum_var = 0.05 }
+				set_country_flag = SPA_conected_extr
+			}
+		}
+
+		timeout_effect = {
+			add_war_support = -0.05
+			169 = {
+				force_enable_resistance = SPA
+				start_resistance = yes
+			}
+		}
+	}
+
+	SPA_defeatist_coup = {
+		icon = generic_political_discourse
+		fire_only_once = yes
+		allowed = {
+			tag = SPA
+		}
+		is_good = no
+		days_mission_timeout = 45
+		fire_only_once = yes
+
+		activation = {
+			scw_in_progress = yes
+			NOT = {
+				controls_state = 169
+				controls_state = 1213
+				controls_state = 173
+				controls_state = 170
+				controls_state = 41
+				controls_state = 1220
+				controls_state = 1217
+				controls_state = 176
+				controls_state = 165
+				controls_state = 166
+				controls_state = 167
+				controls_state = 172
+				controls_state = 752
+			}
+		}
+
+		cancel_trigger = {
+			AND = {
+				controls_state = 1220
+				controls_state = 171
+				controls_state = 174
+				controls_state = 176
+				OR = {
+					controls_state = 1217
+					controls_state = 752
+					controls_state = 41
+					controls_state = 170
+				}
+			}
+		}
+
+		timeout_effect = {
+			SPR = { country_event = { id = scw.725 } }
+			country_event = { id = scw.72 hours = 2 }
+		}
+	}
+
+}
+
+ITA_support_nationalists = {
+
+	ITA_ctv = {
+		#TODO: rework
+		allowed = { tag = ITA }
+		fire_only_once = yes
+		icon = generic_army_support
+		visible = {
+			scw_in_progress = yes
+			NOT = { has_war_with = SPA }
+		}
+		days_remove = -1
+		available = { }
+		ai_will_do = {
+			base = 1000
+		}
+		cosmetic_tag = SPA
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		modifier = {
+			send_volunteers_tension = -0.8
+			send_volunteer_divisions_required = -0.5
+			send_volunteer_size = 2
+		}
+		complete_effect = {
+			set_country_flag = ita_sent_ctv
+			add_named_threat = {
+				threat = 2
+				name = ITA_ctv_sent
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = SPN
+					modifier = SPA_supporting_cw
+				}
+				SPA = {
+					add_opinion_modifier = {
+						target = ITA
+						modifier = SPA_cw_support
+					}
+				}
+			}
+		}
+
+	}
+
+	ITA_expand_ctv = {
+		allowed = { tag = ITA }
+		fire_only_once = yes
+		icon = generic_army_support
+		visible = {
+			has_country_flag = ita_sent_ctv
+			scw_in_progress = yes
+			NOT = { has_war_with = SPA }
+		}
+		days_remove = -1
+		available = { }
+		ai_will_do = {
+			base = 100
+		}
+		cosmetic_tag = SPA
+		custom_cost_trigger = {
+			command_power > 19
+		}
+		custom_cost_text = command_power_more_than_20
+		modifier = {
+			send_volunteer_size = 3
+		}
+		complete_effect = {
+			add_named_threat = {
+				threat = 2
+				name = ITA_ctv_sent_again
+			}
+		}
+	}
+
+	ITA_aviazione_legionaria = {
+		allowed = { tag = ITA }
+		fire_only_once = yes
+		icon = generic_plane
+		visible = {
+			scw_in_progress = yes
+			NOT = { has_war_with = SPA }
+		}
+		cosmetic_tag = SPA
+		available = {
+			SPA = { controls_state = 177 }
+		}
+		ai_will_do = {
+			base = 400
+		}
+		cost = 0
+		complete_effect = {
+			SPA = { country_event = { id = scw.87 days = 3 } }
+		}
+	}
+
+	ITA_send_guns_spain = {
+		allowed = { tag = ITA }
+		icon = generic_supplies
+		visible = {
+			scw_in_progress = yes
+			NOT = { has_war_with = SPA }
+		}
+		cosmetic_tag = SPA
+		available = {
+			NOT = { has_country_flag = spa_shipment_delay }
+		}
+		ai_will_do = {
+			base = 100
+		}
+		days_remove = 80
+		cost = 0
+		complete_effect = {
+			SPA = { country_event = { id = scw.85 days = 3 } }
+			set_country_flag = spa_shipment_delay
+		}
+		remove_effect = {
+			clr_country_flag = spa_shipment_delay
+		}
+	}
+
+	ITA_send_arty_spain = {
+		allowed = { tag = ITA }
+		icon = generic_artillery
+		visible = {
+			scw_in_progress = yes
+			NOT = { has_war_with = SPA }
+		}
+		cosmetic_tag = SPA
+		available = {
+			NOT = { has_country_flag = spa_shipment_delay }
+		}
+		ai_will_do = {
+			base = 50
+		}
+		days_remove = 80
+		cost = 0
+		complete_effect = {
+			SPA = { country_event = { id = scw.86 days = 3 } }
+			set_country_flag = spa_shipment_delay
+		}
+		remove_effect = {
+			clr_country_flag = spa_shipment_delay
+		}
+	}
+
+	# ITA_disrupt_republican_shipping = {
+	# 	allowed = { tag = ITA }
+	# 	fire_only_once = yes
+	# 	icon = generic_naval
+	# 	visible = {
+	# 		SPA = { has_war_with = SPR }
+	# 		NOT = { has_war_with = SPA }
+	# 	}
+	# 	cosmetic_tag = SPR
+	# 	available = { }
+	# 	ai_will_do = {
+	# 		base = 30
+	# 	}
+	# 	cost = 80
+	# 	complete_effect = {
+	# 		SPR = { country_event = { id = scw.88 days = 7 } }
+	# 	}
+	# }
+
+}
+
+GER_support_nationalists = {
+
+	# GER_create_hisma = {
+	# 	allowed = { tag = GER }
+	# 	fire_only_once = yes
+	# 	icon = generic_naval
+	# 	visible = {
+	# 		SPA = { has_war_with = SPR }
+	# 		NOT = { has_war_with = SPA }
+	# 	}
+	# 	cosmetic_tag = SPA
+	# 	available = {
+	# 	}
+	# 	ai_will_do = {
+	# 		base = 100
+	# 	}
+	# 	cost = 10
+	# 	complete_effect = {
+	# 		SPA = { country_event = { id = scw.91 days = 3 } }
+	# 	}
+	# }
+
+	GER_operation_feuerzauber = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = generic_supplies
+		visible = {
+			OR = {
+				scw_in_progress = yes
+				AND = {
+					scr_in_progress = yes
+					SPR = { has_country_flag = SPR_rev_military_coup }
+				}
+			}
+			NOT = { has_war_with = SPN }
+		}
+		cosmetic_tag = SPA
+		available = {
+			NOT = { has_country_flag = spa_shipment_delay }
+		}
+		ai_will_do = {
+			base = 100
+		}
+		cost = 0
+		days_remove = 80
+		complete_effect = {
+			SPN = { country_event = { id = scw.94 days = 3 } }
+			set_country_flag = op_feuerzauber
+			set_country_flag = spa_shipment_delay
+		}
+		remove_effect = {
+			clr_country_flag = spa_shipment_delay
+		}
+	}
+
+	GER_condor_legion = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = generic_plane
+		visible = {
+			OR = {
+				scw_in_progress = yes
+				AND = {
+					scr_in_progress = yes
+					SPR = { has_country_flag = SPR_rev_military_coup }
+				}
+			}
+			NOT = { has_war_with = SPN }
+		}
+		cosmetic_tag = SPA
+		ai_will_do = {
+			base = 100
+		}
+		cost = 0
+		days_remove = 30
+		remove_effect = {
+			SPN = { country_event = { id = scw.92 days = 3 } }
+			set_country_flag = condor_sent
+		}
+	}
+
+	GER_condor_legion_expand = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = generic_plane
+		visible = {
+			OR = {
+				scw_in_progress = yes
+				AND = {
+					scr_in_progress = yes
+					SPR = { has_country_flag = SPR_rev_military_coup }
+				}
+			}
+			NOT = { has_war_with = SPN }
+			has_country_flag = condor_sent
+		}
+		cosmetic_tag = SPA
+		available = {
+			has_country_flag = condor_sent
+		}
+		ai_will_do = {
+			base = 100
+		}
+		cost = 10
+		days_remove = 30
+		remove_effect = {
+			SPN = { country_event = { id = scw.93 days = 3 } }
+		}
+	}
+
+	GER_send_tanks = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = generic_light_tank
+		visible = {
+			OR = {
+				scw_in_progress = yes
+				AND = {
+					scr_in_progress = yes
+					SPR = { has_country_flag = SPR_rev_military_coup }
+				}
+			}
+			NOT = { has_war_with = SPN }
+			has_country_flag = op_feuerzauber
+		}
+		cosmetic_tag = SPA
+		available = {
+			NOT = { has_country_flag = spa_shipment_delay }
+			has_equipment = {
+				light_tank_chassis > 79
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		cost = 0
+		days_remove = 80
+		complete_effect = {
+			SPN = { country_event = { id = scw.95 days = 3 } }
+			set_country_flag = spa_shipment_delay
+		}
+		remove_effect = {
+			clr_country_flag = spa_shipment_delay
+		}
+	}
+
+	GER_send_artillery = {
+		allowed = { tag = GER }
+		icon = generic_artillery
+		visible = {
+			OR = {
+				scw_in_progress = yes
+				AND = {
+					scr_in_progress = yes
+					SPR = { has_country_flag = SPR_rev_military_coup }
+				}
+			}
+			NOT = { has_war_with = SPN }
+			has_country_flag = op_feuerzauber
+		}
+		cosmetic_tag = SPA
+		available = {
+			NOT = { has_country_flag = spa_shipment_delay }
+			has_equipment = {
+				artillery_equipment > 299
+			}
+			has_equipment = {
+				anti_tank_equipment > 119
+			}
+			has_equipment = {
+				anti_air_equipment  > 119
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		cost = 0
+		days_remove = 80
+		complete_effect = {
+			SPN = { country_event = { id = scw.96 days = 3 } }
+			set_country_flag = spa_shipment_delay
+		}
+		remove_effect = {
+			clr_country_flag = spa_shipment_delay
+		}
+	}
+
+	GER_learn_from_scw_tanks = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = generic_army_support
+		visible = {
+			OR = {
+				scw_in_progress = yes
+				AND = {
+					scr_in_progress = yes
+					SPR = { has_country_flag = SPR_rev_military_coup }
+				}
+			}
+			NOT = { has_war_with = SPN }
+		}
+		available = {
+			SPN = {
+				has_volunteers_amount_from = {
+					tag = GER
+					count > 1
+				}
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+		days_remove = 150
+		cost = 0
+		complete_effect = {
+			army_experience = 100
+			# add_tech_bonus = {
+			# 	name = GER_learn_from_scw_tanks
+			# 	bonus = 0.5
+			# 	uses = 1
+			# 	category = armor
+			# }
+		}
+	}
+
+	GER_learn_from_scw_plane = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = generic_army_support
+		visible = {
+			OR = {
+				scw_in_progress = yes
+				AND = {
+					scr_in_progress = yes
+					SPR = { has_country_flag = SPR_rev_military_coup }
+				}
+			}
+			NOT = { has_war_with = SPN }
+		}
+		available = {
+			has_country_flag = condor_sent
+		}
+		ai_will_do = {
+			base = 100
+		}
+		days_remove = 150
+		cost = 0
+		complete_effect = {
+			air_experience = 100
+		}
+	}
+}
+
+ITA_support_nationalists_alt = {
+
+	ITA_ctv_alt = {
+		allowed = { tag = ITA }
+		fire_only_once = yes
+		icon = generic_army_support
+		visible = {
+			scr_in_progress = yes
+			NOT = { has_war_with = SPR }
+		}
+		days_remove = -1
+		available = { }
+		ai_will_do = {
+			base = 500
+		}
+		cosmetic_tag = SPR
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		modifier = {
+			#TEMPORAL
+			send_volunteers_tension = -0.8
+			send_volunteer_divisions_required = -0.5
+			send_volunteer_size = 2
+		}
+		complete_effect = {
+			#TEMPORAL
+				add_relation_rule_override = {
+					target = SPA
+					can_send_volunteers = yes
+				}
+			#
+
+			set_country_flag = ita_sent_ctv
+			add_named_threat = {
+				threat = 2
+				name = ITA_ctv_sent
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = SPR
+					modifier = SPA_supporting_cw
+				}
+				SPR = {
+					add_opinion_modifier = {
+						target = ITA
+						modifier = SPA_cw_support
+					}
+				}
+			}
+		}
+
+	}
+
+	ITA_expand_ctv_alt = {
+		allowed = { tag = ITA }
+		fire_only_once = yes
+		icon = generic_army_support
+		visible = {
+			has_country_flag = ita_sent_ctv
+			scr_in_progress = yes
+			NOT = { has_war_with = SPR }
+		}
+		days_remove = -1
+		available = { }
+		ai_will_do = {
+			base = 500
+		}
+		cosmetic_tag = SPR
+		custom_cost_trigger = {
+			command_power > 19
+		}
+		custom_cost_text = command_power_more_than_20
+		#TEMPORAL
+			modifier = {
+				send_volunteer_size = 3
+			}
+		#
+		complete_effect = {
+			add_named_threat = {
+				threat = 2
+				name = ITA_ctv_sent_again
+			}
+		}
+	}
+
+	ITA_aviazione_legionaria_alt = {
+		allowed = { tag = ITA }
+		fire_only_once = yes
+		icon = generic_plane
+		visible = {
+			scr_in_progress = yes
+			NOT = { has_war_with = SPR }
+		}
+		cosmetic_tag = SPR
+		available = {
+			SPR = { controls_state = 177 }
+		}
+		ai_will_do = {
+			base = 500
+		}
+		cost = 0
+		complete_effect = {
+			SPR = { country_event = { id = scw.87 days = 3 } }
+		}
+	}
+
+	ITA_send_guns_spain_alt = {
+		allowed = { tag = ITA }
+		icon = generic_supplies
+		visible = {
+			scr_in_progress = yes
+			NOT = { has_war_with = SPR }
+		}
+		cosmetic_tag = SPR
+		available = {
+			NOT = { has_country_flag = spa_shipment_delay }
+			has_equipment = {
+				infantry_equipment > 1299
+			}
+		}
+		ai_will_do = {
+			base = 50
+		}
+		days_remove = 80
+		cost = 0
+		complete_effect = {
+			SPR = { country_event = { id = scw.85 days = 3 } }
+			set_country_flag = spa_shipment_delay
+		}
+		remove_effect = {
+			clr_country_flag = spa_shipment_delay
+		}
+	}
+
+	ITA_send_arty_spain_alt = {
+		allowed = { tag = ITA }
+		icon = generic_artillery
+		visible = {
+			scr_in_progress = yes
+			NOT = { has_war_with = SPR }
+		}
+		cosmetic_tag = SPR
+		available = {
+			NOT = { has_country_flag = spa_shipment_delay }
+			has_equipment = {
+				infantry_equipment > 349
+			}
+		}
+		ai_will_do = {
+			base = 50
+		}
+		days_remove = 80
+		cost = 0
+		complete_effect = {
+			SPR = { country_event = { id = scw.86 days = 3 } }
+			set_country_flag = spa_shipment_delay
+		}
+		remove_effect = {
+			clr_country_flag = spa_shipment_delay
+		}
+	}
+
+	# ITA_disrupt_republican_shipping_alt = {
+	# 	allowed = { tag = ITA }
+	# 	fire_only_once = yes
+	# 	icon = generic_naval
+	# 	visible = {
+	# 		SPR = { has_war_with = SPC }
+	# 		NOT = { has_war_with = SPR }
+	# 	}
+	# 	cosmetic_tag = SPC
+	# 	available = { }
+	# 	ai_will_do = {
+	# 		base = 30
+	# 	}
+	# 	cost = 80
+	# 	complete_effect = {
+	# 		SPC = { country_event = { id = scw.88 days = 7 } }
+	# 	}
+	# }
+
+}

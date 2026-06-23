@@ -1,0 +1,149 @@
+#	Example:
+# 
+#	example_dynamic_modifier = {
+#		icon = "GFX_idea_unknown" # optional, will show up in guis if icon is specified
+#		enable = { always = yes } #optional, the modifier won't apply if not enabled
+#		remove_trigger = { always = no } #optional, will remove the modifier if true
+#
+#		# list of modifiers
+#		fuel_cost = 321
+#		max_fuel = var_max_fuel # will be taken from a variable
+#	}
+#
+#
+#	In a script file:
+#
+#	effect = {
+#		add_dynamic_modifier = {
+#			modifier = example_dynamic_modifier
+#			scope = GER # optional, if you specify this your dynamic modifier scoped to this scope (root is the effect scope)
+#			days = 14 # optional, will be removed after this many days passes
+#		}
+#	}
+#
+#	can be added to countries, states or unit leaders
+#	will only updated daily, unless forced by force_update_dynamic_modifier effect
+
+sabotaged_resources = {
+	remove_trigger = { 
+		has_resistance = no
+	}
+	
+	icon = GFX_modifiers_sabotaged_resource
+	
+	temporary_state_resource_oil = sabotaged_oil
+	temporary_state_resource_aluminium = sabotaged_aluminium
+	temporary_state_resource_rubber = sabotaged_rubber
+	temporary_state_resource_tungsten = sabotaged_tungsten
+	temporary_state_resource_steel = sabotaged_steel
+	temporary_state_resource_chromium = sabotaged_chromium
+}
+
+increase_division_limit = {
+	unit_limit_bonus = limit_bonus_var
+}
+
+dense_rural_infrastructure = { #State Modifier
+	enable = { always = yes }
+	remove_trigger = { infrastructure > 4 }
+
+	icon = GFX_modifiers_SOV_civilian_labor_in_defense
+
+	local_non_core_supply_impact_factor = 0.35
+}
+
+# yellow_river_blown = { #State Modifier
+# 	enable = { always = yes }
+
+# 	icon = GFX_decision_hol_inundate_water_lines
+
+# 	local_supply_impact_factor = 0.5
+# 	disable_strategic_redeployment = 1
+# 	state_resources_factor = -0.25
+# 	local_manpower = -0.5
+# 	army_speed_factor_for_controller = -0.25
+# }
+
+# Xinjiang_wars_state_modifier = {
+# 	icon = GFX_autonomies_mongolia_council
+
+# 	#attrition = 0.1
+# 	army_speed_factor_for_controller = -50
+# 	#army_speed_factor = -0.75
+# 	#disable_strategic_redeployment = 1
+# 	disable_strategic_redeployment_for_controller = 1
+# }
+
+Soviet_Big_Famine_modifier = {
+	icon = GFX_soviet_famine
+
+	# local_manpower = -0.2
+	montly_population_state = soviet_famine_modifier
+}
+
+slow_down_resistance = {
+	# icon = GFX_SPR_no_pasaran_modifier
+
+	resistance_growth = -0.5
+	resistance_target = -0.2
+}
+
+SOV_defend_moscow = { #STATE MODIFIER
+	enable = { always = yes }
+
+	icon = GFX_modifiers_SOV_defend_moscow
+	
+	recruitable_population_factor = 0.25
+	army_core_defence_factor = 0.3
+	max_dig_in_factor = 0.20
+	dig_in_speed_factor = 0.25
+	army_morale_factor = 0.30
+	# local_factories = -0.6
+	supply_factor = 0.15
+}
+
+SOV_defend_moscow_proximities = { #STATE MODIFIER
+	enable = { always = yes }
+
+	army_core_defence_factor = 0.05
+	supply_factor = 0.15
+}
+
+SOV_partisans = { #STATE MODIFIER
+	enable = { always = yes }
+
+	icon = GFX_modifiers_SOV_invaders_must_die
+	
+	compliance_growth = -0.04
+	resistance_activity = 0.08
+	# resistance_damage_to_garrison = 0.04
+	# resistance_growth = 0.04
+	# resistance_target = 0.15
+	resistance_decay = -0.30
+	# state_resources_factor = -0.25
+	# disable_strategic_redeployment = 1
+}
+
+SOV_slow_down_nazis = { #STATE MODIFIER
+	enable = { always = yes }
+
+	disable_strategic_redeployment = 1
+	supply_factor = -0.03
+	pocket_penalty = 0.2
+	# local_org_regain = -0.04
+	army_speed_factor = -0.15
+	truck_attrition_factor = 0.1
+	out_of_supply_factor = 0.1
+}
+
+SOV_beyond_moscow = { #STATE MODIFIER
+	enable = { always = yes }
+
+	disable_strategic_redeployment = 1
+	supply_factor = -0.05
+	pocket_penalty = 0.25
+	# local_org_regain = -0.04
+	army_speed_factor = -0.25
+	truck_attrition_factor = 0.5
+	out_of_supply_factor = 0.3
+}

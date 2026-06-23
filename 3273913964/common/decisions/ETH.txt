@@ -1,0 +1,310 @@
+
+ETH_army_decisions = {
+	ETH_first_mobilization = {
+		icon = GFX_decision_generic_army_support
+		visible = {
+			ETH = {
+				has_completed_focus	= ETH_mobilization
+			}
+		}
+		available = {
+			ETH = {
+				has_completed_focus	= ETH_mobilization
+			}
+		}
+		fire_only_once = yes
+		complete_effect = {
+			random_state = {
+				limit = {
+					is_owned_and_controlled_by = ETH
+				}
+				create_unit = {
+					division = "name = \"Mobilized Ethiopian Reserves\" division_template = \"Mobilized Sefari\" start_equipment_factor = 0.4"
+					owner = ETH
+					allow_spawning_on_enemy_provs = yes
+					count = 1
+				}
+			}
+			random_state = {
+				limit = {
+					is_owned_and_controlled_by = ETH
+				}
+				create_unit = {
+					division = "name = \"Mobilized Ethiopian Reserves\" division_template = \"Mobilized Sefari\" start_equipment_factor = 0.4"
+					owner = ETH
+					allow_spawning_on_enemy_provs = yes
+					count = 1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+}
+ETH_foreign_policy = {
+	ETH_join_the_allies = {
+		icon = GFX_decision_generic_army_support
+		cost = 50
+		visible = {
+			ENG = {
+				has_war_with = ITA
+			}
+			ETH = {
+				is_subject = no
+				is_in_faction = no
+			}
+		}
+		available = {
+			ENG = {
+				has_war_with = ITA
+			}
+		}
+		fire_only_once = yes
+		complete_effect = {
+			ENG = {
+				country_event = {
+					id = ETH_event.1
+					hours = 12
+				}
+			}
+			set_country_flag = ETH_declare_war_on_italy
+		}
+		ai_will_do = {
+			factor = 2
+		}
+	}
+	ETH_invade_italy = {
+		icon = GFX_decision_generic_army_support
+		cost = 50
+		visible = {
+			ENG = {
+				has_war_with = ITA
+			}
+			ETH = {
+				is_subject = no
+				is_in_faction = no
+			}
+		}
+		available = {
+			ENG = {
+				has_war_with = ITA
+			}
+		}
+		fire_only_once = yes
+		complete_effect = {
+			ETH = {
+				declare_war_on = {
+				target = ITA
+				type = annex_everything
+				}
+			}
+			set_country_flag = ETH_declare_war_on_italy
+		}
+		ai_will_do = {
+			factor = 2
+		}
+	}
+	ETH_claim_eritrea = {
+		icon = GFX_decision_generic_army_support
+		cost = 45
+		highlight_states = {
+    		state = 550
+		}
+		visible = {
+			ETH = {
+				has_war_with = ITA
+				has_country_flag = ETH_declare_war_on_italy
+			}
+		}
+
+		available = {
+			ETH = {
+				has_war_with = ITA
+			}
+		}
+		
+		fire_only_once = yes
+		complete_effect = {
+			ETH = {
+				add_state_claim = 550
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	ETH_claim_red_sea = {
+		icon = GFX_decision_generic_army_support
+		cost = 45
+		highlight_states = {
+    		state = 1001
+		}
+		visible = {
+			ETH = {
+				has_war_with = ITA
+				has_country_flag = ETH_declare_war_on_italy
+			}
+		}
+
+		available = {
+			ETH = {
+				has_war_with = ITA
+			}
+		}
+		
+		fire_only_once = yes
+		complete_effect = {
+			ETH = {
+				add_state_claim = 1001
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	ETH_assab = {
+		icon = GFX_decision_generic_army_support
+		cost = 10
+		highlight_states = {
+    		state = 946		
+    	}
+		visible = {
+			ETH = {
+				has_war_with = ITA
+				has_country_flag = ETH_declare_war_on_italy
+			}
+		}
+
+		available = {
+			ETH = {
+				has_war_with = ITA
+			}
+		}
+		
+		fire_only_once = yes
+		complete_effect = {
+			ETH = {
+				add_state_claim = 946
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	ETH_peace_out = {
+		icon = GFX_decision_generic_accord
+		visible = {
+			ETH = {
+				has_war_with = ITA
+				NOT = {
+					controls_state = 559
+					controls_state = 550
+				}
+			}
+		}
+		available = {
+			ETH = {
+				has_war_with = ITA
+				all_owned_state = {
+					is_controlled_by = ETH
+				}
+			}
+			date > 1937.05.05
+		}
+		fire_only_once = yes
+		complete_effect = {
+			ITA = {
+				country_event = {
+					id = abyssinia_crisis.36
+				}
+				white_peace = ETH
+			}
+			if = {
+				limit = {
+					ETH = {
+						controls_state = 550
+					}
+				}
+				ETH = {
+					transfer_state = 550
+					transfer_state = 946
+				}
+			}
+			if = {
+				limit = {
+					ETH = {
+						controls_state = 1001
+					}
+				}
+				ETH = {
+					transfer_state = 1001
+					transfer_state = 946
+				}
+			}
+			ETH = {
+				load_focus_tree = { 
+					tree = ethiopian_afterwar 
+					keep_completed = yes 
+				}
+				complete_national_focus = ETH_victory
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+	ETH_peace_out_2 = {
+		icon = GFX_decision_generic_accord
+		allowed = {
+			tag = ETH
+		}
+		visible = {
+			ETH = {
+				has_war_with = ITA
+				controls_state = 559
+				controls_state = 550
+			}
+		}
+		available = {
+			ETH = {
+				has_war_with = ITA
+				controls_state = 559
+				controls_state = 550
+			}
+		}
+		fire_only_once = yes
+		complete_effect = {
+			ITA = {
+				country_event = {
+					id = abyssinia_crisis.37
+				}
+				white_peace = ETH
+			}
+			ETH = {
+				transfer_state = 550
+				transfer_state = 946
+			}	
+			if = {
+				limit = {
+					ETH = {
+						controls_state = 1001
+					}
+				}
+				ETH = {
+					transfer_state = 1001
+				}				
+			}
+			ETH = {
+				load_focus_tree = { 
+					tree = ethiopian_afterwar 
+					keep_completed = yes 
+				}
+				complete_national_focus = ETH_victory
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+	}
+}

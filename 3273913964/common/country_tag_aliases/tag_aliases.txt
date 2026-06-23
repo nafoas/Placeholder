@@ -1,0 +1,268 @@
+# tag aliases are country tags that maps to different countries depending on a set of triggers
+
+#TAG = { #name of alias tag. must be 3 letters and different from any other tags. once this is defined, it will be available in any script that uses country tags
+#
+#	# you can map an alias directly to an event target or another variable. only use one of the following entries
+#	# if any of these are used, the alias will be mapped to that specific variable/event target and no other check will be done
+#	variable = var_name
+#	global_event_target = event_target_name
+#	event_target = event_target_name
+#
+#	# if an alias is not mapped directly to a variable/event target, it will be searched within a list of countries that can be definied below
+#	# you can use any combination of these below
+#	# while checking for triggers/variables, current scope will be the country we are checking and PREV will be the scope that uses the alias
+#	# if none of the following targets are defined, the game will check all existing countries but this is highly discouraged for performance reasons
+#	original_tag = GER # pick a country that has original_tag of GER
+#	targets = { GER FRA ENG } # search within the list of tags/variables
+#	target_array = array_name # search within an array
+#
+#	# by default alias will return the first existing country that it matches and fulfils the triggers. you can also define a scoring system like this and it will pick the tag with the highest score > 0
+#	country_score = {
+#		base = 1
+#		modifier = {
+#			add = 10
+#			# if mapped tag is in same faction with the country in scope that calls this alias give it a higher score
+#			is_in_faction_with = PREV
+#		}
+#		modifier = {
+#			add = 5
+#			# if the mapped tag has fascism give it a higher score
+#			has_government = fascism
+#		}
+#	}
+#
+#	fallback = GER # if the alias can't match anything, use this one as fallback (no triggers or weight will be checked)
+#
+#	# you can define a list of trigger, in that case it will chech is tags that this alias is mapped to and return only if the triggers are true
+#	or = {
+#		#only accept targets that is ally with us or is fascist
+#		is_in_faction_with = PREV
+#		has_government = fascism
+#	}
+#	# trigger 2
+#	# trigger 3
+#	# ...
+#}
+
+### Allies Leader
+ALY = {
+	global_event_target = allies_leader
+}
+
+### Nationalist Spain Tag
+# It maps to SPA as default
+# When the Spanish Revolution happens and the army coups the republic, the alias returns SPR.
+SPN = {
+	global_event_target = Spain_Nationalist_TAG
+}
+
+### Spain
+# Returns SPR if SPR exists and SPA and SPC dont exist
+# Returns SPC if SPC exists and SPA and SPR dont exist
+# Returns SPA if SPA exists and SPR and SPC dont exist
+# If more than one of the Spain tags exist at the same time then it returns whoever owns Madrid state
+# If none of the requirements are met it fallbacks to SPR
+ESP = {
+	fallback = SPR
+	targets = { SPR SPA SPC }
+
+	country_score = {
+		base = 1
+		modifier = {
+			add = 10
+			tag = SPR
+			country_exists = SPR
+			NOT = {
+				country_exists = SPA
+				country_exists = SPC
+			}
+		}
+		modifier = {
+			add = 10
+			tag = SPC
+			country_exists = SPC
+			NOT = {
+				country_exists = SPR
+				country_exists = SPA
+			}
+		}
+		modifier = {
+			add = 10
+			tag = SPA
+			country_exists = SPA
+			NOT = {
+				country_exists = SPR
+				country_exists = SPC
+			}
+		}
+
+		modifier = {
+			add = 10
+			owns_state = 41
+		}
+
+	}
+
+	# OR = {
+	# 	AND = {
+	# 		tag = SPR
+	# 		country_exists = SPR
+	# 		NOT = {
+	# 			country_exists = SPC
+	# 			country_exists = SPA
+	# 		}
+	# 	}
+	# 	AND = {
+	# 		tag = SPA
+	# 		country_exists = SPA
+	# 		NOT = {
+	# 			country_exists = SPR
+	# 			country_exists = SPC
+	# 		}
+	# 	}
+	# 	AND = {
+	# 		tag = SPC
+	# 		country_exists = SPC
+	# 		NOT = {
+	# 			country_exists = SPR
+	# 			country_exists = SPA
+	# 		}
+	# 	}
+	# 	owns_state = 41
+	# }
+}
+
+# Germany
+GRM = {
+
+	fallback = GER
+
+	targets = { GER WGR DDR }
+
+	country_score = {
+		base = 1
+		modifier = {
+			add = 10
+			tag = GER
+			country_exists = GER
+			NOT = {
+				country_exists = DDR
+				country_exists = WGR
+			}
+		}
+		modifier = {
+			add = 10
+			tag = DDR
+			country_exists = DDR
+			NOT = {
+				country_exists = GER
+				country_exists = WGR
+			}
+		}
+		modifier = {
+			add = 10
+			tag = WGR
+			country_exists = WGR
+			NOT = {
+				country_exists = GER
+				country_exists = DDR
+			}
+		}
+
+		modifier = {
+			add = 5
+			tag = WGR
+			country_exists = WGR
+		}
+
+		modifier = {
+			add = 6
+			owns_state = 64
+		}
+
+	}
+
+	# hidden_trigger = {
+	# 	OR = {
+	# 		AND = {
+	# 			tag = GER
+	# 			NOT = {
+	# 				country_exists = DDR
+	# 				country_exists = WGR
+	# 			}
+	# 		}
+	# 		AND = {
+	# 			tag = DDR
+	# 			NOT = {
+	# 				country_exists = GER
+	# 				country_exists = WGR
+	# 			}
+	# 		}
+	# 		AND = {
+	# 			tag = WGR
+	# 			NOT = {
+	# 				country_exists = DDR
+	# 				country_exists = GER
+	# 			}
+	# 		}
+	# 		owns_state = 64
+	# 	}
+	# }
+}
+
+RSS = {
+
+	fallback = SOV
+
+	targets = { SOV RUS RFP }
+
+	owns_state = 219
+	controls_state = 219
+}
+
+RKM = {
+	fallback = MOS
+	original_tag = MOS
+	has_country_flag = GER_RKM_tag
+}
+
+RKK = {
+
+	original_tag = GER
+	has_country_flag = GER_RKK_tag
+}
+
+RKD = {
+
+	original_tag = GER
+
+	has_country_flag = GER_RKD_tag
+}
+
+TKS = {
+
+	# fallback = UZB
+	# targets = { UZB } #KAZ TJI KYR TRK
+	original_tag = UZB
+	has_country_flag = is_turkestan
+}
+
+SRI = {
+	global_event_target = SRI_tag
+	fallback = ITA
+}
+
+CAG = {
+	global_event_target = CAG_tag
+}
+
+JAG = {
+	global_event_target = JAG_tag
+}
+
+# operative operation target
+# only set for majors who has agency
+# set on on_weekly
+MOT = {
+	variable = generic_operation_target
+}

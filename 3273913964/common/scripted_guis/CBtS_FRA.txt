@@ -1,0 +1,76 @@
+scripted_gui = {
+	FRA_Faction_Button = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "FRA_faction_button_container"
+		visible = {
+            tag = FRA
+            always = no
+		}
+		triggers = {
+		}
+		effects = {
+			faction_button_click = {
+				if = {
+					limit = {
+						has_country_flag = FRA_show_factions
+					}
+					clr_country_flag = FRA_show_factions
+				}
+				else = {
+					set_country_flag = FRA_show_factions
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_variable = FRA_faction_show
+						}
+					}
+					set_variable = { FRA_faction_show = 1 }
+				}
+			}
+		}
+
+		properties = {
+			faction_button = {
+				image = "[texture_Largest_Faction_FRA]"
+			}
+		}
+	}
+}
+
+scripted_gui = {
+	FRA_faction_panel_container = {
+		context_type = player_context
+		window_name = "FRA_faction_panel_container"
+		visible = {
+			has_country_flag = FRA_show_factions
+		}
+
+		effects = {
+			FRA_faction_container_close_button_click = {
+				clr_country_flag = FRA_show_factions
+			}
+			FRA_JP_faction_icon_click = {
+				set_variable = { FRA_faction_show = 1 }
+			}
+			FRA_CdF_faction_icon_click = {
+				set_variable = { FRA_faction_show = 2 }
+			}
+			FRA_FP_faction_icon_click = {
+				set_variable = { FRA_faction_show = 3 }
+			}
+			FRA_UPR_faction_icon_click = {
+				set_variable = { FRA_faction_show = 4 }
+			}
+			FRA_PPF_faction_icon_click = {
+				set_variable = { FRA_faction_show = 5 }
+			}
+		}
+		properties = {
+			FRA_faction_portrait = {
+				image = "[texture_Leader_faction_FRA]"
+			}
+		}
+	}
+}

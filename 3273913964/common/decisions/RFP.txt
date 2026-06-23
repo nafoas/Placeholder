@@ -1,0 +1,607 @@
+RFP_2RCW_decs = {
+	RFP_Declare_Legitimate_Gov = {
+		icon = GFX_decision_generic_prepare_civil_war
+		allowed = {
+			tag = RFP
+		}
+		visible = {
+			has_global_flag = Russian_Civil_War
+			NOT = {
+				has_war_with = RUS
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = RFP_zone_3
+				563 = {
+					is_core_of = ROOT
+				}
+				408 = {
+					is_core_of = ROOT
+				}
+				has_country_flag = RFP_cored_amur
+				has_country_flag = RFP_cored_baikal
+			}
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				RUS = {
+					exists = yes
+					has_capitulated = no
+					surrender_progress < 0.75
+				}
+				factor = 0
+			}
+		}
+		fire_only_once = yes
+		cost = 175
+		days_remove = 0
+		remove_effect = {
+		}
+		complete_effect = {
+			add_stability = -0.25
+			add_war_support = -0.25
+			drop_cosmetic_tag = yes
+			every_state = {
+				limit = {
+					is_core_of = SOV
+				}
+				add_claim_by = RFP
+			}
+			if = {
+				limit = {
+					RUS = {
+						exists = yes
+					}
+				}
+				RUS = {
+					remove_from_faction = RFP
+					country_event = {
+						id = rus_civil_war.34
+					}
+				}
+				declare_war_on = {
+					target = RUS
+					type = annex_everything
+				}
+			}
+		}
+	}
+	RFP_Annex_Revolts = {
+		icon = GFX_decision_generic_civil_support
+		allowed = {
+			tag = RFP
+		}
+		targets = { FER MOS SBR }
+		target_root_trigger = {
+			has_global_flag = Russian_Civil_War
+			has_capitulated = no
+			NOT = {
+				has_war_with = FROM
+			}
+		}
+		
+		available = {
+			FROM = {
+				is_neighbor_of = RFP
+			}
+		}
+		ai_will_do = {
+			factor = 120
+		}
+		fire_only_once = yes
+		cost = 70
+		days_remove = 0
+		remove_effect = {
+		}
+		complete_effect = {
+			FROM = {
+				country_event = {
+					id = rus_civil_war.35
+					days = 1
+				}
+			}
+		}
+	}
+	RFP_Core_Chita = {
+		icon = GFX_decision_generic_civil_support
+		allowed = {
+			tag = RFP
+		}
+		visible = {
+			has_global_flag = Russian_Civil_War
+			NOT = {
+				563 = {
+					is_core_of = RFP
+				}
+			}
+			OR = {
+				owns_state = 858
+				has_country_flag = RFP_cored_amur
+			}
+		}
+		available = {
+			controls_state = 563
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			state = 563
+		}
+		fire_only_once = yes
+		cost = 20
+		days_remove = 18
+		complete_effect = {
+		}
+		remove_effect = {
+			set_state_owner = 563
+			add_state_core = 563
+			set_variable = {
+				RFP_add_influence_value = -2
+			}
+			RFP_add_influence_cossack = yes
+			custom_effect_tooltip = RFP_cossack_lose_2
+			add_stability = -0.08
+			add_war_support = -0.04
+		}
+	}
+	RFP_Core_Baikal = {
+		icon = GFX_decision_generic_civil_support
+		allowed = {
+			tag = RFP
+		}
+		visible = {
+			has_global_flag = Russian_Civil_War
+			NOT = {
+				has_country_flag = RFP_cored_baikal
+			}
+		}
+		available = {
+			count_triggers = {
+				amount = 3
+				controls_state = 564
+				controls_state = 565
+				controls_state = 566
+				controls_state = 567
+			}
+			563 = {
+				is_core_of = RFP
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			state = 566
+		}
+		fire_only_once = yes
+		cost = 40
+		days_remove = 90
+		complete_effect = {
+		}
+		remove_effect = {
+			add_state_core = 564
+			add_state_core = 565
+			add_state_core = 566
+			add_state_core = 567
+			if = {
+				limit = {
+					controls_state = 564
+				}
+				set_state_owner = 564
+			}
+			if = {
+				limit = {
+					controls_state = 565
+				}
+				set_state_owner = 565
+			}
+			if = {
+				limit = {
+					controls_state = 566
+				}
+				set_state_owner = 566
+			}
+			if = {
+				limit = {
+					controls_state = 567
+				}
+				set_state_owner = 567
+			}
+			set_country_flag = RFP_cored_baikal
+			set_variable = {
+				RFP_add_influence_value = -3
+			}
+			RFP_add_influence_cossack = yes
+			custom_effect_tooltip = RFP_cossack_lose_3
+			add_stability = -0.12
+			add_war_support = -0.06
+		}
+	}
+	RFP_Core_Primorsky = {
+		icon = GFX_decision_generic_civil_support
+		visible = {
+			has_global_flag = Russian_Civil_War
+			NOT = {
+				408 = {
+					is_core_of = RFP
+				}
+			}
+		}
+		allowed = {
+			tag = RFP
+		}
+		available = {
+			controls_state = 408
+			OR = {
+				owns_state = 827
+				has_country_flag = RFP_cored_baikal
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			state = 408
+		}
+		fire_only_once = yes
+		cost = 20
+		days_remove = 18
+		complete_effect = {
+		}
+		remove_effect = {
+			set_state_owner = 408
+			add_state_core = 408
+			set_variable = {
+				RFP_add_influence_value = -2
+			}
+			RFP_add_influence_cossack = yes
+			custom_effect_tooltip = RFP_cossack_lose_2
+			add_stability = -0.08
+			add_war_support = -0.04
+		}
+	}
+	RFP_Core_Amur = {
+		icon = GFX_decision_generic_civil_support
+		visible = {
+			has_global_flag = Russian_Civil_War
+			NOT = {
+				has_country_flag = RFP_cored_amur
+			}
+		}
+		allowed = {
+			tag = RFP
+		}
+		available = {
+			count_triggers = {
+				amount = 3
+				controls_state = 409
+				controls_state = 560
+				controls_state = 657
+				controls_state = 561
+			}
+			OR = {
+				408 = {
+					is_core_of = RFP
+				}
+				has_country_flag = RFP_cored_baikal
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			state = 560
+		}
+		fire_only_once = yes
+		cost = 40
+		days_remove = 90
+		complete_effect = {
+		}
+		remove_effect = {
+			add_state_core = 409
+			add_state_core = 560
+			add_state_core = 657
+			add_state_core = 561
+			if = {
+				limit = {
+					controls_state = 409
+				}
+				set_state_owner = 409
+			}
+			if = {
+				limit = {
+					controls_state = 560
+				}
+				set_state_owner = 560
+			}
+			if = {
+				limit = {
+					controls_state = 657
+				}
+				set_state_owner = 657
+			}
+			if = {
+				limit = {
+					controls_state = 561
+				}
+				set_state_owner = 561
+			}
+			set_country_flag = RFP_cored_amur
+			set_variable = {
+				RFP_add_influence_value = -3
+			}
+			RFP_add_influence_cossack = yes
+			custom_effect_tooltip = RFP_cossack_lose_3
+			add_stability = -0.12
+			add_war_support = -0.06
+		}
+	}
+	RFP_Conscript_Bratsk = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = RFP
+		}
+		visible = {
+			has_global_flag = Russian_Civil_War
+			controls_state = 567
+		}
+		available = {
+			controls_state = 567
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			state = 567
+		}
+		fire_only_once = yes
+		cost = 10
+		days_remove = 60
+		complete_effect = {
+		}
+		remove_effect = {
+			hidden_effect = {
+				load_oob = "RFP_Bratsk_Conscripts"
+			}
+			custom_effect_tooltip = RFP_2Blackshirt_Conscript
+			set_variable = {
+				RFP_add_influence_value = 2
+			}
+			RFP_add_influence_rodzaevsky = yes
+			custom_effect_tooltip = RFP_rod_gain_2
+		}
+	}
+	RFP_Conscript_Irkutsk = {
+		icon = GFX_decision_generic_army_support
+		visible = {
+			has_global_flag = Russian_Civil_War
+			controls_state = 566
+		}
+		allowed = {
+			tag = RFP
+		}
+		available = {
+			controls_state = 566
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			state = 566
+		}
+		fire_only_once = yes
+		cost = 10
+		days_remove = 60
+		complete_effect = {
+		}
+		remove_effect = {
+			hidden_effect = {
+				load_oob = "RFP_Irkutsk_Conscripts"
+			}
+			custom_effect_tooltip = RFP_2Blackshirt_Cav_Conscript
+			set_variable = {
+				RFP_add_influence_value = 3
+			}
+			RFP_add_influence_cossack = yes
+			custom_effect_tooltip = RFP_cossack_gain_3
+			set_variable = {
+				RFP_add_influence_value = 4
+			}
+			RFP_add_influence_rodzaevsky = yes
+			custom_effect_tooltip = RFP_rod_gain_4
+		}
+	}
+	RFP_Conscript_Ulan_Ude = {
+		icon = GFX_decision_generic_army_support
+		visible = {
+			has_global_flag = Russian_Civil_War
+			controls_state = 564
+		}
+		allowed = {
+			tag = RFP
+		}
+		available = {
+			controls_state = 564
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			state = 564
+		}
+		fire_only_once = yes
+		cost = 10
+		days_remove = 60
+		complete_effect = {
+		}
+		remove_effect = {
+			hidden_effect = {
+				load_oob = "RFP_Ulan_Ude_Conscripts"
+			}
+			custom_effect_tooltip = RFP_Blackshirt_Cav_Conscript
+			set_variable = {
+				RFP_add_influence_value = 2
+			}
+			RFP_add_influence_cossack = yes
+			custom_effect_tooltip = RFP_cossack_gain_2
+			set_variable = {
+				RFP_add_influence_value = 2
+			}
+			RFP_add_influence_rodzaevsky = yes
+			custom_effect_tooltip = RFP_rod_gain_2
+		}
+	}
+	RFP_Conscript_Chita = {
+		icon = GFX_decision_generic_army_support
+		visible = {
+			has_global_flag = Russian_Civil_War
+			controls_state = 563
+		}
+		allowed = {
+			tag = RFP
+		}
+		available = {
+			controls_state = 563
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			state = 563
+		}
+		fire_only_once = yes
+		cost = 10
+		days_remove = 60
+		complete_effect = {
+		}
+		remove_effect = {
+			hidden_effect = {
+				load_oob = "RFP_Chita_Conscripts"
+			}
+			custom_effect_tooltip = RFP_2Blackshirt_Cav_Conscript
+			set_variable = {
+				RFP_add_influence_value = 3
+			}
+			RFP_add_influence_cossack = yes
+			custom_effect_tooltip = RFP_cossack_gain_3
+			set_variable = {
+				RFP_add_influence_value = 4
+			}
+			RFP_add_influence_rodzaevsky = yes
+			custom_effect_tooltip = RFP_rod_gain_4
+		}
+	}
+	RFP_Conscript_Birobidzhan = {
+		icon = GFX_decision_generic_army_support
+		visible = {
+			has_global_flag = Russian_Civil_War
+			controls_state = 657
+		}
+		allowed = {
+			tag = RFP
+		}
+		available = {
+			controls_state = 657
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			state = 657
+		}
+		fire_only_once = yes
+		cost = 10
+		days_remove = 60
+		complete_effect = {
+		}
+		remove_effect = {
+			hidden_effect = {
+				load_oob = "RFP_Birobidzhan_Conscripts"
+			}
+			custom_effect_tooltip = RFP_Blackshirt_Conscript
+			set_variable = {
+				RFP_add_influence_value = 1
+			}
+			RFP_add_influence_rodzaevsky = yes
+			custom_effect_tooltip = RFP_rod_gain_1
+		}
+	}
+	RFP_Conscript_Khabarovsk = {
+		icon = GFX_decision_generic_army_support
+		visible = {
+			has_global_flag = Russian_Civil_War
+			controls_state = 409
+		}
+		allowed = {
+			tag = RFP
+		}
+		available = {
+			controls_state = 409
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			state = 409
+		}
+		fire_only_once = yes
+		cost = 10
+		days_remove = 60
+		complete_effect = {
+		}
+		remove_effect = {
+			hidden_effect = {
+				load_oob = "RFP_Khabarovsk_Conscripts"
+			}
+			custom_effect_tooltip = RFP_2Blackshirt_Conscript
+			set_variable = {
+				RFP_add_influence_value = 2
+			}
+			RFP_add_influence_rodzaevsky = yes
+			custom_effect_tooltip = RFP_rod_gain_2
+		}
+	}
+	RFP_Conscript_Primorye = {
+		icon = GFX_decision_generic_army_support
+		visible = {
+			has_global_flag = Russian_Civil_War
+			controls_state = 408
+		}
+		allowed = {
+			tag = RFP
+		}
+		available = {
+			controls_state = 408
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		highlight_states = {
+			state = 408
+		}
+		fire_only_once = yes
+		cost = 10
+		days_remove = 60
+		complete_effect = {
+		}
+		remove_effect = {
+			hidden_effect = {
+				load_oob = "RFP_Primorye_Conscripts"
+			}
+			custom_effect_tooltip = RFP_2Blackshirt_Cav_Conscript
+			set_variable = {
+				RFP_add_influence_value = 3
+			}
+			RFP_add_influence_cossack = yes
+			custom_effect_tooltip = RFP_cossack_gain_3
+			set_variable = {
+				RFP_add_influence_value = 4
+			}
+			RFP_add_influence_rodzaevsky = yes
+			custom_effect_tooltip = RFP_rod_gain_4
+		}
+	}
+}

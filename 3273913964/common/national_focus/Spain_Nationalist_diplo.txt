@@ -1,0 +1,1825 @@
+shared_focus = {
+	id = SPA_new_diplomacy
+	icon = GFX_focus_Triumphant_Will
+	cost = 5
+	available = { has_country_flag = won_scw }
+	offset = {
+		x = 37
+		y = 0
+		trigger = {
+			OR = {
+				has_focus_tree = SPA_cw_start
+				has_focus_tree = SPA_cw_franco
+				has_focus_tree = SPA_cw_regency
+				has_focus_tree = SPA_junta_tree
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 10
+		modifier = {
+			factor = 0
+			OR = {
+				has_idea = postwar1
+				has_idea = postwar2
+			}
+		}
+		modifier = {
+			factor = 0.5
+			OR = {
+				has_idea = postwar_close
+				has_idea = postwar_peseta
+			}
+		}
+		modifier = {
+			factor = 0.5
+			has_government = nationalism
+		}
+	}
+	completion_reward = {
+		add_political_power = 30
+	}
+	x = 47
+	y = 0
+
+}
+shared_focus = {
+	id = SPA_recover_catalonia
+	icon = GFX_focus_Through_Spain
+	cost = 7
+	allow_branch = {
+		CAT = { exists = yes }
+	}
+	prerequisite = {
+		focus = SPA_new_diplomacy
+	}
+	ai_will_do = {
+		base = 15
+		modifier = {
+			factor = 0
+			OR = {
+				CAT = { is_in_faction = yes }
+				CAT = {
+					is_subject = yes
+					NOT = { is_subject_of = SPN }
+				}
+			}
+		}
+	}
+	available = {
+		CAT = { exists = yes }
+		CAT = { 
+			NOT = {
+				OR = {
+					is_in_faction_with = SPN
+					is_subject_of = SPN
+				}
+			}
+		}
+	}
+	bypass = {
+		has_war_with = CAT
+	}
+	completion_reward = {
+		declare_war_on = {
+			target = CAT
+			type = annex_everything
+		}
+	}
+	x = 0
+	y = 1
+	relative_position_id = SPA_new_diplomacy
+
+}
+
+## Take a side
+shared_focus = {
+	id = SPA_take_side
+	icon = GFX_focus_Befriend_Nationalist_Spain
+	cost = 3
+	prerequisite = {
+		focus = SPA_new_diplomacy
+	}
+	mutually_exclusive = {
+		focus = SPA_use_caution
+	}
+	ai_will_do = {
+		factor = 2
+		modifier = {
+			factor = 0
+			is_historical_focus_on = yes
+		}
+	}
+	available = {
+		OR = {
+			GER = { has_war_with = ENG }
+			GER = { has_war_with = FRA }
+		}
+	}
+	completion_reward = {
+		add_war_support = 0.1
+	}
+	x = -4
+	y = 1
+	relative_position_id = SPA_new_diplomacy
+
+}
+shared_focus = {
+	id = SPA_allies
+	icon = GFX_focus_Anglo_French_Alliance
+	cost = 10
+	prerequisite = {
+		focus = SPA_take_side
+	}
+	available = {
+		ENG = {
+			is_faction_leader = yes
+		}
+		NOT = {
+			has_country_flag = falange_wins
+		}
+		NOT = { has_war_with = ENG }
+		is_in_faction = no
+		is_puppet = no
+	}
+	completion_reward = {
+		ENG = { country_event = { days = 1 id = spa.108 } }
+	}
+	x = -5
+	y = 2
+	relative_position_id = SPA_new_diplomacy
+
+}
+shared_focus = {
+	id = SPA_axis
+	icon = GFX_focus_pact_of_steel_focus
+	cost = 10
+	prerequisite = {
+		focus = SPA_take_side
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 3
+			has_country_flag = falange_wins
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_government = democratic
+				has_government = market_liberalism
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.8
+			}
+		}
+	}
+	available = {
+		GER = {
+			is_faction_leader = yes
+		}
+		NOT = {
+			OR = {
+				has_government = democratic
+				has_government = market_liberalism
+			}
+		}
+		NOT = { has_war_with = GER }
+		is_in_faction = no
+		is_puppet = no
+	}
+	completion_reward = {
+		GER = { country_event = { days = 1 id = spa.108 } }
+	}
+	x = -3
+	y = 2
+	relative_position_id = SPA_new_diplomacy
+
+}
+
+## Use Caution
+shared_focus = {
+	id = SPA_use_caution
+	icon = GFX_focus_Party_Politics
+	cost = 10
+	prerequisite = {
+		focus = SPA_new_diplomacy
+	}
+	mutually_exclusive = {
+		focus = SPA_take_side
+	}
+	ai_will_do = {
+		factor = 3
+		modifier = {
+			factor = 5
+			has_country_flag = franco_wins
+		}
+		modifier = {
+			factor = 0.25
+			has_country_flag = falange_wins
+		}
+	}
+	available = {
+		GER = {
+			exists = yes
+			has_government = fascism
+			is_puppet = no
+		}
+		ENG = {
+			is_puppet = no
+			has_war_with = GER
+		}			
+	}
+	completion_reward = {
+		set_country_flag = SPA_unlock_balance
+		set_variable = { british_drift = -1 }
+		set_variable = { german_drift = 1 }
+		GER = { country_event = { id = spa.58 } }
+		ENG = { country_event = { id = spa.59 } }
+		custom_effect_tooltip = unlock_alignment2
+	}
+	x = 5
+	y = 1
+	relative_position_id = SPA_new_diplomacy
+
+}
+
+shared_focus = {
+	id = SPA_non_belligerence
+	icon = GFX_focus_Champagne_Repression
+	cost = 10
+	prerequisite = {
+		focus = SPA_use_caution
+	}
+	mutually_exclusive = {
+		focus = SPA_declare_neutrality
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 1.5
+			check_variable = { german_drift > 1 }
+			ITA = {
+				is_major = yes
+				is_in_faction_with = GER
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { german_drift > 1 }
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { german_drift > 1 }
+			GER = {
+				is_neighbor_of = SPN
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { german_drift > 1 }
+			GER = {
+				strength_ratio = {
+					tag = ENG
+					ratio > 1.1
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { british_drift > 1 }
+			ENG = {
+				strength_ratio = {
+					tag = GER
+					ratio > 0.9
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { british_drift > 1 }
+			ENG = {
+				is_in_faction_with = USA
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { british_drift > 1 }
+			GER = {
+				surrender_progress > 0.1
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { british_drift > 1 }
+			GER = {
+				surrender_progress > 0.4
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { british_drift > 1 }
+			GER = {
+				surrender_progress > 0.8
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { british_drift > 1 }
+			has_global_flag = Italian_Civil_War_flag
+		}
+	}
+	available = {
+		GER = {
+			has_war_with = ENG
+		}
+		NOT = {
+			has_war_with = GER
+			has_war_with = ENG
+			is_in_faction = yes
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				check_variable = { german_drift > british_drift }
+			}
+			custom_effect_tooltip = closer_to_germany
+			add_to_variable = { var = german_drift value = 3 }
+			add_to_variable = { var = british_drift value = -3 }
+		}
+		if = {
+			limit = {
+				check_variable = { british_drift > german_drift }
+			}
+			custom_effect_tooltip = closer_to_britain
+			add_to_variable = { var = german_drift value = -3 }
+			add_to_variable = { var = british_drift value = 3 }
+		}
+		add_war_support = 0.05
+	}
+	x = -1
+	y = 1
+	relative_position_id = SPA_use_caution
+
+}
+shared_focus = {
+	id = SPA_declare_neutrality
+	icon = GFX_focus_Pacifist_State
+	cost = 10
+	prerequisite = {
+		focus = SPA_use_caution
+	}
+	mutually_exclusive = {
+		focus = SPA_non_belligerence
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 0
+			is_historical_focus_on = yes
+		}
+		modifier = {
+			add = 100
+			NOT = {
+				has_government = fascism
+				has_government = nationalism
+				has_government = neutrality
+				has_government = monarchism
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { british_drift > 1 }
+			GER = { controls_state = 16 }
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { british_drift > 1 }
+			GER = { is_neighbor_of = SPN }
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { british_drift > 1 }
+			GER = {
+				strength_ratio = {
+					tag = ENG
+					ratio > 1.1
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { german_drift > 1 }
+			ENG = {
+				strength_ratio = {
+					tag = GER
+					ratio > 0.9
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { german_drift > 1 }
+			ENG = {
+				is_in_faction_with = USA
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { german_drift > 1 }
+			GER = {
+				surrender_progress > 0.1
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { german_drift > 1 }
+			GER = {
+				surrender_progress > 0.4
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { german_drift > 1 }
+			GER = {
+				surrender_progress > 0.8
+			}
+		}
+		modifier = {
+			factor = 1.5
+			check_variable = { german_drift > 1 }
+			has_global_flag = Italian_Civil_War_flag
+		}
+	}	
+	available = {
+		GER = {
+			has_war_with = ENG
+		}
+		NOT = {
+			has_war_with = GER
+			has_war_with = ENG
+			is_in_faction = yes
+		}
+	}
+	completion_reward = {
+		add_stability = 0.05
+		custom_effect_tooltip = disable_influence
+		remove_opinion_modifier = {
+			target = GER
+			modifier = embargo
+		}
+		if = {
+			limit = { has_idea = SPA_german_capital }
+			remove_ideas = SPA_german_capital
+		}
+		if = {
+			limit = { has_idea = SPA_trade_britain }
+			remove_ideas = SPA_trade_britain
+		}
+		GER = { remove_resource_rights = 171 }
+		SPN = { set_country_flag = SPA_declared_neutrality }
+	}
+	x = 1
+	y = 1
+	relative_position_id = SPA_use_caution
+
+}
+
+## Pro german path
+shared_focus = {
+	id = SPA_pro_german
+	icon = GFX_focus_POL_beck_ribbentrop
+	cost = 10
+	prerequisite = {
+		focus = SPA_use_caution
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			add = 2
+			has_government = fascism
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 0.5
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 0
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		NOT = {
+			has_completed_focus = SPA_non_belligerence
+			has_completed_focus = SPA_declare_neutrality
+			has_completed_focus = SPA_pro_british
+		}
+		GER = {
+			has_war_with = ENG
+		}
+		NOT = {
+			has_war_with = GER
+			is_in_faction = yes
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 1 }
+		add_to_variable = { var = british_drift value = -1 }
+	}
+	x = -3
+	y = 1
+	relative_position_id = SPA_use_caution
+
+}
+shared_focus = {
+	id = SPA_naval_access
+	icon = GFX_focus_submarine_building
+	cost = 10
+	prerequisite = {
+		focus = SPA_pro_german
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 2
+			has_government = fascism
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				strength_ratio = {
+					tag = ENG
+					ratio > 1.1
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 0.5
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 0
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		GER = {
+			has_war_with = ENG
+		}
+		NOT = {
+			has_war_with = GER
+			is_in_faction = yes
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		GER = { country_event = { days = 1 id = spa.54 } }
+		hidden_effect = { ENG = { country_event = { id = spa.61 days = 10 } } }
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 1 }
+		add_to_variable = { var = british_drift value = -1 }
+	}
+	x = -4
+	y = 2
+	relative_position_id = SPA_use_caution
+
+}
+shared_focus = {
+	id = SPA_german_propaganda
+	icon = GFX_focus_national_socialist_propaganda
+	cost = 10
+	prerequisite = {
+		focus = SPA_pro_german
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 2
+			has_government = fascism
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				strength_ratio = {
+					tag = ENG
+					ratio > 1.1
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 0.5
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 0
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		GER = {
+			has_war_with = ENG
+		}
+		NOT = {
+			has_war_with = GER
+			is_in_faction = yes
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		add_war_support = 0.05
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 1 }
+		add_to_variable = { var = british_drift value = -1 }
+	}
+	x = -2
+	y = 2
+	relative_position_id = SPA_use_caution
+
+}
+shared_focus = {
+	id = SPA_blue_division
+	icon = GFX_focus_Spear_the_Bear
+	cost = 10
+	prerequisite = {
+		focus = SPA_naval_access
+	}
+	prerequisite = {
+		focus = SPA_german_propaganda
+	}
+	ai_will_do = {
+		factor = 2
+		modifier = {
+			factor = 2
+			has_government = fascism
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				strength_ratio = {
+					tag = ENG
+					ratio > 1.1
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 0.5
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 0
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		GER = {
+			has_war_with = ENG
+			has_war_with = SOV
+		}
+		NOT = {
+			has_war_with = GER
+			is_in_faction = yes
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		add_relation_rule_override = {
+			target = GER
+			can_send_volunteers = yes
+		}
+		add_war_support = 0.1
+		custom_effect_tooltip = closer_to_germany
+		add_to_variable = { var = german_drift value = 2 }
+		add_to_variable = { var = british_drift value = -2 }
+	}
+	x = -3
+	y = 3
+	relative_position_id = SPA_use_caution
+
+}
+shared_focus = {
+	id = SPA_tungsten_exports
+	icon = GFX_goal_generic_positive_trade_relations
+	cost = 10
+	prerequisite = {
+		focus = SPA_blue_division
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 2
+			has_government = fascism
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				strength_ratio = {
+					tag = ENG
+					ratio > 1.1
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 0.5
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 0
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		GER = {
+			has_war_with = ENG
+		}
+		NOT = {
+			has_war_with = GER
+			is_in_faction = yes
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		GER = { country_event = { days = 1 id = spa.55 } }
+		remove_opinion_modifier = {
+				target = GER
+				modifier = embargo
+			}
+		custom_effect_tooltip = closer_to_germany
+		hidden_effect = { ENG = { country_event = { id = spa.60 days = 5 } } }
+		add_to_variable = { var = german_drift value = 3 }
+		add_to_variable = { var = british_drift value = -3 }
+	}
+	x = -4
+	y = 4
+	relative_position_id = SPA_use_caution
+
+}
+shared_focus = {
+	id = SPA_spanish_workers
+	icon = GFX_focus_Work_Towards_Fuhrer
+	cost = 10
+	prerequisite = {
+		focus = SPA_blue_division
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 2
+			has_government = fascism
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				strength_ratio = {
+					tag = ENG
+					ratio > 1.1
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 0.5
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 0
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		GER = {
+			has_war_with = ENG
+		}
+		NOT = {
+			has_war_with = GER
+			is_in_faction = yes
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		GER = { country_event = { days = 1 id = spa.53 } }
+		add_political_power = 50
+		add_to_variable = { var = german_drift value = 1 }
+		add_to_variable = { var = british_drift value = -1 }
+	}
+	x = -2
+	y = 4
+	relative_position_id = SPA_use_caution
+
+}
+
+## Pro British path
+shared_focus = {
+	id = SPA_pro_british
+	icon = GFX_focus_Befriend_United_Kingdom
+	cost = 10
+	prerequisite = {
+		focus = SPA_use_caution
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			add = 2
+			NOT = { has_government = fascism }
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				strength_ratio = {
+					tag = GER
+					ratio > 0.9
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 2
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		NOT = {
+			has_completed_focus = SPA_non_belligerence
+			has_completed_focus = SPA_declare_neutrality
+			has_completed_focus = SPA_pro_german
+		}
+		ENG = {
+			has_war_with = GER
+		}
+		NOT = {
+			has_war_with = ENG
+			is_in_faction = yes
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -1 }
+		add_to_variable = { var = british_drift value = 1 }
+	}
+	x = 3
+	y = 1
+	relative_position_id = SPA_use_caution
+
+}
+shared_focus = {
+	id = SPA_increase_trade_britain
+	icon = GFX_Focus_British_Navy
+	cost = 10
+	prerequisite = {
+		focus = SPA_pro_british
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 2
+			NOT = { has_government = fascism }
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				strength_ratio = {
+					tag = GER
+					ratio > 0.9
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 2
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		ENG = {
+			has_war_with = GER
+		}
+		NOT = {
+			has_war_with = ENG
+			is_in_faction = yes
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		add_ideas = SPA_trade_britain
+		custom_effect_tooltip = closer_to_britain
+		hidden_effect = { GER = { country_event = { id = spa.57 days = 1 } } }
+		add_to_variable = { var = german_drift value = -1 }
+		add_to_variable = { var = british_drift value = 1 }
+	}
+	x = 2
+	y = 2
+	relative_position_id = SPA_use_caution
+
+}
+shared_focus = {
+	id = SPA_demand_press_neutrality
+	icon = GFX_focus_Press_Barons
+	cost = 10
+	prerequisite = {
+		focus = SPA_pro_british
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 2
+			NOT = { has_government = fascism }
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				strength_ratio = {
+					tag = GER
+					ratio > 0.9
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 2
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		ENG = {
+			has_war_with = GER
+		}
+		NOT = {
+			has_war_with = ENG
+			is_in_faction = yes
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		add_war_support = -0.1
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -1 }
+		add_to_variable = { var = british_drift value = 1 }
+	}
+	x = 4
+	y = 2
+	relative_position_id = SPA_use_caution
+
+}
+shared_focus = {
+	id = SPA_end_tungsten_shipments
+	icon = GFX_focus_Subterfuge
+	cost = 10
+	prerequisite = {
+		focus = SPA_increase_trade_britain
+	}
+	prerequisite = {
+		focus = SPA_demand_press_neutrality
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 2
+			NOT = { has_government = fascism }
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				strength_ratio = {
+					tag = GER
+					ratio > 0.9
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 2
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		ENG = {
+			has_war_with = GER
+		}
+		NOT = {
+			has_war_with = ENG
+			is_in_faction = yes
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = SPA_german_capital
+			}
+			GER = { country_event = { id = spa.56 days = 1 } }
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_idea = SPA_german_capital
+				}
+			}
+			add_opinion_modifier = {
+				target = GER
+				modifier = embargo
+			}
+		}
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -3 }
+		add_to_variable = { var = british_drift value = 3 }
+	}
+	x = 3
+	y = 3
+	relative_position_id = SPA_use_caution
+
+}
+shared_focus = {
+	id = SPA_anti_japanese
+	icon = GFX_focus_Japan_World_Order
+	cost = 10
+	prerequisite = {
+		focus = SPA_end_tungsten_shipments
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 2
+			NOT = { has_government = fascism }
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				strength_ratio = {
+					tag = GER
+					ratio > 0.9
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 2
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		ENG = {
+			has_war_with = GER
+		}
+		NOT = {
+			has_war_with = ENG
+			is_in_faction = yes
+		}
+		JAP = {
+			NOT = {
+				is_in_faction_with = ENG
+			}
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		add_opinion_modifier = {
+			target = JAP
+			modifier = large_decrease
+		}
+		add_war_support = 0.1
+	}
+	x = 2
+	y = 4
+	relative_position_id = SPA_use_caution
+
+}
+shared_focus = {
+	id = SPA_catholicism_over_fascism
+	icon = GFX_focus_For_Christ_and_Country
+	cost = 10
+	prerequisite = {
+		focus = SPA_end_tungsten_shipments
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			factor = 2
+			NOT = { has_government = fascism }
+		}
+		modifier = {
+			factor = 2
+			ENG = {
+				strength_ratio = {
+					tag = GER
+					ratio > 0.9
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			GER = {
+				controls_state = 16
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.2
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ENG = {
+				surrender_progress > 0.5
+			}
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 2 }
+		}
+		modifier = {
+			factor = 0.5
+			check_variable = { british_drift > 5 }
+		}
+		modifier = {
+			factor = 0.5
+			is_neighbor_of = GER
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 5 }
+		}
+		modifier = {
+			factor = 2
+			check_variable = { german_drift > 7 }
+		}
+		modifier = {
+			factor = 2
+			ENG = { is_in_faction_with = USA }
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.3
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.6
+			}
+		}
+		modifier = {
+			factor = 2
+			GER = {
+				surrender_progress > 0.7
+			}
+		}
+	}
+	available = {
+		ENG = {
+			has_war_with = GER
+		}
+		NOT = {
+			has_war_with = ENG
+			is_in_faction = yes
+		}
+		NOT = { has_country_flag = SPA_declared_neutrality }
+	}
+	completion_reward = {
+		add_war_support = -0.1
+		add_stability = 0.05
+		add_political_power = 50
+		custom_effect_tooltip = closer_to_britain
+		add_to_variable = { var = german_drift value = -3 }
+		add_to_variable = { var = british_drift value = 3 }
+	}
+	x = 4
+	y = 4
+	relative_position_id = SPA_use_caution
+
+}
+
+shared_focus = {
+	id = SPA_claim_gibraltar
+	icon = GFX_focus_Straits_of_Gib
+	cost = 7
+	prerequisite = {
+		focus = SPA_use_caution
+	}
+	available = {
+		NOT = {
+			has_completed_focus = SPA_declare_neutrality
+			has_completed_focus = SPA_pro_british
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 200
+			ENG = { surrender_progress > 0.5 }
+		}
+	}
+	x = 0
+	y = 2
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = {
+					118 = { is_claimed_by = SPN }
+				}
+			}
+			118 = { add_claim_by = SPN }
+		}
+		custom_effect_tooltip = unlock_gibraltar_decisions
+	}
+	relative_position_id = SPA_use_caution
+}
+

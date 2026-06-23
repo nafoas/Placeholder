@@ -1,0 +1,448 @@
+shared_focus = {
+	id = TAN_purge_start_focus
+	icon = GFX_focus_Communist_Repression
+	x = 24
+	y = 0
+	cost = 1
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		always = no
+
+	}	
+	bypass = {
+	}
+	completion_reward = {
+		custom_effect_tooltip = TAN_the_purge_begins_tt
+	}
+}
+
+shared_focus = {
+	id = TAN_appoint_oyun_polat # appoints oyun polat to MoIA
+	icon = GFX_focus_Empower_President
+	prerequisite = { focus = TAN_purge_start_focus}
+	x = 0
+	y = 1
+	relative_position_id = TAN_purge_start_focus
+	cost = 3
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		always = no
+		NOT = {
+			has_country_flag = TAN_purge_failed
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = tuva_politics.7
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_empower_the_moia # appoints oyun polat to MoIA
+	icon = GFX_focus_Manipulate_the_Poor
+	prerequisite = { focus = TAN_appoint_oyun_polat}
+	x = 0
+	y = 2
+	relative_position_id = TAN_purge_start_focus
+	cost = 3
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		NOT = {
+			has_country_flag = TAN_purge_failed
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+    			remove_idea = TAN_khural_opposition
+    			add_idea = TAN_khural_opposition_2
+		}
+		hidden_effect = {
+			country_event = {
+				id = tuva_politics.8
+			}
+		}
+	}
+}
+shared_focus = {
+	id = TAN_monitor_khural_loyalties # Monitors khural loyalties... duh
+	icon = GFX_focus_Treaty_Sabotage
+	prerequisite = { focus = TAN_empower_the_moia}
+	x = -1
+	y = 3
+	relative_position_id = TAN_purge_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		NOT = {
+			has_country_flag = TAN_purge_failed
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 20
+		add_popularity = {
+    			ideology = communism
+    			popularity = 0.02
+		}
+	}
+}
+shared_focus = {
+	id = TAN_collaborate_with_mikhail_frinovsky # soviet intel guy
+	icon = GFX_goal_POL_Komisarze
+	prerequisite = { focus = TAN_empower_the_moia}
+	x = 1
+	y = 3
+	relative_position_id = TAN_purge_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		NOT = {
+			has_country_flag = TAN_purge_failed
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		custom_effect_tooltip = TAN_soviet_intel_collab_tt
+		custom_effect_tooltip = TAN_gain_three_influence
+
+		add_to_variable = {
+			var = TAN_soviet_influence
+			value = 3
+		}
+		add_political_power = -10
+		add_stability = 0.02
+	}
+}
+
+shared_focus = {
+	id = TAN_a_show_of_force # hist dec 1937
+	icon = GFX_focus_Backstab
+	prerequisite = { focus = TAN_monitor_khural_loyalties}
+	prerequisite = { focus = TAN_collaborate_with_mikhail_frinovsky}
+
+	x = 0
+	y = 4
+	relative_position_id = TAN_purge_start_focus
+	cost = 1
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		NOT = {
+			has_country_flag = TAN_purge_failed
+		}
+		date > 1937.6.1
+		hidden_trigger = {	
+			OR = {
+				is_ai = no
+				date > 1937.12.1
+		
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		country_event = {
+			id = tuva_politics.9
+		}		
+	}
+}
+
+shared_focus = {
+	id = TAN_the_counterrevolutionary_plot # 
+	icon = GFX_focus_Election_Monitoring
+	prerequisite = { focus = TAN_a_show_of_force}
+	x = 0
+	y = 5
+	relative_position_id = TAN_purge_start_focus
+	cost = 1
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		NOT = {
+			has_country_flag = TAN_purge_failed
+		}
+		has_country_flag = TAN_identified_plot
+	}
+	bypass = {
+	}
+	completion_reward = {
+		custom_effect_tooltip = TAN_eliminate_targets_tt	
+	}
+}
+
+shared_focus = {
+	id = TAN_replace_sat_lopsan # 
+	icon = GFX_manage_administration
+	prerequisite = { focus = TAN_the_counterrevolutionary_plot}
+	x = -2
+	y = 6
+	relative_position_id = TAN_purge_start_focus
+	cost = 3
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		NOT = {
+			has_country_flag = TAN_purge_failed
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		custom_effect_tooltip = TAN_imprison_sat_lopsan_tt
+		set_country_flag = TAN_sat_lopsan_killed
+	}
+}
+shared_focus = {
+	id = TAN_arrest_kuzhuget # 
+	icon = GFX_focus_Heavy_Strike
+	prerequisite = { focus = TAN_the_counterrevolutionary_plot}
+	x = 0
+	y = 6
+	relative_position_id = TAN_purge_start_focus
+	cost = 3
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		NOT = {
+			has_country_flag = TAN_purge_failed
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		IF = {
+			limit = {
+				NOT = {
+					has_country_flag = TAN_seren_retired
+				}
+			}
+			remove_unit_leader = 4120
+			custom_effect_tooltip = TAN_imprison_seren_tt
+			else = {
+				custom_effect_tooltip = TAN_imprison_seren_mayor_tt
+
+			}
+
+		}
+		set_country_flag = TAN_seren_imprisoned
+
+	}
+}
+
+shared_focus = {
+	id = TAN_arrest_pirinleis_allies # 
+	icon = GFX_focus_Imprison_the_Opposition
+	prerequisite = { focus = TAN_the_counterrevolutionary_plot}
+	x = 2
+	y = 6
+	relative_position_id = TAN_purge_start_focus
+	cost = 3
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		NOT = {
+			has_country_flag = TAN_purge_failed
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		custom_effect_tooltip = TAN_imprison_minor_characters_tt
+		add_stability = 0.02
+		add_popularity = {
+    			ideology = communism
+    			popularity = 0.02
+		}		
+		set_country_flag = TAN_pirinlei_allies_imprisoned
+	}
+}
+
+shared_focus = {
+	id = TAN_plot_of_the_nine # 
+	icon = GFX_focus_Purge_Dissenters
+	prerequisite = { focus = TAN_replace_sat_lopsan}
+	prerequisite = { focus = TAN_arrest_kuzhuget}
+	prerequisite = { focus = TAN_arrest_pirinleis_allies}
+
+	x = 0
+	y = 7
+	relative_position_id = TAN_purge_start_focus
+	cost = 1
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		date > 1938.6.1
+		hidden_trigger = {	
+			OR = {
+				is_ai = no
+				date > 1938.8.1
+		
+			}
+		}
+		NOT = {
+			has_country_flag = TAN_purge_failed
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		custom_effect_tooltip = TAN_opposition_arrested_tt
+		set_country_flag = TAN_nine_focus_completed
+		hidden_effect = {
+			country_event = {
+				id = tuva_politics.11
+				days = 5
+			}
+		}
+	
+	}
+}
+shared_focus = {
+	id = TAN_purge_end_focus # 
+	icon = GFX_focus_Purge_the_Monarchy
+	prerequisite = { focus = TAN_plot_of_the_nine}
+
+	x = 0
+	y = 8
+	relative_position_id = TAN_purge_start_focus
+	cost = 0
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		always = no
+	}
+	bypass = {
+	}
+	completion_reward = {
+		custom_effect_tooltip = TAN_finalizing_purges_tt
+
+	
+	}
+}
+
+shared_focus = {
+	id = TAN_seize_nomadic_lands # 
+	icon = GFX_focus_Lock_Them_Up
+	prerequisite = { focus = TAN_purge_end_focus}
+
+	x = -2
+	y = 9
+	relative_position_id = TAN_purge_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.025
+		add_political_power = -25
+		add_popularity = {
+    			ideology = communism
+    			popularity = -0.025
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_curtail_the_SPC # 
+	icon = GFX_focus_Corporatism
+	prerequisite = { focus = TAN_purge_end_focus}
+
+	x = 0
+	y = 9
+	relative_position_id = TAN_purge_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+    			remove_idea = TAN_SPC_idea_2
+    			add_idea = TAN_SPC_idea_3
+		}		
+	}
+}
+
+shared_focus = {
+	id = TAN_put_down_oyun_polat # 
+	icon = GFX_focus_Communist_Discourse
+	prerequisite = { focus = TAN_purge_end_focus}
+
+	x = 2
+	y = 9
+	relative_position_id = TAN_purge_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 10
+		add_stability = 0.01
+
+	}
+}
+
+shared_focus = {
+	id = TAN_purge_end # 
+	icon = GFX_focus_Communist_Star
+	prerequisite = { focus = TAN_seize_nomadic_lands}
+	prerequisite = { focus = TAN_curtail_the_SPC}
+	prerequisite = { focus = TAN_put_down_oyun_polat}
+
+
+	x = 0
+	y = 10
+	relative_position_id = TAN_purge_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		remove_ideas = TAN_khural_opposition_3
+		add_country_leader_trait = TAN_tuvan_stalin
+		set_country_flag = TAN_purgedone
+
+
+	}
+}

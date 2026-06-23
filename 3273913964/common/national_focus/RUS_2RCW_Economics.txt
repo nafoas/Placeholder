@@ -1,0 +1,749 @@
+#20 focuses here
+#s_team337
+shared_focus = {
+	id = RUS_2RCW_Economics_Start
+	icon = GFX_focus_Renewed_Arms
+	#prerequisite = { focus = RUS_2RCW_Economics_Start }
+	x = 12
+	y = 0
+	#relative_position_id = RUS_2RCW_Economics_Start
+	cost = 5.15
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = tot_economic_mobilisation
+			}
+			add_political_power = 65
+		}
+		else_if = {
+			limit = {
+				has_idea = war_economy
+			}
+			swap_ideas = {
+				remove_idea = war_economy
+				add_idea = tot_economic_mobilisation
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = partial_economic_mobilisation
+			}
+			swap_ideas = {
+				remove_idea = partial_economic_mobilisation
+				add_idea = war_economy
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = low_economic_mobilisation
+			}
+			swap_ideas = {
+				remove_idea = low_economic_mobilisation
+				add_idea = partial_economic_mobilisation
+			}
+		}
+		else_if = {
+			limit = {
+				has_idea = civilian_economy
+			}
+			swap_ideas = {
+				remove_idea = civilian_economy
+				add_idea = low_economic_mobilisation
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Decollectivization
+	icon = GFX_focus_Agriculture
+	prerequisite = {
+		focus = RUS_2RCW_Economics_Start
+	}
+	x = 0
+	y = 1
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 3
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = RUS_decollectivize
+			days = 730
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Industrial_Base
+	icon = GFX_focus_Economic_Stimulus
+	prerequisite = {
+		focus = RUS_2RCW_Decollectivization
+	}
+	x = -1
+	y = 2
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 7.15
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Legalize_Private_Economics
+	icon = GFX_focus_Capitalist_Systems
+	prerequisite = {
+		focus = RUS_2RCW_Industrial_Base
+	}
+	x = -1
+	y = 3
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 2.15
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_ideas = RUS_capitalism
+		set_variable = {
+			RUS_add_influence_value = 7
+		}
+		RUS_add_influence_democrats = yes
+		custom_effect_tooltip = RUS_soclib_gain_7_points
+		set_variable = {
+			RUS_add_influence_value = 4
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_gain_4_points
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Infra1
+	icon = GFX_goal_generic_construct_infrastructure
+	prerequisite = {
+		focus = RUS_2RCW_Industrial_Base
+	}
+	x = -3
+	y = 3
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		#TODO: add railways
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Infra2
+	icon = GFX_focus_Trains
+	prerequisite = {
+		focus = RUS_2RCW_Infra1
+	}
+	x = -4
+	y = 4
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		#TODO: add railways
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_More_Civs
+	icon = GFX_focus_Industrialization
+	prerequisite = {
+		focus = RUS_2RCW_Infra2
+	}
+	x = -4
+	y = 5
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 6
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Focus_on_Agriculture
+	icon = GFX_focus_Bread_Trade
+	prerequisite = {
+		focus = RUS_2RCW_Infra1
+	}
+	prerequisite = {
+		focus = RUS_2RCW_Legalize_Private_Economics
+	}
+	x = -2
+	y = 4
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = RUS_decollectivize
+			}
+			modify_timed_idea = {
+				idea = RUS_decollectivize
+				days = 365
+			}
+		}
+		else = {
+			add_timed_idea = {
+				idea = RUS_decollectivize
+				days = 365
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Keep_Troops_Fed
+	icon = GFX_focus_Agriculture_2
+	prerequisite = {
+		focus = RUS_2RCW_More_Civs
+	}
+	prerequisite = {
+		focus = RUS_2RCW_Focus_on_Agriculture
+	}
+	x = -2
+	y = 6
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_ideas = RUS_feed_troops
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Military_Capabilities
+	icon = GFX_focus_city
+	prerequisite = {
+		focus = RUS_2RCW_Decollectivization
+	}
+	x = 1
+	y = 2
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 6.43
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Military_Capabilities2
+	icon = GFX_focus_Military_Intervention
+	prerequisite = {
+		focus = RUS_2RCW_Military_Capabilities
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_Convert
+	}
+	x = 1
+	y = 3
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 6
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				arms_factory > 0
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Western_Practices
+	icon = GFX_focus_European_Relations
+	prerequisite = {
+		focus = RUS_2RCW_Military_Capabilities2
+	}
+	x = 1
+	y = 4
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 6
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = RUS_Western_Industrial_Practices
+			days = 500
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Convert
+	icon = GFX_goal_generic_construct_mil_factory
+	prerequisite = {
+		focus = RUS_2RCW_Military_Capabilities
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_Military_Capabilities2
+	}
+	x = 3
+	y = 3
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 5.29
+	ai_will_do = {
+		factor = 10
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				industrial_complex > 0
+			}
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Convert2
+	icon = GFX_focus_Fortification_Effort
+	prerequisite = {
+		focus = RUS_2RCW_Convert
+	}
+	x = 3
+	y = 4
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 5.29
+	ai_will_do = {
+		factor = 10
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				industrial_complex > 0
+			}
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Oil
+	icon = GFX_goal_generic_oil_refinery
+	prerequisite = {
+		focus = RUS_2RCW_Western_Practices
+		focus = RUS_2RCW_Convert2
+	}
+	x = 2
+	y = 5
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 5.46
+	ai_will_do = {
+		factor = 10
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		any_state = {
+			is_controlled_by = ROOT
+			has_resources_amount = {
+				resource = oil
+				amount > 4
+			}
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				has_resources_amount = {
+					resource = oil
+					amount > 4
+				}
+			}
+			add_resource = {
+				type = oil
+				amount = 5
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Chromium
+	icon = GFX_focus_Chromium
+	prerequisite = {
+		focus = RUS_2RCW_Oil
+	}
+	x = 2
+	y = 6
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 5.46
+	ai_will_do = {
+		factor = 10
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		any_state = {
+			is_controlled_by = ROOT
+			has_resources_amount = {
+				resource = chromium
+				amount > 4
+			}
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				has_resources_amount = {
+					resource = chromium
+					amount > 4
+				}
+			}
+			add_resource = {
+				type = chromium
+				amount = 5
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Foreign_Loans
+	icon = GFX_focus_Deregulation
+	prerequisite = {
+		focus = RUS_2RCW_Focus_on_Agriculture
+		focus = RUS_2RCW_Western_Practices
+	}
+	x = 0
+	y = 5
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 20
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = 60
+		add_ideas = RUS_foreign_loans
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Buy_Western_Guns
+	icon = GFX_focus_Buy_Foreign_Weapons
+	prerequisite = {
+		focus = RUS_2RCW_Foreign_Loans
+	}
+	x = 0
+	y = 6
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 2.15
+	ai_will_do = {
+		factor = 20
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = -35
+		add_offsite_building = {
+			type = arms_factory
+			level = 1
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Tractor_Factory
+	icon = GFX_focus_Tractors
+	prerequisite = {
+		focus = RUS_2RCW_Keep_Troops_Fed
+	}
+	prerequisite = {
+		focus = RUS_2RCW_Buy_Western_Guns
+	}
+	x = -1
+	y = 7
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 6
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Aluminium
+	icon = GFX_focus_generic_tungsten
+	prerequisite = {
+		focus = RUS_2RCW_Buy_Western_Guns
+	}
+	prerequisite = {
+		focus = RUS_2RCW_Chromium
+	}
+	x = 1
+	y = 7
+	relative_position_id = RUS_2RCW_Economics_Start
+	cost = 5.46
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		any_state = {
+			is_controlled_by = ROOT
+			has_resources_amount = {
+				resource = tungsten
+				amount > 4
+			}
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				has_resources_amount = {
+					resource = tungsten
+					amount > 4
+				}
+			}
+			add_resource = {
+				type = tungsten
+				amount = 5
+			}
+		}
+	}
+}

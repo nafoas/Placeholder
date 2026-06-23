@@ -1,0 +1,581 @@
+#21 focuses
+#by s_team337
+shared_focus = {
+	id = GER_DNVP_Seldte_Start
+	icon = GFX_focus_Stahlhelm
+	#prerequisite = { focus = GER_DNVP_Seldte_Start }
+	x = 3
+	y = 0
+	#relative_position_id = GER_DNVP_Seldte_Start
+	cost = 0
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+		has_country_flag = GER_seldte_in_power
+	}
+	completion_reward = {
+		custom_effect_tooltip = GER_unlocks_below_focuses
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Devotion_to_Party
+	icon = GFX_focus_DNVP_Propaganda
+	prerequisite = {
+		focus = GER_DNVP_Seldte_Start
+	}
+	x = -2
+	y = 1
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 5.15
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.06
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Arbeitverfassung
+	icon = GFX_focus_Workers_Rights
+	prerequisite = {
+		focus = GER_DNVP_Devotion_to_Party
+	}
+	x = -3
+	y = 2
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 3.69
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.045
+		}
+		if = {
+			limit = {
+				has_idea = GER_DNVP_Trade_Union
+			}
+			swap_ideas = {
+				remove_idea = GER_DNVP_Trade_Union
+				add_idea = GER_DNVP_Arbeitverfassung
+			}
+		}
+		else = {
+			add_ideas = GER_DNVP_Arbeitverfassung
+		}
+	}
+}
+shared_focus = { #should cause some inefficiencies that mess with stability
+	id = GER_DNVP_Stahlhelm_Productive_Capitalism
+	icon = GFX_focus_Puppet_Businesses
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Arbeitverfassung
+	}
+	x = -2
+	y = 3
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 5
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GER_DNVP_Arbeitverfassung
+			add_idea = GER_DNVP_Arbeitverfassung1
+		}
+	}
+}
+shared_focus = { 
+	id = GER_DNVP_Stahlhelm_Chamber_of_Corporations
+	icon = GFX_focus_Corporatism
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Productive_Capitalism
+	}
+	x = -2
+	y = 4
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 7.15
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GER_DNVP_Arbeitverfassung1
+			add_idea = GER_DNVP_Chamber_of_Corporations
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Devotion_to_State
+	icon = GFX_focus_Repress_Freedom
+	prerequisite = {
+		focus = GER_DNVP_Seldte_Start
+	}
+	x = 0
+	y = 1
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 4.29
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 60
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Personality_Cult
+	icon = GFX_focus_Triumphant_Will
+	prerequisite = {
+		focus = GER_DNVP_Devotion_to_State
+	}
+	x = -1
+	y = 2
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 5.29
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		hidden_effect = {
+			country_event = { #doesn't work
+				id = ger_internal.66
+				days = 96
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Oath_of_Service
+	icon = GFX_focus_Oath_of_Loyalty
+	prerequisite = {
+		focus = GER_DNVP_Devotion_to_State
+	}
+	x = 1
+	y = 2
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 2
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Paramilitary
+	icon = GFX_focus_Recruitment
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Personality_Cult
+	}
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Oath_of_Service
+	}
+	x = 0
+	y = 3
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 4.29
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GER_DNVP_militia_stalhelm
+			add_idea = GER_DNVP_stahlhelm_paramilitary
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Cult_of_Action
+	icon = GFX_focus_Into_the_Flames
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Paramilitary
+	}
+	x = 0
+	y = 4
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 5
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GER_DNVP_stahlhelm_paramilitary
+			add_idea = GER_DNVP_stahlhelm_paramilitary2
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Devotion_to_Kaiser
+	icon = GFX_focus_Wilhelm_III
+	prerequisite = {
+		focus = GER_DNVP_Seldte_Start
+	}
+	x = 2
+	y = 1
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 5
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.06
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.03
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Redraw_Provinces
+	icon = GFX_focus_Dissolve_Prussia
+	prerequisite = {
+		focus = GER_DNVP_Devotion_to_Kaiser
+	}
+	x = 3
+	y = 2
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 5.5
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = -0.07
+		add_political_power = 70
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Fascist_Council
+	icon = GFX_focus_Grosser_Faschisticher_Rat
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Redraw_Provinces
+	}
+	x = 2
+	y = 3
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 4
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 25
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Disband_Reichstag
+	icon = GFX_focus_Dissolve_Parliament
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Fascist_Council
+	}
+	x = 2
+	y = 4
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 1.43
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 25
+		add_stability = -0.05
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Pan_Germanism
+	icon = GFX_focus_Pan_Germanism
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Chamber_of_Corporations
+	}
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Cult_of_Action
+	}
+	x = -1
+	y = 5
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 2
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 20
+		add_war_support = 0.04
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_New_German
+	icon = GFX_focus_Iron_Cross_Germany
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Pan_Germanism
+	}
+	x = -1
+	y = 6
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 2.86
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.04
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Kraft_durch_Fruede
+	icon = GFX_focus_Fascist_Trade_Union
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_New_German
+	}
+	x = -1
+	y = 7
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 7.15
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		add_political_power = -50
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Battle_For_Culture
+	icon = GFX_focus_German_Advisors
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Cult_of_Action
+	}
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Disband_Reichstag
+	}
+	x = 1
+	y = 5
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 5
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = -0.06
+		add_war_support = 0.06
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Secularization
+	icon = GFX_focus_Reich_Coopt_Church
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Battle_For_Culture
+	}
+	x = 1
+	y = 6
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 4.29
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = GER_prot2
+			}
+			remove_ideas = GER_prot2
+			add_political_power = -20
+		}
+		else_if = {
+			limit = {
+				has_idea = GER_prot
+			}
+			remove_ideas = GER_prot
+		}
+		else = {
+			add_stability = 0.02
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.04
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Kaiser_Museum
+	icon = GFX_focus_Imperial_Germany_Crowned
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Secularization
+	}
+	x = 1
+	y = 7
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 8
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 50
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.05
+		}
+	}
+}
+shared_focus = {
+	id = GER_DNVP_Stahlhelm_Germany_United_Strong
+	icon = GFX_focus_A_New_Germany
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Kraft_durch_Fruede
+	}
+	prerequisite = {
+		focus = GER_DNVP_Stahlhelm_Kaiser_Museum
+	}
+	x = 0
+	y = 8
+	relative_position_id = GER_DNVP_Seldte_Start
+	cost = 5
+	ai_will_do  = {
+		factor = 8
+	}
+	available = {
+		NOT = { has_global_flag = GCW_ongoing_flag }
+		has_country_flag = GER_seldte_in_power
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.10
+		add_war_support = 0.10
+	}
+}

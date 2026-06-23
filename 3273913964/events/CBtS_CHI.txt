@@ -1,0 +1,656 @@
+﻿###########################
+# China Events
+###########################
+
+add_namespace = chi_economy
+add_namespace = chi_external
+add_namespace = chi_ww2
+add_namespace = chi_army
+add_namespace = chi_diplomacy
+add_namespace = chi_civil_war
+add_namespace = chi_flavor
+add_namespace = chi_news
+
+### External ###
+country_event = {
+	id = chi_external.1
+	title = chi_external.1.t
+	desc = chi_external.1.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = chi_external.1.a
+		
+	}
+
+	option = {
+		name = chi_external.1.b
+		
+	}
+}
+
+###ECONOMY###
+country_event = {
+	id = chi_economy.1
+	title = chi_economy.1.t
+	desc = chi_economy.1.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = chi_economy.1.a
+		
+	}
+
+	option = {
+		name = chi_economy.1.b
+		
+	}
+}
+
+country_event = {
+	id = chi_economy.2
+	title = chi_economy.2.t
+	desc = chi_economy.2.d
+	picture = GFX_CHI_FlyingTigers1
+	is_triggered_only = yes
+	option = {
+		name = chi_economy.2.a
+		ai_chance = {
+			factor = 50
+		}
+		custom_effect_tooltip = CHI_Agree_Soong_tt
+		set_country_flag = CHI_Agreed_With_Soong
+	}
+	option = {
+		name = chi_economy.2.b
+		ai_chance = {
+			factor = 50
+		}
+		custom_effect_tooltip = CHI_Deny_Soong_tt
+		set_country_flag = CHI_Denied_Soong
+	}
+}
+
+###ARMY###
+
+###DIPLOMACY###
+country_event = {
+	id = chi_diplomacy.1
+	title = chi_diplomacy.1.t
+	desc = chi_diplomacy.1.d
+	is_triggered_only = yes
+	option = {
+		name = chi_diplomacy.1.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+country_event = {
+	id = chi_diplomacy.2
+	title = chi_diplomacy.2.t
+	desc = chi_diplomacy.2.d
+	is_triggered_only = yes
+	option = {
+		name = chi_diplomacy.2.a
+		ai_chance = {
+			factor = 100
+		}
+		SOV = {
+			country_event = {
+				id = chi_diplomacy.3
+				days = 1
+			}
+		}
+	}
+}
+country_event = {
+	id = chi_diplomacy.3
+	title = chi_diplomacy.3.t
+	desc = chi_diplomacy.3.d
+	is_triggered_only = yes
+	option = {
+		name = chi_diplomacy.3.a
+		ai_chance = {
+			factor = 90
+		}
+		CHI = {
+			country_event = {
+				id = chi_diplomacy.4
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = chi_diplomacy.3.b
+		ai_chance = {
+			factor = 10
+		}
+		CHI = {
+			country_event = {
+				id = chi_diplomacy.5
+				days = 1
+			}
+		}
+	}
+}
+country_event = {
+	id = chi_diplomacy.4
+	title = chi_diplomacy.4.t
+	desc = chi_diplomacy.4.d
+	is_triggered_only = yes
+	option = {
+		name = chi_diplomacy.4.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+country_event = {
+	id = chi_diplomacy.5
+	title = chi_diplomacy.5.t
+	desc = chi_diplomacy.5.d
+	is_triggered_only = yes
+	option = {
+		name = chi_diplomacy.5.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+
+country_event = { #The Suiyuan Campaign - #TODO: make the event fire and code the border war in
+	id = chi_civil_war.1
+	title = chi_civil_war.1.t
+	desc = chi_civil_war.1.desc
+	picture = GFX_event_CHI_suiyuan_campaign
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = chi_civil_war.1.a
+		#Starts border war
+	}
+}
+
+country_event = { #Jing Yuexi's (Yulin's Ruler) Accidental Suicide! (for Yulin)
+	id = chi_civil_war.10
+	title = chi_civil_war.10.t
+	desc = chi_civil_war.10.desc
+	picture = GFX_event_Jing_Yuexiu
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			add_country_leader_role = {
+				character = "YUL_gao_shuangcheng"
+				promote_leader = yes
+				country_leader = {
+					ideology = warlordism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_corps_commander_role = {
+				character = YUL_gao_shuangcheng
+				traits={ military_governor }
+				skill=2
+				attack_skill=1
+				defense_skill=3
+				planning_skill=1
+				logistics_skill=2
+				legacy_id=-1
+				
+			}	
+			retire_character = YUL_jing_yuexiu
+			CHI = {
+				country_event = {
+					id = chi_civil_war.11
+					hours = 2
+				}
+			}
+		}	
+	}
+
+	option = {
+		name = chi_civil_war.10.a
+	}
+}
+country_event = { #Jing Yuexi's (Yulin's Ruler) Accidental Suicide! (for China)
+	id = chi_civil_war.11
+	title = chi_civil_war.11.t
+	desc = chi_civil_war.11.desc
+	picture = GFX_event_Jing_Yuexiu
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = chi_civil_war.11.a
+		custom_effect_tooltip = yulin_king_death_tt
+	}
+}
+
+country_event = { #Debug event - Fujian Incident
+	id = chi_civil_war.90
+	title = chi_civil_war.90.t
+	desc = chi_civil_war.90.desc
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = chi_civil_war.91
+				days = 41
+				random_days = 4
+			}
+			FUJ = {
+				transfer_state = 595
+				add_state_core = 595
+				transfer_state = 1114
+				add_state_core = 1114
+				load_oob = "FUJ_1933"
+			}
+		}
+	}
+
+	option = {
+		name = chi_civil_war.90.a
+		
+	}
+}
+country_event = { #Fujian Campaign - Debug
+	id = chi_civil_war.91
+	title = chi_civil_war.91.t
+	desc = chi_civil_war.91.desc
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 5
+
+	option = {
+		name = chi_civil_war.91.a
+		declare_war_on = {
+			target = FUJ
+			type = annex_everything
+		}
+	}
+}
+country_event = { #Debug event for the Long march. Temporal until we do the whole thing
+	id = chi_civil_war.100
+	title = chi_civil_war.100.t
+	desc = chi_civil_war.100.desc
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes
+	option = {
+		name = chi_civil_war.100.a
+		PRC = {
+			transfer_state = 1097
+			add_state_core = 1097
+			transfer_state = 1098
+			add_state_core = 1098
+			transfer_state = 1103
+			add_state_core = 1103
+			remove_state_core = 897
+		}
+		GZC = {
+			remove_state_core = 1125
+			remove_state_core = 603
+			remove_state_core = 1129
+		}
+		CHI = {
+			annex_country = {
+				target = GZC
+				transfer_troops = no
+			}
+			puppet = HNA
+			transfer_state = 897
+			add_state_core = 897
+			#Invasion of GZC
+			# transfer_state = 1129
+			add_state_core = 1129
+			# transfer_state = 603
+			add_state_core = 603
+			# transfer_state = 1125
+			add_state_core = 1125
+		}
+		LWH = {
+			remove_state_core = 1124
+		}
+		LXI = {
+			transfer_state = 1124
+			add_state_core = 1124
+		}
+		HNA = {
+			set_cosmetic_tag = Warlord_puppet
+			transfer_state = 1193
+			add_state_core = 1193
+			give_military_access = CHI
+		}
+	}
+}
+
+country_event = { #Debug event for Liangguang Incident
+	id = chi_civil_war.101
+	title = chi_civil_war.101.t
+	desc = chi_civil_war.101.desc
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = chi_civil_war.101.a
+		annex_country = {
+			target = GDC
+			transfer_troops = yes
+		}
+		add_state_core = 593
+		add_state_core = 592
+		add_state_core = 1115
+		add_state_core = 591
+	}
+}
+
+country_event = { #Debug event for Xi'an Incident
+	id = chi_civil_war.102
+	title = chi_civil_war.102.t
+	desc = chi_civil_war.102.desc
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = chi_civil_war.102.a
+		annex_country = {
+			target = NWA
+			transfer_troops = yes
+		}
+		add_state_core = 1099
+		add_state_core = 1100
+		add_state_core = 1102
+		add_state_core = 1103
+		add_state_core = 283
+		hidden_effect = {
+			every_country = {
+				news_event = chi_news.1
+			}
+		}
+	}
+}
+
+###FLAVOR###
+#Liu Zhennian arrested for desertion
+country_event = {
+	id = chi_flavor.1
+	title = chi_flavor.1.t
+	desc = chi_flavor.1.desc
+	# picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = chi_flavor.2 days = 734 }
+		}
+	}
+
+	option = {
+		name = chi_flavor.1.a
+	}
+}
+
+#Liu Zhennian executed
+country_event = {
+	id = chi_flavor.2
+	title = chi_flavor.2.t
+	desc = chi_flavor.2.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = chi_flavor.2.a
+		
+	}
+}
+
+#The death of Chen Jiongming
+country_event = {
+	id = chi_flavor.3
+	title = chi_flavor.3.t
+	desc = chi_flavor.3.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = chi_flavor.4 days = 258 }
+		}
+	}
+
+	option = {
+		name = chi_flavor.3.a
+	}
+}
+
+#Nanchang Airport fire
+country_event = {
+	id = chi_flavor.4
+	title = chi_flavor.4.t
+	desc = chi_flavor.4.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = chi_flavor.5 days = 512 }
+		}
+	}
+
+	option = {
+		name = chi_flavor.4.a
+		#TODO: this lowers fascist popularity (and maybe relations with italy?)
+	}
+}
+
+#Assasination attempt on Wang Jingwei
+country_event = {
+	id = chi_flavor.5
+	title = chi_flavor.5.t
+	desc = chi_flavor.5.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = chi_flavor.6 days = 193 }
+		}
+	}
+
+	option = {
+		name = chi_flavor.5.a
+		#TODO: either make the player decide his fate or make the outcome based on probability
+		#this will have consecuences later
+	}
+}
+
+#The death of Hu Hanmin
+country_event = {
+	id = chi_flavor.6
+	title = chi_flavor.6.t
+	desc = chi_flavor.6.desc
+	picture = GFX_event_CHI_Hu_Hanmin_funeral
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = chi_flavor.7 days = 197 }
+			retire_character = CHI_hu_hanmin
+		}
+	}
+
+	option = {
+		name = chi_flavor.6.a
+		
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.05
+		}
+		set_party_name = { 
+			ideology = democratic 
+			long_name = "Chinese Youth Party" 
+			name = "YCP" 
+		}
+	}
+}
+
+#Yang Yongtai assasinated
+country_event = {
+	id = chi_flavor.7
+	title = chi_flavor.7.t
+	desc = chi_flavor.7.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = chi_flavor.8 days = 84 }
+		}
+	}
+
+	option = {
+		name = chi_flavor.7.a
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.05
+		}
+		add_political_power = -25
+	}
+}
+
+#Zhu Peide dies of blood poisoning
+country_event = {
+	id = chi_flavor.8
+	title = chi_flavor.8.t
+	desc = chi_flavor.8.desc
+	picture = x
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = chi_flavor.11 days = 2061 }
+		}
+	}
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = chi_flavor.8.a
+		
+	}
+}
+
+#Soong Meilin Seech 
+country_event = {
+	id = chi_flavor.9
+	title = chi_flavor.9.t
+	desc = chi_flavor.9.desc
+	picture = x
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = chi_flavor.10 days = 169 }
+		}
+	}
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = chi_flavor.9.a
+		add_political_power = 25
+	}
+}
+
+#Lin Sen dies
+country_event = {
+	id = chi_flavor.10
+	title = chi_flavor.10.t
+	desc = chi_flavor.10.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = chi_flavor.10.a
+		add_political_power = -10
+	}
+}
+
+#End of Extraterritoriality
+country_event = {
+	id = chi_flavor.11
+	title = chi_flavor.11.t
+	desc = chi_flavor.11.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = chi_flavor.9 days = 126 }
+		}
+	}
+
+	option = {
+		name = chi_flavor.11.a
+		add_political_power = 50
+	}
+}
+
+#News Event for Xi'an Incident
+news_event = {
+	id = chi_news.1
+	title = chi_news.1.t
+	desc = chi_news.1.desc
+	picture = GFX_news_incident_xian
+
+	is_triggered_only = yes
+
+	option = {
+		name = chi_news.1.a
+		trigger = {
+			tag = CHI
+		}
+	}
+	option = {
+		name = chi_news.1.b
+		trigger = {
+			NOT = {
+				tag = CHI
+			}
+		}
+	}
+}

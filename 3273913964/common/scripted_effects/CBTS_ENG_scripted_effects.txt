@@ -1,0 +1,3743 @@
+#Leninists, Fascists, and FarAuts will get 1/20 their deserved seats under 5% popularity, 1/10 between 5% and 20%, and 1/4 afterwards
+#RevSocs actually got their proportional amount in 1935, but in 1945, got more. Thus, they'll follow the same algorithm and get a scripted 4 seats in 1935, and 3 in 1945 if post-war.
+#SocLibs will always get 1/2 their deserved seats unless they get >12% of the vote, when they'll get 3/4
+#MarLibs in 1935 will get a scripted 4 seats in 1935, and otherwise act as the the Len/Fas/FarAut algo
+#SocDems also almost got their proportional seats, so they'll just get their scripted 8 seats in 1935 and go with the same algorithm
+#LibCons will get 3/2 their deserved seats, unless they get over 5%, when they'll get their deserved seats. If they get over 10%, they'll get 1/2, like the liberals
+#DemSocs will get 3/5 their deserved seats unless they get over 40%, where they'll get their deserved seats
+#SocCons will get 100% the seats they proportionally deserve
+#Auts and AutDes will go to the Tories
+
+#The remaining amount will go: 60% to the Tories, and 40% to Labour
+
+
+ENG_faraut_biased_allocation = {
+	set_variable = {
+		ENG_faraut_seats = party_popularity@nationalism
+	}
+	if = {
+		limit = {
+			nationalism < 0.05
+		}
+		divide_variable = {
+			ENG_faraut_seats = 20
+		}
+	}
+	else_if = {
+		limit = {
+			nationalism < 0.20
+		}
+		divide_variable = {
+			ENG_faraut_seats = 10
+		}
+	}
+	else = {
+		divide_variable = {
+			ENG_faraut_seats = 4
+		}
+	}
+}
+ENG_fascist_biased_allocation = {
+	set_variable = {
+		ENG_fas_seats = party_popularity@fascism
+	}
+	if = {
+		limit = {
+			fascism < 0.05
+		}
+		divide_variable = {
+			ENG_fas_seats = 20
+		}
+	}
+	else_if = {
+		limit = {
+			fascism < 0.20
+		}
+		divide_variable = {
+			ENG_fas_seats = 10
+		}
+	}
+	else = {
+		divide_variable = {
+			ENG_fas_seats = 4
+		}
+	}
+}
+ENG_communist_biased_allocation = {
+	set_variable = { #communist seat bias
+		ENG_com_seats = party_popularity@communism
+	}
+	if = {
+		limit = {
+			communism < 0.05
+		}
+		divide_variable = {
+			ENG_com_seats = 20
+		}
+	}
+	else_if = {
+		limit = {
+			communism < 0.20
+		}
+		divide_variable = {
+			ENG_com_seats = 10
+		}
+	}
+	else = {
+		divide_variable = {
+			ENG_com_seats = 4
+		}
+	}
+}
+ENG_revsoc_biased_allocation = {
+	set_variable = {
+		ENG_revsoc_seats = party_popularity@authoritarian_socialism
+	}
+	if = {
+		limit = {
+			authoritarian_socialism < 0.05
+		}
+		divide_variable = {
+			ENG_revsoc_seats = 20
+		}
+	}
+	else_if = {
+		limit = {
+			authoritarian_socialism < 0.20
+		}
+		divide_variable = {
+			ENG_revsoc_seats = 10
+		}
+	}
+	else = {
+		divide_variable = {
+			ENG_revsoc_seats = 4
+		}
+	}
+}
+ENG_demsoc_biased_allocation = {
+	set_variable = {
+		ENG_demsoc_seats = party_popularity@socialism
+	}
+	if = {
+		limit = {
+			socialism < 0.40
+		}
+		multiply_variable = {
+			ENG_demsoc_seats = 0.6
+		}
+	}
+}
+ENG_socdem_biased_allocation = {
+	set_variable = {
+		ENG_socdem_seats = party_popularity@social_democracy
+	}
+	if = {
+		limit = {
+			social_democracy < 0.05
+		}
+		divide_variable = {
+			ENG_socdem_seats = 20
+		}
+	}
+	else_if = {
+		limit = {
+			social_democracy < 0.20
+		}
+		divide_variable = {
+			ENG_socdem_seats = 10
+		}
+	}
+	else = {
+		divide_variable = {
+			ENG_socdem_seats = 4
+		}
+	}
+}
+ENG_soclib_biased_allocation = {
+	set_variable = {
+		ENG_soclib_seats = party_popularity@social_liberalism
+	}
+	if = {
+		limit = {
+			social_liberalism < 0.12
+		}
+		divide_variable = {
+			ENG_soclib_seats = 2
+		}
+	}
+	else = {
+		multiply_variable = {
+			ENG_soclib_seats = 0.75
+		}
+	}
+}
+ENG_marlib_biased_allocation = {
+	set_variable = {
+		ENG_marlib_seats = party_popularity@market_liberalism
+	}
+	if = {
+		limit = {
+			market_liberalism < 0.05
+		}
+		divide_variable = {
+			ENG_marlib_seats = 20
+		}
+	}
+	else_if = {
+		limit = {
+			market_liberalism < 0.20
+		}
+		divide_variable = {
+			ENG_marlib_seats = 10
+		}
+	}
+	else = {
+		divide_variable = {
+			ENG_marlib_seats = 4
+		}
+	}
+}
+ENG_libcon_biased_allocation = {
+	set_variable = {
+		ENG_libcon_seats = party_popularity@jacobin
+	}
+	if = {
+		limit = {
+			jacobin < 0.05
+		}
+		multiply_variable = {
+			ENG_libcon_seats = 1.5
+		}
+	}
+	else_if = {
+		limit = {
+			jacobin > 0.0999
+		}
+		divide_variable = {
+			ENG_libcon_seats = 2
+		}
+	}
+}
+ENG_get_total_seats = {
+	set_variable = {
+		ENG_total_seats = 0
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_com_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_revsoc_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_demsoc_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_socdem_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_soclib_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_marlib_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_libcon_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_soccon_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_aut_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_autdes_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_faraut_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_fas_seats
+	}
+}
+ENG_set_1935_seats = {
+	if = {
+		limit = {
+			check_variable = {
+				ENG_revsoc_seats < 4
+			}
+		}
+		set_variable = {
+			ENG_revsoc_seats = 4
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				ENG_socdem_seats < 8
+			}
+		}
+		set_variable = {
+			ENG_socdem_seats = 8
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				ENG_com_seats < 1
+			}
+		}
+		set_variable = {
+			ENG_com_seats = 1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				ENG_marlib_seats < 4
+			}
+		}
+		set_variable = {
+			ENG_marlib_seats = 4
+		}
+	}
+}
+ENG_Set_Parliament_Biased = { #This is the one that should be used to account for fptp
+	custom_effect_tooltip = WGR_Reshuffle_Parliament_tt
+	#Sets variable to check for discrepencies
+	set_variable = {
+		ENG_old_total_seats = ENG_total_seats
+	}
+	ENG_communist_biased_allocation = yes
+	ENG_revsoc_biased_allocation = yes
+	ENG_demsoc_biased_allocation = yes
+	ENG_socdem_biased_allocation = yes
+	ENG_soclib_biased_allocation = yes
+	ENG_marlib_biased_allocation = yes
+	ENG_libcon_biased_allocation = yes
+	ENG_faraut_biased_allocation = yes
+	ENG_fascist_biased_allocation = yes
+	set_variable = { #no bias
+		ENG_soccon_seats = party_popularity@democratic
+	}
+	add_to_variable = { #Aut and AutDes always go with the tories
+		ENG_soccon_seats = party_popularity@neutrality
+	}
+	add_to_variable = {
+		ENG_soccon_seats = party_popularity@monarchism
+	}
+	#Gets seats
+	multiply_variable = {
+		ENG_com_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_revsoc_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_demsoc_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_socdem_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_soclib_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_marlib_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_libcon_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_soccon_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_aut_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_autdes_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_faraut_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_fas_seats = ENG_total_seats
+	}
+	#rounds
+	round_variable = ENG_com_seats
+	round_variable = ENG_revsoc_seats
+	round_variable = ENG_demsoc_seats
+	round_variable = ENG_socdem_seats
+	round_variable = ENG_soclib_seats
+	round_variable = ENG_marlib_seats
+	round_variable = ENG_libcon_seats
+	round_variable = ENG_soccon_seats
+	round_variable = ENG_aut_seats
+	round_variable = ENG_autdes_seats
+	round_variable = ENG_faraut_seats
+	round_variable = ENG_fas_seats
+	#1935 add stuff
+	if = {
+		limit = {
+			date > 1935.1.1
+			date < 1936.1.1
+		}
+		ENG_set_1935_seats = yes
+	}
+	#Gets new total seat value
+	ENG_get_total_seats = yes
+	#gets discrepency
+	subtract_from_variable = {
+		ENG_old_total_seats = ENG_total_seats
+	}
+	#deals with discrepency, if needed
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					ENG_old_total_seats = 0
+				}
+			}
+		}
+		set_variable = {
+			ENG_partial_discrepency = ENG_old_total_seats
+		}
+		multiply_variable = {
+			ENG_partial_discrepency = 0.6 #goes to tories
+		}
+		round_variable = ENG_partial_discrepency
+		if = {
+			limit = {
+				check_variable = {
+					ENG_partial_discrpency > 0 #positive
+				}
+			}
+			subtract_from_variable = {
+				ENG_old_total_seats = ENG_partial_discrepency #remainder will be given to labour
+			}
+			add_to_variable = {
+				ENG_soccon_seats = ENG_partial_discrepency
+			}
+			add_to_variable = {
+				ENG_demsoc_seats = ENG_old_total_seats
+			}
+		}
+		#change to subtract, if it does not change behavior, the problem is here
+		else = { #negative discrepency, somehow too many seats
+			subtract_from_variable = {
+				ENG_old_total_seats = ENG_partial_discrepency #remainder will be taken from tories
+			}
+			add_to_variable = {
+				ENG_soccon_seats = ENG_old_total_seats
+			}
+			add_to_variable = {
+				ENG_demsoc_seats = ENG_partial_discrepency
+			}
+		}
+	}
+	ENG_get_total_seats = yes
+	#gets half
+	set_variable = {
+		ENG_seats_needed = ENG_total_seats
+	}
+	divide_variable = {
+		ENG_seats_needed = 2
+	}
+	round_variable = ENG_seats_needed
+	#Gets coalition
+	set_variable = {
+		ENG_coalition_seats = 0
+	}
+	ENG_get_coalition_seats = yes
+}
+ENG_Set_Parliament = {
+	custom_effect_tooltip = WGR_Reshuffle_Parliament_tt
+	#Sets variable to check for discrepencies
+	set_variable = {
+		ENG_old_total_seats = ENG_total_seats
+	}
+	set_variable = {
+		ENG_com_seats = party_popularity@communism
+	}
+	set_variable = {
+		ENG_revsoc_seats = party_popularity@authoritarian_socialism
+	}
+	set_variable = {
+		ENG_demsoc_seats = party_popularity@socialism
+	}
+	set_variable = {
+		ENG_socdem_seats = party_popularity@social_democracy
+	}
+	set_variable = {
+		ENG_soclib_seats = party_popularity@social_liberalism
+	}
+	set_variable = {
+		ENG_marlib_seats = party_popularity@market_liberalism
+	}
+	set_variable = {
+		ENG_libcon_seats = party_popularity@jacobin
+	}
+	set_variable = {
+		ENG_soccon_seats = party_popularity@democratic
+	}
+	if = {
+		limit = {
+			has_country_flag = ENG_CUP_aut
+		}
+		add_to_variable = {
+			ENG_soccon_seats = party_popularity@neutrality
+		}
+		set_variable = {
+			ENG_aut_seats = 0
+		}
+	}
+	else = {
+		set_variable = {
+			ENG_aut_seats = party_popularity@neutrality
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = ENG_CUP_autdes
+		}
+		add_to_variable = {
+			ENG_soccon_seats = party_popularity@monarchism
+		}
+		set_variable = {
+			ENG_autdes_seats = 0
+		}
+	}
+	else = {
+		set_variable = {
+			ENG_autdes_seats = party_popularity@monarchism
+		}
+	}
+	set_variable = {
+		ENG_faraut_seats = party_popularity@nationalism
+	}
+	set_variable = {
+		ENG_fas_seats = party_popularity@fascism
+	}
+	#Gets seats
+	multiply_variable = {
+		ENG_com_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_revsoc_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_demsoc_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_socdem_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_soclib_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_marlib_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_libcon_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_soccon_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_aut_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_autdes_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_faraut_seats = ENG_total_seats
+	}
+	multiply_variable = {
+		ENG_fas_seats = ENG_total_seats
+	}
+	#rounds
+	round_variable = ENG_com_seats
+	round_variable = ENG_revsoc_seats
+	round_variable = ENG_demsoc_seats
+	round_variable = ENG_socdem_seats
+	round_variable = ENG_soclib_seats
+	round_variable = ENG_marlib_seats
+	round_variable = ENG_libcon_seats
+	round_variable = ENG_soccon_seats
+	round_variable = ENG_aut_seats
+	round_variable = ENG_autdes_seats
+	round_variable = ENG_faraut_seats
+	round_variable = ENG_fas_seats
+	#Gets new total seat value
+	set_variable = {
+		ENG_total_seats = 0
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_com_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_revsoc_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_demsoc_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_socdem_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_soclib_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_marlib_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_libcon_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_soccon_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_aut_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_autdes_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_faraut_seats
+	}
+	add_to_variable = {
+		ENG_total_seats = ENG_fas_seats
+	}
+	#gets discrepency
+	subtract_from_variable = {
+		ENG_old_total_seats = ENG_total_seats
+	}
+	#deals with discrepency, if needed
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					ENG_old_total_seats = 0
+				}
+			}
+		}
+		add_to_variable = {
+			ENG_total_seats = ENG_old_total_seats
+		}
+		if = {
+			limit = {
+				has_government = communism
+			}
+			add_to_variable = {
+				ENG_com_seats = ENG_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = authoritarian_socialism
+			}
+			add_to_variable = {
+				ENG_revsoc_seats = ENG_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = socialism
+			}
+			add_to_variable = {
+				ENG_demsoc_seats = ENG_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_democracy
+			}
+			add_to_variable = {
+				ENG_socdem_seats = ENG_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_liberalism
+			}
+			add_to_variable = {
+				ENG_soclib_seats = ENG_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = market_liberalism
+			}
+			add_to_variable = {
+				ENG_marlib_seats = ENG_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = jacobin
+			}
+			add_to_variable = {
+				ENG_libcon_seats = ENG_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = democratic
+			}
+			add_to_variable = {
+				ENG_soccon_seats = ENG_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = neutrality
+			}
+			add_to_variable = {
+				ENG_aut_seats = ENG_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = monarchism
+			}
+			add_to_variable = {
+				ENG_autdes_seats = ENG_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = nationalism
+			}
+			add_to_variable = {
+				ENG_faraut_seats = ENG_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = fascism
+			}
+			add_to_variable = {
+				ENG_fas_seats = ENG_old_total_seats
+			}
+		}
+	}
+	#gets half
+	set_variable = {
+		ENG_seats_needed = ENG_total_seats
+	}
+	divide_variable = {
+		ENG_seats_needed = 2
+	}
+	round_variable = ENG_seats_needed
+	#Gets coalition
+	set_variable = {
+		ENG_coalition_seats = 0
+	}
+	ENG_get_coalition_seats = yes
+}
+ENG_get_coalition_seats = {
+	set_variable = {
+		ENG_coalition_seats = 0
+	}
+	if = {
+		limit = {
+			is_in_array = { #communist
+				array = coalition_party_list
+				value = 0
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_com_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #revolutionary socialist
+				array = coalition_party_list
+				value = 1
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_revsoc_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #democratic socialist
+				array = coalition_party_list
+				value = 2
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_demsoc_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocDem
+				array = coalition_party_list
+				value = 3
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_socdem_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #soclib
+				array = coalition_party_list
+				value = 4
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_soclib_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #marlib
+				array = coalition_party_list
+				value = 5
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_marlib_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #LibCon
+				array = coalition_party_list
+				value = 6
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_libcon_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocCon
+				array = coalition_party_list
+				value = 7
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_soccon_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #Aut
+				array = coalition_party_list
+				value = 9
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_aut_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #monarchist
+				array = coalition_party_list
+				value = 8
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_autdes_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #nationalist
+				array = coalition_party_list
+				value = 10
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_faraut_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #fascist
+				array = coalition_party_list
+				value = 11
+			}
+		}
+		add_to_variable = {
+			ENG_coalition_seats = ENG_fas_seats
+		}
+	}
+}
+ENG_set_negotiating_flag = {
+	set_country_flag = ENG_negotiating
+}
+ENG_clr_negotiating_flag = {
+	clr_country_flag = ENG_negotiating
+}
+ENG_trigger_communist_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_communists
+		}
+		clr_country_flag = ENG_negotiated_with_communists
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = eng_parliament.1 # taxes
+			}
+		}
+		50 = {
+			country_event = {
+				id = eng_parliament.2 # welfare
+			}
+		}
+	}
+}
+ENG_trigger_communist_auto_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_communists
+		}
+		clr_country_flag = ENG_negotiated_with_communists
+	}
+	country_event = {
+		id = eng_parliament.17
+	}
+}
+ENG_trigger_revsoc_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_revsocs
+		}
+		clr_country_flag = ENG_negotiated_with_revsocs
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = eng_parliament.3 # minimum wage
+			}
+		}
+		50 = {
+			country_event = {
+				id = eng_parliament.4 # unemployment pensions
+			}
+		}
+	}
+}
+ENG_trigger_revsoc_auto_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_revsocs
+		}
+		clr_country_flag = ENG_negotiated_with_revsocs
+	}
+	country_event = {
+		id = eng_parliament.18
+	}
+}
+ENG_trigger_demsoc_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_demsocs
+		}
+		clr_country_flag = ENG_negotiated_with_demsocs
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = eng_parliament.5 #taxes
+			}
+		}
+		50 = {
+			country_event = {
+				id = eng_parliament.6 #public works
+			}
+		}
+	}
+}
+ENG_trigger_demsoc_auto_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_demsocs
+		}
+		clr_country_flag = ENG_negotiated_with_demsocs
+	}
+	country_event = {
+		id = eng_parliament.19
+	}
+}
+ENG_trigger_socdem_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_socdems
+		}
+		clr_country_flag = ENG_negotiated_with_socdems
+		country_event = {
+			id = eng_parliament.7 #tariffs
+		}
+	}
+}
+ENG_trigger_socdem_auto_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_socdems
+		}
+		clr_country_flag = ENG_negotiated_with_socdems
+	}
+	country_event = {
+		id = eng_parliament.20
+	}
+}
+ENG_trigger_soclib_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_soclibs
+		}
+		clr_country_flag = ENG_negotiated_with_soclibs
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = eng_parliament.8 #free trade
+			}
+		}
+		50 = {
+			country_event = {
+				id = eng_parliament.9 #education
+			}
+		}
+	}
+}
+ENG_trigger_soclib_auto_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_soclib
+		}
+		clr_country_flag = ENG_negotiated_with_soclib
+	}
+	country_event = {
+		id = eng_parliament.21
+	}
+}
+ENG_trigger_marlib_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_marlibs
+		}
+		clr_country_flag = ENG_negotiated_with_marlibs
+	}
+	country_event = {
+		id = eng_parliament.10 #free trade
+	}
+}
+ENG_trigger_marlib_auto_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_marlib
+		}
+		clr_country_flag = ENG_negotiated_with_marlib
+	}
+	country_event = {
+		id = eng_parliament.22
+	}
+}
+ENG_trigger_libcon_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_libcons
+		}
+		clr_country_flag = ENG_negotiated_with_libcons
+	}
+	country_event = {
+		id = eng_parliament.11 #tariffs
+	}
+}
+ENG_trigger_libcon_auto_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_libcons
+		}
+		clr_country_flag = ENG_negotiated_with_libcons
+	}
+	country_event = {
+		id = eng_parliament.23
+	}
+}
+ENG_trigger_tory_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_tories
+		}
+		clr_country_flag = ENG_negotiated_with_tories
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = eng_parliament.12 #tariffs
+			}
+		}
+		50 = {
+			country_event = {
+				id = eng_parliament.13 #health insurance
+			}
+		}
+	}
+}
+ENG_trigger_tory_auto_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_tories
+		}
+		clr_country_flag = ENG_negotiated_with_tories
+	}
+	country_event = {
+		id = eng_parliament.24
+	}
+}
+ENG_trigger_faraut_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_farauts
+		}
+		clr_country_flag = ENG_negotiated_with_farauts
+	}
+	country_event = {
+		id = eng_parliament.14
+	}
+}
+ENG_trigger_faraut_auto_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_farauts
+		}
+		clr_country_flag = ENG_negotiated_with_farauts
+	}
+	country_event = {
+		id = eng_parliament.25
+	}
+}
+ENG_trigger_fascism_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_fascists
+		}
+		clr_country_flag = ENG_negotiated_with_fascists
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = eng_parliament.15 #tariffs bc of course it is
+			}
+		}
+		50 = {
+			country_event = {
+				id = eng_parliament.16 #defense spending
+			}
+		}
+	}
+}
+ENG_trigger_fascist_auto_event = {
+	if = {
+		limit = {
+			has_country_flag = ENG_negotiated_with_fascists
+		}
+		clr_country_flag = ENG_negotiated_with_fascists
+	}
+	country_event = {
+		id = eng_parliament.26
+	}
+}
+###Dynamic modifiers
+###Dynamic modifier bound checking
+ENG_welfare_spending_check = {
+	clamp_variable = {
+		var = ENG_welfare_spending
+		max = 0 #always negative
+		min = -0.30
+	}
+}
+ENG_welfare_stability_check = { #1:1 with welfare_spending
+	set_temp_variable = {
+		ENG_welfare_spending_opposite = ENG_welfare_spending
+	}
+	multiply_temp_variable = {
+		ENG_welfare_spending_opposite = -0.5
+	}
+	clamp_variable = {
+		var = ENG_welfare_stability
+		max = ENG_welfare_spending_opposite
+		min = 0 #always positive
+	}
+}
+ENG_welfare_population_check = { #-1*1:3 with welfare_spending
+	set_temp_variable = {
+		ENG_welfare_spending_opposite = ENG_welfare_spending
+	}
+	multiply_temp_variable = {
+		ENG_welfare_spending_opposite = -1
+	}
+	divide_temp_variable = {
+		ENG_welfare_spending_opposite = 3
+	}
+	clamp_variable = {
+		var = ENG_welfare_population
+		max = ENG_welfare_spending_opposite
+		min = 0
+	}
+}
+ENG_welfare_research_check = { #-1*1:4 with welfare_spending
+	set_temp_variable = {
+		ENG_welfare_spending_opposite = ENG_welfare_spending
+	}
+	multiply_temp_variable = {
+		ENG_welfare_spending_opposite = -1
+	}
+	divide_temp_variable = {
+		ENG_welfare_spending_opposite = 4
+	}
+	clamp_variable = {
+		var = ENG_welfare_population
+		max = ENG_welfare_spending_opposite
+		min = 0
+	}
+}
+ENG_bounds_checking = {
+	ENG_check_welfare_bounds = yes
+	ENG_economic_bounds_check = yes
+	ENG_defense_bounds_check = yes
+}
+##Welfare
+ENG_check_welfare_bounds = {
+	ENG_welfare_spending_check = yes
+	ENG_welfare_stability_check = yes
+	ENG_welfare_population_check = yes
+	ENG_welfare_research_check = yes
+}
+ENG_lower_small_welfare_spending = {
+	add_to_variable = {
+		ENG_welfare_spending = 0.02
+	}
+	add_to_variable = {
+		ENG_welfare_stability = -0.02
+	}
+	custom_effect_tooltip = WGR_lower_welfare_small_tt
+}
+ENG_add_small_welfare_spending = {
+	add_to_variable = {
+		ENG_welfare_spending = -0.02
+	}
+	add_to_variable = {
+		ENG_welfare_stability = 0.02
+	}
+	custom_effect_tooltip = WGR_small_welfare_spend_tt
+}
+ENG_add_small_education_spending = {
+	add_to_variable = {
+		ENG_welfare_spending = -0.01
+	}
+	add_to_variable = {
+		ENG_welfare_stability = 0.01
+	}
+	add_to_variable = {
+		ENG_welfare_research = 0.0025
+	}
+	custom_effect_tooltip = WGR_small_education_spend_tt
+}
+ENG_add_large_education_spending = {
+	add_to_variable = {
+		ENG_welfare_spending = -0.06
+	}
+	add_to_variable = {
+		ENG_welfare_stability = 0.06
+	}
+	add_to_variable = {
+		ENG_welfare_research = 0.015
+	}
+	custom_effect_tooltip = ENG_large_education_spend_tt
+}
+ENG_add_medium_welfare_spending = {
+	add_to_variable = {
+		ENG_welfare_spending = -0.035
+	}
+	add_to_variable = {
+		ENG_welfare_stability = 0.035
+	}
+	custom_effect_tooltip = WGR_medium_welfare_spend_tt
+}
+ENG_add_large_welfare_spending = {
+	add_to_variable = {
+		ENG_welfare_spending = -0.07
+	}
+	add_to_variable = {
+		ENG_welfare_stability = 0.07
+	}
+	add_to_variable = {
+		MONTHLY_POPULATION = 0.07
+	}
+	custom_effect_tooltip = ENG_large_welfare_spend_tt
+}
+ENG_add_medium_welfare_spending_public_health = {
+	add_to_variable = {
+		ENG_welfare_spending = -0.04
+	}
+	add_to_variable = {
+		ENG_welfare_stability = 0.04
+	}
+	add_to_variable = {
+		ENG_welfare_population = 0.0133
+	}
+	custom_effect_tooltip = WGR_medium_welfare_spend_tt
+}
+ENG_add_small_public_health = {
+	add_to_variable = {
+		ENG_welfare_spending = -0.015
+	}
+	add_to_variable = {
+		ENG_welfare_stability = 0.015
+	}
+	add_to_variable = {
+		ENG_welfare_population = 0.003
+	}
+	custom_effect_tooltip = WGR_small_welfare_spend_tt
+}
+ENG_lower_retirement_age = {
+	ENG_add_medium_welfare_spending = yes
+	add_to_variable = {
+		ENG_welfare_population = 0.01
+	}
+}
+ENG_contraceptives = {
+	ENG_add_medium_welfare_spending = yes
+	custom_effect_tooltip = WGR_contraceptive_tt
+	add_to_variable = {
+		ENG_welfare_population = -0.04
+	}
+}
+#revenue and stimulus checks
+ENG_economic_intake_check = {
+	clamp_variable = {
+		var = ENG_economic_intake
+		max = 1 #always positive
+		min = 0
+	}
+}
+ENG_economic_spending_check = {
+	clamp_variable = {
+		var = ENG_economic_spending
+		max = 0 #always negative
+		min = -0.5
+	}
+}
+ENG_economic_stability_check = { #(-2*spending - intake)/5
+	set_temp_variable = {
+		ENG_economic_spending_opposite = ENG_economic_spending
+	}
+	multiply_temp_variable = {
+		ENG_economic_spending_opposite = -2
+	}
+	subtract_from_temp_variable = {
+		ENG_economic_spending_opposite = ENG_economic_intake
+	}
+	divide_temp_variable = {
+		ENG_economic_spending_opposite = 5
+	}
+	set_temp_variable = {
+		ENG_economic_spending_opposite2 = ENG_economic_spending_opposite
+	}
+	multiply_temp_variable = {
+		ENG_economic_spending_opposite2 = -1
+	}
+	if = {
+		limit = {
+			check_variable = {
+				ENG_economic_spending_opposite > 0 #positive
+			}
+		}
+		clamp_variable = {
+			var = ENG_economic_stability
+			max = ENG_economic_spending_opposite
+			min = ENG_economic_spending_opposite2
+		}
+	}
+	else = {
+		clamp_variable = {
+			var = ENG_economic_stability
+			max = ENG_economic_spending_opposite2
+			min = ENG_economic_spending_opposite
+		}
+	}
+}
+ENG_economic_consumer_check = { #(2*spending + intake)/5
+	set_temp_variable = {
+		ENG_economic_spending_opposite = ENG_economic_spending
+	}
+	multiply_temp_variable = {
+		ENG_economic_spending_opposite = 2
+	}
+	add_to_temp_variable = {
+		ENG_economic_spending_opposite = ENG_economic_intake
+	}
+	divide_temp_variable = {
+		ENG_economic_spending_opposite = 5
+	}
+	set_temp_variable = {
+		ENG_economic_spending_opposite2 = ENG_economic_spending_opposite
+	}
+	multiply_temp_variable = {
+		ENG_economic_spending_opposite2 = -1
+	}
+	if = {
+		limit = {
+			check_variable = {
+				ENG_economic_spending_opposite > 0 #positive
+			}
+		}
+		clamp_variable = {
+			var = ENG_economic_consumer
+			max = ENG_economic_spending_opposite
+			min = ENG_economic_spending_opposite2
+		}
+	}
+	else = {
+		clamp_variable = {
+			var = ENG_economic_consumer
+			max = ENG_economic_spending_opposite2
+			min = ENG_economic_spending_opposite
+		}
+	}
+}
+ENG_economic_tariffs_check = { #-1/5*intake
+	set_temp_variable = {
+		ENG_economic_spending_opposite = ENG_economic_intake
+	}
+	multiply_temp_variable = {
+		ENG_economic_spending_opposite = -0.2
+	}
+	clamp_variable = {
+		var = ENG_economic_tariffs
+		max = 0
+		min = ENG_economic_spending_opposite #should always be negative
+	}
+}
+ENG_economic_building_check = { #-1/3*spending
+	set_temp_variable = {
+		ENG_economic_spending_opposite = ENG_economic_spending
+	}
+	multiply_temp_variable = {
+		ENG_economic_spending_opposite = -0.33
+	}
+	clamp_variable = {
+		var = ENG_economic_building
+		max = ENG_economic_spending_opposite
+		min = 0 #should always be positive
+	}
+}
+ENG_economic_industry_check = { #-1/3*spending
+	set_temp_variable = {
+		ENG_economic_spending_opposite = ENG_economic_spending
+	}
+	multiply_temp_variable = {
+		ENG_economic_spending_opposite = -0.33
+	}
+	clamp_variable = {
+		var = ENG_economic_industry
+		max = ENG_economic_spending_opposite
+		min = 0 #should always be positive
+	}
+}
+ENG_economic_bounds_check = {
+	ENG_economic_intake_check = yes
+	ENG_economic_spending_check = yes
+	ENG_economic_stability_check = yes
+	ENG_economic_consumer_check = yes
+	ENG_economic_tariffs_check = yes
+	ENG_economic_building_check = yes
+	ENG_economic_industry_check = yes
+}
+ENG_raise_taxes_small = {
+	add_to_variable = {
+		ENG_economic_intake = 0.02
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_small_raise_taxes_tt
+}
+ENG_raise_taxes = {
+	add_to_variable = {
+		ENG_economic_intake = 0.03
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = ENG_raise_taxes_tt
+}
+ENG_raise_corporate_taxes = {
+	add_to_variable = {
+		ENG_economic_intake = 0.04
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = ENG_raise_corporate_taxes_tt
+}
+ENG_lower_taxes_small = {
+	add_to_variable = {
+		ENG_economic_intake = -0.02
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_small_lower_taxes_tt
+}
+ENG_lower_taxes = {
+	add_to_variable = {
+		ENG_economic_intake = -0.03
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = ENG_lower_taxes_tt
+}
+ENG_take_loans = {
+	add_to_variable = {
+		ENG_economic_intake = 0.03
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = ENG_take_loans_tt
+}
+ENG_decrease_intake = {
+	add_to_variable = {
+		ENG_economic_intake = -0.02
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = ENG_decrease_intake_tt
+}
+ENG_lower_taxes_small_businesses = {
+	custom_effect_tooltip = WGR_lower_taxes_small_businesses_tt
+	add_to_variable = {
+		ENG_economic_intake = -0.02
+	}
+	add_to_variable = {
+		ENG_economic_building = 0.02
+	}
+	ENG_economic_bounds_check = yes
+}
+ENG_lower_corporate_taxes = {
+	add_to_variable = {
+		ENG_economic_intake = -0.06
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_corporate_lower_taxes_tt
+}
+ENG_lower_tariffs_small = {
+	add_to_variable = {
+		ENG_economic_tariffs = 0.004
+	}
+	add_to_variable = {
+		ENG_economic_intake = -0.02
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_small_lower_taiffs_tt
+}
+ENG_raise_tariffs_small = {
+	add_to_variable = {
+		ENG_economic_tariffs = -0.004
+	}
+	add_to_variable = {
+		ENG_economic_intake = 0.02
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_small_raise_taiffs_tt
+}
+ENG_raise_tariffs = {
+	add_to_variable = {
+		ENG_economic_tariffs = -0.006
+	}
+	add_to_variable = {
+		ENG_economic_intake = 0.03
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_raise_taiffs_tt
+}
+ENG_raise_tariffs_medium = {
+	add_to_variable = {
+		ENG_economic_tariffs = -0.007
+	}
+	add_to_variable = {
+		ENG_economic_intake = 0.035
+	}
+	ENG_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_raise_tariffs_medium_tt
+}
+ENG_add_small_public_works = {
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_economic_spending = -0.02
+		}
+		add_to_variable = {
+			ENG_economic_stability = 0.02
+		}
+		add_to_variable = {
+			ENG_economic_building = 0.02
+		}
+		ENG_economic_bounds_check = yes
+		custom_effect_tooltip = ENG_small_public_works
+	}
+	else = {
+		add_stability = 0.01
+	}
+}
+ENG_add_medium_public_works = {
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_economic_spending = -0.035
+		}
+		add_to_variable = {
+			ENG_economic_stability = 0.035
+		}
+		add_to_variable = {
+			ENG_economic_building = 0.035
+		}
+		ENG_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_public_work_tt
+	}
+	else = {
+		add_stability = 0.02
+	}
+}
+ENG_subtract_medium_public_works = {
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_economic_spending = 0.035
+		}
+		add_to_variable = {
+			ENG_economic_stability = -0.035
+		}
+		add_to_variable = {
+			ENG_economic_building = -0.035
+		}
+		ENG_economic_bounds_check = yes
+		custom_effect_tooltip = ENG_public_work_less_tt
+	}
+	else = {
+		add_stability = -0.02
+	}
+}
+ENG_add_spending = {
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_economic_spending = -0.03
+		}
+		add_to_variable = {
+			ENG_economic_stability = 0.03
+		}
+		add_to_variable = {
+			ENG_economic_building = 0.03
+		}
+		ENG_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_spending_tt
+	}
+	else = {
+		add_stability = 0.02
+	}
+}
+ENG_regulations = {
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_economic_intake = -0.02
+		}
+		add_to_variable = {
+			ENG_economic_stability = 0.02
+		}
+		add_to_variable = {
+			ENG_economic_building = -0.02
+		}
+		ENG_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_regulations_tt
+	}
+	else = {
+		add_stability = 0.02
+	}
+}
+ENG_less_regulations = {
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_economic_intake = 0.02
+		}
+		add_to_variable = {
+			ENG_economic_stability = -0.02
+		}
+		add_to_variable = {
+			ENG_economic_building = 0.02
+		}
+		ENG_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_less_regulations_tt
+	}
+	else = {
+		add_political_power = 40
+		add_stability = -0.04
+	}
+}
+ENG_worker_protections = {
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_economic_intake = -0.02
+		}
+		add_to_variable = {
+			ENG_economic_stability = 0.02
+		}
+		add_to_variable = {
+			ENG_economic_building = -0.02
+		}
+		add_to_variable = {
+			ENG_economic_industry = -0.02
+		}
+		ENG_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_worker_protections_tt
+	}
+	else = {
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+	}
+}
+ENG_increase_minimum_wage = {
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_economic_stability = 0.02
+		}
+		add_to_variable = {
+			ENG_economic_building = -0.02
+		}
+		add_to_variable = {
+			ENG_economic_industry = -0.02
+		}
+		ENG_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_minimum_wage_tt
+	}
+	else = {
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+	}
+}
+ENG_add_banking_regulations = {
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_economic_intake = 0.02
+		}
+		add_to_variable = {
+			ENG_economic_stability = 0.04
+		}
+		add_to_variable = {
+			ENG_economic_consumer = -0.01
+		}
+		ENG_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_banking_regulations
+	}
+	else = {
+		add_stability = 0.04
+	}
+}
+ENG_encroach_land_effect = {
+	add_stability = -0.04
+	add_political_power = -40
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = arms_factory
+				size > 1
+				include_locked = yes
+			}
+		}
+		add_extra_state_shared_building_slots = 1
+	}
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = arms_factory
+				size > 1
+				include_locked = yes
+			}
+		}
+		add_extra_state_shared_building_slots = 1
+	}
+}
+ENG_mining_nationalized = {
+	add_stability = -0.06
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_economic_intake = 0.06
+		}
+		add_to_variable = {
+			ENG_economic_spending = -0.04
+		}
+		add_to_variable = {
+			ENG_economic_stability = 0.02
+		}
+		add_to_variable = {
+			ENG_economic_consumer = -0.02
+		}
+		ENG_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_mining_nationalized_tt
+	}
+	else = {
+		random_owned_controlled_state = {
+			limit = {
+				has_resources_amount = {
+					resource = steel
+					amount > 23
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 12
+			}
+		}
+	}
+}
+ENG_break_up_conglomerates = {
+	add_political_power = 40
+	add_stability = -0.04
+	add_popularity = {
+		ideology = social_democracy
+		popularity = 0.04
+	}
+}
+ENG_agro_subsidies = {
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_economic_spending = -0.04
+		}
+		add_to_variable = {
+			ENG_economic_stability = 0.04
+		}
+		ENG_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_agro_subsidies_tt
+	}
+	else = {
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.015
+		}
+	}
+}
+##Defense
+ENG_defense_spending_check = {
+	clamp_variable = {
+		var = ENG_defense_spending
+		max = 0 #always negative
+		min = -0.3
+	}
+}
+ENG_defense_industry_check = {
+	set_temp_variable = {
+		ENG_defense_spending_opposite = ENG_defense_spending
+	}
+	multiply_temp_variable = {
+		ENG_defense_spending_opposite = -0.2
+	}
+	clamp_variable = {
+		var = ENG_defense_industry
+		max = ENG_defense_spending_opposite
+		min = 0 #should always be positive
+	}
+}
+ENG_defense_stability_check = {
+	set_temp_variable = {
+		ENG_defense_spending_opposite = ENG_defense_spending
+	}
+	multiply_temp_variable = {
+		ENG_defense_spending_opposite = 0.5
+	}
+	clamp_variable = {
+		var = ENG_defense_stability
+		max = 0 #should always be negative
+		min = ENG_defense_spending_opposite
+	}
+}
+ENG_defense_bounds_check = {
+	ENG_defense_spending_check = yes
+	ENG_defense_industry_check = yes
+	ENG_defense_stability_check = yes
+}
+ENG_add_small_defense_spending = {
+	add_to_variable = {
+		ENG_defense_spending = -0.02
+	}
+	add_to_variable = {
+		ENG_defense_industry = 0.004
+	}
+	add_to_variable = {
+		ENG_defense_stability = -0.01
+	}
+	custom_effect_tooltip = WGR_add_small_defense_spending_tt
+	ENG_defense_bounds_check = yes
+}
+ENG_raise_defense_spending = {
+	add_to_variable = {
+		ENG_defense_spending = -0.06
+	}
+	add_to_variable = {
+		ENG_defense_industry = 0.012
+	}
+	add_to_variable = {
+		ENG_defense_stability = -0.03
+	}
+	custom_effect_tooltip = ENG_raise_defense_spending_tt
+	ENG_defense_bounds_check = yes
+}
+ENG_raise_defense_spending_large = {
+	add_to_variable = {
+		ENG_defense_spending = -0.15
+	}
+	add_to_variable = {
+		ENG_defense_industry = 0.03
+	}
+	add_to_variable = {
+		ENG_defense_stability = -0.075
+	}
+	custom_effect_tooltip = ENG_raise_defense_spending_large_tt
+	ENG_defense_bounds_check = yes
+}
+ENG_subtract_military_spending = {
+	add_to_variable = {
+		ENG_defense_spending = 0.05
+	}
+	add_to_variable = {
+		ENG_defense_industry = -0.01
+	}
+	add_to_variable = {
+		ENG_defense_stability = 0.025
+	}
+	ENG_defense_bounds_check = yes
+	custom_effect_tooltip = ENG_subtract_mil_spending
+}
+ENG_subtract_small_military_spending = {
+	add_to_variable = {
+		ENG_defense_spending = 0.02
+	}
+	add_to_variable = {
+		ENG_defense_industry = -0.004
+	}
+	add_to_variable = {
+		ENG_defense_stability = 0.01
+	}
+	ENG_defense_bounds_check = yes
+}
+ENG_defense_nationalized = {
+	add_stability = -0.06
+	if = {
+		limit = {
+			ENG_spending_within_bound = yes
+		}
+		add_to_variable = {
+			ENG_defense_spending = -0.10
+		}
+		add_to_variable = {
+			ENG_defense_industry = 0.02
+		}
+		add_to_variable = {
+			ENG_defense_stability = -0.05
+		}
+		ENG_defense_bounds_check = yes
+		custom_effect_tooltip = WGR_defense_nationalized_tt
+	}
+	else = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+ENG_set_len_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_communists
+}
+ENG_set_revsoc_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_revoscs
+}
+ENG_set_demsoc_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_demsocs
+}
+ENG_set_socdem_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_socdems
+}
+ENG_set_soclib_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_soclibs
+}
+ENG_set_marlib_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_marlibs
+}
+ENG_set_libcon_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_libcons
+}
+ENG_set_soccon_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_tories
+}
+ENG_set_aut_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_tories
+}
+ENG_set_autdes_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_tories
+}
+ENG_set_faraut_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_farauts
+}
+ENG_set_fascist_negotiate_flag = {
+	set_country_flag = ENG_negotiated_with_fascists
+}
+##laws
+ENG_set_voting_flag = {
+	set_country_flag = ENG_voting
+	custom_effect_tooltip = will_vote #Informs what will happen
+}
+ENG_clear_voting_flag = {
+	clr_country_flag = ENG_voting
+}
+ENG_set_welfare_law = {
+	set_country_flag = ENG_welfare_law
+}
+ENG_set_employment_law = {
+	set_country_flag = ENG_employment_law
+}
+ENG_set_progressive_law = {
+	set_country_flag = ENG_progressive_law
+}
+ENG_set_austerity_law = {
+	set_country_flag = ENG_austerity_law
+}
+ENG_set_anti_austerity_law = {
+	set_country_flag = ENG_anti_austerity_law
+}
+ENG_set_reactionary_law = {
+	set_country_flag = ENG_reactionary_law
+}
+ENG_set_militarist_law = {
+	set_country_flag = ENG_militarist_law
+}
+ENG_set_bureaucratic_law = {
+	set_country_flag = ENG_bureaucratic_law
+}
+ENG_clr_bureaucratic_law = {
+	clr_country_flag = ENG_bureaucratic_law
+}
+ENG_clr_militarist_law = {
+	clr_country_flag = ENG_militarist_law
+}
+ENG_clr_welfare_law = {
+	clr_country_flag = ENG_welfare_law
+}
+ENG_clr_employment_law = {
+	clr_country_flag = ENG_employment_law
+}
+ENG_clr_austerity_law = {
+	clr_country_flag = ENG_austerity_law
+}
+ENG_clr_anti_austerity_law = {
+	clr_country_flag = ENG_anti_austerity_law
+}
+ENG_clr_progressive_law = {
+	clr_country_flag = ENG_progressive_law
+}
+ENG_clr_reactionary_law = {
+	clr_country_flag = ENG_reactionary_law
+}
+ENG_reset_supseats = {
+	set_variable = {
+		ENG_supseat = 0
+	}
+}
+ENG_set_government_seats = {
+	ENG_set_len_seats_if_available = yes #Sets it if Leninists are in the government or coalition with you
+	ENG_set_revsoc_seats_if_available = yes
+	ENG_set_demsoc_seats_if_available = yes
+	ENG_set_socdem_seats_if_available = yes
+	ENG_set_soclib_seats_if_available = yes
+	ENG_set_marlib_seats_if_available = yes
+	ENG_set_libcon_seats_if_available = yes
+	ENG_set_soccon_seats_if_available = yes
+	ENG_set_aut_seats_if_available = yes
+	ENG_set_autdes_seats_if_available = yes
+	ENG_set_faraut_seats_if_available = yes
+	ENG_set_fascist_seats_if_available = yes
+}
+
+ENG_set_len_seats_if_available = {
+	if = {
+		limit = {
+			Leninist_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_com_seats
+		}
+		ENG_set_len_negotiate_flag = yes
+	}
+}
+ENG_set_revsoc_seats_if_available = {
+	if = {
+		limit = {
+			RevSoc_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_revsoc_seats
+		}
+		ENG_set_revsoc_negotiate_flag = yes
+	}
+}
+ENG_set_demsoc_seats_if_available = {
+	if = {
+		limit = {
+			DemSoc_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_demsoc_seats
+		}
+		ENG_set_demsoc_negotiate_flag = yes
+	}
+}
+ENG_set_socdem_seats_if_available = {
+	if = {
+		limit = {
+			SocDem_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_socdem_seats
+		}
+		ENG_set_socdem_negotiate_flag = yes
+	}
+}
+ENG_set_soclib_seats_if_available = {
+	if = {
+		limit = {
+			SocLib_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_ENG_soclib_seats_seats
+		}
+		ENG_set_soclib_negotiate_flag = yes
+	}
+}
+ENG_set_marlib_seats_if_available = {
+	if = {
+		limit = {
+			MarLib_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_marlib_seats
+		}
+		ENG_set_marlib_negotiate_flag = yes
+	}
+}
+ENG_set_libcon_seats_if_available = {
+	if = {
+		limit = {
+			LibCon_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_libcon_seats
+		}
+		ENG_set_libcon_negotiate_flag = yes
+	}
+}
+ENG_set_soccon_seats_if_available = {
+	if = {
+		limit = {
+			SocCon_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_soccon_seats
+		}
+		ENG_set_soccon_negotiate_flag = yes
+	}
+}
+ENG_set_aut_seats_if_available = {
+	if = {
+		limit = {
+			Aut_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_aut_seats
+		}
+		ENG_set_aut_negotiate_flag = yes
+	}
+}
+ENG_set_autdes_seats_if_available = {
+	if = {
+		limit = {
+			AutDes_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_autdes_seats
+		}
+		ENG_set_autdes_negotiate_flag = yes
+	}
+}
+ENG_set_faraut_seats_if_available = {
+	if = {
+		limit = {
+			FarAut_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_faraut_seats
+		}
+		ENG_set_faraut_negotiate_flag = yes
+	}
+}
+ENG_set_fascist_seats_if_available = {
+	if = {
+		limit = {
+			Fascist_in_Coalition = yes
+		}
+		add_to_variable = {
+			ENG_supseat = ENG_fas_seats
+		}
+		ENG_set_fascist_negotiate_flag = yes
+	}
+}
+
+ENG_lenin_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = communism
+				Leninist_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = eng_parliament.17
+		}
+		ENG_set_len_negotiate_flag = yes
+		set_country_flag = ENG_len_agreed #will be removed, used to signify that the len_negotiate_flag will be removed
+	}
+}
+ENG_revsoc_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = authoritarian_socialism
+				RevSoc_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = eng_parliament.18
+		}
+		ENG_set_revsoc_negotiate_flag = yes
+		set_country_flag = ENG_revsoc_agreed
+	}
+}
+ENG_demsoc_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = socialism
+				DemSoc_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = eng_parliament.19
+		}
+		ENG_set_demsoc_negotiate_flag = yes
+		set_country_flag = ENG_demsoc_agreed
+	}
+}
+ENG_socdem_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = social_democracy
+				SocDem_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = eng_parliament.20
+		}
+		ENG_set_socdem_negotiate_flag = yes
+		set_country_flag = ENG_socdem_agreed
+	}
+}
+ENG_soclib_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = social_liberalism
+				SocLib_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = eng_parliament.21
+		}
+		ENG_set_soclib_negotiate_flag = yes
+		set_country_flag = ENG_soclib_agreed
+	}
+}
+ENG_marlib_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = market_liberalism
+				MarLib_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = eng_parliament.22
+		}
+		ENG_set_marlib_negotiate_flag = yes
+		set_country_flag = ENG_marlib_agreed
+	}
+}
+ENG_libcon_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = jacobin
+				LibCon_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = eng_parliament.23
+		}
+		ENG_set_libcon_negotiate_flag = yes
+		set_country_flag = ENG_libcon_agreed
+	}
+}
+ENG_soccon_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = democratic
+				SocCon_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = eng_parliament.24
+		}
+		ENG_set_soccon_negotiate_flag = yes
+		set_country_flag = ENG_soccon_agreed
+	}
+}
+ENG_faraut_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = nationalism
+				FarAut_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = eng_parliament.25
+		}
+		ENG_set_faraut_negotiate_flag = yes
+		set_country_flag = ENG_faraut_agreed
+	}
+}
+ENG_fascist_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = fascism
+				Fascist_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = eng_parliament.26
+		}
+		ENG_set_fascist_negotiate_flag = yes
+		set_country_flag = ENG_fascist_agreed
+	}
+}
+ENG_clr_negotiated_flags_if_necessary = {
+	ENG_clear_len_flags = yes
+	ENG_clear_revsoc_flags = yes
+	ENG_clear_demsoc_flags = yes
+	ENG_clear_socdem_flags = yes
+	ENG_clear_soclib_flags = yes
+	ENG_clear_marlib_flags = yes
+	ENG_clear_libcon_flags = yes
+	ENG_clear_soccon_flags = yes
+	ENG_clear_aut_flags = yes
+	ENG_clear_autdes_flags = yes
+	ENG_clear_faraut_flags = yes
+	ENG_clear_fascist_flags = yes
+	ENG_clr_negotiating_flag = yes
+}
+ENG_clear_len_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_len = yes
+		}
+		clr_country_flag = ENG_negotiated_with_communists
+	}
+}
+ENG_clear_revsoc_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_revsoc = yes
+		}
+		clr_country_flag = ENG_negotiated_with_revsocs
+	}
+}
+ENG_clear_demsoc_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_demsoc = yes
+		}
+		clr_country_flag = ENG_negotiated_with_demsocs
+	}
+}
+ENG_clear_socdem_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_socdem = yes
+		}
+		clr_country_flag = ENG_negotiated_with_socdems
+	}
+}
+ENG_clear_soclib_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_soclib = yes
+		}
+		clr_country_flag = ENG_negotiated_with_soclibs
+	}
+}
+ENG_clear_marlib_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_marlib = yes
+		}
+		clr_country_flag = ENG_negotiated_with_marlibs
+	}
+}
+ENG_clear_libcon_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_libcon = yes
+		}
+		clr_country_flag = ENG_negotiated_with_libcons
+	}
+}
+ENG_clear_soccon_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_soccon = yes
+		}
+		clr_country_flag = ENG_negotiated_with_tories
+	}
+}
+ENG_clear_aut_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_aut = yes
+		}
+		clr_country_flag = ENG_negotiated_with_tories
+	}
+}
+ENG_clear_autdes_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_autdes = yes
+		}
+		clr_country_flag = ENG_negotiated_with_tories
+	}
+}
+ENG_clear_faraut_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_faraut = yes
+		}
+		clr_country_flag = ENG_negotiated_with_faraut
+	}
+}
+ENG_clear_fascist_flags = {
+	if = {
+		limit = {
+			ENG_need_clear_fascist = yes
+		}
+		clr_country_flag = ENG_negotiated_with_fascists
+	}
+}
+#coalition promises
+ENG_fulfill_coalition_promises = {
+	ENG_fulfill_communist_promises = yes
+	ENG_fulfill_revsoc_promises = yes
+	ENG_fulfill_demsoc_promises = yes
+	ENG_fulfill_socdem_promises = yes
+	ENG_fulfill_soclib_promises = yes
+	ENG_fulfill_marlib_promises = yes
+	ENG_fulfill_libcon_promises = yes
+	ENG_fulfill_soccon_promises = yes
+	ENG_fulfill_faraut_promises = yes
+	ENG_fulfill_fascist_promises = yes
+}
+ENG_fulfill_communist_promises = {
+	if = {
+		limit = {
+			has_country_flag = ENG_promised_communists_high_taxes
+		}
+		ENG_raise_taxes_small = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ENG_promised_communists_welfare
+		}
+		ENG_add_small_welfare_spending = yes
+	}
+}
+ENG_fulfill_revsoc_promises = {
+	if = {
+		limit = {
+			has_country_flag = ENG_promised_revsocs_minimum_wage
+		}
+		ENG_add_small_welfare_spending = yes
+	}
+}
+ENG_fulfill_demsoc_promises = {
+	if = {
+		limit = {
+			has_country_flag = ENG_promised_demsocs_higher_taxes
+		}
+		ENG_raise_taxes_small = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ENG_promised_demsocs_public_works
+		}
+		ENG_add_small_public_works = yes
+	}
+}
+ENG_fulfill_socdem_promises = {
+	if = {
+		limit = {
+			has_country_flag = ENG_promised_socdems_tariffs
+		}
+		ENG_raise_tariffs_small = yes
+	}
+}
+ENG_fulfill_soclib_promises = {
+	if = {
+		limit = {
+			has_country_flag = ENG_promised_soclibs_education
+		}
+		ENG_add_small_education_spending = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ENG_promised_soclibs_free_trade
+		}
+		ENG_lower_tariffs_small = yes
+	}
+}
+ENG_fulfill_marlib_promises = {
+	if = {
+		limit = {
+			has_country_flag = ENG_promised_marlibs_free_trade
+		}
+		ENG_lower_tariffs_small = yes
+	}
+}
+ENG_fulfill_libcon_promises = {
+	if = {
+		limit = {
+			has_country_flag = ENG_promised_libcons_tariffs
+		}
+		ENG_raise_tariffs_small = yes
+	}
+}
+ENG_fulfill_soccon_promises = {
+	if = {
+		limit = {
+			has_country_flag = ENG_promised_tories_tariffs
+		}
+		ENG_raise_tariffs_small = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ENG_promised_tories_welfare
+		}
+		ENG_add_small_welfare_spending = yes
+	}
+}
+ENG_fulfill_faraut_promises = {
+	if = {
+		limit = {
+			has_country_flag = ENG_promised_farauts_tariffs
+		}
+		ENG_raise_tariffs_small = yes
+	}
+}
+ENG_fulfill_fascist_promises = {
+	if = {
+		limit = {
+			has_country_flag = ENG_promised_fascists_tariffs
+		}
+		ENG_raise_tariffs_small = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ENG_promised_fascists_defense_spending
+		}
+		ENG_add_small_defense_spending = yes
+	}
+}
+ENG_vote_lost = {
+	country_event = { id = wgr_parliament.37 } #Event We Lost the Vote!
+}
+ENG_reset_supseat = {
+	set_variable = { ENG_supseat = 0 } #Supseats variable goes back to 0
+}
+add_1_percent_pop = {
+	if = {
+		limit = {
+			has_government = communism
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = authoritarian_socialism
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = socialism
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_democracy
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_liberalism
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = market_liberalism
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = jacobin
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = democratic
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = neutrality
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = monarchism
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = nationalism
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.01
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+	}
+}
+add_2_percent_pop = {
+	if = {
+		limit = {
+			has_government = communism
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = authoritarian_socialism
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = socialism
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_democracy
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_liberalism
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = market_liberalism
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = jacobin
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = democratic
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = neutrality
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = monarchism
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = nationalism
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.02
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.02
+		}
+	}
+}
+add_1_half_percent_pop = {
+	if = {
+		limit = {
+			Leninist_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			RevSoc_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			DemSoc_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.015
+		}
+	}
+	else_if = {
+		limit = {
+			SocDem_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			SocLib_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			MarLib_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			LibCon_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			SocCon_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.015
+		}
+	}
+	else_if = {
+		limit = {
+			SocCon_in_Coalition = no
+			Aut_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			SocCon_in_Coalition = no
+			AutDes_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			FarAut_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.005
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.005
+		}
+	}
+}
+lose_1_percent_pop = {
+	if = {
+		limit = {
+			has_government = communism
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = authoritarian_socialism
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = socialism
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_democracy
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_liberalism
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = market_liberalism
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = jacobin
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = democratic
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = neutrality
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = monarchism
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = nationalism
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.01
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.01
+		}
+	}
+}
+lose_2_percent_pop = {
+	if = {
+		limit = {
+			has_government = communism
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = authoritarian_socialism
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = socialism
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_democracy
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_liberalism
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = market_liberalism
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = jacobin
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = democratic
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = neutrality
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = monarchism
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = nationalism
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.02
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.02
+		}
+	}
+}
+ENG_random_election_changes = {
+	random_list = {
+		25 = { #small labour buff
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.01
+			}
+		}
+		25 = { #small tory buff
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.01
+			}
+		}
+		20 = { #nothing
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.005
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.005
+			}
+			add_popularity = {
+				ideology = social_liberalism
+				popularity = 0.005
+			}
+		}
+		12 = { #moderate labour buff
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.02
+			}
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = 0.01
+			}
+		}
+		12 = { #moderate Tory buff
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.02
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = 0.01
+			}
+		}
+		6 = { #Centre buff
+			add_popularity = {
+				ideology = market_liberalism
+				popularity = 0.015
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = 0.015
+			}
+			add_popularity = {
+				ideology = social_liberalism
+				popularity = 0.015
+			}
+		}
+	}
+}
+
+ENG_land_reform = {
+	if = {
+		limit = {
+			has_idea = ENG_land_reform_idea
+		}
+		modify_timed_idea = {
+			idea = ENG_land_reform_idea
+			days = 60
+		}
+	}
+	else = {
+		add_timed_idea = {
+			idea = ENG_land_reform_idea
+			days = 60
+		}
+	}
+}
+ENG_trigger_industrial_democracy = {
+	if = {
+		limit = {
+			has_completed_focus = ENG_Labour_Nationalize_Infrastructure
+			has_completed_focus = ENG_Labour_Nationalize_Utilities
+		}
+		country_event = {
+			id = eng_internal.32
+			days = 2062
+		}
+	}
+}
+
+ENG_micro_depression_recovery = {
+	if = {
+		limit = {
+			NOT = {
+				has_dynamic_modifier = {
+					modifier = ENG_Great_Depression_2
+				}
+			}
+			has_idea = ENG_Great_Depression
+		}
+		remove_ideas = ENG_Great_Depression
+		set_variable = { ENG_Great_Depresion_stab_var = -0.10 }
+		set_variable = { ENG_Great_Depresion_indus_factory_var = -0.22 }
+		set_variable = { ENG_Great_Depresion_dock_var = -0.20 }
+		set_variable = { ENG_Great_Depresion_building_speed_var = -0.22 }
+		set_variable = { ENG_Great_Depresion_cosumer_goods_var = 0.067 }
+		set_variable = { ENG_Great_Depresion_iterator_var = 1 }
+		add_dynamic_modifier = {
+			modifier = ENG_Great_Depression_2
+		}
+	}
+	if = {
+		limit = {
+			check_variable = { ENG_Great_Depresion_iterator_var < 4 }
+		}
+		add_to_variable = { ENG_Great_Depresion_stab_var = 0.01 }
+		add_to_variable = { ENG_Great_Depresion_indus_factory_var = 0.02 }
+		add_to_variable = { ENG_Great_Depresion_dock_var = 0.02 }
+		add_to_variable = { ENG_Great_Depresion_building_speed_var = 0.02 }
+		subtract_from_variable = { ENG_Great_Depresion_cg_iterator = 0.005 }
+		add_to_variable = { ENG_Great_Depresion_iterator_var = 1 }
+	}
+	else_if = {
+		limit = {
+			has_dynamic_modifier = {
+				modifier = ENG_Great_Depression_2
+			}
+		}
+		remove_dynamic_modifier = {
+			modifier = ENG_Great_Depression_2
+		}
+		add_ideas = ENG_Great_Depression3
+	}
+}
+
+ENG_fix_depression = {
+	hidden_effect = {
+		country_event = {
+			id = eng_internal.34
+			days = 430
+		}
+	}
+}
+ENG_fix_pacifism = {
+	if = {
+		limit = {
+			OR = {
+				has_idea = ENG_Pacifism
+				has_idea = ENG_Pacifism2
+				has_idea = ENG_Pacifism3
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					has_idea = ENG_Pacifism
+				}
+				swap_ideas = {
+					remove_idea = ENG_Pacifism
+					add_idea = ENG_Pacifism2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = ENG_Pacifism2
+				}
+				swap_ideas = {
+					remove_idea = ENG_Pacifism2
+					add_idea = ENG_Pacifism3
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = ENG_Pacifism3
+				}
+				remove_ideas = ENG_Pacifism3
+			}
+			else = {
+				add_war_support = 0.06
+			}
+		}
+		custom_effect_tooltip = ENG_fix_pacifism_tt
+	}
+}
+
+ENG_set_India_Governor_General = {
+	if = {
+		limit = {
+			has_character = RAJ_freeman_freemanthomas
+			RAJ_freeman_freemanthomas = { has_ideology_group = neutrality }
+		}
+		add_country_leader_role = {
+			character = "RAJ_freeman_freemanthomas"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_freeman_freemanthomas"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_freeman_freemanthomas"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_freeman_freemanthomas"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_freeman_freemanthomas"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberal_nationalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_freeman_freemanthomas"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_conservatism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_freeman_freemanthomas"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_character = RAJ_victor_alexander_hope
+			RAJ_victor_alexander_hope = { has_ideology_group = neutrality }
+		}
+		add_country_leader_role = {
+			character = "RAJ_victor_alexander_hope"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_victor_alexander_hope"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_victor_alexander_hope"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_victor_alexander_hope"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_victor_alexander_hope"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberal_nationalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_victor_alexander_hope"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_conservatism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_victor_alexander_hope"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_character = ENG_archibald_wavell
+			ENG_archibald_wavell = { has_ideology_group = neutrality }
+		}
+		add_country_leader_role = {
+			character = "ENG_archibald_wavell"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_archibald_wavell"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_archibald_wavell"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_archibald_wavell"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_archibald_wavell"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberal_nationalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_archibald_wavell"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_conservatism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_archibald_wavell"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_character = ENG_louis_mountbatten
+			ENG_louis_mountbatten = { has_ideology_group = neutrality }
+		}
+		add_country_leader_role = {
+			character = "ENG_louis_mountbatten"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_louis_mountbatten"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_louis_mountbatten"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_louis_mountbatten"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_louis_mountbatten"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberal_nationalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_louis_mountbatten"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_conservatism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "ENG_louis_mountbatten"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_character = RAJ_atul_chandra_chatterjee
+			RAJ_atul_chandra_chatterjee = { has_ideology_group = neutrality }
+		}
+		add_country_leader_role = {
+			character = "RAJ_atul_chandra_chatterjee"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_atul_chandra_chatterjee"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_atul_chandra_chatterjee"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_atul_chandra_chatterjee"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_atul_chandra_chatterjee"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberal_nationalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_atul_chandra_chatterjee"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_conservatism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_atul_chandra_chatterjee"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_character = RAJ_ganga_singh
+			RAJ_ganga_singh = { has_ideology_group = neutrality }
+		}
+		add_country_leader_role = {
+			character = "RAJ_ganga_singh"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_ganga_singh"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_ganga_singh"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_ganga_singh"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_ganga_singh"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberal_nationalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_ganga_singh"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_conservatism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "RAJ_ganga_singh"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+			}
+		}
+	}
+}

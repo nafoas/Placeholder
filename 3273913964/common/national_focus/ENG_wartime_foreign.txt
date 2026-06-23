@@ -1,0 +1,707 @@
+# focuses here
+#s_team337
+shared_focus = {
+	id = ENG_War_Foreign_Germany
+	icon = GFX_focus_Arrest_Nazis2
+	#prerequisite = { focus = ENG_War_Foreign_Germany }
+	x = 34
+	y = 4
+	#relative_position_id = ENG_War_Foreign_Germany
+	cost = 2.86
+	ai_will_do = {
+		factor = 1000
+	}
+	available = {
+		OR = {
+			has_war_with = DDR
+			has_war_with = WGR
+			has_war_with = GER
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				OR = {
+					has_war_with = WGR
+					has_war_with = DDR
+					has_war_with = GER
+				}
+			}
+			every_country = {
+				limit = {
+					has_war_together_with = ROOT
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = ENG_same_side
+				}
+			}
+		}
+		else = {
+			custom_effect_tooltip = ENG_need_war_ger
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_USSR
+	icon = GFX_focus_Spear_the_Bear
+	#prerequisite = { focus = ENG_War_Foreign_Germany }
+	x = 38
+	y = 4
+	#relative_position_id = ENG_War_Foreign_Germany
+	cost = 2.86
+	ai_will_do = {
+		factor = 1000
+	}
+	available = {
+		has_war_with = SOV
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_war_with = SOV
+			}
+			every_country = {
+				limit = {
+					has_war_together_with = ROOT
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = ENG_same_side
+				}
+			}
+		}
+		else = {
+			custom_effect_tooltip = ENG_need_war_sov
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_Anti_Soviet
+	icon = GFX_focus_Gulags
+	prerequisite = { focus = ENG_War_Foreign_USSR }
+	x = -1
+	y = 1
+	relative_position_id = ENG_War_Foreign_USSR
+	cost = 3.58
+	ai_will_do = {
+		factor = 1000
+	}
+	available = {
+		has_war_with = SOV
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = communism
+			popularity = -0.03
+		}
+		ENG_fix_pacifism = yes
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_Relations_with_Turkey
+	icon = GFX_focus_Befriend_Turkey
+	prerequisite = {
+		focus = ENG_War_Foreign_Anti_Soviet
+	}
+	x = 0
+	y = 1
+	relative_position_id = ENG_War_Foreign_Anti_Soviet
+	cost = 2.15
+	ai_will_do = {
+		factor = 220
+	}
+	available = {
+		has_war_with = SOV
+	}
+	bypass = {
+		TUR = {
+			OR = {
+				has_war_with = ROOT
+				has_government = communism
+				is_subject = yes
+				exists = no
+			}
+		}
+	}
+	completion_reward = {
+		reverse_add_opinion_modifier = {
+			target = TUR
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = TUR
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_Invade_Afghanistan2
+	icon = GFX_focus_Colonial_Conquests
+	prerequisite = {
+		focus = ENG_War_Foreign_Relations_with_Turkey
+	}
+	x = -1
+	y = 2
+	relative_position_id = ENG_War_Foreign_Anti_Soviet
+	cost = 2.15
+	ai_will_do = {
+		factor = 220
+	}
+	available = {
+		has_war_with = SOV
+	}
+	bypass = {
+		AFG = {
+			OR = {
+				has_war_with = ROOT
+				has_government = communism
+				is_subject = yes
+				exists = no
+				has_war_together_with = ROOT
+				is_in_faction_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		create_wargoal = {
+			target = AFG
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_Invade_Iran2
+	icon = GFX_focus_Bullish_Diplomacy
+	prerequisite = {
+		focus = ENG_War_Foreign_Relations_with_Turkey
+	}
+	x = 1
+	y = 2
+	relative_position_id = ENG_War_Foreign_Anti_Soviet
+	cost = 2.15
+	ai_will_do = {
+		factor = 220
+	}
+	available = {
+		has_war_with = SOV
+	}
+	bypass = {
+		PER = {
+			OR = {
+				has_war_with = ROOT
+				has_government = communism
+				is_subject = yes
+				exists = no
+				has_war_together_with = ROOT
+				is_in_faction_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		create_wargoal = {
+			target = PER
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_Russian_Emigres
+	icon = GFX_focus_Return_of_the_Whites_2
+	prerequisite = {
+		focus = ENG_War_Foreign_Invade_Afghanistan2
+	}
+	prerequisite = {
+		focus = ENG_War_Foreign_Invade_Iran2
+	}
+	x = 0
+	y = 3
+	relative_position_id = ENG_War_Foreign_Anti_Soviet
+	cost = 4.29
+	ai_will_do = {
+		factor = 340
+	}
+	available = {
+		has_war_with = SOV
+		controls_state = 127
+	}
+	bypass = {
+		country_exists = RUS
+	}
+	completion_reward = {
+		hidden_effect = {
+			load_oob = "ENG_anti_communist_russians"
+		}
+		custom_effect_tooltip = ENG_russian_militia
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_Access_in_Norway
+	icon = GFX_focus_Norwegian_Intervention
+	prerequisite = {
+		focus = ENG_War_Foreign_USSR
+	}
+	x = 2
+	y = 1
+	relative_position_id = ENG_War_Foreign_USSR
+	cost = 2.86
+	ai_will_do = {
+		factor = 130
+		modifier = {
+			SOV = {
+				has_war_with = FIN
+			}
+			factor = 10
+		}
+		modifier = {
+			SOV = {
+				OR = {
+					has_war_together_with = FIN
+					controls_state = 722
+					controls_state = 148
+				}
+			}
+			factor = 1.5
+		}
+	}
+	available = {
+		has_war_with = SOV
+		date > 1940.6.1
+		SOV = {
+			OR = {
+				has_war_with = FIN
+				has_war_together_with = FIN
+				controls_state = 722
+				controls_state = 148
+			}
+		}
+	}
+	bypass = {
+		NOR = {
+			OR = {
+				has_war_with = ROOT
+				is_subject = yes
+				exists = no
+				has_war_together_with = ROOT
+				is_in_faction_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				NOR = {
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+			create_wargoal = {
+				target = NOR
+				type = annex_everything
+			}
+		}
+		else = {
+			NOR = {
+				country_event = {
+					id = eng_foreign.25
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_Summit_with_Sweden
+	icon = GFX_focus_Befriend_Sweden
+	prerequisite = {
+		focus = ENG_War_Foreign_Access_in_Norway
+	}
+	mutually_exclusive = {
+		focus = ENG_War_Foreign_Swedish_Intervention
+	}
+	x = 1
+	y = 2
+	relative_position_id = ENG_War_Foreign_USSR
+	cost = 2.86
+	ai_will_do = {
+		factor = 280
+		modifier = {
+			SOV = {
+				has_war_with = FIN
+			}
+			factor = 10
+		}
+		modifier = {
+			SOV = {
+				OR = {
+					has_war_together_with = FIN
+					controls_state = 722
+					controls_state = 148
+				}
+			}
+			factor = 1.5
+		}
+	}
+	available = {
+		has_war_with = SOV
+		date > 1940.6.1
+		SOV = {
+			OR = {
+				has_war_with = FIN
+				has_war_together_with = FIN
+				controls_state = 722
+				controls_state = 148
+			}
+		}
+	}
+	bypass = {
+		SWE = {
+			OR = {
+				has_war_with = ROOT
+				is_subject = yes
+				exists = no
+				has_war_together_with = ROOT
+				is_in_faction_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		reverse_add_opinion_modifier = {
+			target = SWE
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = SWE
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_Swedish_Intervention
+	icon = GFX_focus_Human_Wave_Charges
+	prerequisite = {
+		focus = ENG_War_Foreign_Access_in_Norway
+	}
+	mutually_exclusive = {
+		focus = ENG_War_Foreign_Summit_with_Sweden
+	}
+	x = 3
+	y = 2
+	relative_position_id = ENG_War_Foreign_USSR
+	cost = 2.86
+	ai_will_do = {
+		factor = 280
+		modifier = {
+			SOV = {
+				has_war_with = FIN
+			}
+			factor = 10
+		}
+		modifier = {
+			SOV = {
+				OR = {
+					has_war_together_with = FIN
+					controls_state = 722
+					controls_state = 148
+				}
+			}
+			factor = 1.5
+		}
+	}
+	available = {
+		has_war_with = SOV
+		date > 1940.6.1
+		SOV = {
+			OR = {
+				has_war_with = FIN
+				has_war_together_with = FIN
+				controls_state = 722
+				controls_state = 148
+			}
+		}
+	}
+	bypass = {
+		SWE = {
+			OR = {
+				has_war_with = ROOT
+				is_subject = yes
+				exists = no
+				has_war_together_with = ROOT
+				is_in_faction_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				SWE = {
+					has_government = communism
+				}
+			}
+			create_wargoal = {
+				target = SWE
+				type = annex_everything
+			}
+		}
+		else = {
+			SWE = {
+				country_event = {
+					id = eng_foreign.25
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_Invite_Finland
+	icon = GFX_focus_Finland_Officers
+	prerequisite = {
+		focus = ENG_War_Foreign_Summit_with_Sweden
+		focus = ENG_War_Foreign_Swedish_Intervention
+	}
+	x = 2
+	y = 3
+	relative_position_id = ENG_War_Foreign_USSR
+	cost = 1.43
+	ai_will_do = {
+		factor = 280
+		modifier = {
+			SOV = {
+				has_war_with = FIN
+			}
+			factor = 10
+		}
+		modifier = {
+			SOV = {
+				OR = {
+					controls_state = 722
+					controls_state = 148
+				}
+			}
+			factor = 1.5
+		}
+	}
+	available = {
+		has_war_with = SOV
+		date > 1940.6.1
+		SOV = {
+			has_war_with = FIN
+		}
+	}
+	bypass = {
+		FIN = {
+			OR = {
+				has_war_with = ROOT
+				is_subject = yes
+				exists = no
+				has_war_together_with = ROOT
+				is_in_faction_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		FIN = {
+			country_event = {
+				id = eng_foreign.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_Allied_Forces
+	icon = GFX_focus_Well_Meet_Again
+	prerequisite = {
+		focus = ENG_War_Foreign_Germany
+		focus = ENG_War_Foreign_USSR
+	}
+	x = -3
+	y = 1
+	relative_position_id = ENG_War_Foreign_USSR
+	cost = 1.43
+	ai_will_do = {
+		factor = 280
+		modifier = {
+			date > 1940.12.1
+			factor = 10
+		}
+	}
+	available = {
+		has_war = yes
+		custom_trigger_tooltip = {
+			tooltip = ENG_exiled_governments
+			OR = {
+				AND = {
+					is_exile_host = yes
+					has_dlc = "Man the Guns"
+				}
+				any_country = {
+					is_in_faction_with = ROOT
+					has_capitulated = yes
+				}
+			}
+		}
+	}
+	bypass = {
+		custom_trigger_tooltip = {
+			tooltip = ENG_exiled_governments_no
+			NOT = {
+				OR = {
+					AND = {
+						is_exile_host = yes
+						has_dlc = "Man the Guns"
+					}
+					any_country = {
+						is_in_faction_with = ROOT
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+		date > 1942.1.1
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_dlc = "Man the Guns"
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_exiled_in = ROOT
+					}
+					add_ideas = ENG_allied_forces_idea
+				}
+			}
+			custom_effect_tooltip = ENG_allied_forces_act
+		}
+		else = {
+			add_manpower = 4500
+			army_experience = 15
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_US_Lend_Lease
+	icon = GFX_focus_Befriend_USA
+	prerequisite = {
+		focus = ENG_War_Foreign_Germany
+		focus = ENG_War_Foreign_USSR
+	}
+	x = -5
+	y = 1
+	relative_position_id = ENG_War_Foreign_USSR
+	cost = 2.86
+	ai_will_do = {
+		factor = 332
+		modifier = {
+			date > 1940.12.1
+			factor = 10
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+		USA = {
+			OR = {
+				has_war_with = ROOT
+				is_subject = yes
+				exists = no
+				has_war_together_with = ROOT
+				is_in_faction_with = ROOT
+				has_government = fascism
+				has_government = nationalism
+				has_government = communism
+			}
+		}
+	}
+	completion_reward = {
+		reverse_add_opinion_modifier = {
+			target = USA
+			modifier = ENG_talks
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = ENG_talks
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_Tizard_Mission
+	icon = GFX_focus_Shi_Stolen_Secrets
+	prerequisite = {
+		focus = ENG_War_Foreign_US_Lend_Lease
+	}
+	x = -5
+	y = 2
+	relative_position_id = ENG_War_Foreign_USSR
+	cost = 5
+	ai_will_do = {
+		factor = 332
+		modifier = {
+			date > 1940.12.1
+			factor = 10
+		}
+	}
+	available = {
+		has_war = yes
+	}
+	bypass = {
+		USA = {
+			OR = {
+				has_war_with = ROOT
+				is_subject = yes
+				exists = no
+				has_government = fascism
+				has_government = nationalism
+				has_government = communism
+			}
+		}
+	}
+	completion_reward = {
+		USA = {
+			country_event = {
+				id = eng_foreign.31
+			}
+		}
+	}
+}
+shared_focus = {
+	id = ENG_War_Foreign_US_Forces_Act
+	icon = GFX_focus_American_Army_Seal
+	prerequisite = {
+		focus = ENG_War_Foreign_Tizard_Mission
+	}
+	prerequisite = {
+		focus = ENG_War_Foreign_Allied_Forces
+	}
+	x = -4
+	y = 3
+	relative_position_id = ENG_War_Foreign_USSR
+	cost = 2.15
+	ai_will_do = {
+		factor = 332
+		modifier = {
+			date < 1942.5.1
+			factor = 0
+		}
+	}
+	available = {
+		has_war_together_with = USA
+	}
+	bypass = {
+	}
+	completion_reward = {
+		reverse_add_opinion_modifier = {
+			target = USA
+			modifier = ENG_us_forces_act
+		}
+	}
+}

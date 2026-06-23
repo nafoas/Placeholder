@@ -1,0 +1,993 @@
+# focuses here
+#s_team337
+
+shared_focus = {
+	id = GEN_MONARCHY_POL_start
+	icon = GFX_focus_Crown_a_king
+	dynamic = yes
+	#prerequisite = { focus = GEN_MONARCHY_POL_start }
+	x = 7
+	y = 0
+	#relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		OR = {
+			has_government = monarchism
+			has_government = democratic
+			has_government = neutrality
+			has_government = nationalism
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 75
+	}
+}
+#civil service section
+shared_focus = {
+	id = GEN_MONARCHY_POL_Purge_Bureaucracy
+	icon = GFX_focus_Civillian_Purges
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_start
+	}
+	x = -6
+	y = 1
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.04
+		}
+		add_timed_idea = {
+			idea = GEN_Recent_Purges
+			days = 90
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Meritocracy
+	icon = GFX_manage_administration
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Purge_Bureaucracy
+	}
+	mutually_exclusive = {
+		focus = GEN_MONARCHY_POL_Privaleged_Bureaucracy
+	}
+	x = -7
+	y = 2
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 40
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Privaleged_Bureaucracy
+	icon = GFX_focus_Agriculture_2
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Purge_Bureaucracy
+	}
+	mutually_exclusive = {
+		focus = GEN_MONARCHY_POL_Meritocracy
+	}
+	x = -5
+	y = 2
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.05
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Western_System
+	icon = GFX_focus_Foreign_Diplomacy
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Meritocracy
+	}
+	mutually_exclusive = {
+		focus = GEN_MONARCHY_POL_Our_Own_Way
+	}
+	x = -7
+	y = 3
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_western_bureaucracy
+			days = 365
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Our_Own_Way
+	icon = GFX_focus_Collaborate_with_Local_Elites
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Meritocracy
+		focus = GEN_MONARCHY_POL_Privaleged_Bureaucracy
+	}
+	mutually_exclusive = {
+		focus = GEN_MONARCHY_POL_Western_System
+	}
+	x = -5
+	y = 3
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_local_bureaucracy
+			days = 365
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Purge_Radicals
+	icon = GFX_focus_Civil_Unrest
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Western_System
+		focus = GEN_MONARCHY_POL_Our_Own_Way
+	}
+	x = -6
+	y = 4
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+		NOT = {
+			communism > 0.04
+			authoritarian_socialism > 0.04
+			socialism > 0.04
+			social_democracy > 0.04
+			social_liberalism > 0.04
+			market_liberalism > 0.04
+			jacobin > 0.04
+			fascism > 0.04
+		}
+	}
+	completion_reward = {
+		add_political_power = 30
+		add_stability = -0.03
+		if = {
+			limit = {
+				communism > 0.04
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = -0.03
+			}
+		}
+		if = {
+			limit = {
+				authoritarian_socialism > 0.04
+			}
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = -0.03
+			}
+		}
+		if = {
+			limit = {
+				socialism > 0.04
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = -0.03
+			}
+		}
+		if = {
+			limit = {
+				social_democracy > 0.04
+			}
+			add_popularity = {
+				ideology = social_democracy
+				popularity = -0.03
+			}
+		}
+		if = {
+			limit = {
+				social_liberalism > 0.04
+			}
+			add_popularity = {
+				ideology = social_liberalism
+				popularity = -0.03
+			}
+		}
+		if = {
+			limit = {
+				market_liberalism > 0.04
+			}
+			add_popularity = {
+				ideology = market_liberalism
+				popularity = -0.03
+			}
+		}
+		if = {
+			limit = {
+				jacobin > 0.04
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = -0.03
+			}
+		}
+		if = {
+			limit = {
+				fascism > 0.04
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.03
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Place_For_The_Military
+	icon = GFX_focus_Military_Government
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Purge_Radicals
+	}
+	x = -7
+	y = 5
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 40
+		add_stability = 0.04
+		add_war_support = 0.02
+		add_timed_idea = {
+			idea = GEN_military_influence
+			days = 365
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Police
+	icon = GFX_focus_Enlist_the_Police
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Purge_Radicals
+	}
+	x = -5
+	y = 5
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.05
+		add_political_power = -25
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Judges
+	icon = GFX_focus_Judicial_System
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Police
+	}
+	x = -5
+	y = 6
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 50
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.035
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Monarchy_Survives
+	icon = GFX_focus_Triumphant_Will
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Place_For_The_Military
+	}
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Judges
+	}
+	x = -6
+	y = 7
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 75
+	}
+}
+#Ideology
+shared_focus = {
+	id = GEN_MONARCHY_POL_Modern_Structures
+	icon = GFX_focus_Investigate_Corruption
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_start
+	}
+	mutually_exclusive = {
+		focus = GEN_MONARCHY_POL_Traditional_Structures
+	}
+	x = -1
+	y = 1
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_reformist
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Traditional_Structures
+	icon = GFX_focus_Common_Identity
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_start
+	}
+	mutually_exclusive = {
+		focus = GEN_MONARCHY_POL_Modern_Structures
+	}
+	x = 1
+	y = 1
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_reactionary
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Curtail_Nobility
+	icon = GFX_focus_Crush_the_Monarchy
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Modern_Structures
+	}
+	x = -1
+	y = 2
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 40
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.02
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Curtail_Clergy
+	icon = GFX_focus_Secularism
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Modern_Structures
+	}
+	x = -2
+	y = 3
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 30
+		add_stability = -0.02
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.02
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Empower_Nobility
+	icon = GFX_focus_Nobility
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Traditional_Structures
+	}
+	x = 1
+	y = 2
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.04
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.02
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Empower_Clergy
+	icon = GFX_focus_Mosques
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Traditional_Structures
+	}
+	x = 2
+	y = 3
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_stability = 0.05
+		add_political_power = -10
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.02
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Glory_to_the_Monarch
+	icon = GFX_focus_Coronation
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Curtail_Nobility
+		focus = GEN_MONARCHY_POL_Empower_Nobility
+	}
+	x = 0
+	y = 3
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 30
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.06
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Social_Modernization
+	icon = GFX_focus_Rose_of_Democracy
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Curtail_Clergy
+	}
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Glory_to_the_Monarch
+	}
+	x = -1
+	y = 4
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_social_modern
+			days = 365
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Social_Reaction
+	icon = GFX_focus_Anti_Democracy
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Glory_to_the_Monarch
+	}
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Empower_Clergy
+	}
+	x = 1
+	y = 4
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_social_backwards
+			days = 365
+		}
+	}
+}
+#Economic
+shared_focus = {
+	id = GEN_MONARCHY_POL_Economy
+	icon = GFX_focus_Economic_Self_Reliance
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_start
+	}
+	x = 6
+	y = 1
+	relative_position_id = GEN_MONARCHY_POL_start
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 50
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Modern_Economy
+	icon = GFX_focus_Industrialization
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Economy
+	}
+	mutually_exclusive = {
+		focus = GEN_MONARCHY_POL_Traditional_Economy
+	}
+	x = -1
+	y = 1
+	relative_position_id = GEN_MONARCHY_POL_Economy
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_modern_economy
+			days = 730
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Statism
+	icon = GFX_focus_Control_the_Economy
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Modern_Economy
+	}
+	mutually_exclusive = {
+		focus = GEN_MONARCHY_POL_Free_Market
+	}
+	x = -2
+	y = 2
+	relative_position_id = GEN_MONARCHY_POL_Economy
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_economic_statism
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Protectionism
+	icon = GFX_focus_Protectionism
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Statism
+	}
+	x = -2
+	y = 3
+	relative_position_id = GEN_MONARCHY_POL_Economy
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		MOVE_DOWN_TRADE2 = yes
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Free_Market
+	icon = GFX_focus_Business_Men
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Modern_Economy
+	}
+	mutually_exclusive = {
+		focus = GEN_MONARCHY_POL_Statism
+	}
+	x = 0
+	y = 2
+	relative_position_id = GEN_MONARCHY_POL_Economy
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_free_market
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Imports
+	icon = GFX_focus_Free_Trade
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Free_Market
+	}
+	x = 0
+	y = 3
+	relative_position_id = GEN_MONARCHY_POL_Economy
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		MOVE_UP_TRADE = yes
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Education
+	icon = GFX_focus_Education_Reform
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Protectionism
+		focus = GEN_MONARCHY_POL_Imports
+	}
+	x = -1
+	y = 4
+	relative_position_id = GEN_MONARCHY_POL_Economy
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		#TODO
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Traditional_Economy
+	icon = GFX_focus_Bread_Trade
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Economy
+	}
+	mutually_exclusive = {
+		focus = GEN_MONARCHY_POL_Modern_Economy
+	}
+	x = 1
+	y = 1
+	relative_position_id = GEN_MONARCHY_POL_Economy
+	cost = 8
+	ai_will_do = {
+		factor = 2
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GEN_traditional_economy
+			days = 730
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Feudal_System
+	icon = GFX_focus_Redraw_Admin_Borders
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Traditional_Economy
+	}
+	x = 2
+	y = 2
+	relative_position_id = GEN_MONARCHY_POL_Economy
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GEN_feudal_agriculture
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Military
+	icon = GFX_focus_Buy_Foreign_Weapons
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Feudal_System
+	}
+	x = 2
+	y = 3
+	relative_position_id = GEN_MONARCHY_POL_Economy
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = -40
+		add_offsite_building = {
+			type = arms_factory
+			level = 1
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Agrarianism
+	icon = GFX_focus_Agriculture
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Military
+	}
+	x = 1
+	y = 4
+	relative_position_id = GEN_MONARCHY_POL_Economy
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+		NOT = {
+			has_idea = GEN_traditional_economy
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GEN_feudal_agriculture
+			add_idea = GEN_feudal_agriculture2
+		}
+	}
+}
+shared_focus = {
+	id = GEN_MONARCHY_POL_Central_Bank
+	icon = GFX_focus_found_the_investment_bank
+	dynamic = yes
+	prerequisite = {
+		focus = GEN_MONARCHY_POL_Education
+		focus = GEN_MONARCHY_POL_Agrarianism
+	}
+	x = 0
+	y = 5
+	relative_position_id = GEN_MONARCHY_POL_Economy
+	cost = 8
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_government = monarchism
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}

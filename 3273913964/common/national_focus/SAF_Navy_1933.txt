@@ -1,0 +1,248 @@
+	shared_focus = {
+		id = SAF_Review_Navy_1933
+		icon = GFX_focus_admiralty
+		prerequisite = { }
+		available = {
+			has_country_flag = SAF_Depression_Over_flag
+		has_country_flag = SAF_United_Party_formed
+			}
+		x = 52
+		y = 0
+		cost = 1
+		available = {
+			}
+		completion_reward = {
+			navy_experience = 10
+			}
+	}
+	shared_focus = {
+		id = SAF_Dismantle_The_Navy
+		icon = GFX_focus_Naval_Purges
+		prerequisite = { focus = SAF_Review_Navy_1933 }
+		available = {
+		
+			}
+		mutually_exclusive = { focus = SAF_Maintain_The_Navy }
+		x = -1
+		y = 1
+		relative_position_id = SAF_Review_Navy_1933
+		cost = 2
+		available = {
+			}
+		completion_reward = {
+			add_stability = -0.03
+			add_political_power = 15
+			}
+	}
+	shared_focus = {
+		id = SAF_Sell_Vessels
+		icon = GFX_focus_Price_Reductions
+		prerequisite = { focus = SAF_Dismantle_The_Navy }
+		available = {
+			}
+		mutually_exclusive = {  }
+		x = -3
+		y = 2
+		relative_position_id = SAF_Review_Navy_1933
+		cost = 2
+		available = {
+			}
+		completion_reward = {
+			add_political_power = 15
+			navy_experience = -3
+			}
+	}
+	shared_focus = {
+		id = SAF_Downsize_Defenses
+		icon = GFX_focus_Reduce_Military_Budget
+		prerequisite = { focus = SAF_Dismantle_The_Navy }
+		available = {
+			}
+		mutually_exclusive = {  }
+		x = -1
+		y = 2
+		relative_position_id = SAF_Review_Navy_1933
+		cost = 3
+		available = {
+			}
+		completion_reward = {
+			add_political_power = 15
+			navy_experience = -3
+			681 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = industrial_complex
+								size > 1
+								include_locked = yes
+							}
+						}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		}
+	}
+	shared_focus = {
+		id = SAF_Towards_Civilian_Use
+		icon = GFX_focus_Passenger_Cruiser_4
+		prerequisite = { focus = SAF_Downsize_Defenses }
+		prerequisite = { focus = SAF_Sell_Vessels }
+		available = {
+			}
+		mutually_exclusive = {  }
+		x = -2
+		y = 3
+		relative_position_id = SAF_Review_Navy_1933
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+			add_political_power = 30
+			add_timed_idea = {
+				idea = SAF_Civilian_Focused_Navy
+				days = 365
+			}
+			
+		}
+	}
+	shared_focus = {
+		id = SAF_Coastal_Patrol_Navy
+		icon = GFX_focus_Torpedo_Boats
+		prerequisite = { focus = SAF_Towards_Civilian_Use }
+		available = {
+			}
+		mutually_exclusive = {  }
+		x = -2
+		y = 4
+		relative_position_id = SAF_Review_Navy_1933
+		cost = 3
+		available = {
+			}
+		completion_reward = {
+				add_ideas = SAF_Coastal_Patrol_Fleet
+			}
+	}
+	shared_focus = {
+		id = SAF_Maintain_The_Navy
+		icon = GFX_focus_naval_reform
+		prerequisite = { focus = SAF_Review_Navy_1933 }
+		available = {
+		
+			}
+		mutually_exclusive = { focus = SAF_Dismantle_The_Navy }
+		x = 1
+		y = 1
+		relative_position_id = SAF_Review_Navy_1933
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			add_stability = 0.03
+			add_political_power = -15
+			}
+	}
+	shared_focus = {
+		id = SAF_Buy_British_Vessels
+		icon = GFX_Goal_Generic_Refit_Destroyers
+		prerequisite = { focus = SAF_Maintain_The_Navy }
+		available = {
+			}
+		mutually_exclusive = {  }
+		x = 1
+		y = 2
+		relative_position_id = SAF_Review_Navy_1933
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+			add_political_power = -15
+			custom_effect_tooltip = SAF_buy_british_vessels_tt
+			set_country_flag = SAF_Buying_Boats
+			}
+	}
+	shared_focus = {
+		id = SAF_Improve_Simons_Town
+		icon = GFX_focus_Naval_Effort
+		prerequisite = { focus = SAF_Maintain_The_Navy }
+		available = {
+			}
+		mutually_exclusive = {  }
+		x = 3
+		y = 2
+		relative_position_id = SAF_Review_Navy_1933
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+			add_political_power = -25
+			681 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					province = 12589
+					instant_build = yes
+					}
+				}
+			681 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = dockyard
+								size > 1
+								include_locked = yes
+							}
+						}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		}
+	}
+	shared_focus = {
+		id = SAF_Sailors_British_Schools
+		icon = GFX_Focus_British_Navy
+		prerequisite = { focus = SAF_Improve_Simons_Town }
+		prerequisite = { focus = SAF_Buy_British_Vessels }
+		available = {
+			}
+		mutually_exclusive = {  }
+		x = 2
+		y = 3
+		relative_position_id = SAF_Review_Navy_1933
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			add_political_power = -30
+			add_timed_idea = {
+				idea = SAF_British_Naval_Schools_Idea
+				days = 365
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Naval_Service_Expand
+		icon = GFX_focus_Freedom_of_the_Seas
+		prerequisite = { focus = SAF_Sailors_British_Schools }
+		available = {
+			}
+		mutually_exclusive = {  }
+		x = 2
+		y = 4
+		relative_position_id = SAF_Review_Navy_1933
+		cost = 6
+		available = {
+			}
+		completion_reward = {
+			add_ideas = SAF_Expanded_Naval_Service
+			}
+	}

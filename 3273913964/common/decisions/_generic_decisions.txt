@@ -1,0 +1,1936 @@
+political_actions = {
+	
+	GEN_join_allies_other = {
+		allowed = { 
+			OR = {
+				tag = NOR
+				tag = GRE
+				tag = YUG
+				tag = POL
+			}
+		}
+		fire_only_once = yes
+		icon = generic_army_support
+		visible = {
+			has_capitulated = no
+			ENG = { exists = yes }
+			NOT = { has_war_with = ENG }
+			is_in_faction = no
+			is_puppet = no
+			has_war = yes
+			if = {
+				limit = { tag = POL }
+				OR = {
+					AND = {
+						has_war_with = GER
+						ENG = { has_war_with = GER }
+					}
+					AND = {
+						has_war_with = SOV
+						ENG = { has_war_with = SOV }
+					}
+				}
+			}
+		}
+		cosmetic_tag = ENG
+		cosmetic_ideology = democratic
+		available = {
+			threat > 0.3
+			ENG = { is_faction_leader = yes }			
+			has_war_together_with = ENG
+			if = {
+				limit = { tag = NOR }
+				has_completed_focus = NOR_british_ties
+			}				
+		}
+		ai_will_do = { 	
+			base = 100
+			modifier = {
+				factor = 0
+				has_defensive_war = no
+			}
+		}
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Selected decision GEN_join_allies_other"
+			if = {
+				limit = { tag = POL }
+				ENG = { add_to_faction = POL }
+			}
+			else = {
+				ENG = { country_event = { id = genf.1 } }
+			}
+		}
+
+	}
+
+	GEN_join_japan_other = {
+		allowed = { 
+			OR = {
+				tag = SIA
+			}
+		}
+		fire_only_once = yes
+		icon = generic_army_support
+		visible = {
+			JAP = { exists = yes }
+			NOT = { has_war_with = JAP }
+			is_in_faction = no
+			has_war = yes
+			if = {
+				limit = {
+					tag = SIA
+				}
+				date > 1941.12.08
+			}
+		}
+		cosmetic_tag = JAP
+		cosmetic_ideology = neutrality
+		available = {
+			threat > 0.3
+			JAP = { is_faction_leader = yes }			
+			has_war_together_with = JAP
+		}
+		ai_will_do = { 	
+			base = 100
+			modifier = {
+				factor = 0
+				has_defensive_war = no
+			}
+		}
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Selected decision GEN_join_japan_other"
+			JAP = { country_event = { id = genf.1 } }
+		}
+
+	}
+	
+	SPR_join_allies = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = SPR
+		}
+		available = {
+			NOT = { has_government = communism }
+			ALY = { 
+				is_faction_leader = yes
+				has_democratic_government = yes
+			}
+			NOT = { has_war_with = ALY }
+			OR = {
+				scw_not_in_progress = yes
+				scr_not_in_progress = yes
+			}
+			# date > 1936.10.01
+			OR = {	
+				ITA = {
+					not_has_democratic_government = yes
+					has_capitulated = no
+					has_war_with = SPR
+					has_war_with = ALY
+				}	
+				GER = {
+					not_has_democratic_government = yes
+					has_capitulated = no
+					has_war_with = SPR
+					has_war_with = ALY
+				}
+				SPR = {
+					any_enemy_country = {
+						OR = {
+							is_in_faction_with = GER
+							is_in_faction_with = ITA
+							is_subject_of = GER
+							is_subject_of = ITA
+						}
+						has_war_with = ALY
+					}
+				}
+			}
+		}
+		visible = {
+			is_in_faction = no
+			is_puppet = no
+			# ALY = {
+			# 	OR = {
+			# 		has_war_with = GER
+			# 		has_war_with = ITA
+			# 	}
+			# }
+			# any_enemy_country = {
+			# 	is_major = yes
+			# }
+		}
+		fire_only_once = yes
+		cost = 0
+		complete_effect = {
+			ALY = { country_event = { id = spain.115 hours = 6 } }
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+	
+	# SPR_join_france = {
+	# 	icon = generic_political_discourse
+	# 	allowed = {
+	# 		tag = SPR
+	# 	}
+	# 	available = {
+	# 		FRA = { 
+	# 			is_faction_leader = yes
+	# 			NOT = {
+	# 			   OR = {
+	# 					has_government = fascism
+	# 					has_government = communism
+	# 					has_government = authoritarian_socialism
+	# 					has_government = nationalism
+	# 					has_government = monarchism
+	# 				}
+	# 			}
+	# 		}
+	# 		NOT = { is_in_faction = yes }
+	# 		NOT = { has_war_with = FRA }
+	# 		NOT = { has_global_flag = scw_ongoing }
+	# 		date > 1936.10.01
+	# 		OR = {
+	# 			ENG = {
+	# 				OR = {
+	# 					has_government = fascism
+	# 					has_government = communism
+	# 					has_government = authoritarian_socialism
+	# 					has_government = nationalism
+	# 					has_government = monarchism
+	# 				}
+	# 			}
+	# 			GER = {
+	# 				OR = {
+	# 					has_government = fascism
+	# 					has_government = communism
+	# 					has_government = authoritarian_socialism
+	# 					has_government = nationalism
+	# 					has_government = monarchism
+	# 				}
+	# 				OR = {
+	# 					has_war_with = ENG
+	# 					has_war_with = FRA
+	# 				}
+	# 			}	
+	# 			DDR = {
+	# 				OR = {
+	# 					has_government = fascism
+	# 					has_government = communism
+	# 					has_government = authoritarian_socialism
+	# 					has_government = nationalism
+	# 					has_government = monarchism
+	# 				}
+	# 				OR = {
+	# 					has_war_with = ENG
+	# 					has_war_with = FRA
+	# 				}
+	# 			}
+	# 			has_defensive_war_with = ITA
+	# 			AND = {
+	# 				has_completed_focus = SPR_break_italy
+	# 				has_country_flag = french_accept_help
+	# 			}				
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		has_war = yes
+	# 	}
+	# 	cancel_trigger = {
+	# 		OR = {
+	# 			is_in_faction = yes
+	# 			has_war_with = FRA
+	# 			FRA = { NOT = { is_faction_leader = yes } }
+	# 		}
+	# 	}
+	# 	fire_only_once = yes
+	# 	cost = 0
+	# 	complete_effect = {
+	# 		FRA = { country_event = { days = 1 id = spain.115 } }
+	# 	}
+	# 	ai_will_do = {
+	# 		base = 0
+	# 		modifier = {
+	# 			add = 0.4
+	# 			threat > 0.2
+	# 		}
+	# 		modifier = {
+	# 			add = 0.7
+	# 			threat > 0.4
+	# 		}
+	# 		modifier = {
+	# 			add = 4
+	# 			threat > 0.6
+	# 		}
+	# 	}
+	# }
+	
+	# SPR_join_dem_germany = {
+	# 	allowed = {
+	# 		tag = SPR
+	# 	}
+	# 	icon = generic_political_discourse
+	# 	available = {
+	# 		WGR = { 
+	# 			is_faction_leader = yes
+	# 			NOT = {
+	# 			   OR = {
+	# 					has_government = fascism
+	# 					has_government = communism
+	# 					has_government = authoritarian_socialism
+	# 					has_government = nationalism
+	# 					has_government = monarchism
+	# 				}
+	# 			}
+	# 		}
+	# 		NOT = { is_in_faction = yes }
+	# 		NOT = { has_war_with = WGR }
+	# 		NOT = { has_global_flag = scw_ongoing }
+	# 		date > 1936.10.01
+	# 		has_completed_focus = SPR_break_italy
+	# 		has_country_flag = french_accept_help
+	# 	}
+	# 	visible = {
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		has_war = yes
+	# 		WGR = { exists = yes }
+	# 	}
+	# 	fire_only_once = yes
+	# 	cost = 0
+	# 	complete_effect = {
+	# 		WGR = { country_event = { days = 1 id = spain.115 } }
+	# 	}
+	# 	ai_will_do = {
+	# 		base = 0
+	# 		modifier = {
+	# 			add = 0.4
+	# 			threat > 0.2
+	# 		}
+	# 		modifier = {
+	# 			add = 0.7
+	# 			threat > 0.4
+	# 		}
+	# 		modifier = {
+	# 			add = 4
+	# 			threat > 0.6
+	# 		}
+	# 	}
+	# }
+	
+	# targeted_race_for_the_bomb = {
+
+	# 	icon = generic_research
+
+	# 	allowed = {
+	# 		always = no
+	# 	}
+
+	# 	available = {
+	# 		#Target is FROM
+	# 		has_tech = atomic_research
+	# 		NOT = { has_global_flag = first_nuke_dropped }
+	# 	}
+
+	# 	#If this trigger matches a country.
+	# 	target_trigger = {
+	# 		#Target is FROM
+	# 		FROM = {
+	# 			NOT = { is_in_faction_with = ROOT }
+	# 			has_tech = nuclear_reactor
+	# 			any_owned_state = {
+	# 				nuclear_reactor > 0
+	# 			}
+	# 		}
+	# 	}
+
+	# 	visible = {
+	# 		#Target is FROM
+	# 		has_tech = atomic_research
+	# 		NOT = { has_global_flag = first_nuke_dropped }
+	# 		FROM = {
+	# 			NOT = { is_in_faction_with = ROOT }
+	# 			has_tech = nuclear_reactor
+	# 			any_owned_state = {
+	# 				nuclear_reactor > 0
+	# 			}
+	# 		}
+	# 	}
+
+	# 	complete_effect = {
+	# 		set_country_flag = racing_for_the_bomb
+	# 		add_tech_bonus = {
+	# 			name = nukes_bonus
+	# 			uses = 1
+	# 			bonus = 0.2
+	# 			category = nuclear
+	# 		}
+	# 	}
+
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 		modifier = {
+	# 			factor = 0
+	# 			any_other_country = { has_tech = nukes }
+	# 		}
+	# 	}
+	# }
+
+	improved_worker_conditions = {
+
+		icon = generic_industry
+
+		available = {
+			
+		}
+
+		visible = {
+			always = yes
+		}
+
+		fire_only_once = no
+
+		modifier = {
+			stability_weekly = 0.005
+			consumer_goods_factor = 0.05
+			industrial_capacity_factory = -0.1
+		}
+
+		days_remove = 180
+		days_re_enable = 540
+
+		cost = 100
+
+		complete_effect = {
+
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_stability < 0.6
+			}
+		}
+	}
+}
+
+propaganda_efforts = {
+
+	war_propaganda = {
+
+		icon = eng_propaganda_campaigns
+		
+		visible = {
+			has_war = yes
+		}
+
+		available = {
+			NOT = { has_country_flag = war_propaganda_campaign_running }
+			threat > 0.5
+			has_war_support < 0.5
+			has_offensive_war = no
+		}
+
+		fire_only_once = no
+
+		days_remove = 90
+		days_re_enable = 180
+
+		cost = 145
+
+		modifier = {
+			war_support_weekly = 0.004
+		}
+
+		complete_effect = {
+			set_country_flag = war_propaganda_campaign_running
+		}
+		remove_effect = {
+			clr_country_flag = war_propaganda_campaign_running
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_war_support < 0.4
+				has_war = yes
+			}
+		}
+	}
+
+	war_propaganda_casualties = { 
+
+		icon = generic_prepare_civil_war
+
+		available = {
+			#NOT = { has_country_flag = war_propaganda_campaign_running }
+			has_casualties_war_support < 0
+		}
+
+		visible = {
+			# has_war = yes
+			has_war_with_non_exiled_country = yes
+		}
+
+		fire_only_once = no
+
+		days_remove = 180
+		
+		remove_trigger = {
+			has_war = no
+        }
+		
+		cost = 100
+
+		modifier = {
+			weekly_casualties_war_support = 0.006
+		}
+
+		#complete_effect = {
+		#	set_country_flag = war_propaganda_campaign_running
+		#}
+		#remove_effect = {
+		#	clr_country_flag = war_propaganda_campaign_running
+		#}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 10 #AI should probably just choose this one for general purposes.
+				has_war = yes
+				has_war_support < 0.7
+			}
+			modifier = {
+				add = 20
+				has_war = yes
+				has_war_support < 0.5
+			}
+			modifier = {
+				add = 30
+				has_war = yes
+				has_war_support < 0.3
+			}
+			modifier = {
+				add = 201 #ie; consider prio idea
+				has_war = yes
+				has_casualties_war_support < -0.25
+			}
+			modifier = {
+				factor = 0
+				has_manpower < 100000
+				has_political_power < 250
+				OR = {
+					has_idea = volunteer_only
+					has_idea = limited_conscription
+					has_idea = extensive_conscription
+				}
+			}
+		}
+	}
+
+	war_propaganda_convoys = { 
+
+		icon = GFX_decision_generic_naval
+
+		available = {
+			#NOT = { has_country_flag = war_propaganda_campaign_running }
+			has_convoys_war_support < 0
+		}
+
+		visible = {
+			# has_war = yes
+			has_war_with_non_exiled_country = yes
+		}
+
+		fire_only_once = no
+
+		days_remove = 180
+		
+		remove_trigger = {
+			has_war = no
+        }
+		
+		cost = 100
+
+		modifier = {
+			weekly_convoys_war_support = 0.006
+		}
+
+		#complete_effect = {
+		#	set_country_flag = war_propaganda_campaign_running
+		#}
+		#remove_effect = {
+		#	clr_country_flag = war_propaganda_campaign_running
+		#}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 201 #ie; consider prio idea
+				has_war = yes
+				has_convoys_war_support < -0.29
+			}
+			modifier = {
+				factor = 0
+				has_manpower < 100000
+				has_political_power < 250
+				OR = {
+					has_idea = volunteer_only
+					has_idea = limited_conscription
+					has_idea = extensive_conscription
+				}
+			}
+		}
+	}
+
+	war_propaganda_bombing = { 
+
+		icon = GFX_decision_generic_air
+
+		available = {
+		#	NOT = { has_country_flag = war_propaganda_campaign_running }
+			has_bombing_war_support < 0
+		}
+
+		visible = {
+			# has_war = yes
+			has_war_with_non_exiled_country = yes
+		}
+
+		fire_only_once = no
+
+		days_remove = 180
+		
+		remove_trigger = {
+			has_war = no
+        }
+		
+		cost = 100
+
+		modifier = {
+			weekly_bombing_war_support = 0.006
+		}
+
+		#complete_effect = {
+		#	set_country_flag = war_propaganda_campaign_running
+		#}
+		#remove_effect = {
+		#	clr_country_flag = war_propaganda_campaign_running
+		#}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 10 #AI should probably just choose this one for general purposes.
+				has_war = yes
+				has_war_support < 0.65
+			}
+			modifier = {
+				add = 20
+				has_war = yes
+				has_war_support < 0.50
+			}
+			modifier = {
+				add = 30
+				has_war = yes
+				has_war_support < 0.35
+			}
+			modifier = {
+				add = 201 #ie; consider prio idea
+				has_war = yes
+				has_bombing_war_support < -0.20
+			}
+			modifier = {
+				factor = 0
+				has_manpower < 100000
+				has_political_power < 250
+				OR = {
+					has_idea = volunteer_only
+					has_idea = limited_conscription
+					has_idea = extensive_conscription
+				}
+			}
+		}
+	}
+
+	war_propaganda_radio_industry = { 
+
+		icon = hol_radio_oranje
+
+		visible = {
+			if = {
+				limit = {
+					has_democratic_government = yes
+				}
+				has_war = yes
+			}
+		}
+		available = {
+			threat > 0.25
+			has_tech = radio
+		}
+
+
+		fire_only_once = yes
+
+		cost = 75
+		days_remove = 90
+
+		modifier = {
+			war_support_weekly = 0.004
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 201
+				has_war_support < 0.6
+			}
+		}
+	}
+
+	war_propaganda_film_industry = { 
+
+		icon = eng_propaganda_campaigns
+
+		available = { 
+			has_war_with_non_exiled_country = yes
+			OR = {
+				is_major = yes
+				any_allied_country = {
+					is_major = yes
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_government = fascism }
+				}
+				threat > 0.5
+			}
+			else = {
+				threat > 0.30
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 100
+
+		complete_effect = {
+			effect_tooltip = {
+				add_war_support = 0.07
+			}
+			hidden_effect = {
+				country_event = political.33
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 201
+				has_war_support < 0.6
+			}
+		}
+	}
+}
+
+operations = {
+	
+	blow_suez_canal = {
+
+		icon = GFX_decision_generic_ignite_civil_war
+
+		visible = {
+			NOT = { has_global_flag = SUEZ_CANAL_BLOCKED }
+			OR = {
+				#Is the owner of the canal and has a war
+				AND = {
+					owns_state = 744
+					has_war = yes
+				}
+				AND = {
+					#Has war with the owner of the canal
+					744 = {
+						owner = {
+							has_war_with = ROOT
+						}
+					}
+					#controls any state in egypt
+					any_controlled_state = {
+						region = 28
+					}
+				}
+			}
+		}
+
+		available = {
+			controls_state = 744
+		}
+	
+		fire_only_once = no
+	
+		days_remove = 5
+	
+		cost = 0
+
+		complete_effect = {
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							owns_state = 744
+						}
+					}
+					744 = {
+						owner = {
+							country_event = { id = generic.12 days = 1 }
+						}
+					}
+				}
+			}
+		}
+	
+		remove_effect = {
+			if = {
+				limit = {
+					OR = {
+						controls_province = 12049
+						controls_province = 4073
+						controls_province = 1155
+						controls_province = 9947
+					}
+				}
+				set_country_flag = blew_up_suez
+				set_global_flag = SUEZ_CANAL_BLOCKED
+				country_event = { id = wtt_news.40 hours = 6}
+			}
+			effect_tooltip = {
+				if = {
+					limit = {
+						ENG = {
+							owns_state = 744
+						}
+					}
+					ENG = {
+						add_war_support = -0.05
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 51 # For the Owner of the canal
+				744 = {
+					OWNER = {
+						OR = {
+							tag = ROOT
+							is_in_faction_with = ROOT
+						}
+					}
+				}
+				any_enemy_country = {
+					OR = {
+						controls_state = 447
+						controls_state = 446
+						controls_state = 453
+					}
+					OR = {
+						divisions_in_state = { state = 447 size > 3 }
+						divisions_in_state = { state = 446 size > 3 }
+						divisions_in_state = { state = 453 size > 3 }
+					}
+				}
+			}
+			modifier = {
+				add = 200 # Try to cut the enemy off from the mediterranean if you also occupy Gibraltar
+				NOT = { owns_state = 744 }
+				OR = {
+					has_full_control_of_state = 118
+					any_allied_country = {
+						has_full_control_of_state = 118
+					}
+				}
+				has_war = yes
+			}
+		}
+	}
+
+	blow_panama_canal = {
+
+		icon = GFX_decision_generic_ignite_civil_war
+
+		available = {
+			has_full_control_of_state = 685
+		}
+	
+		visible = {
+			NOT = { has_global_flag = PANAMA_CANAL_BLOCKED }
+			OR = {
+				controls_state = 685
+				controls_state = 304
+			}
+			has_war = yes
+		}
+	
+		fire_only_once = no
+	
+		days_remove = 10
+	
+		cost = 0
+
+		complete_effect = {
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							owns_state = 685
+						}
+					}
+					865 = {
+						owner = {
+							country_event = { id = generic.13 days = 1 }
+						}
+					}
+				}
+			}
+		}
+	
+		remove_effect = {
+			if = {
+				limit = {
+					has_full_control_of_state = 685
+				}
+				set_country_flag = blew_up_panama
+				set_global_flag = PANAMA_CANAL_BLOCKED
+				country_event = { id = wtt_news.41 hours = 6}
+			}
+			effect_tooltip = {
+				if = {
+					limit = {
+						USA = { owns_state = 685 }
+					}
+					USA = {
+						add_war_support = -0.05
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 0
+			modifier = {
+				factor = 0 # Don't blow up the canal as USA. Ever.
+				tag = USA
+			}
+			modifier = {
+				add = 200 # Always blow up the canal as JAP or GER when at war with USA (priority)
+				OR = {
+					tag = JAP
+					tag = GER
+					is_in_faction_with = JAP
+					is_in_faction_with = GER
+				}
+				has_war_with = USA
+			}
+		}
+	}
+}
+
+special_projects = {
+
+	rebuild_suez_canal = {
+
+		icon = GFX_decision_generic_special_project
+
+		available = {
+			num_of_civilian_factories > 24
+		}
+	
+		visible = {
+			has_global_flag = SUEZ_CANAL_BLOCKED
+			has_full_control_of_state = 744
+		}
+	
+		fire_only_once = no
+	
+		days_remove = 365
+	
+		cost = 0
+	
+		modifier = {
+			civilian_factory_use = 25
+		}
+	
+		remove_effect = {
+			if = {
+				limit = {
+					has_full_control_of_state = 744
+				}
+				set_country_flag = rebuilt_suez
+				clr_global_flag = SUEZ_CANAL_BLOCKED
+				country_event = { id = wtt_news.42 hours = 6}
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				factor = 0
+				has_navy_size = { size < 100 }
+			}
+			modifier = {
+				add = 200
+				
+				if = {
+					limit = { tag = ENG }
+					has_full_control_of_state = 744
+					is_subject = no
+					OR = {
+						has_war = no
+						AND = {
+							has_full_control_of_state = 446
+							has_full_control_of_state = 447
+							has_full_control_of_state = 453
+						}
+						any_allied_country = {
+							has_full_control_of_state = 446
+							has_full_control_of_state = 447
+							has_full_control_of_state = 453
+						}
+					}
+				}
+				else = {
+					has_full_control_of_state = 446
+					has_full_control_of_state = 447
+					has_full_control_of_state = 453
+				}
+			}
+		}
+	}
+
+	rebuild_panama_canal = {
+
+		icon = GFX_decision_generic_special_project
+
+		available = {
+			num_of_civilian_factories > 44
+		}
+	
+		visible = {
+			has_global_flag = PANAMA_CANAL_BLOCKED
+			has_full_control_of_state = 685
+		}
+	
+		fire_only_once = no
+	
+		days_remove = 550
+	
+		cost = 0
+	
+		modifier = {
+			civilian_factory_use = 45
+		}
+	
+		remove_effect = {
+			if = {
+				limit = {
+					has_full_control_of_state = 685
+				}
+				set_country_flag = rebuilt_panama
+				clr_global_flag = PANAMA_CANAL_BLOCKED
+				country_event = { id = wtt_news.43 hours = 6}
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 0 # Don't bother if your navy is weak AND not USA
+				NOT = { tag = USA }
+				has_navy_size = { size < 50 }
+				has_war = yes
+			}
+			modifier = {
+				factor = 200 # Prioritize if you decisively beat USA's navy
+				has_war_with = USA
+				USA = { has_navy_size = { size < 50 } }
+				has_navy_size = { size > 100 }
+			}
+			modifier = {
+				factor = 200 # Prioritize if USA
+				tag = USA
+			}
+			modifier = {
+				factor = 10 # Prioritize if not at war
+				has_war = no
+			}
+		}
+	}
+}
+
+war_measures = {
+	
+	emergency_factory_conversion_defensive = {
+
+		icon = generic_industry
+
+		available = {
+			num_of_civilian_factories > 5 #Change this if amount of factories change
+		}
+
+		visible = {
+			has_defensive_war = yes
+			has_offensive_war = no			
+		}
+
+		fire_only_once = no
+
+		days_re_enable = 90
+
+		cost = 100
+
+		complete_effect = {
+			replace_civ_with_arms_factories = yes
+			add_war_support = -0.05
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	emergency_factory_conversion_offensive = {
+
+		icon = generic_industry
+
+		available = {
+			num_of_civilian_factories > 5 #Change this if amount of factories change
+		}
+
+		visible = {
+			has_offensive_war = yes
+		}
+
+		fire_only_once = no
+
+		days_re_enable = 90
+
+		cost = 100
+
+		complete_effect = {
+			replace_civ_with_arms_factories = yes
+			add_war_support = -0.05
+			add_stability = -0.03
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	desperate_defense = {
+
+		icon = generic_prepare_civil_war
+
+		available = {
+			surrender_progress > 0.5
+		}
+
+		visible = {
+			surrender_progress > 0
+		}
+
+		fire_only_once = no
+
+		days_remove = 45
+		days_re_enable = 360
+
+		cost = 50
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				surrender_progress > 0.6
+				factor = 10
+			}
+		}
+
+		modifier = {
+			defence = 0.2
+			dig_in_speed_factor = 0.5
+		}
+
+		complete_effect = {
+
+		}
+	}
+
+	women_in_the_workforce = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			has_war = yes
+			has_idea = tot_economic_mobilisation
+			OR = {
+				AND = {
+					has_government = democratic
+					has_war_support > 0.79
+				}
+				AND = {
+					has_government = communism
+					has_war_support > 0.79
+				}
+				AND = {
+					has_government = fascism
+					OR = {
+						has_war_support > 0.89
+						surrender_progress > 0
+					}
+				}
+				AND = {
+					has_government = neutrality
+					has_war_support > 0.84
+					has_stability > 0.7
+				}
+			}
+		}
+		visible = {
+			has_war = yes
+		}
+		cost = 100
+		days_remove = -1
+		cancel_trigger = {
+			has_war = no
+		}
+		modifier = {
+			conscription = 0.03
+			stability_factor = -0.05
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					tag = CAN
+				}
+				country_event = { id = canada_vanilla.1 hours = 6 } # Ronnie the Bren Gun Girl
+			}
+		}
+   }
+
+	war_bonds = {
+
+		icon = generic_industry
+
+		allowed = {
+			always = yes
+		}
+
+		available = {
+			has_war = yes
+			OR = {
+				AND = {
+					has_government = democratic
+					has_war_support > 0.79
+				}
+				AND = {
+					has_government = communism
+					has_war_support > 0.79
+				}
+				AND = {
+					has_government = fascism
+					OR = {
+						has_war_support > 0.89
+						surrender_progress > 0
+					}
+				}
+				AND = {
+					has_government = neutrality
+					has_war_support > 0.84
+					has_stability > 0.7
+				}
+			}
+		}
+		visible = {
+			has_war = yes
+		}
+
+		fire_only_once = no
+
+		days_remove = 180
+
+		cost = GER_war_bonds_var?50
+
+		modifier = {
+			consumer_goods_factor = -0.05
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_political_power < 150
+				factor = 0 #use as pp dump
+			}
+		}
+
+		remove_effect = {
+
+		}
+
+		complete_effect = {
+			if = {
+				limit = {
+					NOT = {
+						check_variable = {
+							var = GER_war_bonds_var
+							value = 100
+							compare = greater_than_or_equals
+						}
+					}
+				}
+				set_variable = {
+					var = GER_war_bonds_var
+					value = 50
+				}
+			}
+			add_to_variable = {
+				var = GER_war_bonds_var
+				value = 25
+			}
+			if = {
+				limit = {
+					check_variable = {
+						var = GER_war_bonds_var
+						value = 100
+						compare = greater_than_or_equals
+					}
+					NOT = {
+						check_variable = {
+							var = GER_war_bonds_war_support_var
+							value = 5
+							compare = greater_than_or_equals
+						}
+					}
+				}
+				set_variable = {
+					var = GER_war_bonds_war_support_var
+					value = -5
+				}
+				add_war_support = GER_war_bonds_war_support_var
+			}
+			if = {
+				limit = {
+					check_variable = {
+						var = GER_war_bonds_var
+						value = 100
+						compare = greater_than_or_equals
+					}
+					check_variable = {
+						var = GER_war_bonds_war_support_var
+						value = 5
+						compare = greater_than_or_equals
+					}
+				}
+				add_to_variable = {
+					var = GER_war_bonds_war_support_var
+					value = -2.5
+				}
+				add_war_support = GER_war_bonds_war_support_var
+			}
+		}
+	}
+}
+
+economy_decisions = {
+
+	restructure_supply_system = { #one time boost to get a few cheap supply hubs
+
+		icon = GFX_decision_generic_railway
+
+		visible = { 
+			OR = {
+				is_major = no
+				AND = {
+					is_faction_leader = yes
+					num_of_factories < 51 #would be a minor if it wasn't for faction leader status
+				}
+			}
+		}
+		fire_only_once = yes
+
+		days_remove = 120
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				num_of_factories < 30
+				factor = 0
+			}
+		}
+
+		modifier = {
+			production_speed_supply_node_factor = 3
+		}
+
+		complete_effect = {
+			set_variable = { node_goal = num_of_supply_nodes }
+			add_to_variable = { node_goal = 3 } #maximum 3 additional nodes
+		}
+
+		cancel_trigger = {
+			
+			check_variable = { node_goal < num_of_supply_nodes } #if the number of supply nodes exceeds the old number by +3, immediately cancel
+		}
+	}
+	
+	seize_some_trains_woo = { #repeating train seize
+
+		icon = GFX_decision_hol_draw_up_staff_plans	
+
+		visible = { 
+			num_of_factories < 60
+		}
+		
+		available = {
+			has_equipment = { train_equipment < 101 }
+			has_tech = basic_train
+		}
+		
+		days_remove = 220
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				add = 1
+				has_stability > 0.74
+			}
+		}
+
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = train_equipment
+				amount = 15
+			}
+			add_stability = -0.03
+		}
+	}
+
+	#Maybe make a decision for wartime train seizing and make the above decision be for peace-time
+
+	infrastructure_building_slot = {
+
+		icon = generic_construction
+
+		allowed = {
+			always = yes
+		}
+
+		cost = 100
+		fire_only_once = no
+
+		days_re_enable = 30
+
+		available = {
+			any_state = {
+				NOT = { has_state_flag = infrastructure_building_slot_flag }
+				is_fully_controlled_by = ROOT
+				is_owned_by = ROOT
+				free_building_slots = {
+					building = infrastructure
+					size < 1
+				}
+			}
+		}
+
+		visible = {
+			any_state = {
+				NOT = { has_state_flag = infrastructure_building_slot_flag }
+				is_fully_controlled_by = ROOT
+				is_owned_by = ROOT
+				free_building_slots = {
+					building = infrastructure
+					size < 1
+				}
+			}
+		}
+
+		complete_effect = {
+			random_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					is_owned_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+					}
+					NOT = { has_state_flag = infrastructure_building_slot_flag }
+				}
+				add_extra_state_shared_building_slots = 1
+				set_state_flag = infrastructure_building_slot_flag
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 10
+				any_owned_state = { free_building_slots = { building = industrial_complex size < 1 include_locked = no } }
+			}
+		}
+	}
+
+	war_building_slot = {
+
+		icon = generic_construction
+
+		allowed = {
+			always = yes
+		}
+
+		cost = 50
+		fire_only_once = no
+
+		available = {
+			any_state = {
+				NOT = { has_state_flag = war_building_slot_flag }
+				is_fully_controlled_by = ROOT
+				is_owned_by = ROOT
+			}
+			has_war = yes
+		}
+
+		visible = {
+			any_state = {
+				NOT = { has_state_flag = war_building_slot_flag }
+				is_fully_controlled_by = ROOT
+				is_owned_by = ROOT
+			}
+			has_war = yes
+		}
+
+		complete_effect = {
+			add_war_support = -0.025
+			add_stability = -0.025
+			random_owned_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					is_owned_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					NOT = { has_state_flag = infrastructure_building_slot_flag }
+				}
+				add_extra_state_shared_building_slots = 1
+				set_state_flag = war_building_slot_flag
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 10
+				any_owned_state = { free_building_slots = { building = industrial_complex size < 1 include_locked = no } }
+			}
+		}
+	}
+}
+
+GEN_ship_purchase_orders = {
+
+	HOL_order_orzel = {
+		icon = GFX_decision_icon_submarine
+
+		allowed = {
+			original_tag = HOL
+		}
+		visible = {
+			has_country_flag = HOL_POL_building_orzel
+		}
+		available = {
+			HOL = {
+				has_war = no
+				has_capitulated = no
+				controls_state = 997
+			}
+		}
+		cost = 0
+		days_remove = 519 #laid down 14 august 1936
+		fire_only_once = yes
+
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = POL }
+				NOT = { country_exists = HOL }
+				HOL = {
+					has_war = yes
+				}
+				NOT = {
+					HOL = {
+						controls_state = 997
+					}
+				}
+			}
+		}
+
+		#On Activation
+		complete_effect ={
+			HOL = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			997 = {
+				remove_building = {
+					type = dockyard
+					level = 1
+				}
+			}
+		}
+
+		#Fail
+		cancel_effect = {
+			HOL = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			if = {
+				limit = {
+					997 = {
+						free_building_slots = {
+							building = dockyard
+							size < 1
+							include_locked = no
+						}
+					}
+				}
+				997 = { add_extra_state_shared_building_slots = 1 }
+			}
+			997 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			clr_country_flag = HOL_POL_building_orzel
+		}
+
+		#Success
+		remove_effect = {
+			hidden_effect = {
+				clr_country_flag = HOL_POL_building_orzel
+				if = {
+					limit = {
+						997 = {
+							free_building_slots = {
+								building = dockyard
+								size < 1
+								include_locked = no
+							}
+						}
+					}
+					997 = { add_extra_state_shared_building_slots = 1 }
+				}
+				997 = {
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			HOL = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+
+			if = {
+				limit = { has_dlc = "Man the Guns" }
+				HOL = {
+					if = {
+						limit = {
+							NOT = { has_tech = basic_ship_hull_submarine }
+						}
+						set_technology = {
+							basic_ship_hull_submarine = 1
+						}
+					}
+					if = {
+						limit = {
+							NOT = { has_tech = improved_ship_torpedo_launcher }
+						}
+						set_technology = {
+							improved_ship_torpedo_launcher = 1
+						}
+					}
+				}
+				POL = {
+					hidden_effect = { add_manpower = 200 }
+					# if = {
+					# 	limit = {
+					# 		NOT = { has_tech = basic_ship_hull_submarine }
+					# 	}
+					# 	set_technology = {
+					# 		basic_ship_hull_submarine = 1
+					# 	}
+					# }
+					# if = {
+					# 	limit = {
+					# 		NOT = { has_tech = improved_ship_torpedo_launcher }
+					# 	}
+					# 	set_technology = {
+					# 		improved_ship_torpedo_launcher = 1
+					# 	}
+					# }
+					create_equipment_variant = {
+						name = "Orzel Class"				
+						type = ship_hull_submarine_2
+						name_group = POL_SS_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_torpedo_slot = ship_torpedo_sub_2
+							fixed_ship_engine_slot = sub_ship_engine_2
+							rear_1_custom_slot = ship_torpedo_sub_2
+						}
+						allow_without_tech = yes
+					}
+					create_ship = { name = "ORP Orzeł" type = ship_hull_submarine_2 equipment_variant = "Orzel Class" creator = POL }
+				}
+			}
+			else = {
+				HOL = {
+					if = {
+						limit = {
+							NOT = { has_tech = basic_submarine }
+						}
+						set_technology = {
+							basic_submarine = 1
+						}
+					}
+				}
+				POL = {
+					hidden_effect = { add_manpower = 200 }
+					# if = {
+					# 	limit = {
+					# 		NOT = { has_tech = basic_submarine }
+					# 	}
+					# 	set_technology = {
+					# 		basic_submarine = 1
+					# 	}
+					# }
+					create_equipment_variant = {
+						name = "Orzel Class"
+						type = submarine_2
+						upgrades = {
+							sub_torpedo_upgrade = 2
+							sub_engine_upgrade = 2
+						}
+						allow_without_tech = yes
+					}
+					create_ship = { name = "ORP Orzeł" type = submarine_2 equipment_variant = "Orzel Class" creator = POL }
+				}
+			}
+		}
+	}
+
+	HOL_order_orzel_sep = {
+		icon = GFX_decision_icon_submarine
+
+		allowed = {
+			original_tag = HOL
+		}
+		visible = {
+			has_country_flag = HOL_POL_building_sep
+		}
+		available = {
+			HOL = {
+				has_war = no
+				has_capitulated = no
+				controls_state = 997
+			}
+		}
+		cost = 0
+		days_remove = 711 #laid down November 1936
+		fire_only_once = yes
+
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = POL }
+				NOT = { country_exists = HOL }
+				HOL = {
+					has_war = yes
+				}
+				NOT = {
+					HOL = {
+						controls_state = 997
+					}
+				}
+			}
+		}
+
+		#On Activation
+		complete_effect ={
+			HOL = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			997 = {
+				remove_building = {
+					type = dockyard
+					level = 1
+				}
+			}
+		}
+
+		#Fail
+		cancel_effect = {
+			HOL = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			if = {
+				limit = {
+					997 = {
+						free_building_slots = {
+							building = dockyard
+							size < 1
+							include_locked = no
+						}
+					}
+				}
+				997 = { add_extra_state_shared_building_slots = 1 }
+			}
+			997 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			clr_country_flag = HOL_POL_building_sep
+		}
+
+		#Success
+		remove_effect = {
+			hidden_effect = {
+				clr_country_flag = HOL_POL_building_sep
+				if = {
+					limit = {
+						997 = {
+							free_building_slots = {
+								building = dockyard
+								size < 1
+								include_locked = no
+							}
+						}
+					}
+					997 = { add_extra_state_shared_building_slots = 1 }
+				}
+				997 = {
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			HOL = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+
+			if = {
+				limit = { has_dlc = "Man the Guns" }
+				HOL = {
+					if = {
+						limit = {
+							NOT = { has_tech = basic_ship_hull_submarine }
+						}
+						set_technology = {
+							basic_ship_hull_submarine = 1
+						}
+					}
+					if = {
+						limit = {
+							NOT = { has_tech = improved_ship_torpedo_launcher }
+						}
+						set_technology = {
+							improved_ship_torpedo_launcher = 1
+						}
+					}
+				}
+				POL = {
+					hidden_effect = { add_manpower = 200 }
+					# if = {
+					# 	limit = {
+					# 		NOT = { has_tech = basic_ship_hull_submarine }
+					# 	}
+					# 	set_technology = {
+					# 		basic_ship_hull_submarine = 1
+					# 	}
+					# }
+					# if = {
+					# 	limit = {
+					# 		NOT = { has_tech = improved_ship_torpedo_launcher }
+					# 	}
+					# 	set_technology = {
+					# 		improved_ship_torpedo_launcher = 1
+					# 	}
+					# }
+					create_ship = { name = "ORP Sęp" type = ship_hull_submarine_2 equipment_variant = "Orzel Class" creator = POL }
+				}
+			}
+			else = {
+				HOL = {
+					if = {
+						limit = {
+							NOT = { has_tech = basic_submarine }
+						}
+						set_technology = {
+							basic_submarine = 1
+						}
+					}
+				}
+				POL = {
+					hidden_effect = { add_manpower = 200 }
+					# if = {
+					# 	limit = {
+					# 		NOT = { has_tech = basic_submarine }
+					# 	}
+					# 	set_technology = {
+					# 		basic_submarine = 1
+					# 	}
+					# }
+					create_ship = { name = "ORP Sęp" type = submarine_2 equipment_variant = "Orzel Class" creator = POL }
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,7543 @@
+
+USA_congress = {
+	USA_economy_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_government = social_liberalism
+				has_government = democratic
+			}
+			date < 1937.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_supportthepoor
+				has_completed_focus = USA_balance_fed_budget
+			}
+		}
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		fire_only_once = yes
+		complete_effect = {
+			effect_depression_recovery = yes
+			add_political_power = -50
+			random_owned_state = {
+				limit = {
+					arms_factory > 1
+				}
+				remove_building = {
+					type = arms_factory
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					arms_factory > 0
+				}
+				remove_building = {
+					type = arms_factory
+					level = 1
+				}
+			}
+			set_country_flag = USA_passed_economy_act
+			hidden_effect = {
+				country_event = { id = unitedstates.14 }
+			}
+		}
+	}
+
+	USA_fera_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_feedthepoor
+			congress_medium_support_trigger = yes
+		}
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		fire_only_once = yes
+		complete_effect = {
+			swap_ideas = { remove_idea = us_slums add_idea = us_slums2 }
+			set_country_flag = USA_passed_fera_act
+			hidden_effect = {
+				country_event = { id = unitedstates.16 }
+			}
+		}
+	}
+
+	USA_nera_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_relief_act_garner
+			congress_medium_support_trigger = yes
+		}
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		fire_only_once = yes
+		complete_effect = {
+			swap_ideas = { remove_idea = us_slums add_idea = us_slums2 }
+			set_country_flag = USA_passed_nera_act
+			hidden_effect = {
+				country_event = { id = unitedstates.169 }
+			}
+		}
+	}
+
+	USA_bank_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_government = social_liberalism
+				has_government = democratic
+			}
+			date < 1937.1.1
+		}
+		available = {
+			OR = {
+				has_completed_focus = USA_dealwiththebanks
+				has_completed_focus = USA_banking_reform
+			}
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			set_country_flag = USA_passed_bank_act
+			hidden_effect = {
+				country_event = { id = unitedstates.13 }
+				country_event = { id = unitedstates.28 days = 5}
+			}
+		}
+	}
+
+	USA_ccc_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date < 1934.4.1
+		}
+		available = {
+			has_completed_focus = USA_employthepoor
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			hidden_effect = {
+				country_event = { id = unitedstates.15 }
+				country_event = { id = USA_flavour.24 days = 345 random_days = 23 }
+				country_event = { id = USA_flavour.26 days = 90 random_days = 3 }
+				set_temp_variable = { GPSP_created_var = 595 } #19th of August 1934
+				set_temp_variable = { days_since_start = global.num_days } #1933*365
+				subtract_from_temp_variable = { days_since_start = 705545 }
+				subtract_from_temp_variable = { GPSP_created_var = days_since_start }
+				country_event = {
+					id = USA_flavour.25
+					days = var:GPSP_created_var
+				}
+			}
+			set_country_flag = USA_passed_ccc_act
+			add_to_variable = { var = employ_speed value = 1 }
+			add_political_power = 20
+		}
+	}
+
+	USA_tva_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+		}
+		available = {
+			has_completed_focus = USA_tva
+			congress_medium_support_trigger = yes
+			date < 1937.1.1
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		#modifier = {
+		#}
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = USA_employment_mission
+				days = -50
+			}
+			#TODO: do something with Tennessee
+			set_country_flag = USA_passed_tva_act
+			hidden_effect = {
+				country_event = { id = unitedstates.19 }
+			}
+		}
+	}
+
+	USA_nira_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_saveamericasindustry
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+			modifier = {
+				date > 1933.6.15
+				add = 900
+			}
+		}
+		
+		complete_effect = {
+			activate_mission = USA_employment_mission
+			set_country_flag = USA_passed_nira_act
+			hidden_effect = {
+				country_event = { id = unitedstates.17 }
+				country_event = { id = USA_flavour.36 days = 90 random_days = 45 }
+			}
+		}
+
+	}
+
+	USA_aaa_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_saveamericanfarms
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			set_country_flag = USA_passed_aaa_act
+			activate_mission = USA_crops_mission
+			hidden_effect = {
+				country_event = { id = unitedstates.18 }
+			}
+		}
+	}
+
+	USA_asa_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_agricultural_subsidies_garner
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			set_country_flag = USA_passed_asa_act
+			activate_mission = USA_crops_mission_alt
+			hidden_effect = {
+				country_event = { id = unitedstates.170 }
+			}
+		}
+	}
+
+	USA_pwa_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_public_works_act_garner
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			set_country_flag = USA_passed_pwa_act
+			activate_mission = USA_employment_mission_alt
+			hidden_effect = {
+				country_event = { id = unitedstates.171 }
+			}
+		}
+	}
+
+
+	USA_hundred_ms = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_country_flag = USA_passed_aaa_act
+			has_country_flag = USA_passed_ccc_act
+			has_country_flag = USA_passed_economy_act
+			has_country_flag = USA_passed_tva_act
+			has_country_flag = USA_passed_fera_act
+			has_country_flag = USA_passed_nira_act
+			has_country_flag = USA_passed_bank_act
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 100
+		fire_only_once = yes
+		timeout_effect = {
+			# add_stability = -0.075
+			subtract_from_variable = { usa_president_popularity = 10 }
+			USA_clamp_president_pop = yes
+			hidden_effect = {
+				country_event = { id = unitedstates.20 hours = 6 }
+			}
+		}
+		complete_effect = {
+			add_political_power = 100
+			set_country_flag = USA_hundred_ms_completed
+			add_to_variable = { usa_president_popularity = 5 }
+			USA_clamp_president_pop = yes
+			hidden_effect = {
+				country_event = { id = unitedstates.20 hours = 6 }
+				country_event = { id = USA_flavour.21 days = 366 }
+				country_event = { id = USA_flavour.29 days = 1126 }
+				country_event = { id = USA_flavour.30 days = 1334 }
+				country_event = { id = USA_flavour.32 days = 1654 }
+				country_event = { id = USA_flavour.33 days = 1681 }
+			}
+		}
+	}
+
+	USA_hundred_ms_garner = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_country_flag = USA_passed_asa_act
+			has_country_flag = USA_passed_economy_act
+			has_country_flag = USA_passed_nera_act
+			has_country_flag = USA_passed_pwa_act
+			has_country_flag = USA_passed_bank_act
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 100
+		fire_only_once = yes
+		timeout_effect = {
+			# add_stability = -0.075
+			subtract_from_variable = { usa_president_popularity = 8 }
+			USA_clamp_president_pop = yes
+		}
+		complete_effect = {
+			add_political_power = 100
+			add_to_variable = { usa_president_popularity = 5 }
+			USA_clamp_president_pop = yes
+			hidden_effect = {
+				country_event = { id = USA_flavour.29 days = 1126 }
+				country_event = { id = USA_flavour.32 days = 1654 }
+			}
+		}
+	}
+
+	USA_fire_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_country_flag = usa_days_over
+		}
+		available = {
+			has_country_flag = usa_days_over
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 0.5
+		}
+		complete_effect = {
+			add_stability = 0.005
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_sec_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			has_country_flag = usa_days_over
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_regulatestocks
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+			hidden_effect = {
+				country_event = { id = unitedstates.32 }
+			}
+		}
+	}
+
+	USA_glass_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			has_country_flag = usa_days_over
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_bankregulations
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+			hidden_effect = {
+				country_event = { id = unitedstates.31 }
+			}
+		}
+	}
+
+	USA_glass_garner_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			has_completed_focus = USA_our_own_path
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_glass_steagall
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+			set_country_flag = usa_passed_gs_act
+			hidden_effect = {
+				country_event = { id = unitedstates.31 }
+			}
+		}
+	}
+
+	USA_income_tax_garner_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			has_completed_focus = USA_our_own_path
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_income_tax_reform
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			add_political_power = -70
+			USA_congress_medium_opposition = yes
+			set_country_flag = usa_passed_it_act
+		}
+	}
+
+	USA_tariff_garner_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			has_completed_focus = USA_our_own_path
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_slash_tariffs
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			random_owned_state = {
+				limit = {
+					industrial_complex > 1
+				}
+				remove_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			random_owned_state = {
+				limit = {
+					industrial_complex > 0
+				}
+				remove_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			USA_congress_medium_opposition = yes
+			set_country_flag = usa_passed_tar_act
+		}
+	}
+
+	USA_rra_garner_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			has_completed_focus = USA_our_own_path
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_rural_relief_administration
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = USA_crops_mission_alt
+				days = -130
+			}
+			add_stability = 0.01
+			USA_congress_medium_opposition = yes
+			set_country_flag = usa_passed_rra_act
+		}
+	}
+
+	USA_garner_reg_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			has_completed_focus = USA_our_own_path
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_decrease_regulations
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = USA_employment_mission_alt
+				days = -130
+			}
+			add_political_power = 40
+			USA_congress_medium_opposition = yes
+			set_country_flag = usa_passed_br_act
+		}
+	}
+
+	USA_pw2_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			has_completed_focus = USA_our_own_path
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_second_pwa
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			custom_effect_tooltip = unlock_works_tt
+			USA_congress_medium_opposition = yes
+			set_country_flag = usa_passed_pw2_act
+		}
+	}
+
+	USA_garner_labor_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			has_completed_focus = USA_our_own_path
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_limit_union_rights
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			remove_ideas = usa_strike_wave_garner2
+			add_days_mission_timeout = {
+					mission = USA_employment_mission_alt
+					days = -100
+				}
+			add_stability = -0.03
+			USA_congress_medium_opposition = yes
+			set_country_flag = usa_passed_garner_labor_act
+		}
+	}
+
+	USA_garner_spending_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			has_completed_focus = USA_garner_cons_coalition
+			date < 1937.1.20
+		}
+		available = {
+			has_completed_focus = USA_cut_spending_garner
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			add_political_power = -30
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_garner_business_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			has_completed_focus = USA_garner_cons_coalition
+			date < 1937.1.20
+		}
+		available = {
+			has_completed_focus = USA_pro_business_policies
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			add_political_power = -30
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_housing_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			has_country_flag = usa_days_over
+			date < 1937.1.1
+		}
+		available = {
+			OR = { has_completed_focus = USA_housingprojectsmarlib has_completed_focus = USA_housingprojectsusa }
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 50
+		}
+		complete_effect = {
+			if = {
+				limit = { has_idea = us_slums4 }
+				swap_ideas = { remove_idea = us_slums4 add_idea = us_slums5 }
+			}
+			if = {
+				limit = { has_idea = us_slums3 }
+				swap_ideas = { remove_idea = us_slums3 add_idea = us_slums4 }
+			}
+			if = {
+				limit = { has_idea = us_slums2 }
+				swap_ideas = { remove_idea = us_slums2 add_idea = us_slums3 }
+			}
+			if = {
+				limit = { has_idea = us_slums }
+				swap_ideas = { remove_idea = us_slums add_idea = us_slums2 }
+			}
+			if = {
+				limit = {
+					has_completed_focus = USA_housingprojectsmarlib
+				}
+				random_owned_state = {
+					limit = {
+						industrial_complex > 1
+					}
+					remove_building = {
+						type = industrial_complex
+						level = 1
+					}
+				}
+			}
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_puhca_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			#has_government = social_liberalism
+			date > 1935.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 0.5
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_robinson_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_government = social_liberalism
+				has_completed_focus = USA_garner_democratic_ideal
+			}
+			date > 1935.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			if = {
+				limit = {
+					has_completed_focus = USA_garner_democratic_ideal
+				}
+				has_completed_focus = USA_prohibit_price_discrimination
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 0.5
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_completed_focus = USA_garner_democratic_ideal
+				}
+				effect_depression_recovery = yes
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_soc_sec_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			has_country_flag = usa_days_over
+			date < 1937.1.1
+		}
+		available = {
+			OR = { has_completed_focus = USA_socialsecurityusa has_completed_focus = USA_socialsecurityusabalance }
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_completed_focus = USA_socialsecurityusa
+				}
+				add_political_power = -25
+				add_stability = 0.02
+				add_war_support = 0.05
+				effect_depression_recovery = yes
+			}
+			if = {
+				limit = {
+					has_completed_focus = USA_socialsecurityusabalance
+				}
+				add_stability = 0.01
+				add_war_support = 0.025
+				effect_depression_recovery = yes
+			}
+			USA_congress_medium_opposition = yes
+			set_country_flag = USA_passed_socsec_act
+		}
+	}
+
+	USA_revenue_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			has_country_flag = usa_days_over
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_redistributetaxes
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 50
+		}
+		complete_effect = {
+			add_political_power = -10
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_banking_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date > 1935.1.1
+			date < 1937.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_country_flag = USA_passed_bank_act
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 50
+		}
+		complete_effect = {
+			USA_congress_medium_opposition = yes
+			add_political_power = -10
+			effect_depression_recovery = yes
+		}
+	}
+
+	USA_eraa_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date > 1935.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 0.5
+		}
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = USA_crops_mission
+				days = -30
+			}
+			add_to_variable = { usa_president_popularity = 2 }
+			USA_clamp_president_pop = yes
+			USA_congress_medium_opposition = yes
+			set_country_flag = USA_passed_eraa_act
+		}
+	}
+
+	USA_ce_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			#has_government = social_liberalism
+			date > 1936.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 0.5
+		}
+		complete_effect = {
+			add_stability = 0.01
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_soil_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_government = social_liberalism
+				has_completed_focus = USA_garner_democratic_ideal
+			}
+			date > 1935.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_country_flag = created_drs
+				has_completed_focus = USA_fight_dust_bowl
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			if = {
+				limit = { has_government = social_liberalism }
+				remove_ideas = usa_dust_bowl2
+				add_days_mission_timeout = {
+					mission = USA_crops_mission
+					days = -50
+				}
+			}
+			if = {
+				limit = { has_government = democratic }
+				remove_ideas = usa_dust_bowl1
+				add_days_mission_timeout = {
+					mission = USA_crops_mission_alt
+					days = -50
+				}
+			}
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_fca_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			has_country_flag = usa_days_over
+			has_completed_focus = USA_allalphabet
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_allalphabet
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 0.5
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_active_mission = USA_crops_mission
+				}
+				add_days_mission_timeout = {
+					mission = USA_crops_mission
+					days = -50
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_active_mission = USA_crops_mission }
+				}
+				add_stability = 0.01
+			}
+			add_stability = 0.02
+			add_to_variable = { var = price_speed value = 1 }
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_com_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			#has_government = social_liberalism
+			has_country_flag = usa_days_over
+			date < 1937.1.1
+		}
+		available = {
+			has_country_flag = usa_days_over
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 0.5
+		}
+		complete_effect = {
+			add_tech_bonus = {
+				name = radar_focus
+				bonus = 1.0
+				uses = 2
+				category = radar_tech
+			}
+			USA_congress_medium_opposition = yes
+			set_country_flag = USA_passed_com_act
+		}
+	}
+
+	USA_mm_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1936.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 0.5
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			set_country_flag = USA_passed_mm_act
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_walsh_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1936.1.1
+			has_country_flag = USA_passed_lab_act
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 0.5
+		}
+		complete_effect = {
+			add_to_variable = { var = usa_president_popularity value = 3 }
+			USA_clamp_president_pop = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_motor_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			#has_government = social_liberalism
+			date > 1935.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 0.5
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_country_flag = usa_fdr_assasinated
+				}
+				add_days_mission_timeout = {
+					mission = USA_employment_mission_alt
+					days = -30
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = usa_fdr_assasinated }
+				}
+				add_days_mission_timeout = {
+					mission = USA_employment_mission
+					days = -30
+				}
+			}
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_electro_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date > 1936.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 10
+		}
+		complete_effect = {
+			add_to_variable = { var = usa_president_popularity value = 2 }
+			USA_clamp_president_pop = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_lab_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			has_country_flag = usa_days_over
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_regulatelaborusa
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = USA_employment_mission
+				days = 40
+			}
+			effect_depression_recovery = yes
+			add_political_power = -50
+			add_stability = 0.02
+			hidden_effect = {
+				country_event = { id = unitedstates.34 }
+			}
+			set_country_flag = USA_passed_lab_act
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_holc_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			has_country_flag = usa_days_over
+			date < 1937.1.1
+		}
+		available = {
+			has_country_flag = usa_days_over
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 0.5
+		}
+		complete_effect = {
+			if = {
+				limit = { has_idea = us_slums4 }
+				swap_ideas = { remove_idea = us_slums4 add_idea = us_slums5 }
+			}
+			if = {
+				limit = { has_idea = us_slums3 }
+				swap_ideas = { remove_idea = us_slums3 add_idea = us_slums4 }
+			}
+			if = {
+				limit = { has_idea = us_slums2 }
+				swap_ideas = { remove_idea = us_slums2 add_idea = us_slums3 }
+			}
+			if = {
+				limit = { has_idea = us_slums }
+				swap_ideas = { remove_idea = us_slums add_idea = us_slums2 }
+			}
+			USA_congress_medium_opposition = yes
+			set_country_flag = USA_passed_holc_act
+		}
+	}
+
+	USA_tydings_act = {
+		icon = eng_trade_unions_support
+		allowed = {
+			tag = USA
+		}
+		available = {
+			NOT = {
+				PHI = { is_subject_of = USA }
+				has_war = no
+			}
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 22 #24 March 1934
+		fire_only_once = yes
+		timeout_effect = {
+			set_country_flag = USA_passed_tydings_act
+			# complete_national_focus = USA_philippine_independence
+			hidden_effect = {
+				PHI = { country_event = { id = phi_internal.2 days = 364 } } #23 of March 1935
+			}
+		}
+	}
+
+	USA_first_neutrality_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_philippine_independence
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_neutrality_act
+			congress_low_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_political_power = 200
+			USA_congress_small_support = yes
+			set_country_flag = USA_passed_neutrality_act
+		}
+	}
+
+	USA_reciprocal_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_philippine_independence
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_reciprocal_tariff
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = USA_employment_mission
+				days = -30
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			USA_congress_medium_opposition = yes
+			set_country_flag = USA_passed_reciprocal_act
+		}
+	}
+
+	USA_vinston_tramel_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_vinston_trammel
+			date < 1937.1.1
+		}
+		available = {
+			has_completed_focus = USA_vinston_trammel
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_political_power = 20
+			navy_experience = 10
+			custom_effect_tooltip = usa_unlock_naval_tree
+			set_country_flag = USA_passed_vinston_trammel
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_naval_act_law = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_naval_act
+		}
+		available = {
+			has_completed_focus = USA_naval_act
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_tech_bonus = {
+				name = USA_fund_the_navy
+				uses = 3
+				bonus = 1.0
+				category = naval_doctrine
+			}
+			navy_experience = 50
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	####Second term laws
+
+
+	USA_aaa_2_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date > 1937.1.20
+		}
+		available = {
+			has_completed_focus = USA_restore_aaa
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+			add_to_variable = { var = usa_president_popularity value = 2 }
+			USA_clamp_president_pop = yes
+		}
+	}
+
+	USA_housing_2_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date > 1937.1.20
+		}
+		available = {
+			has_completed_focus = USA_eradicate_slums
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			remove_ideas = us_slums5
+			remove_ideas = us_slums4
+			remove_ideas = us_slums3
+			remove_ideas = us_slums2
+			remove_ideas = us_slums
+			USA_congress_medium_opposition = yes
+			add_to_variable = { var = usa_president_popularity value = 3 }
+			USA_clamp_president_pop = yes
+		}
+	}
+
+	USA_fair_labor_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date > 1937.1.20
+		}
+		available = {
+			has_completed_focus = USA_fair_labor
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+			add_to_variable = { var = usa_president_popularity value = 3 }
+			USA_clamp_president_pop = yes
+		}
+	}
+
+	USA_second_nira_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_country_flag = usa_passed_court_pack
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+			add_to_variable = { var = usa_president_popularity value = 5 }
+			USA_clamp_president_pop = yes
+		}
+	}
+
+	USA_reorg_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date > 1937.1.20
+		}
+		available = {
+			has_completed_focus = USA_reorganization_act
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		modifier = {
+			political_power_factor = 0.15
+		}
+		days_remove = -1
+		complete_effect = {
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_amm_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date > 1937.1.20
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_ld_rel_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = market_liberalism
+			has_completed_focus = USA_reform_new_deal
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_economic_relief_bill
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			add_to_variable = { var = usa_president_popularity value = 5 }
+			USA_clamp_president_pop = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_ld_hou_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = market_liberalism
+			has_completed_focus = USA_reform_new_deal
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_amend_housing_act
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			remove_ideas = us_slums4
+			remove_ideas = us_slums3
+			remove_ideas = us_slums2
+			remove_ideas = us_slums
+			add_to_variable = { var = usa_president_popularity value = 2 }
+			USA_clamp_president_pop = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_ld_eco_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = market_liberalism
+			has_completed_focus = USA_reform_new_deal
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_balance_budget
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_ld_agr_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = market_liberalism
+			has_completed_focus = USA_reform_new_deal
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_liberalize_agricultural_market
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_ld_adm_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = market_liberalism
+			has_completed_focus = USA_discard_new_deal
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_cutting_red_tape
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_ld_tax_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = market_liberalism
+			has_completed_focus = USA_continue_eco_reforms
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_economic_tax_act
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_ld_lib_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = market_liberalism
+			OR = {
+				has_completed_focus = USA_continue_eco_reforms
+				has_completed_focus = USA_new_program
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_economic_liberty_act
+				has_completed_focus = USA_willkie_regulations
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_wil_employ_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = market_liberalism
+			OR = {
+				has_completed_focus = USA_new_program
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_towards_full_employment
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+
+	USA_farley_house_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			OR = {
+				has_completed_focus = USA_newer_deal
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_housing_act_farley
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			add_stability = 0.01
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_garner_works_employment_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			OR = {
+				has_completed_focus = USA_different_deal
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_support_public_works
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = USA
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					is_core_of = USA
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_federal_economy_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			OR = {
+				has_completed_focus = USA_different_deal
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_decentralize_new_deal
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_political_power = 20
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_garner_tax_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			OR = {
+				has_completed_focus = USA_different_deal
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_lower_taxes_garner
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_stability = 0.01
+			add_to_variable = { usa_president_popularity = 1 }
+			USA_clamp_president_pop = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_labor_strikes_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = democratic
+			OR = {
+				has_completed_focus = USA_different_deal
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_amend_nlra
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			add_political_power = -50
+			add_stability = 0.02
+			subtract_from_variable = { usa_president_popularity = 5 }
+			USA_clamp_president_pop = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_revenue_hull_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			OR = {
+				has_completed_focus = USA_new_agenda
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_revenue_hull
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			add_political_power = -20
+			subtract_from_variable = { usa_president_popularity = 3 }
+			USA_clamp_president_pop = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_federal_hull_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			OR = {
+				has_completed_focus = USA_new_agenda
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_stronger_fed_gov
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			add_political_power = -20
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_rearm_hull_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			OR = {
+				has_completed_focus = USA_new_agenda
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_stronger_fed_gov
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				}
+				random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				}
+			if = {
+				limit = {
+					has_idea = civilian_economy
+				}
+				swap_ideas = {
+					remove_idea = civilian_economy
+					add_idea = low_economic_mobilisation
+				}
+			}
+			if = {
+				limit = {
+					has_idea = isolation
+				}
+				swap_ideas = {
+					remove_idea = isolation
+					add_idea = civilian_economy
+				}
+			}
+			if = {
+				limit = {
+					has_idea = undisturbed_isolation
+				}
+				swap_ideas = {
+					remove_idea = undisturbed_isolation
+					add_idea = isolation
+				}
+			}
+			add_stability = -0.08
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_rtaa_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			OR = {
+				has_completed_focus = USA_new_agenda
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_rtaa
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			if = {
+			limit = {
+				has_idea = export_focus
+			}
+			swap_ideas = {
+				remove_idea = export_focus
+				add_idea = free_trade
+			}
+		}
+		if = {
+			limit = {
+				has_idea = limited_exports
+			}
+			swap_ideas = {
+				remove_idea = limited_exports
+				add_idea = export_focus
+			}
+		}
+		if = {
+			limit = {
+				has_idea = closed_economy
+			}
+			swap_ideas = {
+				remove_idea = closed_economy
+				add_idea = export_focus
+			}
+		}
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_long_tax_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = neutrality
+			OR = {
+				has_completed_focus = USA_share_wealth
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_tax_the_rich
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			add_to_variable = { usa_president_popularity = 5 }
+			USA_clamp_president_pop = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_long_income_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = neutrality
+			OR = {
+				has_completed_focus = USA_share_wealth
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_guaranteed_family_income
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.02
+			}
+			add_to_variable = { usa_president_popularity = 2 }
+			USA_clamp_president_pop = yes
+			add_stability = 0.01
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_long_veterans_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = neutrality
+			OR = {
+				has_completed_focus = USA_share_wealth
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_veteran_pensions
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.01
+			}
+			add_to_variable = { usa_president_popularity = 1 }
+			USA_clamp_president_pop = yes
+			add_political_power = 80
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_long_pensions_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = neutrality
+			OR = {
+				has_completed_focus = USA_share_wealth
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			OR = {
+				has_completed_focus = USA_townsend_plan
+			}
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_stability = 0.01
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_mt_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1937.1.20
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_political_power = 100
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_nci_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1937.1.20
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_stability = 0.02
+			add_to_variable = { var = usa_president_popularity value = 2 }
+			USA_clamp_president_pop = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_ama_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1937.1.20
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_stability = 0.03
+			add_to_variable = { var = usa_president_popularity value = 2 }
+			USA_clamp_president_pop = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_wheeler_lea_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1938.1.1
+			has_government = social_liberalism
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_civil_aero_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1938.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			air_experience = 25
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_nat_gas_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1938.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_hatch_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1940.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_stability = 0.03
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_alien_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1940.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_stability = 0.01
+			add_political_power = -30
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_adequate_income_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_second_bill_rights
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_ideas = USA_second_bill_A
+			set_country_flag = usa_passed_income_act
+			USA_congress_medium_opposition = yes
+			hidden_effect = {
+				country_event = { id = unitedstates.96 }
+			}
+		}
+	}
+
+	USA_employment_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_second_bill_rights
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_right_work
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_idea = USA_second_bill_A
+				}
+				swap_ideas = { remove_idea = USA_second_bill_A add_idea = USA_second_bill_AB }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_AC
+				}
+				swap_ideas = { remove_idea = USA_second_bill_AC add_idea = USA_second_bill_ABC }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ACF
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ACF add_idea = USA_second_bill_ABCF }
+			}
+			set_country_flag = usa_passed_employ_act
+			USA_congress_medium_opposition = yes
+			hidden_effect = {
+				country_event = { id = unitedstates.95 }
+			}
+		}
+	}
+
+	USA_education_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_second_bill_rights
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_right_education
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_idea = USA_second_bill_AB
+				}
+				swap_ideas = { remove_idea = USA_second_bill_AB add_idea = USA_second_bill_ABD }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABC
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABC add_idea = USA_second_bill_ABCD }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABCF
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABCF add_idea = USA_second_bill_ABCDF }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABCEF
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABCEF add_idea = USA_second_bill_ABCDEF }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABCE
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABCE add_idea = USA_second_bill_ABCDE }
+			}
+			set_country_flag = usa_passed_ed_act
+			USA_congress_medium_opposition = yes
+			hidden_effect = {
+				country_event = { id = unitedstates.94 }
+			}
+		}
+	}
+
+	USA_health_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_second_bill_rights
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_right_health
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABC
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABC add_idea = USA_second_bill_ABCE }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABCF
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABCF add_idea = USA_second_bill_ABCEF }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABCDF
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABCDF add_idea = USA_second_bill_ABCDEF }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABCD
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABCD add_idea = USA_second_bill_ABCDE }
+			}
+			set_country_flag = usa_passed_health_act
+			USA_congress_medium_opposition = yes
+			hidden_effect = {
+				country_event = { id = unitedstates.93 }
+			}
+		}
+	}
+
+	USA_sbr_house_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_second_bill_rights
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_right_housing
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_idea = USA_second_bill_AC
+				}
+				swap_ideas = { remove_idea = USA_second_bill_AC add_idea = USA_second_bill_ACF }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABC
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABCF add_idea = USA_second_bill_ABCF }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABCD
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABCD add_idea = USA_second_bill_ABCDF }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABCE
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABCE add_idea = USA_second_bill_ABCEF }
+			}
+			if = {
+				limit = {
+					has_idea = USA_second_bill_ABCDE
+				}
+				swap_ideas = { remove_idea = USA_second_bill_ABCDE add_idea = USA_second_bill_ABCDEF }
+			}
+			set_country_flag = usa_passed_house_sbr_act
+			USA_congress_medium_opposition = yes
+			hidden_effect = {
+				country_event = { id = unitedstates.97 }
+			}
+		}
+	}
+
+	USA_st_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_main_military_start
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_selective_train_act
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			set_country_flag = usa_passed_st_act
+			custom_effect_tooltip = unlock_military_tree_usa
+			add_ideas = limited_conscription
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_sv_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_second_vinson
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_main_military_start
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_ton_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_main_military_start
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_two_ocean_act
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			set_country_flag = usa_passed_ton_act
+			custom_effect_tooltip = unlock_naval_tree_usa
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_lls_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_revise_neutrality_acts
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_lend_lease_act
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		modifier = {
+			lend_lease_tension = -0.25
+		}
+		days_remove = -1
+		complete_effect = {
+			set_country_flag = USA_passed_lls_act
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_neu_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1937.1.20
+			NOT = { has_completed_focus = USA_repeal_neutrality_acts }
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_37_neutrality
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_political_power = 75
+			set_country_flag = passed_third_neu_act
+			add_to_variable = { var = usa_president_popularity value = 3 }
+			USA_clamp_president_pop = yes
+			USA_congress_small_support = yes
+		}
+	}
+
+	USA_neu2_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1938.1.1
+			has_completed_focus = USA_maintain_flexibility
+			has_country_flag = passed_third_neu_act
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_revise_neutrality_acts
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			custom_effect_tooltip = usa_unlock_follow_focuses
+			set_country_flag = usa_revised_neu_acts
+			add_to_variable = { var = usa_president_popularity value = -2 }
+			USA_clamp_president_pop = yes
+			USA_congress_small_opposition = yes
+		}
+	}
+
+	USA_ws_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_repress_pacifists
+			has_war = yes
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_war_security_act
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			swap_ideas = { remove_idea = USA_pacifism3 add_idea = USA_pacifism4 }
+			add_stability = -0.02
+			add_political_power = -70
+			add_to_variable = { var = usa_president_popularity value = -4 }
+			USA_clamp_president_pop = yes
+			USA_congress_small_opposition = yes
+		}
+	}
+
+	USA_stab_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_war = yes
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+
+	USA_wp_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_focus_tree = USA_focus_war_tree
+		}
+		available = {
+			congress_low_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			custom_effect_tooltip = unlock_homefront_tree
+			set_country_flag = USA_passed_wp_act
+			add_stability = 0.05
+			add_political_power = 200
+			USA_congress_small_opposition = yes
+		}
+	}
+
+	USA_flag_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_war = yes
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_war_support = 0.05
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_air_raid_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_war = yes
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_war = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = anti_air_building
+						size < 9
+						include_locked = no
+					}
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = anti_air_building
+						size < 9
+						include_locked = no
+					}
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+			USA_congress_small_opposition = yes
+		}
+	}
+
+	USA_emergency_price_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_war = yes
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			USA_congress_small_opposition = yes
+		}
+	}
+
+	USA_mustering_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_war = yes
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_war_support = 0.05
+			USA_congress_small_opposition = yes
+		}
+	}
+
+	USA_veterans_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_war = yes
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_war_support = 0.03
+			add_stability = 0.03
+			add_political_power = 50
+			USA_congress_small_opposition = yes
+		}
+	}
+
+	USA_plague_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1942.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_political_power = 75
+			USA_congress_small_opposition = yes
+		}
+	}
+
+	USA_flood_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1942.1.1
+		}
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			add_political_power = 15
+			USA_congress_small_opposition = yes
+		}
+	}
+
+	USA_health2_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_sbr_lategame
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_national_health_act
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			USA_congress_medium_opposition = yes
+			hidden_effect = {
+				country_event = { id = unitedstates.93 }
+			}
+		}
+		modifier = {
+			industrial_capacity_factory = -0.01
+			political_power_factor = 0.1
+		}
+		days_remove = -1
+	}
+
+	USA_women_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_sbr_lategame
+				has_completed_focus = USA_fair_deal
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_support_gender_equality
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			USA_congress_medium_opposition = yes
+			set_rule = {
+				can_generate_female_aces = yes
+			}
+			add_political_power = 40
+			add_to_variable = { usa_president_popularity = 2 }
+			USA_clamp_president_pop = yes
+			add_popularity = {
+				ideology = social_democracy
+				popularity = 0.01
+			}
+		}
+	}
+
+	USA_pub_bank_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_sbr_lategame
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_publicly_owned_banks
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			USA_congress_medium_opposition = yes
+		}
+		modifier = {
+			political_power_factor = -0.1
+			production_speed_buildings_factor = 0.15
+		}
+		days_remove = -1
+	}
+
+	USA_housing_3_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_sbr_lategame
+				has_completed_focus = USA_fair_deal
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_another_housing_act
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = USA
+					infrastructure > 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = USA
+					infrastructure > 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = USA
+					infrastructure > 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			USA_congress_medium_opposition = yes
+		}
+	}
+
+	USA_fed_aid_highway_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_a_republican_agenda
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_highway_expansion
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			USA_congress_medium_opposition = yes
+		}
+		modifier = {
+			production_speed_infrastructure_factor = 0.3
+		}
+		days_remove = -1
+	}
+
+	USA_nat_defense_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_a_conservative_program
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_increase_defense_budget
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			USA_congress_medium_opposition = yes
+			increase_mobilisation = yes
+		}
+	}
+
+	USA_eco_rec_tax_act = {
+		icon = ger_mefo_bills
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_a_conservative_program
+			}
+		}
+		available = {
+			congress_medium_support_trigger = yes
+			has_completed_focus = USA_business_friendly_policy
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			base = 1
+		}
+		complete_effect = {
+			USA_congress_medium_opposition = yes
+		}
+		modifier = {
+			production_speed_industrial_complex_factor = 0.25
+			political_power_factor = 0.15
+		}
+		days_remove = -1
+	}
+
+	USA_election_mission = {
+		icon = eng_propaganda_campaigns
+		allowed = {
+			tag = USA
+		}
+		available = {
+			NOT = {
+				OR = {
+					has_idea = us_unemploy1
+					has_idea = us_unemploy2
+					has_idea = us_unemploy3
+				}
+				OR = {
+					has_idea = us_crop1
+					has_idea = us_crop2
+					has_idea = us_crop3
+				}
+			}
+			has_country_flag = USA_passed_socsec_act
+			has_country_flag = USA_passed_lab_act
+			has_completed_focus = USA_endprohibition
+			has_completed_focus = USA_withdraw_haiti
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 1298
+		timeout_effect = {
+			subtract_from_variable = { usa_president_popularity = 20 }
+			USA_clamp_president_pop = yes
+			custom_effect_tooltip = lower_reelection_chances_tt
+		}
+		complete_effect = {
+			set_country_flag = USA_complete_promises
+			add_to_variable = { usa_president_popularity = 7 }
+			USA_clamp_president_pop = yes
+		}
+	}
+
+
+	##Lobbying
+
+	USA_house_lobbying_effort = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = USA
+		}
+		visible = {
+		}
+		available = {
+			NOT = { has_country_flag = lame_duck_period }
+			NOT = { check_variable = { var = representatives_support value = 261 compare = greater_than_or_equals } }
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				check_variable = { var = representatives_support value = 218 compare = greater_than_or_equals }
+				factor = 0.5
+			}
+			modifier = {
+				check_variable = { var = representatives_support value = 174 compare = greater_than_or_equals }
+				factor = 2
+			}
+			modifier = {
+				check_variable = { var = representatives_support value = 261 compare = greater_than_or_equals }
+				factor = 0
+			}
+		}
+		cost = 50
+		days_remove = 60
+		modifier = {
+			political_power_factor = -0.25
+		}
+		remove_effect = {
+			USA_house_medium_support = yes
+		}
+	}
+
+	USA_senate_lobbying_effort = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = USA
+		}
+		visible = {
+		}
+		available = {
+			NOT = { has_country_flag = lame_duck_period }
+			NOT = { check_variable = { var = senators_support value = quorum_high compare = greater_than_or_equals } }
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				check_variable = { var = senators_support value = quorum_medium compare = greater_than_or_equals }
+				factor = 0.5
+			}
+			modifier = {
+				check_variable = { var = senators_support value = quorum_low compare = greater_than_or_equals }
+				factor = 2
+			}
+			modifier = {
+				check_variable = { var = senators_support value = quorum_high compare = greater_than_or_equals }
+				factor = 0
+			}
+		}
+		cost = 50
+		days_remove = 60
+		modifier = {
+			political_power_factor = -0.25
+		}
+		remove_effect = {
+			USA_senate_medium_support = yes
+		}
+	}
+
+	USA_congress_lobbying_effort = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = USA
+		}
+		visible = {
+		}
+		available = {
+			NOT = { has_country_flag = lame_duck_period }
+			NOT = { congress_high_support_trigger = yes }
+		}
+		ai_will_do = {
+			base = 90
+			modifier = {
+				congress_medium_support_trigger = yes
+				factor = 0.5
+			}
+			modifier = {
+				congress_low_support_trigger = yes
+				factor = 2
+			}
+			modifier = {
+				congress_high_support_trigger = yes
+				factor = 0
+			}
+		}
+		cost = 75
+		days_remove = 60
+		modifier = {
+			political_power_factor = -0.25
+		}
+		remove_effect = {
+			USA_congress_small_support = yes
+		}
+	}
+}
+
+USA_war_prep_category = {
+
+	USA_go_to_war_ms = {
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_war = yes
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 600
+		fire_only_once = yes
+		timeout_effect = {
+			set_country_flag = usa_war_mission_timed_out
+			add_timed_idea = {  idea = USA_failed_war_investments days = 365 }
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					OR = {
+						has_completed_focus = USA_four_freedoms
+						has_completed_focus = USA_four_freedoms_landon
+					}
+				}
+				# add_war_support = 0.15
+				# add_stability = 0.1
+				add_political_power = 150
+			}
+			if = {
+				limit = {
+					OR = {
+						has_completed_focus = USA_towards_war_eco
+						has_completed_focus = USA_towards_war_eco_landon
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_core_of = USA
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_core_of = USA
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_core_of = USA
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_completed_focus = USA_office_prod
+						has_completed_focus = USA_office_prod_landon
+						has_completed_focus = USA_office_prod_willkie
+						has_completed_focus = USA_office_prod_garner
+						has_completed_focus = USA_office_prod_farley
+						has_completed_focus = USA_office_prod_hull
+					}
+					NOT = {
+						AND = {
+							OR = {
+								has_completed_focus = USA_supply_prior
+								has_completed_focus = USA_supply_prior_landon
+								has_completed_focus = USA_supply_prior_willkie
+ 								has_completed_focus = USA_supply_prior_garner
+								has_completed_focus = USA_supply_prior_farley
+								has_completed_focus = USA_supply_prior_hull
+							}
+							OR = {
+								has_completed_focus = USA_opa
+								has_completed_focus = USA_opa_landon
+								has_completed_focus = USA_opa_willkie
+								has_completed_focus = USA_opa_garner
+								has_completed_focus = USA_opa_farley
+								has_completed_focus = USA_opa_hull
+							}
+							OR = {
+								has_completed_focus = USA_initiate_war_bonds
+								has_completed_focus = USA_initiate_war_bonds_landon
+		 						has_completed_focus = USA_initiate_war_bonds_willkie
+ 								has_completed_focus = USA_initiate_war_bonds_garner
+								has_completed_focus = USA_initiate_war_bonds_farley
+								has_completed_focus = USA_initiate_war_bonds_hull
+							}
+						}
+					}
+				}
+				add_timed_idea = {  idea = USA_prepared_war_A days = war_chest_days }
+			}
+			if = {
+				limit = {
+					OR = {
+						has_completed_focus = USA_office_prod
+						has_completed_focus = USA_office_prod_landon
+						has_completed_focus = USA_office_prod_willkie
+						has_completed_focus = USA_office_prod_garner
+						has_completed_focus = USA_office_prod_farley
+						has_completed_focus = USA_office_prod_hull
+					}
+					OR = {
+						has_completed_focus = USA_supply_prior
+						has_completed_focus = USA_supply_prior_landon
+						has_completed_focus = USA_supply_prior_willkie
+ 						has_completed_focus = USA_supply_prior_garner
+						has_completed_focus = USA_supply_prior_farley
+						has_completed_focus = USA_supply_prior_hull
+					}
+					NOT = {
+						AND = {
+							OR = {
+								has_completed_focus = USA_opa
+								has_completed_focus = USA_opa_landon
+								has_completed_focus = USA_opa_willkie
+								has_completed_focus = USA_opa_garner
+								has_completed_focus = USA_opa_farley
+								has_completed_focus = USA_opa_hull
+							}
+							OR = {
+								has_completed_focus = USA_initiate_war_bonds
+								has_completed_focus = USA_initiate_war_bonds_landon
+		 						has_completed_focus = USA_initiate_war_bonds_willkie
+ 								has_completed_focus = USA_initiate_war_bonds_garner
+								has_completed_focus = USA_initiate_war_bonds_farley
+								has_completed_focus = USA_initiate_war_bonds_hull
+							}
+						}
+					}
+				}
+				add_timed_idea = {  idea = USA_prepared_war_AC days = war_chest_days }
+			}
+			if = {
+				limit = {
+					OR = {
+						has_completed_focus = USA_office_prod
+						has_completed_focus = USA_office_prod_landon
+						has_completed_focus = USA_office_prod_willkie
+						has_completed_focus = USA_office_prod_garner
+						has_completed_focus = USA_office_prod_farley
+						has_completed_focus = USA_office_prod_hull
+					}
+					OR = {
+						has_completed_focus = USA_opa
+						has_completed_focus = USA_opa_landon
+						has_completed_focus = USA_opa_willkie
+						has_completed_focus = USA_opa_garner
+						has_completed_focus = USA_opa_farley
+						has_completed_focus = USA_opa_hull
+					}
+					NOT = {
+						AND = {
+							OR = {
+								has_completed_focus = USA_supply_prior
+								has_completed_focus = USA_supply_prior_landon
+								has_completed_focus = USA_supply_prior_willkie
+ 								has_completed_focus = USA_supply_prior_garner
+								has_completed_focus = USA_supply_prior_farley
+								has_completed_focus = USA_supply_prior_hull
+							}
+							OR = {
+								has_completed_focus = USA_initiate_war_bonds
+								has_completed_focus = USA_initiate_war_bonds_landon
+		 						has_completed_focus = USA_initiate_war_bonds_willkie
+ 								has_completed_focus = USA_initiate_war_bonds_garner
+								has_completed_focus = USA_initiate_war_bonds_farley
+								has_completed_focus = USA_initiate_war_bonds_hull
+							}
+						}
+					}
+				}
+				add_timed_idea = {  idea = USA_prepared_war_AD days = war_chest_days }
+			}
+			if = {
+				limit = {
+					OR = {
+						has_completed_focus = USA_office_prod
+						has_completed_focus = USA_office_prod_landon
+						has_completed_focus = USA_office_prod_willkie
+						has_completed_focus = USA_office_prod_garner
+						has_completed_focus = USA_office_prod_farley
+						has_completed_focus = USA_office_prod_hull
+					}
+					OR = {
+						has_completed_focus = USA_opa
+						has_completed_focus = USA_opa_landon
+						has_completed_focus = USA_opa_willkie
+						has_completed_focus = USA_opa_garner
+						has_completed_focus = USA_opa_farley
+						has_completed_focus = USA_opa_hull
+					}
+					OR = {
+						has_completed_focus = USA_supply_prior
+						has_completed_focus = USA_supply_prior_landon
+						has_completed_focus = USA_supply_prior_willkie
+ 						has_completed_focus = USA_supply_prior_garner
+						has_completed_focus = USA_supply_prior_farley
+						has_completed_focus = USA_supply_prior_hull
+					}
+					NOT = {
+						AND = {
+							OR = {
+								has_completed_focus = USA_initiate_war_bonds
+								has_completed_focus = USA_initiate_war_bonds_landon
+		 						has_completed_focus = USA_initiate_war_bonds_willkie
+ 								has_completed_focus = USA_initiate_war_bonds_garner
+								has_completed_focus = USA_initiate_war_bonds_farley
+								has_completed_focus = USA_initiate_war_bonds_hull
+							}
+						}
+					}
+				}
+				add_timed_idea = {  idea = USA_prepared_war_ACD days = war_chest_days }
+			}
+			if = {
+				limit = {
+					OR = {
+						has_completed_focus = USA_office_prod
+						has_completed_focus = USA_office_prod_landon
+						has_completed_focus = USA_office_prod_willkie
+						has_completed_focus = USA_office_prod_garner
+						has_completed_focus = USA_office_prod_farley
+						has_completed_focus = USA_office_prod_hull
+					}
+					OR = {
+						has_completed_focus = USA_opa
+						has_completed_focus = USA_opa_landon
+						has_completed_focus = USA_opa_willkie
+						has_completed_focus = USA_opa_garner
+						has_completed_focus = USA_opa_farley
+						has_completed_focus = USA_opa_hull
+					}
+					OR = {
+						has_completed_focus = USA_supply_prior
+						has_completed_focus = USA_supply_prior_landon
+						has_completed_focus = USA_supply_prior_willkie
+ 						has_completed_focus = USA_supply_prior_garner
+						has_completed_focus = USA_supply_prior_farley
+						has_completed_focus = USA_supply_prior_hull
+					}
+					OR = {
+						has_completed_focus = USA_initiate_war_bonds
+						has_completed_focus = USA_initiate_war_bonds_landon
+		 				has_completed_focus = USA_initiate_war_bonds_willkie
+ 						has_completed_focus = USA_initiate_war_bonds_garner
+						has_completed_focus = USA_initiate_war_bonds_farley
+						has_completed_focus = USA_initiate_war_bonds_hull
+					}
+				}
+				add_timed_idea = {  idea = USA_prepared_war_ACDE days = war_chest_days }
+			}
+		}
+	}
+
+	USA_create_uso = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_office_prod
+				has_completed_focus = USA_office_prod_landon
+				has_completed_focus = USA_office_prod_willkie
+				has_completed_focus = USA_office_prod_garner
+				has_completed_focus = USA_office_prod_farley
+				has_completed_focus = USA_office_prod_hull
+			}
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 40
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			custom_effect_tooltip = add_twenty_days_chest
+			add_to_variable = { var = war_chest_days value = 20 }
+		}
+	}
+
+	USA_inmobilize_enemy_ships = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_office_prod
+				has_completed_focus = USA_office_prod_landon
+				has_completed_focus = USA_office_prod_willkie
+				has_completed_focus = USA_office_prod_garner
+				has_completed_focus = USA_office_prod_farley
+				has_completed_focus = USA_office_prod_hull
+			}
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 40
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			custom_effect_tooltip = add_twenty_days_chest
+			add_to_variable = { var = war_chest_days value = 20 }
+		}
+	}
+
+	USA_repress_america_first = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_office_prod
+				has_completed_focus = USA_office_prod_landon
+				has_completed_focus = USA_office_prod_willkie
+				has_completed_focus = USA_office_prod_garner
+				has_completed_focus = USA_office_prod_farley
+				has_completed_focus = USA_office_prod_hull
+			}
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 40
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			custom_effect_tooltip = add_twenty_days_chest
+			add_to_variable = { var = war_chest_days value = 20 }
+		}
+	}
+
+	USA_proclaim_national_emergency = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_office_prod
+				has_completed_focus = USA_office_prod_landon
+				has_completed_focus = USA_office_prod_willkie
+				has_completed_focus = USA_office_prod_garner
+				has_completed_focus = USA_office_prod_farley
+				has_completed_focus = USA_office_prod_hull
+			}
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 40
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			custom_effect_tooltip = add_twenty_days_chest
+			add_to_variable = { var = war_chest_days value = 20 }
+		}
+	}
+
+	USA_freeze_enemy_assets = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_office_prod
+				has_completed_focus = USA_office_prod_landon
+				has_completed_focus = USA_office_prod_willkie
+				has_completed_focus = USA_office_prod_garner
+				has_completed_focus = USA_office_prod_farley
+				has_completed_focus = USA_office_prod_hull
+			}
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 40
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			custom_effect_tooltip = add_twenty_days_chest
+			add_to_variable = { var = war_chest_days value = 20 }
+		}
+	}
+
+	USA_extend_guard_draft = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_office_prod
+				has_completed_focus = USA_office_prod_landon
+				has_completed_focus = USA_office_prod_willkie
+				has_completed_focus = USA_office_prod_garner
+				has_completed_focus = USA_office_prod_farley
+				has_completed_focus = USA_office_prod_hull
+			}
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 40
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			custom_effect_tooltip = add_twenty_days_chest
+			add_to_variable = { var = war_chest_days value = 20 }
+		}
+	}
+
+	USA_close_down_enemy_consulates = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_office_prod
+				has_completed_focus = USA_office_prod_landon
+				has_completed_focus = USA_office_prod_willkie
+				has_completed_focus = USA_office_prod_garner
+				has_completed_focus = USA_office_prod_farley
+				has_completed_focus = USA_office_prod_hull
+			}
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 40
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			custom_effect_tooltip = add_twenty_days_chest
+			add_to_variable = { var = war_chest_days value = 20 }
+		}
+	}
+
+	USA_place_war_alert = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_office_prod
+				has_completed_focus = USA_office_prod_landon
+				has_completed_focus = USA_office_prod_willkie
+				has_completed_focus = USA_office_prod_garner
+				has_completed_focus = USA_office_prod_farley
+				has_completed_focus = USA_office_prod_hull
+			}
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 40
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			custom_effect_tooltip = add_twenty_days_chest
+			add_to_variable = { var = war_chest_days value = 20 }
+		}
+	}
+
+	USA_order_9 = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			OR = {
+				has_completed_focus = USA_office_prod
+				has_completed_focus = USA_office_prod_landon
+				has_completed_focus = USA_office_prod_willkie
+				has_completed_focus = USA_office_prod_garner
+				has_completed_focus = USA_office_prod_farley
+				has_completed_focus = USA_office_prod_hull
+			}
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 40
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			custom_effect_tooltip = add_twenty_days_chest
+			add_to_variable = { var = war_chest_days value = 20 }
+		}
+	}
+
+}
+
+USA_economic_crisis = {
+
+	USA_garner_economic_recovery_mission = {
+		icon = generic_citizens
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_country_flag = usa_passed_rra_act
+			has_country_flag = usa_passed_gs_act
+			has_country_flag = usa_passed_tar_act
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 365
+		timeout_effect = {
+			country_event = { id = unitedstates.176 }
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+			activate_mission = USA_garner_economic_recovery_mission2
+		}
+	}
+
+	USA_garner_economic_recovery_mission2 = {
+		icon = generic_citizens
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_country_flag = usa_passed_it_act
+			has_country_flag = usa_passed_pw2_act
+			has_country_flag = usa_passed_br_act
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 365
+		timeout_effect = {
+			country_event = { id = unitedstates.176 }
+		}
+		complete_effect = {
+			effect_depression_recovery = yes
+		}
+	}
+
+	USA_employment_mission_alt = {
+		icon = generic_citizens
+		allowed = {
+			tag = USA
+		}
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 400
+		timeout_effect = {
+			if = {
+				limit = {
+					has_idea = us_unemploy1
+				}
+				country_event = { id = unitedstates.3 }
+			}
+			if = {
+				limit = {
+					has_idea = us_unemploy2
+				}
+				country_event = { id = unitedstates.4 }
+			}
+			if = {
+				limit = {
+					has_idea = us_unemploy3
+				}
+				country_event = { id = unitedstates.5 }
+			}
+		}
+		complete_effect = {
+		}
+	}
+
+	USA_crops_mission_alt = {
+		icon = generic_barn
+		allowed = {
+			tag = USA
+		}
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 400
+		timeout_effect = {
+			if = {
+				limit = {
+					has_idea = us_crop1
+				}
+				country_event = { id = unitedstates.6 }
+			}
+			if = {
+				limit = {
+					has_idea = us_crop2
+				}
+				country_event = { id = unitedstates.7 }
+			}
+			if = {
+				limit = {
+					has_idea = us_crop3
+				}
+				country_event = { id = unitedstates.8 }
+			}
+		}
+		complete_effect = {
+		}
+	}
+
+
+}
+USA_new_deal = {
+
+
+	USA_employment_mission = {
+		icon = generic_citizens
+		allowed = {
+			tag = USA
+		}
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 400
+		timeout_effect = {
+			if = {
+				limit = {
+					has_idea = us_unemploy1
+				}
+				country_event = { id = unitedstates.3 }
+			}
+			if = {
+				limit = {
+					has_idea = us_unemploy2
+				}
+				country_event = { id = unitedstates.4 }
+			}
+			if = {
+				limit = {
+					has_idea = us_unemploy3
+				}
+				country_event = { id = unitedstates.5 }
+			}
+		}
+		complete_effect = {
+		}
+	}
+
+	USA_crops_mission = {
+		icon = generic_barn
+		allowed = {
+			tag = USA
+		}
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 400
+		timeout_effect = {
+			if = {
+				limit = {
+					has_idea = us_crop1
+				}
+				country_event = { id = unitedstates.6 }
+			}
+			if = {
+				limit = {
+					has_idea = us_crop2
+				}
+				country_event = { id = unitedstates.7 }
+			}
+			if = {
+				limit = {
+					has_idea = us_crop3
+				}
+				country_event = { id = unitedstates.8 }
+			}
+		}
+		complete_effect = {
+		}
+	}
+
+	USA_create_pwa = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+		}
+		available = {
+			has_country_flag = USA_passed_nira_act
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 1000
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_active_mission = USA_employment_mission
+				}
+				add_days_mission_timeout = {
+					mission = USA_employment_mission
+					days = -50
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_active_mission = USA_employment_mission }
+				}
+				add_stability = 0.02
+			}
+			set_country_flag = USA_created_pwa
+			add_to_variable = { var = usa_president_popularity value = 2 }
+			USA_clamp_president_pop = yes
+		}
+	}
+
+	USA_create_fdic = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+		}
+		available = {
+			has_country_flag = USA_passed_bank_act
+		}
+		fire_only_once = yes
+		cost = 25
+		ai_will_do = {
+			base = 900
+		}
+		complete_effect = {
+			add_to_variable = { usa_president_popularity = 2 }
+			USA_clamp_president_pop = yes
+			add_political_power = 50
+		}
+	}
+
+	USA_create_fscc = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+		}
+		available = {
+			has_country_flag = USA_passed_aaa_act
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 900
+		}
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = USA_crops_mission
+				days = -50
+			}
+			add_to_variable = { usa_president_popularity = 1 }
+			USA_clamp_president_pop = yes
+			add_stability = 0.015
+		}
+	}
+
+	USA_create_shd = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date < 1937.1.20
+		}
+		available = {
+			has_country_flag = usa_days_over
+			has_completed_focus = USA_allalphabet
+		}
+		fire_only_once = yes
+		cost = 15
+		ai_will_do = {
+			base = 800
+		}
+		complete_effect = {
+			add_to_variable = { usa_president_popularity = 2 }
+			USA_clamp_president_pop = yes
+		}
+	}
+
+	USA_create_wpa = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date < 1937.1.20
+		}
+		available = {
+			has_country_flag = USA_passed_eraa_act
+			has_completed_focus = USA_allalphabet
+		}
+		fire_only_once = yes
+		cost = 30
+		ai_will_do = {
+			base = 2000
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_active_mission = USA_employment_mission
+				}
+				add_days_mission_timeout = {
+					mission = USA_employment_mission
+					days = -50
+				}
+			}
+			effect_depression_recovery = yes
+			add_to_variable = { var = usa_president_popularity value = 5 }
+			USA_clamp_president_pop = yes
+			hidden_effect = {
+				country_event = {
+					id = USA_flavour.15
+					days = 60
+					random_days = 3
+				}
+				country_event = {
+					id = USA_flavour.18
+					days = 120
+					random_days = 3
+				}
+				country_event = {
+					id = USA_flavour.19
+					days = 180
+					random_days = 4
+				}
+				country_event = {
+					id = USA_flavour.20
+					days = 35
+					random_days = 1
+				}
+				set_temp_variable = { FPNO_created_time = 2371 }
+				set_temp_variable = { days_since_start = global.num_days }
+				subtract_from_temp_variable = { days_since_start = 705545 } #1933*365
+				subtract_from_temp_variable = { FPNO_created_time = days_since_start }
+				country_event = {
+					id = USA_flavour.16
+					days = var:FPNO_created_time
+				}
+				set_temp_variable = { Public_works_project = 1728 }
+				subtract_from_temp_variable = { Public_works_project = days_since_start }
+				country_event = {
+					id = USA_flavour.31
+					days = var:Public_works_project
+				}
+			}
+		}
+	}
+
+	USA_create_adc = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date < 1937.1.20
+		}
+		available = {
+			has_country_flag = USA_passed_socsec_act
+			has_completed_focus = USA_allalphabet
+		}
+		fire_only_once = yes
+		cost = 30
+		ai_will_do = {
+			base = 900
+		}
+		complete_effect = {
+			add_to_variable = { var = usa_president_popularity value = 4 }
+			USA_clamp_president_pop = yes
+		}
+	}
+
+	USA_create_nya = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date < 1937.1.20
+		}
+		available = {
+			date > 1935.1.1
+			has_completed_focus = USA_allalphabet
+		}
+		fire_only_once = yes
+		cost = 45
+		ai_will_do = {
+			base = 900
+		}
+		complete_effect = {
+			add_stability = 0.02
+			add_war_support = 0.02
+			add_to_variable = { var = usa_president_popularity value = 2 }
+			USA_clamp_president_pop = yes
+		}
+	}
+
+	USA_create_holc = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+		}
+		available = {
+			has_country_flag = USA_passed_holc_act
+		}
+		fire_only_once = yes
+		cost = 15
+		ai_will_do = {
+			base = 800
+		}
+		complete_effect = {
+			add_war_support = 0.03
+		}
+	}
+
+	USA_create_fcc = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date < 1937.1.20
+		}
+		available = {
+			has_country_flag = USA_passed_com_act
+			has_completed_focus = USA_allalphabet
+		}
+		fire_only_once = yes
+		cost = 15
+		ai_will_do = {
+			base = 700
+		}
+		complete_effect = {
+			add_war_support = 0.03
+		}
+	}
+
+	USA_create_drs = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+		}
+		available = {
+			has_idea = usa_dust_bowl1
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 900
+		}
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = USA_crops_mission
+				days = -50
+			}
+			swap_ideas = { remove_idea = usa_dust_bowl1 add_idea = usa_dust_bowl2 }
+			set_country_flag = created_drs
+			add_to_variable = { var = usa_president_popularity value = 2 }
+			USA_clamp_president_pop = yes
+		}
+	}
+
+	USA_create_prra = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_government = social_liberalism
+			date < 1937.1.20
+		}
+		available = {
+			has_completed_focus = USA_allalphabet
+		}
+		fire_only_once = yes
+		cost = 25
+		ai_will_do = {
+			base = 2000
+		}
+		complete_effect = {
+			686 = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+
+}
+
+
+USA_foreign_policy_dec = {
+
+	USA_nicaragua_mission = {
+		icon = american_cap
+		allowed = {
+			tag = USA
+		}
+		available = {
+			NIC = { NOT = { is_subject_of = USA }  }
+		}
+		activation = {
+			NIC = { is_subject_of = USA }
+		}
+		is_good = no
+		days_mission_timeout = 450
+		fire_only_once = yes
+		timeout_effect = {
+			add_war_support = -0.05
+			add_political_power = -200
+		}
+		complete_effect = {
+			add_political_power = 25
+		}
+	}
+
+	USA_haiti_mission = {
+		icon = american_cap
+		allowed = {
+			tag = USA
+		}
+		available = {
+			HAI = { NOT = { is_subject_of = USA }  }
+		}
+		activation = {
+			HAI = { is_subject_of = USA }
+		}
+		is_good = no
+		days_mission_timeout = 730
+		fire_only_once = yes
+		timeout_effect = {
+			add_war_support = -0.1
+			add_political_power = -250
+		}
+		complete_effect = {
+			add_political_power = 35
+		}
+	}
+
+	USA_abandon_car = {
+		icon = american_cap
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_completed_focus = USA_withdraw_caribbean
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 180
+		fire_only_once = yes
+		timeout_effect = {
+			add_stability = -0.1
+			set_country_flag = usa_finished_car_mission
+		}
+		complete_effect = {
+			USA_congress_medium_support = yes
+			add_political_power = 30
+			set_country_flag = usa_finished_car_mission
+		}
+	}
+
+	USA_sign_treaty_germany = {
+		icon = eng_trade_unions_support
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_completed_focus = USA_trade_germany_iso
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 180
+		fire_only_once = yes
+		timeout_effect = {
+			add_stability = -0.05
+			add_political_power = -100
+			set_country_flag = usa_finished_ger_mission
+		}
+		complete_effect = {
+			USA_congress_small_support = yes
+			add_political_power = 30
+			set_country_flag = usa_finished_ger_mission
+		}
+	}
+
+	USA_sign_treaty_soviets = {
+		icon = eng_trade_unions_support
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_completed_focus = USA_bef_soviets_iso
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 180
+		fire_only_once = yes
+		timeout_effect = {
+			add_stability = -0.05
+			add_political_power = -100
+			set_country_flag = usa_finished_sov_mission
+		}
+		complete_effect = {
+			USA_congress_small_support = yes
+			add_political_power = 30
+			set_country_flag = usa_finished_sov_mission
+		}
+	}
+
+	USA_sign_treaty_jap = {
+		icon = eng_trade_unions_support
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_completed_focus = USA_trade_japan_iso
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 180
+		fire_only_once = yes
+		timeout_effect = {
+			add_stability = -0.05
+			add_political_power = -100
+			set_country_flag = usa_finished_jap_mission
+		}
+		complete_effect = {
+			USA_congress_small_support = yes
+			add_political_power = 30
+			set_country_flag = usa_finished_jap_mission
+		}
+	}
+
+	USA_sign_treaty_britain = {
+		icon = eng_trade_unions_support
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_completed_focus = USA_trade_britain_iso
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 180
+		fire_only_once = yes
+		timeout_effect = {
+			add_stability = -0.05
+			add_political_power = -100
+			set_country_flag = usa_finished_eng_mission
+		}
+		complete_effect = {
+			USA_congress_small_support = yes
+			add_political_power = 30
+			set_country_flag = usa_finished_eng_mission
+		}
+	}
+
+	USA_sign_treaty_fra = {
+		icon = eng_trade_unions_support
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_completed_focus = USA_trade_france_iso
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 180
+		fire_only_once = yes
+		timeout_effect = {
+			add_stability = -0.05
+			add_political_power = -100
+			set_country_flag = usa_finished_fra_mission
+		}
+		complete_effect = {
+			USA_congress_small_support = yes
+			add_political_power = 30
+			set_country_flag = usa_finished_fra_mission
+		}
+	}
+
+	USA_defeat_mexico = {
+		icon = generic_political_discourse
+		allowed = {
+			tag = USA
+		}
+		available = {
+			MEX = { has_capitulated = yes }
+		}
+		activation = {
+			has_war_with = MEX
+		}
+		is_good = no
+		days_mission_timeout = 730
+		fire_only_once = yes
+		timeout_effect = {
+			country_event = { id = usfor.50 }
+			MEX = { country_event = { id = usfor.51 } }
+		}
+		complete_effect = {
+			add_political_power = 50
+			add_stability = 0.05
+			remove_ideas = USA_unpopular_war
+		}
+	}
+
+	USA_join_french_faction = {
+		icon = hol_exchange_intelligence_data
+		allowed = {
+			tag = USA
+		}
+		#TODO
+		visible = {
+			OR = {
+				has_completed_focus = USA_french_deal
+				AND = {
+					has_completed_focus = USA_arsenal_democracy
+					FRA = {
+						has_war = yes
+						NOT = { has_war_with = USA }
+					}
+				}
+			}
+			is_in_faction = no
+		}
+		available = {
+			FRA = {
+				is_faction_leader = yes
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_capitulated = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_war = no
+					NOT = { has_completed_focus = USA_arms_trade_britain }
+				}
+				threat > 0.9 has_war_support > 0.75
+			}
+		}
+		fire_only_once = yes
+		cost = 15
+		ai_will_do = {
+			base = 40
+		}
+		complete_effect = {
+			FRA = { country_event = { id = usfor.59 } }
+		}
+	}
+
+	USA_join_british_faction = {
+		icon = hol_exchange_intelligence_data
+		allowed = {
+			tag = USA
+		}
+		#TODO
+		visible = {
+			OR = {
+				has_completed_focus = USA_arms_trade_britain
+				AND = {
+					has_war_with = JAP
+					ENG = {
+						OR = {
+							has_war_with = JAP
+							AND = {
+								has_war_with = GER
+								GER = {
+									has_non_aggression_pact_with = JAP
+								}
+							}
+						}
+					}
+				}
+				AND = {
+					has_completed_focus = USA_arsenal_democracy
+					ENG = {
+						has_war = yes
+						NOT = { has_war_with = USA }
+					}
+				}
+				has_war_together_with = ENG
+			}
+			is_in_faction = no
+		}
+		available = {
+			ENG = {
+				is_faction_leader = yes
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_capitulated = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_war = no
+					NOT = { has_completed_focus = USA_arms_trade_britain }
+				}
+				threat > 0.9 has_war_support > 0.75
+			}
+		}
+		fire_only_once = yes
+		cost = 10
+		ai_will_do = {
+			base = 10
+			modifier = {
+				factor = 1000
+				has_war = yes
+			}
+			modifier = {
+				factor = 0
+				AND = {
+					date < 1942.6.1
+					has_war = no
+				}
+			}
+			modifier = {
+				factor = 0
+				ENG = {
+					NOT = {
+						OR = {
+							has_war_with = GER
+							has_war_with = JAP
+							has_war_with = SOV
+						}
+					}
+				}
+			}
+		}
+		complete_effect = {
+			ENG = { country_event = { id = usfor.61 } }
+		}
+	}
+
+	USA_propose_intervention_ger = {
+		allowed = {
+			tag = USA
+		}
+		#TODO
+		icon = icon_soldiers
+		visible = {
+			has_completed_focus = USA_lead_charge
+			is_faction_leader = no
+			is_in_faction = yes
+			has_war = no
+			GER = { exists = yes }
+		}
+		available = {
+			has_completed_focus = USA_embargo_germany
+			NOT = { is_in_faction_with = GER }
+		}
+		fire_only_once = yes
+		cost = 60
+		ai_will_do = {
+			base = 40
+		}
+		complete_effect = {
+			every_country = {
+				limit = {
+					is_in_faction_with = USA
+					is_faction_leader = yes
+				}
+				country_event = { id = usfor.121 }
+			}
+		}
+	}
+
+	USA_propose_intervention_ita = {
+		allowed = {
+			tag = USA
+		}
+		#TODO
+		icon = icon_soldiers
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_lead_charge
+			is_faction_leader = no
+			is_in_faction = yes
+			has_war = no
+			ITA = { exists = yes }
+		}
+		available = {
+			has_completed_focus = USA_embargo_italy
+			NOT = { is_in_faction_with = ITA }
+		}
+		fire_only_once = yes
+		cost = 60
+		ai_will_do = {
+			base = 40
+		}
+		complete_effect = {
+			every_country = {
+				limit = {
+					is_in_faction_with = USA
+					is_faction_leader = yes
+				}
+				country_event = { id = usfor.120 }
+			}
+		}
+	}
+
+	USA_invite_col = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_accord
+		#TODO
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			COL = {
+				is_in_faction = no
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+		available = {
+			COL = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			COL = { country_event = { id = usfor.68 } }
+		}
+	}
+
+	USA_coup_col = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_military
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			COL = {
+				OR = {
+					has_government = fascism
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		available = {
+			COL = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 60
+		ai_will_do = {
+			base = 100
+		}
+		remove_effect = {
+			COL = { country_event = { id = usfor.70 } }
+		}
+	}
+
+	USA_invite_ven = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_accord
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			VEN = {
+				is_in_faction = no
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+		available = {
+			VEN = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			VEN = { country_event = { id = usfor.68 } }
+		}
+	}
+
+	USA_coup_ven = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_military
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			VEN = {
+				OR = {
+					has_government = fascism
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		available = {
+			VEN = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 60
+		ai_will_do = {
+			base = 100
+		}
+		remove_effect = {
+			VEN = { country_event = { id = usfor.70 } }
+		}
+	}
+
+	USA_invite_bra = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_accord
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = VEN
+				is_in_faction_with = BOL
+				is_in_faction_with = ARG
+				is_in_faction_with = PAR
+				is_in_faction_with = URG
+			}
+			BRA = {
+				is_in_faction = no
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+		available = {
+			BRA = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			BRA = { country_event = { id = usfor.68 } }
+		}
+	}
+
+	USA_invade_bra = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_military
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = VEN
+				is_in_faction_with = BOL
+				is_in_faction_with = ARG
+				is_in_faction_with = PAR
+				is_in_faction_with = URG
+			}
+			BRA = {
+				OR = {
+					has_government = fascism
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+				NOT = { is_in_faction_with = USA }
+			}
+		}
+		available = {
+			has_war = no
+			has_war_support > 0.5
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			declare_war_on = {
+				target = BRA
+				type = annex_everything
+			}
+		}
+	}
+
+	USA_invite_bol = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_accord
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = PRU
+				is_in_faction_with = ARG
+				is_in_faction_with = BRA
+				is_in_faction_with = PAR
+			}
+			BOL = {
+				is_in_faction = no
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+		available = {
+			BOL = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			BOL = { country_event = { id = usfor.68 } }
+		}
+	}
+
+	USA_coup_bol = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_military
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = PRU
+				is_in_faction_with = ARG
+				is_in_faction_with = BRA
+				is_in_faction_with = PAR
+			}
+			BOL = {
+				OR = {
+					has_government = fascism
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		available = {
+			BOL = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 60
+		ai_will_do = {
+			base = 100
+		}
+		remove_effect = {
+			BOL = { country_event = { id = usfor.70 } }
+		}
+	}
+
+	USA_invite_ecu = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_accord
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = COL
+				is_in_faction_with = VEN
+			}
+			ECU = {
+				is_in_faction = no
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+		available = {
+			ECU = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			ECU = { country_event = { id = usfor.68 } }
+		}
+	}
+
+	USA_coup_ecu = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_military
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = COL
+				is_in_faction_with = VEN
+			}
+			ECU = {
+				OR = {
+					has_government = fascism
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		available = {
+			ECU = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 60
+		ai_will_do = {
+			base = 100
+		}
+		remove_effect = {
+			ECU = { country_event = { id = usfor.70 } }
+		}
+	}
+
+	USA_invite_pru = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_accord
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = ECU
+				is_in_faction_with = COL
+				is_in_faction_with = BOL
+				is_in_faction_with = CHL
+			}
+			PRU = {
+				is_in_faction = no
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+		available = {
+			PRU = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			PRU = { country_event = { id = usfor.68 } }
+		}
+	}
+
+	USA_coup_pru = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_military
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = ECU
+				is_in_faction_with = COL
+				is_in_faction_with = BOL
+				is_in_faction_with = CHL
+			}
+			PRU = {
+				OR = {
+					has_government = fascism
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		available = {
+			PRU = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 60
+		ai_will_do = {
+			base = 100
+		}
+		remove_effect = {
+			PRU = { country_event = { id = usfor.70 } }
+		}
+	}
+
+	USA_invite_chl = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_accord
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = BOL
+				is_in_faction_with = ARG
+				is_in_faction_with = PRU
+			}
+			CHL = {
+				is_in_faction = no
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+		available = {
+			CHL = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			CHL = { country_event = { id = usfor.68 } }
+		}
+	}
+
+	USA_coup_chl = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_military
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = BOL
+				is_in_faction_with = ARG
+				is_in_faction_with = PRU
+			}
+			CHL = {
+				OR = {
+					has_government = fascism
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		available = {
+			CHL = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 60
+		ai_will_do = {
+			base = 100
+		}
+		remove_effect = {
+			CHL = { country_event = { id = usfor.70 } }
+		}
+	}
+
+	USA_invite_arg = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_accord
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = CHL
+				is_in_faction_with = BOL
+				is_in_faction_with = BRA
+				is_in_faction_with = PAR
+				is_in_faction_with = URG
+			}
+			ARG = {
+				is_in_faction = no
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+		available = {
+			ARG = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			ARG = { country_event = { id = usfor.68 } }
+		}
+	}
+
+	USA_invade_arg = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_military
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = CHL
+				is_in_faction_with = BOL
+				is_in_faction_with = BRA
+				is_in_faction_with = PAR
+				is_in_faction_with = URG
+			}
+			ARG = {
+				OR = {
+					has_government = fascism
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+				NOT = { is_in_faction_with = USA }
+			}
+		}
+		available = {
+			has_war = no
+			has_war_support > 0.5
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			declare_war_on = {
+				target = ARG
+				type = annex_everything
+			}
+		}
+	}
+
+	USA_invite_par = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_accord
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = BOL
+				is_in_faction_with = BRA
+				is_in_faction_with = ARG
+				is_in_faction_with = URG
+			}
+			PAR = {
+				is_in_faction = no
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+		available = {
+			PAR = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			PAR = { country_event = { id = usfor.68 } }
+		}
+	}
+
+	USA_coup_par = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_military
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = BOL
+				is_in_faction_with = BRA
+				is_in_faction_with = ARG
+				is_in_faction_with = URG
+			}
+			PAR = {
+				OR = {
+					has_government = fascism
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		available = {
+			PAR = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 60
+		ai_will_do = {
+			base = 100
+		}
+		remove_effect = {
+			PAR = { country_event = { id = usfor.70 } }
+		}
+	}
+
+	USA_invite_URG = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_accord
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = BRA
+				is_in_faction_with = ARG
+				is_in_faction_with = PAR
+			}
+			URG = {
+				is_in_faction = no
+				NOT = {
+					OR = {
+						has_war_with = USA
+						has_government = fascism
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_capitulated = yes
+					}
+				}
+			}
+		}
+		available = {
+			URG = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			URG = { country_event = { id = usfor.68 } }
+		}
+	}
+
+	USA_coup_URG = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_military
+		visible = {
+			has_completed_focus = USA_south_america
+			is_faction_leader = yes
+			OR = {
+				is_in_faction_with = BRA
+				is_in_faction_with = ARG
+				is_in_faction_with = PAR
+			}
+			COL = {
+				OR = {
+					has_government = fascism
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		available = {
+			URG = { has_war = no }
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 50
+		days_remove = 60
+		ai_will_do = {
+			base = 100
+		}
+		remove_effect = {
+			URG = { country_event = { id = usfor.70 } }
+		}
+	}
+
+	USA_fabricate_border_incident = {
+		allowed = {
+			tag = USA
+		}
+		icon = border_war
+		visible = {
+			has_country_flag = usa_mexico_refuse_oil
+			NOT = { has_country_flag = usa_mex_border_coup }
+		}
+		available = {
+			has_country_flag = usa_mexico_refuse_oil
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 40
+		}
+		days_remove = 60
+		remove_effect = {
+			country_event = { id = usfor.49 }
+			set_country_flag = usa_mex_border_in
+		}
+	}
+
+	USA_stage_coup_mex = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_military
+		visible = {
+			has_country_flag = usa_mexico_refuse_oil
+			NOT = { has_country_flag = usa_mex_border_in }
+		}
+		available = {
+			has_country_flag = usa_mexico_refuse_oil
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 40
+		}
+		days_remove = 60
+		remove_effect = {
+			MEX = { country_event = { id = usfor.52 } }
+			set_country_flag = usa_mex_border_coup
+		}
+	}
+
+	USA_intervention_gua = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_ignite_civil_war
+		visible = {
+			GUA = { has_country_flag = usa_refused_influence }
+		}
+		available = {
+			GUA = { has_war = no is_puppet = no }
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 40
+		}
+		days_remove = 60
+		remove_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = GUA
+			}
+		}
+	}
+
+	USA_intervention_els = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_ignite_civil_war
+		visible = {
+			ELS = { has_country_flag = usa_refused_influence }
+		}
+		available = {
+			ELS = { has_war = no is_puppet = no }
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 40
+		}
+		days_remove = 60
+		remove_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = ELS
+			}
+		}
+	}
+
+	USA_intervention_cos = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_ignite_civil_war
+		visible = {
+			COS = { has_country_flag = usa_refused_influence }
+		}
+		available = {
+			COS = { has_war = no is_puppet = no }
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 40
+		}
+		days_remove = 60
+		remove_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = COS
+			}
+		}
+	}
+
+	USA_intervention_hon = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_ignite_civil_war
+		visible = {
+			HON = { has_country_flag = usa_refused_influence }
+		}
+		available = {
+			HON = { has_war = no is_puppet = no }
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 40
+		}
+		days_remove = 60
+		remove_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = HON
+			}
+		}
+	}
+
+	USA_intervention_nic = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_ignite_civil_war
+		visible = {
+			NIC = { has_country_flag = usa_refused_influence }
+		}
+		available = {
+			NIC = { has_war = no is_puppet = no }
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 40
+		}
+		days_remove = 60
+		remove_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = NIC
+			}
+		}
+	}
+
+	USA_intervention_pan = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_ignite_civil_war
+		visible = {
+			PAN = { has_country_flag = usa_refused_influence }
+		}
+		available = {
+			PAN = { has_war = no is_puppet = no }
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 40
+		}
+		days_remove = 60
+		remove_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = PAN
+			}
+		}
+	}
+
+	USA_intervention_cub = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_ignite_civil_war
+		visible = {
+			CUB = { has_country_flag = usa_refused_influence }
+		}
+		available = {
+			CUB = { has_war = no is_puppet = no }
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 40
+		}
+		days_remove = 60
+		remove_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = CUB
+			}
+		}
+	}
+
+	USA_intervention_hai = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_ignite_civil_war
+		visible = {
+			HAI = { has_country_flag = usa_refused_influence }
+		}
+		available = {
+			HAI = { has_war = no is_puppet = no }
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 40
+		}
+		days_remove = 60
+		remove_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = HAI
+			}
+		}
+	}
+
+	USA_intervention_dom = {
+		icon = generic_ignite_civil_war
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			DOM = { has_country_flag = usa_refused_influence }
+		}
+		available = {
+			DOM = { has_war = no is_puppet = no }
+		}
+		fire_only_once = yes
+		cost = 50
+		ai_will_do = {
+			base = 40
+		}
+		days_remove = 60
+		remove_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = DOM
+			}
+		}
+	}
+
+	USA_create_monroe_alliance = {
+		allowed = {
+			tag = USA
+		}
+		icon = generic_civilian_support
+		visible = {
+			has_completed_focus = USA_central_america
+		}
+		available = {
+			is_in_faction = no
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 25
+		ai_will_do = {
+			base = 0
+		}
+		complete_effect = {
+			hidden_effect = {
+				set_global_flag = USA_monroe_alliance
+			}
+			every_other_country = {
+				limit = {
+					OR = {
+						has_country_flag = usa_accepted_influence
+						is_puppet_of = USA
+					}
+				}
+				diplomatic_relation = {
+					country = USA
+					relation = guarantee
+					active = yes
+				}
+				USA = {
+					diplomatic_relation = {
+						country = PREV
+						relation = guarantee
+						active = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+USA_military_dec_category = {
+
+	USA_create_mcom = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+		}
+		available = {
+			has_country_flag = USA_passed_mm_act
+		}
+		icon = generic_construction
+		fire_only_once = yes
+		cost = 60
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = convoy
+				amount = 300
+				producer = USA
+			}
+		}
+	}
+
+	USA_replace_cno = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_war = yes
+		}
+		icon = generic_naval
+		available = {
+		}
+		cost = 150
+		ai_will_do = {
+			base = 0
+		}
+		complete_effect = {
+			country_event = { id = unitedstates.161 }
+		}
+	}
+
+	USA_fix_war_economy = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_idea = USA_crippled_war_economy
+		}
+		available = {
+			has_idea = USA_crippled_war_economy
+			has_completed_focus = USA_end_unemployment
+			has_completed_focus = USA_ten_percent_club
+			has_completed_focus = USA_board_economic_warfare
+			has_completed_focus = USA_expand_tax_base
+		}
+		fire_only_once = yes
+		cost = 100
+		ai_will_do = {
+			base = 100
+		}
+		days_remove = 200
+		modifier = {
+			political_power_factor = -0.2
+		}
+		remove_effect = {
+			remove_ideas = USA_crippled_war_economy
+		}
+	}
+
+	USA_create_army_usa = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+		}
+		available = {
+			has_war = yes
+		}
+		fire_only_once = yes
+		icon = generic_army
+		cost = 75
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			army_experience = 150
+			set_country_flag = army_usa_created
+			add_manpower = 100000
+			if = {
+				limit = {
+					NOT = { has_country_flag = eisenhower_promoted }
+				}
+				create_corps_commander = {
+					name = "Dwight D. Eisenhower"
+					portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Dwight_D_Eisenhower.png"
+					traits = { logistics_wizard trait_cautious armor_officer politically_connected }
+					skill = 5
+					id = 602
+					attack_skill = 3
+					defense_skill = 3
+					planning_skill = 5
+					logistics_skill = 5
+				}
+			}
+		}
+	}
+
+	USA_desegragate_armed_forces_decision = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			has_completed_focus = USA_denounce_racial_discrimination
+		}
+		available = {
+		}
+		fire_only_once = yes
+		cost = 100
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			swap_ideas = { remove_idea = us_segregation add_idea = us_segregation2 }
+		}
+	}
+
+	USA_op_torch = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			NOT = { has_war_with = VIC }
+			has_completed_focus = USA_through_africa
+			is_faction_leader = yes
+		}
+		available = {
+		}
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			declare_war_on = {
+				target = VIC
+				type = annex_everything
+			}
+		}
+	}
+
+	USA_promote_george_s_patton = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1938.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "George S. Patton"
+				portrait_path = "Portrait_USA_George_S_Patton.png"
+				traits = {  trickster armor_officer panzer_leader war_hero trait_reckless }
+				skill = 5
+
+				attack_skill = 7
+				defense_skill = 3
+				planning_skill = 2
+				logistics_skill = 4
+			}
+		}
+	}
+
+	USA_promote_omar_bradley = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1939.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			base = 100
+		}
+		custom_cost_text = command_power_more_than_10
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Omar Bradley"
+				portrait_path = "Portrait_USA_Omar_Bradley.png"
+				traits = {  trait_engineer trait_cautious brilliant_strategist harsh_leader }
+				skill = 5
+
+				attack_skill = 3
+				defense_skill = 5
+				planning_skill = 4
+				logistics_skill = 4
+			}
+		}
+	}
+
+	USA_promote_dwight_d_eisenhower = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1938.1.1
+			NOT ={ has_country_flag = army_usa_created }
+		}
+		available = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Dwight D. Eisenhower"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Dwight_D_Eisenhower.png"
+				traits = { logistics_wizard trait_cautious armor_officer politically_connected }
+				skill = 5
+				id = 602
+				attack_skill = 3
+				defense_skill = 3
+				planning_skill = 5
+				logistics_skill = 5
+			}
+			set_country_flag = eisenhower_promoted
+		}
+	}
+
+	USA_promote_geoffrey_keyes = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1940.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Geoffrey Keyes"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Geoffrey_Keyes.png"
+				traits = { armor_officer career_officer }
+				skill = 2
+
+				attack_skill = 2
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 1
+			}
+		}
+	}
+
+	USA_promote_lucian_truscott = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1940.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Lucian Truscott"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Lucian_Truscott.png"
+				traits = { trait_engineer commando cavalry_officer }
+				skill = 3
+
+				attack_skill = 3
+				defense_skill = 3
+				planning_skill = 2
+				logistics_skill = 2
+			}
+		}
+	}
+
+	USA_promote_lloyd_fredenhall = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1939.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Lloyd Fredenhall"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Lloyd_Fredendall.png"
+				traits = { old_guard infantry_officer inflexible_strategist }
+				skill = 3
+
+				attack_skill = 3
+				defense_skill = 2
+				planning_skill = 1
+				logistics_skill = 1
+			}
+		}
+	}
+
+	USA_promote_jonathan_wainwright = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1938.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Jonathan Wainwright"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Jonathan_Wainwright.png"
+				traits = {  }
+				skill = 1
+
+				attack_skill = 1
+				defense_skill =1
+				planning_skill = 1
+				logistics_skill = 1
+			}
+		}
+	}
+
+	USA_promote_leonard_gerow = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1939.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Leonard Gerow"
+				#portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Leonard_T_Gerow.png" #TODO:Missing portrait
+				traits = { infantry_officer }
+				skill = 3
+
+				attack_skill = 3
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 3
+			}
+		}
+	}
+
+	USA_promote_edward_brooks = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1941.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Edward Brooks"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Edward_Brooks.png"
+				traits = { armor_officer trait_reckless }
+				skill = 3
+
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 2
+			}
+		}
+	}
+
+	USA_promote_clarence_huebner = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1941.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Clarence Huebner"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Clarence_Huebner.png"
+				traits = { old_guard harsh_leader }
+				skill = 3
+
+				attack_skill = 1
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 1
+			}
+		}
+	}
+
+	USA_promote_alexander_patch = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1939.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Alexander Patch"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Alexander_Patch.png"
+				traits = {  commando infantry_officer }
+				skill = 3
+
+				attack_skill = 3
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 3
+			}
+		}
+	}
+
+	USA_promote_william_simpson = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1941.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "William Simpson"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_William_Hood_Simpson.png"
+				traits = { infantry_officer }
+				skill = 3
+
+				attack_skill = 2
+				defense_skill = 4
+				planning_skill = 2
+				logistics_skill = 2
+			}
+		}
+	}
+
+	USA_promote_j_lawton_collins = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1941.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "J. Lawton Collins"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Lawton_Collins.png"
+				traits = {  trickster career_officer }
+				skill = 3
+
+				attack_skill = 3
+				defense_skill = 2
+				planning_skill = 3
+				logistics_skill = 2
+			}
+		}
+	}
+
+	USA_promote_courtney_hodges = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1941.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Courtney Hodges"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Cortney_Hodges.png"
+				traits = {  panzer_leader career_officer infantry_officer }
+				skill = 4
+
+				attack_skill = 4
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 4
+			}
+		}
+	}
+
+	USA_promote_joseph_stillwell = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1940.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Joseph Stilwell"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Joseph_Stilwell.png"
+				traits = { politically_connected infantry_officer career_officer harsh_leader }
+				skill = 1
+				id = 601
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 1
+			}
+		}
+	}
+
+	USA_promote_oscar_griswold = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1941.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Oscar Griswold"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Oscar_Griswold.png"
+				traits = { infantry_officer }
+				skill = 2
+
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 2
+			}
+		}
+	}
+
+	USA_promote_maurice_rose = {
+		allowed = {
+			tag = USA
+		}
+		visible = {
+			date > 1939.1.1
+		}
+		available = {
+			command_power > 9
+		}
+		icon = american_cap
+		fire_only_once = yes
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		custom_cost_text = command_power_more_than_10
+		ai_will_do = {
+			base = 100
+		}
+		complete_effect = {
+			add_command_power = -10
+			create_corps_commander = {
+				name = "Maurice Rose"
+				portrait_path = "gfx/leaders_cbts/USA/Portrait_USA_Maurice_Rose.png"
+				traits = { armor_officer trait_reckless brilliant_strategist  }
+				skill = 3
+
+				attack_skill = 4
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 3
+			}
+		}
+	}
+
+}
+
+USA_garner_election_campaign = {
+
+	USA_republican_campaign = {
+		icon = eng_propaganda_campaigns
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_country_flag = us_election_is_done
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 14
+		timeout_effect = {
+			random_list = {
+				25 = {
+					add_popularity = {
+						ideology = market_liberalism
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = jacobin
+						popularity = 0.01
+					}
+				}
+				25 = {
+					add_popularity = {
+						ideology = market_liberalism
+						popularity = 0.03
+					}
+					add_popularity = {
+						ideology = jacobin
+						popularity = 0.02
+					}
+				}
+				25 = {
+					add_popularity = {
+						ideology = market_liberalism
+						popularity = 0.05
+					}
+					add_popularity = {
+						ideology = jacobin
+						popularity = 0.03
+					}
+				}
+				25 = {
+					add_popularity = {
+						ideology = market_liberalism
+						popularity = 0.06
+					}
+					add_popularity = {
+						ideology = jacobin
+						popularity = 0.04
+					}
+				}
+
+			}
+			hidden_effect = {
+				activate_mission = USA_republican_campaign
+			}
+		}
+		complete_effect = {
+		}
+	}
+
+	USA_nd_campaign = {
+		icon = eng_propaganda_campaigns
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_country_flag = us_election_is_done
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 14
+		timeout_effect = {
+			random_list = {
+				25 = {
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = 0.01
+					}
+				}
+				25 = {
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = 0.03
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = 0.02
+					}
+				}
+				25 = {
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = 0.05
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = 0.03
+					}
+				}
+				25 = {
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = 0.06
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = 0.04
+					}
+				}
+
+			}
+			hidden_effect = {
+				activate_mission = USA_nd_campaign
+			}
+		}
+		complete_effect = {
+		}
+	}
+
+	USA_longist_campaign = {
+		icon = eng_propaganda_campaigns
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_country_flag = us_election_is_done
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 14
+		timeout_effect = {
+			random_list = {
+				25 = {
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.03
+					}
+				}
+				25 = {
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.05
+					}
+				}
+				25 = {
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.08
+					}
+				}
+				25 = {
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.1
+					}
+				}
+
+			}
+			hidden_effect = {
+				activate_mission = USA_longist_campaign
+			}
+		}
+		complete_effect = {
+		}
+	}
+
+	USA_democratic_campaign = {
+		icon = eng_propaganda_campaigns
+		allowed = {
+			tag = USA
+		}
+		available = {
+			has_country_flag = us_election_is_done
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		days_mission_timeout = 14
+		timeout_effect = {
+			country_event = { id = unitedstates.222 }
+		}
+		complete_effect = {
+		}
+	}
+}
+
+USA_electoral_college = {
+	#USA_dummy = {
+		#visible = {
+			#tag = USA
+		#}
+		#available = {
+			#always = no
+		#}
+		#cost = 0
+		#ai_will_do = {
+			#factor = 100
+		#}
+		#fire_only_once = yes
+		#complete_effect = {
+		#}
+	#}
+
+}
+
+USA_electoral_college_alt = {
+	#USA_dummy_alt = {
+		#visible = {
+			#tag = USA
+		#}
+		#available = {
+			#always = no
+		#}
+		#cost = 0
+		#ai_will_do = {
+			#factor = 100
+		#}
+		#fire_only_once = yes
+		#complete_effect = {
+		#}
+	#}
+
+}
+
+USA_electoral_results = {
+	#USA_dummy_alt_alt = {
+		#visible = {
+			#tag = USA
+		#}
+		#available = {
+			#always = no
+		#}
+		#cost = 0
+		#ai_will_do = {
+			#factor = 100
+		#}
+		#fire_only_once = yes
+		#complete_effect = {
+		#}
+	#}
+
+}

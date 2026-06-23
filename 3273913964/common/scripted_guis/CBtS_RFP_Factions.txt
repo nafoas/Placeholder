@@ -1,0 +1,542 @@
+scripted_gui = {
+	RFP_Faction_Button = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "RFP_faction_button_container"
+		visible = {
+            tag = RFP
+			has_global_flag = Second_Russian_Civil_War
+		}
+		effects = {
+			faction_button_click = {
+				if = {
+					limit = {
+						has_country_flag = RFP_show_factions
+					}
+					clr_country_flag = RFP_show_factions
+				}
+				else = {
+					set_country_flag = RFP_show_factions
+					RFP_Get_Rod_Pop = yes
+					RFP_Get_Von_Pop = yes
+					RFP_Get_Mon_Pop = yes
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = RFP_show_rod
+							has_country_flag = RFP_show_von
+							has_country_flag = RFP_show_cos
+						}
+					}
+					set_country_flag = RFP_show_rod
+				}
+			}
+		}
+		ai_enabled = {
+			tag = RFP
+			has_global_flag = Second_Russian_Civil_War
+		}
+		ai_test_interval = 240
+		ai_test_variance = 0
+		ai_check = {
+			tag = RFP
+			has_political_power > 39.99
+			OR = {
+				NOT = {
+					has_idea = RUS_faction_influence_block
+					has_idea = RUS_rally_block
+				}
+			}
+		}
+		ai_weights = {
+			faction_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = {
+							has_idea = RUS_faction_influence_block
+							has_idea = RUS_rally_block
+						}
+						NOT = {
+							has_country_flag = RFP_AI_Faction_Open
+						}
+						add = 100
+					}
+				}
+			}
+		}
+	}
+}
+#faction_panel_container
+scripted_gui = {
+	RPF_faction_container = {
+		context_type = player_context
+		window_name = "RFP_faction_panel_container"
+		visible = {
+			has_country_flag = RFP_show_factions
+		}
+		triggers = {
+			cossack_button_visible = {
+				has_variable = RFP_cos_influence
+			}
+			rodzaevsky_button_visible = {
+				has_variable = RFP_rod_influence
+			}
+			vonsyatsky_button_visible = {
+				has_variable = RFP_von_influence
+			}
+			#rodzaevsky
+			RFP_rodzaevsky_portrait_visible = {
+				has_country_flag = RFP_show_rod
+			}
+			RFP_Rodzaevsky_Faction_Influence_visible = {
+				has_country_flag = RFP_show_rod
+			}
+			RFP_Rodzaevsky_Faction_Popularity_visible = {
+				has_country_flag = RFP_show_rod
+			}
+			#vonsyatsky
+			RFP_vonsyatsky_portrait_visible = {
+				has_country_flag = RFP_show_von
+			}
+			RFP_Vonsyatsky_Faction_Influence_visible = {
+				has_country_flag = RFP_show_von
+			}
+			RFP_Vonsyatsky_Faction_Popularity_visible = {
+				has_country_flag = RFP_show_von
+			}
+			#Cossack
+			RFP_semyonov_portrait_visible = {
+				has_country_flag = RFP_show_cos
+			}
+			RFP_Cossack_Faction_Influence_visible = {
+				has_country_flag = RFP_show_cos
+			}
+			RFP_Cossack_Faction_Popularity_visible = {
+				has_country_flag = RFP_show_cos
+			}
+			Increase_Pop_button_click_enabled = {
+				has_political_power > 29.99
+				OR = {
+					AND = {
+						has_country_flag = RFP_show_cos
+						check_variable = {
+							RFP_cos_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = RFP_show_rod
+						check_variable = {
+							RFP_rod_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = RFP_show_von
+						check_variable = {
+							RFP_von_influence < 100
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = RFP_every_90_days
+					NOT = {
+						has_idea = RUS_faction_influence_block
+					}
+				}
+			}
+			Decrease_Pop_button_click_enabled = {
+				has_political_power > 29.99
+				OR = {
+					AND = {
+						has_country_flag = RFP_show_cos
+						check_variable = {
+							RFP_cos_influence > 0
+						}
+					}
+					AND = {
+						has_country_flag = RFP_show_von
+						check_variable = {
+							RFP_von_influence > 0
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = RFP_every_90_days
+					NOT = {
+						has_idea = RUS_faction_influence_block
+					}
+				}
+			}
+			Rally_button_click_enabled = {
+				NOT = {
+					has_idea = RUS_rally_block
+				}
+				has_political_power > 49.99
+			}
+		}
+		effects = {
+			RFP_faction_container_close_button_click = {
+				clr_country_flag = RFP_show_factions
+			}
+			cossack_button_click = {
+				clr_country_flag = RFP_show_von
+				clr_country_flag = RFP_show_rod
+				set_country_flag = RFP_show_cos
+			}
+			vonsyatsky_button_click = {
+				clr_country_flag = RFP_show_cos
+				clr_country_flag = RFP_show_rod
+				set_country_flag = RFP_show_von
+			}
+			rodzaevsky_button_click = {
+				clr_country_flag = RFP_show_cos
+				clr_country_flag = RFP_show_von
+				set_country_flag = RFP_show_rod
+			}
+			Increase_Pop_button_click = {
+				add_political_power = -30
+				set_variable = {
+					RFP_add_influence_value = 3
+				}
+				if = {
+					limit = {
+						has_country_flag = RFP_show_cos
+					}
+					RFP_add_influence_cossack = yes
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = monarchism
+						popularity = 0.02
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = RFP_show_von
+					}
+					RFP_add_influence_vonsyatsky = yes
+					add_popularity = {
+						ideology = fascism
+						popularity = 0.015
+					}
+					add_popularity = {
+						ideology = nationalism
+						popularity = 0.025
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = RFP_show_rod
+					}
+					RFP_add_influence_rodzaevsky = yes
+					add_popularity = {
+						ideology = fascism
+						popularity = 0.03
+					}
+				}
+				hidden_effect = {
+					add_timed_idea = {
+						idea = RUS_faction_influence_block
+						days = 90
+					}
+				}
+				RFP_Get_Rod_Pop = yes
+				set_country_flag = RFP_AI_Faction_Open
+			}
+			Decrease_Pop_button_click = {
+				add_political_power = -30
+				set_variable = {
+					RFP_add_influence_value = -3
+				}
+				if = {
+					limit = {
+						has_country_flag = RFP_show_cos
+					}
+					RFP_add_influence_cossack = yes
+					add_popularity = {
+						ideology = neutrality
+						popularity = -0.02
+					}
+					add_popularity = {
+						ideology = monarchism
+						popularity = -0.02
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = RFP_show_von
+					}
+					RFP_add_influence_vonsyatsky = yes
+					add_popularity = {
+						ideology = fascism
+						popularity = -0.015
+					}
+					add_popularity = {
+						ideology = nationalism
+						popularity = -0.025
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = RFP_show_rod
+					}
+					RFP_add_influence_rodzaevsky = yes
+					add_popularity = {
+						ideology = fascism
+						popularity = -0.03
+					}
+				}
+				hidden_effect = {
+					add_timed_idea = {
+						idea = RUS_faction_influence_block
+						days = 90
+					}
+				}
+				RFP_Get_Rod_Pop = yes
+				RFP_Get_Mon_Pop = yes
+				RFP_Get_Von_Pop = yes
+				set_country_flag = RFP_AI_Faction_Open
+			}
+			Rally_button_click = {
+				add_political_power = -50
+				RFP_Rally_Supporters = yes
+				add_timed_idea = {
+					idea = RUS_rally_block
+					days = 150
+				}
+				set_country_flag = RFP_AI_Faction_Open
+			}
+		}
+		ai_enabled = {
+			tag = RFP
+			has_global_flag = Second_Russian_Civil_War
+		}
+		ai_test_interval = 120
+		ai_test_variance = 0
+		ai_check = {
+			tag = RFP
+			has_political_power > 39.99
+			OR = {
+				NOT = {
+					has_idea = RUS_faction_influence_block
+					has_idea = RUS_rally_block
+				}
+			}
+		}
+		ai_weights = {
+			RFP_faction_container_close_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						has_country_flag = RFP_AI_Faction_Open
+						add = 100
+					}
+				}
+			}
+			rodzaevsky_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RFP_AI_Rod_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RFP_rod_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = RFP_AI_Rod_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RFP_rod_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									RFP_Rod_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			vonsyatsky_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RFP_AI_Von_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RFP_von_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = RFP_AI_Von_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RFP_von_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									RFP_Rod_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			cossack_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RFP_AI_Cos_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RFP_cos_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = RFP_AI_Cos_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RFP_cos_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									RFP_Mon_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			Increase_Pop_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RFP_show_rod
+								has_country_flag = RFP_AI_Rod_Personality
+								check_variable = {
+									RFP_rod_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = RFP_show_von
+								has_country_flag = RFP_AI_Von_Personality
+								check_variable = {
+									RFP_von_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = RFP_show_cos
+								has_country_flag = RFP_AI_Cos_Personality
+								check_variable = {
+									RFP_cos_influence < 100
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			Decrease_Pop_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RFP_show_von
+								NOT = {
+									has_country_flag = RFP_AI_Von_Personality
+								}
+								check_variable = {
+									RFP_von_influence > 30
+								}
+							}
+							AND = {
+								has_country_flag = RFP_show_cos
+								NOT = {
+									has_country_flag = RFP_AI_Cos_Personality
+								}
+								check_variable = {
+									RFP_cos_influence > 30
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			Rally_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RFP_show_rod
+								check_variable = {
+									RFP_Rod_Pop > 0.15
+								}
+							}
+							AND = {
+								has_country_flag = RFP_show_von
+								check_variable = {
+									RFP_Rod_Pop > 0.15
+								}
+							}
+							AND = {
+								has_country_flag = RFP_show_cos
+								check_variable = {
+									RFP_Mon_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+		}
+	}
+}

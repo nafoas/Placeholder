@@ -1,0 +1,725 @@
+shared_focus = { 
+		id = USA_reviewthemilitary
+		icon = GFX_focus_USA_JCS
+		cost = 1
+		x = 18
+		y = 0
+		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
+        available = { has_country_flag = usa_days_over }
+		completion_reward = {
+		    add_war_support = 0.05
+		}
+	}
+
+	shared_focus = {
+		id = USA_aging_army
+		icon = GFX_focus_American_Army_Defunded
+		cost = 1
+		prerequisite = {
+			focus = USA_reviewthemilitary
+		}
+		completion_reward = {
+		    army_experience = 10
+		}
+		x = -5
+		y = 1
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_increase_army_funding
+		icon = GFX_focus_raise_military_budget
+		cost = 4
+		available = {
+		    congress_high_support_trigger = yes
+		}
+		prerequisite = {
+			focus = USA_aging_army
+		}
+		completion_reward = {
+			add_political_power = -100
+			USA_congress_large_opposition = yes
+			increase_spending = yes
+		}
+		x = -5
+		y = 2
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = { 
+		id = USA_small_arms_modernization
+		icon = GFX_focus_Renewed_Arms
+		cost = 4
+		prerequisite = {
+			focus = USA_increase_army_funding
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    add_tech_bonus = {
+				name = infantry_weapons
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+			}
+		}
+		x = -6
+		y = 3
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_artillery_modernization
+		icon = GFX_goal_generic_artillery
+		cost = 7
+		prerequisite = {
+			focus = USA_small_arms_modernization
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    add_tech_bonus = {
+				name = artillery
+				bonus = 1.0
+				uses = 1
+				category = artillery
+			}
+		}
+		x = -6
+		y = 4
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_improve_soldier_training
+		icon = GFX_focus_USA_Soldiers
+		cost = 5
+		prerequisite = {
+			focus = USA_increase_army_funding
+		}
+		completion_reward = {
+		    army_experience = 30
+		}
+		x = -4
+		y = 3
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = { 
+		id = USA_new_doctrinal_developments
+		icon = GFX_goal_generic_army_doctrines
+		cost = 7
+		prerequisite = {
+			focus = USA_improve_soldier_training
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    add_tech_bonus = {
+				name = land_doctrine
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+		}
+		x = -4
+		y = 4
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_continue_modernizing_army
+		icon = GFX_focus_Army_Reform
+		cost = 10
+		prerequisite = {
+			focus = USA_new_doctrinal_developments
+		}
+		prerequisite = {
+			focus = USA_artillery_modernization
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    army_experience = 10
+		    add_tech_bonus = {
+				name = land_doctrine
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+			add_tech_bonus = {
+				name = infantry_weapons
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+			}
+		}
+		x = -5
+		y = 5
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = { 
+		id = USA_air_corps
+		icon = GFX_focus_American_Army_Air_Corps
+		cost = 1
+		prerequisite = {
+			focus = USA_reviewthemilitary
+		}
+		completion_reward = {
+		    air_experience = 10
+		}
+		x = 0
+		y = 1
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = { 
+		id = USA_new_aircraft_designs
+		icon = GFX_goal_generic_air_fighter
+		cost = 5
+		prerequisite = {
+			focus = USA_air_corps
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    # add_tech_bonus = {
+			# 	name = bomber_bonus
+			# 	bonus = 1.0
+			# 	uses = 2
+			# 	category = plane_engines
+			# }
+		}
+		x = -1
+		y = 2
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = { 
+		id = USA_modern_bombers
+		icon = GFX_focus_Bombs_Away
+		cost = 6
+		prerequisite = {
+			focus = USA_new_aircraft_designs
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 1.0
+				uses = 2
+				category = tactical_bomber
+				category = cat_strategic_bomber
+			}
+		}
+		x = -1
+		y = 4
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_air_mail_scandal
+		icon = GFX_focus_Judicial_System
+		cost = 10
+		prerequisite = {
+			focus = USA_air_corps
+		}
+		available = { always = no }
+		bypass = { has_country_flag = usa_air_mail_happened }
+		x = 1
+		y = 2
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_expand_air_corps
+		icon = GFX_focus_Air_Superiority_Doctrine
+		cost = 7
+		prerequisite = {
+			focus = USA_air_mail_scandal
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				add_equipment_to_stockpile = {
+					type = iw_fighter_equipment
+					amount = 200
+					producer = USA
+				}
+				add_equipment_to_stockpile = {
+					type = gw_bomber_equipment
+					amount = 100
+					producer = USA
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = small_plane_airframe_0
+					amount = 200
+					producer = USA
+				}
+				add_equipment_to_stockpile = {
+					type = medium_plane_airframe_0
+					amount = 100
+					producer = USA
+				}
+			}
+		}
+		x = 0
+		y = 3
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_ghq_airforce
+		icon = GFX_goal_generic_air_doctrine
+		cost = 7
+		prerequisite = {
+			focus = USA_air_mail_scandal
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 0.75
+				uses = 2
+				category = air_doctrine
+			}
+		}
+		x = 2
+		y = 3
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_renew_air_corps_leadership
+		icon = GFX_focus_Airforce_Purges
+		cost = 2
+		prerequisite = {
+			focus = USA_expand_air_corps
+		}
+		prerequisite = {
+			focus = USA_ghq_airforce
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+		    country_event = { id = unitedstates.55 }
+		}
+		x = 1
+		y = 4
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_modern_aerial_force
+		icon = GFX_focus_Heavy_Fighters
+		cost = 8
+		prerequisite = {
+			focus = USA_renew_air_corps_leadership
+		}
+		prerequisite = {
+			focus = USA_modern_bombers
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_equipment
+			}
+			air_experience = 25
+		}
+		x = 0
+		y = 5
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_tame_navy
+		icon = GFX_focus_American_Navy_Defunded
+		cost = 1
+		prerequisite = {
+			focus = USA_reviewthemilitary
+		}
+		completion_reward = {
+		    navy_experience = 20
+		}
+		x = 5
+		y = 1
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_submarine_challenge
+		icon = GFX_goal_generic_navy_submarine
+		cost = 7
+		prerequisite = {
+			focus = USA_tame_navy
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    add_tech_bonus = {
+				name = GER_u_boat_effort
+				bonus = 1.0
+				uses = 1
+				category = ss_tech
+			}
+		}
+		x = 4
+		y = 2
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_vinston_trammel
+		icon = GFX_focus_naval_reform
+		cost = 6
+		prerequisite = {
+			focus = USA_tame_navy
+		}
+		x = 6
+		y = 2
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_USA_CONGRESS_ACT}
+		completion_reward = {
+		    custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = vinston_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+			    add_political_power = 20
+			    navy_experience = 10
+			    custom_effect_tooltip = usa_unlock_naval_tree
+			}
+		}
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_expand_shipbuilding
+		icon = GFX_goal_generic_construct_naval_dockyard
+		cost = 7
+		prerequisite = {
+			focus = USA_vinston_trammel
+		}
+		available = { 
+            has_country_flag = USA_passed_vinston_trammel
+        }
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+        completion_reward = {
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+        }			
+		x = 4
+		y = 3
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_further_dockyard_expansion
+		icon = GFX_goal_continuous_naval_production
+		cost = 9
+		prerequisite = {
+			focus = USA_expand_shipbuilding
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 2
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+        }
+		x = 4
+		y = 4
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_bases_pacific
+		icon = GFX_focus_Naval_Operations
+		cost = 5
+		prerequisite = {
+			focus = USA_vinston_trammel
+		}
+		available = { 
+            has_country_flag = USA_passed_vinston_trammel
+        }
+		completion_reward = {
+			632 = {
+				add_building_construction = {
+					type = naval_base
+					province = 13047
+					level = 2
+					instant_build = yes
+				}
+			}
+			631 = {
+				add_building_construction = {
+					type = naval_base
+					province = 13052
+					level = 2
+					instant_build = yes
+				}
+			}
+			463 = {
+				add_building_construction = {
+					type = naval_base
+					province = 13091
+					level = 2
+					instant_build = yes
+				}
+			}
+			
+		}
+		x = 6
+		y = 3
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_capital_ship_projects
+		icon = GFX_focus_admiralty
+		cost = 3
+		prerequisite = {
+			focus = USA_vinston_trammel
+		}
+		available = { 
+            has_country_flag = USA_passed_vinston_trammel
+        }
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    add_tech_bonus = {
+				name = uk_waves_focus
+				bonus = 1.0
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+		x = 8
+		y = 3
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_yorktown_ranger
+		icon = GFX_focus_Carrier_Focus
+		cost = 3
+		prerequisite = {
+			focus = USA_capital_ship_projects
+		}
+		completion_reward = {
+		    create_equipment_variant = {
+				name = "Yorktown Class"
+				type = ship_hull_carrier_1
+				parent_version = 0
+				modules = {
+					fixed_ship_deck_slot_1 = ship_deck_space
+					fixed_ship_deck_slot_2 = ship_deck_space
+					fixed_ship_anti_air_slot = ship_anti_air_2
+					fixed_ship_radar_slot = empty
+					fixed_ship_engine_slot = carrier_ship_engine_1
+					fixed_ship_secondaries_slot = ship_medium_battery_2
+					front_1_custom_slot = ship_deck_space
+				}
+			}
+			
+			create_equipment_variant = {
+				name = "Ranger Class"
+				type = ship_hull_carrier_1
+				parent_version = 0
+				modules = {
+					fixed_ship_deck_slot_1 = ship_deck_space
+					fixed_ship_deck_slot_2 = ship_deck_space
+					fixed_ship_anti_air_slot = ship_anti_air_2
+					fixed_ship_radar_slot = ship_radar_1
+					fixed_ship_engine_slot = carrier_ship_engine_2
+					fixed_ship_secondaries_slot = ship_light_battery_2
+					front_1_custom_slot = ship_deck_space
+				}
+			}
+		}
+		x = 7
+		y = 4
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_north_carolina_class
+		icon = GFX_focus_Battleship
+		cost = 2
+		prerequisite = {
+			focus = USA_capital_ship_projects
+		}
+		completion_reward = {
+		    create_equipment_variant = {
+				name = "North Carolina Class"
+				type = ship_hull_heavy_1
+				parent_version = 0
+				modules = {
+					fixed_ship_battery_slot = ship_heavy_battery_2
+					fixed_ship_anti_air_slot = ship_anti_air_1
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+					fixed_ship_radar_slot = empty
+					fixed_ship_engine_slot = heavy_ship_engine_1
+					fixed_ship_secondaries_slot = ship_secondaries_1
+					fixed_ship_armor_slot = ship_armor_bb_1
+					front_1_custom_slot = ship_medium_battery_2
+					mid_1_custom_slot = ship_airplane_launcher_1
+					mid_2_custom_slot = ship_secondaries_1
+					rear_1_custom_slot = ship_light_battery_2
+				}
+			}
+		}
+		x = 9
+		y = 4
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_continue_carrier_development
+		icon = GFX_focus_Carrier2
+		cost = 5
+		prerequisite = {
+			focus = USA_yorktown_ranger
+		}
+		mutually_exclusive = {
+		    focus = USA_continue_battleship_development
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+			add_tech_bonus = {
+				name = cv_bonus
+				bonus = 1
+				uses = 1
+				category = cv_tech
+			}
+		}
+		x = 7
+		y = 5
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_continue_battleship_development
+		icon = GFX_focus_Battlefleet
+		cost = 5
+		prerequisite = {
+			focus = USA_north_carolina_class
+		}
+		mutually_exclusive = {
+		    focus = USA_continue_carrier_development
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH}
+		completion_reward = {
+		    add_tech_bonus = {
+				name = bb_bonus
+				bonus = 1
+				uses = 1
+				category = bb_tech
+				category = shbb_tech
+			}
+		}
+		x = 9
+		y = 5
+        relative_position_id = USA_reviewthemilitary
+	}
+	
+	shared_focus = {
+		id = USA_naval_act
+		icon = GFX_focus_usa_coa
+		cost = 2
+		prerequisite = {
+			focus = USA_continue_battleship_development
+			focus = USA_continue_carrier_development
+		}
+		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_USA_CONGRESS_ACT}
+		completion_reward = {
+		    custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = naval_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+			    add_tech_bonus = {
+				    name = USA_fund_the_navy
+				    uses = 3
+				    bonus = 1.0
+				    category = naval_doctrine
+			    }
+			    navy_experience = 50
+			}
+		}
+		x = 8
+		y = 6
+        relative_position_id = USA_reviewthemilitary
+	}

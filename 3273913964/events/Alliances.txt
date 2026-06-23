@@ -1,0 +1,173 @@
+add_namespace = F_P_alliance
+
+### Franco-Polish Alliance ###
+
+country_event = { # Germany Invades Poland. Event for France
+	id = F_P_alliance.1
+	title = F_P_alliance.1.t
+	desc = F_P_alliance.1.d
+	picture = GFX_report_event_german_speech
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			is_in_faction_with = POL
+			has_war_with = POL
+			POL = { has_capitulated = yes }
+		}
+	}
+
+	option = { #Declare war on Germany
+		name = F_P_alliance.1.a
+		ai_chance = {
+			base = 100
+		}
+		declare_war_on = {
+			target = GRM
+			type = annex_everything
+		}
+		hidden_effect = {
+			POL = {
+				country_event = { id = F_P_alliance.2 hours = 12 }
+			}
+		}
+	}
+	option = { #Tell the Poles we won't declare on germany yet
+		name = F_P_alliance.1.b
+		ai_chance = {
+			base = 0
+		}
+		#TODO: unlocks decision to join the war
+		POL = {
+			country_event = { id = F_P_alliance.3 hours = 12 }
+		}
+	}
+}
+
+country_event = { # France Declares War on Germany
+	id = F_P_alliance.2
+	title = F_P_alliance.2.t
+	desc = F_P_alliance.2.d
+	picture = GFX_report_event_german_speech
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Great!
+		name = F_P_alliance.2.a
+		if = {
+			limit = {
+				FRA = { is_in_faction = yes }
+				is_faction_leader = yes
+				NOT = {
+					FRA = { is_in_faction_with = ENG }
+				}
+				is_in_faction = no
+			}
+			FRA = {
+				add_to_faction = POL
+			}
+		}
+	}
+}
+
+country_event = {
+	id = F_P_alliance.3
+	title = F_P_alliance.3.t
+	desc = F_P_alliance.3.d
+	picture = GFX_report_event_german_speech
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #The French wont declare on Germany yet
+		name = F_P_alliance.3.a
+		
+	}
+}
+
+country_event = { # Germany Invades France. Event for Poland
+	id = F_P_alliance.4
+	title = F_P_alliance.4.t
+	desc = F_P_alliance.4.d
+	picture = GFX_report_event_german_speech
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			is_in_faction_with = FRA
+			has_war_with = FRA
+			FRA = { has_capitulated = yes }
+		}
+	}
+
+	option = { #Declare war on Germany
+		name = F_P_alliance.4.a
+		ai_chance = {
+			base = 100
+		}
+		declare_war_on = {
+			target = GRM
+			type = annex_everything
+		}
+		hidden_effect = {
+			FRA = {
+				country_event = { id = F_P_alliance.5 hours = 12 }
+			}
+		}
+	}
+	option = { #Tell the French we won't attack germany yet
+		name = F_P_alliance.4.b
+		ai_chance = {
+			base = 0
+		}
+		FRA = {
+			country_event = { id = F_P_alliance.6 hours = 12 }
+		}
+	}
+}
+
+country_event = { #Poland declares war on Germany
+	id = F_P_alliance.5
+	title = F_P_alliance.5.t
+	desc = F_P_alliance.5.d
+	picture = GFX_report_event_german_speech
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Great!
+		name = F_P_alliance.5.a
+		if = {
+			limit = {
+				FRA = { is_in_faction = yes }
+				is_faction_leader = yes
+				NOT = {
+					FRA = { is_in_faction_with = ENG }
+				}
+				is_in_faction = no
+			}
+			FRA = {
+				add_to_faction = POL
+			}
+		}
+	}
+}
+
+country_event = { # 
+	id = F_P_alliance.6
+	title = F_P_alliance.6.t
+	desc = F_P_alliance.6.d
+	picture = GFX_report_event_german_speech
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = F_P_alliance.6.a
+	}
+}

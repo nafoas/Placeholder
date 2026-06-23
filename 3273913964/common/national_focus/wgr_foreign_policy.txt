@@ -1,0 +1,2311 @@
+shared_focus = {
+	id = WGR_foreign_policy_start
+	icon = GFX_focus_Foreign_Diplomacy
+	x = 29
+	y = 11
+	offset = {
+		trigger = {
+			has_focus_tree = WGR_DVP_DNVP_Tree
+		}
+		x = 1
+	}
+	cost = 2.15
+	available = {
+		NOT = {
+			has_idea = WGR_anger_against_gov
+			has_idea = WGR_paramilitary_divisions
+			has_idea = econ_crisis
+			has_idea = WGR_econ_crisis2
+			has_idea = WGR_econ_crisis3
+			has_idea = WGR_econ_crisis4
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 15
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_western_europe
+	icon = GFX_focus_European_Relations
+	prerequisite = {
+		focus = WGR_foreign_policy_start
+	}
+	mutually_exclusive = {
+		focus = WGR_foreign_policy_our_own_bloc
+	}
+	relative_position_id = WGR_foreign_policy_start
+	x = -7
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 10
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_franco_german_conciliation
+	icon = GFX_Focus_Agreemente_with_France
+	prerequisite = {
+		focus = WGR_foreign_policy_western_europe
+	}
+	relative_position_id = WGR_foreign_policy_western_europe
+	x = -1
+	y = 1
+	cost = 5
+	available = {
+		NOT = {
+			has_country_flag = WGR_lock_out_france_path
+			has_war_with = FRA
+			is_in_faction_with = FRA
+			FRA = {
+				is_subject = yes
+			}
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			AND = {
+				has_government = jacobin
+				FRA = {
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_government = socialism
+					}
+				}
+			}
+			AND = {
+				has_government = socialism
+				FRA = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						has_government = neutrality
+					}
+				}
+			}
+		}
+	}
+	completion_reward = {
+		FRA = {
+			add_opinion_modifier = { target = WGR modifier = DDR_FRA_friendship }
+		}
+		add_opinion_modifier = { target = FRA modifier = DDR_FRA_friendship }
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_trade_agreement_with_france
+	icon = GFX_focus_French_Industry
+	prerequisite = {
+		focus = WGR_foreign_policy_franco_german_conciliation
+	}
+	relative_position_id = WGR_foreign_policy_western_europe
+	x = -1
+	y = 2
+	cost = 5
+	available = {
+		NOT = {
+			has_country_flag = WGR_lock_out_france_path
+			has_war_with = FRA
+			is_in_faction_with = FRA
+			FRA = {
+				is_subject = yes
+			}
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		FRA = {
+			is_subject = yes
+		}
+	}	
+	completion_reward = {
+		add_opinion_modifier = {
+			target = FRA
+			modifier = WGR_trade_with_france
+		}
+		FRA = {
+			add_opinion_modifier = {
+				target = WGR
+				modifier = WGR_trade_with_france
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_fra_research_agreement
+	icon = GFX_focus_Shi_Stolen_Secrets
+	prerequisite = {
+		focus = WGR_foreign_policy_trade_agreement_with_france
+	}
+	relative_position_id = WGR_foreign_policy_western_europe
+	x = -1
+	y = 3
+	cost = 5
+	available = {
+		NOT = {
+			has_country_flag = WGR_lock_out_france_path
+			has_war_with = FRA
+			is_in_faction_with = FRA
+			FRA = {
+				is_subject = yes
+			}
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		FRA = {
+			is_subject = yes
+		}
+	}	
+	completion_reward = {
+		FRA = {
+			country_event = {
+				id = wgr_external.20
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = WGR_foreign_policy_anglo_german_conciliation
+	icon = GFX_focus_Befriend_United_Kingdom
+	prerequisite = {
+		focus = WGR_foreign_policy_western_europe
+	}
+	relative_position_id = WGR_foreign_policy_western_europe
+	x = 1
+	y = 1
+	cost = 5
+	available = {
+		NOT = {
+			has_country_flag = WGR_lock_britain_path
+			has_war_with = ENG
+			ENG = {
+				is_subject = yes
+			}
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			AND = {
+				has_government = jacobin
+				ENG = {
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_government = socialism
+					}
+				}
+			}
+			AND = {
+				has_government = socialism
+				ENG = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						has_government = neutrality
+					}
+				}
+			}
+			AND = {
+				is_in_faction_with = ENG
+				NOT = {
+					ENG = {
+						is_subject = yes
+					}
+				}
+			}
+		}
+	}	
+	completion_reward = {
+		ENG = {
+			add_opinion_modifier = { target = WGR modifier = DDR_FRA_friendship }
+		}
+		add_opinion_modifier = { target = ENG modifier = DDR_FRA_friendship }
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_anglo_german_naval_treaty
+	icon = GFX_Focus_British_Navy
+	prerequisite = {
+		focus = WGR_foreign_policy_anglo_german_conciliation
+	}
+	relative_position_id = WGR_foreign_policy_western_europe
+	x = 1
+	y = 2
+	cost = 5
+	available = {
+		NOT = {
+			has_country_flag = WGR_lock_britain_path
+			has_war_with = ENG
+			ENG = {
+				is_subject = yes
+			}
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		NOT = {
+			ENG = {
+				is_subject = yes
+			}
+		}
+	}	
+	completion_reward = {
+		ENG = {
+			country_event = {
+				id = wgr_external.23
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_denounce_soviet
+	icon = GFX_focus_Anti_Communist
+	prerequisite = {
+		focus = WGR_foreign_policy_anglo_german_naval_treaty
+	}
+	relative_position_id = WGR_foreign_policy_western_europe
+	x = 1
+	y = 3
+	cost = 5
+	available = {
+		NOT = {
+			has_country_flag = WGR_lock_britain_path
+			has_war_with = ENG
+			ENG = {
+				is_subject = yes
+			}
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			NOT = { country_exists = SOV }
+			SOV = {
+				NOT = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+	}	
+	completion_reward = {
+		ENG = {
+			if = {
+				limit = {
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+				add_opinion_modifier = { target = WGR modifier = WGR_denounce_soviet_good }
+			}
+		}
+		SOV = {
+			add_opinion_modifier = { target = WGR modifier = WGR_denounce_soviet_bad }
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_anglo_german_trade
+	icon = GFX_focus_The_London_Conference
+	prerequisite = {
+		focus = WGR_foreign_policy_anglo_german_conciliation
+	}
+	relative_position_id = WGR_foreign_policy_western_europe
+	x = 3
+	y = 2
+	cost = 5
+	available = {
+		NOT = {
+			has_country_flag = WGR_lock_britain_path
+			has_war_with = ENG
+			ENG = {
+				is_subject = yes
+			}
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		NOT = {
+			ENG = {
+				is_subject = yes
+			}
+		}
+	}	
+	completion_reward = {
+		add_opinion_modifier = {
+			target = ENG
+			modifier = WGR_trade_with_france
+		}
+		ENG = {
+			add_opinion_modifier = {
+				target = WGR
+				modifier = WGR_trade_with_france
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_anglo_german_research
+	icon = GFX_focus_Brainpower
+	prerequisite = {
+		focus = WGR_foreign_policy_anglo_german_trade
+	}
+	relative_position_id = WGR_foreign_policy_western_europe
+	x = 3
+	y = 3
+	cost = 5
+	available = {
+		NOT = {
+			has_country_flag = WGR_lock_britain_path
+			has_war_with = ENG
+			ENG = {
+				is_subject = yes
+			}
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		NOT = {
+			ENG = {
+				is_subject = yes
+			}
+		}
+	}	
+	completion_reward = {
+		ENG = {
+			country_event = {
+				id = wgr_external.26
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_align_west_defend_Belgium
+	icon = GFX_focus_Belgian_Conscription
+	prerequisite = {
+		focus = WGR_foreign_policy_denounce_soviet
+	}
+	prerequisite = {
+		focus = WGR_foreign_policy_fra_research_agreement
+		focus = WGR_foreign_policy_anglo_german_research
+	}
+	relative_position_id = WGR_foreign_policy_western_europe
+	x = 0
+	y = 4
+	cost = 5
+	available = {
+		NOT = {
+			has_war_with = BEL
+			is_in_faction_with = BEL
+			BEL = {
+				is_subject = yes
+			}
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			AND = {
+				has_government = jacobin
+				BEL = {
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_government = socialism
+					}
+				}
+			}
+			AND = {
+				has_government = socialism
+				BEL = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						has_government = neutrality
+					}
+				}
+			}
+			is_in_faction_with = BEL
+		}
+	}	
+	completion_reward = {
+		BEL = {
+			country_event = {
+				id = wgr_external.29
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_align_west_defend_netherlands
+	icon = GFX_focus_Befriend_Netherlands
+	prerequisite = {
+		focus = WGR_foreign_policy_denounce_soviet
+	}
+	prerequisite = {
+		focus = WGR_foreign_policy_fra_research_agreement
+		focus = WGR_foreign_policy_anglo_german_research
+	}
+	relative_position_id = WGR_foreign_policy_western_europe
+	x = 2
+	y = 4
+	cost = 5
+	available = {
+		NOT = {
+			has_war_with = HOL
+			is_in_faction_with = HOL
+			HOL = {
+				is_subject = yes
+			}
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			AND = {
+				has_government = jacobin
+				HOL = {
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_government = socialism
+					}
+				}
+			}
+			AND = {
+				has_government = socialism
+				HOL = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						has_government = neutrality
+					}
+				}
+			}
+			is_in_faction_with = HOL
+		}
+	}
+	completion_reward = {
+		HOL = {
+			country_event = {
+				id = wgr_external.29
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_benelux_trade_agreements
+	icon = GFX_focus_Free_Trade
+	prerequisite = {
+		focus = WGR_foreign_policy_align_west_defend_netherlands
+		focus = WGR_foreign_policy_align_west_defend_Belgium
+	}
+	relative_position_id = WGR_foreign_policy_western_europe
+	x = 1
+	y = 5
+	cost = 5
+	available = {
+		is_subject = no
+		OR = {
+			NOT = {
+				has_war_with = HOL
+				is_in_faction_with = HOL
+				HOL = {
+					is_subject = yes
+				}
+			}
+			NOT = {
+				has_war_with = LUX
+				is_in_faction_with = LUX
+				LUX = {
+					is_subject = yes
+				}
+			}
+			NOT = {
+				has_war_with = BEL
+				is_in_faction_with = BEL
+				BEL = {
+					is_subject = yes
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = {
+					has_war_with = HOL
+				}
+			}
+			add_opinion_modifier = {
+				target = HOL
+				modifier = WGR_trade_with_france
+			}
+			HOL = {
+				add_opinion_modifier = {
+					target = WGR
+					modifier = WGR_trade_with_france
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_war_with = BEL
+				}
+			}
+			add_opinion_modifier = {
+				target = BEL
+				modifier = WGR_trade_with_france
+			}
+			BEL = {
+				add_opinion_modifier = {
+					target = WGR
+					modifier = WGR_trade_with_france
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_war_with = LUX
+				}
+			}
+			add_opinion_modifier = {
+				target = LUX
+				modifier = WGR_trade_with_france
+			}
+			LUX = {
+				add_opinion_modifier = {
+					target = WGR
+					modifier = WGR_trade_with_france
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = WGR_foreign_policy_our_own_bloc
+	icon = GFX_focus_German_Hegemony
+	prerequisite = {
+		focus = WGR_foreign_policy_start
+	}
+	mutually_exclusive = {
+		focus = WGR_foreign_policy_western_europe
+	}
+	relative_position_id = WGR_foreign_policy_start
+	x = 7
+	y = 1
+	cost = 5
+	available = {
+		NOT = { has_country_flag = WGR_neutral_foreign_policy }
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		create_faction = WGR_defensive_bloc
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_renegotiate_rhineland
+	icon = GFX_focus_Military_Intervention
+	prerequisite = {
+		focus = WGR_foreign_policy_western_europe
+		focus = WGR_foreign_policy_our_own_bloc
+	}
+	relative_position_id = WGR_foreign_policy_start
+	x = -3
+	y = 2
+	cost = 5
+	available = {
+		NOT = {
+			has_country_flag = WGR_lock_out_france_path
+			has_war_with = FRA
+			FRA = {
+				is_subject = yes
+			}
+		}
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		42 = { #Moselland
+			NOT = { is_demilitarized_zone = yes }
+		}
+		51 = { #west rhineland
+			NOT = { is_demilitarized_zone = yes }
+		}
+		745 = { #ostrhineland
+			NOT = { is_demilitarized_zone = yes }
+		}
+		809 = { #Saarland
+			NOT = { is_demilitarized_zone = yes }
+		}
+		810 = { #Pfalz
+			NOT = { is_demilitarized_zone = yes }
+		}
+		864 = { #Baden
+			NOT = { is_demilitarized_zone = yes }
+		}
+		1176 = { #Frankfurt
+			NOT = { is_demilitarized_zone = yes }
+		}
+	}	
+	completion_reward = {
+		if = {
+			limit = {
+				OR = {
+					has_war_with = FRA
+					FRA = {
+						is_subject = yes
+					}
+				}
+			}
+			GRM = {
+				every_controlled_state = {
+					limit = {
+						region = 209
+						is_demilitarized_zone = yes
+					}
+					set_demilitarized_zone = no
+				}
+	
+			}
+		}
+		else = {
+			FRA = {
+				country_event = {
+					id = wgr_external.14
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_denmark
+	icon = GFX_focus_Defensive_Treaty_with_Denmark
+	prerequisite = {
+		focus = WGR_foreign_policy_our_own_bloc
+	}
+	relative_position_id = WGR_foreign_policy_our_own_bloc
+	x = -7
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			has_war_with = DEN
+			NOT = {
+				country_exists = DEN
+			}
+			DEN = {
+				is_subject = yes
+			}
+		}
+	}	
+	completion_reward = {
+		add_opinion_modifier = {
+			target = DEN
+			modifier = DDR_wants_friend
+		}
+		DEN = {
+			add_opinion_modifier = {
+				target = WGR
+				modifier = DDR_wants_friend
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_denmark_reach_out_to_scandiavian_trade
+	icon = GFX_focus_Victory_Scandinavia
+	prerequisite = {
+		focus = WGR_foreign_policy_denmark
+	}
+	relative_position_id = WGR_foreign_policy_denmark
+	x = -2
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			has_war_with = DEN
+			NOT = {
+				country_exists = DEN
+			}
+			DEN = {
+				is_subject = yes
+			}
+		}
+		OR = {
+			has_war_with = SWE
+			NOT = {
+				country_exists = SWE
+			}
+			SWE = {
+				is_subject = yes
+			}
+		}
+		OR = {
+			has_war_with = NOR
+			NOT = {
+				country_exists = NOR
+			}
+			NOR = {
+				is_subject = yes
+			}
+		}
+	}	
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						has_war_with = DEN
+						NOT = {
+							country_exists = DEN
+						}
+						DEN = {
+							is_subject = yes
+						}
+					}
+				}
+			}
+			add_opinion_modifier = {
+				target = DEN
+				modifier = WGR_trade_with_france
+			}
+			DEN = {
+				add_opinion_modifier = {
+					target = WGR
+					modifier = WGR_trade_with_france
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						has_war_with = NOR
+						NOT = {
+							country_exists = NOR
+						}
+						NOR = {
+							is_subject = yes
+						}
+					}
+				}
+			}
+			add_opinion_modifier = {
+				target = NOR
+				modifier = WGR_trade_with_france
+			}
+			NOR = {
+				add_opinion_modifier = {
+					target = WGR
+					modifier = WGR_trade_with_france
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						has_war_with = SWE
+						NOT = {
+							country_exists = SWE
+						}
+						SWE = {
+							is_subject = yes
+						}
+					}
+				}
+			}
+			add_opinion_modifier = {
+				target = SWE
+				modifier = WGR_trade_with_france
+			}
+			SWE = {
+				add_opinion_modifier = {
+					target = WGR
+					modifier = WGR_trade_with_france
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_denmark_ally_skaggarak
+	icon = GFX_focus_Befriend_Norway
+	prerequisite = {
+		focus = WGR_foreign_policy_denmark_reach_out_to_scandiavian_trade
+	}
+	relative_position_id = WGR_foreign_policy_denmark
+	x = -2
+	y = 2
+	cost = 5
+	available = {
+		is_faction_leader = yes
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			has_war_with = DEN
+			NOT = {
+				country_exists = DEN
+			}
+			DEN = {
+				is_subject = yes
+			}
+		}
+		OR = {
+			has_war_with = NOR
+			NOT = {
+				country_exists = NOR
+			}
+			NOR = {
+				is_subject = yes
+			}
+		}
+	}	
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						has_war_with = DEN
+						NOT = {
+							country_exists = DEN
+						}
+						DEN = {
+							is_subject = yes
+						}
+					}
+				}
+			}
+			DEN = {
+				country_event = {
+					id = wgr_external.32
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						has_war_with = NOR
+						NOT = {
+							country_exists = NOR
+						}
+						NOR = {
+							is_subject = yes
+						}
+					}
+				}
+			}
+			NOR = {
+				country_event = {
+					id = wgr_external.32
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_denmark_protecc_finland
+	icon = GFX_focus_Befriend_Finland
+	prerequisite = {
+		focus = WGR_foreign_policy_denmark
+	}
+	relative_position_id = WGR_foreign_policy_denmark
+	x = 0
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			has_war_with = FIN
+			AND = {
+				has_government = socialism
+				FIN = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						has_government = neutrality
+					}
+				}
+			}
+			NOT = {
+				country_exists = FIN
+			}
+			FIN = {
+				OR = {
+					is_subject = yes
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+	}	
+	completion_reward = {
+		FIN = {
+			country_event = {
+				id = wgr_external.29
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_denmark_develop_finnish_war_industry
+	icon = GFX_focus_Renewed_Arms
+	prerequisite = {
+		focus = WGR_foreign_policy_denmark_protecc_finland
+	}
+	relative_position_id = WGR_foreign_policy_denmark
+	x = 0
+	y = 2
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			has_war_with = FIN
+			AND = {
+				has_government = socialism
+				FIN = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						has_government = neutrality
+					}
+				}
+			}
+			NOT = {
+				country_exists = FIN
+			}
+			FIN = {
+				OR = {
+					is_subject = yes
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+	}	
+	completion_reward = {
+		FIN = {
+			country_event = {
+				id = wgr_external.35
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_denmark_access_through_sweden
+	icon = GFX_focus_Befriend_Sweden
+	prerequisite = {
+		focus = WGR_foreign_policy_denmark_develop_finnish_war_industry
+	}
+	relative_position_id = WGR_foreign_policy_denmark
+	x = 0
+	y = 3
+	cost = 5
+	available = {
+		is_subject = no
+		SWE = {
+			NOT = {
+				has_government = communism
+				has_government = fascism
+			}
+		}
+		FIN = {
+			OR = {
+				has_defensive_war_with = SOV
+				has_defensive_war_with = RUS
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		SWE = {
+			country_event = {
+				id = wgr_external.38
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_denmark_memel_special_economic_zone
+	icon = GFX_focus_The_Baltic_Treaty
+	prerequisite = {
+		focus = WGR_foreign_policy_denmark
+	}
+	relative_position_id = WGR_foreign_policy_denmark
+	x = 2
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			has_war_with = LIT
+			NOT = {
+				country_exists = LIT
+			}
+			LIT = {
+				OR = {
+					is_subject = yes
+				}
+			}
+		}
+	}		
+	completion_reward = {
+		LIT = {
+			country_event = {
+				id = wgr_external.41
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_denmark_baltic_alliance
+	icon = GFX_focus_Baltic_Alliance
+	prerequisite = {
+		focus = WGR_foreign_policy_denmark_memel_special_economic_zone
+	}
+	relative_position_id = WGR_foreign_policy_denmark
+	x = 2
+	y = 2
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			has_war_with = LIT
+			NOT = {
+				country_exists = LIT
+			}
+			LIT = {
+				is_subject = yes
+			}
+		}
+		OR = {
+			has_war_with = LAT
+			NOT = {
+				country_exists = LAT
+			}
+			LAT = {
+				is_subject = yes
+			}
+		}
+		OR = {
+			has_war_with = EST
+			NOT = {
+				country_exists = EST
+			}
+			EST = {
+				is_subject = yes
+			}
+		}
+	}	
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						has_war_with = LIT
+						NOT = {
+							country_exists = LIT
+						}
+						LIT = {
+							is_subject = yes
+						}
+					}
+				}
+			}
+			LIT = {
+				country_event = {
+					id = wgr_external.32
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						has_war_with = LAT
+						NOT = {
+							country_exists = LAT
+						}
+						LAT = {
+							is_subject = yes
+
+						}
+					}
+				}
+			}
+			LAT = {
+				country_event = {
+					id = wgr_external.32
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						has_war_with = EST
+						NOT = {
+							country_exists = EST
+						}
+						EST = {
+							is_subject = yes
+						}
+					}
+				}
+			}
+			EST = {
+				country_event = {
+					id = wgr_external.32
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = WGR_foreign_policy_austria
+	icon = GFX_focus_protect_austria
+	prerequisite = {
+		focus = WGR_foreign_policy_our_own_bloc
+	}
+	relative_position_id = WGR_foreign_policy_our_own_bloc
+	x = 0
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		AUS = {
+			OR = {
+				AND = {
+					WGR = {
+						has_government = socialism
+					}
+					has_government = fascism
+				}
+				is_subject = yes
+				has_war_with = WGR
+			}
+		}
+	}
+	completion_reward = {
+		add_opinion_modifier = {
+			target = AUS
+			modifier = WGR_austria_friend
+		}
+		AUS = {
+			add_opinion_modifier = {
+				target = AUS
+				modifier = WGR_austria_friend
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_austria_military_cooperation
+	icon = GFX_focus_German_Advisors
+	prerequisite = {
+		focus = WGR_foreign_policy_austria
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = -2
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			AUS = {
+			OR = {
+				has_government = communism
+				has_government = authoritarian_socialism
+				AND = {
+					WGR = {
+						has_government = socialism
+					}
+					has_government = fascism
+				}
+				is_subject = yes
+				has_war_with = WGR
+			}
+		}
+		}
+	}	
+	completion_reward = {
+		AUS = {
+			country_event = {
+				id = wgr_external.44
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_austria_ally
+	icon = GFX_focus_Alliance_Austria
+	prerequisite = {
+		focus = WGR_foreign_policy_austria_military_cooperation
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = -2
+	y = 2
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			AUS = {
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+					AND = {
+						WGR = {
+							has_government = socialism
+						}
+						has_government = fascism
+					}
+					is_subject = yes
+					has_war_with = WGR
+				}
+			}
+		}
+	}	
+	completion_reward = {
+		AUS = {
+			country_event = {
+				id = wgr_external.32
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_austria_support_hungary
+	icon = GFX_focus_Befriend_Hungary
+	prerequisite = {
+		focus = WGR_foreign_policy_austria_ally
+	}
+	mutually_exclusive = {
+		focus = WGR_foreign_policy_austria_denounce_hungary
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = -3
+	y = 4
+	cost = 5
+	available = {
+		is_subject = no
+		HUN = {
+			is_subject = no
+		}
+		if = {
+			limit = {
+				NOT ={
+					has_government = jacobin
+				}
+			}
+			HUN = {
+				NOT = {
+					has_government = fascism
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government = socialism
+				}
+			}
+			HUN = {
+				NOT = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_government = socialism
+			}
+			HUN = {
+				NOT = {
+					has_government = nationalist
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 10
+		modifier = {
+			NOT = {
+				has_government = jacobin
+			}
+			factor = 0.15
+		}
+	}
+	bypass = {
+		
+	}	
+	completion_reward = {
+		HUN = {
+			add_opinion_modifier = {
+				target = WGR
+				modifier = WGR_supported_us
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_austria_mediate_transylvania
+	icon = GFX_focus_Military_Government
+	prerequisite = {
+		focus = WGR_foreign_policy_austria_support_hungary
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = -3
+	y = 5
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			HUN = {
+				owns_state = 76
+				owns_state = 83
+				owns_state = 84
+				owns_state = 82
+				owns_state = 1046
+				owns_state = 1047
+				owns_state = 1048
+				owns_state = 1054
+			}
+			OR = {
+				HUN = { has_war_with = ROM }
+				HUN = { has_war_together_with = ROM }
+				HUN = { is_in_faction_with = ROM }
+			}
+		}			
+	}	
+	completion_reward = {
+		ROM = {
+			country_event = {
+				id = wgr_external.47
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = WGR_foreign_policy_austria_denounce_hungary
+	icon = GFX_focus_Hungary_Chains
+	prerequisite = {
+		focus = WGR_foreign_policy_austria_ally
+	}
+	mutually_exclusive = {
+		focus = WGR_foreign_policy_austria_support_hungary
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = -1
+	y = 4
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		HUN = {
+			add_opinion_modifier = {
+				target = WGR
+				modifier = WGR_denounced_us
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_austria_protect_romania
+	icon = GFX_focus_Alliance_with_Romania
+	prerequisite = {
+		focus = WGR_foreign_policy_austria_denounce_hungary
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = -1
+	y = 5
+	cost = 5
+	available = {
+		is_subject = no
+		ROM = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				has_government = communism
+				has_government = authoritarian_socialism
+				AND = {
+					has_government = fascism
+					WGR = {
+						has_government = socialism
+					}
+				}
+			}
+		}
+		NOT = {
+			has_war_with = ROM
+			has_war_together_with = ROM
+		}
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		ROM = {
+			country_event = {
+				id = wgr_external.29
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_austria_denounce_italy
+	icon = GFX_focus_generic_anti_fascist_diplomacy
+	prerequisite = {
+		focus = WGR_foreign_policy_austria
+	}
+	mutually_exclusive = {
+		focus = WGR_foreign_policy_austria_support_italy
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = 0
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		ITA = {
+			add_opinion_modifier = {
+				target = WGR
+				modifier = WGR_denounced_us
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_austria_forts_in_austria
+	icon = GFX_focus_Fortification_Effort
+	prerequisite = {
+		focus = WGR_foreign_policy_austria_denounce_italy
+	}
+	prerequisite = {
+		focus = WGR_foreign_policy_austria_military_cooperation
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = 0
+	y = 2
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		NOT = {
+			AUS = {
+				has_idea = WGR_military_cooperation_foreign
+			}
+		}
+	}	
+	completion_reward = {
+		AUS = {
+			country_event = {
+				id = wgr_external.54
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_austria_ally_yugoslavia
+	icon = GFX_focus_Protect_Yugoslavia
+	prerequisite = {
+		focus = WGR_foreign_policy_austria_forts_in_austria
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = 0
+	y = 3
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			has_war_with = YUG
+			AND = {
+				has_government = socialism
+				YUG = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						has_government = neutrality
+					}
+				}
+			}
+			NOT = {
+				country_exists = YUG
+			}
+			YUG = {
+				is_subject = yes
+			}
+		}
+	}	
+	completion_reward = {
+	}
+}
+
+shared_focus = {
+	id = WGR_foreign_policy_austria_support_italy
+	icon = GFX_focus_Victory_Italy
+	prerequisite = {
+		focus = WGR_foreign_policy_austria
+	}
+	mutually_exclusive = {
+		focus = WGR_foreign_policy_austria_denounce_italy
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = 2
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+		ITA = {
+			OR = {
+				exists = no
+				NOT = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = monarchism
+					has_government = neutrality
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		RIT = {
+			OR = {
+				exists = no
+				NOT = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = monarchism
+					has_government = neutrality
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		OR = {
+			country_exists = ITA
+			country_exists = RIT
+		}
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		if = {
+			limit = {
+				country_exists = RIT
+				RIT = {
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						has_government = neutrality
+					}
+				}
+			}
+			RIT = {
+				add_opinion_modifier = {
+					target = WGR
+					modifier = WGR_supported_us
+				}
+			}
+			else = {
+				ITA = {
+					add_opinion_modifier = {
+						target = WGR
+						modifier = WGR_supported_us
+					}
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_austria_ally_italy
+	icon = GFX_focus_cbts_Befriend_Italy
+	prerequisite = {
+		focus = WGR_foreign_policy_austria_support_italy
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = 2
+	y = 2
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		if = {
+			limit = {
+				country_exists = RIT
+				RIT = {
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+						WGR = {
+							has_government = jacobin
+						}
+						has_government = fascism
+					}
+				}
+			}
+			RIT = {
+				country_event = {
+					id = wgr_external.32
+				}
+			}
+			else = {
+				ITA = {
+					country_event = {
+						id = wgr_external.32
+					}
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_austria_claims_in_slovenia
+	icon = GFX_focus_Claims_in_Slovenia
+	prerequisite = {
+		focus = WGR_foreign_policy_austria_ally_italy
+	}
+	relative_position_id = WGR_foreign_policy_austria
+	x = 2
+	y = 3
+	cost = 5
+	available = {
+		is_subject = no
+		owns_state = 152
+		controls_state = 152
+		owns_state = 4
+		controls_state = 4
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_state_claim = 102
+	}
+}
+
+shared_focus = {
+	id = WGR_foreign_policy_czech
+	icon = GFX_focus_Czechslovakia
+	prerequisite = {
+		focus = WGR_foreign_policy_our_own_bloc
+	}
+	relative_position_id = WGR_foreign_policy_our_own_bloc
+	x = 7
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			CZE = {
+				is_subject = yes
+			}
+			NOT = {
+				country_exists = CZE
+			}
+			has_war_with = CZE
+		}
+	}
+	completion_reward = {
+		add_opinion_modifier = {
+			target = CZE
+			modifier = WGR_austria_friend
+		}
+		CZE = {
+			add_opinion_modifier = {
+				target = CZE
+				modifier = WGR_austria_friend
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_czech_rights_for_germans
+	icon = GFX_focus_Czechoslovak_Multicultural_state
+	prerequisite = {
+		focus = WGR_foreign_policy_czech
+	}
+	relative_position_id = WGR_foreign_policy_czech
+	x = -1
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+		CZE = {
+			is_subject = no
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government = jacobin
+				}
+			}
+			CZE = {
+				NOT = {
+					has_government = fascism
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government = socialism
+				}
+			}
+			CZE = {
+				NOT = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_government = socialism
+			}
+			CZE = {
+				NOT = {
+					has_government = nationalism
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		CZE = {
+			country_event = {
+				id = wgr_external.57
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_czech_invite_to_alliance
+	icon = GFX_focus_Czech_Soldiers
+	prerequisite = {
+		focus = WGR_foreign_policy_czech_rights_for_germans
+	}
+	relative_position_id = WGR_foreign_policy_czech
+	x = -1
+	y = 2
+	cost = 5
+	available = {
+		is_subject = no
+		has_country_flag = WGR_cze_accepts_guar_treaty
+		NOT = {
+			CZE = {
+				is_subject = yes
+				has_government = communism
+				has_government = fascism
+				has_war_with = ROOT
+			}
+		}
+		country_exists = CZE
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		
+	}	
+	completion_reward = {
+		CZE = {
+			country_event = {
+				id = wgr_external.32
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_czech_zaolzie_dispute
+	icon = GFX_focus_Colonial_Focus
+	prerequisite = {
+		focus = WGR_foreign_policy_czech_invite_to_alliance
+	}
+	relative_position_id = WGR_foreign_policy_czech
+	x = -1
+	y = 3
+	cost = 5
+	available = {
+		is_subject = no
+		has_country_flag = WGR_cze_accepts_guar_treaty
+		NOT = {
+			CZE = {
+				is_subject = yes
+				has_government = communism
+				has_government = fascism
+				has_war_with = ROOT
+				has_war_with = POL
+			}
+		}
+		country_exists = CZE
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				CZE = {
+					owns_state = 72
+					controls_state = 72
+				}
+			}
+		}
+		CZE = {
+			has_war_with = POL
+		}
+	}
+	completion_reward = {
+		POL = {
+			country_event = {
+				id = wgr_external.60
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_czech_send_guns
+	icon = GFX_focus_Gun_Czechs
+	prerequisite = {
+		focus = WGR_foreign_policy_czech_rights_for_germans
+	}
+	relative_position_id = WGR_foreign_policy_czech
+	x = -3
+	y = 2
+	cost = 5
+	available = {
+		is_subject = no
+		has_country_flag = WGR_cze_accepts_guar_treaty
+		NOT = {
+			CZE = {
+				is_subject = yes
+				has_government = communism
+				has_government = fascism
+				has_war_with = ROOT
+			}
+		}
+		country_exists = CZE
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		CZE = {
+			country_event = {
+				id = wgr_external.68
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_czech_invest_in_sudeten
+	icon = GFX_focus_Gold_Czech
+	prerequisite = {
+		focus = WGR_foreign_policy_czech_send_guns
+	}
+	relative_position_id = WGR_foreign_policy_czech
+	x = -3
+	y = 3
+	cost = 5
+	available = {
+		is_subject = no
+		has_country_flag = WGR_cze_accepts_guar_treaty
+		NOT = {
+			CZE = {
+				is_subject = yes
+				has_government = communism
+				has_government = fascism
+				has_war_with = ROOT
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			NOT = {
+				CZE = {
+					owns_state = 69
+					controls_state = 69
+				}
+			}
+			has_completed_focus = WGR_privitisation_czech_businesses
+		}
+	}	
+	completion_reward = {
+		CZE = {
+			country_event = {
+				id = wgr_external.71
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_czech_nap_poland
+	icon = GFX_focus_GER_POL_NAP
+	prerequisite = {
+		focus = WGR_foreign_policy_czech
+	}
+	relative_position_id = WGR_foreign_policy_czech
+	x = 1
+	y = 1
+	cost = 5
+	available = {
+		is_subject = no
+		NOT = {
+			POL = {
+				is_subject = yes
+				has_government = communism
+				has_government = fascism
+				has_war_with = ROOT
+			}
+		}
+		country_exists = POL
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		POL = {
+			country_event = {
+				id = wgr_external.74
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_czech_danzig_access
+	icon = GFX_focus_Polish_German_Agreement
+	prerequisite = {
+		focus = WGR_foreign_policy_czech_nap_poland
+	}
+	relative_position_id = WGR_foreign_policy_czech
+	x = 1
+	y = 2
+	cost = 5
+	available = {
+		is_subject = no
+		has_country_flag = WGR_pol_does_NAP
+		NOT = {
+			POL = {
+				is_subject = yes
+				has_government = communism
+				has_government = fascism
+				has_war_with = ROOT
+			}
+		}
+		country_exists = POL
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		POL = {
+			country_event = {
+				id = wgr_external.38
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_czech_polish_officer_training
+	icon = GFX_focus_Polish_German_Army_Training
+	prerequisite = {
+		focus = WGR_foreign_policy_czech_danzig_access
+	}
+	relative_position_id = WGR_foreign_policy_czech
+	x = 1
+	y = 3
+	cost = 5
+	available = {
+		is_subject = no
+		has_country_flag = WGR_pol_does_NAP
+		NOT = {
+			POL = {
+				is_subject = yes
+				has_government = communism
+				has_government = fascism
+				has_war_with = ROOT
+			}
+		}
+		country_exists = POL
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		POL = {
+			country_event = {
+				id = wgr_external.44
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_czech_polish_investments
+	icon = GFX_focus_Invest_in_Eastern_Poland
+	prerequisite = {
+		focus = WGR_foreign_policy_czech_nap_poland
+	}
+	relative_position_id = WGR_foreign_policy_czech
+	x = 3
+	y = 2
+	cost = 5
+	available = {
+		is_subject = no
+		has_country_flag = WGR_pol_does_NAP
+		NOT = {
+			POL = {
+				is_subject = yes
+				has_government = communism
+				has_government = fascism
+				has_war_with = ROOT
+			}
+		}
+		country_exists = POL
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		POL = {
+			country_event = {
+				id = wgr_external.77
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_foreign_policy_czech_alliance_with_poland
+	icon = GFX_goal_Loyal_Army
+	prerequisite = {
+		focus = WGR_foreign_policy_czech_polish_investments
+	}
+	prerequisite = {
+		focus = WGR_foreign_policy_czech_danzig_access
+	}
+	relative_position_id = WGR_foreign_policy_czech
+	x = 3
+	y = 3
+	cost = 5
+	available = {
+		is_subject = no
+		has_country_flag = WGR_pol_does_NAP
+		NOT = {
+			POL = {
+				is_subject = yes
+				has_government = communism
+				has_government = fascism
+				has_war_with = ROOT
+			}
+		}
+		country_exists = POL
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		POL = {
+			country_event = {
+				id = wgr_external.32
+			}
+		}
+	}
+}

@@ -1,0 +1,46 @@
+Chechen_Revolt_Cat = {
+	CHC_survival_mission = {
+		icon = GFX_decision_generic_ignite_civil_war
+		visible = {
+			tag = CHC
+			has_country_flag = CHC_Independence_War
+		}
+		allowed = {
+			tag = CHC
+		}
+		available = {
+			OR = {
+				NOT = {
+					country_exists = CHC
+				}
+				has_war = no #in case all aggressors surrender early
+			}
+		}
+		activation = {
+			tag = CHC
+			has_country_flag = CHC_Independence_War
+		}
+		days_mission_timeout = 550
+		is_good = yes
+		complete_effect = {
+			
+		}
+		timeout_effect = {
+			if = {
+				limit = {
+					controls_state = 232
+					controls_state = 831
+				}
+				transfer_state = 232
+				transfer_state = 831
+				add_state_core = 232
+				add_state_core = 831
+			}
+			remove_ideas = CHC_Independence
+			every_country = {
+				limit = { has_war_with = CHC }
+				country_event = { id = chc_revolt.3 } #peace
+			}
+		}
+	}
+}

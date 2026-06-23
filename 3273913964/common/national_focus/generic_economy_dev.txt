@@ -1,0 +1,714 @@
+
+shared_focus = {
+	id = GEN_the_great_depression
+	icon = GFX_focus_Fundraising
+	cost = 10
+	completion_reward = {
+	    add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 1.0
+			uses = 1
+			category = industry
+		}
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	x = 29
+    y = 0
+}
+
+shared_focus = {
+	id = GEN_financial_reform
+	icon = GFX_focus_Grab_Money
+	cost = 10
+	prerequisite = {
+	    focus = GEN_the_great_depression
+	}
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_finance_reform
+            days = 365
+        }
+		effect_generic_depression_recovery = yes
+		if = {
+		    limit = {
+			    has_idea = EST_Great_Depression
+			}
+			remove_ideas = EST_Great_Depression
+		}
+	}
+	x = -1
+    y = 1
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_support_our_industries
+	icon = GFX_goal_generic_construct_civ_factory
+	cost = 10
+	prerequisite = {
+	    focus = GEN_financial_reform
+	}
+	    bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = industrial_complex
+						size < 1
+						include_locked = yes
+					}					
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = -1
+    y = 2
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_tackle_rural_unemployment
+	icon = GFX_focus_Agriculture
+	cost = 10
+	prerequisite = {
+	    focus = GEN_the_great_depression
+	}
+	completion_reward = {
+	    random_owned_controlled_state = {
+			limit = {
+				is_in_home_area = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_in_home_area = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	x = 2
+    y = 1
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_economic_stimulus
+	icon = GFX_focus_Economic_Stimulus
+	cost = 10
+	prerequisite = {
+	    focus = GEN_tackle_rural_unemployment
+	}
+	bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = industrial_complex
+						size < 1
+						include_locked = yes
+					}					
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+		    effect_generic_depression_recovery = yes
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = 1
+    y = 2
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_rural_infra
+	icon = GFX_focus_Trains
+	cost = 10
+	prerequisite = {
+	    focus = GEN_tackle_rural_unemployment
+	}
+	bypass = {
+			custom_trigger_tooltip = {
+				tooltip = infrastructure_effort_tt
+				all_owned_state = {			
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+					# is_in_home_area = yes
+					OR = {
+						has_state_category = pastoral
+						has_state_category = rural
+						has_state_category = big_rural
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = 3
+    y = 2
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_access_education
+	icon = GFX_focus_research
+	cost = 10
+	available = {
+		num_of_factories > 30
+	}
+	prerequisite = {
+	    focus = GEN_rural_infra
+	}
+	completion_reward = {
+	    add_research_slot = 1
+	}
+	x = 3
+    y = 3
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_revitalize_cities
+	icon = GFX_focus_Industrialization
+	cost = 10
+	available = {
+	    num_of_factories > 20
+	}
+	prerequisite = {
+	    focus = GEN_economic_stimulus
+	}
+	prerequisite = {
+	    focus = GEN_support_our_industries
+	}
+	    bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = industrial_complex
+						size < 1
+						include_locked = yes
+					}					
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+		    if = {
+		        limit = {
+			        has_idea = FIN_Great_Depression
+			    }
+			    remove_ideas = FIN_Great_Depression
+		    }
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = 0
+    y = 3
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_industrial_reforms
+	icon = GFX_focus_Mechanization
+	cost = 10
+	prerequisite = {
+	    focus = GEN_revitalize_cities
+	}
+	completion_reward = {
+	    if = {
+		    limit = {
+			    has_idea = NEW_great_depresion
+			}
+			remove_ideas = NEW_great_depresion
+		}
+		if = {
+		    limit = {
+			    has_idea = BEL_great_depression
+			}
+			remove_ideas = BEL_great_depression
+		}
+		if = {
+		    limit = {
+			    has_idea = AST_Great_Depression
+			}
+			remove_ideas = AST_Great_Depression
+		    }
+	    add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.0
+				uses = 1
+				category = industry
+			}
+	}
+	x = -1
+    y = 4
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_new_cons_methods
+	icon = GFX_goal_generic_construction
+	cost = 10
+	prerequisite = {
+	    focus = GEN_industrial_reforms
+	}
+	completion_reward = {
+	    if = {
+		    limit = {
+			    has_idea = AUS_great_depression
+			}
+			remove_ideas = AUS_great_depression
+		    }
+		if = {
+		    limit = {
+			    has_idea = NZL_Great_Depression
+			}
+			remove_ideas = NZL_Great_Depression
+		    }
+	    add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.0
+				uses = 1
+				category = construction_tech
+			}
+	}
+	x = 0
+    y = 5
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_modern_industry
+	icon = GFX_focus_Engine_Tech
+	cost = 10
+	prerequisite = {
+	    focus = GEN_industrial_reforms
+	}
+	    bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = industrial_complex
+						size < 2
+						include_locked = yes
+					}					
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+		    effect_generic_depression_recovery = yes
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots =2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	x = -2
+    y = 5
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_invest_war_industry
+	icon = GFX_focus_Money_Bags
+	cost = 10
+	prerequisite = {
+	    focus = GEN_revitalize_cities
+	}
+	    bypass = {
+			custom_trigger_tooltip = {
+				tooltip = production_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = arms_factory
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+		    if = {
+		    limit = {
+			    has_idea = BUL_depression
+			}
+			remove_ideas = BUL_depression
+		    }
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = 2
+    y = 4
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_mitary_ind_complex
+	icon = GFX_goal_generic_construct_mil_factory
+	cost = 10
+	prerequisite = {
+	    focus = GEN_invest_war_industry
+	}
+	bypass = {
+			custom_trigger_tooltip = {
+				tooltip = production_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = arms_factory
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+		    if = {
+		    limit = {
+			    has_idea = ROM_Aftermath_of_The_Depression
+			}
+				remove_ideas = ROM_Aftermath_of_The_Depression
+		    }
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = 2
+    y = 5
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_economic_war_prep
+	icon = GFX_focus_Firearms
+	cost = 10
+	prerequisite = {
+	    focus = GEN_mitary_ind_complex
+	}
+	bypass = {
+			custom_trigger_tooltip = {
+				tooltip = production_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = arms_factory
+						size < 2
+						include_locked = yes
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+		    effect_generic_depression_recovery = yes
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	x = 3
+    y = 6
+	relative_position_id = GEN_the_great_depression
+}
+
+shared_focus = {
+	id = GEN_secret_weapons
+	icon = GFX_goal_generic_secret_weapon
+	cost = 10
+	prerequisite = {
+	    focus = GEN_mitary_ind_complex
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+			name = secret_bonus
+			bonus = 1.0
+			uses = 3
+			category = electronics
+			category = nuclear
+			category = rocketry
+		}
+	}
+	x = 1
+    y = 6
+	relative_position_id = GEN_the_great_depression
+}

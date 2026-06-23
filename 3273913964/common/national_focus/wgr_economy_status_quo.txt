@@ -1,0 +1,1392 @@
+shared_focus = {
+	id = WGR_status_quo_start
+	icon = GFX_focus_balance_between_extreme
+	prerequisite = {
+	}
+	mutually_exclusive = {
+		focus = WGR_reform_start
+	}
+	x = 34
+	y = 0
+	offset = {
+		x = 2
+		y = 0
+		trigger = {
+			has_focus_tree = WGR_DVP_DNVP_tree
+		}
+	}
+	cost = 5
+	available = {
+
+		date > 1935.1.1
+		OR = {
+			has_government = democratic
+			custom_trigger_tooltip = {
+				tooltip = WGR_zentrum_in_coalition
+				SocCon_in_Coalition = yes
+			}
+			has_government = jacobin
+			has_government = neutrality
+			WGR_DVP_in_coalition = yes
+			WGR_DNVP_in_coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 0.5
+			uses = 1
+			category = industry
+		}
+	}
+}
+shared_focus = {
+	id = WGR_austerity_start
+	icon = GFX_focus_Cancel_Debts
+	prerequisite = {
+		focus = WGR_status_quo_start
+	}
+	mutually_exclusive = {
+		focus = WGR_privitisation_start
+	}
+	relative_position_id = WGR_status_quo_start
+	x = -4
+	y = 1
+	cost = 5
+	available = {
+		OR = {
+			has_government = democratic
+			custom_trigger_tooltip = {
+				tooltip = WGR_zentrum_in_coalition
+				SocCon_in_Coalition = yes
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 30
+		modifier = {
+			date < 1934.10.6
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = { ideology = democratic popularity = 0.06 }
+		add_popularity = { ideology = jacobin popularity = 0.02 }
+		add_popularity = { ideology = market_liberalism popularity = 0.02 }
+		add_ideas = GER_Peter_Schlack
+	}
+}
+shared_focus = {
+	id = WGR_austerity_budget_cuts
+	icon = GFX_focus_Price_Reductions
+	prerequisite = {
+		focus = WGR_austerity_start
+	}
+	relative_position_id = WGR_austerity_start
+	x = -2
+	y = 1
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_timed_idea = {
+			idea = WGR_cut_budget
+			days = 365
+		}
+	}
+}
+shared_focus = {
+	id = WGR_austerity_military_cuts
+	icon = GFX_focus_Cut_Veteran_Pensions
+	prerequisite = {
+		focus = WGR_austerity_budget_cuts
+	}
+	relative_position_id = WGR_austerity_start
+	x = -2
+	y = 2
+	cost = 5.72
+	available = {
+	}
+	ai_will_do = {
+		factor = 35
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_timed_idea = {
+			idea = WGR_cut_military
+			days = 365
+		}
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_austerity_raise_taxes
+	icon = GFX_focus_Progressive_Taxation
+	prerequisite = {
+		focus = WGR_austerity_start
+	}
+	relative_position_id = WGR_austerity_start
+	x = 0
+	y = 1
+	cost = 4.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+		modifier = {
+			date < 1935.2.10
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_timed_idea = {
+			idea = WGR_taxes_raised
+			days = 365
+		}
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_austerity_weather_the_storm
+	icon = GFX_focus_Pacifist_State
+	prerequisite = {
+		focus = WGR_austerity_raise_taxes
+	}
+	relative_position_id = WGR_austerity_start
+	x = 0
+	y = 2
+	cost = 1.43
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_stability = 0.025
+	}
+}
+shared_focus = {
+	id = WGR_austerity_privatize_infrastructure
+	icon = GFX_focus_Trains
+	prerequisite = {
+		focus = WGR_austerity_start
+		focus = WGR_privitisation_start
+	}
+	relative_position_id = WGR_austerity_start
+	x = 4
+	y = 1
+	cost = 4.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		#do something with this
+	}
+}
+shared_focus = {
+	id = WGR_austerity_hire_new_contractors
+	icon = GFX_focus_Service_National_Assurance
+	prerequisite = {
+		focus = WGR_austerity_privatize_infrastructure
+	}
+	relative_position_id = WGR_austerity_start
+	x = 4
+	y = 2
+	cost = 4
+	available = {
+	}
+	ai_will_do = {
+		factor = 40
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_austerity_more_public_works
+	icon = GFX_Relief_Plans
+	prerequisite = {
+		focus = WGR_austerity_weather_the_storm
+	}
+	prerequisite = {
+		focus = WGR_austerity_military_cuts
+	}
+	prerequisite = {
+		focus = WGR_austerity_hire_new_contractors
+	}
+	mutually_exclusive = {
+		focus = WGR_austerity_keep_going
+	}
+	relative_position_id = WGR_austerity_start
+	x = -1
+	y = 3
+	cost = 7.15
+	available = {
+	}
+	ai_will_do = {
+		factor = 40
+		modifier = {
+			date < 1934.11.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -75
+		#do something with this
+		
+		# random_owned_state = {
+		# 	limit = {
+		# 		free_building_slots = {
+		# 			building = industrial_complex
+		# 			size > 1
+		# 			include_locked = yes
+		# 		}
+		# 	}
+		# 	add_extra_state_shared_building_slots = 1
+		# 	add_building_construction = {
+		# 		type = industrial_complex
+		# 		level = 1
+		# 		instant_build = yes
+		# 	}
+		# }
+	}
+}
+shared_focus = {
+	id = WGR_austerity_small_bailouts
+	icon = GFX_focus_Economic_Stimulus
+	prerequisite = {
+		focus = WGR_austerity_more_public_works
+	}
+	relative_position_id = WGR_austerity_start
+	x = -1
+	y = 4
+	cost = 2.86
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			date < 1935.6.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -40
+		add_stability = 0.02
+	}
+}
+shared_focus = {
+	id = WGR_austerity_keep_going
+	icon = GFX_focus_bills_and_acts
+	prerequisite = {
+		focus = WGR_austerity_weather_the_storm
+	}
+	prerequisite = {
+		focus = WGR_austerity_military_cuts
+	}
+	prerequisite = {
+		focus = WGR_austerity_hire_new_contractors
+	}
+	mutually_exclusive = {
+		focus = WGR_austerity_more_public_works
+	}
+	relative_position_id = WGR_austerity_start
+	x = 1
+	y = 3
+	cost = 2.15
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			date < 1936.2.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 30
+	}
+}
+shared_focus = {
+	id = WGR_austerity_tax_breaks_for_small_buisnesses
+	icon = GFX_focus_Dam_Focus
+	prerequisite = {
+		focus = WGR_austerity_keep_going
+	}
+	relative_position_id = WGR_austerity_start
+	x = 1
+	y = 4
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			date < 1935.6.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+		has_completed_focus = WGR_steady_reform_lower_tax_on_small_buisnesses
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			WGR_lower_taxes_small_businesses = yes
+		}
+	}
+}
+shared_focus = {
+	id = WGR_austerity_end_austerity
+	icon = GFX_focus_Economics_School
+	prerequisite = {
+		focus = WGR_austerity_tax_breaks_for_small_buisnesses
+		focus = WGR_austerity_small_bailouts
+	}
+	relative_position_id = WGR_austerity_start
+	x = 0
+	y = 5
+	cost = 1.43
+	available = {
+		NOT = {
+			has_idea = WGR_cut_budget
+			has_idea = WGR_cut_military
+			has_idea = WGR_taxes_raised
+		}
+	}
+	ai_will_do = {
+		factor = 100
+		modifier = {
+			date < 1936.2.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		WGR_Move_Up_Great_Depression = yes
+		add_political_power = 30
+	}
+}
+shared_focus = {
+	id = WGR_austerity_restore_budget
+	icon = GFX_focus_Tax_Incentives
+	prerequisite = {
+		focus = WGR_austerity_end_austerity
+	}
+	relative_position_id = WGR_austerity_start
+	x = -1
+	y = 6
+	cost = 4
+	available = {
+	}
+	ai_will_do = {
+		factor = 70
+		modifier = {
+			date < 1936.3.15
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -20
+		add_stability = 0.04
+	}
+}
+shared_focus = {
+	id = WGR_austerity_keep_the_tax_break
+	icon = GFX_focus_found_the_investment_bank
+	prerequisite = {
+		focus = WGR_austerity_restore_budget
+	}
+	mutually_exclusive = {
+		focus = WGR_austerity_remove_the_tax_break
+	}
+	relative_position_id = WGR_austerity_start
+	x = -2
+	y = 7
+	cost = 3.58
+	available = {
+	}
+	ai_will_do = {
+		factor = 25
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 25
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.025
+		}
+	}
+}
+shared_focus = {
+	id = WGR_austerity_dispersed_development
+	icon = GFX_focus_Electrification
+	prerequisite = {
+		focus = WGR_austerity_keep_the_tax_break
+	}
+	relative_position_id = WGR_austerity_start
+	x = -2
+	y = 8
+	cost = 7.15
+	available = {
+	}
+	ai_will_do = {
+		factor = 12
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_austerity_remove_the_tax_break
+	icon = GFX_focus_Business_Men
+	prerequisite = {
+		focus = WGR_austerity_restore_budget
+	}
+	mutually_exclusive = {
+		focus = WGR_austerity_keep_the_tax_break
+	}
+	relative_position_id = WGR_austerity_start
+	x = 0
+	y = 7
+	cost = 3.58
+	available = {
+	}
+	ai_will_do = {
+		factor = 4
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 40
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.025
+		}
+	}
+}
+shared_focus = {
+	id = WGR_austerity_concentrated_development
+	icon = GFX_focus_Capitalist_Rule
+	prerequisite = {
+		focus = WGR_austerity_remove_the_tax_break
+	}
+	relative_position_id = WGR_austerity_start
+	x = 0
+	y = 8
+	cost = 7
+	available = {
+	}
+	ai_will_do = {
+		factor = 36
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 2
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = WGR_austerity_lower_taxes
+	icon = GFX_focus_Mechanization
+	prerequisite = {
+		focus = WGR_austerity_end_austerity
+	}
+	relative_position_id = WGR_austerity_start
+	x = 1
+	y = 6
+	cost = 7.15
+	available = {
+	}
+	ai_will_do = {
+		factor = 25
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -50
+		add_stability = 0.05
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 0.5
+			uses = 1
+			category = industry
+		}
+	}
+}
+shared_focus = {
+	id = WGR_austerity_military_effort
+	icon = GFX_focus_Tankettes
+	prerequisite = {
+		focus = WGR_austerity_lower_taxes
+	}
+	relative_position_id = WGR_austerity_start
+	x = 2
+	y = 7
+	cost = 6.45
+	available = {
+	}
+	ai_will_do = {
+		factor = 12
+		modifier = {
+			has_war = yes
+			factor = 5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_austerity_military_effort2
+	icon = GFX_focus_Anti-Tank
+	prerequisite = {
+		focus = WGR_austerity_military_effort
+	}
+	relative_position_id = WGR_austerity_start
+	x = 2
+	y = 8
+	cost = 5.78
+	available = {
+	}
+	ai_will_do = {
+		factor = 12
+		modifier = {
+			has_war = yes
+			factor = 5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -50
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_austerity_resources
+	icon = GFX_focus_generic_tungsten
+	prerequisite = {
+		focus = WGR_austerity_military_effort2
+	}
+	prerequisite = {
+		focus = WGR_austerity_concentrated_development
+		focus = WGR_austerity_dispersed_development
+	}
+	relative_position_id = WGR_austerity_start
+	x = 1
+	y = 9
+	cost = 7
+	available = {
+	}
+	ai_will_do = {
+		factor = 12
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_ideas = WGR_more_resources
+	}
+}
+shared_focus = {
+	id = WGR_austerity_oil
+	icon = GFX_goal_generic_oil_refinery
+	prerequisite = {
+		focus = WGR_austerity_military_effort2
+	}
+	prerequisite = {
+		focus = WGR_austerity_concentrated_development
+		focus = WGR_austerity_dispersed_development
+	}
+	relative_position_id = WGR_austerity_start
+	x = -1
+	y = 9
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 24
+		modifier = {
+			NOT = {
+				has_tech = synth_oil_experiments
+			}
+			factor = 1.67
+		}
+		modifier = {
+			OR = {
+				has_tech = oil_processing
+				has_tech = synth_rubber_experiments
+			}
+			factor = 0.6
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 0.5
+			uses = 1
+			category = synth_resources
+		}
+	}
+}
+
+shared_focus = {
+	id = WGR_privitisation_start
+	icon = GFX_focus_Capitalist_Systems
+	prerequisite = {
+		focus = WGR_status_quo_start
+	}
+	mutually_exclusive = {
+		focus = WGR_austerity_start
+	}
+	relative_position_id = WGR_status_quo_start
+	x = 4
+	y = 1
+	cost = 5
+	available = {
+		OR = {
+			has_government = jacobin
+			has_government = neutrality
+			WGR_DVP_in_coalition = yes
+			WGR_DNVP_in_coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = { ideology = jacobin popularity = 0.04 }
+		add_popularity = { ideology = neutrality popularity = 0.04 }
+		if = {
+			limit = {
+				WGR_DNVP_in_coalition = yes
+			}
+			add_ideas = goerdeler
+		}
+		else = {
+			add_ideas = emil_georg_von_strauss
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_open_trade
+	icon = GFX_focus_Free_Trade
+	prerequisite = {
+		focus = WGR_privitisation_start
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 2
+	y = 1
+	cost = 2.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+		has_government = neutrality
+	}	
+	completion_reward = {
+		MOVE_DOWN_TRADE = yes
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_lower_corporate_tax
+	icon = GFX_focus_Business_Men
+	prerequisite = {
+		focus = WGR_privitisation_open_trade
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 2
+	y = 2
+	cost = 4.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+		has_completed_focus = WGR_Nationalists_Lower_Corporate_Taxes
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			WGR_lower_corporate_taxes = yes
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_privatize_insurance
+	icon = GFX_focus_Medicine
+	prerequisite = {
+		focus = WGR_privitisation_start
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 0
+	y = 1
+	cost = 8.58
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+		modifier = {
+			date < 1935.2.10
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_stability = -0.06
+		add_political_power = 30
+		add_timed_idea = {
+			idea = WGR_privitized_insurance
+			days = 365
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_lower_taxes
+	icon = GFX_focus_Rich_Focus
+	prerequisite = {
+		focus = WGR_privitisation_privatize_insurance
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 0
+	y = 2
+	cost = 6
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+		OR = {
+			has_completed_focus = WGR_Nationalists_Lower_Income_Tax
+			has_completed_focus = WGR_Lower_Taxes
+		}
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			WGR_lower_taxes_small = yes
+		}
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_enforce_free_market
+	icon = GFX_focus_Bread_Trade
+	prerequisite = {
+		focus = WGR_privitisation_lower_taxes
+	}
+	prerequisite = {
+		focus = WGR_privitisation_lower_corporate_tax
+	}
+	prerequisite = {
+		focus = WGR_austerity_hire_new_contractors
+	}
+	mutually_exclusive = {
+		focus = WGR_privitisation_dont_enforce_free_market
+	}
+	relative_position_id = WGR_privitisation_start
+	x = -1
+	y = 3
+	cost = 7
+	available = {
+	}
+	ai_will_do = {
+		factor = 4
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -70
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.04
+		}
+		add_stability = 0.05
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_trust_laws
+	icon = GFX_focus_Agriculture
+	prerequisite = {
+		focus = WGR_privitisation_enforce_free_market
+	}
+	relative_position_id = WGR_privitisation_start
+	x = -1
+	y = 4
+	cost = 3
+	available = {
+	}
+	ai_will_do = {
+		factor = 40
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.03
+		}
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_dont_enforce_free_market
+	icon = GFX_focus_Capitalist_Rule
+	prerequisite = {
+		focus = WGR_privitisation_lower_taxes
+	}
+	prerequisite = {
+		focus = WGR_privitisation_lower_corporate_tax
+	}
+	prerequisite = {
+		focus = WGR_austerity_hire_new_contractors
+	}
+	mutually_exclusive = {
+		focus = WGR_privitisation_enforce_free_market
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 1
+	y = 3
+	cost = 1.43
+	available = {
+	}
+	ai_will_do = {
+		modifier = {
+			date < 1935.6.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 15
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_privatize_public_works
+	icon = GFX_focus_Press_Barons
+	prerequisite = {
+		focus = WGR_privitisation_dont_enforce_free_market
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 1
+	y = 4
+	cost = 3.58
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			date < 1935.10.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_privatize_open_up_trade
+	icon = GFX_focus_Free_Trade
+	prerequisite = {
+		focus = WGR_privitisation_trust_laws
+		focus = WGR_privitisation_privatize_public_works
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 0
+	y = 5
+	cost = 5
+	available = {
+		NOT = { has_idea = econ_crisis }
+	}
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			date < 1936.1.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+		has_government = neutrality
+	}	
+	completion_reward = {
+		every_country = {
+			limit = {
+				NOT = {
+					has_government = communism
+					has_government = authoritarian_socialism
+					has_government = socialism
+				}
+			}
+			add_opinion_modifier = { target = WGR modifier = WGR_marlib_trade }
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_french_businesses
+	icon = GFX_focus_French_Industry
+	prerequisite = {
+		focus = WGR_privitisation_privatize_open_up_trade
+	}
+	relative_position_id = WGR_privitisation_start
+	x = -2
+	y = 6
+	cost = 3.43
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+		has_war_with = FRA
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_british_businesses
+	icon = GFX_Focus_British_Navy
+	prerequisite = {
+		focus = WGR_privitisation_french_businesses
+	}
+	relative_position_id = WGR_privitisation_start
+	x = -2
+	y = 7
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+		has_war_with = ENG
+	}	
+	completion_reward = {
+		add_equipment_to_stockpile = {
+			type = convoy_1
+			amount = 100
+			producer = ENG
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_american_businesses
+	icon = GFX_focus_American_Automobiles
+	prerequisite = {
+		focus = WGR_privitisation_british_businesses
+	}
+	relative_position_id = WGR_privitisation_start
+	x = -2
+	y = 8
+	cost = 7
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+		has_war_with = USA
+	}	
+	completion_reward = {
+		country_event = {
+			id = wgr_external.80
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_austrian_businesses
+	icon = GFX_focus_Befriend_Austria
+	prerequisite = {
+		focus = WGR_privitisation_privatize_open_up_trade
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 0
+	y = 6
+	cost = 2
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+		has_war_with = AUS
+	}	
+	completion_reward = {
+		add_opinion_modifier = {
+			target = AUS
+			modifier = WGR_trade_with_france
+		}
+		AUS = {
+			add_opinion_modifier = {
+				target = AUS
+				modifier = WGR_trade_with_france
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_czech_businesses
+	icon = GFX_focus_Czechslovakia
+	prerequisite = {
+		focus = WGR_privitisation_austrian_businesses
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 0
+	y = 7
+	cost = 3.58
+	available = {
+	}
+	ai_will_do = {
+		factor = 25
+	}
+	bypass = {
+		OR = {
+			has_war_with = CZE
+			has_completed_focus = WGR_foreign_policy_czech_invest_in_sudeten
+		}
+	}	
+	completion_reward = {
+		CZE = {
+			country_event = {
+				id = wgr_external.71
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_italian_oil
+	icon = GFX_focus_cbts_Befriend_Italy
+	prerequisite = {
+		focus = WGR_privitisation_czech_businesses
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 0
+	y = 8
+	cost = 8
+	available = {
+	}
+	ai_will_do = {
+		factor = 40
+	}
+	bypass = {
+		has_war_with = ITA
+	}	
+	completion_reward = {
+		every_country = {
+			limit = {
+				controls_state = 448
+				owns_state = 448
+			}
+			country_event = {
+				id = wgr_external.81
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_hungarian_businesses
+	icon = GFX_focus_Befriend_Hungary
+	prerequisite = {
+		focus = WGR_privitisation_privatize_open_up_trade
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 2
+	y = 6
+	cost = 2
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+		OR = {
+			has_war_with = HUN
+			has_completed_focus = WGR_foreign_policy_austria_denounce_hungary
+		}
+	}	
+	completion_reward = {
+		set_country_flag = WGR_is_arms_deal
+		HUN = {
+			country_event = {
+				id = wgr_external.68
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_romanian_oil
+	icon = GFX_focus_Alliance_with_Romania
+	prerequisite = {
+		focus = WGR_privitisation_hungarian_businesses
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 2
+	y = 7
+	cost = 5.72
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+		has_war_with = ROM
+	}	
+	completion_reward = {
+		add_opinion_modifier = {
+			target = ROM
+			modifier = WGR_trade_with_france
+		}
+		ROM = {
+			add_opinion_modifier = {
+				target = ROM
+				modifier = WGR_trade_with_france
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_polish_businesses
+	icon = GFX_goal_Public_Works
+	prerequisite = {
+		focus = WGR_privitisation_romanian_oil
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 2
+	y = 8
+	cost = 5.45
+	available = {
+	}
+	ai_will_do = {
+		factor = 20
+	}
+	bypass = {
+		has_war_with = POL
+	}	
+	completion_reward = {
+		POL = {
+			country_event = {
+				id = wgr_external.84
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_portugese_tungsten
+	icon = GFX_focus_Befriend_Portugal
+	prerequisite = {
+		focus = WGR_privitisation_american_businesses
+	}
+	prerequisite = {
+		focus = WGR_privitisation_italian_oil
+	}
+	prerequisite = {
+		focus = WGR_privitisation_polish_businesses
+	}
+	relative_position_id = WGR_privitisation_start
+	x = 0
+	y = 9
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 25
+	}
+	bypass = {
+		has_war_with = POR
+	}	
+	completion_reward = {
+		add_opinion_modifier = {
+			target = POR
+			modifier = WGR_trade_with_france
+		}
+		POR = {
+			add_opinion_modifier = {
+				target = POR
+				modifier = WGR_trade_with_france
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_privitisation_research_slot
+	icon = GFX_focus_Brainpower
+	prerequisite = {
+		focus = WGR_austerity_resources
+		focus = WGR_austerity_oil
+		focus = WGR_privitisation_portugese_tungsten
+	}
+	relative_position_id = WGR_status_quo_start
+	x = 0
+	y = 11
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 25
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_research_slot = 1
+	}
+}

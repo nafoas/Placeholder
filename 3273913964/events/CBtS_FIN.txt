@@ -1,0 +1,941 @@
+﻿###########################
+# Finnish Events
+###########################
+
+add_namespace = fin_internal
+add_namespace = fin_elections
+add_namespace = fin_external
+add_namespace = fin_civil_war #handles 2RCW escalation
+add_namespace = fin_flavor
+add_namespace = fin_test
+add_namespace = fin_ai
+
+country_event = { #Spirit of the Winter War
+	id = fin_external.1
+	title = fin_external.1.t
+	desc = fin_external.1.d
+	picture = GFX_event_FIN_winter_war #
+	is_triggered_only = yes
+	immediate = {
+		set_global_flag = winter_war_flag
+		activate_mission = FIN_survive
+	}
+	option = {
+		name = fin_external.1.a
+		ai_chance = {
+			base = 100
+		}
+		COALITION_add_demsoc = yes
+		COALITION_add_CENTRIST = yes
+		add_ideas = FIN_Spirit_of_the_Winter_War
+		if = {
+			limit = {
+				NOT = {
+					has_idea = service_by_requirement
+					has_idea = all_adults_serve
+					has_idea = scraping_the_barrel
+				}
+			}
+			add_ideas = all_adults_serve
+		}
+	}
+}
+country_event = { #Finland lost, peace event?
+	id = fin_external.2
+	title = fin_external.2.t
+	desc = fin_external.2.d
+	picture = GFX_event_FIN_winter_war
+	is_triggered_only = yes
+	option = { #surrender
+		name = fin_external.2.a
+		ai_chance = {
+			base = 100
+		}
+		SOV = {
+			country_event = {
+				id = fin_external.3
+				hours = 3
+			}
+		}
+	}
+	option = { #keep fighting
+		name = fin_external.2.b
+		ai_chance = {
+			base = 0
+		}
+		add_war_support = 0.10
+		add_stability = -0.10
+	}
+}
+country_event = { #Finland lost, Finland wants to surrender
+	id = fin_external.3
+	title = fin_external.3.t
+	desc = fin_external.3.d
+	picture = GFX_event_FIN_winter_war_2
+	is_triggered_only = yes
+	option = { #surrender
+		name = fin_external.3.a
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 830
+		transfer_state = 832
+		transfer_state = 147
+		transfer_state = 146
+		white_peace = FIN
+		FIN = {
+			clr_global_flag = winter_war_flag
+			set_country_flag = FIN_lost_winter_war
+		}
+	}
+	option = { #keep fighting
+		name = fin_external.3.c
+		ai_chance = {
+			base = 0
+		}
+		add_war_support = 0.10
+		add_stability = -0.10
+	}
+}
+country_event = { #Finland won
+	id = fin_external.4
+	title = fin_external.4.t
+	desc = fin_external.4.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	option = { #surrender
+		name = fin_external.4.a
+		ai_chance = {
+			base = 100
+		}
+		SOV = {
+			country_event = {
+				id = fin_external.5
+				hours = 1
+			}
+		}
+	}
+	option = { #keep fighting
+		name = fin_external.4.b
+		ai_chance = {
+			base = 0
+		}
+		add_war_support = -0.10
+		add_stability = -0.10
+	}
+}
+country_event = { #Finland won, sov event
+	id = fin_external.5
+	title = fin_external.5.t
+	desc = fin_external.5.d
+	picture = GFX_event_FIN_winter_war #
+	is_triggered_only = yes
+	option = { #surrender
+		name = fin_external.5.a
+		ai_chance = {
+			base = 100
+		}
+		add_war_support = -0.20
+		add_stability = -0.20
+		add_political_power = -200
+		add_popularity = {
+			ideology = communism
+			popularity = -0.20
+		}
+		FIN = {
+			country_event = {
+				id = fin_external.6
+				hours = 1
+			}
+			if = {
+				limit = {
+					controls_state = 828
+				}
+				transfer_state = 828
+			}
+			every_state = {
+				limit = {
+					is_core_of = FIN
+					is_owned_by = ROOT
+				}
+				FIN = {
+					transfer_state = PREV
+				}
+				SOV = {
+					remove_state_core = 828
+				}
+			}
+			white_peace = ROOT
+		}
+	}
+	option = { #keep fighting
+		name = fin_external.5.b
+		ai_chance = {
+			base = 0
+		}
+		add_war_support = -0.20
+		add_stability = -0.20
+		add_political_power = -200
+		add_popularity = {
+			ideology = communism
+			popularity = -0.20
+		}
+		SOV = {
+			country_event = {
+				id = fin_external.7
+				hours = 5
+			}
+		}
+	}
+}
+country_event = { #Finland won, sov surrendered
+	id = fin_external.6
+	title = fin_external.6.t
+	desc = fin_external.6.d
+	picture = GFX_event_FIN_winter_war #
+	is_triggered_only = yes
+	option = { #surrender
+		name = fin_external.6.a
+		ai_chance = {
+			base = 100
+		}
+		add_war_support = -0.10
+		add_stability = 0.10
+		add_political_power = 100
+		if = {
+			limit = {
+				owns_state = 828
+			}
+			add_state_core = 828
+		}
+	}
+}
+country_event = { #Finland won, sov refused to surrender
+	id = fin_external.7
+	title = fin_external.7.t
+	desc = fin_external.7.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	option = { #surrender
+		name = fin_external.7.a
+		ai_chance = {
+			base = 100
+		}
+		add_war_support = 0.10
+		add_political_power = 50
+		add_state_core = 828
+	}
+}
+country_event = { #Finland joins war with USSR
+	id = fin_external.8
+	title = fin_external.8.t
+	desc = fin_external.8.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	option = { #
+		name = fin_external.8.a
+		ai_chance = {
+			base = 100
+		}
+		give_military_access = FROM
+		add_opinion_modifier = {
+			target = FROM
+			modifier = FIN_common_enemy
+		}
+	}
+}
+#Moscow Armistice
+#Finland Will:
+#	Go back to 1940 borders
+#	Hand over Petsamo
+#	legalize the Communist Party of Finland (SKP)
+#	hand over reparations (technically meant to be in installments, but really going to be a lump sum
+country_event = { #Moscow Armistice
+	id = fin_external.9
+	title = fin_external.9.t
+	desc = fin_external.9.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	trigger = {
+		FIN = { NOT = { has_country_flag = ger_peace_pressure } }
+	}
+	option = { #accept
+		name = fin_external.9.a
+		ai_chance = {
+			base = 100
+		}
+		FIN = {
+			every_country = {
+				limit = {
+					tag = FIN_cont_war_ally
+				}
+				remove_opinion_modifier = {
+					target = PREV
+					modifier = FIN_common_enemy
+				}
+			}
+			#mil access and declaring war is handled on Finland's end
+			country_event = {
+				id = fin_external.10
+				days = 1
+			}
+		}
+		add_political_power = 100
+		add_stability = 0.02
+		set_state_owner = 722
+		white_peace = FIN
+	}
+	option = { #keep fighting
+		name = fin_external.9.b
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = -20
+		add_stability = -0.02
+		add_war_support = -0.02
+	}
+}
+country_event = { #Moscow Armistice, Finland's end. Starts the Lapland war
+	id = fin_external.10
+	title = fin_external.10.t
+	desc = fin_external.10.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	option = { #accept
+		name = fin_external.10.a
+		ai_chance = {
+			base = 100
+		}
+		every_country = {
+			limit = {
+				tag = FIN_cont_war_ally
+			}
+			save_event_target_as = FIN_lapland_enemy
+		}
+		every_country = {
+			limit = {
+				tag = event_target:FIN_lapland_enemy
+			}
+			reverse_add_opinion_modifier = {
+				target = event_target:FIN_lapland_enemy
+				modifier = FIN_betrayed
+			}
+			add_manpower = -1000
+		}
+		add_manpower = -1000
+		diplomatic_relation = {
+			country = event_target:FIN_lapland_enemy
+			relation = military_access
+			active = no
+		}
+		set_country_flag = FIN_moscow_armistice
+		add_political_power = -100
+		add_stability = -0.10
+		add_war_support = -0.10
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
+	}
+}
+
+country_event = { #German pressure
+	id = fin_external.11
+	title = fin_external.11.t
+	desc = fin_external.11.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+
+	option = { #sign
+		name = fin_external.11.a
+		ai_chance = {
+			base = 100
+		}
+		set_country_flag = ger_peace_pressure
+		hidden_effect = {
+			country_event = {
+				id = fin_external.12
+				days = 365
+			}
+		}
+	}
+
+	option = { #nah
+		name = fin_external.11.a
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = -20
+	}
+}
+
+country_event = { #German pressure-clear
+	id = fin_external.12
+	title = fin_external.11.t
+	desc = fin_external.11.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	hidden = yes
+
+	option = { #sign
+		name = fin_external.11.a
+		ai_chance = {
+			base = 100
+		}
+		clr_country_flag = ger_peace_pressure
+	}
+
+}
+
+country_event = { #offensive/defensive loss
+	id = fin_civil_war.1
+	title = fin_civil_war.1.t
+	desc = fin_civil_war.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = fin_civil_war.1.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.02
+		add_war_support = -0.02
+	}
+}
+country_event = { #defensive victory
+	id = fin_civil_war.2
+	title = fin_civil_war.2.t
+	desc = fin_civil_war.2.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = fin_civil_war.1.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = 0.02
+		add_war_support = 0.02
+	}
+}
+country_event = { #offensive victory Repola
+	id = fin_civil_war.3
+	title = fin_civil_war.3.t
+	desc = fin_civil_war.3.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = fin_civil_war.1.a
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 828
+	}
+}
+country_event = { #offensive victory Onega
+	id = fin_civil_war.4
+	title = fin_civil_war.4.t
+	desc = fin_civil_war.4.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = fin_civil_war.4.a
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 215
+	}
+}
+country_event = { #offensive victory Olonets
+	id = fin_civil_war.5
+	title = fin_civil_war.5.t
+	desc = fin_civil_war.5.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = fin_civil_war.5.a
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 216
+	}
+}
+country_event = { #offensive victory Murmansk
+	id = fin_civil_war.6
+	title = fin_civil_war.6.t
+	desc = fin_civil_war.6.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = fin_civil_war.6.a
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 213
+	}
+}
+country_event = { #offensive victory Terijoki
+	id = fin_civil_war.7
+	title = fin_civil_war.7.t
+	desc = fin_civil_war.7.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = fin_civil_war.7.a
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 832
+	}
+}
+country_event = { #offensive victory Viipuri
+	id = fin_civil_war.8
+	title = fin_civil_war.8.t
+	desc = fin_civil_war.8.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = fin_civil_war.8.a
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 146
+	}
+}
+country_event = { #offensive victory Salla
+	id = fin_civil_war.9
+	title = fin_civil_war.9.t
+	desc = fin_civil_war.8.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = fin_civil_war.9.a
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 147
+	}
+}
+country_event = { #offensive victory Petsamo
+	id = fin_civil_war.10
+	title = fin_civil_war.10.t
+	desc = fin_civil_war.10.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = fin_civil_war.10.a
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 147
+	}
+}
+country_event = { #total failure
+	id = fin_civil_war.11
+	title = fin_civil_war.11.t
+	desc = fin_civil_war.11.d
+	picture = GFX_event_Karelians #
+	is_triggered_only = yes
+	option = {
+		name = fin_civil_war.11.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -130
+		add_stability = -0.03
+		add_war_support = 0.03
+	}
+}
+country_event = {
+	id = fin_internal.1
+	title = fin_internal.1.t
+	desc = fin_internal.1.d
+	picture = GFX_event_generic_election
+	is_triggered_only = yes
+	option = {
+		name = fin_internal.1.a
+		FIN = {
+			set_popularities = {
+				communism = 1
+				authoritarian_socialism = 1
+				socialism = 1
+				social_democracy = 37
+				social_liberalism = 7
+				market_liberalism = 10
+				jacobin = 22
+				democratic = 14
+				neutrality = 3
+				monarchism = 0
+				nationalism = 1
+				fascism = 3
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = fin_internal.2
+				days = 1096
+			}
+		}
+	}
+}
+country_event = {
+	id = fin_internal.2
+	title = fin_internal.2.t
+	desc = fin_internal.2.d
+	picture = GFX_event_generic_election
+	is_triggered_only = yes
+	option = {
+		name = fin_internal.2.a
+		FIN = {
+			set_popularities = {
+				communism = 1
+				authoritarian_socialism = 1
+				socialism = 0
+				social_democracy = 40
+				social_liberalism = 6
+				market_liberalism = 11
+				jacobin = 21
+				democratic = 10
+				neutrality = 1
+				monarchism = 0
+				nationalism = 1
+				fascism = 8
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = fin_internal.3
+				days = 199
+			}
+		}
+	}
+}
+country_event = {
+	id = fin_internal.3
+	title = fin_internal.3.t
+	desc = fin_internal.3.d
+	picture = GFX_event_generic_election
+	is_triggered_only = yes
+
+	option = {
+		ai_chance = {
+			base = 177
+		}
+		name = fin_internal.3.a
+		retire_character = FIN_pehr_evind_svinhufvud
+
+		hidden_effect = {
+			add_country_leader_role = {
+				character = "FIN_kyosti_kallio"
+				promote_leader = yes
+				country_leader = {
+					ideology = rev_socialism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kyosti_kallio"
+				promote_leader = yes
+				country_leader = {
+					ideology = real_socialism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kyosti_kallio"
+				promote_leader = yes
+				country_leader = {
+					ideology = dem_socialism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kyosti_kallio"
+				promote_leader = yes
+				country_leader = {
+					ideology = liberalism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kyosti_kallio"
+				promote_leader = yes
+				country_leader = {
+					ideology = market_liberal
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kyosti_kallio"
+				promote_leader = yes
+				country_leader = {
+					ideology = social_conservatism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kyosti_kallio"
+				promote_leader = yes
+				country_leader = {
+					ideology = military
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kyosti_kallio"
+				promote_leader = yes
+				country_leader = {
+					ideology = despotism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kyosti_kallio"
+				promote_leader = yes
+				country_leader = {
+					ideology = nationalist
+					expire = "1965.1.1.1"
+				}
+			}
+			country_event = {
+				id = fin_internal.4
+				days = 898
+			}
+		}
+	}
+
+	option = {
+		ai_chance = {
+			base = 104
+		}
+		name = fin_internal.3.b #  Pehr Evind Svinhufvud stays
+		hidden_effect = {
+			country_event = {
+				id = fin_internal.4
+				days = 898
+			}
+		}
+	}
+
+	option = {
+		ai_chance = {
+			base = 19
+		}
+		name = fin_internal.3.c
+		retire_character = FIN_pehr_evind_svinhufvud
+		hidden_effect = {
+			add_country_leader_role = {
+				character = "FIN_kaarlo_juho_stahlberg"
+				promote_leader = yes
+				country_leader = {
+					ideology = rev_socialism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kaarlo_juho_stahlberg"
+				promote_leader = yes
+				country_leader = {
+					ideology = real_socialism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kaarlo_juho_stahlberg"
+				promote_leader = yes
+				country_leader = {
+					ideology = dem_socialism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kaarlo_juho_stahlberg"
+				promote_leader = yes
+				country_leader = {
+					ideology = liberalism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kaarlo_juho_stahlberg"
+				promote_leader = yes
+				country_leader = {
+					ideology = market_liberal
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kaarlo_juho_stahlberg"
+				promote_leader = yes
+				country_leader = {
+					ideology = agrarianism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kaarlo_juho_stahlberg"
+				promote_leader = yes
+				country_leader = {
+					ideology = social_conservatism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kaarlo_juho_stahlberg"
+				promote_leader = yes
+				country_leader = {
+					ideology = military
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kaarlo_juho_stahlberg"
+				promote_leader = yes
+				country_leader = {
+					ideology = despotism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_kaarlo_juho_stahlberg"
+				promote_leader = yes
+				country_leader = {
+					ideology = nationalist
+					expire = "1965.1.1.1"
+				}
+			}
+			country_event = {
+				id = fin_internal.4
+				days = 898
+			}
+		}
+	}
+}
+
+country_event = {
+	id = fin_internal.4
+	title = fin_internal.4.t
+	desc = fin_internal.4.d
+	picture = GFX_event_generic_election
+	is_triggered_only = yes
+	option = {
+		name = fin_internal.4.a
+		FIN = {
+			set_popularities = {
+				communism = 1
+				authoritarian_socialism = 1
+				socialism = 0
+				social_democracy = 39
+				social_liberalism = 5
+				market_liberalism = 9
+				jacobin = 23
+				democratic = 13
+				neutrality = 2
+				monarchism = 0
+				nationalism = 1
+				fascism = 6
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = fin_internal.5
+				days = 515
+			}
+		}
+	}
+}
+country_event = {
+	id = fin_internal.5
+	title = fin_internal.5.t
+	desc = fin_internal.5.d
+	picture = GFX_event_generic_election
+	is_triggered_only = yes
+	option = {
+		name = fin_internal.5.c
+		retire_country_leader = yes
+		hidden_effect = {
+			add_country_leader_role = {
+				character = "FIN_risto_heikki_ryti"
+				promote_leader = yes
+				country_leader = {
+					ideology = rev_socialism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_risto_heikki_ryti"
+				promote_leader = yes
+				country_leader = {
+					ideology = real_socialism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_risto_heikki_ryti"
+				promote_leader = yes
+				country_leader = {
+					ideology = dem_socialism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_risto_heikki_ryti"
+				promote_leader = yes
+				country_leader = {
+					ideology = market_liberal
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_risto_heikki_ryti"
+				promote_leader = yes
+				country_leader = {
+					ideology = agrarianism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_risto_heikki_ryti"
+				promote_leader = yes
+				country_leader = {
+					ideology = social_conservatism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_risto_heikki_ryti"
+				promote_leader = yes
+				country_leader = {
+					ideology = military
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_risto_heikki_ryti"
+				promote_leader = yes
+				country_leader = {
+					ideology = despotism
+					expire = "1965.1.1.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "FIN_risto_heikki_ryti"
+				promote_leader = yes
+				country_leader = {
+					ideology = nationalist
+					expire = "1965.1.1.1"
+				}
+			}
+		}
+	}
+}
+

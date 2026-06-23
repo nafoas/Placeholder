@@ -1,0 +1,56 @@
+#TAG_parliament = {
+#
+#	example_law = {
+#	    allowed = { tag = SPR } #Enter the tag here#
+#	    available = {
+#           NOT = { has_country_flag = law_passing } #Leave this
+#       }
+#       visible = {
+#            NOT = { has_country_flag = law_passing } #Hides the law for other governments and if you are already passing othe law
+#			has_government = social_democracy 
+#       }
+#		cost = 0
+#       fire_only_once = yes #Leave this for now	
+#		complete_effect = {
+#	        set_country_flag = law_passing #Hides other laws
+#            set_country_flag = law_passing_category #Determines category of the law, for negotiation events
+#			custom_effect_tooltip = will_vote #Informs what will happen
+#			set_variable = { supseat = socdem_seats } #supseat variable adjusted with ruling party seats
+#           hidden_effect = {
+#			    country_event = { id = parliament.2 days = 5 } #Left will support the law, add if any ideology will support the law by default
+#			}
+#            effect_tooltip = { #Effect of the law if approved
+#			    add_political_power = 30			
+#		    } 			
+#        }
+#		days_remove = 30 #Time to vote
+#		remove_effect = { #Effect upon voting
+#	        clr_country_flag = law_passing #Shows other laws again
+#			clr_country_flag = law_passing_category #Clears this
+#			hidden_effect = { 
+#			    if = {
+#				    limit = { check_variable = { supseat > 235 } #Effect if the law passes, change the number depending on seats in your parliament
+#					}
+#				    add_political_power = 30
+#   
+#			        if = { #If the law passes and you negotiated something
+#			            limit = {
+#				            has_country_flag = coolism_promised
+#				        }
+#				        add_timed_idea = { #Effect from negotiation
+#			                idea = coolism
+#			                days = 100
+#		                }
+#				    }
+#				}
+#				if = {
+#				    limit = {
+#						check_variable = { supseat < 235 } #Effect if you lose
+#					}
+#				    country_event = { id = parliament.1 } #Event We Lost the Vote!
+#				}
+#				set_variable = { supseat = 0 } #Supseats variable goes back to 0
+#            }			
+#        }
+#    }
+#}

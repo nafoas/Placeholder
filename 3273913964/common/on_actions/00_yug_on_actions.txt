@@ -1,0 +1,419 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			YUG = {
+				country_event = { id = yugoslavia.100 days = 179 }
+				country_event = { id = yugoslavia.155 days = 1309 }
+				country_event = { id = yugoslavia.156 days = 334 }
+				country_event = { id = yugoslavia.168 days = 1353 } #Pribicevic dies
+				country_event = { id = yugoslavia.170 days = 2361 } #Jovanovic Pizon dies
+				country_event = { id = yugoslavia.254 days = 736 }
+				country_event = { id = yugoslavia.245 days = 3170 } #King Peter becomes old enough
+			}
+		}
+	}
+
+	on_declare_war = {
+		effect = {
+			if = {
+				limit = {
+					FROM = { tag = YUG }
+					ROOT = {
+						OR = {
+							tag = GER
+							tag = ITA
+						}
+					}
+					NOT = { YUG = { has_focus_tree = yugoslavia_at_war } }
+				}
+				YUG = { load_focus_tree = { tree = yugoslavia_at_war keep_completed = yes } }
+			}
+		}
+	}
+
+	on_capitulation = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = { tag = YUG }
+					FROM = {
+						OR = {
+							tag = GER
+							tag = ITA
+							tag = HUN
+							tag = BUL
+							is_in_faction_with = GER
+							is_in_faction_with = ITA
+						}
+					}
+				}
+
+				YUG = { clr_country_flag = YUG_anti_german_coup }
+
+				if = { #Check if Hungary is at war with yugo or in a faction with a country who is at war with yugo
+					limit = {
+						HUN = {
+							has_capitulated = no
+							is_owner_neighbor_of = YUG
+						}
+						OR = {
+							HUN = { has_war_with = YUG }
+							HUN = {
+								any_of_scopes = {
+									array = faction_members
+									has_war_with = YUG
+								}
+							}
+						}
+					}
+					#Hungarian annexation of territory
+					set_global_flag = YUG_partition_HUN_participant
+					HUN = {
+						transfer_state = 815
+						transfer_state = 45
+						transfer_state = 1031
+						815 = { set_state_name = "Muravidék" }
+						45 = { set_state_name = "Bács-Bodrog" }
+						1031 = { set_state_name = "Dél-Baranya" }
+						set_province_name = {
+							id = 3617
+							name = "Újvidék"
+						}
+					}
+				}
+
+				if = { #Check if Bulgaria is at war with yugo or in a faction with a country who is at war with yugo
+					limit = {
+						BUL = {
+							has_capitulated = no
+							is_owner_neighbor_of = YUG
+						}
+						OR = {
+							BUL = { has_war_with = YUG }
+							BUL = {
+								any_of_scopes = {
+									array = faction_members
+									has_war_with = YUG
+								}
+							}
+						}
+					}
+					# Bulgarian annexation of territory
+					set_global_flag = YUG_partition_BUL_participant
+					BUL = {
+						transfer_state = 106
+						transfer_state = 766
+						transfer_state = 916
+					}
+				}
+
+				if = { #Check if Italy is at war with yugo or in a faction with a country who is at war with yugo
+					limit = {
+						ITA = {
+							has_capitulated = no
+							is_owner_neighbor_of = YUG
+						}
+						OR = {
+							ITA = { has_war_with = YUG }
+							ITA = {
+								any_of_scopes = {
+									array = faction_members
+									has_war_with = YUG
+								}
+							}
+						}
+					}
+					# Italian annexation of territory
+					set_global_flag = YUG_partition_ITA_participant
+					ITA = {
+						transfer_state = 163
+						163 = { set_state_name = "Dalmatia" }
+						set_province_name = {
+							id = 13330
+							name = "Spalato"
+						}
+						transfer_state = 841
+						841 = { set_state_name = "Cattaro" }
+						set_province_name = {
+							id = 13210
+							name = "Cattaro"
+						}
+						add_state_claim = 105
+						transfer_state = 105
+						105 = { set_state_name = "Montenegro" }
+						set_province_name = {
+							id = 11858
+							name = "Podgorizza"
+						}
+					}
+					if = {
+						limit = {
+							ITA = { controls_state = 791 }
+						}
+						ITA = { transfer_state = 837 }
+						838 = { set_state_name = "Sussa" } #SUS!
+					}
+					if = {
+						limit = {
+							ITA = { controls_state = 736 }
+						}
+						ITA = {
+							add_state_claim = 838
+							transfer_state = 838
+							838 = { set_state_name = "Lubiana" }
+							set_province_name = {
+								id = 9627
+								name = "Lubiana"
+							}
+						}
+					}
+					if = {
+						limit = {
+							NOT = {
+								ITA = { owns_state = 1037 }
+							}
+						}
+						ITA = { transfer_state = 1037 }
+					}
+				}
+
+				if = { #Check if Germany is at war with yugo or in a faction with a country who is at war with yugo
+					limit = {
+						GER = {
+							has_capitulated = no
+							is_owner_neighbor_of = YUG
+						}
+						OR = {
+							GER = { has_war_with = YUG }
+							GER = {
+								any_of_scopes = {
+									array = faction_members
+									has_war_with = YUG
+								}
+							}
+						}
+					}
+					#German annexation of territory
+					set_global_flag = YUG_partition_GER_participant
+					GER = {
+						add_state_claim = 102
+						transfer_state = 102
+						102 = { set_state_name = "Untersteiermark" }
+					}
+					#Independent Satate of Croatia
+					CRO = {
+						transfer_state = 109
+						transfer_state = 907
+						transfer_state = 910
+						transfer_state = 891
+						transfer_state = 839
+						transfer_state = 103
+						transfer_state = 1036
+						transfer_state = 906
+						remove_state_claim = 906
+						add_state_core = 906
+						transfer_state = 104
+						remove_state_claim = 104
+						add_state_core = 104
+						transfer_state = 908
+						remove_state_claim = 908
+						add_state_core = 908
+						transfer_state = 909
+						remove_state_claim = 909
+						add_state_core = 909
+					}
+					GER = { puppet = CRO }
+					#TODO: setup leaders for croatia
+					#TODO: event about pavelic becoming absolute leader of croatia and the formation of the indep state of croatia. for ger and ita
+					#TODO: News aevent about the fall of Yugoslavia and the stablishment of the indep state of croatia
+					#German occupation
+					YUG = {
+						every_owned_state = {
+							limit = {
+								NOT = {
+									state = 818
+									state = 765
+								}
+							}
+							set_state_province_controller = {
+								controller = GER
+							}
+							set_state_controller_to = GER
+						}
+					}
+				}
+
+				if = { #If italy controls albania
+					limit = {
+						has_global_flag = YUG_partition_ITA_participant
+						ITA = {
+							controls_state = 44
+							controls_state = 1019
+						}
+					}
+					ITA = {
+						add_state_claim = 818
+						add_state_claim = 765
+						add_state_claim = 914
+						transfer_state = 818
+						transfer_state = 765
+						transfer_state = 914
+						765 = { set_state_name = "Cossovo" }
+						set_province_name = {
+							id = 6940
+							name = "Pristina"
+						}
+					}
+				}
+
+				### Alt history scenes
+
+				if = { #Bulgaria possible extra state in Macedonia
+					limit = {
+						has_global_flag = YUG_partition_BUL_participant
+						OR = {
+							NOT = { has_global_flag = YUG_partition_ITA_participant }
+							NOT = { #Italy doesnt control Albania
+								ITA = {
+									controls_state = 44
+									controls_state = 1019
+									controls_state = 820
+								}
+							}
+						}
+					}
+					BUL = { transfer_state = 818 }
+				}
+
+				if = { #If Italy not in the war but Germany is
+					limit = {
+						NOT = { has_global_flag = YUG_partition_ITA_participant }
+						has_global_flag = YUG_partition_GER_participant
+					}
+					GER = {
+						add_state_claim = 838
+						transfer_state = 838
+						838 = { set_state_name = "Laibach" }
+						add_state_claim = 837
+						transfer_state = 837
+						837 = { set_state_name = "Suschak-Krk" } #SUS!
+						CRO = { add_state_core = 841 } #So croatia gets it when its released
+					}
+				}
+
+				if = { #If Germany not in the war but Italy is
+					limit = {
+						NOT = { has_global_flag = YUG_partition_GER_participant }
+						has_global_flag = YUG_partition_ITA_participant
+					}
+					ITA = {
+						add_state_claim = 1036
+						transfer_state = 1036
+						1036 = { set_state_name = "Ragusa" }
+						set_province_name = {
+							id = 3868
+							name = "Ragusa"
+						}
+						add_state_claim = 103
+						transfer_state = 103
+						CRO = {
+							transfer_state = 109
+							transfer_state = 907
+							transfer_state = 910
+							transfer_state = 891
+							transfer_state = 839
+							transfer_state = 906
+							remove_state_claim = 906
+							add_state_core = 906
+							transfer_state = 104
+							remove_state_claim = 104
+							add_state_core = 104
+							transfer_state = 908
+							remove_state_claim = 908
+							add_state_core = 908
+							transfer_state = 909
+							remove_state_claim = 909
+							add_state_core = 909
+						}
+						puppet = CRO						
+					}
+					if = { #IF Austria exists and is in the faction of Italy or a puppet
+						limit = {
+							country_exists = AUS
+							OR = {
+								AUS = { is_in_faction_with = ITA }
+								AUS = { is_subject_of = ITA }
+							}
+						}
+						AUS = {
+							add_state_claim = 102
+							transfer_state = 102
+							102 = { set_state_name = "Untersteiermark" }
+						}
+						ITA = { #Italy annexes this because nice borders
+							add_state_claim = 907
+							transfer_state = 907
+						}
+					}
+					else = {
+						ITA = {
+							transfer_state = 102 #Not a claim so they can release slovenia through decision
+							remove_state_claim = 838 #Removes claim so its part of slovenia if it gets released
+						}
+					}
+					
+					if = { #If Hungary is not a participant
+						limit = { NOT = { has_global_flag = YUG_partition_HUN_participant } }
+						if = {
+							limit = {
+								country_exists = AUS
+								OR = {
+									AUS = { is_in_faction_with = ITA }
+									AUS = { is_subject_of = ITA }
+								}
+							}
+							AUS = {
+								transfer_state = 815
+								add_state_claim = 815
+								815 = { set_state_name = "Übermurgebiet" }
+							}
+						}
+						else = {
+							ITA = { transfer_state = 815 }
+						}
+						CRO = {
+							transfer_state = 1031
+							transfer_state = 45
+							add_state_core = 45
+						}
+					}
+				}
+
+				if = { #If Hungary doesnt participate. Germany and Italy participate or only Germany participates without Italy
+					limit = {
+						NOT = { has_global_flag = YUG_partition_HUN_participant }
+						OR = {
+							AND = {
+								has_global_flag = YUG_partition_ITA_participant
+								has_global_flag = YUG_partition_GER_participant
+							}
+							AND = {
+								NOT = { has_global_flag = YUG_partition_ITA_participant }
+								has_global_flag = YUG_partition_GER_participant
+							}
+						}
+					}
+					GER = {
+						transfer_state = 815
+						add_state_claim = 815
+						815 = { set_state_name = "Übermurgebiet" }
+						country_event = {
+							id = occupation.86
+							days = 1
+						}
+					}
+				}
+			}
+		}
+	}
+}

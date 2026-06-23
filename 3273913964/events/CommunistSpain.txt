@@ -1,0 +1,752 @@
+add_namespace = spc
+
+# Congress - Presentation
+country_event = {
+	id = spc.1
+	title = spc.1.t
+	desc = spc.1.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spc.1.a
+		set_variable = { pce_support = 0 }
+		set_variable = { cnt_support = 0 }
+		set_variable = { prieto_support = 0 }
+		set_variable = { caballero_support = 0 }
+		country_event = { days = 5 id = spc.5 }
+	}
+}
+
+# Social Democrats victorious
+country_event = {
+	id = spc.2
+	title = spc.2.t
+	desc = spc.2.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spc.2.a
+		set_country_flag = SPC_prieto_won
+		add_country_leader_role = {
+			character = "SPR_julian_besteiro"
+			promote_leader = yes
+			country_leader = {
+				ideology = prietism
+				expire = "1965.1.1.1"
+			}
+		}
+		set_politics = { ruling_party = socialism }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Prieto
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_De_Los_Rios
+		set_party_name = {
+			ideology = socialism
+			long_name = SPC_psoe_long
+			name = SPC_psoe
+		}
+		set_party_name = {
+			ideology = authoritarian_socialism
+			long_name = SPC_cntfai_long
+			name = SPC_cntfai
+		}
+		promote_character = SPR_comite_central
+		add_popularity = { ideology = socialism popularity = 0.1 }
+	}
+}
+
+# CNT wins
+country_event = {
+	id = spc.3
+	title = spc.3.t
+	desc = spc.3.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spc.3.a
+		set_politics = { ruling_party = authoritarian_socialism }
+		set_country_flag = SPC_cnt_won
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Juan_Garcia
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Angel_Pestana
+		set_party_name = {
+			ideology = authoritarian_socialism
+			long_name = SPC_cntfai_long
+			name = SPC_cntfai
+		}
+		promote_character = SPR_comite_central
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.075 }
+	}
+}
+
+# PCE wins
+country_event = {
+	id = spc.12
+	title = spc.12.t
+	desc = spc.12.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spc.12.a
+		set_politics = { ruling_party = communism }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Jose_Diaz
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Dolores_Ibarruri
+		set_country_flag = SPC_pce_won
+		add_popularity = { ideology = communism popularity = 0.075 }
+	}
+}
+
+# PSOE wins
+country_event = {
+	id = spc.13
+	title = spc.13.t
+	desc = spc.13.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spc.13.a
+		set_politics = { ruling_party = authoritarian_socialism }
+		set_party_name = {
+			ideology = authoritarian_socialism
+			long_name = SPC_psoe_long
+			name = SPC_psoe
+		}
+		set_country_flag = SPC_psoe_won
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.075 }
+	}
+}
+
+#TODO: Grindlock - Not coded yet
+country_event = {
+	id = spc.14
+	title = spc.14.t
+	desc = spc.14.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spc.14.a
+	}
+}
+
+# PCE coup
+#NOT CODED
+# country_event = {
+# 	id = spc.4
+# 	title = spc.4.t
+# 	desc = spc.4.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+	
+# 	option = {
+# 		name = spc.4.a
+# 	}
+# 	option = {
+# 		name = spc.4.b
+# 	}
+# }
+
+
+##### CONGRESS ####
+
+
+# Economy
+country_event = {
+	id = spc.5
+	title = spc.5.t
+	desc = spc.5.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = { #Planning
+		name = spc.5.a
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Vicente_Uribe
+		add_to_variable = { var = pce_support value = 1 }
+		add_to_variable = { var = caballero_support value = 1 }
+		set_country_flag = SPC_eco_pl
+		country_event = { days = 5 id = spc.6 }
+	}
+	option = { #Syndicalism
+		name = spc.5.b
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Joan_Peiro
+		add_to_variable = { var = cnt_support value = 1 }
+		set_country_flag = SPC_eco_syn
+		country_event = { days = 5 id = spc.6 }
+	}
+	option = { #Liberal Socialism
+		name = spc.5.c
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Juan_Negrin
+		add_to_variable = { var = prieto_support value = 1 }
+		set_country_flag = SPC_eco_ls
+		country_event = { days = 5 id = spc.6 }
+	}
+}
+
+# Territorial Policy
+country_event = {
+	id = spc.6
+	title = spc.6.t
+	desc = spc.6.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	trigger = {
+		tag = SPC
+	}
+	
+	option = { #Centralize
+		name = spc.6.a
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Enrique_Lister
+		add_to_variable = { var = pce_support value = 1 }
+		set_country_flag = SPC_ter_ctr
+		country_event = { days = 5 id = spc.7 }
+	}
+	option = { #Decentralize
+		name = spc.6.b
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Durruti
+		add_to_variable = { var = cnt_support value = 1 }
+		set_country_flag = SPC_ter_dec
+		country_event = { days = 5 id = spc.7 }
+	}
+	option = { #Status Quo
+		name = spc.6.c
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Juan_Zugazagoitia
+		add_to_variable = { var = prieto_support value = 1 }
+		add_to_variable = { var = caballero_support value = 1 }
+		set_country_flag = SPC_ter_stq
+		country_event = { days = 5 id = spc.7 }
+	}
+}
+
+# Foreign Policy - No more, changed to church policy
+country_event = {
+	id = spc.7
+	title = spc.7.t
+	desc = spc.7.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	trigger = {
+		tag = SPC
+	}
+	
+	option = { #Destroy the church
+		name = spc.7.a
+		add_stability = -0.15
+		add_war_support = 0.1
+		add_political_power = 100
+		add_to_variable = { var = cnt_support value = 1 }
+		add_to_variable = { var = caballero_support value = 1 }
+		country_event = { days = 5 id = spc.9 }
+	}
+	option = { #Tolerate them
+		name = spc.7.b
+		add_stability = 0.15
+		add_war_support = -0.2
+		add_political_power = -50
+		add_to_variable = { var = pce_support value = 1 }
+		add_to_variable = { var = prieto_support value = 1 }
+		country_event = { days = 5 id = spc.9 }
+	}
+}
+
+# Army Policy
+country_event = {
+	id = spc.8
+	title = spc.8.t
+	desc = spc.8.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	trigger = {
+		tag = SPC
+	}
+	
+	option = { #Organized Army
+		name = spc.8.a
+		add_to_variable = { var = pce_support value = 1 }
+		add_to_variable = { var = prieto_support value = 1 }
+		set_country_flag = SPC_arm_org
+		# country_event = { days = 5 id = spc.9 }
+	}
+	option = { #Militia Army
+		name = spc.8.b
+		add_to_variable = { var = cnt_support value = 1 }
+		add_to_variable = { var = caballero_support value = 1 }
+		set_country_flag = SPC_arm_mil
+		# country_event = { days = 5 id = spc.9 }
+	}
+}
+
+# Navy Policy
+country_event = {
+	id = spc.9
+	title = spc.9.t
+	desc = spc.9.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	trigger = {
+		tag = SPC
+	}
+	
+	option = { #Officer's Navy
+		name = spc.9.a
+		add_to_variable = { var = pce_support value = 1 }
+		add_to_variable = { var = prieto_support value = 1 }
+		add_to_variable = { var = caballero_support value = 1 }
+		set_country_flag = SPC_nav_off
+		country_event = { days = 5 id = spc.10 }
+	}
+	option = { #Sailor's Navy
+		name = spc.9.b
+		add_to_variable = { var = cnt_support value = 2 }
+		set_country_flag = SPC_nav_pp
+		country_event = { days = 5 id = spc.10 }
+	}
+}
+
+# Air Policy
+country_event = {
+	id = spc.10
+	title = spc.10.t
+	desc = spc.10.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	trigger = {
+		tag = SPC
+	}
+	
+	option = { #Offensive Airforce
+		name = spc.10.a
+		add_to_variable = { var = pce_support value = 1 }
+		add_to_variable = { var = cnt_support value = 1 }
+		set_country_flag = SPC_air_bom
+		country_event = { days = 5 id = spc.11 }
+	}
+	option = { #Defensive Airforce
+		name = spc.10.b
+		add_to_variable = { var = prieto_support value = 1 }
+		add_to_variable = { var = caballero_support value = 1 }
+		set_country_flag = SPC_air_fig
+		country_event = { days = 5 id = spc.11 }
+	}
+}
+
+# Congress Over
+country_event = {
+	id = spc.11
+	title = spc.11.t
+	desc = spc.11.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	trigger = {
+		tag = SPC
+	}
+	
+	option = { #Check Winner
+		name = spc.11.a
+		set_country_flag = SPC_congress_over
+		if = {
+			limit = {
+				check_variable = { pce_support > cnt_support }
+				check_variable = { pce_support > prieto_support }
+				check_variable = { pce_support > caballero_support }
+			}
+			country_event = { days = 5 id = spc.12 }
+		}
+		if = {
+			limit = {
+				check_variable = { cnt_support > pce_support }
+				check_variable = { cnt_support > prieto_support }
+				check_variable = { cnt_support > caballero_support }
+			}
+			country_event = { days = 5 id = spc.3 }
+		}
+		if = {
+			limit = {
+				check_variable = { caballero_support > cnt_support }
+				check_variable = { caballero_support > prieto_support }
+				check_variable = { caballero_support > pce_support }
+			}
+			country_event = { days = 5 id = spc.13 }
+		}
+		if = {
+			limit = {
+				check_variable = { prieto_support > cnt_support }
+				check_variable = { prieto_support > pce_support }
+				check_variable = { prieto_support > caballero_support }
+			}
+			country_event = { days = 5 id = spc.2 }
+		}
+	}    
+}
+
+# END 
+
+# Second Worker's Congress
+country_event = {
+	id = spc.15
+	title = spc.15.t
+	desc = spc.15.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spc.15.a
+		if = { #Third Republic
+			limit = {
+				OR = {
+					has_government = socialism
+					has_country_flag = SPC_psoe_won
+				}
+			}
+		   	country_event = { days = 7 id = spc.16 }
+		}
+
+		if = { #CNT 
+			limit = {
+				has_country_flag = SPC_cnt_won
+			}
+		   	country_event = { days = 7 id = spc.17 }
+		}
+
+		if = { #PCE
+			limit = {
+				has_government = communism
+			}
+		   	country_event = { days = 7 id = spc.18 }
+		}		
+	}
+}
+
+# Third Republic
+country_event = {
+	id = spc.16
+	title = spc.16.t
+	desc = spc.16.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spc.16.a
+		trigger = { has_government = socialism }
+		set_country_flag = SPC_dem_rep
+		set_cosmetic_tag = SPR
+	}
+	
+	option = {
+		name = spc.16.b
+		trigger = { has_government = authoritarian_socialism }
+		set_country_flag = SPC_ugt_rep
+		set_cosmetic_tag = UGT
+		set_country_flag = spc_second_congress
+	}
+}
+
+# Communes
+country_event = {
+	id = spc.17
+	title = spc.17.t
+	desc = spc.17.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spc.17.a
+		set_country_flag = SPC_united_communes
+		set_cosmetic_tag = CNT
+	}
+	
+}
+
+# PCE Rep
+country_event = {
+	id = spc.18
+	title = spc.18.t
+	desc = spc.18.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spc.18.a
+		set_country_flag = SPC_people_rep
+		set_cosmetic_tag = PCE
+	}
+	
+}
+
+# General Election
+country_event = {
+	id = spc.19
+	title = spc.19.t
+	desc = spc.19.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	
+	option = {
+		name = spc.19.a
+		set_politics = { ruling_party = socialism }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Prieto
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_De_Los_Rios
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Juan_Zugazagoitia
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Juan_Negrin
+		hidden_effect = {
+			SPR = {
+				SPR_manuel_azana = { set_nationality = SPC }
+			}
+			add_country_leader_role = {
+				character = "SPR_manuel_azana"
+				promote_leader = yes
+				country_leader = {
+					ideology = republicanism_spr
+					expire = "1940.11.3.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "SPR_manuel_azana"
+				promote_leader = yes
+				country_leader = {
+					ideology = french_radicalism
+					expire = "1940.11.3.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "SPR_manuel_azana"
+				promote_leader = yes
+				country_leader = {
+					ideology = market_liberal
+					expire = "1940.11.3.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "SPR_manuel_azana"
+				promote_leader = yes
+				country_leader = {
+					ideology = lerrouxism
+					expire = "1940.11.3.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "SPR_manuel_azana"
+				promote_leader = yes
+				country_leader = {
+					ideology = soccon_agrarianism
+					expire = "1940.11.3.1"
+				}
+			}
+		}
+
+		add_popularity = { ideology = authoritarian_socialism popularity = -0.1 }
+	}
+	
+	option = {
+		name = spc.19.b
+		set_politics = { ruling_party = social_democracy }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Casares_Quiroga
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Augusto_Barcia
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Alvaro_Albornoz
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Gabriel_Franco
+		hidden_effect = {
+			SPR = {
+				SPR_manuel_azana = { set_nationality = SPC }
+			}
+			add_country_leader_role = {
+				character = "SPR_manuel_azana"
+				promote_leader = yes
+				country_leader = {
+					ideology = republicanism_spr
+					expire = "1940.11.3.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "SPR_manuel_azana"
+				promote_leader = yes
+				country_leader = {
+					ideology = french_radicalism
+					expire = "1940.11.3.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "SPR_manuel_azana"
+				promote_leader = yes
+				country_leader = {
+					ideology = market_liberal
+					expire = "1940.11.3.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "SPR_manuel_azana"
+				promote_leader = yes
+				country_leader = {
+					ideology = lerrouxism
+					expire = "1940.11.3.1"
+				}
+			}
+			add_country_leader_role = {
+				character = "SPR_manuel_azana"
+				promote_leader = yes
+				country_leader = {
+					ideology = soccon_agrarianism
+					expire = "1940.11.3.1"
+				}
+			}
+		}
+		add_popularity = { ideology = social_democracy popularity = 0.2 }
+	}
+}
+
+
+# Ban booze?
+country_event = {
+	id = spc.20
+	title = spc.20.t
+	desc = spc.20.d
+	picture = GFX_report_event_gathering_protest
+
+	is_triggered_only = yes
+	
+	option = { #Ban booze
+		name = spc.20.a
+		add_stability = -0.1
+		add_popularity = { ideology = authoritarian_socialism popularity = -0.07 }
+		add_political_power = 150
+		add_war_support = 0.05
+	}
+	
+	option = { #Dont ban it
+		name = spc.20.b
+		add_stability = 0.05
+		add_political_power = -75
+		add_war_support = -0.05
+	}
+
+}
+
+# Faistas o Treintistas?
+country_event = {
+	id = spc.21
+	title = spc.21.t
+	desc = spc.21.d
+	picture = GFX_report_event_gathering_protest
+
+	is_triggered_only = yes
+	
+	option = { #fai
+		name = spc.21.a
+		set_country_flag = spc_faistas
+	}
+	
+	option = { #30
+		name = spc.21.b
+		set_country_flag = spc_treintistas
+	}
+
+}
+
+
+#Foreign Policy
+
+# Abandon colonies?
+country_event = {
+	id = spc.111
+	title = spc.111.t
+	desc = spc.111.d
+	picture = GFX_report_event_gathering_protest
+
+	is_triggered_only = yes
+	
+	option = { #yes
+		name = spc.111.a
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_political_power = 150
+		add_manpower = 20000
+		FRA = { country_event = { days = 1 id = spc.110 } } 
+	}
+	
+	option = { #no
+		name = spc.111.b
+		add_stability = -0.1
+		add_war_support = -0.2
+		add_political_power = -80
+		if = {
+			limit = {
+				owns_state = 290
+			}
+			290 = {
+				add_compliance = 20
+			}
+		}
+		if = {
+			limit = {
+				owns_state = 699
+			}
+			699 = {
+				add_compliance = 20
+			}
+		}
+		if = {
+			limit = {
+				owns_state = 297
+			}
+			297 = {
+				add_compliance = 20
+			}
+		}
+	}
+}
+
+# France-Take Spanish colonies
+country_event = {
+	id = spc.110
+	title = spc.110.t
+	desc = spc.110.d
+	picture = GFX_report_event_gathering_protest
+
+	is_triggered_only = yes
+	
+	option = { #yes
+		name = spc.110.a
+		set_state_owner = 290
+		set_state_owner = 699
+		set_state_owner = 297
+	}
+}

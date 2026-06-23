@@ -1,0 +1,82 @@
+has_reached_maximum_divisions = {
+	if = {
+		limit = { has_variable = num_actual_divisions }
+		check_variable = { num_actual_divisions > max_divisions }
+	}
+	else = {
+		check_variable = { num_divisions > max_divisions }
+	}
+}
+
+has_enough_reserve_manpower_per_battalion = {
+	check_variable = { manpower_k > num_battalions }
+}
+
+has_unattained_important_goals = {
+	OR = {
+		# Far Right/Nazi Germany needs to destroy the USSR, France and/or Poland
+		AND = {
+			tag = GER
+			OR = {
+				GER = { has_country_flag = GER_hitler_in_power }
+				GER = { has_country_flag = GER_Military_Coup }
+				GER = { has_country_flag = GER_Himmler_Coup }
+				#TODO: Add Kaiser, hugenburg, etc flags
+			}
+			OR = {
+				country_exists = SOV
+				FRA = {
+					exists = yes
+					is_puppet = no
+				}
+				POL = {
+					exists = yes
+					is_puppet = no
+				}
+			}
+		}
+		# Spain won't demobilize until after the civil war
+		AND = {
+			tag = SPR
+			OR = {
+				scw_in_progress = yes
+				scr_in_progress = yes
+			}
+		}
+		AND = {
+			tag = SPA
+			scw_in_progress = yes
+		}
+		AND = {
+			tag = SPC
+			scr_in_progress = yes
+		}
+		#TODO: Add German Civil War and Communist Germany needs to destroy de west
+		# China won't demobilize so long as Japan holds Korea
+		AND = {
+			tag = CHI
+			country_exists = JAP
+			JAP = {
+				is_faction_leader = yes
+				OR = {
+					owns_state = 525
+					owns_state = 527
+				}
+			}
+			is_subject = no
+		}
+		# Bolivia and Paraguay will not demobilize until the war is over
+		AND = {
+			tag = PAR
+			has_war_with = BOL
+		}
+		AND = {
+			tag = BOL
+			has_war_with = PAR
+		}
+		# These countries never fully demobilize
+		tag = RUS
+		tag = SOV
+		tag = MON
+	}
+}

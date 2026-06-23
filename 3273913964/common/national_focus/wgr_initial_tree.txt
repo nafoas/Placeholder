@@ -1,0 +1,1164 @@
+##WGR initial tree
+##contains things for the Grand Coalition to restore order
+
+shared_focus = {
+	id = WGR_Last_Chance_for_Democracy
+	icon = GFX_Government_Crisis
+	prerequisite = {
+		#focus = WGR_Last_Chance_for_Democracy
+	}
+	#relative_position_id = WGR_Last_Chance_for_Democracy
+	x = 5
+	y = 0
+	cost = 1
+	available = {
+		has_country_flag = WGR_init_tree_available
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+		has_country_flag = WGR_init_tree_available
+	}	
+	completion_reward = {
+		add_political_power = 5
+	}
+}
+shared_focus = {
+	id = WGR_Left_Coalition
+	icon = GFX_focus_GER_SPD
+	prerequisite = {
+		focus = WGR_Last_Chance_for_Democracy
+	}
+	mutually_exclusive = {
+		focus = WGR_Right_Coalition
+	}
+	relative_position_id = WGR_Last_Chance_for_Democracy
+	x = -3
+	y = 1
+	cost = 1.43
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_spd_coalition
+			DemSoc_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 20
+	}
+}
+shared_focus = {
+	id = WGR_Free_Meals_for_Schoolchildren
+	icon = GFX_focus_Education_Reform
+	prerequisite = {
+		focus = WGR_Left_Coalition
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = 0
+	y = 1
+	cost = 2
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_spd_coalition
+			DemSoc_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			WGR_add_small_welfare_spending = yes
+			add_popularity = { ideology = socialism popularity = 0.02 }
+			add_popularity = { ideology = social_democracy popularity = 0.02 }
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Expand_Welfare
+	icon = GFX_focus_Medicine
+	prerequisite = {
+		focus = WGR_Free_Meals_for_Schoolchildren
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = 0
+	y = 2
+	cost = 2
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_spd_coalition
+			DemSoc_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			WGR_add_medium_welfare_spending = yes
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Expand_Union_Activity
+	icon = GFX_focus_capitalist_worker_alliance
+	prerequisite = {
+		focus = WGR_Expand_Welfare
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = -2
+	y = 3
+	cost = 3.15
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_spd_coalition
+			DemSoc_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 35
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.015
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.005
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Work_With_Reichsbanner
+	icon = GFX_focus_expand_reichsbanner
+	prerequisite = {
+		focus = WGR_Expand_Welfare
+	}
+	mutually_exclusive = {
+		focus = WGR_Disarm_Reichsbanner
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = 0
+	y = 3
+	cost = 2.15
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_spd_coalition
+			DemSoc_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		country_event = {
+			id = wgr_grand_coalition.8
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Right_Coalition
+	icon = GFX_focus_GER_dnvp
+	prerequisite = {
+		focus = WGR_Last_Chance_for_Democracy
+	}
+	mutually_exclusive = {
+		focus = WGR_Left_Coalition
+	}
+	relative_position_id = WGR_Last_Chance_for_Democracy
+	x = 3
+	y = 1
+	cost = 1.43
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_modDnvp_coalition
+			Aut_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 20
+		set_country_flag = WGR_rightist_coalition
+	}
+}
+shared_focus = {
+	id = WGR_Limit_Union_Activity
+	icon = GFX_focus_Destroy_Trade_Unions
+	prerequisite = {
+		focus = WGR_Right_Coalition
+	}
+	relative_position_id = WGR_Right_Coalition
+	x = 0
+	y = 1
+	cost = 4.29
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_modDnvp_coalition
+			Aut_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.025
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Protectionism
+	icon = GFX_focus_Protectionism
+	prerequisite = {
+		focus = WGR_Limit_Union_Activity
+	}
+	relative_position_id = WGR_Right_Coalition
+	x = 0
+	y = 2
+	cost = 2
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_modDnvp_coalition
+			Aut_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			WGR_raise_tariffs_medium = yes
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Work_With_Stahlhelm
+	icon = GFX_focus_Stahlhelm
+	prerequisite = {
+		focus = WGR_Protectionism
+	}
+	mutually_exclusive = {
+		focus = WGR_Disarm_Stahlhelm
+	}
+	relative_position_id = WGR_Right_Coalition
+	x = 0
+	y = 3
+	cost = 2.15
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_modDnvp_coalition
+			Aut_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		country_event = {
+			id = wgr_grand_coalition.9
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Lower_Taxes
+	icon = GFX_focus_Reduce_Employer_Contributions
+	prerequisite = {
+		focus = WGR_Protectionism
+	}
+	relative_position_id = WGR_Right_Coalition
+	x = 2
+	y = 3
+	cost = 1.86
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_modDnvp_coalition
+			Aut_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 40
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			WGR_lower_taxes_small = yes
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Limit_President
+	icon = GFX_focus_Imprison_the_Opposition
+	prerequisite = {
+		focus = WGR_Left_Coalition
+		focus = WGR_Right_Coalition
+	}
+	mutually_exclusive = {
+		focus = WGR_Support_President
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = 2
+	y = 1
+	cost = 2.86
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			add_political_power = 40
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Support_President
+	icon = GFX_focus_Supporters_of_the_president
+	prerequisite = {
+		focus = WGR_Right_Coalition
+	}
+	mutually_exclusive = {
+		focus = WGR_Limit_President
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = 4
+	y = 1
+	cost = 1
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.01
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Deal_with_the_Left
+	icon = GFX_focus_No_Mercy_for_the_Bolsheviks
+	prerequisite = {
+		focus = WGR_Limit_President
+		focus = WGR_Support_President
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = 2
+	y = 2
+	cost = 1
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = {
+			ideology = communism
+			popularity = -0.015
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Disarm_Reichsbanner
+	icon = GFX_focus_Military_Purges
+	prerequisite = {
+		focus = WGR_Deal_with_the_Left
+	}
+	mutually_exclusive = {
+		focus = WGR_Work_With_Reichsbanner
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = 2
+	y = 3
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			has_completed_focus = WGR_Left_Coalition
+			factor = 0.2
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -50
+		WGR_move_up_paramilitary = yes
+		if = {
+			limit = {
+				DemSoc_in_Coalition = yes
+			}
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = 0.025
+			}
+		}
+		else = {
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.015
+			}
+			add_popularity = {
+				ideology = social_democracy
+				popularity = 0.01
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Anti_Communist_Propaganda
+	icon = GFX_focus_GCW_Left_focus
+	prerequisite = {
+		focus = WGR_Work_With_Reichsbanner
+		focus = WGR_Disarm_Reichsbanner
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = 1
+	y = 4
+	cost = 3.58
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = {
+			ideology = communism
+			popularity = -0.025
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Deal_with_the_Right
+	icon = GFX_focus_Anti_Fascist
+	prerequisite = {
+		focus = WGR_Limit_President
+		focus = WGR_Support_President
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = 4
+	y = 2
+	cost = 1
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.01
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Disarm_Stahlhelm
+	icon = GFX_focus_German_Resistance
+	prerequisite = {
+		focus = WGR_Deal_with_the_Right
+	}
+	mutually_exclusive = {
+		focus = WGR_Work_With_Stahlhelm
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = 4
+	y = 3
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -50
+		WGR_move_up_paramilitary = yes
+		if = {
+			limit = {
+				Aut_in_Coalition = yes
+			}
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.015
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = 0.01
+			}
+		}
+		else = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.02
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Anti_Nationalist_Propaganda
+	icon = GFX_focus_GCW_Right_focus
+	prerequisite = {
+		focus = WGR_Disarm_Stahlhelm
+		focus = WGR_Work_With_Stahlhelm
+	}
+	relative_position_id = WGR_Left_Coalition
+	x = 5
+	y = 4
+	cost = 3.58
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.015
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.015
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Ready_the_Army
+	icon = GFX_focus_Weimar_Army
+	prerequisite = {
+		focus = WGR_Anti_Communist_Propaganda
+	}
+	prerequisite = {
+		focus = WGR_Anti_Nationalist_Propaganda
+	}
+	relative_position_id = WGR_Last_Chance_for_Democracy
+	x = 0
+	y = 6
+	cost = 3.58
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_stability = 0.03
+	}
+}
+shared_focus = {
+	id = WGR_Red_Spectre
+	icon = GFX_focus_Chairman_Thalmann
+	prerequisite = {
+		focus = WGR_Ready_the_Army
+	}
+	relative_position_id = WGR_Ready_the_Army
+	x = -2
+	y = 1
+	cost = 1
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 20
+	}
+}
+shared_focus = {
+	id = WGR_Curtail_Red_Militias
+	icon = GFX_focus_ETH_end_aussa_autonomy
+	prerequisite = {
+		focus = WGR_Red_Spectre
+	}
+	relative_position_id = WGR_Red_Spectre
+	x = -1
+	y = 1
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		WGR_move_up_paramilitary = yes
+		add_political_power = -25
+		add_popularity = {
+			ideology = communism
+			popularity = -0.02
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Curtail_KAPD_Support
+	icon = GFX_focus_Integrate_Bolsheviks
+	prerequisite = {
+		focus = WGR_Curtail_Red_Militias
+	}
+	mutually_exclusive = {
+		focus = WGR_Fight_All_Communists
+	}
+	relative_position_id = WGR_Red_Spectre
+	x = -2
+	y = 2
+	cost = 2.86
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_spd_coalition
+			DemSoc_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 60
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 20
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.02
+		}
+		add_stability = 0.02
+	}
+}
+shared_focus = {
+	id = WGR_Fight_All_Communists
+	icon = GFX_focus_Crush_Resistance
+	prerequisite = {
+		focus = WGR_Curtail_Red_Militias
+	}
+	mutually_exclusive = {
+		focus = WGR_Curtail_KAPD_Support
+	}
+	relative_position_id = WGR_Red_Spectre
+	x = 0
+	y = 2
+	cost = 3
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -20
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.015
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.01
+		}
+		add_stability = -0.02
+	}
+}
+shared_focus = {
+	id = WGR_Red_Unions
+	icon = GFX_focus_Manipulate_the_Poor
+	prerequisite = {
+		focus = WGR_Curtail_KAPD_Support
+		focus = WGR_Fight_All_Communists
+	}
+	relative_position_id = WGR_Red_Spectre
+	x = -1
+	y = 3
+	cost = 4.72
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -40
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.02
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.02
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Disrupt_KPD_Meetings
+	icon = GFX_focus_Prepare_the_Troops
+	prerequisite = {
+		focus = WGR_Red_Spectre
+	}
+	relative_position_id = WGR_Red_Spectre
+	x = 1
+	y = 1
+	cost = 3
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -30
+		add_popularity = {
+			ideology = communism
+			popularity = -0.015
+		}
+		add_stability = 0.015
+	}
+}
+shared_focus = {
+	id = WGR_Disrupt_Arrest_Thalmann
+	icon = GFX_focus_Arrest_Thalmann
+	prerequisite = {
+		focus = WGR_Disrupt_KPD_Meetings
+	}
+	relative_position_id = WGR_Red_Spectre
+	x = 1
+	y = 3
+	cost = 1
+	available = {
+		NOT = {
+			has_country_flag = WGR_hindenburg_dead
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -10
+		add_popularity = {
+			ideology = communism
+			popularity = -0.02
+		}
+		add_stability = -0.03
+	}
+}
+shared_focus = {
+	id = WGR_Disrupt_Ban_KPD
+	icon = GFX_focus_Anti_Communist
+	prerequisite = {
+		focus = WGR_Red_Unions
+	}
+	prerequisite = {
+		focus = WGR_Disrupt_Arrest_Thalmann
+	}
+	relative_position_id = WGR_Red_Spectre
+	x = 0
+	y = 4
+	cost = 1.43
+	available = {
+		NOT = {
+			has_country_flag = WGR_hindenburg_dead
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = WGR_anger_against_gov
+			}
+			swap_ideas = {
+				remove_idea = WGR_anger_against_gov
+				add_idea = WGR_anger_against_gov2
+			}
+		}
+		else = {
+			remove_ideas = WGR_anger_against_gov2
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.05
+		}
+		hidden_effect = {
+			country_event = {
+				id = wgr_grand_coalition.10
+				days = 14
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Brown_Shadow
+	icon = GFX_focus_Cult_of_Personality
+	prerequisite = {
+		focus = WGR_Ready_the_Army
+	}
+	relative_position_id = WGR_Ready_the_Army
+	x = 2
+	y = 1
+	cost = 1
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 30
+	}
+}
+shared_focus = {
+	id = WGR_Disrupt_Nazi_Meetings
+	icon = GFX_focus_Arrest_Nazis
+	prerequisite = {
+		focus = WGR_Brown_Shadow
+	}
+	relative_position_id = WGR_Brown_Shadow
+	x = -1
+	y = 1
+	cost = 4.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -40
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.02
+		}
+		add_stability = 0.04
+	}
+}
+shared_focus = {
+	id = WGR_Arrest_Hitler
+	icon = GFX_focus_Arrest_Hitler
+	prerequisite = {
+		focus = WGR_Disrupt_Nazi_Meetings
+	}
+	relative_position_id = WGR_Brown_Shadow
+	x = -1
+	y = 3
+	cost = 2.58
+	available = {
+		NOT = {
+			has_country_flag = WGR_hindenburg_dead
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -20
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.04
+		}
+		add_stability = -0.06
+		hidden_effect = {
+			country_event = {
+				id = wgr_grand_coalition.14
+			}
+			country_event = {
+				id = wgr_grand_coalition.11
+				days = 10
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Curtail_the_SA
+	icon = GFX_focus_Fascist_Subterfuge
+	prerequisite = {
+		focus = WGR_Brown_Shadow
+	}
+	relative_position_id = WGR_Brown_Shadow
+	x = 1
+	y = 1
+	cost = 5.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -50
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Disarm_Stahlhelm_2nd_Phase #if stahlhelm was not already disarmed
+	icon = GFX_focus_Heavy_Strike
+	prerequisite = {
+		focus = WGR_Curtail_the_SA
+	}
+	mutually_exclusive = {
+		focus = WGR_DNVP_Support
+	}
+	relative_position_id = WGR_Brown_Shadow
+	x = 0
+	y = 2
+	cost = 3.15
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+		has_completed_focus = WGR_Disarm_Stahlhelm
+	}	
+	completion_reward = {
+		WGR_move_up_paramilitary = yes
+		add_political_power = -20
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.02
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.02
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.01
+		}
+	}
+}
+shared_focus = {
+	id = WGR_DNVP_Support #if stahlhelm was not already disarmed
+	icon = GFX_focus_Workers_Support
+	prerequisite = {
+		focus = WGR_Curtail_the_SA
+	}
+	mutually_exclusive = {
+		focus = WGR_Disarm_Stahlhelm_2nd_Phase
+	}
+	relative_position_id = WGR_Brown_Shadow
+	x = 2
+	y = 2
+	cost = 1.43
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = WGR_modDnvp_coalition
+			Aut_in_Coalition = yes
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = 40
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.03
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Ban_SA
+	icon = GFX_focus_Arrest_Nazis2
+	prerequisite = {
+		focus = WGR_Disarm_Stahlhelm_2nd_Phase
+		focus = WGR_DNVP_Support
+	}
+	relative_position_id = WGR_Brown_Shadow
+	x = 1
+	y = 3
+	cost = 3.86
+	available = {
+		NOT = {
+			has_country_flag = WGR_hindenburg_dead
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		WGR_move_up_paramilitary = yes
+		add_stability = 0.025
+		country_event = {
+			id = wgr_grand_coalition.12
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Ban_NSDAP
+	icon = GFX_focus_Ban_NSDAP
+	prerequisite = {
+		focus = WGR_Arrest_Hitler
+	}
+	prerequisite = {
+		focus = WGR_Ban_SA
+	}
+	relative_position_id = WGR_Brown_Shadow
+	x = 0
+	y = 4
+	cost = 3
+	available = {
+		NOT = {
+			has_country_flag = WGR_hindenburg_dead
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = WGR_anger_against_gov
+			}
+			swap_ideas = {
+				remove_idea = WGR_anger_against_gov
+				add_idea = WGR_anger_against_gov2
+			}
+		}
+		else = {
+			remove_ideas = WGR_anger_against_gov2
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.10
+		}
+		hidden_effect = {
+			country_event = {
+				id = wgr_grand_coalition.13
+				days = 10
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_Extra_Paramilitary
+	icon = GFX_focus_Restrict_Firearms
+	prerequisite = {
+		focus = WGR_Disrupt_Ban_KPD
+	}
+	prerequisite = {
+		focus = WGR_Ban_NSDAP
+	}
+	relative_position_id = WGR_Ready_the_Army
+	x = 0
+	y = 6
+	cost = 1
+	available = {
+		OR = {
+			has_idea = WGR_paramilitary_divisions
+			has_idea = WGR_paramilitary_divisions2
+			has_idea = WGR_paramilitary_divisions3
+			has_idea = WGR_paramilitary_divisions4
+		}
+	}
+	ai_will_do = {
+		factor = 50
+	}
+	bypass = {
+		NOT = {
+			has_idea = WGR_paramilitary_divisions
+			has_idea = WGR_paramilitary_divisions2
+			has_idea = WGR_paramilitary_divisions3
+			has_idea = WGR_paramilitary_divisions4
+		}
+	}	
+	completion_reward = {
+		WGR_move_up_paramilitary = yes
+	}
+}

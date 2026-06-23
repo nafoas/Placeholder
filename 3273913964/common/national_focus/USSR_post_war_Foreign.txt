@@ -1,0 +1,462 @@
+#11 focuses here
+#s_team337
+shared_focus = {
+	id = SOV_Post_Foreign_Start
+	icon = GFX_focus_SOV_father_of_nations
+	#prerequisite = { focus = SOV_Post_Foreign_Start }
+	x = 18
+	y = 0
+	#relative_position_id = SOV_Post_Foreign_Start
+	cost = 5
+	ai_will_do = {
+		factor = 800
+		modifier = {
+			date > 1946.4.1
+			factor = 2
+		}
+	}
+	available = {
+		has_war = no
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = communism
+			popularity = 0.04
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Post_Foreign_Hegemony
+	icon = GFX_focus_SOV_proclaim_soviet_hegemony
+	prerequisite = {
+		focus = SOV_Post_Foreign_Start
+	}
+	mutually_exclusive = {
+		focus = SOV_Post_Foreign_Outreach
+	}
+	x = -3
+	y = 1
+	relative_position_id = SOV_Post_Foreign_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 900
+	}
+	available = {
+		has_war = no
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = 20
+	}
+}
+shared_focus = {
+	id = SOV_Post_Antagonize_America
+	icon = GFX_focus_generic_strike_at_democracy3
+	prerequisite = {
+		focus = SOV_Post_Foreign_Hegemony
+	}
+	x = -4
+	y = 2
+	relative_position_id = SOV_Post_Foreign_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 500
+	}
+	available = {
+		has_war = no
+	}
+	bypass = {
+		OR = {
+			has_war_with = USA
+			is_in_faction_with = USA
+			has_war_together_with = USA
+			USA = {
+				is_subject = yes
+			}
+		}
+	}
+	completion_reward = {
+		USA = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_Ideological_Hostility
+			}
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = SOV_Ideological_Hostility
+		}
+		add_war_support = 0.02
+		if = {
+			limit = {
+				has_non_aggression_pact_with = USA
+			}
+			diplomatic_relation = {
+				country = USA
+				relation = non_aggression_pact
+				active = no
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_military_access_to = USA
+					gives_military_access_to = USA
+				}
+			}
+			diplomatic_relation = {
+				country = USA
+				relation = military_access
+				active = no
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Post_Irritate_Empire
+	icon = GFX_focus_Colonial_Conquests
+	prerequisite = {
+		focus = SOV_Post_Antagonize_America
+	}
+	x = -4
+	y = 3
+	relative_position_id = SOV_Post_Foreign_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 400
+	}
+	available = {
+		has_war = no
+	}
+	bypass = {
+		OR = {
+			has_war_with = ENG
+			is_in_faction_with = ENG
+			has_war_together_with = ENG
+			ENG = {
+				is_subject = yes
+			}
+		}
+	}
+	completion_reward = {
+		ENG = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_Ideological_Hostility
+			}
+		}
+		add_opinion_modifier = {
+			target = ENG
+			modifier = SOV_Ideological_Hostility
+		}
+		add_war_support = 0.02
+		if = {
+			limit = {
+				has_non_aggression_pact_with = ENG
+			}
+			diplomatic_relation = {
+				country = ENG
+				relation = non_aggression_pact
+				active = no
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_military_access_to = ENG
+					gives_military_access_to = ENG
+				}
+			}
+			diplomatic_relation = {
+				country = ENG
+				relation = military_access
+				active = no
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Post_Foreign_Outreach
+	icon = GFX_focus_European_Relations
+	prerequisite = {
+		focus = SOV_Post_Foreign_Start
+	}
+	mutually_exclusive = {
+		focus = SOV_Post_Foreign_Hegemony
+	}
+	x = 3
+	y = 1
+	relative_position_id = SOV_Post_Foreign_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		has_war = no
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_stability = 0.04
+	}
+}
+shared_focus = {
+	id = SOV_Post_Befriend_Turkey
+	icon = GFX_focus_Befriend_Turkey
+	prerequisite = {
+		focus = SOV_Post_Foreign_Outreach
+	}
+	mutually_exclusive = {
+		focus = SOV_Post_Turkish_Strait_Crisis
+	}
+	mutually_exclusive = {
+		focus = SOV_Post_Demand_Turkey
+	}
+	x = 2
+	y = 2
+	relative_position_id = SOV_Post_Foreign_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 400
+	}
+	available = {
+		has_war = no
+	}
+	bypass = {
+		TUR = {
+			OR = {
+				has_war_with = ROOT
+				is_subject = yes
+				is_in_faction_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		TUR = {
+			add_opinion_modifier = {
+				target = TUR
+				modifier = SOV_summit_yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Post_Turkish_Strait_Crisis
+	icon = GFX_focus_turkish_straits
+	prerequisite = {
+		focus = SOV_Post_Foreign_Outreach
+		focus = SOV_Post_Foreign_Hegemony
+	}
+	mutually_exclusive = {
+		focus = SOV_Post_Befriend_Turkey
+	}
+	mutually_exclusive = {
+		focus = SOV_Post_Demand_Turkey
+	}
+	x = 0
+	y = 2
+	relative_position_id = SOV_Post_Foreign_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 1500
+	}
+	available = {
+		has_war = no
+	}
+	bypass = {
+		TUR = {
+			OR = {
+				has_war_with = ROOT
+				is_subject = yes
+				is_in_faction_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		TUR = {
+			country_event = {
+				id = sov_external.146
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Post_Demand_Turkey
+	icon = GFX_focus_Demand_Armenia
+	prerequisite = {
+		focus = SOV_Post_Foreign_Hegemony
+	}
+	mutually_exclusive = {
+		focus = SOV_Post_Befriend_Turkey
+	}
+	mutually_exclusive = {
+		focus = SOV_Post_Turkish_Strait_Crisis
+	}
+	x = -2
+	y = 2
+	relative_position_id = SOV_Post_Foreign_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 200
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		has_war = no
+		TUR = {
+			exists = yes
+			is_subject = no
+			NOT = {
+				is_in_faction_with = SOV
+				has_war_with = SOV
+				has_war_together_with = SOV
+			}
+			OR = {
+				AND = {
+					owns_state = 354
+					controls_state = 354
+				}
+				AND = {
+					owns_state = 353
+					controls_state = 353
+				}
+			}
+		}
+	}
+	bypass = {
+		TUR = {
+			OR = {
+				has_war_with = ROOT
+				is_subject = yes
+				is_in_faction_with = ROOT
+				has_war_together_with = SOV
+				NOT = {
+					354 = {
+						is_owned_and_controlled_by = TUR
+					}
+					353 = {
+						is_owned_and_controlled_by = TUR
+					}
+				}
+			}
+		}
+	}
+	completion_reward = {
+		add_state_claim = 354
+		add_state_claim = 353
+		TUR = {
+			country_event = {
+				id = sov_external.153
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = SOV_Post_Puppets
+	icon = GFX_focus_SOV_organization_centralization_discipline
+	prerequisite = {
+		focus = SOV_Post_Demand_Turkey
+		focus = SOV_Post_Turkish_Strait_Crisis
+		focus = SOV_Post_Befriend_Turkey
+	}
+	x = 0
+	y = 3
+	relative_position_id = SOV_Post_Foreign_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 500
+	}
+	available = {
+		has_war = no
+		any_country = {
+			is_subject_of = SOV
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		every_country = {
+			limit = {
+				is_subject_of = SOV
+			}
+			country_event = {
+				id = sov_external.160
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Post_Begrudge_Allies
+	icon = GFX_focus_Befriend_United_Kingdom
+	prerequisite = {
+		focus = SOV_Post_Foreign_Outreach
+	}
+	x = 4
+	y = 2
+	relative_position_id = SOV_Post_Foreign_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+		has_war = no
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		every_country = {
+			limit = {
+				has_non_aggression_pact_with = SOV
+			}
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_Begrudge
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Post_Trade
+	icon = GFX_focus_Risky_Deal
+	prerequisite = {
+		focus = SOV_Post_Begrudge_Allies
+	}
+	x = 4
+	y = 3
+	relative_position_id = SOV_Post_Foreign_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 150
+	}
+	available = {
+		has_war = no
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		every_country = {
+			limit = {
+				has_non_aggression_pact_with = SOV
+			}
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_trade2
+			}
+		}
+	}
+}

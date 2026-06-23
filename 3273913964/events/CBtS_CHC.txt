@@ -1,0 +1,171 @@
+﻿###########################
+# Chechnya Events
+###########################
+
+add_namespace = chc_revolt
+add_namespace = chc_civil_war
+add_namespace = chc_internal
+
+country_event = { #2RCW Chechen Revolt
+	id = chc_civil_war.1
+	title = chc_civil_war.1.t
+	desc = chc_civil_war.1.d
+	picture = GFX_Event_Romania_ploiesti_1933
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			RUS = {
+				country_event = {
+					id = rus_civil_war.39 #informed of thing
+					days = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = chc_civil_war.1.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Bureaucracy going better
+	id = chc_internal.1
+	title = chc_internal.1.t
+	desc = chc_internal.1.d
+	picture = GFX_Event_USSR_Polish_Communists
+	is_triggered_only = yes
+	option = {
+		name = chc_internal.1.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = 0.05
+	}
+}
+country_event = { #Decollectivization Debates
+	id = chc_internal.2
+	title = chc_internal.2.t
+	desc = chc_internal.2.d
+	picture = GFX_Event_USSR_Kolkhoz
+	is_triggered_only = yes
+	option = {
+		name = chc_internal.2.a
+		ai_chance = {
+			base = 50
+		}
+		add_stability = 0.01
+	}
+	option = {
+		name = chc_internal.2.b
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = 10
+	}
+}
+country_event = { #declared war on by controller/owner
+	id = chc_revolt.1
+	title = chc_revolt.1.t
+	desc = chc_revolt.1.d
+	picture = GFX_Event_Romania_ploiesti_1933
+	is_triggered_only = yes
+	option = {
+		name = chc_revolt.1.a
+		ai_chance = {
+			base = 100
+		}
+		set_country_flag = CHC_Independence_War
+		every_country = {
+			limit = {
+				OR = {
+					tag = FROM
+					tag = SOV
+				}
+			}
+			declare_war_on = {
+				target = CHC
+				type = annex_everything
+			}
+		}
+		activate_mission = CHC_survival_mission
+		every_country = {
+			limit = {
+				has_offensive_war_with = ROOT.FROM
+				NOT = { has_war_with = CHC }
+				NOT = { is_subject = yes }
+			}
+			country_event = {
+				id = chc_revolt.2
+			}
+		}
+	}
+}
+country_event = { #declare war on chechnya?
+	id = chc_revolt.2
+	title = chc_revolt.2.t
+	desc = chc_revolt.2.d
+	picture = GFX_Event_Romania_ploiesti_1933
+	is_triggered_only = yes
+	option = { #war
+		name = chc_revolt.2.a
+		ai_chance = {
+			base = 80
+		}
+		declare_war_on = {
+			target = CHC
+			type = annex_everything
+		}
+	}
+	option = { #no war
+		name = chc_revolt.2.b
+		ai_chance = {
+			base = 20
+			modifier = {
+				has_government = fascism
+				factor = 0.2
+			}
+		}
+	}
+}
+country_event = { #War With Chechnya
+	id = chc_revolt.3
+	title = chc_revolt.3.t
+	desc = chc_revolt.3.d
+	picture = GFX_Event_Romania_ploiesti_1933
+	is_triggered_only = yes
+	option = { #war
+		name = chc_revolt.3.a
+		ai_chance = {
+			base = 80
+		}
+		declare_war_on = {
+			target = CHC
+			type = annex_everything
+		}
+	}
+	option = { #no war
+		name = chc_revolt.3.b
+		ai_chance = {
+			base = 20
+			modifier = {
+				has_government = fascism
+				factor = 0.3
+			}
+		}
+	}
+}
+country_event = { #Peace With Chechnya
+	id = chc_revolt.4
+	title = chc_revolt.4.t
+	desc = chc_revolt.4.d
+	picture = GFX_Event_Romania_ploiesti_1933
+	is_triggered_only = yes
+	option = { #war
+		name = chc_revolt.4.a
+		ai_chance = {
+			base = 100
+		}
+		white_peace = CHC
+	}
+}

@@ -1,0 +1,508 @@
+RFP_Get_Rod_Pop = {
+	set_temp_variable = {
+		RFP_tot_inf = RFP_rod_influence
+	}
+	add_to_temp_variable = {
+		RFP_tot_inf = RFP_von_influence
+	}
+	set_temp_variable = {
+		RFP_temp_inf = RFP_rod_influence
+	}
+	divide_temp_variable = {
+		RFP_temp_inf = RFP_tot_inf
+	}
+	set_variable = {
+		RFP_Rod_Pop = party_popularity@fascism
+	}
+	add_to_variable = {
+		RFP_Rod_Pop = party_popularity@nationalism
+	}
+	multiply_variable = {
+		RFP_Rod_Pop = RFP_temp_inf
+	}
+}
+RFP_Get_Von_Pop = {
+	set_temp_variable = {
+		RFP_tot_inf = RFP_rod_influence
+	}
+	add_to_temp_variable = {
+		RFP_tot_inf = RFP_von_influence
+	}
+	set_temp_variable = {
+		RFP_temp_inf = RFP_von_influence
+	}
+	divide_temp_variable = {
+		RFP_temp_inf = RFP_tot_inf
+	}
+	set_variable = {
+		RFP_Von_Pop = party_popularity@fascism
+	}
+	add_to_variable = {
+		RFP_Von_Pop = party_popularity@nationalism
+	}
+	multiply_variable = {
+		RFP_Von_Pop = RFP_temp_inf
+	}
+}
+RFP_Get_Von_Pop = {
+	set_variable = {
+		RFP_Cos_Pop = party_popularity@fascism
+	}
+	add_to_variable = {
+		RFP_Cos_Pop = party_popularity@nationalism
+	}
+	multiply_variable = {
+		RFP_Cos_Pop = RFP_temp_inf
+	}
+}
+RFP_Get_Mon_Pop = {
+	set_variable = {
+		RFP_Mon_Pop = party_popularity@monarchism
+	}
+	add_to_variable = {
+		RFP_Mon_Pop = party_popularity@neutrality
+	}
+}
+RFP_add_influence_cossack = {
+	if = {
+		limit = {
+			check_variable = {
+				RFP_cos_influence < 100
+			}
+		}
+		add_to_variable = {
+			RFP_cos_influence = RFP_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = RFP_cos_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = RFP_von_influence
+				check_variable = {
+					RFP_von_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RFP_rod_influence
+				check_variable = {
+					RFP_rod_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				RFP_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				RFP_add_influence_value = 100
+			}
+			round_variable = RFP_add_influence_value
+			divide_variable = {
+				RFP_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = RFP_von_influence
+					check_variable = {
+						RFP_von_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RFP_von_influence = RFP_add_influence_value
+				}
+				clamp_variable = {
+					var = RFP_von_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RFP_rod_influence
+					check_variable = {
+						RFP_rod_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RFP_rod_influence = RFP_add_influence_value
+				}
+				clamp_variable = {
+					var = RFP_rod_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			RFP_add_influence_value = 0
+		}
+		RFP_check_for_hundred = yes
+		RFP_Get_Von_Pop = yes
+		RFP_Get_Rod_Pop = yes
+	}
+}
+RFP_add_influence_vonsyatsky = {
+	if = {
+		limit = {
+			check_variable = {
+				RFP_von_influence < 100
+			}
+		}
+		add_to_variable = {
+			RFP_von_influence = RFP_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = RFP_von_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = RFP_cos_influence
+				check_variable = {
+					RFP_cos_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RFP_rod_influence
+				check_variable = {
+					RFP_rod_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				RFP_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				RFP_add_influence_value = 100
+			}
+			round_variable = RFP_add_influence_value
+			divide_variable = {
+				RFP_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = RFP_cos_influence
+					check_variable = {
+						RFP_cos_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RFP_cos_influence = RFP_add_influence_value
+				}
+				clamp_variable = {
+					var = socialist_influence?0 # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RFP_rod_influence
+					check_variable = {
+						RFP_rod_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RFP_rod_influence = RFP_add_influence_value
+				}
+				clamp_variable = {
+					var = RFP_rod_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			RFP_add_influence_value = 0
+		}
+		RFP_check_for_hundred = yes
+		RFP_Get_Rod_Pop = yes
+		RFP_Get_Von_Pop = yes
+	}
+}
+RFP_add_influence_rodzaevsky = {
+	if = {
+		limit = {
+			check_variable = {
+				RFP_rod_influence < 100
+			}
+		}
+		add_to_variable = {
+			RFP_rod_influence = RFP_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = RFP_rod_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = RFP_cos_influence
+				check_variable = {
+					RFP_cos_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = RFP_von_influence
+				check_variable = {
+					RFP_von_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				RFP_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				RFP_add_influence_value = 100
+			}
+			round_variable = RFP_add_influence_value
+			divide_variable = {
+				RFP_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = RFP_cos_influence
+					check_variable = {
+						RFP_cos_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RFP_cos_influence = RFP_add_influence_value
+				}
+				clamp_variable = {
+					var = socialist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = RFP_von_influence
+					check_variable = {
+						RFP_von_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					RFP_von_influence = RFP_add_influence_value
+				}
+				clamp_variable = {
+					var = RFP_von_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			RFP_add_influence_value = 0
+		}
+		RFP_check_for_hundred = yes
+		RFP_Get_Rod_Pop = yes
+		RFP_Get_Von_Pop = yes
+	}
+}
+RFP_Rally_Supporters = {
+	if = {
+		limit = {
+			has_country_flag = RFP_show_cos
+		}
+		set_variable = {
+			RFP_manpower_add = RFP_Mon_Pop
+		}
+		multiply_variable = {
+			RFP_manpower_add = 50000
+		}
+		add_manpower = RFP_manpower_add
+		set_variable = {
+			RFP_manpower_add = RFP_manpower_add
+		}
+		round_variable = RFP_manpower_add
+		set_variable = {
+			RFP_add_influence_value = 5
+		}
+		RFP_add_influence_cossack = yes
+		RFP_Get_Von_Pop = yes
+		RFP_Get_Rod_Pop = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = RFP_show_von
+		}
+		RFP_Get_Von_Pop = yes
+		set_variable = {
+			RFP_manpower_add = RFP_Von_Pop
+		}
+		multiply_variable = {
+			RFP_manpower_add = 50000
+		}
+		add_manpower = RFP_manpower_add
+		set_variable = {
+			RFP_manpower_add = RFP_manpower_add
+		}
+		round_variable = RFP_manpower_add
+		set_variable = {
+			RFP_add_influence_value = 5
+		}
+		RFP_add_influence_vonsyatsky = yes
+		RFP_Get_Von_Pop = yes
+		RFP_Get_Rod_Pop = yes
+	}
+	else = {
+		set_variable = {
+			RFP_manpower_add = RFP_Rod_Pop
+		}
+		multiply_variable = {
+			RFP_manpower_add = 50000
+		}
+		add_manpower = RFP_manpower_add
+		set_variable = {
+			RFP_manpower_add = RFP_manpower_add
+		}
+		round_variable = RFP_manpower_add
+		set_variable = {
+			RFP_add_influence_value = 5
+		}
+		RFP_add_influence_rodzaevsky = yes
+		RFP_Get_Von_Pop = yes
+		RFP_Get_Rod_Pop = yes
+	}
+}
+RFP_check_for_hundred = {
+	set_variable = {
+		RFP_discrepency_check = 0
+	}
+	if = {
+		limit = {
+			has_variable = RFP_cos_influence
+		}
+		add_to_variable = {
+			RFP_discrepency_check = RFP_cos_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = RFP_von_influence
+		}
+		add_to_variable = {
+			RFP_discrepency_check = RFP_von_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = RFP_rod_influence
+		}
+		add_to_variable = {
+			RFP_discrepency_check = RFP_rod_influence
+		}
+	}
+	subtract_from_variable = {
+		RFP_discrepency_check = 100
+	}
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					RFP_discrepency_check = 0
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = RFP_show_cos
+			}
+			subtract_from_variable = {
+				RFP_cos_influence = RFP_discrepency_check
+			}
+			clamp_variable = {
+				var = RFP_cos_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = RFP_show_von
+			}
+			subtract_from_variable = {
+				RFP_von_influence = RFP_discrepency_check
+			}
+			clamp_variable = {
+				var = RFP_von_influence
+				min = 0
+				max = 100
+			}
+		}
+		else = {
+			subtract_from_variable = {
+				RFP_rod_influence = RFP_discrepency_check
+			}
+			clamp_variable = {
+				var = RFP_rod_influence
+				min = 0
+				max = 100
+			}
+		}
+	}
+	set_variable = {
+		RFP_discrepency_check = 0
+	}
+}

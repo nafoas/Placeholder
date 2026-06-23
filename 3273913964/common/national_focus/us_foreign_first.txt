@@ -1,0 +1,391 @@
+shared_focus = {
+		id = USA_new_foreign
+		icon = GFX_focus_Befriend_USA
+		cost = 3
+		ai_will_do = { base = 60 }
+		available = {
+			has_country_flag = usa_days_over
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+		    add_political_power = 40
+		}
+		x = 34
+		y = 0
+	}
+	
+	shared_focus = {
+		id = USA_good_neighbour
+		icon = GFX_focus_South_American_Relations
+		cost = 1
+		ai_will_do = { base = 100 }
+		prerequisite = {
+		    focus = USA_new_foreign
+		}
+		available = {
+			#
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+		    add_political_power = 30
+			add_opinion_modifier = {
+                target = MEX
+                modifier = USA_good_neighbor
+            }
+			MEX = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_good_neighbor
+                }
+			}
+		}
+		x = 34
+		y = 1
+	}
+	
+	shared_focus = {
+		id = USA_withdraw_nicaragua
+		icon = GFX_focus_Freedom_of_Speech
+		cost = 4
+		prerequisite = {
+		    focus = USA_good_neighbour
+		}
+		ai_will_do = { base = 60 }
+		available = {
+			NIC = {
+			    is_subject_of = USA
+			}
+		}
+		bypass = {
+		    NOT = {
+			    NIC = { is_subject_of = USA }
+			}
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			NIC = { remove_ideas = SA_american_occupation }
+			set_autonomy = {
+                target = NIC
+                autonomy_state = autonomy_free
+            }
+			add_political_power = 20
+			hidden_effect = {
+			    news_event = { id = usa_news.16 }
+			}
+		}
+		x = 33
+		y = 2
+	}
+	
+	shared_focus = {
+		id = USA_montevideo_convention
+		icon = GFX_focus_Foreign_Diplomacy
+		cost = 3
+		ai_will_do = { base = 100 }
+		prerequisite = {
+		    focus = USA_good_neighbour
+		}
+		available = {
+			#
+		}
+		completion_reward = {
+		    BRA = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			CHL = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			VEN = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			ECU = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			COL = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			COS = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			PAN = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			NIC = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			HON = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			ELS = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			GUA = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			MEX = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			CUB = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+			DOM = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_montevideo
+                }
+			}
+		}
+		x = 35
+		y = 2
+	}
+	
+	shared_focus = {
+		id = USA_withdraw_haiti
+		icon = GFX_focus_Withdraw_Caribbean
+		cost = 5
+		ai_will_do = { base = 100 }
+		prerequisite = {
+		    focus = USA_withdraw_nicaragua
+		}
+		prerequisite = {
+		    focus = USA_montevideo_convention
+		}
+		available = {
+			HAI = {
+			    is_subject_of = USA
+			}
+		}
+		bypass = {
+		    NOT = {
+			    HAI = { is_subject_of = USA }
+			}
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			HAI = { remove_ideas = SA_american_occupation }
+			set_autonomy = {
+                target = HAI
+                autonomy_state = autonomy_free
+            }
+			add_political_power = 50
+			hidden_effect = {
+			    news_event = { id = usa_news.17 }
+			}
+		}
+		x = 34
+		y = 3
+	}
+	
+	shared_focus = {
+		id = USA_philippine_independence
+		icon = GFX_focus_Give_Democracy
+		cost = 0
+		prerequisite = {
+		    focus = USA_new_foreign
+		}
+		ai_will_do = { base = 100 }
+		available = {
+			has_country_flag = USA_passed_tydings_act
+			PHI = {
+				has_capitulated = no
+				is_subject_of = USA
+			}
+		}
+		bypass = {
+			OR = {
+				NOT = {
+					PHI = { is_subject_of = USA }
+				}
+				PHI = { has_capitulated = yes }
+			}
+		}
+		search_filters = {FOCUS_FILTER_USA_CONGRESS_ACT}
+		completion_reward = {
+			clr_country_flag = USA_passed_tydings_act
+		}
+		x = 30
+		y = 1
+	}
+	
+	shared_focus = {
+		id = USA_neutrality_act
+		icon = GFX_focus_focus_peace_talks
+		cost = 5
+		prerequisite = {
+		    focus = USA_philippine_independence
+		}
+		available = {
+			has_war = no
+			is_in_faction = no
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_USA_CONGRESS_ACT}
+		completion_reward = {
+		    custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = neu_first_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				add_political_power = 150
+				USA_congress_small_support = yes
+			}
+		}
+		x = 29
+		y = 2
+	}
+	
+	shared_focus = {
+		id = USA_reciprocal_tariff
+		icon = GFX_focus_Free_Trade
+		cost = 5
+		prerequisite = {
+		    focus = USA_philippine_independence
+		}
+		available = {
+			has_war = no
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS_ACT}
+		completion_reward = {
+		    custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = usa_trade_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+			    add_days_mission_timeout = {
+		            mission = USA_employment_mission
+		            days = -30
+	            }
+				random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			}
+		}
+		x = 31
+		y = 2
+	}
+	
+	shared_focus = {
+		id = USA_recognize_soviet
+		icon = GFX_focus_Soviet_Relations
+		cost = 5
+		prerequisite = {
+		    focus = USA_new_foreign
+		}
+		ai_will_do = { base = 5 }
+		available = {
+			RUS = { exists = no }
+			SOV = { exists = yes has_war = no }
+		}
+		completion_reward = {
+		    SOV = {
+			    add_opinion_modifier = {
+                    target = USA
+                    modifier = USA_recognition
+                }
+			}
+		}
+		x = 38
+		y = 1
+	}
+	
+	shared_focus = {
+		id = USA_tsarist_debts
+		icon = GFX_focus_Business_Bills
+		cost = 5
+		prerequisite = {
+		    focus = USA_recognize_soviet
+		}
+		mutually_exclusive = { focus = USA_anti_espionage }
+		available = {
+			RUS = { exists = no }
+			SOV = { exists = yes has_war = no }
+		}
+		completion_reward = {
+		    SOV = { country_event = { id = usfor.1 } }
+		}
+		x = 37
+		y = 2
+	}
+	
+	shared_focus = {
+		id = USA_anti_espionage
+		icon = GFX_focus_Counter_Intelligence
+		cost = 5
+		prerequisite = {
+		    focus = USA_recognize_soviet
+		}
+		mutually_exclusive = { focus = USA_tsarist_debts }
+		search_filters = {FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL}
+		available = {
+			RUS = { exists = no }
+			SOV = { exists = yes has_war = no }
+		}
+		completion_reward = {
+		    SOV = { country_event = { id = usfor.4 } }
+		}
+		x = 39
+		y = 2
+	}

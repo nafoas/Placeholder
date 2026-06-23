@@ -1,0 +1,93 @@
+on_actions = {
+	#Not run on a specific country.
+	on_startup = {
+        effect = {
+			NOR = {
+				country_event = { id = norway.1 }
+				country_event = { id = norway.102 days = 137 }
+				country_event = { id = norway.103 days = 209 }
+				country_event = { id = norway.104 days = 95 }
+				country_event = { id = norway.105 days = 334 }
+				country_event = { id = norway.111 days = 1221 }
+				country_event = { id = norway.112 days = 471 }
+				country_event = { id = norway.113 days = 797 }
+				country_event = { id = norway.114 days = 2149 }
+				country_event = { id = norway.115 days = 1512 }
+				country_event = { id = norway.116 days = 2204 }
+			}
+        }
+	}
+	on_new_term_election = {
+		random_events = {
+			100 =  norway.10
+		}
+	}
+	on_join_faction = {
+		effect = {
+			if = {
+				limit = {
+					tag = NOR
+					has_idea = NOR_norwegian_neutrality
+				}
+				remove_ideas = NOR_norwegian_neutrality
+			}
+			if = {
+				limit = {
+					tag = NOR
+					has_idea = NOR_norwegian_neutrality2
+				}
+				remove_ideas = NOR_norwegian_neutrality2
+			}
+			if = {
+				limit = {
+					tag = NOR
+					has_idea = NOR_norwegian_neutrality3
+				}
+				remove_ideas = NOR_norwegian_neutrality3
+			}
+			if = {
+				limit = {
+					tag = NOR
+					has_idea = NOR_abandon_neutrality_idea
+				}
+				remove_ideas = NOR_abandon_neutrality_idea
+			}
+		}
+	}
+	on_war = {
+        effect = {
+			if = {
+				limit = {
+					NOR = { has_war = yes }
+				}
+				NOR = {
+					country_event = { id = norway.118 days = 1 }
+				}
+			}
+        }
+	}
+	on_state_control_changed = {
+		effect = {
+			if = {
+				limit = {
+					NOT = {
+						NOR = {
+							has_country_flag = NOR_inefficient_military_cf 
+						}
+					}
+					FROM.FROM = {
+						state = 110
+					}
+					FROM = {
+						tag = NOR
+					}
+				}
+				NOR = {
+					country_event = {
+						id = norway.117
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,627 @@
+	#Focus for Miguel Aleman
+	shared_focus = {
+		id = MEX_miguelaleman
+		icon = GFX_focus_MEX_President_Miguel_Valdez
+		x = 10
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward  = {
+			COALITION_RESET = yes
+		}
+	}
+	
+	#Focus for Maintain some of the Policies
+	shared_focus = {
+		id = MEX_maintainsomeofthepolicies
+		icon = GFX_focus_MEX_Manuel_Camacho
+		x = 4
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			has_country_flag = camacho_socdem
+		}	
+		prerequisite = { focus = MEX_miguelaleman }
+		mutually_exclusive = { focus = MEX_liberalizethesystem }
+		mutually_exclusive = { focus = MEX_anunlikelyalliance }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = social_liberalism popularity = 0.05 }
+			set_politics = {
+				ruling_party = social_liberalism
+			}
+			COALITION_add_socdem = yes
+			COALITION_add_marlib = yes
+		}
+	}
+	#Focus for Reform Article 27
+	shared_focus = {
+		id = MEX_reformarticle27
+		icon = GFX_focus_Agrarian_Reform
+		x = 2
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_maintainsomeofthepolicies }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			random_owned_state = { add_extra_state_shared_building_slots = 1 }
+			random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		}			
+	}
+	
+	#Focus for Organize the CNOP
+	shared_focus = {
+		id = MEX_organizethecnop
+		icon = GFX_focus_mex_soldaderas
+		x = 2
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_reformarticle27 }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_war_support = 0.10
+		}
+	}
+	
+	#Focus for Persecute Communism
+	shared_focus = {
+		id = MEX_persecutecommunism
+		icon = GFX_focus_Anti_Communist
+		x = 3
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_organizethecnop }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = -0.04 }
+			add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }					
+		}
+	}	
+	
+	#Focus for Reform Article 3
+	shared_focus = {
+		id = MEX_reformarticle3
+		icon = GFX_focus_Election_Monitoring
+		x = 4
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_maintainsomeofthepolicies }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_education_reform_3  add_idea = mex_education_reform_4  }	
+		} 
+	}	
+	
+	#Focus for Reduce Analfability
+	shared_focus = {
+		id = MEX_reduceanalfability
+		icon = GFX_focus_Education_Reform
+		x = 4
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_reformarticle3 }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_education_reform_4  add_idea = mex_education_reform_5  }	
+		} 
+	}	
+	
+	
+	#Focus for Begin Industralization
+	shared_focus = {
+		id = MEX_beginindustralization
+		icon = GFX_focus_Planned_Economy
+		x = 7
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_liberalizethesystem 
+			focus = MEX_maintainsomeofthepolicies 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+		}
+		random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+	}
+}
+}	
+
+#Focus for Reconcile with Corporations
+shared_focus = {
+	id = MEX_reconcilewithcorporations
+	icon = GFX_focus_Capitalist_Rule
+	x = 7
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_beginindustralization }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_political_power = -50
+	}
+}	
+
+#Focus for Expand the Railroad System
+shared_focus = {
+	id = MEX_expandtherailroadsystem
+	icon = GFX_focus_Trains
+	x = 5
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_reduceanalfability 
+	}
+	prerequisite = { 
+		focus = MEX_reconcilewithcorporations 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		#TODO: add railways
+	}	
+}	
+#Focus for The Mexican Miracle
+shared_focus = {
+	id = MEX_themexicanmiracle
+	icon = GFX_focus_Economics_School
+	x = 7
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_reconcilewithcorporations }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {	
+		add_stability = 0.05
+		add_war_support = 0.05
+		add_political_power = 100
+	}
+}	
+#Focus for Liberalize the System
+shared_focus = {
+	id = MEX_liberalizethesystem
+	icon = GFX_focus_MEX_Valdez_MarLin
+	x = 10
+	y = 2
+	cost = 10
+	available_if_capitulated = yes
+	available = {
+		has_country_flag = camacho_soclib
+	}
+	prerequisite = { focus = MEX_miguelaleman }
+	mutually_exclusive = { focus = MEX_maintainsomeofthepolicies }
+	mutually_exclusive = { focus = MEX_anunlikelyalliance }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = market_liberalism popularity = 0.05 }
+		set_politics = {
+			ruling_party = market_liberalism
+		}
+		COALITION_add_soclib = yes
+	}
+}
+
+#Focus for Eliminate Article 27
+shared_focus = {
+	id = MEX_eliminatearticle27
+	icon = GFX_focus_Collaborate_with_Local_Elites
+	x = 10
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_liberalizethesystem }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+	}			
+}
+
+#Focus for Education Refroms
+shared_focus = {
+	id = MEX_educationrefroms
+	icon = GFX_focus_Education_Reform
+	x = 10
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_eliminatearticle27 }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_education_reform_3  add_idea = mex_education_reform_4  }	
+	} 		
+}	
+
+#Focus for Anti-Revolutionary Campaign
+shared_focus = {
+	id = MEX_antirevolutionarycampaign
+	icon = GFX_focus_Anti_Communist
+	x = 10
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_educationrefroms }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = communism popularity = -0.04 }
+		add_popularity = { ideology = authoritarian_socialism popularity = -0.03 }	
+		add_popularity = { ideology = socialism popularity = -0.02 }				
+	}
+}
+
+#Focus for Favor the Church
+shared_focus = {
+	id = MEX_favorthechurch
+	icon = GFX_focus_For_Christ_and_Country
+	x = 13
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_liberalizethesystem 
+		focus = MEX_anunlikelyalliance 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = 0.03
+	}	
+}
+#Focus for Use the Church
+shared_focus = {
+	id = MEX_usethechurch
+	icon = GFX_focus_State_Theology
+	x = 13
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_favorthechurch }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_political_power = 25
+	}
+}
+
+#Focus for State Catholicism?
+shared_focus = {
+	id = MEX_statecatholicism
+	icon = GFX_focus_Papal_Bull
+	x = 13
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_usethechurch }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		country_event = { days = 1 id = mex_political.12 }
+	}
+}
+
+#Focus for An Unlikely Alliance
+shared_focus = {
+	id = MEX_anunlikelyalliance
+	icon = GFX_focus_MEX_Valdez_LibCon
+	x = 16
+	y = 2
+	cost = 10
+	available_if_capitulated = yes
+	available = {
+		has_country_flag = camacho_soclib
+		NOT = { has_country_flag = pan_uns_unification }
+	}
+	prerequisite = { focus = MEX_miguelaleman }
+	mutually_exclusive = { focus = MEX_maintainsomeofthepolicies }
+	mutually_exclusive = { focus = MEX_liberalizethesystem }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = jacobin popularity = 0.05 }
+		set_politics = {
+			ruling_party = jacobin
+		}
+		
+		COALITION_add_marlib = yes
+		COALITION_add_soclib = yes
+		COALITION_add_con = yes
+		add_ideas = {
+			robertocfr 
+			juanoeco   
+			adolfocsec 
+			carlosbint   
+		}
+		# create_country_leader = {
+		# 	name = "Miguel Aleman"
+		# 	desc = "POLITICS_MIGUEL_ALEMAN_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_Miguel_Valdez.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = centrism 
+		# 	traits = {
+		# 		#
+		# 	}
+		# }
+		# create_country_leader = {
+		# 	name = "Genovevo de la O"
+		# 	desc = "POLITICS_GENOVEVO_O_DESC"
+		# 	picture = "gfx/leaders_cbts/MEX/Portrait_genovevo_o.tga"
+		# 	expire = "1955.1.1"
+		# 	ideology = dem_socialism  
+		# 	traits = {
+		# 		#
+		# 	}
+		# }
+		MEX_miguel_aleman = {
+			promote_character = yes
+			promote_character = centrism
+		}
+		MEX_genovevo_o = {
+			promote_character = yes
+			promote_character = dem_socialism
+		}
+		set_party_name = { ideology = jacobin long_name = "Partido Revolucionario Institucional (Conservative)" name = "PRI(C)" }
+		set_party_name = { ideology = social_democracy long_name = "Federacion de Partidos del Pueblo Mexicano (Moderate)" name = "FPPM(M)" }
+	}
+}
+
+#Focus for Modify Article 27
+shared_focus = {
+	id = MEX_modifyarticle27
+	icon = GFX_focus_Agrarian_Reform
+	x = 16
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_anunlikelyalliance }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+	}		
+}
+
+#Focus for Unite the Parties
+shared_focus = {
+	id = MEX_unitetheparties
+	icon = GFX_focus_MEX_Valdez_PRI_PAN
+	x = 16
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_modifyarticle27 }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		set_party_name = { ideology = social_liberalism long_name = "Partido Institucionalista Nacional (Progressive)" name = "PIN(P)" }
+		set_party_name = { ideology = market_liberalism long_name = "Partido Institucionalista Nacional (Liberal)" name = "PIN(L)" }
+		set_party_name = { ideology = jacobin long_name = "Partido Institucionalista Nacional (Moderate)" name = "PIN(M)" }
+		set_party_name = { ideology = democratic long_name = "Partido Institucionalista Nacional (Conservative)" name = "PIN(C)" }
+		create_country_leader = {
+			name = "Miguel Aleman"
+			picture = "gfx/leaders_cbts/leader_unknown.png"
+			expire = "1955.1.1"
+			ideology = christian_democracy_soccon 
+			traits = {
+				#
+			}
+		}
+	}		
+}
+
+#Focus for Stop Socialism
+shared_focus = {
+	id = MEX_stopsocialism
+	icon = GFX_focus_ger_bulwark_against_bolshevism
+	x = 15
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_unitetheparties 
+	}
+	prerequisite = { 
+		focus = MEX_usethechurch 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = communism popularity = -0.03 }
+		add_popularity = { ideology = authoritarian_socialism popularity = -0.02 }	
+		add_popularity = { ideology = socialism popularity = -0.01 }		
+		add_popularity = { ideology = social_democracy popularity = -0.05 }				
+	}
+}	
+
+#Focus for Modify Article 3
+shared_focus = {
+	id = MEX_modifyarticle3
+	icon = GFX_focus_Education_Reform
+	x = 18
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_anunlikelyalliance }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_education_reform_3  add_idea = mex_education_reform_4  }	
+	}
+}	
+#Focus for Promote Intellectualism
+shared_focus = {
+	id = MEX_promoteintellectualism
+	icon = GFX_focus_Brainpower
+	x = 18
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_modifyarticle3 }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_education_reform_4  add_idea = mex_education_reform_5  }		
+	}
+}
+#Focus for Begin Public Works
+shared_focus = {
+	id = MEX_beginpublicworks
+	icon = GFX_goal_Public_Works
+	x = 17
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_promoteintellectualism }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+	}
+	random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+}
+}
+}
+
+#Focus for Social Liberalism
+shared_focus = {
+	id = MEX_socialliberalism
+	icon = GFX_focus_MEX_Valdez_Liberalism
+	x = 5
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_persecutecommunism 
+	}
+	prerequisite = { 
+		focus = MEX_expandtherailroadsystem 
+	}
+	prerequisite = { 
+		focus = MEX_themexicanmiracle 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = social_liberalism popularity = 0.05 }
+	}
+}
+
+#Focus for True Liberalism
+shared_focus = {
+	id = MEX_trueliberalism
+	icon = GFX_focus_MEX_Cortinez_Liberalism
+	x = 10
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_themexicanmiracle 
+	}
+	prerequisite = { 
+		focus = MEX_antirevolutionarycampaign 
+	}
+	prerequisite = { 
+		focus = MEX_statecatholicism 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = market_liberalism popularity = 0.05 }
+	}
+}
+#Focus for Liberal Conservatism
+shared_focus = {
+	id = MEX_liberalconservatism
+	icon = GFX_focus_MEX_Morin_LibCon
+	x = 15
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_statecatholicism 
+	}
+	prerequisite = { 
+		focus = MEX_stopsocialism 
+	}
+	prerequisite = { 
+		focus = MEX_beginpublicworks 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = jacobin popularity = 0.05 }	
+	}
+}
+#Focus for A New Era
+shared_focus = {
+	id = MEX_anewera
+	icon = GFX_focus_Befriend_Mexico
+	x = 10
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_trueliberalism 
+		focus = MEX_socialliberalism 
+		focus = MEX_liberalconservatism 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = market_liberalism popularity = 0.03 }	
+		add_popularity = { ideology = social_liberalism popularity = 0.02 }		
+	}	
+}

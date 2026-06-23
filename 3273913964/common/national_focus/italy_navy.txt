@@ -1,0 +1,482 @@
+shared_focus = {
+	id = ITA_modernize_the_regia
+	icon = GFX_focus_Regia_Marina
+	x = 44
+	y = 0
+	cost = 2
+	ai_will_do = {
+		factor = 8
+		modifier = {
+			add = -7
+			is_historical_focus_on = yes
+		}
+	}
+	available = {
+	}
+	completion_reward = {
+		navy_experience = 25
+	}
+}
+
+shared_focus = {
+	id = ITA_modernize_old_ships
+	icon = GFX_focus_naval_reform
+	prerequisite = {
+		focus = ITA_modernize_the_regia
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = ITA_modernize_old_ships_idea
+			days = 1460
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_littorio_class
+	icon = GFX_Goal_Italian_Navy
+	prerequisite = {
+		focus = ITA_modernize_old_ships
+	}
+	x = 2
+	y = 2
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_dlc = "Man the Guns"
+			}
+			create_equipment_variant = {
+				name = "Littorio Class"
+				type = ship_hull_heavy_1
+				name_group = ITA_LITTORIO_CLASS_HISTORICAL
+				parent_version = 0
+				modules = {
+					fixed_ship_battery_slot = ship_heavy_battery_1
+					fixed_ship_anti_air_slot = ship_anti_air_1
+					fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+					fixed_ship_radar_slot = empty
+					fixed_ship_engine_slot = heavy_ship_engine_1
+					fixed_ship_secondaries_slot = ship_secondaries_1
+					fixed_ship_armor_slot = ship_armor_bb_1
+					front_1_custom_slot = ship_anti_air_1
+					mid_1_custom_slot = ship_secondaries_1
+					mid_2_custom_slot = ship_airplane_launcher_1
+					rear_1_custom_slot = ship_heavy_battery_1
+				}
+			}
+
+			#Littorio
+			add_equipment_production = { 
+				equipment = { 
+					type = ship_hull_heavy_1
+					creator = "ITA" 
+					version_name = "Littorio Class" 
+				}
+				# name = "Littorio"
+				requested_factories = 2
+				progress = 0.01
+				amount = 1 
+			}
+			# BB: Vittoria Veneto
+			add_equipment_production = { 
+				equipment = { 
+					type = ship_hull_heavy_1
+					creator = "ITA" 
+					version_name = "Littorio Class" 
+				}
+				# name = "Vittoria Veneto"
+				requested_factories = 2
+				progress = 0.01 
+				amount = 1 
+			}
+		}
+		else = {
+			create_equipment_variant = {
+				name = "Littorio Class"
+				type = heavy_cruiser_1
+				name_group = ITA_LITTORIO_CLASS_HISTORICAL
+				upgrades = {
+					ship_reliability_upgrade = 2
+					ship_engine_upgrade = 2
+					ship_armor_upgrade = 2
+					ship_gun_upgrade = 2
+				}
+			}
+
+			add_equipment_production = {
+				equipment = {
+					type = heavy_cruiser_1
+					creator = "ITA"
+					version_name = "Littorio Class"
+				}
+				# name = "Littorio"
+				requested_factories = 2
+				progress = 0.01
+				amount = 1
+			}
+			add_equipment_production = {
+				equipment = {
+					type = heavy_cruiser_1
+					creator = "ITA"
+					version_name = "Littorio Class"
+				}
+				# name = "Vittoria Veneto"
+				requested_factories = 2
+				progress = 0.01
+				amount = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_invest_in_new_guns
+	icon = GFX_focus_Gunship
+	prerequisite = {
+		focus = ITA_modernize_the_regia
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 0.3
+			uses = 2
+			category = cat_naval_guns
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_invest_in_radar
+	icon = GFX_focus_Radio
+	prerequisite = {
+		focus = ITA_invest_in_new_guns
+	}
+	x = -2
+	y = 2
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 0
+	}
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = ITA_invest_in_radar
+			bonus = 0.2
+			uses = 1
+			category = ship_radar_research
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_centralize_navy_command
+	icon = GFX_focus_admiralty
+	prerequisite = {
+		focus = ITA_invest_in_radar
+		focus = ITA_littorio_class
+	}
+	x = 0
+	y = 3
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		add_command_power = 50
+		navy_experience = 30
+	}
+}
+
+shared_focus = {
+	id = ITA_underwater_revolution
+	icon = GFX_focus_Minelaying_Warfare
+	prerequisite = {
+		focus = ITA_centralize_navy_command
+	}
+	x = 0
+	y = 4
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 0.4
+			uses = 1
+			category = naval_minelaying
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_continue_sub_development
+	icon = GFX_goal_generic_navy_submarine
+	prerequisite = {
+		focus = ITA_underwater_revolution
+	}
+	x = 0
+	y = 6
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 0.35
+			uses = 2
+			category = ss_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_maliale_subs
+	icon = GFX_focus_torpedo
+	prerequisite = {
+		focus = ITA_continue_sub_development
+	}
+	x = 0
+	y = 7
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		NOT = {
+			has_tech = torpedo_cruiser
+		}
+	}
+	completion_reward = {
+		set_technology = {
+   			torpedo_cruiser = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_carriers_policy
+	icon = GFX_focus_Carrier_Focus
+	prerequisite = {
+		focus = ITA_centralize_navy_command
+	}
+	mutually_exclusive = {
+		focus = ITA_battleships_policy
+	}
+	x = -2
+	y = 5
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		add_doctrine_cost_reduction = {
+			name = ITA_carriers_policy
+			cost_reduction = 0.3
+			uses = 2
+			category = trade_interdiction_tree
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_aquillia_class
+	icon = GFX_focus_Carrier2
+	prerequisite = {
+		focus = ITA_carriers_policy
+	}
+
+	x = -2
+	y = 6
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+   			bonus = 0.5
+			uses = 1
+			category = cv_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_coop_with_regia_aero
+	icon = GFX_focus_Naval_Bombers
+	prerequisite = {
+		focus = ITA_aquillia_class
+	}
+
+	x = -2
+	y = 7
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+   			bonus = 0.25
+			uses = 2
+			category = naval_air
+		}
+	}
+}
+
+
+shared_focus = {
+	id = ITA_battleships_policy
+	icon = GFX_focus_Battlefleet
+	prerequisite = {
+		focus = ITA_centralize_navy_command
+	}
+	mutually_exclusive = {
+		focus = ITA_carriers_policy
+	}
+	x = 2
+	y = 5
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		add_doctrine_cost_reduction = {
+			name = ITA_battleships_policy
+			cost_reduction = 0.2
+			uses = 2
+			category = fleet_in_being_tree
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_keep_defensive_navy
+	icon = GFX_Goal_Generic_Defend_Conveys
+	prerequisite = {
+		focus = ITA_battleships_policy
+	}
+
+	x = 2
+	y = 6
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		add_ideas = ITA_keep_defensive_navy_idea
+	}
+}
+
+shared_focus = {
+	id = ITA_implement_fire_control
+	icon = GFX_focus_Fire_Control_Systems
+	prerequisite = {
+		focus = ITA_keep_defensive_navy
+	}
+
+	x = 2
+	y = 7
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		IF = {
+			limit = {
+				has_dlc = "Man the Guns"
+			}
+			add_tech_bonus = {
+    				bonus = 0.25
+    				uses = 2
+    				technology = elemental_fire_control_system
+    				technology = basic_fire_control_system
+    				technology = improved_fire_control_system
+    				technology = advanced_fire_control_system
+    				technology = modern_fire_control_system
+
+			}
+
+
+			else = {
+				add_ideas = ITA_fire_control_rangefinders_idea
+			}
+		}
+	}
+}
+
+shared_focus = { #TODO:remove
+	id = ITA_push_for_mare_nostrum
+	icon = GFX_focus_Mare_Nostrum
+	prerequisite = {
+		focus = ITA_implement_fire_control
+		focus = ITA_coop_with_regia_aero
+		focus = ITA_maliale_subs
+
+	}
+
+	x = 0
+	y = 8
+	relative_position_id = ITA_modernize_the_regia
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		add_ideas = ITA_push_for_mare_nostrum_idea
+	}
+}

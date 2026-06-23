@@ -1,0 +1,653 @@
+
+
+shared_focus = {
+	id = GEN_european_diplomacy
+	icon = GFX_focus_European_Relations
+	cost = 6
+	available = {
+		date > 1935.1.1
+	}
+	ai_will_do = {
+		factor = 5
+	}
+	completion_reward = {
+		add_political_power = 50
+	}
+	x = 19
+	y = 0
+}
+
+shared_focus = {
+	id = GEN_neutrality_policy
+	icon = GFX_goal_generic_neutrality_focus
+	cost = 10
+	prerequisite = {
+		focus = GEN_european_diplomacy
+	}
+	mutually_exclusive = {
+		focus = GEN_take_position
+	}
+	ai_will_do = {
+		base = 8
+		modifier = {
+			factor = 10
+			OR = {
+				tag = FIN
+				tag = SWI
+				tag = SWE
+				tag = ICE
+				tag = DEN
+				tag = LUX
+				tag = ALB
+				tag = AUS
+				tag = LIT
+				tag = LAT
+				tag = IRE
+				tag = EST
+				tag = CZE
+				tag = TUR
+				tag = POR
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = neutrality_idea
+			}
+			add_stability = 0.03
+		}
+		if = {
+			limit = {
+				NOT = { has_idea = neutrality_idea }
+			}
+			add_ideas = neutrality_idea
+		}
+	}
+	x = -3
+	y = 1
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_peaceful_neutrality
+	icon = GFX_focus_Pacifist_State
+	cost = 10
+	prerequisite = {
+		focus = GEN_neutrality_policy
+	}
+	mutually_exclusive = {
+		focus = GEN_armed_neutrality
+	}
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 10
+			OR = {
+				tag = SWI
+				tag = SWE
+				tag = DEN
+				tag = LUX
+			}
+		}
+	}				
+	completion_reward = {
+		add_stability = 0.05
+	}
+	x = -4
+	y = 2
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_reduce_spending_mil
+	icon = GFX_focus_Root_out_Funding
+	cost = 10
+	prerequisite = {
+		focus = GEN_peaceful_neutrality
+	}
+	available = {
+		has_war = no
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = idea_reduced_mil_spending
+			days = 400
+		}
+	}
+	x = -4
+	y = 3
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_improve_global_opinion
+	icon = GFX_focus_Risky_Deal
+	cost = 10
+	prerequisite = {
+		focus = GEN_reduce_spending_mil
+	}
+	available = {
+		has_war = no
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = idea_improve_global_opinion
+			days = 180
+		}
+	}
+	x = -4
+	y = 4
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_war_profiteering
+	icon = GFX_focus_Free_Trade
+	cost = 10
+	available = {
+		any_country = {
+			is_major = yes
+			has_war = yes
+		}
+		has_war = no
+	}
+	prerequisite = {
+		focus = GEN_improve_global_opinion
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = idea_war_profits
+			days = 400
+		}
+	}
+	x = -4
+	y = 5
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_armed_neutrality
+	icon = GFX_focus_Swing_the_Sword
+	cost = 10
+	prerequisite = {
+		focus = GEN_neutrality_policy
+	}
+	mutually_exclusive = {
+		focus = GEN_peaceful_neutrality
+	}
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 10
+			OR = {
+				tag = FIN
+				tag = LIT
+				tag = LAT
+				tag = EST
+				tag = CZE
+				tag = TUR
+				tag = POR
+			}
+		}
+	}
+	completion_reward = {
+		add_war_support = 0.05
+		swap_ideas = {
+			remove_idea = neutrality_idea
+			add_idea = GEN_aggresive_neutrality
+		}
+	}
+	x = -2
+	y = 2
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_defend_borders
+	icon = GFX_focus_Fortification_Effort
+	cost = 10
+	prerequisite = {
+		focus = GEN_armed_neutrality
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = idea_defense_plans
+			days = 200
+		}
+	}
+	x = -2
+	y = 3
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_mobilization_plans
+	icon = GFX_focus_Prepare_the_Troops
+	cost = 10
+	prerequisite = {
+		focus = GEN_defend_borders
+	}
+	completion_reward = {
+		add_ideas = idea_permanent_mobilization
+	}
+	x = -2
+	y = 4
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_defend_interests
+	icon = GFX_focus_Aggresion
+	cost = 10
+	prerequisite = {
+		focus = GEN_mobilization_plans
+	}
+	completion_reward = {
+		add_ideas = foreign_expeditions_focus
+	}
+	x = -2
+	y = 5
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_take_position
+	icon = GFX_focus_Burning_Globe
+	cost = 10
+	mutually_exclusive = {
+		focus = GEN_neutrality_policy
+	}
+	prerequisite = {
+		focus = GEN_european_diplomacy
+	}
+	ai_will_do = {
+		base = 3
+		modifier = {
+			factor = 10
+			OR = {
+				tag = BUL
+				tag = GRE
+				tag = BEL
+				tag = ROM
+			}
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				tag = FIN
+				tag = SWI
+				tag = SWE
+				tag = ICE
+				tag = DEN
+				tag = LUX
+				tag = ALB
+				tag = AUS
+				tag = LIT
+				tag = LAT
+				tag = IRE
+				tag = EST
+				tag = CZE
+				tag = TUR
+				tag = POR
+			}
+		}
+	}
+	completion_reward = {
+		add_war_support = 0.02
+	}
+	x = 3
+	y = 1
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_weapon_purchases
+	icon = GFX_focus_Buy_Foreign_Weapons
+	cost = 10
+	prerequisite = {
+		focus = GEN_take_position
+	}
+	completion_reward = {
+		#TODO: Make generic decisions to purchase arms from world powers instead of this thing
+		add_timed_idea = {
+			idea = idea_weapon_sales
+			days = 400
+		}
+	}
+	x = 3
+	y = 2
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_approach_ussr
+	icon = GFX_focus_chi_mission_to_the_soviet_union
+	cost = 10
+	mutually_exclusive = {
+		focus = GEN_approach_britain
+		focus = GEN_approach_germany
+		focus = GEN_approach_france
+	}
+	prerequisite = {
+		focus = GEN_weapon_purchases
+	}
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 0
+			date < 1939.1.1
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				has_government = communism
+			}
+		}
+		modifier = {
+			factor = 100
+			OR = {
+				has_government = communism
+			}
+		}
+	}
+	completion_reward = {
+		SOV = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = medium_increase 
+			}
+		}
+		add_opinion_modifier = {
+			target = SOV
+			modifier = medium_increase 
+		}
+	}
+	x = 6
+	y = 3
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_approach_britain
+	icon = GFX_focus_chi_british_cooperation
+	cost = 10
+	mutually_exclusive = {
+		focus = GEN_approach_ussr
+		focus = GEN_approach_germany
+		focus = GEN_approach_france
+	}
+	prerequisite = {
+		focus = GEN_weapon_purchases
+	}
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 0
+			date < 1939.1.1
+		}
+		modifier = {
+			factor = 50
+			OR = {
+				tag = GRE
+				tag = POR
+				tag = HOL
+				tag = BEL
+				tag = LUX
+				tag = DEN
+			}
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_government = fascism
+				has_government = communism
+			}
+		}
+	}
+	completion_reward = {
+		ENG = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = medium_increase 
+			}
+		}
+		add_opinion_modifier = {
+			target = ENG
+			modifier = medium_increase 
+		}
+	}
+	x = 2
+	y = 3
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_approach_germany
+	icon = GFX_focus_chi_mission_to_germany
+	cost = 10
+	mutually_exclusive = {
+		focus = GEN_approach_britain
+		focus = GEN_approach_ussr
+		focus = GEN_approach_france
+	}
+	prerequisite = {
+		focus = GEN_weapon_purchases
+	}
+	available = {
+		NOT = {
+			tag = AUS
+			GER = {
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 0
+			date < 1939.1.1
+		}
+		modifier = {
+			factor = 80
+			OR = {
+				tag = BUL
+				tag = ROM
+				tag = SWE
+				tag = FIN
+			}
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	completion_reward = {
+		GER = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = medium_increase 
+			}
+		}
+		add_opinion_modifier = {
+			target = GER
+			modifier = medium_increase 
+		}
+	}
+	x = 4
+	y = 3
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_approach_france
+	icon = GFX_focus_chi_reach_out_to_france
+	cost = 10
+	mutually_exclusive = {
+		focus = GEN_approach_ussr
+		focus = GEN_approach_germany
+		focus = GEN_approach_britain
+	}
+	prerequisite = {
+		focus = GEN_weapon_purchases
+	}
+	ai_will_do = {
+		factor = 5
+		modifier = {
+			factor = 0
+			date < 1939.1.1
+		}
+		modifier = {
+			factor = 20
+			OR = {
+				tag = HOL
+				tag = BEL
+				tag = LUX
+				tag = DEN
+				tag = CZE
+				tag = ROM
+			}
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_government = fascism
+				has_government = communism
+			}
+		}
+	}
+	completion_reward = {
+		FRA = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = medium_increase 
+			}
+		}
+		add_opinion_modifier = {
+			target = FRA
+			modifier = medium_increase 
+		}
+	}
+	x = 0
+	y = 3
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_new_trade_policies
+	icon = GFX_goal_generic_positive_trade_relations
+	cost = 10
+	prerequisite = {
+		focus = GEN_approach_germany
+		focus = GEN_approach_britain
+		focus = GEN_approach_ussr
+		focus = GEN_approach_france
+	}
+	completion_reward = {
+		custom_effect_tooltip = generic_trade_foreign_tooltip
+		if = {
+			limit = {
+				has_completed_focus = GEN_approach_britain
+			}
+			add_opinion_modifier = {
+				target = ENG
+				modifier = USA_trade_deal_opp  
+			}
+		}
+		if = {
+			limit = {
+				has_completed_focus = GEN_approach_france
+			}
+			add_opinion_modifier = {
+				target = FRA
+				modifier = USA_trade_deal_opp  
+			}
+		}
+		if = {
+			limit = {
+				has_completed_focus = GEN_approach_ussr
+			}
+			add_opinion_modifier = {
+				target = SOV
+				modifier = USA_trade_deal_opp  
+			}
+		}
+		if = {
+			limit = {
+				has_completed_focus = GEN_approach_germany
+			}
+			add_opinion_modifier = {
+				target = GER
+				modifier = USA_trade_deal_opp  
+			}
+		}
+	}
+	x = 3
+	y = 4
+	relative_position_id = GEN_european_diplomacy
+}
+
+shared_focus = {
+	id = GEN_military_cooperation
+	icon = GFX_goal_generic_military_deal
+	cost = 10
+	prerequisite = {
+		focus = GEN_new_trade_policies
+	}
+	completion_reward = {
+		custom_effect_tooltip = generic_military_foreign_tooltip
+		if = {
+			limit = {
+				has_completed_focus = GEN_approach_britain
+			}
+			add_tech_bonus = {
+				name = USA_armored_infantry
+				uses = 2
+				bonus = 1.0
+				category = light_fighter
+			}
+		}
+		if = {
+			limit = {
+				has_completed_focus = GEN_approach_germany
+			}
+			add_tech_bonus = {
+				name = USA_armored_infantry
+				uses = 2
+				bonus = 1.0
+				category = tactical_bomber
+			}
+		}
+		if = {
+			limit = {
+				has_completed_focus = GEN_approach_ussr
+			}
+			add_tech_bonus = {
+				name = USA_armored_infantry
+				uses = 2
+				bonus = 1.0
+				category = artillery
+			}
+		}
+		if = {
+			limit = {
+				has_completed_focus = GEN_approach_france
+			}
+			add_tech_bonus = {
+				name = USA_armored_infantry
+				uses = 2
+				bonus = 1.0
+				category = armor
+			}
+		}
+	}
+	x = 3
+	y = 5
+	relative_position_id = GEN_european_diplomacy
+}

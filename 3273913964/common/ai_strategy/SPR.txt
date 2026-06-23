@@ -1,0 +1,776 @@
+SPR_default_area_priority= {
+	allowed = {
+		OR = {
+			original_tag = SPR
+			original_tag = SPA
+			original_tag = SPC
+		}
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = area_priority
+		id = mainland_europe
+		value = 80
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = iberia
+		value = 150
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = france
+		value = 90
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = italian_peninsula
+		value = 70
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = north_africa
+		value = 80
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = northern_america
+		value = -200
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = central_america
+		value = -200
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = -200
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = asia
+		value = -200
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = -200
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = -100
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = central_africa
+		value = -20
+	}
+}
+
+SPR_ignore_neighbours_during_cw = {
+	allowed = {
+		OR = {
+			tag = SPR
+			tag = SPC
+		}
+	}
+	enable = {
+		OR = {
+			scw_in_progress = yes
+			scr_in_progress = yes
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		country_trigger = {
+			OR = {
+				AND = {
+					tag = POR
+					is_neighbor_of = FROM
+				}
+				AND = {
+					tag = FRA
+					is_neighbor_of = FROM
+				}
+				AND = {
+					tag = ENG
+					is_neighbor_of = FROM
+				}
+			}
+		}
+		value = -200
+	}
+}
+
+SPR_garrison_RIF = {
+	allowed = {
+		OR = {
+			tag = SPR
+			tag = SPA
+		}
+	}
+
+	enable = {
+		OR = {
+			controls_state = 290
+			controls_state = 824
+			controls_state = 825
+		}
+	}
+	abort = {
+		OR = {
+			has_war_with = SPA
+			has_war_with = SPC
+			has_war_with = SPR
+		}
+	}
+
+	ai_strategy = {
+		type = put_unit_buffers
+		ratio = 0.15
+		states = {
+			290
+			824
+			825
+		}
+		area = africa
+	}
+}
+
+SPR_garrison_canary_islands = {
+	allowed = {
+		OR = {
+			tag = SPR
+			tag = SPA
+		}
+	}
+
+	enable = {
+		controls_state = 178
+	}
+	abort = {
+		OR = {
+			scw_in_progress = yes
+			scr_in_progress = yes
+		}
+	}
+
+	ai_strategy = {
+		type = put_unit_buffers
+		ratio = 0.05
+		states = {
+			178
+		}
+		area = west_africa
+	}
+}
+
+SPR_dont_garrison = {
+	allowed = {
+		OR = {
+			tag = SPR
+			tag = SPC
+		}
+	}
+	enable = {
+		OR = {
+			has_war_with = SPA
+			has_war_with = SPC
+			has_war_with = SPR
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = garrison
+		value = -200
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = iberia
+		value = 300
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = north_africa
+		value = -500
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = central_africa
+		value = -500
+	}
+
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 175
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 168
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 169
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 1213
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 173
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 174
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 176
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 1217
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 171
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 170
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 1218
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 175
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 167
+		value = -500
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 165
+		value = -500
+	}
+
+}
+
+SPR_focus_on_frontlines = {
+	allowed = {
+		tag = SPR
+	}
+	enable = {
+		has_war_with = SPC
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = SPC
+
+		value = 250
+	}
+
+	ai_strategy = {
+		type = invasion_unit_request
+		tag = SPC
+		value = -200
+	}
+}
+
+SPC_focus_on_frontlines = {
+	allowed = {
+		tag = SPC
+	}
+	enable = {
+		has_war_with = SPR
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = SPR
+
+		value = 250
+	}
+
+	ai_strategy = {
+		type = invasion_unit_request
+		tag = SPR
+		value = -200
+	}
+}
+
+CAT_focus_on_frontlines = {
+	allowed = {
+		tag = CAT
+	}
+	enable = {
+		has_war_with = SPR
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = SPR
+
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = SPR
+
+		priority = 10
+		ordertype = front
+	}
+}
+
+SPC_dont_be_that_agressive = {
+	allowed = {
+		tag = SPC
+	}
+	enable = {
+		has_war_with = SPR
+		has_global_flag = scr_ongoing
+	}
+
+	abort = {
+		OR = {
+			has_global_flag = {
+				flag = scr_ongoing
+				days > 180
+			}
+			controls_state = 175
+			controls_state = 41
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = SPR
+
+		priority = 4
+		ordertype = front
+		execution_type = balanced
+	}
+}
+
+SPC_be_more_careful = {
+	allowed = {
+		tag = SPC
+	}
+	enable = {
+		has_war_with = SPR
+		has_global_flag = {
+			flag = scr_ongoing
+			days > 180
+		}
+	}
+
+	abort = {
+		OR = {
+			has_global_flag = {
+				flag = scr_ongoing
+				days > 730
+			}
+			controls_state = 175
+			controls_state = 41
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = SPR
+
+		priority = 10
+		ordertype = front
+		execution_type = careful
+	}
+}
+
+SPR_scr_dont_be_that_agressive = {
+	allowed = {
+		tag = SPR
+	}
+	enable = {
+		has_war_with = SPC
+		has_global_flag = scr_ongoing
+	}
+
+	abort = {
+		OR = {
+			has_global_flag = {
+				flag = scr_ongoing
+				days > 180
+			}
+			controls_state = 1213
+			controls_state = 167
+			controls_state = 165
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = SPC
+
+		priority = 4
+		ordertype = front
+		execution_type = balanced
+	}
+}
+
+SPR_scr_be_more_careful = {
+	allowed = {
+		tag = SPR
+	}
+	enable = {
+		has_war_with = SPC
+		has_global_flag = {
+			flag = scr_ongoing
+			days > 180
+		}
+	}
+
+	abort = {
+		OR = {
+			has_global_flag = {
+				flag = scr_ongoing
+				days > 730
+			}
+			controls_state = 1213
+			controls_state = 167
+			controls_state = 165
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = SPR
+
+		priority = 10
+		ordertype = front
+		execution_type = careful
+	}
+}
+
+#Experimental /NeuGemi
+FRA_ENG_dont_invite_SPR = {
+	allowed = {
+		tag = ENG
+		tag = FRA
+	}
+	enable = {
+		date > 1939.6.1
+		is_historical_focus_on = yes
+	}
+	abort_when_not_enabled = yes
+	# leave britney alone!
+	ai_strategy = {
+		type = ignore
+		id = "SPR"
+		value = 200
+	}
+}
+
+#SPR_cut_them_in_half = {
+#	enable = {
+#		tag = SPR
+#		scw_in_progress = yes
+#		SPR = {
+#			controls_state = 41
+#			controls_state = 175
+#		}
+#		SPA = {
+#			has_full_control_of_state = 170
+#			has_full_control_of_state = 169
+#		}
+#	}
+#
+#	ai_strategy = {
+#		type = front_control
+#
+#		state = 170
+#		country_trigger = {
+#
+#		}
+#		ratio = 0.3 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+#
+#		priority = 1 # default 0, higher prio strats will override lower
+#		ordertype = front
+#		execute_order = yes
+#		execution_type = balanced # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+#		manual_attack = yes
+#	}
+#
+#	ai_strategy = {
+#		type = front_control
+#
+#		state = 170
+#		country_trigger = {
+#
+#		}
+#		ratio = 0.3 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+#
+#		priority = 1 # default 0, higher prio strats will override lower
+#		ordertype = front
+#		execute_order = yes
+#		execution_type = rush_weak # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+#		manual_attack = yes
+#	}
+#}
+
+SPR_northern_front = {
+	allowed = {
+		tag = SPR
+	}
+	enable = {
+		scw_in_progress = yes
+	}
+
+	abort = {
+		752 = { is_fully_controlled_by = SPA }
+		1169 = { is_fully_controlled_by = SPA }
+		826 = { is_fully_controlled_by = SPA }
+	}
+
+	#Against AI, Asturias not fallen yet
+	ai_strategy = {
+		type = front_control
+
+		state = 752
+		state = 1169
+		state = 826
+		state = 172
+		state = 1217
+		state = 176
+		state = 174
+
+		country_trigger = {
+			tag = SPA
+			is_ai = yes
+			NOT = {
+				OR = {
+					FROM = { controls_state = 1220 }
+					FROM = { controls_state = 1215 }
+					FROM = { controls_state = 166 }
+				}
+			}
+		}
+
+		priority = 2 # default 0, higher prio strats will override lower
+		ordertype = front
+		execute_order = no
+		execution_type = careful # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+	}
+
+	#Against Player
+	ai_strategy = {
+		type = front_control
+
+		state = 752
+		state = 1169
+		state = 826
+		state = 172
+		state = 1217
+		state = 176
+		state = 174
+
+		country_trigger = {
+			tag = SPA
+			is_ai = no
+			NOT = {
+				OR = {
+					FROM = { controls_state = 1216 }
+					FROM = { controls_state = 1220 }
+					FROM = { controls_state = 166 }
+					AND = {
+						FROM = { controls_state = 1215 }
+						FROM = { controls_state = 41 }
+					}
+				}
+			}
+		}
+
+		priority = 2 # default 0, higher prio strats will override lower
+		ordertype = front
+		execution_type = careful # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+	}
+
+	#Against Player,
+	ai_strategy = {
+		type = front_control
+
+		state = 752
+		state = 1169
+		state = 826
+		state = 172
+		state = 1217
+		state = 176
+		state = 174
+
+		country_trigger = {
+			tag = SPA
+			is_ai = no
+			OR = {
+				FROM = { controls_state = 1216 }
+				FROM = { controls_state = 1220 }
+				FROM = { controls_state = 166 }
+				AND = {
+					FROM = { controls_state = 1215 }
+					FROM = { controls_state = 41 }
+				}
+			}
+		}
+
+		priority = 2 # default 0, higher prio strats will override lower
+		ordertype = front
+		execution_type = balanced # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		strategic_region = 41
+
+		value = 30
+	}
+}
+
+# SPR_dont_defend_extremadura = {
+# 	allowed = {
+# 		tag = SPR
+# 	}
+# 	enable = {
+# 		scw_in_progress = yes
+# 		controls_state = 170
+# 	}
+
+# 	abort_when_not_enabled = yes
+
+# 	ai_strategy = {
+# 		type = front_unit_request
+
+# 		state_trigger = {
+# 			state = 170
+# 			FROM.FROM = {
+# 				controls_state = 170
+# 			}
+# 		}
+
+# 		value = -20
+# 	}
+# }
+
+SPR_defend_madrid_and_la_mancha = {
+	allowed = {
+		tag = SPR
+	}
+	enable = {
+		scw_in_progress = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		state = 41
+		state = 175
+
+		value = 15
+	}
+}
+
+SPR_defend_catalonia_valencia_aragon = {
+	allowed = {
+		tag = SPR
+	}
+	enable = {
+		scw_in_progress = yes
+		SPA = {
+			has_full_control_of_state = 166
+			controls_state = 172
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		strategic_region = 243
+
+		value = 15
+	}
+}
+
+SPR_dont_produce_tanks = {
+	allowed = {
+		tag = SPR
+	}
+	enable = {
+		always = yes
+	}
+
+	abort = {
+		OR = {
+			has_war_with = SPA
+			has_war_with = SPC
+			date > 1937.05.01
+		}
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = -500
+	}
+}

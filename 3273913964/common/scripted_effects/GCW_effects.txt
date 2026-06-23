@@ -1,0 +1,1222 @@
+WGR_DDR_reroll_preparation = {
+	hidden_effect = {
+		random_list = {
+			25 = {
+				activate_mission = WGR_DDR_additional_militias
+			}
+			25 = {
+				activate_mission = WGR_DDR_smuggle_arms
+			}
+			15 = {
+				activate_mission = WGR_DDR_prepare_collectivization
+			}
+			25 = {
+				activate_mission = WGR_DDR_infiltrate_army
+			}
+			10 = {
+				activate_mission = WGR_DDR_expand_popular_support
+			}
+		}
+	}
+}
+
+WGR_DDR_reroll_preparation_strong = {
+	hidden_effect = {
+		random_list = {
+			35 = {
+				activate_mission = WGR_DDR_additional_militias
+			}
+			30 = {
+				activate_mission = WGR_DDR_smuggle_arms
+			}
+			5 = {
+				activate_mission = WGR_DDR_prepare_collectivization
+			}
+			25 = {
+				activate_mission = WGR_DDR_infiltrate_army
+			}
+			5 = {
+				activate_mission = WGR_DDR_expand_popular_support
+			}
+		}
+	}
+}
+
+WGR_GER_reroll_preparation = {
+	hidden_effect = {
+		random_list = {
+			15 = {
+				activate_mission = WGR_GER_additional_militias
+			}
+			20 = {
+				activate_mission = WGR_GER_additional_military_support
+			}
+			20 = {
+				activate_mission = WGR_GER_contact_industrialists
+			}
+			20 = {
+				activate_mission = WGR_GER_secret_army_plans
+			}
+			25 = {
+				activate_mission = WGR_GER_nsdap_rallies
+			}
+		}
+	}
+}
+
+WGR_DDR_start_revolution = {
+	42 = {
+		set_demilitarized_zone = no
+	}
+	51 = {
+		set_demilitarized_zone = no
+	}
+	745 = {
+		set_demilitarized_zone = no
+	}
+	810 = {
+		set_demilitarized_zone = no
+	}
+	864 = {
+		set_demilitarized_zone = no
+	}
+	every_state = {
+		limit = {
+			is_core_of = WGR
+		}
+		add_core_of = DDR
+	}
+	every_state = {
+		limit = {
+			is_claimed_by = WGR
+		}
+		add_claim_by = DDR
+	}
+	DDR = {
+		transfer_state = 51
+		transfer_state = 745
+		transfer_state = 42
+		transfer_state = 57
+		transfer_state = 56
+		COALITION_add_com = yes
+		COALITION_add_revsoc = yes
+		set_cosmetic_tag = DDR_GCW
+		set_variable = { DDR_kpd_power = 60 }
+		set_variable = { DDR_Unity = 75 }
+		add_ideas = {
+			GCW_civil_war_idea
+			DDR_german_revolution
+			DDR_kpd_primacy
+			thalmann
+			wolfstein
+			bleicher
+			ulbricht3
+			zaisser
+			limited_conscription
+			partial_economic_mobilisation
+			popularity_50_55
+		}
+		create_field_marshal = {
+			name = "Ernst Thälmann"
+			portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Ernst_Thalman_General.png"
+			traits = { media_personality offensive_doctrine }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 1
+		}
+		create_corps_commander = {
+			name = "Hans Beimler"
+			portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Hans_Beimler.png"
+			traits = { infantry_officer urban_assault_specialist }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 2
+		}
+		create_corps_commander = {
+			name = "Hermann Remmele"
+			portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Hermann_Remmele.png"
+			traits = { politically_connected urban_assault_specialist }
+			skill = 1
+			attack_skill = 2
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 1
+		}
+		create_corps_commander = {
+			name = "Arthur Becker"
+			portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Arthur_Becker.png"
+			traits = { scavenger trait_engineer }
+			skill = 2
+			attack_skill = 1
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+		create_corps_commander = {
+			name = "Otto Braun"
+			portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Otto_Bauer.png"
+			traits = { infantry_officer trickster }
+			id = 654
+			skill = 2
+			attack_skill = 2
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 2
+		}
+		declare_war_on = {
+			target = WGR
+			type = annex_everything
+		}
+		if = {
+			limit = {
+				GER = { exists = yes }
+			}
+			declare_war_on = {
+				target = GER
+				type = annex_everything
+			}
+		}
+		set_capital = {
+			state = 745
+		}
+		set_province_controller = 3535
+		set_province_controller = 11481
+		set_province_controller = 9471
+		set_province_controller = 9441
+		set_province_controller = 3583
+		set_province_controller = 9347
+		set_province_controller = 9497
+		delete_unit_template_and_units = {
+			division_template = "Freikorps"
+			disband = yes #will refund equipment and manpower
+		}
+		load_oob = DDR
+		if = {
+			limit = {
+				WGR = { has_completed_focus = WGR_focus_nationalists }
+			}
+			set_province_controller = 3326
+			59 = {
+				create_unit = {
+					prioritize_location = 3326
+					division = "name = \"Rotfront Ortsgruppe\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = DDR
+				}
+			}
+		}
+		if = {
+			limit = {
+				WGR = {
+					has_country_flag = WGR_DDR_Brandenburg_secured
+				}
+			}
+			set_province_controller = 3499
+			56 = {
+				create_unit = {
+					division = "name = \"Rotfront Ortsgruppe\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = DDR
+				}
+				create_unit = {
+					division = "name = \"Rotfront Ortsgruppe\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = DDR
+				}
+				create_unit = {
+					division = "name = \"Rotfront Ortsgruppe\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = DDR
+				}
+			}
+		}
+		if = {
+			limit = {
+				WGR = {
+					has_country_flag = WGR_DDR_Mainz_secured
+				}
+			}
+			810 = {
+				create_unit = {
+					division = "name = \"1.Rheinland Miliz\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = DDR
+					allow_spawning_on_enemy_provs = yes
+					prioritize_location = 11560
+				}
+				create_unit = {
+					division = "name = \"2.Rheinland Miliz\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = DDR
+					allow_spawning_on_enemy_provs = yes
+					prioritize_location = 11560
+				}
+				create_unit = {
+					division = "name = \"3.Rheinland Miliz\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = DDR
+					allow_spawning_on_enemy_provs = yes
+					prioritize_location = 11560
+				}
+			}
+		}
+		if = {
+			limit = {
+				WGR = {
+					has_country_flag = WGR_DDR_Thuringia_secured
+				}
+			}
+			transfer_state = 60
+			60 = {
+				create_unit = {
+					division = "name = \"1.Thüringer Miliz\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = DDR
+				}
+				create_unit = {
+					division = "name = \"2.Thüringer Miliz\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = DDR
+				}
+				create_unit = {
+					division = "name = \"3.Thüringer Miliz\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = DDR
+				}
+			}
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = DDR_starting_arms
+			producer = SOV
+		}
+	}
+	WGR = {
+		set_province_controller = 9509
+		set_province_controller = 3355
+		set_province_controller = 11359
+		set_province_controller = 9238
+		set_province_controller = 9294
+		set_province_controller = 13116
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = WGR_DDR_Brandenburg_secured
+				}
+			}
+			set_province_controller = 9456
+			set_province_controller = 6501
+			set_province_controller = 6441
+			set_province_controller = 9238
+		}
+	}
+	WGR_DDR_deploy_militia = yes
+	WGR_DDR_deploy_infantry = yes
+	WGR_DDR_set_factories = yes
+	WGR_DDR_set_stab = yes
+	if = {
+		limit = {
+			DDR = { exists = yes }
+			GER = { exists = yes }
+		}
+		WGR_GCW_setup = yes
+	}
+}
+
+WGR_GER_start_revolt = {
+	42 = {
+		set_demilitarized_zone = no
+	}
+	51 = {
+		set_demilitarized_zone = no
+	}
+	745 = {
+		set_demilitarized_zone = no
+	}
+	810 = {
+		set_demilitarized_zone = no
+	}
+	864 = {
+		set_demilitarized_zone = no
+	}
+	every_state = {
+		limit = {
+			is_core_of = WGR
+		}
+		add_core_of = GER
+	}
+	every_state = {
+		limit = {
+			is_claimed_by = WGR
+		}
+		add_claim_by = GER
+	}
+	GER = {
+		transfer_state = 762
+		transfer_state = 5
+		transfer_state = 63
+		transfer_state = 68
+		transfer_state = 761
+		transfer_state = 62
+		transfer_state = 760
+		transfer_state = 66
+		transfer_state = 823
+		every_unit_leader = {
+			retire = yes
+		}
+		set_cosmetic_tag = GER_GCW
+		remove_ideas = sour_loser
+		remove_ideas = anger_against_gov
+		if = {
+			limit = { has_idea = truppenamt }
+			remove_ideas = truppenamt
+		}
+		remove_ideas = econ_crisis
+		remove_ideas = paramilitary_divisions
+		remove_ideas = versailles_treaty
+		#remove_unit_leader = 1
+		#remove_unit_leader = 39
+		#remove_unit_leader = 40
+		#remove_unit_leader = 13
+		#remove_unit_leader = 19
+		#remove_unit_leader = 70
+		#remove_unit_leader = 70
+		#remove_unit_leader = 70
+		#remove_unit_leader = 70
+		add_ideas = GCW_civil_war_idea
+		add_ideas = GER_divided_army
+		add_ideas = GER_reactionary_plot
+		add_ideas = hitler
+		add_ideas = otto_von_bismark
+		add_ideas = eco_Hugenberg
+		add_ideas = wilhelm_frick
+		add_ideas = canaris
+		add_ideas = limited_conscription
+		add_ideas = partial_economic_mobilisation
+		add_ideas = popularity_50_55
+		set_popularities = {
+			communism = 10
+			authoritarian_socialism = 0
+			socialism = 5
+			social_democracy = 4
+			social_liberalism = 0
+			market_liberalism = 1
+			jacobin = 1
+			democratic = 9
+			neutrality = 5
+			monarchism = 13
+			nationalism = 14
+			fascism = 38
+		}
+		set_party_name = {
+			ideology = neutrality
+			name = GER_reichswehr_party
+			long_name = GER_reichswehr_party_long
+		}
+		create_corps_commander = {
+			name = "Ernst Röhm"
+			portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Ernst_Rohm.png"
+			traits = { infantry_officer politically_connected germany_sturmabteilung }
+			skill = 1
+			attack_skill = 1
+			defense_skill = 1
+			planning_skill = 2
+			logistics_skill = 2
+			id = 42
+		}
+		create_corps_commander = {
+			name = "Karl Ernst"
+			portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Karl_Ernst.png"
+			traits = { politically_connected germany_sturmabteilung }
+			skill = 1
+			attack_skill = 1
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 1
+		}
+		set_politics = {
+			ruling_party = fascism
+		}
+		COALITION_add_fas = yes
+		COALITION_add_mon = yes
+		COALITION_add_nat = yes
+		COALITION_add_aut = yes
+		declare_war_on = {
+			target = WGR
+			type = annex_everything
+		}
+		if = {
+			limit = {
+				DDR = { exists = yes }
+			}
+			declare_war_on = {
+				target = DDR
+				type = annex_everything
+			}
+		}
+		set_capital = {
+			state = 66
+		}
+		set_province_controller = 3231
+		set_province_controller = 3368
+		set_province_controller = 13727
+		set_province_controller = 6389
+		set_province_controller = 6257
+		set_province_controller = 11331
+		set_province_controller = 9320
+		set_province_controller = 514
+		set_province_controller = 6559
+		set_province_controller = 3514
+		set_province_controller = 6559
+		set_province_controller = 11432
+		set_province_controller = 692
+		set_province_controller = 6693
+		set_province_controller = 11620
+		set_province_controller = 11653
+		set_province_controller = 3688
+		set_province_controller = 707
+		set_province_controller = 9652
+		set_province_controller = 9535
+		set_province_controller = 3705
+		set_province_controller = 6725
+		set_province_controller = 3312
+		load_oob = GER_GCW
+		load_focus_tree = {
+			tree = GER_cw_tree
+			keep_completed = yes
+		}
+		country_event = {
+			id = ger_civil_war.4
+			days = 70
+		}
+		if = {
+			limit = {
+				WGR = {
+					has_country_flag = WGR_GER_Silesia_secured
+				}
+			}
+			transfer_state = 67
+			67 = {
+				create_unit = {
+					prioritize_location = 11467
+					division = "name = \"Sturmabteilung Gruppe\" division_template = \"Freikorps\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = GER
+				}
+				create_unit = {
+					prioritize_location = 11467
+					division = "name = \"Sturmabteilung Gruppe\" division_template = \"Freikorps\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = GER
+				}
+				create_unit = {
+					prioritize_location = 6512
+					division = "name = \"Sturmabteilung Gruppe\" division_template = \"Freikorps\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = GER
+				}
+			}
+		}
+		if = {
+			limit = {
+				WGR = {
+					has_country_flag = WGR_GER_Pomerania_secured
+				}
+			}
+			transfer_state = 61
+			61 = {
+				create_unit = {
+					prioritize_location = 321
+					division = "name = \"1.Mecklenburgische Brigade\" division_template = \"Freikorps\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = GER
+				}
+				create_unit = {
+					prioritize_location = 11305
+					division = "name = \"2.Mecklenburgische Brigade\" division_template = \"Freikorps\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = GER
+				}
+				create_unit = {
+					prioritize_location = 268
+					division = "name = \"3.Mecklenburgische Brigade\" division_template = \"Freikorps\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = GER
+				}
+			}
+			WGR = {
+				set_province_controller = 9394
+			}
+		}
+		if = {
+			limit = {
+				WGR = {
+					has_country_flag = WGR_GER_Northwest_secured
+				}
+			}
+			set_province_controller = 9281
+			set_province_controller = 11264
+			set_province_controller = 336
+			set_province_controller = 11360
+			set_province_controller = 241
+			829 = {
+				create_unit = {
+					prioritize_location = 241
+					division = "name = \"17.Sturmabteilung Gruppe\" division_template = \"Freikorps\" start_experience_factor = 0.2 start_equipment_factor = 0.5"
+					owner = GER
+				}
+				create_unit = {
+					prioritize_location = 336
+					division = "name = \"20.Sturmabteilung Gruppe\" division_template = \"Freikorps\" start_experience_factor = 0.2 start_equipment_factor = 0.6"
+					owner = GER
+				}
+				create_unit = {
+					prioritize_location = 11360
+					division = "name = \"18.Sturmabteilung Gruppe\" division_template = \"Freikorps\" start_experience_factor = 0.2 start_equipment_factor = 0.5"
+					owner = GER
+				}
+				create_unit = {
+					prioritize_location = 9281
+					division = "name = \"19.Sturmabteilung Gruppe\" division_template = \"Freikorps\" start_experience_factor = 0.2 start_equipment_factor = 0.4"
+					owner = GER
+				}
+			}
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 3000
+			producer = GER
+		}
+	}
+	WGR_GER_deploy_militia = yes
+	WGR_GER_deploy_infantry = yes
+	WGR_GER_set_factories = yes
+	WGR_GER_set_stab = yes
+	if = {
+		limit = {
+			DDR = { exists = yes }
+			GER = { exists = yes }
+		}
+		WGR_GCW_setup = yes
+	}
+	every_unit_leader = {
+		limit = {
+			has_trait = germany_rightist
+		}
+		set_nationality = GER
+	}
+	GER = {
+		every_unit_leader = {
+			remove_unit_leader_trait = germany_rightist
+		}
+	}
+	GER = {
+		every_unit_leader = {
+			limit = {
+				OR = {
+					has_id = 1
+					has_id = 1
+					has_id = 1
+					has_id = 1
+				}
+			}
+		}
+	}
+	
+	WGR = {
+		country_event = {
+			id = gcw_flavor.1
+			days = 92
+		}
+	}
+	
+	DDR = {
+		country_event = {
+			id = gcw_flavor.1
+			days = 92
+		}
+	}
+	
+	GER = {
+		country_event = {
+			id = gcw_flavor.1
+			days = 92
+		}
+		create_corps_commander = { #promoted October 1936
+			name = "Erich von Manstein"
+			portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Erich_von_Manstein.png"
+			traits = { trickster armor_officer brilliant_strategist trait_engineer }
+			skill = 4
+			id = 5
+			attack_skill = 2
+			defense_skill = 4
+			planning_skill = 3
+			logistics_skill = 4
+		}
+		create_corps_commander = { #promoted 1 August 1936
+			name = "Heinz Guderian"
+			portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Heinz_Guderian.png"
+			traits = { trickster brilliant_strategist panzer_leader armor_officer career_officer }
+			skill = 4
+			id = 6
+			attack_skill = 2
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 3
+		}
+		create_corps_commander = { #Promoted 1 April 1934
+			name = "Georg von Küchler"
+			portrait_path = "gfx/leaders_cbts/leader_unknown.png" #TODO: Missing Portrait
+			traits = {  }
+			skill = 4
+			id = 22
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 4
+			logistics_skill = 4
+		}
+		create_navy_leader = { #promoted 1 April 1935
+			name = "Alfred Saalwächter"
+			picture = "gfx/leaders_cbts/GER/Portrait_Germany_Alfred_Saalwachter.png"
+			traits = { old_guard_navy }
+			skill = 4
+			id = 28
+		}
+	}
+}
+
+WGR_GCW_setup = {
+	set_popularities = {
+		communism = 10
+		authoritarian_socialism = 0
+		socialism = 20
+		social_democracy = 15
+		social_liberalism = 6
+		market_liberalism = 0
+		jacobin = 9
+		democratic = 20
+		neutrality = 0
+		monarchism = 2
+		nationalism = 3
+		fascism = 15
+	}
+	set_cosmetic_tag = WGR_GCW
+	remove_ideas = sour_loser
+	remove_ideas = WGR_anger_against_gov
+	remove_ideas = WGR_paramilitary_divisions
+	remove_ideas = versailles_treaty
+	remove_ideas = econ_crisis
+	remove_dynamic_modifier = { modifier = WGR_Parliament_Welfare_Spending }
+	remove_dynamic_modifier = { modifier = WGR_Parliament_Economic_Intervention }
+	remove_dynamic_modifier = { modifier = WGR_Parliament_Defense_Spending }
+	add_ideas = GCW_civil_war_idea
+	add_ideas = GCW_WGR_widespread_chaos
+	add_ideas = GCW_WGR_disbanded_army
+	add_ideas = limited_conscription
+	add_ideas = partial_economic_mobilisation
+	load_focus_tree = WGR_civil_war_tree
+	set_war_support = 0.15
+	country_event = {
+		id = wgr_gcw.1 #hindenburg kaput
+		days = 7
+	}
+	delete_unit_template_and_units = {
+		division_template = "Freikorps"
+		disband = yes #will refund equipment and manpower
+	}
+	delete_unit_template_and_units = {
+		division_template = "Infanterie-Division mit Unterstützung"
+		disband = yes #will refund equipment and manpower
+	}
+	delete_unit_template_and_units = {
+		division_template = "Kavallerie-Brigade"
+		disband = yes #will refund equipment and manpower
+	}
+	delete_unit_template_and_units = {
+		division_template = "Infanterie-Division"
+		disband = yes #will refund equipment and manpower
+	}
+	delete_unit_template_and_units = {
+		division_template = "SS-Division"
+		disband = yes #will refund equipment and manpower
+	}
+	load_oob = WGR_civilwar
+	if = {
+		limit = {
+			WGR = {
+				NOT = { has_country_flag = WGR_GER_Pomerania_secured }
+			}
+		}
+		61 = {
+			create_unit = {
+				division = "name = \"1.Mecklenburgische Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+			create_unit = {
+				division = "name = \"2.Mecklenburgische Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+			create_unit = {
+				division = "name = \"3.Mecklenburgische Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+			create_unit = {
+				division = "name = \"4.Mecklenburgische Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+			create_unit = {
+				division = "name = \"5.Mecklenburgische Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+		}
+	}
+	if = {
+		limit = {
+			WGR = {
+				NOT = { has_country_flag = WGR_GER_Silesia_secured }
+			}
+		}
+		67 = {
+			create_unit = {
+				division = "name = \"1.Schlesische Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+			create_unit = {
+				division = "name = \"2.Schlesische Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+			create_unit = {
+				division = "name = \"3.Schlesische Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+			create_unit = {
+				division = "name = \"4.Schlesische Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+		}
+	}
+	if = {
+		limit = {
+			WGR = {
+				NOT = { has_country_flag = WGR_DDR_Mainz_secured }
+			}
+		}
+		1176 = {
+			create_unit = {
+				division = "name = \"1.Mainzer Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+			create_unit = {
+				division = "name = \"2.Mainzer Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+		}
+	}
+	if = {
+		limit = {
+			WGR = {
+				NOT = { has_country_flag = WGR_DDR_Thuringia_secured }
+			}
+		}
+		60 = {
+			create_unit = {
+				division = "name = \"1.Thüringer Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+			create_unit = {
+				division = "name = \"2.Thüringer Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+			create_unit = {
+				division = "name = \"2.Thüringer Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = WGR
+			}
+		}
+	}
+	WGR_WGR_deploy_infantry = yes
+	WGR_WGR_set_factories = yes
+	WGR_WGR_deploy_militia = yes
+	add_equipment_to_stockpile = {
+		type = infantry_equipment
+		amount = WGR_starting_arms
+		producer = WGR
+	}
+	if = {
+		limit = {
+			has_country_flag = WGR_forts_bonuses_cw
+		}
+		864 = {
+			add_building_construction = {
+				type = bunker
+				province = 3530
+				level = 2
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				province = 6568
+				level = 2
+				instant_build = yes
+			}
+			
+		}
+		1176 = {
+			add_building_construction = {
+				type = bunker
+				province = 589
+				level = 2
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				province = 3574
+				level = 2
+				instant_build = yes
+			}
+			
+		}
+		50 = {
+			add_building_construction = {
+				type = bunker
+				province = 6581
+				level = 2
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				province = 6555
+				level = 2
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				province = 11417
+				level = 2
+				instant_build = yes
+			}
+			
+		}
+		54 = {
+			add_building_construction = {
+				type = bunker
+				province = 9572
+				level = 2
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				province = 9416
+				level = 2
+				instant_build = yes
+			}
+			
+		}
+		53 = {
+			add_building_construction = {
+				type = bunker
+				province = 586
+				level = 2
+				instant_build = yes
+			}
+			
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = WGR_defensive_bonuses_cw
+		}
+		add_timed_idea = {
+			idea = WGR_republican_push
+			days = 120
+		}
+	}
+	
+	create_corps_commander = { #promoted 1 april 1934
+		name = "Günther von Kluge"
+		portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Gunther_von_Kluge.png"
+		traits = {  offensive_doctrine armor_officer }
+		skill = 5
+		id = 2
+		attack_skill = 3
+		defense_skill = 2
+		planning_skill = 4
+		logistics_skill = 3
+	}
+	create_corps_commander = { #promoted 1 April 1933
+		name = "Maximilian von Weichs"
+		portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+		traits = { cavalry_officer }
+		skill = 4
+		id = 11
+		attack_skill = 4
+		defense_skill = 2
+		planning_skill = 3
+		logistics_skill = 4
+	}
+	create_corps_commander = { #promoted 1 October 1933
+		name = "Wilhelm Ritter von Leeb"
+		portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Wilhelm_Ritter_von_Leeb.png"
+		traits = { old_guard infantry_officer }
+		skill = 3
+		id = 13
+		attack_skill = 4
+		defense_skill = 3
+		planning_skill = 1
+		logistics_skill = 2
+	}
+	create_corps_commander = { #GER_erwin_von_witzleben
+		name = "Erwin von Witzleben"
+		portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Erwin_von_Witzleben.png"
+		traits = { infantry_officer career_officer }
+		skill = 4
+		id = 17
+		attack_skill = 4
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 4
+	}
+	create_corps_commander = { #promoted 1 January 1936
+		name = "Gotthard Heinrici"
+		portrait_path = "gfx/leaders_cbts/GER/Portrait_Germany_Gotthardt_Heinrici.png"
+		traits = { trait_engineer infantry_officer trait_cautious }
+		skill = 3
+		id = 33
+		attack_skill = 3
+		defense_skill = 1
+		planning_skill = 3
+		logistics_skill = 3
+	}
+	create_corps_commander = {
+		name = "Karl Höltermann"
+		portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+		traits = { politically_connected infantry_officer }
+		skill = 1
+		id = 10044
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 2
+	}
+	create_corps_commander = {
+		name = "Otto Hörsing"
+		portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+		traits = { urban_assault_specialist war_hero }
+		skill = 1
+		id = 10045
+		attack_skill = 1
+		defense_skill = 3
+		planning_skill = 1
+		logistics_skill = 1
+	}
+	create_navy_leader = { #Promoted Fall 1934
+		name = "Hermann Boehm"
+		picture = "gfx/leaders_cbts/leader_unknown.png"
+		traits = { superior_tactician }
+		skill = 4
+		id = 29
+	}
+}
+
+# GER_GRR_start_revolt = {
+# 	create_dynamic_country = {
+# 		original_tag = GER
+# 		transfer_state = 68
+# 		set_politics = {
+# 			ruling_party = nationalism
+# 			elections_allowed = no
+# 		}
+# 	}
+# 	random_other_country = {
+# 		limit = { original_tag = GER has_government = nationalism owns_state = 68 }
+# 		set_country_flag = is_reactionary_germany
+# 		set_capital = {
+# 			state = 68
+# 		}
+# 		COALITION_add_mon = yes
+# 		COALITION_add_nat = yes
+# 		set_popularities = {
+# 			communism = 5
+# 			authoritarian_socialism = 0
+# 			socialism = 3
+# 			social_democracy = 2
+# 			social_liberalism = 0
+# 			market_liberalism = 0
+# 			jacobin = 4
+# 			democratic = 1
+# 			neutrality = 10
+# 			monarchism = 20
+# 			nationalism = 30
+# 			fascism = 25
+# 		}
+# 		set_country_flag = GRR_flag
+# 		set_cosmetic_tag = GRR
+# 		transfer_state = 68
+# 		transfer_state = 761
+# 		add_ideas = hugenberg
+# 		add_ideas = otto_von_bismark
+# 		add_ideas = tresckow
+# 		add_ideas = canaris
+# 		add_ideas = limited_conscription
+# 		add_ideas = partial_economic_mobilisation
+# 		add_ideas = popularity_50_55
+# 		declare_war_on = {
+# 			target = GER
+# 			type = annex_everything
+# 		}
+# 		if = {
+# 			limit = { DDR = { exists = yes } }
+# 			declare_war_on = {
+# 				target = DDR
+# 				type = annex_everything
+# 			}
+# 		}
+# 		if = {
+# 			limit = { WGR = { exists = yes } }
+# 			declare_war_on = {
+# 				target = WGR
+# 				type = annex_everything
+# 			}
+# 		}
+# 	}
+# 	every_state = {
+# 		limit = {
+# 			is_core_of = GER
+# 		}
+# 		add_core_of = GRR
+# 	}
+# 	every_state = {
+# 		limit = {
+# 			is_claimed_by = GER
+# 		}
+# 		add_claim_by = GRR
+# 	}
+# 	GER = {
+# 		drop_cosmetic_tag = yes
+# 		set_cosmetic_tag = GRZ
+# 		remove_ideas = eco_Hugenberg
+# 		remove_ideas = canaris
+# 		remove_ideas = otto_von_bismark
+# 		remove_ideas = GER_reactionary_plot
+# 		add_ideas = ribbentrop
+# 		add_ideas = goring2
+# 		add_popularity = {
+# 			ideology = nationalism
+# 			popularity = -0.1
+# 		}
+# 		add_popularity = {
+# 			ideology = monarchism
+# 			popularity = -0.1
+# 		}
+# 		add_popularity = {
+# 			ideology = neutrality
+# 			popularity = -0.03
+# 		}
+# 		transfer_units_fraction= {
+# 			target = GRR
+# 			size = 0.3
+# 			stockpile_ratio = 0.3
+# 			army_ratio = 0.3
+# 			navy_ratio = 0.5
+# 			air_ratio = 0.1
+# 			keep_unit_leaders_trigger = {
+# 				NOT = { has_trait = germany_reactionary }
+# 			}
+# 		}
+# 		every_unit_leader = {
+# 			limit = {
+# 				has_trait = germany_reactionary
+# 			}
+# 			set_nationality = GRR
+# 		}
+# 	}
+# }
+
+ddr_cw_victory = {
+	hidden_effect = {
+		set_cosmetic_tag = DDR_SR
+		every_state = {
+			limit = {
+				is_core_of = WGR
+			}
+			remove_core_of = WGR
+		}
+		every_state = {
+			limit = {
+				is_claimed_by = WGR
+			}
+			remove_claim_by = WGR
+		}
+		every_state = {
+			limit = {
+				is_core_of = GER
+			}
+			remove_core_of = GER
+		}
+		every_state = {
+			limit = {
+				is_claimed_by = GER
+			}
+			remove_claim_by = GER
+		}
+		clr_global_flag = GCW_ongoing_flag
+		load_focus_tree = DDR_postwar_tree
+		remove_ideas = GCW_civil_war_idea
+		remove_ideas = DDR_german_revolution
+		remove_ideas = DDR_rote_garde
+		remove_ideas = DDR_kvjd
+		remove_ideas = DDR_german_revolution2
+		remove_ideas = DDR_soldier_committees
+		remove_ideas = DDR_redirected_prod
+		remove_ideas = DDR_milit_prod
+		remove_ideas = DDR_anti_nat
+		remove_ideas = DDR_anti_rep
+		remove_ideas = DDR_enhaced_supply
+		remove_ideas = DDR_collective
+		remove_ideas = DDR_bureaucratic
+		remove_ideas = DDR_nationalize
+		remove_ideas = DDR_nationalize2
+		remove_ideas = DDR_mil_railways
+		remove_ideas = DDR_rationing
+		remove_ideas = DDR_high_quotas
+		remove_ideas = DDR_low_quotas
+		remove_ideas = DDR_volksarmee
+		remove_ideas = DDR_volksarmee2
+		remove_ideas = DDR_volksarmee3
+		remove_ideas = DDR_german_revolution2
+		remove_ideas = DDR_volksarmee_pop
+		remove_ideas = DDR_volksarmee_pop2
+		remove_ideas = DDR_volksarmee_pf
+		remove_ideas = DDR_volksarmee_pf2
+		
+		set_variable = {
+				DDR_PostWarDestruction_CG = 0.5
+			}
+			set_variable = {
+				DDR_PostWarDestruction_CS = -0.5
+			}
+			set_variable = {
+				DDR_PostWarDestruction_EC = -0.75
+			}
+			set_variable = {
+				DDR_PostWarDestruction_FO = -0.25
+			}
+			set_variable = {
+				DDR_PostWarDestruction_DO = -0.25
+			}
+			add_dynamic_modifier = {
+				modifier = DDR_PostWarDestruction_Modifier
+			}
+		add_ideas = DDR_veteran_volksarmee
+		add_ideas = DDR_nazi_resistance
+		
+		country_event = {
+			id = ddr.1
+			days = 1
+		}
+		
+		set_stability = 0.2
+		set_war_support = 0.1
+		
+		set_variable = { DDR_counterterrorist_eff = 40 }
+		762 = { set_variable = { DDR_pru_rebel_strength = 4 }  }
+		# DDR_pru_reroll_resistance = yes
+		68 = { set_variable = { DDR_pom_rebel_strength = 4 }  }
+		# DDR_pom_reroll_resistance = yes
+		760 = { set_variable = { DDR_ost_rebel_strength = 4 }  }
+		# DDR_ost_reroll_resistance = yes
+		66 = { set_variable = { DDR_sil_rebel_strength = 3 }  }
+		# DDR_sil_reroll_resistance = yes
+		61 = { set_variable = { DDR_mek_rebel_strength = 3 }  }
+		# DDR_mek_reroll_resistance = yes
+		65 = { set_variable = { DDR_sax_rebel_strength = 2 }  }
+		# DDR_sax_reroll_resistance = yes
+	}
+}

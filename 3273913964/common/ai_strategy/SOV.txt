@@ -1,0 +1,2483 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+
+SOV_dont_mess_with_volunteers = { # Reverse strategy
+	allowed = {
+		original_tag = SOV
+	}
+	reversed = yes
+
+	enable = {
+		NOT = { tag = SOV }
+		
+		OR = {
+			capital_scope = {
+				is_on_continent = asia # lets not mess with asia
+			}
+			NOT = { has_government = communism }
+			AND = {
+				NOT = { tag = SPR }
+				scw_in_progress = yes
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = "SOV"
+		value = -800
+	}
+}
+
+SOV_build_early_civ = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		date < 1935.1.1
+		has_war = no
+	}
+	
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = building_target
+		id = industrial_complex
+		value = 50
+	}
+}
+
+SOV_unit_production = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		always = yes
+	}
+	abort = {
+		always = no
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 1
+	}
+
+	# Old garrison system against resistance
+	# ai_strategy = { 
+	# 	type = role_ratio
+	# 	id = suppression
+	# 	value = 3
+	# }
+
+	ai_strategy = {
+		type = role_ratio
+		id = paratroopers
+		value = 0
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = mountaineers
+		value = 2
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = marines
+		value = 0
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 0
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = motorized
+		value = 3
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = mechanized
+		value = 0
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 5
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 70 #because doctrine 70
+	}
+	
+	#Air unit factors
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 40 #v:20
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 3 #because doctrine this = 15
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 5
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = strategic_bomber
+		value = -50 # we can add a strategy later to increase this once Germany is beaten
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = naval_bomber
+		value = 4
+	}
+	
+	
+	# Naval unit factors
+	ai_strategy = {
+		type = unit_ratio
+		id = capital_ship
+		value = 1
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = carrier
+		value = 1
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = submarine
+		value = 30
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = screen_ship
+		value = 20
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = convoy
+		value = 30
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = tactical_bomber
+		value = -20
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = -60 #Accounted for
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = cas
+		value = -30
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = naval_bomber
+		value = -100
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 20
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 60 #v: 80
+	}
+
+	# ai_strategy = {
+	# 	type = equipment_production_factor
+	# 	id = anti_armor
+	# 	value = 5
+	# }
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = anti_air
+		value = 3
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = 15
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 10
+	}
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = motorized
+		value = 3
+	}
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = artillery
+		value = 4
+	}
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = armor
+		value = 2
+	}
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = convoy
+		value = 1
+	}
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 1
+	}
+}
+
+SOV_area_priority = {
+	allowed = {
+		tag = SOV
+	}
+
+	enable = {
+		always = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = 100
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = west_russia
+		value = 80
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = east_europe
+		value = 80
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = caucasus
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = central_asia
+		value = 15
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = trans_urals
+		value = 15
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = east_russia
+		value = 25
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = 5
+	}
+
+	# ai_strategy = {
+	# 	type = area_priority
+	# 	id = se_asia
+	# 	value = 5
+	# }
+	
+	ai_strategy = {
+		type = area_priority
+		id = northern_america
+		value = -500
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = central_america
+		value = -500
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = -500
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = africa
+		value = -500
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = india
+		value = -500
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = pacific
+		value = -300
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = siberia
+		value = -800
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = -500
+	}
+}
+
+SOV_anti_armor = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		ai_wants_divisions > 5 #Decreasing the amount of motorized the AI wants
+		
+		any_enemy_country = {
+			ROOT = {
+				estimated_intel_max_armor = {
+					tag = PREV
+					value > 25
+				}
+			}
+		}
+	}
+	abort = {
+		ai_wants_divisions < 6 #Decreasing the amount of motorized the AI wants
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = motorized
+		value = 5 #was: 15
+	}
+}
+
+# southern_thrust = {
+# 	allowed = {
+# 		original_tag = SOV
+# 	}
+# 	enable = {
+# 		country_exists = PER
+# 		NOT = {
+# 			PER = { is_puppet_of = SOV }
+# 		}
+# 	}
+# 	abort_when_not_enabled = yes
+	
+# 	ai_strategy = {
+# 		type = antagonize
+# 		id = "PER"			
+# 		value = 200
+# 	}	
+# }
+
+claims_on_poland = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		has_completed_focus = SOV_Invade_Poland
+		country_exists = POL
+	}
+	abort = {
+		NOT = {
+			country_exists = POL
+		}
+	}
+	
+	ai_strategy = {
+		type = antagonize
+		id = "POL"			
+		value = 200
+	}	
+}
+
+claims_on_baltic = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		has_completed_focus = SOV_Occupy_Baltic
+		OR = {
+			country_exists = LAT
+			country_exists = LIT
+			country_exists = EST
+		}
+	}
+	abort = {
+		NOT = {
+			country_exists = LAT
+			country_exists = LIT
+			country_exists = EST
+		}
+	}
+	
+	ai_strategy = {
+		type = antagonize
+		id = "LAT"			
+		value = 200
+	}	
+	ai_strategy = {
+		type = antagonize
+		id = "LIT"			
+		value = 200
+	}
+	ai_strategy = {
+		type = antagonize
+		id = "EST"			
+		value = 200
+	}
+}
+
+#claims_on_finland = {
+	#enable = {
+		#tag = SOV
+		#has_completed_focus = SOV_Ultimatum_to_Finland
+		#country_exists = FIN
+	#}
+	#abort = {
+		#OR = {
+			#NOT = {
+				#country_exists = FIN
+			#}
+			#FIN = {
+				#has_government = ROOT
+			#}
+			#controls_state = 146 #Karelija
+		#}
+	#}
+	
+	#ai_strategy = {
+		#type = antagonize
+		#id = "FIN"			
+		#value = 200
+	#}	
+#}
+
+# claims_on_turkey = {
+# 	allowed = {
+# 		tag = SOV
+# 	}
+# 	enable = {
+# 		country_exists = TUR
+# 	}
+# 	abort = {
+# 		NOT = {
+# 			country_exists = TUR
+# 		}
+# 	}
+	
+# 	ai_strategy = {
+# 		type = antagonize
+# 		id = "TUR"			
+# 		value = 200
+# 	}	
+# }
+
+claims_on_romania = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		has_completed_focus = SOV_Demand_Bessarabia
+		country_exists = ROM
+	}
+	abort = {
+		NOT = {
+			country_exists = ROM
+		}
+	}
+	
+	ai_strategy = {
+		type = antagonize
+		id = "ROM"			
+		value = 200
+	}	
+}
+
+# claims_on_sinkiang = {
+# 	allowed = {
+# 		tag = SOV
+# 	}
+# 	enable = {
+# 		# has_completed_focus = SOV_Attack_Xinjiang
+# 		country_exists = SIK
+# 	}
+# 	abort = {
+# 		NOT = {
+# 			country_exists = SIK
+# 		}
+# 	}
+	
+# 	ai_strategy = {
+# 		type = antagonize
+# 		id = "SIK"			
+# 		value = 200
+# 	}	
+# }
+
+# retake_southern_Sakhalin = {
+# 	allowed = {
+# 		tag = SOV
+# 	}
+# 	enable = {
+# 		# has_completed_focus = SOV_Attack_Japan
+# 		country_exists = JAP
+# 	}
+# 	abort = {
+# 		NOT = { country_exists = JAP }
+# 	}
+	
+# 	ai_strategy = {
+# 		type = antagonize
+# 		id = "JAP"			
+# 		value = 200
+# 	}	
+# }
+
+germany_ally = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		OR = { 
+			has_completed_focus = SOV_Stalinist_Anti_British
+			GER = { has_completed_focus = GER_alliance_with_SOV }
+		}
+		country_exists = GER
+	}
+	abort = {
+		NOT = { country_exists = GER }
+	}
+	
+	ai_strategy = {
+		type = befriend
+		id = "GER"			
+		value = 200
+	}
+	ai_strategy = {
+		type = alliance
+		id = "GER"			
+		value = 200
+	}	
+}
+
+germany_enemy = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		has_completed_focus = SOV_Stalinist_Anti_German
+		country_exists = GER
+		OR = {
+			date > 1942.1.1
+			has_war_with = GER 
+		}
+	}
+	abort = {
+		NOT = { country_exists = GER }
+	}
+	
+	ai_strategy = {
+		type = antagonize
+		id = "GER"			
+		value = 200
+	}	
+}
+
+SOV_template_design_1 = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		date < 1940.1.1
+	}
+	abort = { 
+		date > 1940.1.1
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = motorized
+		value = 10
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = cavalry
+		value = -100
+	}
+	
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = 50
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = -10
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = heavy_armor
+		value = -50
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = paratroopers
+		value = -50
+	}
+	
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 50
+	}
+}
+
+SOV_template_design_2 = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		date > 1940.1.1
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = template_prio
+		id = mechanized
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = cavalry
+		value = -100
+	}
+	
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = 10
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = 50
+	}
+	
+	ai_strategy = {
+		type = template_prio
+		id = modern_armor
+		value = 60
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = heavy_armor
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = paratroopers
+		value = -50
+	}
+	
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 10
+	}
+}
+
+SOV_pp_spending = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		has_manpower < 100000
+		has_political_power < 250
+	}
+	abort = {
+		OR = {
+			has_manpower > 100000
+			has_political_power > 200
+			date > 1944.1.1
+		}
+	}
+
+	ai_strategy = { # dont burn PP on admirals if you need manpower laws
+		type = pp_spend_priority
+		id = admiral
+		value = -200
+	}
+}
+
+SOV_play_nice_with_ribbentrop_pact = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		has_global_flag = MR_pact_flag		
+		GER = { has_war_with = POL }
+		date < 1941.1.1
+	}
+	abort = {
+		OR ={
+			GER = { has_war_with = SOV }
+			NOT = { GER = { has_war_with = POL } }
+			date > 1941.1.1
+		}
+	}
+	
+	# respect the spirit of the law ;)
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = "POL"
+		value = -100
+	}	
+}
+
+SOV_naval_role_ratios_historical = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		has_dlc = "Man the Guns"
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = role_ratio
+		id = naval_capital_bb
+		value = -25
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_capital_bc
+		value = -100
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_carrier
+		value = -5
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_submarine
+		value = 150
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_screen
+		value = 150
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_cruiser_light
+		value = 15
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_cruiser_heavy
+		value = -15
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_mine_sweeper
+		value = 15
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = naval_mine_layer
+		value = 80
+	}
+}
+
+SOV_have_some_train_production = {
+	allowed = {
+		original_tag = SOV
+	}
+
+	enable = {
+		date > 1934.7.1
+		num_of_military_factories > 50
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = train
+		value = 1
+	}
+}
+
+# SOV_dont_upgrade_to_weapons_4_too_early = {
+# 	allowed = {
+# 		tag = SOV
+# 	}
+# 	enable = {
+# 		OR = {
+# 			date < "1943.1.1" # stock up on lots of rifles, we got the manpower
+# 			AND = {
+# 				date > "1943.8.1"
+# 				surrender_progress < 0.1 # if we arent losing badly its ok now
+# 			}
+# 		}
+# 	}
+	
+# 	abort_when_not_enabled = yes
+	
+# 	ai_strategy = {
+# 		type = production_upgrade_desire_offset
+# 		id = infantry_equipment_4
+# 		value = -100
+# 	}
+# }
+
+SOV_garrison_during_peace = {
+	allowed = {
+		tag = SOV
+	}
+
+	enable = {
+		NOT = {
+			has_war_with = GER
+		}
+	}
+
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = put_unit_buffers
+		ratio = 0.3
+		states = {
+			219
+			202
+			205
+			217
+			218
+			206
+			221
+			227
+			242
+			1072
+			263
+			224
+			246
+			241
+			195
+			247
+			226
+			192
+			228
+			200
+			193
+			243
+			222
+		}
+		area = west_russia
+		area = east_europe
+	}
+}
+
+SOV_the_nkvd_is_all_the_intel_we_need = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		has_government = communism
+		has_dlc = "La Resistance"
+		num_of_civilian_factories < 90
+		num_of_civilian_factories > 35
+	}
+	abort = {
+		OR = {
+			num_of_civilian_factories > 90
+		}
+	}
+	ai_strategy = {
+		type = intelligence_agency_usable_factories
+		value = -20
+	}
+}
+
+SOV_baltic_sea_naval_base_of_operations = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		controls_state = 195
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 9
+	}
+}
+SOV_black_sea_naval_base_of_operations = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		OR = {
+			controls_state = 1072
+			controls_state = 218
+			controls_state = 1075
+			controls_state = 556
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = strike_force_home_base
+		id = 30
+	}
+}
+
+SOV_put_less_units_in_manchuria = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		country_exists = MAN
+		is_neighbor_of = MAN
+	}
+	abort = {
+		OR = {
+			has_war_with = MAN
+			date > 1944.1.1
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = MAN
+
+		value = -60
+	}
+}
+SOV_put_less_units_in_baltics = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		OR = {
+			country_exists = EST
+			country_exists = LAT
+		}
+	}
+	abort = {
+		OR = {
+			has_war_with = EST
+			has_war_with = LAT
+			NOT = { country_exists = EST }
+			NOT = { country_exists = LAT }
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = EST
+
+		value = -60
+	}
+
+	ai_strategy = {
+		type = front_armor_score
+		id = EST
+		value = -100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = LAT
+
+		value = -70
+	}
+
+	ai_strategy = {
+		type = front_armor_score
+		id = LAT
+		value = -100
+	}
+}
+SOV_put_less_units_in_karelia = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		country_exists = FIN
+		is_neighbor_of = FIN
+	}
+	abort = {
+		AND = {
+			has_war_with = FIN
+			has_war_with = GER
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		state = 828
+		state = 215
+		state = 213
+		state = 722
+		state = 147
+
+		value = -70
+	}
+}
+
+SOV_put_more_units_in_karelian_isthmus = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		country_exists = FIN
+		has_war_with = FIN
+		has_global_flag = winter_war_flag
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		state = 832
+
+		value = 25
+	}
+}
+
+SOV_ignore_Persia = {
+	allowed = {
+		tag = SOV
+	}
+
+	enable = {
+		country_exists = PER
+		NOT = {
+			#TODO: Plan to invade Persia with British is created
+			has_war_with = PER
+		}
+	}
+
+	abort = {
+		OR = {
+			# Plan to invade with the brits
+			has_war_with = PER
+			PER = { exists = no }
+		}
+	}
+
+	ai_strategy = { #Ignore east persia
+		type = front_unit_request
+
+		state_trigger = {
+			state = 1228
+			FROM = { tag = PER }
+		}
+
+		value = -200
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = PER
+
+		value = -50
+	}
+}
+
+SOV_ignore_fin_until_1939 = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		country_exists = FIN
+	}
+
+	abort = {
+		OR = {
+			has_war_with = FIN
+			date > 1939.5.1
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			AND = {
+				tag = FIN
+				NOT = { has_war_with = FROM }
+			}
+		}
+
+		value = -200
+	}
+}
+
+SOV_dont_fucking_garrison_north_siberia = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 637
+		value = -1000
+	}
+}
+SOV_dont_fucking_garrison_amur = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 409
+		value = -6000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 408
+		value = -2000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 657
+		value = -2000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 561
+		value = -2000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 563
+		value = -2000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 858
+		value = -2000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 564
+		value = -2000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 565
+		value = -2000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 574
+		value = -2000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 575
+		value = -2000
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 827
+		value = -2000
+	}
+}
+
+SOV_ignore_TAN_MON = {
+	allowed = {
+		tag = SOV
+	}
+
+	enable = {
+		OR = {
+			country_exists = MON
+			country_exists = TAN
+		}
+	}
+
+	abort = {
+		OR = {
+			MON = { has_war = yes }
+			TAN = { has_war = yes }
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				AND = {
+					tag = TAN
+					OR = {
+						is_puppet_of = SOV
+						NOT = { has_war_with = FROM }
+					}
+				}
+				AND = {
+					tag = MON
+					OR = {
+						is_in_faction = no
+						is_in_faction_with = FROM
+						#TODO: Kalkhin Gol flag
+					}
+				}
+			}
+		}
+
+		value = -200
+	}
+}
+
+SOV_ignore_insignificant_countries = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		OR = {
+			country_exists = UTP
+			country_exists = AFG
+			country_exists = SIK
+		}
+	}
+	abort = {
+		OR = {
+			has_war_with = UTP
+			has_war_with = AFG
+			has_war_with = SIK
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				AND = {
+					tag = AFG
+					NOT = { has_war_with = FROM }
+				}
+				AND = {
+					tag = UTP
+					NOT = { has_war_with = FROM }
+				}
+				AND = {
+					tag = SIK
+					NOT = { has_war_with = FROM }
+				}
+			}
+		}
+
+		value = -200
+	}
+}
+
+SOV_less_interested_in_xinjiang = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		country_exists = KML
+		is_neighbor_of = KML
+	}
+	abort = {
+		OR = {
+			has_war_with = KML
+			has_wargoal_against = KML
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = KML
+
+		value = -100
+	}
+}
+
+dont_attack_baltic_states = { #Manually
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		country_exists = EST
+		country_exists = LAT
+		country_exists = LIT
+		has_war = no
+	}
+
+	abort = {
+		OR = {
+			has_completed_focus = SOV_Occupy_Baltic
+			date > 1941.1.1
+		}
+	}
+	
+	ai_strategy = {
+		type = ignore_claim
+		id = "EST"			
+		value = 10
+	}
+    ai_strategy = {
+		type = ignore_claim
+		id = "LAT"			
+		value = 10
+	}
+    ai_strategy = {
+		type = ignore_claim
+		id = "LIT"			
+		value = 10
+	}	
+}
+
+dont_attack_finland = { #Manually
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		country_exists = FIN
+		has_war = no
+	}
+
+	abort = {
+		always = no
+	}
+	
+	ai_strategy = {
+		type = ignore_claim
+		id = "FIN"			
+		value = 1
+	}	
+}
+
+SOV_scorched_earth_german_front_baltics = {
+
+	allowed = { original_tag = SOV }
+	enable = {
+		has_war_with = GER
+		NOT = {
+			has_country_flag = SOV_barbarossa_scorched_earth_delay #a 45 day delay at the start of the war before Soviets start doing this
+		}
+		NOT = { # please don't spend PP on blowing up your own stuff when you need it for manpower
+			has_manpower < 1000000
+			has_political_power < 200
+			OR = {
+				has_idea = volunteer_only
+				has_idea = limited_conscription
+				has_idea = extensive_conscription
+			}
+		}
+		count_triggers = {
+			amount = 4 #if 4 baltic states are owned by an enemy, burn the rest of the Baltics
+			189 = { CONTROLLER = { has_war_with = SOV } }
+			11 = { CONTROLLER = { has_war_with = SOV } }
+			190 = { CONTROLLER = { has_war_with = SOV } }
+			1158 = { CONTROLLER = { has_war_with = SOV } }
+			12 = { CONTROLLER = { has_war_with = SOV } }
+			13 = { CONTROLLER = { has_war_with = SOV } }
+			1040 = { CONTROLLER = { has_war_with = SOV } }
+			1042 = { CONTROLLER = { has_war_with = SOV } }
+			191 = { CONTROLLER = { has_war_with = SOV } }
+			763 = { CONTROLLER = { has_war_with = SOV } }
+		}
+	}
+
+	abort = {
+		OR = {
+			NOT = { has_war_with = GER }
+			strength_ratio = { tag = GER ratio > 1.5 }
+			date > 1944.1.1
+		}
+	}
+
+	ai_strategy = {
+		type = scorched_earth_prio
+		id = SOV
+		states = {
+			189
+			11
+			190
+			1158
+			12
+			13
+			1040
+			1042
+			191
+			763
+			1045
+			1043
+			1044
+		}
+	}
+}
+
+SOV_scorched_earth_german_front_Poland = {
+
+	allowed = { original_tag = SOV }
+	enable = {
+		has_war_with = GER
+		NOT = {
+			has_country_flag = SOV_barbarossa_scorched_earth_delay #a 45 day delay at the start of the war before Soviets start doing this
+		}
+		NOT = { # please don't spend PP on blowing up your own stuff when you need it for manpower
+			has_manpower < 1000000
+			has_political_power < 200
+			OR = {
+				has_idea = volunteer_only
+				has_idea = limited_conscription
+				has_idea = extensive_conscription
+			}
+		}
+		count_triggers = {
+			amount = 4 #if 4 states are owned by an enemy, burn the rest of the area
+			96 = { CONTROLLER = { has_war_with = SOV } }
+			95 = { CONTROLLER = { has_war_with = SOV } }
+			94 = { CONTROLLER = { has_war_with = SOV } }
+			93 = { CONTROLLER = { has_war_with = SOV } }
+			91 = { CONTROLLER = { has_war_with = SOV } }
+			89 = { CONTROLLER = { has_war_with = SOV } }
+			749 = { CONTROLLER = { has_war_with = SOV } }
+			926 = { CONTROLLER = { has_war_with = SOV } }
+			1190 = { CONTROLLER = { has_war_with = SOV } }
+			915 = { CONTROLLER = { has_war_with = SOV } }
+			1068 = { CONTROLLER = { has_war_with = SOV } }
+			1066 = { CONTROLLER = { has_war_with = SOV } }
+			1061 = { CONTROLLER = { has_war_with = SOV } }
+			1067 = { CONTROLLER = { has_war_with = SOV } }
+		}
+	}
+
+	abort = {
+		OR = {
+			NOT = { has_war_with = GER }
+			strength_ratio = { tag = GER ratio > 1.5 }
+			date > 1944.1.1
+		}
+	}
+
+	ai_strategy = {
+		type = scorched_earth_prio
+		id = SOV
+		states = {
+			96
+			95
+			94
+			93
+			91
+			89
+			749
+			926
+			1190
+			915
+			1068
+			1066
+			1061
+			1067
+		}
+	}
+}
+
+SOV_scorched_earth_german_front_north = {
+
+	allowed = { original_tag = SOV }
+	enable = {
+		has_war_with = GER
+		NOT = {
+			has_country_flag = SOV_barbarossa_scorched_earth_delay #a 45 day delay at the start of the war before Soviets start doing this
+		}
+		NOT = { # please don't spend PP on blowing up your own stuff when you need it for manpower
+			has_manpower < 1000000
+			has_political_power < 200
+			OR = {
+				has_idea = volunteer_only
+				has_idea = limited_conscription
+				has_idea = extensive_conscription
+			}
+		}
+		count_triggers = {
+			amount = 2 #if 2 states are owned by an enemy, burn the rest of the area
+			208 = { CONTROLLER = { has_war_with = SOV } }
+			209 = { CONTROLLER = { has_war_with = SOV } }
+			210 = { CONTROLLER = { has_war_with = SOV } }
+			195 = { CONTROLLER = { has_war_with = SOV } }
+			263 = { CONTROLLER = { has_war_with = SOV } }
+			246 = { CONTROLLER = { has_war_with = SOV } }
+			244 = { CONTROLLER = { has_war_with = SOV } }
+		}
+	}
+
+	abort = {
+		OR = {
+			NOT = { has_war_with = GER }
+			strength_ratio = { tag = GER ratio > 1.5 }
+			date > 1944.1.1
+		}
+	}
+
+	ai_strategy = {
+		type = scorched_earth_prio
+		id = SOV
+		states = {
+			208
+			209
+			210
+			195
+			263
+			246
+			244
+		}
+	}
+}
+
+SOV_scorched_earth_german_front_center = {
+
+	allowed = { original_tag = SOV }
+	enable = {
+		has_war_with = GER
+		NOT = {
+			has_country_flag = SOV_barbarossa_scorched_earth_delay #a 45 day delay at the start of the war before Soviets start doing this
+		}
+		NOT = { # please don't spend PP on blowing up your own stuff when you need it for manpower
+			has_manpower < 1000000
+			has_political_power < 200
+			OR = {
+				has_idea = volunteer_only
+				has_idea = limited_conscription
+				has_idea = extensive_conscription
+			}
+		}
+		count_triggers = {
+			amount = 2 #if 4 states are owned by an enemy, burn the rest of the area
+			206 = { CONTROLLER = { has_war_with = SOV } }
+			207 = { CONTROLLER = { has_war_with = SOV } }
+			204 = { CONTROLLER = { has_war_with = SOV } }
+			241 = { CONTROLLER = { has_war_with = SOV } }
+			194 = { CONTROLLER = { has_war_with = SOV } }
+		}
+	}
+
+	abort = {
+		OR = {
+			NOT = { has_war_with = GER }
+			strength_ratio = { tag = GER ratio > 1.5 }
+			date > 1944.1.1
+		}
+	}
+
+	ai_strategy = {
+		type = scorched_earth_prio
+		id = SOV
+		states = {
+			207
+			206
+			204
+			241
+			194
+		}
+	}
+}
+
+SOV_scorched_earth_german_west_ukraine = {
+
+	allowed = { original_tag = SOV }
+	enable = {
+		has_war_with = GER
+		NOT = {
+			has_country_flag = SOV_barbarossa_scorched_earth_delay #a 45 day delay at the start of the war before Soviets start doing this
+		}
+		NOT = { # please don't spend PP on blowing up your own stuff when you need it for manpower
+			has_manpower < 1000000
+			has_political_power < 200
+			OR = {
+				has_idea = volunteer_only
+				has_idea = limited_conscription
+				has_idea = extensive_conscription
+			}
+		}
+		count_triggers = {
+			amount = 7 #if 7 states are owned by an enemy, burn the rest of the area
+			199 = { CONTROLLER = { has_war_with = SOV } }
+			201 = { CONTROLLER = { has_war_with = SOV } }
+			202 = { CONTROLLER = { has_war_with = SOV } }
+			198 = { CONTROLLER = { has_war_with = SOV } }
+			1056 = { CONTROLLER = { has_war_with = SOV } }
+			1055 = { CONTROLLER = { has_war_with = SOV } }
+			192 = { CONTROLLER = { has_war_with = SOV } }
+			203 = { CONTROLLER = { has_war_with = SOV } }
+			1058 = { CONTROLLER = { has_war_with = SOV } }
+			226 = { CONTROLLER = { has_war_with = SOV } }
+			197 = { CONTROLLER = { has_war_with = SOV } }
+		}
+	}
+
+	abort = {
+		OR = {
+			NOT = { has_war_with = GER }
+			strength_ratio = { tag = GER ratio > 1.5 }
+			date > 1944.1.1
+		}
+	}
+
+	ai_strategy = {
+		type = scorched_earth_prio
+		id = SOV
+		states = {
+			199
+			201
+			202
+			203
+			192
+			198
+			1056
+			1055
+			1058
+			226
+			197
+		}
+	}
+}
+SOV_scorched_earth_german_east_ukraine = {
+
+	allowed = { original_tag = SOV }
+	enable = {
+		has_war_with = GER
+		NOT = {
+			has_country_flag = SOV_barbarossa_scorched_earth_delay #a 45 day delay at the start of the war before Soviets start doing this
+		}
+		NOT = { # please don't spend PP on blowing up your own stuff when you need it for manpower
+			has_manpower < 1000000
+			has_political_power < 200
+			OR = {
+				has_idea = volunteer_only
+				has_idea = limited_conscription
+				has_idea = extensive_conscription
+			}
+		}
+		count_triggers = {
+			amount = 5 #if 5 states are owned by an enemy, burn the rest of the area
+			1059 = { CONTROLLER = { has_war_with = SOV } }
+			193 = { CONTROLLER = { has_war_with = SOV } }
+			259 = { CONTROLLER = { has_war_with = SOV } }
+			225 = { CONTROLLER = { has_war_with = SOV } }
+			1071 = { CONTROLLER = { has_war_with = SOV } }
+			221 = { CONTROLLER = { has_war_with = SOV } }
+			227 = { CONTROLLER = { has_war_with = SOV } }
+			228 = { CONTROLLER = { has_war_with = SOV } }
+			200 = { CONTROLLER = { has_war_with = SOV } }
+			196 = { CONTROLLER = { has_war_with = SOV } }
+		}
+	}
+
+	abort = {
+		OR = {
+			NOT = { has_war_with = GER }
+			strength_ratio = { tag = GER ratio > 1.5 }
+			date > 1944.1.1
+		}
+	}
+
+	ai_strategy = {
+		type = scorched_earth_prio
+		id = SOV
+		states = {
+			1059
+			193
+			259
+			225
+			1071
+			221
+			227
+			228
+			200
+			196
+		}
+	}
+}
+
+SOV_scorched_earth_german_front_moscow = {
+
+	allowed = { original_tag = SOV }
+	enable = {
+		has_war_with = GER
+		NOT = {
+			has_country_flag = SOV_barbarossa_scorched_earth_delay #a 45 day delay at the start of the war before Soviets start doing this
+		}
+		NOT = { # please don't spend PP on blowing up your own stuff when you need it for manpower
+			has_manpower < 1000000
+			has_political_power < 200
+			OR = {
+				has_idea = volunteer_only
+				has_idea = limited_conscription
+				has_idea = extensive_conscription
+			}
+		}
+		count_triggers = {
+			amount = 1 #if 1 states are owned by an enemy, burn the rest of the area
+			219 = { CONTROLLER = { has_war_with = SOV } }
+			246 = { CONTROLLER = { has_war_with = SOV } }
+			242 = { CONTROLLER = { has_war_with = SOV } }
+			243 = { CONTROLLER = { has_war_with = SOV } }
+			205 = { CONTROLLER = { has_war_with = SOV } }
+			223 = { CONTROLLER = { has_war_with = SOV } }
+
+		}
+	}
+
+	abort = {
+		OR = {
+			NOT = { has_war_with = GER }
+			strength_ratio = { tag = GER ratio > 1.5 }
+			date > 1944.1.1
+		}
+		controls_state = 220
+		controls_state = 224
+		controls_state = 243
+		controls_state = 242
+		controls_state = 207
+		controls_state = 210
+		controls_state = 246
+		controls_state = 223
+	}
+
+	ai_strategy = {
+		type = scorched_earth_prio
+		id = SOV
+		states = {
+			219
+			246
+			242
+			205
+			223
+		}
+	}
+}
+
+SOV_scorched_earth_german_front_stalingrad = {
+
+	allowed = { original_tag = SOV }
+	enable = {
+		has_war_with = GER
+		NOT = {
+			has_country_flag = SOV_barbarossa_scorched_earth_delay #a 45 day delay at the start of the war before Soviets start doing this
+		}
+		NOT = { # please don't spend PP on blowing up your own stuff when you need it for manpower
+			has_manpower < 1000000
+			has_political_power < 200
+			OR = {
+				has_idea = volunteer_only
+				has_idea = limited_conscription
+				has_idea = extensive_conscription
+			}
+		}
+		count_triggers = {
+			amount = 1 #if 1 states are owned by an enemy, burn the rest of the area
+			217 = { CONTROLLER = { has_war_with = SOV } }
+			265 = { CONTROLLER = { has_war_with = SOV } }
+			245 = { CONTROLLER = { has_war_with = SOV } }
+			238 = { CONTROLLER = { has_war_with = SOV } }
+			237 = { CONTROLLER = { has_war_with = SOV } }
+
+		}
+	}
+
+	abort = {
+		OR = {
+			NOT = { has_war_with = GER }
+			strength_ratio = { tag = GER ratio > 1.5 }
+			date > 1944.1.1
+		}
+		controls_state = 218
+		controls_state = 228
+		controls_state = 260
+		controls_state = 239
+	}
+
+	ai_strategy = {
+		type = scorched_earth_prio
+		id = SOV
+		states = {
+			217
+			265
+			245
+			238
+			237
+		}
+	}
+}
+
+SOV_dont_do_so_many_naval_invasions_please = {
+
+	allowed = { original_tag = SOV }
+
+	enable = {
+		always = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = invasion_unit_request
+		country_trigger = { always = yes }
+
+		value = -200
+	}
+
+	ai_strategy = {
+		type = invasion_unit_request
+		tag = GER
+		value = -100
+	}
+	ai_strategy = {
+		type = invasion_unit_request
+		tag = FIN
+		value = -100
+	}
+}
+
+SOV_unit_buffer_for_asian_threat = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		OR = {
+			has_war_with = JAP
+			has_war_with = CHI
+			has_war_with = MON
+			AND = {
+				has_war_with = GER
+				country_exists = JAP
+				NOT = { JAP = { is_ally_with = SOV } }
+			}	
+		}
+		surrender_progress < 0.70
+		#Always have a small unit buffer along the railway, just in case asian fronts get dangerous
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		# ratio of total armeis in country to be buffered
+		ratio = 0.1
+
+		# you can specify an order id. ratio of same orders ids will be share same ratio
+		#order_id = 2
+
+		# states to put garrison orders (if no state is friendly, strat is invalid)
+		states = {
+			564
+			563
+			566
+			561
+			657
+			408
+			409
+		}
+
+		# ai areas that the orders will use these buffers in
+		area = asia
+
+		# by default if you have orders in target areas, the buffer will request less units.
+		# you can override this to disable the feature
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = yes
+	}
+}
+
+SOV_boost_div_upgrades = { #lets make sure sov upgrades divs when at war
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		has_war = yes
+
+		date > 1941.1.1
+	}
+
+	abort = {
+		has_war = no
+		has_template_ai_majority_unit = medium_armor
+	}
+
+	# lets do changes more often during this period too
+	ai_strategy = {
+		type = land_xp_spend_priority
+		id = division_template
+		value = 100
+	}
+}
+
+SOV_defend_blitzkrieg  = {#Only perform careful attacks, we want to defend while germany has buffs.
+	allowed = {
+		original_tag = SOV
+	}
+
+	enable = {
+		date < 1943.1.1 #To space!
+		has_war_with = GER
+		# GER = { has_idea = GER_barbarossa }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+
+		tag = GER
+
+		ratio = 0.5
+
+		priority = 100
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+	}
+
+}
+
+SOV_defend_blitzkrieg_2  = {#Only perform careful attacks, we want to defend for a bit
+	allowed = {
+		original_tag = SOV
+	}
+
+	enable = {
+		date < 1943.1.1 #To space!
+		has_war_with = GER
+		NOT = { GER = { has_idea = GER_barbarossa } }
+		is_historical_focus_on = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+
+		tag = GER
+
+		ratio = 0.5
+
+		priority = 100
+		ordertype = front
+		execution_type = careful
+	}
+
+}
+
+SOV_wants_civ = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		date < 1939.1.1
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = building_target
+		id = industrial_complex
+		value = 85
+	}
+}
+
+SOV_nap_with_ger_they_wont_invade = { #V: SOV_nothing_bad_could_possibly_happen_now
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		# always = no #No longer necessary
+		is_historical_focus_on = yes
+		NOT = { has_war_with = GER }
+		date < 1942.2.1
+		has_non_aggression_pact_with = GER
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = GER
+
+		value = -30 # we have a lovely non-aggression pact, so there's no reason to be worried. At all.
+	}
+}
+
+SOV_dont_call_allies_to_invasion_of_poland = {
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		has_war_with = POL
+		POL = { has_war_with = GER }
+		has_global_flag = SOV_invading_Poland_MR
+	}
+	abort = {
+		OR = {
+			has_war_with = FRA
+			has_war_with = ENG
+		}
+	}
+	ai_strategy = {
+		type = diplo_action_desire
+		id = MON
+		target = call_allies
+		value = -99999
+	}
+	ai_strategy = {
+		type = diplo_action_desire
+		id = TAN
+		target = call_allies
+		value = -99999
+	}
+	ai_strategy = {
+		type = diplo_action_desire
+		id = FIN
+		target = call_allies
+		value = -99999
+	}
+
+	ai_strategy = {
+		type = diplo_action_acceptance
+		id = MON
+		target = join_allies
+		value = -99999
+	}
+	ai_strategy = {
+		type = diplo_action_acceptance
+		id = TAN
+		target = join_allies
+		value = -99999
+	}
+	ai_strategy = {
+		type = diplo_action_acceptance
+		id = FIN
+		target = join_allies
+		value = -99999
+	}
+}
+
+SOV_allies_reject_invasion_of_Poland = {
+	enable = {
+		OR = {
+			is_in_faction_with = SOV
+			is_subject_of = SOV
+		}
+		POL = {
+			has_war_with = GER
+			has_war_with = SOV
+		}
+		has_global_flag = SOV_invading_Poland_MR
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = diplo_action_acceptance
+		id = SOV
+		target = call_allies
+		value = -99999
+	}
+	ai_strategy = {
+		type = diplo_action_desire
+		id = SOV
+		target = join_allies
+		value = -99999
+	}
+}
+
+SOV_allies_no_involvement_in_Poland = {
+	enable = {
+		OR = {
+			is_in_faction_with = SOV
+			is_subject_of = SOV
+		}
+		POL = {
+			has_war_with = GER
+			has_war_with = SOV
+		}
+		has_global_flag = SOV_invading_Poland_MR
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = dont_join_wars_with
+		id = SOV
+		target_country = POL
+		value = 99999
+	}
+}
+
+SOV_convoys_avoid_germans = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		has_war_with = GER
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 16 #North Sea
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 254 #Southern Bight
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 173 #German Bight
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 18 #english channel
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 258 #celtic sea
+		value = 600
+	}
+
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 9 #northern baltic
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 206 #central baltic
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 207 #danish belts
+		value = 600
+	}
+}
+
+SOV_avoid_italian_waters = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		has_war_with = ITA
+	}
+	abort = {
+		OR = {
+			NOT = { has_war_with = ITA }
+			ITA = { has_capitulated = yes }
+		}
+	}
+	
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 29 #Central Mediterranean
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 229 #Aegean Sea
+		value = 600
+	}
+}
+
+SOV_avoid_norwegian_waters = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		NOR = { has_war_with = GER }
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 255 #North Norwegian Coast
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 174 #Norwegian Trench
+		value = 600
+	}
+}
+
+SOV_prepare_invasion_estonia = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		has_country_flag = SOV_prepare_invade_EST
+	}
+	
+	abort = {
+		OR = {
+			NOT = { has_country_flag = SOV_prepare_invade_EST }
+			EST = { exists = no }
+			has_war_with = GER
+			has_war_with = EST
+			is_in_faction_with = EST
+			EST = { is_puppet_of = GER }
+			EST = { is_in_faction_with = GER }
+			EST = { is_guaranteed_by = GER }
+		}
+	}
+	
+	ai_strategy = {
+		type = prepare_for_war
+		id = EST
+		value = 50
+	}
+}
+
+SOV_military_bases_estonia = { #Put garrisons in Estonia to simulate military bases
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		# EST = { has_country_flag = EST_SOV_mutual_assistance_treaty }
+		has_military_access_to = EST
+		NOT = {
+			has_war_with = GER
+		}
+		# EST = { exists = yes }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		ratio = 0.10
+
+		states = { #Saaremaa, Hiiumaa, Paldiski, Haapsalu-Tallinn, Viljandi-Valga, Haapsalu-Pärnu and Paide regions.
+			13
+			763
+		}
+
+		area = east_europe
+
+		# subtract_invasions_from_need = no
+		# subtract_fronts_from_need = no
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = LAT
+
+		value = -200
+	}
+}
+
+SOV_military_bases_latvia = { #Put garrisons in Latvia to simulate military bases
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		LAT = { has_country_flag = LAT_SOV_mutual_assistance_treaty }
+		has_military_access_to = LAT
+		NOT = {
+			has_war_with = GER
+		}
+		# LAT = { exists = yes }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		ratio = 0.10
+
+		states = {
+			190 #Bases where in this part of the country only
+		}
+
+		area = east_europe
+
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = LAT
+
+		value = -200
+	}
+}
+
+SOV_prepare_invasion_latvia = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		has_country_flag = SOV_prepare_invade_LAT
+	}
+	
+	abort = {
+		OR = {
+			LAT = { exists = no }
+			NOT = { has_country_flag = SOV_prepare_invade_LAT }
+			has_capitulated = yes
+			has_war_with = GER
+			has_war_with = LAT
+			is_in_faction_with = LAT
+			LAT = { is_puppet_of = GER }
+			LAT = { is_in_faction_with = GER }
+			LAT = { is_guaranteed_by = GER }
+		}
+	}
+	
+	ai_strategy = {
+		type = prepare_for_war
+		id = LAT
+		value = 50
+	}
+}
+
+SOV_military_bases_lithuania = { #Put garrisons in lithuania to simulate military bases
+	allowed = {
+		tag = SOV
+	}
+	enable = {
+		LAT = { has_country_flag = LIT_SOV_mutual_assistance_treaty }
+		has_military_access_to = LIT
+		NOT = {
+			has_war_with = GER
+		}
+		# LIT = { exists = yes }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		ratio = 0.10
+
+		states = {
+			11 
+		}
+
+		area = east_europe
+
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = LIT
+
+		value = -200
+	}
+}

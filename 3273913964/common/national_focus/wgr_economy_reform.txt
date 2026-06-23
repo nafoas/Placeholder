@@ -1,0 +1,1661 @@
+shared_focus = {
+	id = WGR_reform_start
+	icon = GFX_focus_Pride_of_The_Left
+	prerequisite = {
+	}
+	mutually_exclusive = {
+		focus = WGR_status_quo_start
+	}
+	x = 20
+	y = 0
+	offset = {
+		x = 2
+		y = 0
+		trigger = {
+			has_focus_tree = WGR_DVP_DNVP_tree
+		}
+	}
+	cost = 5
+	available = {
+		date > 1935.1.1
+		OR = {
+			WGR_has_socialist_government = yes
+			WGR_SPD_in_coalition = yes
+			has_idea = GER_Adam_Stegerwald
+			has_government = social_liberalism
+			custom_trigger_tooltip = {
+				tooltip = WGR_dstp_in_coalition
+				SocLib_in_Coalition = yes
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -50
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 0.5
+			uses = 2
+			category = industry
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_start
+	icon = GFX_focus_Workers_Support
+	prerequisite = {
+		focus = WGR_reform_start
+	}
+	mutually_exclusive = {
+		focus = WGR_steady_reform_start
+	}
+	relative_position_id = WGR_reform_start
+	x = -4
+	y = 1
+	cost = 5
+	available = {
+		OR = {
+			WGR_has_socialist_government = yes
+			WGR_SPD_in_coalition = yes
+			has_idea = GER_Adam_Stegerwald
+		}
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = { ideology = socialism popularity = 0.06 }
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.02 }
+		add_popularity = { ideology = social_democracy popularity = 0.02 }
+		add_popularity = { ideology = social_liberalism popularity = 0.01 }
+		add_ideas = wissel
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_national_union
+	icon = GFX_focus_Workers_Rights
+	prerequisite = {
+		focus = WGR_radical_reform_start
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = -2
+	y = 1
+	cost = 2.15
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_stability = 0.025
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_integrate_liberal_trade_unions
+	icon = GFX_focus_Factory_Town
+	prerequisite = {
+		focus = WGR_radical_reform_national_union
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = -2
+	y = 2
+	cost = 3.58
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_timed_idea = {
+			idea = WGR_encourage_coops
+			days = 365
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_social_enterprises
+	icon = GFX_focus_Cooperatives
+	prerequisite = {
+		focus = WGR_radical_reform_start
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 0
+	y = 1
+	cost = 10
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+		modifier = {
+			date < 1935.2.10
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_fair_competition_law
+	icon = GFX_focus_Social_Democracy
+	prerequisite = {
+		focus = WGR_radical_reform_social_enterprises
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 0
+	y = 2
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 30
+	}
+	bypass = {
+		has_completed_focus = WGR_SPD_Break_Up_Conglomerates
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			WGR_break_up_conglomerates = yes
+		}
+	}
+}
+shared_focus = {
+	id = WGR_reform_deutsche_bahn
+	icon = GFX_focus_Trains
+	prerequisite = {
+		focus = WGR_radical_reform_start
+		focus = WGR_steady_reform_start
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 4
+	y = 1
+	cost = 7
+	available = {
+	}
+	ai_will_do = {
+		factor = 40
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		#TODO: improve railways effect
+	}
+}
+shared_focus = {
+	id = WGR_reform_highways
+	icon = GFX_focus_Highways
+	prerequisite = {
+		focus = WGR_reform_deutsche_bahn
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 4
+	y = 2
+	cost = 7
+	available = {
+	}
+	ai_will_do = {
+		factor = 40
+		modifier = {
+			date < 1934.11.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		#TODO: build highways. Rework this
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_centralize_planning
+	icon = GFX_focus_Planned_Economy
+	prerequisite = {
+		focus = WGR_radical_reform_integrate_liberal_trade_unions
+	}
+	prerequisite = {
+		focus = WGR_radical_reform_fair_competition_law
+	}
+	prerequisite = {
+		focus = WGR_reform_highways
+	}
+	mutually_exclusive = {
+		focus = WGR_radical_reform_decentralize_planning
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = -1
+	y = 3
+	cost = 8.58
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			date < 1935.6.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_ideas = WGR_centralized_planning
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_state_council
+	icon = GFX_focus_Control_the_Economy
+	prerequisite = {
+		focus = WGR_radical_reform_centralize_planning
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = -1
+	y = 4
+	cost = 6
+	available = {
+		has_country_flag = WGR_voted_on_nationalization
+	}
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			date < 1936.2.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+		OR = {
+			AND = {
+				has_country_flag = WGR_voted_on_nationalization
+				NOT = {
+					has_country_flag = WGR_performed_nationalization
+				}
+			}
+			NOT = {
+				has_country_flag = WGR_voted_on_nationalization
+			}
+		}
+	}	
+	completion_reward = {
+		swap_ideas = { remove_idea = WGR_centralized_planning add_idea = WGR_centralized_planning2 }
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_decentralize_planning
+	icon = GFX_focus_Redraw_Admin_Borders
+	prerequisite = {
+		focus = WGR_radical_reform_integrate_liberal_trade_unions
+	}
+	prerequisite = {
+		focus = WGR_radical_reform_fair_competition_law
+	}
+	prerequisite = {
+		focus = WGR_reform_highways
+	}
+	mutually_exclusive = {
+		focus = WGR_radical_reform_centralize_planning
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 1
+	y = 3
+	cost = 8.58
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			date < 1935.6.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_ideas = WGR_decentralized_planning
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_municipal_councils
+	icon = GFX_focus_Communist_Pride
+	prerequisite = {
+		focus = WGR_radical_reform_decentralize_planning
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 1
+	y = 4
+	cost = 4.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			date < 1936.2.1
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		swap_ideas = { remove_idea = WGR_decentralized_planning add_idea = WGR_decentralized_planning2 }
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_further_infrastructure
+	icon = GFX_focus_Trains
+	prerequisite = {
+		focus = WGR_radical_reform_state_council
+		focus = WGR_radical_reform_municipal_councils
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 0
+	y = 5
+	cost = 7
+	available = {
+	}
+	ai_will_do = {
+		factor = 50
+		modifier = {
+			date < 1936.3.15
+			factor = 0.1
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = infrastructure
+					size > 1
+					include_locked = yes
+				}
+				is_core_of = WGR
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				# instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = infrastructure
+					size > 1
+					include_locked = yes
+				}
+				is_core_of = WGR
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				# instant_build = yes
+			}
+		}
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_factories_for_the_people
+	icon = GFX_focus_Radio
+	prerequisite = {
+		focus = WGR_radical_reform_further_infrastructure
+	}
+	mutually_exclusive = {
+		focus = WGR_radical_reform_factories_for_defense
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = -1
+	y = 6
+	cost = 8.58
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 16
+		modifier = {
+			has_war = yes
+			factor = 1.8
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_more_factories
+	icon = GFX_focus_Mechanization
+	prerequisite = {
+		focus = WGR_radical_reform_factories_for_the_people
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = -2
+	y = 7
+	cost = 9
+	available = {
+	}
+	ai_will_do = {
+		factor = 12
+		modifier = {
+			has_war = yes
+			factor = 1.8
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_civilian_focus
+	icon = GFX_focus_Industrialization
+	prerequisite = {
+		focus = WGR_radical_reform_more_factories
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = -2
+	y = 8
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 20
+		modifier = {
+			has_war = yes
+			factor = 1.2
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 0.5
+			uses = 1
+			category = industry
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_subsidize_small_buisness
+	icon = GFX_focus_strengthen_small_production
+	prerequisite = {
+		focus = WGR_radical_reform_civilian_focus
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = -3
+	y = 9
+	cost = 3
+	available = {
+	}
+	ai_will_do = {
+		factor = 18
+		modifier = {
+			has_war = yes
+			factor = 0.6
+		}
+	}
+	bypass = {
+		has_completed_focus = WGR_DStP_Small_Business
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			WGR_add_spending = yes
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_factories_for_defense
+	icon = GFX_focus_Firearms
+	prerequisite = {
+		focus = WGR_radical_reform_further_infrastructure
+	}
+	mutually_exclusive = {
+		focus = WGR_radical_reform_factories_for_the_people
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 1
+	y = 6
+	cost = 7.15
+	available = {
+	}
+	ai_will_do = {
+		factor = 6
+		modifier = {
+			has_war = yes
+			factor = 10
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_more_military_factories
+	icon = GFX_goal_generic_construct_mil_factory
+	prerequisite = {
+		focus = WGR_radical_reform_factories_for_defense
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 2
+	y = 7
+	cost = 8
+	available = {
+	}
+	ai_will_do = {
+		factor = 6
+		modifier = {
+			has_war = yes
+			factor = 10
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_military_focus
+	icon = GFX_focus_Control_the_Economy
+	prerequisite = {
+		focus = WGR_radical_reform_more_military_factories
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 2
+	y = 8
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 6
+		modifier = {
+			has_war = yes
+			factor = 10
+		}
+	}
+	bypass = {
+		has_completed_focus = WGR_SPD_Nationalize_Military_Industries
+	}	
+	completion_reward = {
+		add_timed_idea = {
+			idea = WGR_reform_mil_focus
+			days = 730
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_defensive_focus
+	icon = GFX_focus_Fortification_Effort
+	prerequisite = {
+		focus = WGR_radical_reform_military_focus
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 3
+	y = 9
+	cost = 6
+	available = {
+	}
+	ai_will_do = {
+		factor = 6
+		modifier = {
+			has_war = yes
+			factor = 10
+		}
+	}
+	bypass = {
+		NOT = {
+			controls_state = 52
+			controls_state = 55
+			controls_state = 64
+		}
+	}	
+	completion_reward = {
+		52 = {
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 692
+				instant_build = yes
+			}
+		}
+		55 = {
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 6488
+				instant_build = yes
+			}
+		}
+		64 = {
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 6521
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = WGR_radical_reform_housing
+	icon = GFX_focus_Factory_Town
+	prerequisite = {
+		focus = WGR_radical_reform_factories_for_the_people
+		focus = WGR_radical_reform_factories_for_defense
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 0
+	y = 7
+	cost = 8.72
+	available = {
+	}
+	ai_will_do = {
+		factor = 40
+		modifier = {
+			date < 1938.4.8
+			factor = 0.2
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_agrarian_socialism
+	icon = GFX_focus_Tractors
+	prerequisite = {
+		focus = WGR_radical_reform_housing
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 0
+	y = 8
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 7
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_timed_idea = {
+			idea = WGR_agr_focus
+			days = 1096
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_no_quota
+	icon = GFX_focus_Buy_Surplus_Produce
+	prerequisite = {
+		focus = WGR_radical_reform_agrarian_socialism
+		focus = WGR_radical_reform_civilian_focus
+	}
+	mutually_exclusive = {
+		focus = WGR_radical_reform_quotas
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = -1
+	y = 9
+	cost = 4.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 15
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_stability = 0.03
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_quotas
+	icon = GFX_focus_Agriculture
+	prerequisite = {
+		focus = WGR_radical_reform_agrarian_socialism
+		focus = WGR_radical_reform_military_focus
+	}
+	mutually_exclusive = {
+		focus = WGR_radical_reform_no_quota
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 1
+	y = 9
+	cost = 4.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 5
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_timed_idea = {
+			idea = WGR_quotas
+			days = 1825
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_oil
+	icon = GFX_focus_Oil_Industry
+	prerequisite = {
+		focus = WGR_radical_reform_defensive_focus
+		focus = WGR_radical_reform_subsidize_small_buisness
+	}
+	prerequisite = {
+		focus = WGR_radical_reform_no_quota
+		focus = WGR_radical_reform_quotas
+	}
+	mutually_exclusive = {
+		focus = WGR_radical_reform_resources
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = -1
+	y = 10
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 24
+		modifier = {
+			NOT = {
+				has_tech = synth_oil_experiments
+			}
+			factor = 1.67
+		}
+		modifier = {
+			OR = {
+				has_tech = oil_processing
+				has_tech = synth_rubber_experiments
+			}
+			factor = 0.6
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 0.5
+			uses = 1
+			category = synth_resources
+		}
+	}
+}
+shared_focus = {
+	id = WGR_radical_reform_resources
+	icon = GFX_focus_Excavations
+	prerequisite = {
+		focus = WGR_radical_reform_defensive_focus
+		focus = WGR_radical_reform_subsidize_small_buisness
+	}
+	prerequisite = {
+		focus = WGR_radical_reform_no_quota
+		focus = WGR_radical_reform_quotas
+	}
+	mutually_exclusive = {
+		focus = WGR_radical_reform_oil
+	}
+	relative_position_id = WGR_radical_reform_start
+	x = 1
+	y = 10
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_ideas = WGR_more_resources
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_start
+	icon = GFX_focus_Economic_Self_Reliance
+	prerequisite = {
+		focus = WGR_reform_start
+	}
+	mutually_exclusive = {
+		focus = WGR_radical_reform_start
+	}
+	relative_position_id = WGR_reform_start
+	x = 4
+	y = 1
+	cost = 5
+	available = {
+		OR = {
+			has_government = social_liberalism
+			custom_trigger_tooltip = {
+				tooltip = WGR_dstp_in_coalition
+				SocLib_in_Coalition = yes
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_popularity = { ideology = social_liberalism popularity = 0.06 }
+		add_popularity = { ideology = social_democracy popularity = 0.02 }
+		add_popularity = { ideology = democratic popularity = 0.02 }
+		add_ideas = GER_Ernst_Trendelenburg
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_economic_opportunity
+	icon = GFX_Unemployeds_Help
+	prerequisite = {
+		focus = WGR_steady_reform_start
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 0
+	y = 1
+	cost = 2.86
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_stability = 0.05
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_lower_tax_on_small_buisnesses
+	icon = GFX_focus_Tax_Incentives
+	prerequisite = {
+		focus = WGR_steady_reform_economic_opportunity
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 0
+	y = 2
+	cost = 3
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		has_completed_focus = WGR_austerity_tax_breaks_for_small_buisnesses
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			WGR_lower_taxes_small_businesses = yes
+		}
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_factory_subsidies
+	icon = GFX_focus_Economic_Stimulus
+	prerequisite = {
+		focus = WGR_steady_reform_start
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 2
+	y = 1
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_timed_idea = {
+			idea = WGR_factory_subsidies
+			days = 365
+		}
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_bailout_key_industries
+	icon = GFX_focus_Cancel_Debts
+	prerequisite = {
+		focus = WGR_steady_reform_factory_subsidies
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 2
+	y = 2
+	cost = 7.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -50
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_further_intervention
+	icon = GFX_focus_Protectionism
+	prerequisite = {
+		focus = WGR_steady_reform_lower_tax_on_small_buisnesses
+	}
+	prerequisite = {
+		focus = WGR_steady_reform_bailout_key_industries
+	}
+	prerequisite = {
+		focus = WGR_reform_highways
+	}
+	mutually_exclusive = {
+		focus = WGR_steady_reform_maintain_status_quo_for_now
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = -1
+	y = 3
+	cost = 4.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+		OR = {
+			has_completed_focus = WGR_Protectionism
+			has_completed_focus = WGR_DNVP_Raise_Tariffs
+		}
+	}	
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			WGR_raise_tariffs_small = yes
+		}
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_labor_protections
+	icon = GFX_focus_Workers_on_Strike
+	prerequisite = {
+		focus = WGR_steady_reform_further_intervention
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = -1
+	y = 4
+	cost = 4.29
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_stability = 0.03
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.01
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.01
+		}
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_maintain_status_quo_for_now
+	icon = GFX_focus_foreign_exchange_control_act
+	prerequisite = {
+		focus = WGR_steady_reform_lower_tax_on_small_buisnesses
+	}
+	prerequisite = {
+		focus = WGR_steady_reform_bailout_key_industries
+	}
+	prerequisite = {
+		focus = WGR_reform_highways
+	}
+	mutually_exclusive = {
+		focus = WGR_steady_reform_further_intervention
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 1
+	y = 3
+	cost = 5.15
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_stability = 0.036
+		add_war_support = -0.036
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_ease_trade_restrictions
+	icon = GFX_focus_Free_Trade
+	prerequisite = {
+		focus = WGR_steady_reform_maintain_status_quo_for_now
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 1
+	y = 4
+	cost = 2
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		MOVE_DOWN_TRADE = yes
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_road_subsidies
+	icon = GFX_focus_Highways
+	prerequisite = {
+		focus = WGR_steady_reform_labor_protections
+		focus = WGR_steady_reform_ease_trade_restrictions
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 0
+	y = 5
+	cost = 5.72
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_ideas = WGR_road_subsidies
+		WGR_Move_Up_Great_Depression = yes
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_revitalize_north
+	icon = GFX_focus_Revitalize_the_North
+	prerequisite = {
+		focus = WGR_steady_reform_road_subsidies
+	}
+	mutually_exclusive = {
+		focus = WGR_steady_reform_industrialize_south
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = -1
+	y = 6
+	cost = 5.72
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 6
+					region = 8
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_bring_food_from_south
+	icon = GFX_focus_Control_Agriculture
+	prerequisite = {
+		focus = WGR_steady_reform_revitalize_north
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = -2
+	y = 7
+	cost = 8
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_ideas = WGR_food_incentives
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_northern_more_factories
+	icon = GFX_focus_Economics_School
+	prerequisite = {
+		focus = WGR_steady_reform_bring_food_from_south
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = -2
+	y = 8
+	cost = 6
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 6
+					region = 8
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_search_for_resources
+	icon = GFX_focus_generic_aluminum
+	prerequisite = {
+		focus = WGR_steady_reform_revitalize_north
+		focus = WGR_steady_reform_industrialize_south
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 0
+	y = 7
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_ideas = WGR_more_resources
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_oil
+	icon = GFX_focus_Export_Oil
+	prerequisite = {
+		focus = WGR_steady_reform_search_for_resources
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 0
+	y = 8
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 0.5
+			uses = 1
+			category = synth_resources
+		}
+	}
+}
+
+shared_focus = {
+	id = WGR_steady_reform_industrialize_south
+	icon = GFX_focus_Build_Houses
+	prerequisite = {
+		focus = WGR_steady_reform_road_subsidies
+	}
+	mutually_exclusive = {
+		focus = WGR_steady_reform_revitalize_north
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 1
+	y = 6
+	cost = 7.15
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+				region = 7
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+				region = 7
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_resources_from_the_north
+	icon = GFX_focus_escape_from_the_market_economy
+	prerequisite = {
+		focus = WGR_steady_reform_industrialize_south
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 2
+	y = 7
+	cost = 5
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 6
+					region = 8
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 4
+				state = THIS
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 6
+					region = 8
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 4
+				state = THIS
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 6
+					region = 8
+				}
+			}
+			add_resource = {
+				type = aluminium
+				amount = 4
+				state = THIS
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_unionize_workers
+	icon = GFX_focus_Workers_Rights
+	prerequisite = {
+		focus = WGR_steady_reform_resources_from_the_north
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 2
+	y = 8
+	cost = 4.29
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_political_power = -30
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.03
+		}
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_military_factories_1
+	icon = GFX_focus_Renewed_Arms
+	prerequisite = {
+		focus = WGR_steady_reform_northern_more_factories
+		focus = WGR_steady_reform_unionize_workers
+	}
+	prerequisite = {
+		focus = WGR_steady_reform_oil
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = -1
+	y = 9
+	cost = 6
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				OR = {
+					region = 6
+					region = 8
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_steady_reform_military_factories_2
+	icon = GFX_focus_Supply_Troops
+	prerequisite = {
+		focus = WGR_steady_reform_northern_more_factories
+		focus = WGR_steady_reform_unionize_workers
+	}
+	prerequisite = {
+		focus = WGR_steady_reform_oil
+	}
+	relative_position_id = WGR_steady_reform_start
+	x = 1
+	y = 9
+	cost = 6
+	available = {
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+				region = 7
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = WGR_reform_research_slot
+	icon = GFX_focus_Education_Reform
+	prerequisite = {
+		focus = WGR_steady_reform_military_factories_2
+		focus = WGR_steady_reform_military_factories_1
+		focus = WGR_radical_reform_resources
+		focus = WGR_radical_reform_oil
+	}
+	relative_position_id = WGR_reform_start
+	x = 0
+	y = 12
+	cost = 5
+	available = {
+
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_research_slot = 1
+	}
+}

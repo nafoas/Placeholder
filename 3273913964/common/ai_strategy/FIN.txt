@@ -1,0 +1,127 @@
+FIN_nordic_neutrality = {
+	allowed = {
+		tag = FIN
+	}
+	enable = {
+		OR = {
+			country_exists = NOR
+			country_exists = SWE
+		}
+	}
+
+	abort = {
+		OR = {
+			has_war_with = NOR
+			has_war_with = SWE
+			is_neighbor_of = GER
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		country_trigger = {
+			OR = {
+				AND = {
+					tag = NOR
+					NOT = { has_war_with = FROM }
+				}
+				AND = {
+					tag = SWE
+					NOT = { has_war_with = FROM }
+				}
+			}
+		}
+
+		value = -200
+	}
+}
+
+NOR_nordic_neutrality = {
+	allowed = {
+		tag = NOR
+	}
+	enable = {
+		OR = {
+			country_exists = FIN
+			country_exists = SWE
+		}
+	}
+
+	abort = {
+		OR = {
+			has_war_with = FIN
+			has_war_with = SWE
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = FIN
+		value = -200
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = SWE
+		value = -200
+	}
+}
+
+FIN_alone_in_the_north = {
+	allowed = {
+		tag = FIN
+	}
+	enable = {
+		always = yes
+	}
+
+	abort = {
+		has_global_flag = winter_war_flag
+		GER = { has_war_with = SOV }
+	}
+
+	ai_strategy = {
+		type = pp_spend_priority
+		id = relation	
+		value = -200
+	}	
+}
+
+FIN_the_soviet_threat = {
+	allowed = {
+		tag = FIN
+	}
+	enable = {
+		is_puppet = no
+	}
+
+	abort = {
+		OR = {
+			is_in_faction_with = SOV
+			has_non_aggression_pact_with = SOV
+			has_war_with = SOV
+		}
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = SOV	
+		value = 200
+	}	
+}
+FIN_the_winter_war = {
+	allowed = {
+		tag = FIN
+	}
+	enable = {
+		has_war_with = SOV
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = SOV
+		value = 150
+	}	
+}

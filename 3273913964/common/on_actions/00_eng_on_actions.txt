@@ -1,0 +1,324 @@
+on_actions = {
+    on_startup = {
+        effect = {
+			ENG = {
+				every_owned_state = {
+					limit = {
+						OR = {
+							state = 454
+							state = 1014
+							state = 1015
+							state = 1011
+						}
+					}
+					set_compliance = 45
+					set_resistance = 12
+					add_resistance_target = {
+						amount = 14
+					}
+				}
+				every_owned_state = {
+					limit = {
+						OR = {
+							state = 1013
+							state = 1012
+						}
+					}
+					set_compliance = 55
+					set_resistance = 7
+					add_resistance_target = {
+						amount = 12
+					}
+				}
+			}
+			311 = {
+				add_resistance_target = {
+					amount = 30
+					days = 1350
+				}
+				set_compliance = 55
+				set_resistance = 15
+				add_resistance_target = {
+					amount = 20
+				}
+			}
+			691 = {
+				add_resistance_target = {
+					amount = 25
+					days = 1350
+				}
+				set_compliance = 60
+				set_resistance = 10
+				add_resistance_target = {
+					amount = 15
+				}
+			}
+			689 = {
+				add_resistance_target = {
+					amount = 25
+					days = 1350
+				}
+				set_compliance = 70
+				set_resistance = 10
+				add_resistance_target = {
+					amount = 12
+				}
+			}
+			692 = {
+				add_resistance_target = {
+					amount = 15
+					days = 1350
+				}
+				set_compliance = 65
+				set_resistance = 10
+				add_resistance_target = {
+					amount = 12
+				}
+			}
+            ENG = {
+				country_event = {
+					id = eng_introduction.1
+				}
+                country_event = {
+                    id = eng_internal.2 #london election
+                    days = 431
+                }
+				country_event = {
+					id = eng_internal.8 #king and country debate
+					days = 39
+				}
+				country_event = {
+					id = eng_internal.19 #BUF gains momentum - 15 Jan 1934
+					days = 379
+				}
+				country_event = {
+					id = eng_internal.33 #Great Depression Loosens Up - 9 Nov 1934
+					days = 677
+				}
+				country_event = {
+					id = eng_internal.33 #Ramsay MacDonald resigns
+					days = 887
+				}
+				country_event = { #Cyprus port
+					id = eng_colonial.2
+					days = 73
+				}
+				country_event = { #Newfoundland Royal Commission
+					id = eng_colonial.5
+					days = 47
+				}
+				country_event = { #Unemployment Brigade (Belize)
+					id = eng_colonial.8
+					days = 829
+				}
+				country_event = {
+					id = eng_foreign.34
+					days = 207
+				}
+
+				country_event = {
+					id = eng_colonial.11 #Arab Strike/Unrest, 25 April 1936
+					days = 1210
+				}
+				
+				country_event = {
+					id = eng_by_election.1
+					days = 75
+				}
+				country_event = {
+					id = eng_by_election.2
+					days = 158
+				}
+				country_event = {
+					id = eng_by_election.3
+					days = 297
+				}
+				country_event = {
+					id = eng_by_election.4
+					days = 473
+				}
+				country_event = {
+					id = eng_by_election.5
+					days = 498
+				}
+				country_event = {
+					id = eng_by_election.6
+					days = 660
+				}
+				country_event = {
+					id = eng_by_election.7
+					days = 766
+				}
+				country_event = {
+					id = eng_by_election.8
+					days = 926
+				}
+				
+            }
+        }
+    }
+	on_new_term_election = { #1 is done normally, 2 is done during a world war to indicate lack of elections
+		random_events = {
+			100 = eng_election.1
+			100 = eng_election.2 
+		}
+	}
+	on_war = {
+		effect = {
+			if = {
+				limit = {
+					THIS = {
+						tag = ENG
+						OR = {
+							has_war_with = GER
+							has_war_with = DDR
+							has_war_with = SOV
+							has_war_with = ITA
+						}
+						OR = {
+							NOT = {
+								has_country_flag = ENG_wartime_flag
+							}
+							NOT = {
+								has_country_flag = ENG_peace_flag
+							}
+						}
+					}
+				}
+				set_country_flag = ENG_wartime_flag
+				country_event = {
+					id = eng_war.1
+				}
+			}
+			if = {
+				limit = {
+					THIS = {
+						tag = ENG
+					}
+					NOT = { 
+						has_completed_focus = ENG_Colonial_India_Transfer_Duties 
+						has_country_flag = ENG_cripps_failed
+					}
+					NOT = {
+						has_country_flag = ENG_quit_india_flag
+					}
+				}
+				set_country_flag = ENG_quit_india_flag
+				country_event = {
+					id = eng_colonial.26
+					days = 140
+				}
+			}
+		}
+	}
+	on_declare_war = { #if a major enemy declares war on another country in europe during the war, chamberlain will be made to resign
+		effect = {
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+							tag = SOV
+							tag = GER
+							tag = DDR
+							tag = WGR
+							tag = ITA
+						}
+						has_war_with = ENG
+					}
+					ENG = {
+						has_idea = ENG_hog_Neville_Chamberlain
+						OR = {
+							has_completed_focus = ENG_Peace_Appeasement
+							NOT = {
+								has_completed_focus = ENG_Anti_Fascist_Start
+							}
+							NOT = {
+								has_completed_focus = ENG_Anti_Communist_Start
+							}
+						}
+						NOT = {
+							has_country_flag = ENG_national_government_wartime
+						}
+					}
+				}
+				ENG = {
+					set_variable = {
+						eng_debate_root = ROOT
+					}
+					set_variable = {
+						eng_debate_from = FROM
+					}
+					set_country_flag = ENG_guilty_men
+					country_event = {
+						id = eng_war.5 #chamberlain resigns
+						days = 30
+					}
+				}
+			}
+		}
+
+		effect = { #if uk at war with major and still has pacifism idea, remove it
+			if = {
+				limit = {
+					FROM = {
+						tag = ENG
+					}
+					ROOT = {
+						is_major = yes
+					}
+				}
+				if = {
+					limit = {
+						has_idea = ENG_Pacifism
+					}
+					remove_ideas = ENG_Pacifism
+				}
+				else_if = {
+					limit = {
+						has_idea = ENG_Pacifism2
+					}
+					remove_ideas = ENG_Pacifism2
+				}
+				else_if = {
+					limit = {
+						has_idea = ENG_Pacifism3
+					}
+					remove_ideas = ENG_Pacifism3
+				}
+			}
+		}
+	}
+	on_peace_conference_ended = {
+		effect = {
+			if = {
+				limit = {
+					ENG = {
+						OR = { #Should be that the uk is either at peace or not at war in europe
+							has_war = no
+							all_country = {
+								OR = {
+									NOT = {
+										has_war_with = ENG
+									}
+									NOT = {
+										capital_scope = { is_on_continent = europe }
+									}
+								}
+							}
+						}
+						has_country_flag = ENG_wartime_flag
+						NOT = {
+							has_country_flag = ENG_peace_flag
+						}
+					}
+				}
+				ENG = {
+					set_country_flag = ENG_peace_flag
+					country_event = {
+						id = eng_war.7
+					}
+				}
+			}
+		}
+	}
+}

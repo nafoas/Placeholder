@@ -1,0 +1,1421 @@
+focus_tree = {
+	id = DDR_cw_tree
+	country = {
+		factor = 0
+		modifier = {
+			add = 20
+			tag = DDR
+		}
+	}
+	continuous_focus_position = { x = 50 y = 2500 }
+	focus = {
+		id = DDR_second_revolution
+		icon = GFX_focus_Revolution
+		cost = 1.5
+		available = {
+			always = yes
+		}
+		bypass = {
+			always = yes 
+		}
+		completion_reward = {
+			#
+		}
+		x = 7
+		y = 0
+	}
+	
+	focus = {
+		id = DDR_create_volksarmee
+		icon = GFX_focus_Volksarmee
+		cost = 3
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_second_revolution
+		}
+		completion_reward = {
+			add_ideas = DDR_volksarmee
+		}
+		x = 7
+		y = 1
+	}
+	
+	focus = {
+		id = DDR_confiscate_guns
+		icon = GFX_focus_Renewed_Arms
+		cost = 2
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_create_volksarmee
+		}
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2000
+				producer = DDR
+			}
+		}
+		x = 6
+		y = 2
+	}
+	
+	focus = {
+		id = DDR_ramp_up_recruitment
+		icon = GFX_focus_Recruitment
+		cost = 4
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_create_volksarmee
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = DDR_volksarmee add_idea = DDR_volksarmee2 }
+		}
+		x = 8
+		y = 2
+	}
+	
+	focus = {
+		id = DDR_organize_chain_command
+		icon = GFX_focus_Flexible_chain_of_command
+		cost = 3.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_confiscate_guns
+		}
+		prerequisite = {
+			focus = DDR_ramp_up_recruitment
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = DDR_volksarmee2 add_idea = DDR_volksarmee3 }
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+		}
+		x = 5
+		y = 3
+	}
+	
+	focus = {
+		id = DDR_allow_soldier_committees
+		icon = GFX_focus_Peasant_Militias
+		cost = 2
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_confiscate_guns
+		}
+		prerequisite = {
+			focus = DDR_ramp_up_recruitment
+		}
+		completion_reward = {
+			country_event = {
+				id = ddr_gcw.10
+			}
+		}
+		x = 7
+		y = 3
+	}
+	
+	focus = {
+		id = DDR_increase_discipline
+		icon = GFX_focus_a_proud_army
+		cost = 4.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_confiscate_guns
+		}
+		prerequisite = {
+			focus = DDR_ramp_up_recruitment
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = DDR_german_revolution add_idea = DDR_german_revolution2 }
+		}
+		x = 9
+		y = 3
+	}
+	
+	focus = {
+		id = DDR_professional_force
+		icon = GFX_focus_profesional_force_ddr
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_increase_discipline
+		}
+		prerequisite = {
+			focus = DDR_allow_soldier_committees
+		}
+		prerequisite = {
+			focus = DDR_organize_chain_command
+		}
+		mutually_exclusive = {
+			focus = DDR_popular_force
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = DDR_volksarmee3 add_idea = DDR_volksarmee_pf }
+		}
+		x = 10
+		y = 4
+	}
+	
+	focus = {
+		id = DDR_popular_force
+		icon = GFX_focus_popular_force
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_increase_discipline
+		}
+		prerequisite = {
+			focus = DDR_allow_soldier_committees
+		}
+		prerequisite = {
+			focus = DDR_organize_chain_command
+		}
+		mutually_exclusive = {
+			focus = DDR_professional_force
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = DDR_volksarmee3 add_idea = DDR_volksarmee_pop }
+		}
+		x = 4
+		y = 4
+	}
+	
+	focus = {
+		id = DDR_focus_nationalists
+		icon = GFX_focus_Target_Fascism
+		cost = 2
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_popular_force
+			focus = DDR_professional_force
+		}
+		mutually_exclusive = {
+			focus = DDR_focus_republicans
+		}
+		completion_reward = {
+			add_ideas = DDR_anti_nat
+		}
+		x = 6
+		y = 5
+	}
+	
+	focus = {
+		id = DDR_focus_republicans
+		icon = GFX_focus_Anti_Democracy
+		cost = 2
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_popular_force
+			focus = DDR_professional_force
+		}
+		mutually_exclusive = {
+			focus = DDR_focus_nationalists
+		}
+		completion_reward = {
+			add_ideas = DDR_anti_rep
+		}
+		x = 8
+		y = 5
+	}
+	
+	focus = {
+		id = DDR_expand_interbrigaden
+		icon = GFX_focus_Integrate_Bolsheviks
+		cost = 4
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_focus_republicans
+			focus = DDR_focus_nationalists
+		}
+		completion_reward = {
+			custom_effect_tooltip = ddr_five_brigades
+			hidden_effect = {
+				random_state = {
+					limit = {
+						is_controlled_by = DDR 
+						is_core_of = DDR
+					}
+			create_unit = {
+				division = "name = \"'Karl Marx' Brigade\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = DDR
+			}
+			create_unit = {
+				division = "name = \"'Giuseppe Garibaldi' Brigade\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = DDR
+			}
+			create_unit = {
+				division = "name = \"'Vladimir Lenin' Brigade\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = DDR
+			}
+			create_unit = {
+				division = "name = \"'Commune de Paris' Brigade\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = DDR
+			}
+			create_unit = {
+				division = "name = \"'Pablo Iglesias' Brigade\" division_template = \"Volksmiliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = DDR
+			}
+			}
+			}
+		}
+		x = 7
+		y = 6
+	}
+	
+	focus = {
+		id = DDR_form_armoured_brigade
+		icon = GFX_focus_Light_Tanks
+		cost = 4
+
+		prerequisite = {
+			focus = DDR_expand_interbrigaden
+		}
+		completion_reward = {
+			division_template = { 
+				name = "Panzerbrigade"
+				regiments = {
+					light_armor = { x = 0 y = 0 }
+					light_armor = { x = 0 y = 1 }
+					light_armor = { x = 1 y = 0 }
+					light_armor = { x = 1 y = 1 }
+				}
+				
+				support = {
+					engineer = { x = 0 y = 0 }
+					signal_company = { x = 0 y = 1 }
+					light_tank_recon = { x = 0 y = 2 }
+				}
+			}
+			random_controlled_state = {
+				prioritize = { 745 51 42 }
+				create_unit = {
+					division = "name = \"1. Panzer-Brigade\" division_template = \"Panzerbrigade\" start_experience_factor = 0.1 start_equipment_factor = 0.8"
+					owner = DDR
+				}
+			}
+		}
+		x = 6
+		y = 7
+	}
+	
+	focus = {
+		id = DDR_fix_supply_issues
+		icon = GFX_focus_Supply_Troops
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_expand_interbrigaden
+		}
+		completion_reward = {
+			add_ideas = DDR_enhaced_supply
+		}
+		x = 8
+		y = 7
+	}
+	
+	focus = {
+		id = DDR_recruitment_propaganda
+		icon = GFX_focus_Rally
+		cost = 4
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_popular_force
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = DDR_volksarmee_pop add_idea = DDR_volksarmee_pop2 }
+		}
+		x = 4
+		y = 5
+	}
+	
+	focus = {
+		id = DDR_redirect_production
+		icon = GFX_focus_Planned_Economy
+		cost = 7
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_recruitment_propaganda
+		}
+		completion_reward = {
+			add_ideas = DDR_redirected_prod
+		}
+		x = 3
+		y = 6
+	}
+	
+	focus = {
+		id = DDR_rekindle_enthusiasm
+		icon = GFX_focus_The_Big_Push
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_recruitment_propaganda
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = DDR_german_revolution2 add_idea = DDR_german_revolution_pop }
+		}
+		x = 5
+		y = 6
+	}
+	
+	focus = {
+		id = DDR_adapt_tactics
+		icon = GFX_focus_Long_Planning
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_recruitment_propaganda
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = land_doctrine
+			}
+			army_experience = 60
+		}
+		x = 4
+		y = 7
+	}
+	
+	focus = {
+		id = DDR_total_discipline
+		icon = GFX_focus_Human_Wave_Charges
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_professional_force
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = DDR_german_revolution2 add_idea = DDR_german_revolution_pf }
+		}
+		x = 10
+		y = 5
+	}
+	
+	focus = {
+		id = DDR_militarize_production
+		icon = GFX_focus_Military_Intervention
+		cost = 4
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_total_discipline
+		}
+		completion_reward = {
+			add_ideas = DDR_milit_prod
+		}
+		x = 11
+		y = 6
+	}
+	
+	focus = {
+		id = DDR_disband_militias
+		icon = GFX_focus_Swing_the_Sword
+		cost = 3
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_total_discipline
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = DDR_volksarmee_pf add_idea = DDR_volksarmee_pf2 }
+		}
+		x = 9
+		y = 6
+	}
+	
+	focus = {
+		id = DDR_overhaul_tactics
+		icon = GFX_focus_Guerilla_Warfare
+		cost = 8
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_total_discipline
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 3
+				category = land_doctrine
+			}
+		}
+		x = 10
+		y = 7
+	}
+	
+	focus = {
+		id = DDR_abolish_bourgeois_parliaments
+		icon = GFX_focus_Dissolve_Parliament
+		cost = 3.6
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_second_revolution
+		}
+		completion_reward = {
+			add_political_power = 50 
+		}
+		x = -3
+		y = 1
+	}
+	
+	focus = {
+		id = DDR_support_local_councils
+		icon = GFX_focus_Consensus_with_Peasants
+		cost = 1.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_abolish_bourgeois_parliaments
+		}
+		mutually_exclusive = { focus = DDR_send_representatives }
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.03
+			}
+			add_stability = 0.03
+			custom_effect_tooltip = ddr_5_kpd_d_tt
+			add_to_variable = { DDR_kpd_power = -5 }
+		}
+		x = -2
+		y = 2
+	}
+	
+	focus = {
+		id = DDR_send_representatives
+		icon = GFX_focus_Political_reform_1
+		cost = 4
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_abolish_bourgeois_parliaments
+		}
+		completion_reward = {
+			custom_effect_tooltip = ddr_5_kpd_tt
+			custom_effect_tooltip = ddr_lower_unity
+			add_to_variable = { DDR_kpd_power = 5 }
+			add_to_variable = { DDR_Unity = -5 }			
+		}
+		mutually_exclusive = { focus = DDR_support_local_councils }
+		x = -4
+		y = 2
+	}
+	
+	focus = {
+		id = DDR_create_politburo
+		icon = GFX_focus_Communist_Discourse
+		cost = 2
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_send_representatives
+			focus = DDR_support_local_councils
+		}
+		completion_reward = {
+			add_stability = 0.03
+			add_political_power = 20
+		}
+		x = -5
+		y = 3
+	}
+	
+	focus = {
+		id = DDR_chairman_thalmann
+		icon = GFX_focus_Chairman_Thalmann
+		cost = 4
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_create_politburo
+		}
+		mutually_exclusive = { focus = DDR_elect_president }
+		completion_reward = {
+			add_political_power = 50
+			custom_effect_tooltip = ddr_10_kpd_tt
+			custom_effect_tooltip = ddr_lower_unity_large
+			add_to_variable = { DDR_kpd_power = 5 }
+			add_to_variable = { DDR_Unity = -10 }			
+		}
+		x = -5
+		y = 4
+	}
+	
+	focus = {
+		id = DDR_democratic_centralism
+		icon = GFX_focus_Devotion_to_Lenin
+		cost = 1.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_chairman_thalmann
+		}
+		completion_reward = {
+			add_stability = 0.03
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			custom_effect_tooltip = ddr_5_kpd_tt
+			custom_effect_tooltip = ddr_lower_unity
+			add_to_variable = { DDR_kpd_power = 5 }
+			add_to_variable = { DDR_Unity = -5 }
+		}
+		x = -5
+		y = 5
+	}
+	
+	focus = {
+		id = DDR_elections_volksrat
+		icon = GFX_focus_election
+		cost = 1.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_send_representatives
+			focus = DDR_support_local_councils
+		}
+		completion_reward = {
+			country_event = {
+				id = ddr_gcw.1 
+			}
+		}
+		x = -3
+		y = 3
+	}
+	
+	focus = {
+		id = DDR_elect_president
+		icon = GFX_focus_provisional_chairman
+		cost = 1.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_elections_volksrat
+		}
+		mutually_exclusive = { focus = DDR_chairman_thalmann }
+		completion_reward = {
+			country_event = {
+				id = ddr_gcw.2
+			}
+		}
+		x = -3
+		y = 4
+	}
+	
+	focus = {
+		id = DDR_socialist_propaganda
+		icon = GFX_focus_Socialist_Destroy_Fascism
+		cost = 4
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_democratic_centralism
+			focus = DDR_elect_president
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = 0.05
+			}
+			add_war_support = 0.1
+			add_manpower = 20000
+		}
+		x = -4
+		y = 6
+	}
+	
+	focus = {
+		id = DDR_womens_participation
+		icon = GFX_focus_Womens_Rights
+		cost = 3.8
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_socialist_propaganda
+		}
+		completion_reward = {
+			add_political_power = 50
+			add_stability = 0.03
+		}
+		x = -5
+		y = 7
+	}
+	
+	focus = {
+		id = DDR_expand_youth
+		icon = GFX_focus_Communist_Loyalty
+		cost = 4
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_socialist_propaganda
+		}
+		completion_reward = {
+			add_ideas = DDR_kvjd
+			add_war_support = 0.03
+		}
+		x = -3
+		y = 7
+	}
+	
+	focus = {
+		id = DDR_support_kpd
+		icon = GFX_focus_KPD_Primacy
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_womens_participation
+		}
+		prerequisite = {
+			focus = DDR_expand_youth
+		}
+		prerequisite = {
+			focus = DDR_take_down_imperial
+		}
+		mutually_exclusive = {
+			focus = DDR_united_front_gcw
+		}
+		completion_reward = {
+			add_political_power = 70
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			custom_effect_tooltip = ddr_10_kpd_tt
+			custom_effect_tooltip = ddr_lower_unity_very_large
+			add_to_variable = { DDR_kpd_power = 10 }
+			add_to_variable = { DDR_Unity = -15 }
+		}
+		x = -4
+		y = 8
+	}
+	
+	focus = {
+		id = DDR_united_front_gcw
+		icon = GFX_focus_DDR_United_Front
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_womens_participation
+		}
+		prerequisite = {
+			focus = DDR_expand_youth
+		}
+		prerequisite = {
+			focus = DDR_take_down_imperial
+		}
+		mutually_exclusive = {
+			focus = DDR_support_kpd
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_popularity = {
+				ideology = authoritarian_socialism 
+				popularity = 0.03
+			}
+			custom_effect_tooltip = ddr_10_kpd_d_tt
+			custom_effect_tooltip = ddr_increase_unity_large
+			add_to_variable = { DDR_kpd_power = -10 }
+			add_to_variable = { DDR_Unity = 10 }
+		}
+		x = -2
+		y = 8
+	}
+	
+	focus = {
+		id = DDR_declare_republic
+		icon = GFX_focus_Communist_Pride
+		cost = 1.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_support_kpd
+			focus = DDR_united_front_gcw
+		}
+		completion_reward = {
+			set_cosmetic_tag = DDR_SR
+			add_war_support = 0.2
+			add_political_power = 200
+		}
+		x = -3
+		y = 9
+	}
+	
+	focus = {
+		id = DDR_arrest_nazis
+		icon = GFX_focus_Arrest_Nazis2
+		cost = 4.8
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_send_representatives
+			focus = DDR_support_local_councils
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.07
+			}
+		}
+		x = -1
+		y = 3
+	}
+	
+	focus = {
+		id = DDR_disband_counterrevolutionary
+		icon = GFX_focus_Crush_Resistance
+		cost = 3.8
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_arrest_nazis
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = nationalism
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = -0.03
+			}
+			add_stability = -0.03
+			add_political_power = 50
+		}
+		x = -1
+		y = 4
+	}
+	
+	focus = {
+		id = DDR_focus_army
+		icon = GFX_focus_SOV_builder_of_the_red_army
+		cost = 1.9
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_disband_counterrevolutionary
+		}
+		mutually_exclusive = {
+			focus = DDR_focus_rote_garde
+		}
+		completion_reward = {
+			add_manpower = 20000
+			add_war_support = 0.05
+		}
+		x = 0
+		y = 5
+	}
+	
+	focus = {
+		id = DDR_focus_rote_garde
+		icon = GFX_Focus_Red_Army_Exercises
+		cost = 5.2
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_disband_counterrevolutionary
+		}
+		mutually_exclusive = {
+			focus = DDR_focus_army
+		}
+		completion_reward = {
+			add_ideas = DDR_rote_garde
+			custom_effect_tooltip = ddr_lower_unity
+			add_to_variable = { DDR_Unity = -5 }
+		}
+		x = -2
+		y = 5
+	}
+	
+	focus = {
+		id = DDR_religious_question
+		icon = GFX_focus_Reduce_Catholic_Dominance
+		cost = 1.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_focus_rote_garde
+			focus = DDR_focus_army
+		}
+		completion_reward = {
+			country_event = {
+				id = ddr_gcw.3 
+			}
+		}
+		x = 0
+		y = 6
+	}
+	
+	focus = {
+		id = DDR_jewish_relations
+		icon = GFX_focus_Equality_for_Jews
+		cost = 1.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_religious_question
+		}
+		completion_reward = {
+			country_event = {
+				id = ddr_gcw.4
+			}
+		}
+		x = 0
+		y = 8
+	}
+	
+	focus = {
+		id = DDR_arrest_royalists
+		icon = GFX_focus_Crush_the_Monarchy
+		cost = 4.3
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_focus_rote_garde
+			focus = DDR_focus_army
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = nationalism
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = -0.03
+			}
+			add_stability = -0.03
+			add_war_support = 0.06
+			custom_effect_tooltip = ddr_increase_unity
+			add_to_variable = { DDR_Unity = 5 }
+		}
+		x = -2
+		y = 6
+	}
+	
+	focus = {
+		id = DDR_take_down_imperial
+		icon = GFX_focus_Destroy_Kaiser_Symbols
+		cost = 1.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_arrest_royalists
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = nationalism
+				popularity = -0.02
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = -0.02
+			}
+			add_war_support = 0.03
+			add_political_power = 30
+			custom_effect_tooltip = ddr_increase_unity
+			add_to_variable = { DDR_Unity = 5 }
+		}
+		x = -1
+		y = 7
+	}
+	
+	focus = {
+		id = DDR_nationalize_large_estates
+		icon = GFX_focus_Grab_Money
+		cost = 3
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_second_revolution
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_political_power = 40
+		}
+		x = 14
+		y = 1
+	}
+	
+	focus = {
+		id = DDR_redistribute_land
+		icon = GFX_focus_Agrarian_Reform
+		cost = 8
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_nationalize_large_estates
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_stability = 0.08
+			add_war_support = 0.04
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = 0.05
+			}
+		}
+		x = 14
+		y = 2
+	}
+	
+	focus = {
+		id = DDR_collective_management
+		icon = GFX_focus_Cooperatives
+		cost = 4.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_redistribute_land
+		}
+		mutually_exclusive = {
+			focus = DDR_bureaucratic_management
+		}
+		completion_reward = {
+			add_ideas = DDR_collective
+			custom_effect_tooltip = ddr_increase_unity_large
+			add_to_variable = { DDR_Unity = 10 }
+		}
+		x = 15
+		y = 3
+	}
+	
+	focus = {
+		id = DDR_expropiate_heavy_industry
+		icon = GFX_focus_strengthen_small_production
+		cost = 5.2
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_second_revolution
+		}
+		completion_reward = {
+			add_ideas = DDR_nationalize
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 17
+		y = 1
+	}
+	
+	focus = {
+		id = DDR_nationalize_banks
+		icon = GFX_focus_Bank
+		cost = 3.4
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_expropiate_heavy_industry
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 90
+		}
+		x = 17
+		y = 2
+	}
+	
+	focus = {
+		id = DDR_bureaucratic_management
+		icon = GFX_focus_Communist_Bills
+		cost = 1.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_nationalize_banks
+		}
+		mutually_exclusive = {
+			focus = DDR_collective_management
+		}
+		completion_reward = {
+			add_ideas = DDR_bureaucratic
+			custom_effect_tooltip = ddr_lower_unity_large
+			add_to_variable = { DDR_Unity = -10 }
+		}
+		x = 17
+		y = 3
+	}
+	
+	focus = {
+		id = DDR_contact_ussr
+		icon = GFX_Goal_Befriend_USSR
+		cost = 1.5
+		available = {
+			SOV = { 
+				exists = yes 
+				has_government = communism
+				NOT = { has_war_with = DDR }
+			}
+		}
+		prerequisite = {
+			focus = DDR_expropiate_heavy_industry
+		}
+		completion_reward = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = DDR_SOV_recognition
+			}
+			add_opinion_modifier = {
+				target = SOV
+				modifier = DDR_SOV_recognition_trade
+			}
+			SOV = {
+				add_opinion_modifier = {
+					target = DDR
+					modifier = DDR_SOV_recognition_rev
+				}
+				add_opinion_modifier = {
+					target = DDR
+					modifier = DDR_SOV_recognition_trade
+				}
+			}
+		}
+		x = 19
+		y = 2
+	}
+	
+	focus = {
+		id = DDR_expand_soviet_aid
+		icon = GFX_focus_Soviet_Army
+		cost = 1.5
+		available = {
+			SOV = { 
+				exists = yes 
+				has_government = communism
+				NOT = { has_war_with = DDR }
+			}
+		}
+		prerequisite = {
+			focus = DDR_contact_ussr
+		}
+		completion_reward = {
+			SOV = {
+				country_event = {
+					id = ddr_gcw.6 
+				}
+			}
+		}
+		x = 19
+		y = 3
+	}
+	
+	focus = {
+		id = DDR_enforce_red_union
+		icon = GFX_focus_Workers_Support
+		cost = 4.3
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_expand_soviet_aid
+		}
+		mutually_exclusive = {
+			focus = DDR_ban_trade_unions
+		}
+		completion_reward = {
+			custom_effect_tooltip = ddr_5_kpd_tt
+			custom_effect_tooltip = ddr_lower_unity
+			add_to_variable = { DDR_kpd_power = 5 }
+			add_to_variable = { DDR_Unity = -5 }			
+		}
+		x = 18
+		y = 4
+	}
+	
+	focus = {
+		id = DDR_ban_trade_unions
+		icon = GFX_focus_Destroy_Trade_Unions
+		cost = 3.2
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_collective_management
+			focus = DDR_bureaucratic_management
+		}
+		mutually_exclusive = {
+			focus = DDR_enforce_red_union
+		}
+		completion_reward = {
+			add_stability = -0.05
+			add_war_support = 0.07
+			custom_effect_tooltip = ddr_increase_unity
+			add_to_variable = { DDR_Unity = 5 }			
+		}
+		x = 16
+		y = 4
+	}
+	
+	focus = {
+		id = DDR_quota_debate
+		icon = GFX_focus_Planned_Economy
+		cost = 1.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_ban_trade_unions
+			focus = DDR_enforce_red_union
+		}
+		completion_reward = {
+			country_event = {
+				id = ddr_gcw.8 
+			}
+		}
+		x = 16
+		y = 5
+	}
+	
+	focus = {
+		id = DDR_dethrone_elites
+		icon = GFX_focus_Lock_Them_Up
+		cost = 1.5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_ban_trade_unions
+			focus = DDR_enforce_red_union
+		}
+		completion_reward = {
+			country_event = {
+				id = ddr_gcw.9
+			}
+		}
+		x = 18
+		y = 5
+	}
+	
+	focus = {
+		id = DDR_monopoly_trade
+		icon = GFX_focus_Protectionism
+		cost = 3.6
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_dethrone_elites
+		}
+		completion_reward = {
+			if = {
+				limit = { has_idea = free_trade }
+				swap_ideas = { remove_idea = free_trade add_idea = export_focus }
+			}
+			if = {
+				limit = { has_idea = export_focus }
+				swap_ideas = { remove_idea = export_focus add_idea = limited_exports }
+			}
+			if = {
+				limit = { has_idea = limited_exports }
+				swap_ideas = { remove_idea = limited_exports add_idea = closed_economy }
+			}
+			if = {
+				limit = { has_idea = closed_economy }
+				add_stability = 0.08
+			}
+		}
+		x = 19
+		y = 6
+	}
+	
+	focus = {
+		id = DDR_nationalize_utilities
+		icon = GFX_focus_Pride_of_The_Left
+		cost = 5
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_dethrone_elites
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = DDR_nationalize add_idea = DDR_nationalize2 }
+		}
+		x = 18
+		y = 7
+	}
+	
+	focus = {
+		id = DDR_strict_rationing
+		icon = GFX_focus_civilian_rations
+		cost = 2.9
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_dethrone_elites
+		}
+		prerequisite = {
+			focus = DDR_quota_debate
+		}
+		completion_reward = {
+			add_ideas = DDR_rationing
+		}
+		x = 17
+		y = 6
+	}
+	
+	focus = {
+		id = DDR_military_railways
+		icon = GFX_focus_Railways
+		cost = 3
+		available = {
+		}
+		prerequisite = {
+			focus = DDR_quota_debate
+		}
+		completion_reward = {
+			add_ideas = DDR_mil_railways
+		}
+		x = 16
+		y = 7
+	}
+}

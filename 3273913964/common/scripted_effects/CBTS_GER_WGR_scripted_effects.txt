@@ -1,0 +1,2139 @@
+WGR_start_civil_war = {
+	country_event = {
+		id = wgr_civil_war.100
+		days = 4
+	}
+}
+
+WGR_go_to_gc_choice = {
+	if = {
+		limit = {
+			has_government = democratic
+		}
+		country_event = {
+			id = wgr_grand_coalition.5 #choose spd or dnvp
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_liberalism
+		}
+		country_event = {
+			id = wgr_grand_coalition.6 #negotiate with spd
+		}
+	}
+	else = {
+		country_event = {
+			id = wgr_grand_coalition.7 #negotiate with dnvp
+		}
+	}
+}
+WGR_move_up_paramilitary = {
+	if = {
+		limit = {
+			has_idea = WGR_paramilitary_divisions
+		}
+		swap_ideas = {
+			remove_idea = WGR_paramilitary_divisions
+			add_idea = WGR_paramilitary_divisions2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = WGR_paramilitary_divisions2
+		}
+		swap_ideas = {
+			remove_idea = WGR_paramilitary_divisions2
+			add_idea = WGR_paramilitary_divisions3
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = WGR_paramilitary_divisions3
+		}
+		swap_ideas = {
+			remove_idea = WGR_paramilitary_divisions3
+			add_idea = WGR_paramilitary_divisions4
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = WGR_paramilitary_divisions4
+		}
+		remove_ideas = WGR_paramilitary_divisions4
+	}
+	else = {
+		add_stability = 0.025
+		add_political_power = 25
+	}
+}
+
+###Dynamic modifier bound checking
+WGR_welfare_spending_check = {
+	clamp_variable = {
+		var = WGR_welfare_spending
+		max = 0 #always negative
+		min = -0.30
+	}
+}
+WGR_welfare_stability_check = { #1:1 with welfare_spending
+	set_temp_variable = {
+		WGR_welfare_spending_opposite = WGR_welfare_spending
+	}
+	multiply_temp_variable = {
+		WGR_welfare_spending_opposite = -0.5
+	}
+	clamp_variable = {
+		var = WGR_welfare_stability
+		max = WGR_welfare_spending_opposite
+		min = 0 #always positive
+	}
+}
+WGR_welfare_population_check = { #-1*1:3 with welfare_spending
+	set_temp_variable = {
+		WGR_welfare_spending_opposite = WGR_welfare_spending
+	}
+	multiply_temp_variable = {
+		WGR_welfare_spending_opposite = -1
+	}
+	divide_temp_variable = {
+		WGR_welfare_spending_opposite = 3
+	}
+	clamp_variable = {
+		var = WGR_welfare_population
+		max = WGR_welfare_spending_opposite
+		min = 0
+	}
+}
+WGR_welfare_research_check = { #-1*1:4 with welfare_spending
+	set_temp_variable = {
+		WGR_welfare_spending_opposite = WGR_welfare_spending
+	}
+	multiply_temp_variable = {
+		WGR_welfare_spending_opposite = -1
+	}
+	divide_temp_variable = {
+		WGR_welfare_spending_opposite = 4
+	}
+	clamp_variable = {
+		var = WGR_welfare_population
+		max = WGR_welfare_spending_opposite
+		min = 0
+	}
+}
+WGR_bounds_checking = {
+	WGR_check_welfare_bounds = yes
+	WGR_economic_bounds_check = yes
+	WGR_defense_bounds_check = yes
+}
+##Welfare
+WGR_check_welfare_bounds = {
+	WGR_welfare_spending_check = yes
+	WGR_welfare_stability_check = yes
+	WGR_welfare_population_check = yes
+	WGR_welfare_research_check = yes
+}
+WGR_lower_small_welfare_spending = {
+	add_to_variable = {
+		WGR_welfare_spending = 0.02
+	}
+	add_to_variable = {
+		WGR_welfare_stability = -0.02
+	}
+	custom_effect_tooltip = WGR_lower_welfare_small_tt
+}
+WGR_add_small_welfare_spending = {
+	add_to_variable = {
+		WGR_welfare_spending = -0.02
+	}
+	add_to_variable = {
+		WGR_welfare_stability = 0.02
+	}
+	custom_effect_tooltip = WGR_small_welfare_spend_tt
+}
+WGR_add_small_education_spending = {
+	add_to_variable = {
+		WGR_welfare_spending = -0.01
+	}
+	add_to_variable = {
+		WGR_welfare_stability = 0.01
+	}
+	add_to_variable = {
+		WGR_welfare_research = 0.0025
+	}
+	custom_effect_tooltip = WGR_small_education_spend_tt
+}
+WGR_add_medium_welfare_spending = {
+	add_to_variable = {
+		WGR_welfare_spending = -0.035
+	}
+	add_to_variable = {
+		WGR_welfare_stability = 0.035
+	}
+	custom_effect_tooltip = WGR_medium_welfare_spend_tt
+}
+WGR_lower_retirement_age = {
+	WGR_add_medium_welfare_spending = yes
+	add_to_variable = {
+		WGR_welfare_population = 0.01
+	}
+}
+WGR_contraceptives = {
+	WGR_add_medium_welfare_spending = yes
+	custom_effect_tooltip = WGR_contraceptive_tt
+	add_to_variable = {
+		WGR_welfare_population = -0.04
+	}
+}
+#revenue and stimulus checks
+WGR_economic_intake_check = {
+	clamp_variable = {
+		var = WGR_economic_intake
+		max = 1 #always positive
+		min = 0
+	}
+}
+WGR_economic_spending_check = {
+	clamp_variable = {
+		var = WGR_economic_spending
+		max = 0 #always negative
+		min = -0.5
+	}
+}
+WGR_economic_stability_check = { #(-2*spending - intake)/5
+	set_temp_variable = {
+		WGR_economic_spending_opposite = WGR_economic_spending
+	}
+	multiply_temp_variable = {
+		WGR_economic_spending_opposite = -2
+	}
+	subtract_from_temp_variable = {
+		WGR_economic_spending_opposite = WGR_economic_intake
+	}
+	divide_temp_variable = {
+		WGR_economic_spending_opposite = 5
+	}
+	set_temp_variable = {
+		WGR_economic_spending_opposite2 = WGR_economic_spending_opposite
+	}
+	multiply_temp_variable = {
+		WGR_economic_spending_opposite2 = -1
+	}
+	if = {
+		limit = {
+			check_variable = {
+				WGR_economic_spending_opposite > 0 #positive
+			}
+		}
+		clamp_variable = {
+			var = WGR_economic_stability
+			max = WGR_economic_spending_opposite
+			min = WGR_economic_spending_opposite2
+		}
+	}
+	else = {
+		clamp_variable = {
+			var = WGR_economic_stability
+			max = WGR_economic_spending_opposite2
+			min = WGR_economic_spending_opposite
+		}
+	}
+}
+WGR_economic_consumer_check = { #(2*spending + intake)/5
+	set_temp_variable = {
+		WGR_economic_spending_opposite = WGR_economic_spending
+	}
+	multiply_temp_variable = {
+		WGR_economic_spending_opposite = 2
+	}
+	add_to_temp_variable = {
+		WGR_economic_spending_opposite = WGR_economic_intake
+	}
+	divide_temp_variable = {
+		WGR_economic_spending_opposite = 5
+	}
+	set_temp_variable = {
+		WGR_economic_spending_opposite2 = WGR_economic_spending_opposite
+	}
+	multiply_temp_variable = {
+		WGR_economic_spending_opposite2 = -1
+	}
+	if = {
+		limit = {
+			check_variable = {
+				WGR_economic_spending_opposite > 0 #positive
+			}
+		}
+		clamp_variable = {
+			var = WGR_economic_consumer
+			max = WGR_economic_spending_opposite
+			min = WGR_economic_spending_opposite2
+		}
+	}
+	else = {
+		clamp_variable = {
+			var = WGR_economic_consumer
+			max = WGR_economic_spending_opposite2
+			min = WGR_economic_spending_opposite
+		}
+	}
+}
+WGR_economic_tariffs_check = { #-1/5*intake
+	set_temp_variable = {
+		WGR_economic_spending_opposite = WGR_economic_intake
+	}
+	multiply_temp_variable = {
+		WGR_economic_spending_opposite = -0.2
+	}
+	clamp_variable = {
+		var = WGR_economic_tariffs
+		max = 0
+		min = WGR_economic_spending_opposite #should always be negative
+	}
+}
+WGR_economic_building_check = { #-1/4*spending
+	set_temp_variable = {
+		WGR_economic_spending_opposite = WGR_economic_spending
+	}
+	multiply_temp_variable = {
+		WGR_economic_spending_opposite = -0.25
+	}
+	clamp_variable = {
+		var = WGR_economic_building
+		max = WGR_economic_spending_opposite
+		min = 0 #should always be positive
+	}
+}
+WGR_economic_industry_check = { #-1/4*spending
+	set_temp_variable = {
+		WGR_economic_spending_opposite = WGR_economic_spending
+	}
+	multiply_temp_variable = {
+		WGR_economic_spending_opposite = -0.25
+	}
+	clamp_variable = {
+		var = WGR_economic_industry
+		max = WGR_economic_spending_opposite
+		min = 0 #should always be positive
+	}
+}
+WGR_economic_bounds_check = {
+	WGR_economic_intake_check = yes
+	WGR_economic_spending_check = yes
+	WGR_economic_stability_check = yes
+	WGR_economic_consumer_check = yes
+	WGR_economic_tariffs_check = yes
+	WGR_economic_building_check = yes
+	WGR_economic_industry_check = yes
+}
+WGR_raise_taxes_small = {
+	add_to_variable = {
+		WGR_economic_intake = 0.02
+	}
+	WGR_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_small_raise_taxes_tt
+}
+WGR_lower_taxes_small = {
+	add_to_variable = {
+		WGR_economic_intake = -0.02
+	}
+	WGR_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_small_lower_taxes_tt
+}
+WGR_lower_taxes_small_businesses = {
+	custom_effect_tooltip = WGR_lower_taxes_small_businesses_tt
+	add_to_variable = {
+		WGR_economic_intake = -0.02
+	}
+	add_to_variable = {
+		WGR_economic_building = 0.02
+	}
+	WGR_economic_bounds_check = yes
+}
+WGR_lower_corporate_taxes = {
+	add_to_variable = {
+		WGR_economic_intake = -0.06
+	}
+	WGR_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_corporate_lower_taxes_tt
+}
+WGR_lower_tariffs_small = {
+	add_to_variable = {
+		WGR_economic_tariffs = 0.004
+	}
+	add_to_variable = {
+		WGR_economic_intake = -0.02
+	}
+	WGR_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_small_lower_taiffs_tt
+}
+WGR_raise_tariffs_small = {
+	add_to_variable = {
+		WGR_economic_tariffs = -0.004
+	}
+	add_to_variable = {
+		WGR_economic_intake = 0.02
+	}
+	WGR_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_small_raise_taiffs_tt
+}
+WGR_raise_tariffs_medium = {
+	add_to_variable = {
+		WGR_economic_tariffs = -0.007
+	}
+	add_to_variable = {
+		WGR_economic_intake = 0.035
+	}
+	WGR_economic_bounds_check = yes
+	custom_effect_tooltip = WGR_raise_tariffs_medium_tt
+}
+WGR_add_small_public_works = {
+	if = {
+		limit = {
+			WGR_spending_within_bound = yes
+		}
+		add_to_variable = {
+			WGR_economic_spending = -0.02
+		}
+		add_to_variable = {
+			WGR_economic_stability = 0.02
+		}
+		add_to_variable = {
+			WGR_economic_building = 0.02
+		}
+		WGR_economic_bounds_check = yes
+	}
+	else = {
+		add_stability = 0.01
+	}
+}
+WGR_add_medium_public_works = {
+	if = {
+		limit = {
+			WGR_spending_within_bound = yes
+		}
+		add_to_variable = {
+			WGR_economic_spending = -0.035
+		}
+		add_to_variable = {
+			WGR_economic_stability = 0.035
+		}
+		add_to_variable = {
+			WGR_economic_building = 0.035
+		}
+		WGR_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_public_work_tt
+	}
+	else = {
+		add_stability = 0.02
+	}
+}
+WGR_add_spending = {
+	if = {
+		limit = {
+			WGR_spending_within_bound = yes
+		}
+		add_to_variable = {
+			WGR_economic_spending = -0.03
+		}
+		add_to_variable = {
+			WGR_economic_stability = 0.03
+		}
+		add_to_variable = {
+			WGR_economic_building = 0.03
+		}
+		WGR_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_spending_tt
+	}
+	else = {
+		add_stability = 0.02
+	}
+}
+WGR_regulations = {
+	if = {
+		limit = {
+			WGR_spending_within_bound = yes
+		}
+		add_to_variable = {
+			WGR_economic_intake = -0.02
+		}
+		add_to_variable = {
+			WGR_economic_stability = 0.02
+		}
+		add_to_variable = {
+			WGR_economic_building = -0.02
+		}
+		WGR_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_regulations_tt
+	}
+	else = {
+		add_stability = 0.02
+	}
+}
+WGR_less_regulations = {
+	if = {
+		limit = {
+			WGR_spending_within_bound = yes
+		}
+		add_to_variable = {
+			WGR_economic_intake = 0.02
+		}
+		add_to_variable = {
+			WGR_economic_stability = -0.02
+		}
+		add_to_variable = {
+			WGR_economic_building = 0.02
+		}
+		WGR_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_less_regulations_tt
+	}
+	else = {
+		add_political_power = 40
+		add_stability = -0.04
+	}
+}
+WGR_worker_protections = {
+	if = {
+		limit = {
+			WGR_spending_within_bound = yes
+		}
+		add_to_variable = {
+			WGR_economic_intake = -0.02
+		}
+		add_to_variable = {
+			WGR_economic_stability = 0.02
+		}
+		add_to_variable = {
+			WGR_economic_building = -0.02
+		}
+		add_to_variable = {
+			WGR_economic_industry = -0.02
+		}
+		WGR_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_worker_protections_tt
+	}
+	else = {
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+	}
+}
+WGR_increase_minimum_wage = {
+	if = {
+		limit = {
+			WGR_spending_within_bound = yes
+		}
+		add_to_variable = {
+			WGR_economic_stability = 0.02
+		}
+		add_to_variable = {
+			WGR_economic_building = -0.02
+		}
+		add_to_variable = {
+			WGR_economic_industry = -0.02
+		}
+		WGR_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_minimum_wage_tt
+	}
+	else = {
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+	}
+}
+WGR_add_banking_regulations = {
+	if = {
+		limit = {
+			WGR_spending_within_bound = yes
+		}
+		add_to_variable = {
+			WGR_economic_intake = 0.02
+		}
+		add_to_variable = {
+			WGR_economic_stability = 0.04
+		}
+		add_to_variable = {
+			WGR_economic_consumer = -0.01
+		}
+		WGR_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_banking_regulations
+	}
+	else = {
+		add_stability = 0.04
+	}
+}
+WGR_encroach_land_effect = {
+	add_stability = -0.04
+	add_political_power = -40
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = arms_factory
+				size > 1
+				include_locked = yes
+			}
+		}
+		add_extra_state_shared_building_slots = 1
+	}
+	random_owned_state = {
+		limit = {
+			free_building_slots = {
+				building = arms_factory
+				size > 1
+				include_locked = yes
+			}
+		}
+		add_extra_state_shared_building_slots = 1
+	}
+}
+WGR_mining_nationalized = {
+	add_stability = -0.06
+	if = {
+		limit = {
+			WGR_spending_within_bound = yes
+		}
+		add_to_variable = {
+			WGR_economic_intake = 0.06
+		}
+		add_to_variable = {
+			WGR_economic_spending = -0.04
+		}
+		add_to_variable = {
+			WGR_economic_stability = 0.02
+		}
+		add_to_variable = {
+			WGR_economic_consumer = -0.02
+		}
+		WGR_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_mining_nationalized_tt
+	}
+	else = {
+		random_owned_controlled_state = {
+			limit = {
+				has_resources_amount = {
+					resource = steel
+					amount > 23
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 12
+			}
+		}
+	}
+}
+WGR_break_up_conglomerates = {
+	add_political_power = 40
+	add_stability = -0.04
+	add_popularity = {
+		ideology = social_democracy
+		popularity = 0.04
+	}
+}
+WGR_agro_subsidies = {
+	if = {
+		limit = {
+			WGR_spending_within_bound = yes
+		}
+		add_to_variable = {
+			WGR_economic_spending = -0.04
+		}
+		add_to_variable = {
+			WGR_economic_stability = 0.04
+		}
+		WGR_economic_bounds_check = yes
+		custom_effect_tooltip = WGR_agro_subsidies_tt
+	}
+	else = {
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.04
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.015
+		}
+	}
+}
+WGR_redraw_provinces_SPD = {
+	add_political_power = 55
+	add_stability = 0.05
+	add_popularity = {
+		ideology = socialism
+		popularity = -0.05
+	}
+	add_popularity = {
+		ideology = social_liberalism
+		popularity = -0.02
+	}
+}
+##Defense
+WGR_defense_spending_check = {
+	clamp_variable = {
+		var = WGR_defense_spending
+		max = 0 #always negative
+		min = -0.3
+	}
+}
+WGR_defense_industry_check = {
+	set_temp_variable = {
+		WGR_defense_spending_opposite = WGR_defense_spending
+	}
+	multiply_temp_variable = {
+		WGR_defense_spending_opposite = -0.2
+	}
+	clamp_variable = {
+		var = WGR_defense_industry
+		max = WGR_defense_spending_opposite
+		min = 0 #should always be positive
+	}
+}
+WGR_defense_stability_check = {
+	set_temp_variable = {
+		WGR_defense_spending_opposite = WGR_defense_spending
+	}
+	multiply_temp_variable = {
+		WGR_defense_spending_opposite = 0.5
+	}
+	clamp_variable = {
+		var = WGR_defense_stability
+		max = 0 #should always be negative
+		min = WGR_defense_spending_opposite
+	}
+}
+WGR_defense_bounds_check = {
+	WGR_defense_spending_check = yes
+	WGR_defense_industry_check = yes
+	WGR_defense_stability_check = yes
+}
+WGR_add_small_defense_spending = {
+	add_to_variable = {
+		WGR_defense_spending = -0.02
+	}
+	add_to_variable = {
+		WGR_defense_industry = 0.004
+	}
+	add_to_variable = {
+		WGR_defense_stability = -0.01
+	}
+	custom_effect_tooltip = WGR_add_small_defense_spending_tt
+	WGR_defense_bounds_check = yes
+}
+WGR_subtract_small_military_spending = {
+	add_to_variable = {
+		WGR_defense_spending = 0.02
+	}
+	add_to_variable = {
+		WGR_defense_industry = -0.004
+	}
+	add_to_variable = {
+		WGR_defense_stability = 0.01
+	}
+	WGR_defense_bounds_check = yes
+}
+WGR_defense_nationalized = {
+	add_stability = -0.06
+	if = {
+		limit = {
+			WGR_spending_within_bound = yes
+		}
+		add_to_variable = {
+			WGR_defense_spending = -0.10
+		}
+		add_to_variable = {
+			WGR_defense_industry = 0.02
+		}
+		add_to_variable = {
+			WGR_defense_stability = -0.05
+		}
+		WGR_defense_bounds_check = yes
+		custom_effect_tooltip = WGR_defense_nationalized_tt
+	}
+	else = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+##Reichstag
+WGR_set_negotiating_flag = {
+	set_country_flag = WGR_negotiating
+}
+WGR_trigger_communist_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_communists
+		}
+		clr_country_flag = WGR_negotiated_with_communists
+	}
+	random_list = {
+		33 = {
+			country_event = {
+				id = wgr_parliament.13 # taxes
+			}
+		}
+		33 = {
+			country_event = {
+				id = wgr_parliament.14 # welfare
+			}
+		}
+		33 = {
+			country_event = {
+				id = wgr_parliament.15 # military
+			}
+		}
+	}
+}
+WGR_trigger_revsoc_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_RevSocs
+		}
+		clr_country_flag = WGR_negotiated_with_RevSocs
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = wgr_parliament.16
+			}
+		}
+		50 = {
+			country_event = {
+				id = wgr_parliament.17
+			}
+		}
+	}
+}
+WGR_trigger_demsoc_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_DemSocs
+		}
+		clr_country_flag = WGR_negotiated_with_DemSocs
+	}
+	random_list = {
+		33 = {
+			country_event = {
+				id = wgr_parliament.18
+			}
+		}
+		33 = {
+			country_event = {
+				id = wgr_parliament.19
+			}
+		}
+		33 = {
+			country_event = {
+				id = wgr_parliament.20
+			}
+		}
+	}
+}
+WGR_trigger_socdem_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_SocDems
+		}
+		clr_country_flag = WGR_negotiated_with_SocDems
+	}
+	random_list = {
+		33 = {
+			country_event = {
+				id = wgr_parliament.21
+			}
+		}
+		33 = {
+			country_event = {
+				id = wgr_parliament.22
+			}
+		}
+		33 = {
+			country_event = {
+				id = wgr_parliament.23
+			}
+		}
+	}
+}
+WGR_trigger_soclib_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_SocLibs
+		}
+		clr_country_flag = WGR_negotiated_with_SocLibs
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = wgr_parliament.24
+			}
+		}
+		50 = {
+			country_event = {
+				id = wgr_parliament.25
+			}
+		}
+	}
+}
+WGR_trigger_marlib_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_MarLibs
+		}
+		clr_country_flag = WGR_negotiated_with_MarLibs
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = wgr_parliament.26
+			}
+		}
+		50 = {
+			country_event = {
+				id = wgr_parliament.27
+			}
+		}
+	}
+}
+WGR_trigger_libcon_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_Centrists
+		}
+		clr_country_flag = WGR_negotiated_with_Centrists
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = wgr_parliament.28
+			}
+		}
+		50 = {
+			country_event = {
+				id = wgr_parliament.29
+			}
+		}
+	}
+}
+WGR_trigger_soccon_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_Conservatives
+		}
+		clr_country_flag = WGR_negotiated_with_Conservatives
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = wgr_parliament.30
+			}
+		}
+		50 = {
+			country_event = {
+				id = wgr_parliament.32
+			}
+		}
+	}
+}
+WGR_trigger_aut_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_Authoritarians
+		}
+		clr_country_flag = WGR_negotiated_with_Authoritarians
+	}
+	country_event = {
+		id = wgr_parliament.38
+	}
+}
+WGR_trigger_mon_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_Monarchists
+		}
+		clr_country_flag = WGR_negotiated_with_Monarchists
+	}
+	country_event = {
+		id = wgr_parliament.33
+	}
+}
+WGR_trigger_nat_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_Nationalists
+		}
+		clr_country_flag = WGR_negotiated_with_Nationalists
+	}
+	country_event = {
+		id = wgr_parliament.34
+	}
+}
+WGR_trigger_fas_negotiate_event = {
+	if = {
+		limit = {
+			has_country_flag = WGR_negotiated_with_Nazis
+		}
+		clr_country_flag = WGR_negotiated_with_Nazis
+	}
+	random_list = {
+		50 = {
+			country_event = {
+				id = wgr_parliament.35
+			}
+		}
+		50 = {
+			country_event = {
+				id = wgr_parliament.36
+			}
+		}
+	}
+}
+##negotiation flags
+WGR_set_len_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_communists
+}
+WGR_set_revsoc_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_RevSocs
+}
+WGR_set_demsoc_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_DemSocs
+}
+WGR_set_socdem_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_SocDems
+}
+WGR_set_soclib_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_SocLibs
+}
+WGR_set_marlib_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_MarLibs
+}
+WGR_set_libcon_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_Centrists
+}
+WGR_set_soccon_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_Conservatives
+}
+WGR_set_aut_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_Authoritarians
+}
+WGR_set_autdes_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_Monarchists
+}
+WGR_set_faraut_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_Nationalists
+}
+WGR_set_fascist_negotiate_flag = {
+	set_country_flag = WGR_negotiated_with_Nazis
+}
+##laws
+WGR_set_voting_flag = {
+	set_country_flag = WGR_voting
+	custom_effect_tooltip = will_vote #Informs what will happen
+}
+WGR_clear_voting_flag = {
+	clr_country_flag = WGR_voting
+}
+WGR_set_welfare_law = {
+	set_country_flag = WGR_welfare_law
+}
+WGR_set_employment_law = {
+	set_country_flag = WGR_employment_law
+}
+WGR_set_progressive_law = {
+	set_country_flag = WGR_progressive_law
+}
+WGR_set_austerity_law = {
+	set_country_flag = WGR_austerity_law
+}
+WGR_set_reactionary_law = {
+	set_country_flag = WGR_reactionary_law
+}
+WGR_set_militarist_law = {
+	set_country_flag = WGR_militarist_law
+}
+WGR_clr_militarist_law = {
+	clr_country_flag = WGR_militarist_law
+}
+WGR_clr_welfare_law = {
+	clr_country_flag = WGR_welfare_law
+}
+WGR_clr_employment_law = {
+	clr_country_flag = WGR_employment_law
+}
+WGR_clr_austerity_law = {
+	clr_country_flag = WGR_austerity_law
+}
+WGR_clr_progressive_law = {
+	clr_country_flag = WGR_progressive_law
+}
+WGR_clr_reactionary_law = {
+	clr_country_flag = WGR_reactionary_law
+}
+WGR_reset_supseats = {
+	set_variable = {
+		GER_supseat = 0
+	}
+}
+WGR_set_government_seats = {
+	WGR_set_len_seats_if_available = yes #Sets it if Leninists are in the government or coalition with you
+	WGR_set_revsoc_seats_if_available = yes
+	WGR_set_demsoc_seats_if_available = yes
+	WGR_set_socdem_seats_if_available = yes
+	WGR_set_soclib_seats_if_available = yes
+	WGR_set_marlib_seats_if_available = yes
+	WGR_set_libcon_seats_if_available = yes
+	WGR_set_soccon_seats_if_available = yes
+	WGR_set_aut_seats_if_available = yes
+	WGR_set_autdes_seats_if_available = yes
+	WGR_set_faraut_seats_if_available = yes
+	WGR_set_fascist_seats_if_available = yes
+}
+
+WGR_set_len_seats_if_available = {
+	if = {
+		limit = {
+			Leninist_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_com_seats
+		}
+		WGR_set_len_negotiate_flag = yes
+	}
+}
+WGR_set_revsoc_seats_if_available = {
+	if = {
+		limit = {
+			RevSoc_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_rso_seats
+		}
+		WGR_set_revsoc_negotiate_flag = yes
+	}
+}
+WGR_set_demsoc_seats_if_available = {
+	if = {
+		limit = {
+			DemSoc_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_dso_seats
+		}
+		WGR_set_demsoc_negotiate_flag = yes
+	}
+}
+WGR_set_socdem_seats_if_available = {
+	if = {
+		limit = {
+			SocDem_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_sde_seats
+		}
+		WGR_set_socdem_negotiate_flag = yes
+	}
+}
+WGR_set_soclib_seats_if_available = {
+	if = {
+		limit = {
+			SocLib_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_sli_seats
+		}
+		WGR_set_soclib_negotiate_flag = yes
+	}
+}
+WGR_set_marlib_seats_if_available = {
+	if = {
+		limit = {
+			MarLib_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_mli_seats
+		}
+		WGR_set_marlib_negotiate_flag = yes
+	}
+}
+WGR_set_libcon_seats_if_available = {
+	if = {
+		limit = {
+			LibCon_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_cen_seats
+		}
+		WGR_set_libcon_negotiate_flag = yes
+	}
+}
+WGR_set_soccon_seats_if_available = {
+	if = {
+		limit = {
+			SocCon_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_dem_seats
+		}
+		WGR_set_soccon_negotiate_flag = yes
+	}
+}
+WGR_set_aut_seats_if_available = {
+	if = {
+		limit = {
+			Aut_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_neu_seats
+		}
+		WGR_set_aut_negotiate_flag = yes
+	}
+}
+WGR_set_autdes_seats_if_available = {
+	if = {
+		limit = {
+			AutDes_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_mon_seats
+		}
+		WGR_set_autdes_negotiate_flag = yes
+	}
+}
+WGR_set_faraut_seats_if_available = {
+	if = {
+		limit = {
+			FarAut_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_nat_seats
+		}
+		WGR_set_faraut_negotiate_flag = yes
+	}
+}
+WGR_set_fascist_seats_if_available = {
+	if = {
+		limit = {
+			Fascist_in_Coalition = yes
+		}
+		add_to_variable = {
+			GER_supseat = GER_fas_seats
+		}
+		WGR_set_fascist_negotiate_flag = yes
+	}
+}
+
+WGR_lenin_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = communism
+				Leninist_in_Coalition = yes
+			}
+		}
+		country_event = { id = wgr_parliament.1 }
+		WGR_set_len_negotiate_flag = yes
+		set_country_flag = WGR_len_agreed #will be removed, used to signify that the len_negotiate_flag will be removed
+	}
+}
+WGR_revsoc_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = authoritarian_socialism
+				RevSoc_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = wgr_parliament.2
+		}
+		WGR_set_revsoc_negotiate_flag = yes
+		set_country_flag = WGR_revsoc_agreed
+	}
+}
+WGR_demsoc_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = socialism
+				DemSoc_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = wgr_parliament.3
+		}
+		WGR_set_demsoc_negotiate_flag = yes
+		set_country_flag = WGR_demsoc_agreed
+	}
+}
+WGR_socdem_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = social_democracy
+				SocDem_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = wgr_parliament.4
+		}
+		WGR_set_socdem_negotiate_flag = yes
+		set_country_flag = WGR_socdem_agreed
+	}
+}
+WGR_soclib_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = social_liberalism
+				SocLib_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = wgr_parliament.5
+		}
+		WGR_set_soclib_negotiate_flag = yes
+		set_country_flag = WGR_soclib_agreed
+	}
+}
+WGR_marlib_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = market_liberalism
+				MarLib_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = wgr_parliament.6
+		}
+		WGR_set_marlib_negotiate_flag = yes
+		set_country_flag = WGR_marlib_agreed
+	}
+}
+WGR_libcon_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = jacobin
+				LibCon_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = wgr_parliament.7
+		}
+		WGR_set_libcon_negotiate_flag = yes
+		set_country_flag = WGR_libcon_agreed
+	}
+}
+WGR_soccon_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = democratic
+				SocCon_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = wgr_parliament.8
+		}
+		WGR_set_soccon_negotiate_flag = yes
+		set_country_flag = WGR_soccon_agreed
+	}
+}
+WGR_autdes_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = monarchism
+				AutDes_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = wgr_parliament.9
+		}
+		WGR_set_autdes_negotiate_flag = yes
+		set_country_flag = WGR_autdes_agreed
+	}
+}
+WGR_aut_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = neutrality
+				Aut_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = wgr_parliament.10
+		}
+		WGR_set_aut_negotiate_flag = yes
+		set_country_flag = WGR_aut_agreed
+	}
+}
+WGR_faraut_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = nationalism
+				FarAut_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = wgr_parliament.11
+		}
+		WGR_set_faraut_negotiate_flag = yes
+		set_country_flag = WGR_faraut_agreed
+	}
+}
+WGR_fascist_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = fascism
+				Fascist_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = wgr_parliament.12
+		}
+		WGR_set_fascist_negotiate_flag = yes
+		set_country_flag = WGR_fascist_agreed
+	}
+}
+WGR_clr_negotiated_flags_if_necessary = {
+	WGR_clear_len_flags = yes
+	WGR_clear_revsoc_flags = yes
+	WGR_clear_demsoc_flags = yes
+	WGR_clear_socdem_flags = yes
+	WGR_clear_soclib_flags = yes
+	WGR_clear_marlib_flags = yes
+	WGR_clear_libcon_flags = yes
+	WGR_clear_soccon_flags = yes
+	WGR_clear_aut_flags = yes
+	WGR_clear_autdes_flags = yes
+	WGR_clear_faraut_flags = yes
+	WGR_clear_fascist_flags = yes
+}
+WGR_clear_len_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_len = yes
+		}
+		clr_country_flag = WGR_negotiated_with_communists
+	}
+}
+WGR_clear_revsoc_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_revsoc = yes
+		}
+		clr_country_flag = WGR_negotiated_with_RevSocs
+	}
+}
+WGR_clear_demsoc_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_demsoc = yes
+		}
+		clr_country_flag = WGR_negotiated_with_DemSocs
+	}
+}
+WGR_clear_socdem_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_socdem = yes
+		}
+		clr_country_flag = WGR_negotiated_with_SocDems
+	}
+}
+WGR_clear_soclib_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_soclib = yes
+		}
+		clr_country_flag = WGR_negotiated_with_SocLibs
+	}
+}
+WGR_clear_marlib_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_marlib = yes
+		}
+		clr_country_flag = WGR_negotiated_with_MarLibs
+	}
+}
+WGR_clear_libcon_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_libcon = yes
+		}
+		clr_country_flag = WGR_negotiated_with_Centrists
+	}
+}
+WGR_clear_soccon_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_soccon = yes
+		}
+		clr_country_flag = WGR_negotiated_with_Conservatives
+	}
+}
+WGR_clear_aut_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_aut = yes
+		}
+		clr_country_flag = WGR_negotiated_with_Authoritarians
+	}
+}
+WGR_clear_autdes_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_autdes = yes
+		}
+		clr_country_flag = WGR_negotiated_with_Monarchists
+	}
+}
+WGR_clear_faraut_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_faraut = yes
+		}
+		clr_country_flag = WGR_negotiated_with_Nationalists
+	}
+}
+WGR_clear_fascist_flags = {
+	if = {
+		limit = {
+			WGR_need_clear_fascist = yes
+		}
+		clr_country_flag = WGR_negotiated_with_Nazis
+	}
+}
+#coalition promises
+WGR_fulfill_coalition_promises = {
+	WGR_fulfill_communist_promises = yes
+	WGR_fulfill_revsoc_promises = yes
+	WGR_fulfill_demsoc_promises = yes
+	WGR_fulfill_socdem_promises = yes
+	WGR_fulfill_soclib_promises = yes
+	WGR_fulfill_marlib_promises = yes
+	WGR_fulfill_libcon_promises = yes
+	WGR_fulfill_soccon_promises = yes
+	WGR_fulfill_aut_promises = yes
+	WGR_fulfill_autdes_promises = yes
+	WGR_fulfill_faraut_promises = yes
+	WGR_fulfill_fascist_promises = yes
+}
+WGR_fulfill_communist_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_communists_high_taxes
+		}
+		WGR_raise_taxes_small = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_communists_welfare
+		}
+		WGR_add_small_welfare_spending = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_communists_military_spending
+		}
+		WGR_add_small_defense_spending = yes
+	}
+}
+WGR_fulfill_revsoc_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_revsoc_support_unions
+		}
+		add_political_power = -15
+		add_stability = 0.025
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_revsoc_worker_protection
+		}
+		WGR_add_small_welfare_spending = yes
+	}
+}
+WGR_fulfill_demsoc_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_demsoc_increased_welfare
+		}
+		WGR_add_small_welfare_spending = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_demsoc_decreased_military_spending
+		}
+		WGR_subtract_small_military_spending = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_demsoc_increased_public_works
+		}
+		WGR_add_small_public_works = yes
+	}
+}
+WGR_fulfill_socdem_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_socdem_increaesd_taxes
+		}
+		WGR_raise_taxes_small = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_socdem_protected_minorities
+		}
+		add_stability = 0.015
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_socdem_denounce_fascism
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.015
+		}
+	}
+}
+WGR_fulfill_soclib_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_soclib_social_security
+		}
+		WGR_add_small_welfare_spending = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_soclib_protected_minorities
+		}
+		add_stability = 0.015
+	}
+}
+WGR_fulfill_marlib_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_marlib_lower_Taxes
+		}
+		WGR_lower_taxes_small = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_marlib_lower_tariffs
+		}
+		WGR_lower_tariffs_small = yes
+	}
+}
+WGR_fulfill_libcon_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_centre_denounce_communism
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.015
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_centre_lower_tariffs
+		}
+		WGR_lower_tariffs_small = yes
+	}
+}
+WGR_fulfill_soccon_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_conservatives_lower_taxes
+		}
+		WGR_lower_taxes_small = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_conservatives_decreased_welfare
+		}
+		WGR_lower_small_welfare_spending = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_conservatives_raised_taxes
+		}
+		WGR_raise_taxes_small = yes
+	}
+}
+WGR_fulfill_aut_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_aut_decreased_welfare
+		}
+		WGR_lower_small_welfare_spending = yes
+	}
+}
+WGR_fulfill_autdes_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_monarchists_supported_landowners
+		}
+		add_stability = 0.015
+	}
+}
+WGR_fulfill_faraut_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_nationalists_supported_industrialists
+		}
+		add_political_power = 15
+	}
+}
+WGR_fulfill_fascist_promises = {
+	if = {
+		limit = {
+			has_country_flag = WGR_promised_nazis_increased_welfare
+		}
+		WGR_add_small_welfare_spending = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = WGR_promised_nazis_military_spending
+		}
+		WGR_add_small_defense_spending = yes
+	}
+}
+WGR_vote_lost = {
+	country_event = { id = wgr_parliament.37 } #Event We Lost the Vote!
+}
+WGR_reset_supseat = {
+	set_variable = { GER_supseat = 0 } #Supseats variable goes back to 0
+}
+#election results
+WGR_SPD_wins = {
+	add_popularity = { ideology = social_democracy popularity = 0.03 }
+	add_popularity = { ideology = socialism popularity = 0.02 }
+	set_politics = {
+		ruling_party = socialism
+		elections_allowed = yes
+	}
+	COALITION_RESET = yes
+	WGR_set_SPD_coalition = yes
+	add_ideas = {
+		wels
+		ollenhauer
+		wissel
+		GER_Albert_Grezesinski
+	}
+	load_focus_tree = {
+		tree = WGR_SPD_Tree
+		keep_completed = yes
+	}
+}
+WGR_DStP_wins = {
+	add_popularity = { ideology = social_liberalism popularity = 0.04 }
+	set_politics = {
+		ruling_party = social_liberalism
+		elections_allowed = yes
+	}
+	COALITION_RESET = yes
+	add_ideas = {
+		GER_Hermann_Dietrich
+		brauer
+		GER_Ernst_Trendelenburg
+		maier
+	}
+	load_focus_tree = {
+		tree = WGR_DStP_Tree
+		keep_completed = yes
+	}
+}
+WGR_DVP_wins = {
+	add_popularity = { ideology = jacobin popularity = 0.04 }
+	set_politics = {
+		ruling_party = jacobin
+		elections_allowed = yes
+	}
+	COALITION_RESET = yes
+	add_ideas = {
+		GER_Eduard_Dingeldy
+		asmis
+		emil_georg_von_strauss
+		bernstorff
+	}
+	load_focus_tree = {
+		tree = WGR_DVP_DNVP_tree
+		keep_completed = yes
+	}
+}
+WGR_Zentrum_wins = {
+	add_popularity = { ideology = democratic popularity = 0.04 }
+	set_politics = {
+		ruling_party = democratic
+		elections_allowed = yes
+	}
+	COALITION_RESET = yes
+	if = {
+		limit = {
+			has_country_flag = WGR_stegerwald_zentrum
+		}
+		add_ideas = {
+			GER_Joseph_Joos
+			GER_Hans_Lukaschek
+			andread_hermes
+			wirmer
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = adenauer
+		}
+		add_ideas = {
+			adenauer
+			GER_Adam_Stegerwald
+			GER_Hermann_Punder
+			wirmer
+		}
+	}
+	else = {
+		add_ideas = {
+			kaas
+			GER_Adam_Stegerwald
+			GER_Peter_Schlack
+			wirmer
+		}
+	}
+	load_focus_tree = {
+		tree = WGR_Zentrum_Tree
+		keep_completed = yes
+	}
+}
+WGR_DVNP_wins = {
+	add_popularity = { ideology = neutrality popularity = 0.04 }
+	set_politics = {
+		ruling_party = neutrality
+		elections_allowed = yes
+	}
+	COALITION_RESET = yes
+	add_ideas = {
+		GER_Ernst_Oberforhren
+		gayl
+		goerdeler
+		schulenberg
+	}
+	load_focus_tree = {
+		tree = WGR_DVP_DNVP_tree
+		keep_completed = yes
+	}
+}
+WGR_SPD_coalition_event = {
+	country_event = {
+		id = wgr_election.2
+	}
+}
+WGR_coalition_add_spd = {
+	if = {
+		limit = {
+			WGR_SPD_together = yes
+		}
+		COALITION_add_demsoc = yes
+		COALITION_add_socdem = yes
+	}
+	else = {
+		COALITION_add_demsoc = yes
+	}
+}
+WGR_DStP_coalition_event = {
+	country_event = {
+		id = wgr_election.3
+	}
+}
+WGR_DVP_coalition_event = {
+	country_event = {
+		id = wgr_election.4
+	}
+}
+WGR_Zentrum_coalition_event = {
+	country_event = {
+		id = wgr_election.6
+	}
+}
+WGR_set_SPD_coalition = {
+	if = {
+		limit = {
+			WGR_SPD_together = yes
+			WGR_has_socialist_government = yes
+		}
+		COALITION_add_demsoc = yes
+		COALITION_add_socdem = yes
+	}
+}
+WGR_Get_Size = {
+	set_variable = {
+		WGR_rally_size = random
+	}
+	multiply_variable = {
+		WGR_rally_size = 2
+	}
+	round_variable = WGR_rally_size
+}
+WGR_Get_Ideology = {
+	set_variable = {
+		WGR_rally_ideology = random
+	}
+	multiply_variable = {
+		WGR_rally_ideology = 11
+	}
+	round_variable = WGR_rally_ideology
+}
+WGR_Rally_Popularity = {
+	if = {
+		limit = {
+			check_variable = {
+				WGR_rally_size = 0 #small rally, +1%
+			}
+		}
+		set_variable = {
+			WGR_rally_popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				WGR_rally_size = 1 #medium rally, +2%
+			}
+		}
+		set_variable = {
+			WGR_rally_popularity = 0.02
+		}
+	}
+	else = { #large rally, +3%
+		set_variable = {
+			WGR_rally_popularity = 0.03
+		}
+	}
+}
+WGR_Political_Campaign_Effect = {
+	if = {
+		limit = {
+			check_variable = {
+				WGR_rally_ideology = 0
+			}
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = WGR_rally_popularity
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				WGR_rally_ideology = 1
+			}
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = WGR_rally_popularity
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				WGR_rally_ideology = 2
+			}
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = WGR_rally_popularity
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				WGR_rally_ideology = 3
+			}
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = WGR_rally_popularity
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				WGR_rally_ideology = 4
+			}
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = WGR_rally_popularity
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				WGR_rally_ideology = 5
+			}
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = WGR_rally_popularity
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				WGR_rally_ideology = 6
+			}
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = WGR_rally_popularity
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				WGR_rally_ideology = 7
+			}
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = WGR_rally_popularity
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				WGR_rally_ideology = 8
+			}
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = WGR_rally_popularity
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				WGR_rally_ideology = 9
+			}
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = WGR_rally_popularity
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				WGR_rally_ideology = 10
+			}
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = WGR_rally_popularity
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = WGR_rally_popularity
+		}
+	}
+}
+WGR_Trigger_Next_Rally = { #the time is determined by the current campaign, not the future one
+	hidden_effect = {
+		if = {
+			limit = {
+				check_variable = {
+					WGR_rally_size = 0 #small rally, +1%
+				}
+			}
+			country_event = {
+				id = wgr_internal.13
+				days = 45
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					WGR_rally_size = 1 #medium rally, +2%
+				}
+			}
+			country_event = {
+				id = wgr_internal.13
+				days = 90
+			}
+		}
+		else = { #large rally, +3%
+			country_event = {
+				id = wgr_internal.13
+				days = 120
+			}
+		}
+	}
+}
+WGR_Move_Up_Great_Depression = { #econ_crisis
+	if = {
+		limit = {
+			has_idea = econ_crisis
+		}
+		swap_ideas = {
+			remove_idea = econ_crisis
+			add_idea = WGR_econ_crisis2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = WGR_econ_crisis2
+		}
+		swap_ideas = {
+			remove_idea = WGR_econ_crisis2
+			add_idea = WGR_econ_crisis3
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = WGR_econ_crisis3
+		}
+		swap_ideas = {
+			remove_idea = WGR_econ_crisis3
+			add_idea = WGR_econ_crisis4
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = WGR_econ_crisis4
+		}
+		remove_ideas = WGR_econ_crisis4
+	}
+	else = {
+		add_stability = 0.025
+	}
+}

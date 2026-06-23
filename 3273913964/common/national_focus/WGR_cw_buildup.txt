@@ -1,0 +1,764 @@
+focus_tree = {
+	id = WGR_civil_war_buildup_tree
+	country = {
+		factor = 0
+		modifier = {
+			add = 0
+			tag = WGR
+		}
+	}
+    continuous_focus_position = { x = 50 y = 2500 }
+    focus = {
+		id = WGR_state_emergency
+		icon = GFX_focus_Burgerkrieg
+		cost = 3
+        available = {
+        }
+		completion_reward = {
+		}
+		x = 6
+		y = 0
+	}
+	
+	focus = {
+		id = WGR_focus_communists
+		icon = GFX_focus_GCW_Left_focus
+		cost = 1
+        available = {
+            always = yes
+        }
+		prerequisite = {
+		    focus = WGR_state_emergency
+		}
+		mutually_exclusive = {
+		    focus = WGR_focus_nationalists
+		    focus = WGR_strengthen_our_position
+		}
+		completion_reward = {
+		    add_days_mission_timeout = {
+                mission = WGR_revolution_countdown
+                days = -20
+            }
+		}
+		x = 2
+		y = 1
+	}
+	
+	focus = {
+		id = WGR_crackdown_red_paramilitaries
+		icon = GFX_focus_Crush_Resistance
+		cost = 3
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_focus_communists
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_crackdown_red_paramilitaries_tt
+			add_to_variable = { var = DDR_starting_militia value = -5 }
+		}
+		x = 1
+		y = 2
+	}
+	
+	focus = {
+		id = WGR_ban_kpd
+		icon = GFX_focus_Judicial_System
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_crackdown_red_paramilitaries
+		}
+		completion_reward = {
+		    add_stability = 0.15
+			add_war_support = 0.1
+			add_political_power = 100
+			add_days_mission_timeout = {
+                mission = WGR_revolution_countdown
+                days = -20
+            }
+		}
+		x = 0
+		y = 3
+	}
+	
+	focus = {
+		id = WGR_break_strikes
+		icon = GFX_focus_Civillian_Purges
+		cost = 3
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_focus_communists
+		}
+		completion_reward = {
+		    add_stability = 0.05
+		    custom_effect_tooltip = WGR_break_strikes_tt
+			add_to_variable = { var = DDR_starting_factories value = -3 }
+		}
+		x = 3
+		y = 2
+	}
+	
+	focus = {
+		id = WGR_anti_communist_militias
+		icon = GFX_focus_Fascist_Militias
+		cost = 3
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_break_strikes
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_anti_communist_militias_tt
+			add_days_mission_timeout = {
+                mission = WGR_rebellion_countdown
+                days = 30
+            }
+			set_country_flag = wgr_anticom_mil
+			add_to_variable = { var = GER_starting_militia value = 3 }
+		}
+		x = 2
+		y = 3
+	}
+	
+	focus = {
+		id = WGR_raid_commie_stockpiles
+		icon = GFX_focus_Renewed_Arms
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_break_strikes
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_raid_commie_stockpiles_tt
+			add_to_variable = { var = DDR_starting_arms value = -2000 }
+			set_country_flag = wgr_raided_com_stockpiles
+		}
+		x = 4
+		y = 3
+	}
+	
+	focus = {
+		id = WGR_cooperate_reichswehr
+		icon = GFX_focus_Military_Government
+		cost = 3
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_raid_commie_stockpiles
+		}
+		prerequisite = {
+		    focus = WGR_anti_communist_militias
+		}
+		prerequisite = {
+		    focus = WGR_ban_kpd
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_cooperate_reichswehr_tt
+			add_days_mission_timeout = {
+                mission = WGR_rebellion_countdown
+                days = 50
+            }
+			random_army_leader = {
+			    limit = {
+				    has_unit_leader_flag = ger_gcw_swayed_leader
+					has_trait = germany_rightist
+				}
+				remove_unit_leader_trait = germany_rightist
+				clr_unit_leader_flag = ger_gcw_swayed_leader
+			}
+			add_to_variable = { var = GER_starting_inf value = 1 }
+		}
+		x = 2
+		y = 4
+	}
+	
+	focus = {
+		id = WGR_secure_brandenburg
+		icon = GFX_focus_No_Mercy_for_the_Bolsheviks
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_cooperate_reichswehr
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_secure_brandenburg_tt
+			clr_country_flag = WGR_DDR_Brandenburg_secured
+		}
+		x = 2
+		y = 5
+	}
+	
+	focus = {
+		id = WGR_secure_thuringen
+		icon = GFX_focus_Recruitment_Drive
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_secure_brandenburg
+		}
+		mutually_exclusive = {
+		    focus = WGR_secure_mainz
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_secure_thuringen_tt
+			clr_country_flag = WGR_DDR_Thuringia_secured
+		}
+		x = 1
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_secure_mainz
+		icon = GFX_focus_The_Big_Push
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_secure_brandenburg
+		}
+		mutually_exclusive = {
+		    focus = WGR_secure_thuringen
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_secure_mainz_tt
+			clr_country_flag = WGR_DDR_Mainz_secured
+		}
+		x = 3
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_strike_first_blow
+		icon = GFX_focus_The_Noose
+		cost = 1
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_secure_thuringen
+			focus = WGR_secure_mainz
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_strike_first_blow_tt
+			add_timed_idea = {
+               idea = WGR_anti_commie_push
+               days = 120
+            }
+			hidden_effect = {
+		        country_event = {
+				    id = wgr_civil_war.6 #Nationalist Revolution
+			    }
+	        }
+		}
+		x = 2
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_strengthen_our_position
+		icon = GFX_focus_A_Free_Germany
+		cost = 1
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_state_emergency
+		}
+		mutually_exclusive = {
+		    focus = WGR_focus_communists
+		    focus = WGR_focus_nationalists
+		}
+		completion_reward = {
+		    #
+		}
+		x = 6
+		y = 1
+	}
+	
+	focus = {
+		id = WGR_negotiate_union_leaders
+		icon = GFX_focus_Trade_Union_Focus
+		cost = 2.5
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_strengthen_our_position
+		}
+		completion_reward = {
+		    add_days_mission_timeout = {
+                mission = WGR_revolution_countdown
+                days = 40
+            }
+		}
+		x = 5
+		y = 2
+	}
+	
+	focus = {
+		id = WGR_negotiate_conservatives
+		icon = GFX_focus_GER_dnvp
+		cost = 2.5
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_strengthen_our_position
+		}
+		completion_reward = {
+		    add_days_mission_timeout = {
+                mission = WGR_rebellion_countdown
+                days = 20
+            }
+		}
+		x = 7
+		y = 2
+	}
+	
+	focus = {
+		id = WGR_buy_time
+		icon = GFX_focus_Capitalist_Systems
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_negotiate_conservatives
+		}
+		prerequisite = {
+		    focus = WGR_negotiate_union_leaders
+		}
+		completion_reward = {
+		    add_days_mission_timeout = {
+                mission = WGR_rebellion_countdown
+                days = 30
+            }
+			add_days_mission_timeout = {
+                mission = WGR_revolution_countdown
+                days = 30
+            }
+		}
+		x = 6
+		y = 3
+	}
+	
+	focus = {
+		id = WGR_secure_stockpiles
+		icon = GFX_focus_German_Guns
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_buy_time
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_secure_stockpiles_tt
+			add_to_variable = { var = WGR_starting_arms value = 1500 }
+		}
+		x = 5
+		y = 4
+	}
+	
+	focus = {
+		id = WGR_arm_reichsbanner
+		icon = GFX_focus_Peasant_Militias
+		cost = 3
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_secure_stockpiles
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_arm_reichsbanner_tt
+		    add_to_variable = { var = WGR_starting_militia value = 3 }
+		}
+		x = 6
+		y = 5
+	}
+	
+	focus = {
+		id = WGR_secret_imports
+		icon = GFX_focus_Buy_Foreign_Weapons
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_secure_stockpiles
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_secret_imports_tt
+		    add_to_variable = { var = WGR_starting_arms value = 800 }
+		}
+		x = 4
+		y = 5
+	}
+	
+	focus = {
+		id = WGR_sway_industrialists
+		icon = GFX_focus_Business_Men
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_buy_time
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_sway_industrialists_tt
+		    add_to_variable = { var = WGR_starting_factories value = 2 }
+		}
+		x = 7
+		y = 4
+	}
+	
+	focus = {
+		id = WGR_sway_military_leaders
+		icon = GFX_focus_Prussian_Military
+		cost = 3
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_sway_industrialists
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_sway_military_leaders_tt
+		    add_to_variable = { var = WGR_starting_infantry value = 4 }
+		}
+		x = 8
+		y = 5
+	}
+	
+	focus = {
+		id = WGR_republican_propaganda
+		icon = GFX_focus_Freedom_of_Speech
+		cost = 3
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_sway_military_leaders
+		}
+		prerequisite = {
+		    focus = WGR_arm_reichsbanner
+		}
+		prerequisite = {
+		    focus = WGR_secret_imports
+		}
+		completion_reward = {
+		    add_stability = 0.15
+			add_war_support = 0.2
+		}
+		x = 6
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_plans_against_communists
+		icon = GFX_focus_Weimar_Army
+		cost = 3
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_republican_propaganda
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_plans_against_communists_tt
+		    add_to_variable = { var = WGR_starting_militia value = 5 }
+		}
+		x = 5
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_plans_against_nationalists
+		icon = GFX_focus_Fortification_Effort
+		cost = 4
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_republican_propaganda
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_plans_against_nationalists_tt
+			set_country_flag = WGR_forts_bonuses_cw
+		}
+		x = 7
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_pull_trigger
+		icon = GFX_focus_Into_the_Flames
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_plans_against_communists
+		}
+		prerequisite = {
+		    focus = WGR_plans_against_nationalists
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_pull_trigger_tt
+			set_country_flag = WGR_defensive_bonuses_cw
+		}
+		x = 6
+		y = 8
+	}
+	
+	focus = {
+		id = WGR_focus_nationalists
+		icon = GFX_focus_GCW_Right_focus
+		cost = 1
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_state_emergency
+		}
+		mutually_exclusive = {
+		    focus = WGR_focus_communists
+		    focus = WGR_strengthen_our_position
+		}
+		completion_reward = {
+		    add_days_mission_timeout = {
+                mission = WGR_rebellion_countdown
+                days = -20
+            }
+		}
+		x = 10
+		y = 1
+	}
+	
+	focus = {
+		id = WGR_ban_sa
+		icon = GFX_focus_SA_Icon
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_focus_nationalists
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_ban_sa_tt
+			add_to_variable = { var = GER_starting_militia value = -5 }
+		}
+		x = 11
+		y = 2
+	}
+	
+	focus = {
+		id = WGR_disrupt_nsdap_speeches
+		icon = GFX_focus_Arrest_Nazis2
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_ban_sa
+		}
+		completion_reward = {
+		    add_stability = 0.2
+			add_war_support = 0.1
+		}
+		x = 12
+		y = 3
+	}
+	
+	focus = {
+		id = WGR_investigate_reichswehr
+		icon = GFX_focus_Investigate_Corruption
+		cost = 4
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_focus_nationalists
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_investigate_reichswehr_tt
+			add_to_variable = { var = GER_starting_inf value = -4 }
+			add_days_mission_timeout = {
+                mission = WGR_rebellion_countdown
+                days = -20
+            }
+		}
+		x = 9
+		y = 2
+	}
+	
+	focus = {
+		id = WGR_infiltrate_nationalists
+		icon = GFX_focus_Espionage
+		cost = 3
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_investigate_reichswehr
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_infiltrate_nationalists_tt
+			add_to_variable = { var = GER_starting_attack value = -60 }
+		}
+		x = 8
+		y = 3
+	}
+	
+	focus = {
+		id = WGR_nationalize_disloyal_industries
+		icon = GFX_focus_Grab_Money
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_investigate_reichswehr
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_nationalize_disloyal_industries_tt
+			add_to_variable = { var = GER_starting_fct value = -2 }
+		}
+		x = 10
+		y = 3
+	}
+	
+	focus = {
+		id = WGR_form_antifascist_militias
+		icon = GFX_focus_Anti_Fascist
+		cost = 3
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_nationalize_disloyal_industries
+		}
+		prerequisite = {
+		    focus = WGR_infiltrate_nationalists
+		}
+		prerequisite = {
+		    focus = WGR_disrupt_nsdap_speeches
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_form_antifascist_militias_tt
+			add_to_variable = { var = WGR_starting_militia value = 4 }
+			add_to_variable = { var = DDR_starting_militia value = 4 }
+			add_days_mission_timeout = {
+                mission = WGR_revolution_countdown
+                days = 60
+            }
+		}
+		x = 10
+		y = 4
+	}
+	
+	focus = {
+		id = WGR_secure_mecklenburg
+		icon = GFX_focus_Heavy_Strike
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_form_antifascist_militias
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_secure_mecklenburg_tt
+			clr_country_flag = WGR_GER_Pomerania_secured
+		}
+		x = 10
+		y = 5
+	}
+	
+	focus = {
+		id = WGR_secure_silesia
+		icon = GFX_focus_Civil_Unrest
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_secure_mecklenburg
+		}
+		mutually_exclusive = {
+		    focus = WGR_secure_northwest
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_secure_silesia_tt
+			clr_country_flag = WGR_GER_Silesia_secured
+		}
+		x = 9
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_secure_northwest
+		icon = GFX_focus_Enlist_the_Police
+		cost = 2
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_secure_mecklenburg
+		}
+		mutually_exclusive = {
+		    focus = WGR_secure_silesia
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_secure_northwest_tt
+			clr_country_flag = WGR_GER_Northwest_secured
+		}
+		x = 11
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_cross_oder
+		icon = GFX_focus_Target_Fascism
+		cost = 1
+        available = {
+            has_war = no
+        }
+		prerequisite = {
+		    focus = WGR_secure_northwest
+			focus = WGR_secure_silesia
+		}
+		completion_reward = {
+		    custom_effect_tooltip = WGR_strike_first_blow_tt
+			add_timed_idea = {
+               idea = WGR_antifa_push
+               days = 120
+            }
+			hidden_effect = {
+		        country_event = {
+				    id = wgr_civil_war.7 #Nationalist Revolution
+			    }
+	        }
+		}
+		x = 10
+		y = 7
+	}
+}

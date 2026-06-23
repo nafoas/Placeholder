@@ -1,0 +1,332 @@
+CZE_add_influence_agrarians = {
+	if = {
+		limit = {
+			check_variable = {
+				CZE_agrarian_influence < 100
+			}
+		}
+		add_to_variable = {
+			CZE_agrarian_influence = CZE_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = CZE_agrarian_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = CZE_christian_democrat_influence
+				check_variable = {
+					CZE_christian_democrat_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = CZE_national_democrat_influence
+				check_variable = {
+					CZE_national_democrat_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = CZE_national_socialist_influence
+				check_variable = {
+					CZE_national_socialist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = CZE_social_democrat_influence
+				check_variable = {
+					CZE_social_democrat_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = CZE_traders_influence
+				check_variable = {
+					CZE_traders_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				CZE_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				CZE_add_influence_value = 100
+			}
+			round_variable = CZE_add_influence_value
+			divide_variable = {
+				CZE_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = CZE_christian_democrat_influence
+					check_variable = {
+						CZE_christian_democrat_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					CZE_christian_democrat_influence = UKR_add_influence_value
+				}
+				clamp_variable = {
+					var = CZE_christian_democrat_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = CZE_national_democrat_influence
+					check_variable = {
+						CZE_national_democrat_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					CZE_national_democrat_influence = UKR_add_influence_value
+				}
+				clamp_variable = {
+					var = CZE_national_democrat_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = CZE_national_socialist_influence
+					check_variable = {
+						CZE_national_socialist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					CZE_national_socialist_influence = UKR_add_influence_value
+				}
+				clamp_variable = {
+					var = CZE_national_socialist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = CZE_social_democrat_influence
+					check_variable = {
+						CZE_social_democrat_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					CZE_social_democrat_influence = UKR_add_influence_value
+				}
+				clamp_variable = {
+					var = CZE_social_democrat_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+			if = {
+				limit = {
+					has_variable = CZE_traders_influence
+					check_variable = {
+						CZE_traders_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					CZE_traders_influence = UKR_add_influence_value
+				}
+				clamp_variable = {
+					var = CZE_traders_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			CZE_add_influence_value = 0
+		}
+		CZE_check_for_hundred = yes
+		UKR_Get_OUN_Pop = yes
+		UKR_Get_USRP_Pop = yes
+	}
+}
+CZE_check_for_hundred = {
+	set_variable = {
+		CZE_discrepency_check = 0
+	}
+	if = {
+		limit = {
+			has_variable = CZE_agrarian_influence
+		}
+		add_to_variable = {
+			CZE_discrepency_check = CZE_agrarian_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = CZE_christian_democrat_influence
+		}
+		add_to_variable = {
+			CZE_discrepency_check = CZE_christian_democrat_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = CZE_national_democrat_influence
+		}
+		add_to_variable = {
+			CZE_discrepency_check = CZE_national_democrat_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = CZE_national_socialist_influence
+		}
+		add_to_variable = {
+			CZE_discrepency_check = CZE_national_socialist_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = CZE_social_democrat_influence
+		}
+		add_to_variable = {
+			CZE_discrepency_check = CZE_social_democrat_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = CZE_traders_influence
+		}
+		add_to_variable = {
+			CZE_discrepency_check = CZE_traders_influence
+		}
+	}
+	subtract_from_variable = {
+		CZE_discrepency_check = 100
+	}
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					CZE_discrepency_check = 0
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = agrarians_in_petka
+				has_country_flag = Petka_alive
+			}
+			subtract_from_variable = {
+				CZE_agrarian_influence = CZE_discrepency_check
+			}
+			clamp_variable = {
+				var = CZE_agrarian_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = national_democrats_in_petka
+				has_country_flag = Petka_alive
+			}
+			subtract_from_variable = {
+				CZE_national_democrat_influence = CZE_discrepency_check
+			}
+			clamp_variable = {
+				var = CZE_national_democrat_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = christian_democrats_in_petka
+				has_country_flag = Petka_alive
+			}
+			subtract_from_variable = {
+				CZE_christian_democrat_influence = CZE_discrepency_check
+			}
+			clamp_variable = {
+				var = CZE_christian_democrat_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = traders_in_petka
+				has_country_flag = Petka_alive
+			}
+			subtract_from_variable = {
+				CZE_traders_influence = CZE_discrepency_check
+			}
+			clamp_variable = {
+				var = CZE_traders_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = national_socialists_in_petka
+				has_country_flag = Petka_alive
+			}
+			subtract_from_variable = {
+				CZE_national_socialist_influence = CZE_discrepency_check
+			}
+			clamp_variable = {
+				var = CZE_national_socialist_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = social_democrats_in_petka
+				has_country_flag = Petka_alive
+			}
+			subtract_from_variable = {
+				CZE_social_democrat_influence = CZE_discrepency_check
+			}
+			clamp_variable = {
+				var = CZE_social_democrat_influence
+				min = 0
+				max = 100
+			}
+		}
+	}
+	set_variable = {
+		CZE_discrepency_check = 0
+	}
+}

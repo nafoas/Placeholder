@@ -1,0 +1,990 @@
+spain_new_imperialism = {
+    
+	SPA_demand_gibraltar = {
+		allowed = { tag = SPN }
+		fire_only_once = yes
+		icon = generic_nationalism
+		visible = {
+			has_completed_focus = SPA_claim_gibraltar
+			NOT = { owns_state = 118 }
+			118 = { is_claimed_by = SPN }
+			NOT = { has_war_with = ENG }
+		}
+
+		available = { NOT = { is_in_faction_with = ENG } }
+		ai_will_do = { 	
+		    base = 1
+		    modifier = {
+			    factor = 0
+				ENG = {
+				    surrender_progress < 0.1
+				}
+			}
+			modifier = {
+			    factor = 0
+				ENG = {
+				    is_in_faction_with = FRA
+				}
+				FRA = { has_capitulated = no }
+			}
+			modifier = {
+			    factor = 0
+				ENG = {
+				    is_in_faction_with = USA
+				}
+			}
+			modifier = {
+			    factor = 2
+				ENG = {
+				    surrender_progress > 0.5
+				}
+			}
+			modifier = {
+			    factor = 2
+				ENG = {
+				    surrender_progress > 0.8
+				}
+			}
+		}
+		cost = 30
+		complete_effect = {
+            if = { 
+			    limit = {
+				    has_completed_focus = SPA_use_caution
+				}
+				add_to_variable = { var = german_drift value = -3 }
+			    add_to_variable = { var = british_drift value = 3 }
+			    custom_effect_tooltip = closer_to_germany
+			}
+			every_country = {
+			    limit = { owns_state = 118 }
+				country_event = { id = spa.93 days = 1 }
+			}
+        }
+
+	}
+		
+	SPA_drop_claim = {
+		allowed = { tag = SPN }
+		fire_only_once = yes
+		icon = generic_political_discourse
+		visible = {
+			has_completed_focus = SPA_claim_gibraltar
+			NOT = { owns_state = 118 }
+			118 = { is_claimed_by = SPN }
+			NOT = { has_war_with = ENG }
+		}
+
+		available = { }
+		ai_will_do = { factor = 0 }
+		cost = 30
+		complete_effect = {
+            118 = { remove_claim_by = SPN }
+			if = { 
+			    limit = {
+				    has_completed_focus = SPA_use_caution
+				}
+				add_to_variable = { var = german_drift value = -3 }
+			    add_to_variable = { var = british_drift value = 3 }
+			    custom_effect_tooltip = closer_to_britain
+			}
+        }
+
+	}
+    
+}
+
+
+spain_diplomatic_balance = {
+    	
+	SPA_join_germany = {
+		allowed = { tag = SPN }
+		fire_only_once = yes
+		visible = {
+		}
+
+		available = { 
+		    OR = {
+			    has_war_with = ENG
+		        check_variable = { german_drift > 9 }
+			}
+		}
+		ai_will_do = { factor = 100 }
+		cost = 0
+		complete_effect = {
+			GER = {
+			    add_to_faction = SPN
+			}
+        }
+
+	}
+	
+	SPA_join_britain = {
+		allowed = { tag = SPN }
+		fire_only_once = yes
+		visible = {
+		}
+		available = { 
+		    OR = {
+			    has_war_with = GER
+		        check_variable = { british_drift > 9 }
+			}
+		}
+		ai_will_do = { factor = 100 }
+		cost = 0
+		complete_effect = {
+			ENG = {
+			    add_to_faction = SPN
+			}
+        }
+
+	}
+	
+	SPA_break_blockade = {
+		allowed = { tag = SPN }
+		fire_only_once = yes
+		icon = generic_naval
+		visible = {
+		    has_idea = SPA_eng_blockaded
+		}
+		available = { 
+		    if = {
+			    limit = {
+				    has_war_with = ENG 
+				}
+				alliance_naval_strength_ratio > 0.8
+			}
+			if = {
+			    limit = {
+				    NOT = { has_war_with = ENG }
+				}
+				naval_strength_ratio = {
+                    tag = ENG
+                    ratio = 0.8
+                }
+			}
+		}
+		ai_will_do = { factor = 100 }
+		cost = 0
+		complete_effect = {
+			remove_ideas = SPA_eng_blockaded
+        }
+
+	}
+	
+	SPA_renegotiate_blockade = {
+		allowed = { tag = SPN }
+		days_re_enable = 30
+		icon = generic_political_discourse
+		visible = {
+		    has_idea = SPA_eng_blockaded
+		}
+		available = { 
+		    OR = {
+			    is_in_faction_with = ENG
+		        check_variable = { german_drift < 5 }
+			}
+			NOT = {
+			    has_war_with = ENG
+			}
+		}
+		ai_will_do = { factor = 100 }
+		cost = 0
+		complete_effect = {
+			ENG = { country_event = { id = spa.78 } }
+        }
+
+	}
+}
+
+ger_spain_diplomatic_balance = {
+
+	GER_send_canaris = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = generic_political_discourse
+		visible = {
+		}
+
+		available = { 
+		}
+		ai_will_do = { 
+		    base = 5
+            modifier = {
+                factor = 10
+                SPN = {
+				    check_variable = { german_drift < 0 }
+				}
+            }
+			modifier = {
+                factor = 8
+                SPN = {
+				    OR = {
+					    AND = {
+				            check_variable = { german_drift < 3 }
+					        check_variable = { german_drift > 0 }
+						}
+						check_variable = { german_drift = 3 }
+					}
+				}
+            }
+			modifier = {
+                factor = 3
+                SPN = {
+				    check_variable = { german_drift < 6 }
+					check_variable = { german_drift > 3 }
+				}
+            }
+		}
+		cost = 35
+		complete_effect = {
+		    SPN = { country_event = { id = spa.81 } }
+        }
+
+	}
+	
+    GER_himmler_state_visit = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = generic_nationalism
+		visible = {
+		    has_government = fascism
+		}
+
+		available = { 
+		}
+		ai_will_do = { 
+		    base = 5
+            modifier = {
+                factor = 20
+                SPN = {
+				    check_variable = { german_drift < 0 }
+				}
+            }
+			modifier = {
+                factor = 10
+                SPN = {
+				    OR = {
+					    AND = {
+				            check_variable = { german_drift < 3 }
+					        check_variable = { german_drift > 0 }
+						}
+						check_variable = { german_drift = 3 }
+					}
+				}
+            }
+			modifier = {
+                factor = 5
+                SPN = {
+				    check_variable = { german_drift < 6 }
+					check_variable = { german_drift > 3 }
+				}
+            }
+		}
+		cost = 65
+		complete_effect = {
+		    SPN = { country_event = { id = spa.86 } }
+        }
+
+	}
+
+    GER_send_lazar = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = generic_political_discourse
+		visible = {
+		}
+
+		available = { 
+		}
+		ai_will_do = { 
+		    base = 5
+            modifier = {
+                factor = 20
+                SPN = {
+				    check_variable = { german_drift < 0 }
+				}
+            }
+			modifier = {
+                factor = 10
+                SPN = {
+				    OR = {
+					    AND = {
+				            check_variable = { german_drift < 3 }
+					        check_variable = { german_drift > 0 }
+						}
+						check_variable = { german_drift = 3 }
+					}
+				}
+            }
+			modifier = {
+                factor = 5
+                SPN = {
+				    check_variable = { german_drift < 6 }
+					check_variable = { german_drift > 3 }
+				}
+            }
+		}
+		cost = 90
+		complete_effect = {
+		    SPN = { country_event = { id = spa.82 } }
+        }
+
+	}
+
+    GER_invite_falangists_berlin = {
+		allowed = { tag = GER }
+		days_re_enable = 60
+		icon = generic_army_support
+		visible = {
+		    SPN = {
+			    has_government = fascism
+			}
+		}
+
+		available = { 
+		}
+		ai_will_do = { 
+		    base = 5
+            modifier = {
+                factor = 15
+                SPN = {
+				    check_variable = { german_drift < 0 }
+				}
+            }
+			modifier = {
+                factor = 8
+                SPN = {
+				    OR = {
+					    AND = {
+				            check_variable = { german_drift < 3 }
+					        check_variable = { german_drift > 0 }
+						}
+						check_variable = { german_drift = 3 }
+					}
+				}
+            }
+			modifier = {
+                factor = 5
+                SPN = {
+				    check_variable = { german_drift < 6 }
+					check_variable = { german_drift > 3 }
+				}
+            }
+		}
+		cost = 80
+		complete_effect = {
+		    SPN = { country_event = { id = spa.83 } }
+        }
+
+	}
+
+    GER_demand_end_trade = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = free_trade
+		visible = {
+		}
+
+		available = {
+            SPN = {
+         		has_idea = SPA_trade_britain
+            }				
+		}
+		ai_will_do = { 
+		    base = 50
+		}
+		cost = 75
+		complete_effect = {
+		    SPN = { country_event = { id = spa.89 } }
+        }
+
+	}
+
+    GER_offer_economic_relief = {
+		allowed = { tag = GER }
+		days_re_enable = 120
+		icon = generic_construction
+		visible = {
+		}
+
+		available = { 
+		}
+		ai_will_do = { 
+		    base = 5
+            modifier = {
+                factor = 15
+                SPN = {
+				    check_variable = { german_drift < 0 }
+				}
+            }
+			modifier = {
+                factor = 8
+                SPN = {
+				    OR = {
+					    AND = {
+				            check_variable = { german_drift < 3 }
+					        check_variable = { german_drift > 0 }
+						}
+						check_variable = { german_drift = 3 }
+					}
+				}
+            }
+			modifier = {
+                factor = 5
+                SPN = {
+				    check_variable = { german_drift < 6 }
+					check_variable = { german_drift > 3 }
+				}
+            }
+		}
+		cost = 25
+		complete_effect = {
+		    SPN = { country_event = { id = spa.84 } }
+        }
+
+	}
+
+    GER_remind_civil_war_help = {
+		allowed = { tag = GER }
+		days_re_enable = 90
+		icon = generic_army_support
+		visible = {
+		    has_country_flag = ger_support_spa
+		}
+
+		available = { 
+		}
+		ai_will_do = { 
+		    base = 5
+            modifier = {
+                factor = 15
+                SPN = {
+				    check_variable = { german_drift < 0 }
+				}
+            }
+			modifier = {
+                factor = 8
+                SPN = {
+				    OR = {
+					    AND = {
+				            check_variable = { german_drift < 3 }
+					        check_variable = { german_drift > 0 }
+						}
+						check_variable = { german_drift = 3 }
+					}
+				}
+            }
+			modifier = {
+                factor = 5
+                SPN = {
+				    check_variable = { german_drift < 6 }
+					check_variable = { german_drift > 3 }
+				}
+            }
+		}
+		cost = 40
+		complete_effect = {
+		    SPN = { country_event = { id = spa.85 } }
+        }
+
+	}
+    
+	GER_manoeuvres_burdeaux = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = generic_prepare_civil_war
+		visible = {
+		    controls_state = 19
+		}
+
+		available = {
+		    SPN = {
+			    check_variable = { british_drift > 1 }
+			}
+		}
+		ai_will_do = { 
+		    base = 50
+		}
+		cost = 20
+		complete_effect = {
+		    SPN = { country_event = { id = spa.87 } }
+        }
+
+	}
+	
+    GER_embargo_spain = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		visible = {
+		}
+
+		available = {
+            SPN = {
+			    check_variable = { british_drift > 6 }
+			}		
+		}
+		ai_will_do = { 
+		    base = 50
+		}
+		cost = 0
+		complete_effect = {
+		    SPN = { country_event = { id = spa.88 } }
+        }
+
+	}
+
+    GER_intervention_spain = {
+		allowed = { tag = GER }
+		fire_only_once = yes
+		icon = generic_prepare_civil_war
+		visible = {
+		}
+
+		available = {
+		    SPN = {
+			    check_variable = { british_drift > 8 }
+			}
+		}
+		ai_will_do = { 
+		    base = 100
+			modifier = {
+                factor = 0
+                SPN = {
+				    NOT = { is_neighbor_of = GER }
+				}
+            }
+			modifier = {
+                factor = 0
+                GER = {
+				    surrender_progress > 0.4
+				}
+            }
+			modifier = {
+                factor = 0
+                GER = {
+				    strength_ratio = {
+                        tag = SPN
+                        ratio < 0.9
+                    }
+				}
+            }
+		}
+		cost = 0
+		complete_effect = {
+		   declare_war_on = { target = SPN type = annex_everything }
+        }
+
+	}
+	
+}
+
+eng_spain_diplomatic_balance = {
+
+	ENG_bribe_spanish = {
+		allowed = { tag = ENG }
+		icon = generic_political_discourse
+		visible = {
+		}
+        days_re_enable = 40
+		available = { 
+		}
+		ai_will_do = { 
+		    base = 5
+            modifier = {
+                factor = 5
+                SPN = {
+				    check_variable = { german_drift > 3 }
+					check_variable = { german_drift < 5 }
+				}
+            }
+			modifier = {
+                factor = 10
+                SPN = {
+				    OR = {
+					    AND = {
+				            check_variable = { german_drift > 5 }
+					        check_variable = { german_drift < 7 }
+						}
+						check_variable = { german_drift = 5 }
+					}
+				}
+            }
+			modifier = {
+                factor = 20
+                SPN = {
+				    OR = {
+				        check_variable = { german_drift > 7 }
+						check_variable = { german_drift = 7 }
+					}
+				}
+            }
+		}
+		cost = 70
+		complete_effect = {
+		    SPN = { country_event = { id = spa.62 } }
+        }
+
+	}
+
+	ENG_offer_spain_relief = {
+		allowed = { tag = ENG }
+		days_re_enable = 120
+		icon = generic_construction
+		visible = {
+		}
+
+		available = { 
+		}
+		ai_will_do = { 
+		    base = 5
+            modifier = {
+                factor = 5
+                SPN = {
+				    check_variable = { german_drift > 3 }
+					check_variable = { german_drift < 5 }
+				}
+            }
+			modifier = {
+                factor = 10
+                SPN = {
+				    OR = {
+					    AND = {
+				            check_variable = { german_drift > 5 }
+					        check_variable = { german_drift < 7 }
+						}
+						check_variable = { german_drift = 5 }
+					}
+				}
+            }
+			modifier = {
+                factor = 20
+                SPN = {
+				    OR = {
+				        check_variable = { german_drift > 7 }
+						check_variable = { german_drift = 7 }
+					}
+				}
+            }
+		}
+		cost = 70
+		complete_effect = {
+		    SPN = { country_event = { id = spa.65 } }
+        }
+
+	}
+
+	ENG_praise_spain = {
+		allowed = { tag = ENG }
+		icon = generic_nationalism
+		visible = {
+		    NOT = { has_government = socialism }
+		}
+        days_re_enable = 150
+		available = {		
+		}
+		ai_will_do = { 
+		    base = 5
+            modifier = {
+                factor = 5
+                SPN = {
+				    check_variable = { german_drift > 3 }
+					check_variable = { german_drift < 5 }
+				}
+            }
+			modifier = {
+                factor = 10
+                SPN = {
+				    OR = {
+					    AND = {
+				            check_variable = { german_drift > 5 }
+					        check_variable = { german_drift < 7 }
+						}
+						check_variable = { german_drift = 5 }
+					}
+				}
+            }
+			modifier = {
+                factor = 20
+                SPN = {
+				    OR = {
+				        check_variable = { german_drift > 7 }
+						check_variable = { german_drift = 7 }
+					}
+				}
+            }
+		}
+		cost = 60
+		complete_effect = {
+		    SPN = { country_event = { id = spa.63 } }
+        }
+
+	}
+
+	ENG_support_anglophiles = {
+		allowed = { tag = ENG }
+		days_re_enable = 120
+		icon = generic_army_support
+		visible = {
+		}
+
+		available = { 
+		}
+		ai_will_do = { 
+		    base = 5
+            modifier = {
+                factor = 5
+                SPN = {
+				    check_variable = { german_drift > 3 }
+					check_variable = { german_drift < 5 }
+				}
+            }
+			modifier = {
+                factor = 10
+                SPN = {
+				    OR = {
+					    AND = {
+				            check_variable = { german_drift > 5 }
+					        check_variable = { german_drift < 7 }
+						}
+						check_variable = { german_drift = 5 }
+					}
+				}
+            }
+			modifier = {
+                factor = 20
+                SPN = {
+				    OR = {
+				        check_variable = { german_drift > 7 }
+						check_variable = { german_drift = 7 }
+					}
+				}
+            }
+		}
+		cost = 80
+		complete_effect = {
+		    SPN = { country_event = { id = spa.64 } }
+        }
+
+	}
+
+	ENG_use_portugal = {
+		allowed = { tag = ENG }
+		fire_only_once = yes
+		icon = generic_civil_support
+		visible = {
+		}
+
+		available = {
+		    POR = {
+			    has_government = nationalism
+				NOT = { 
+				    OR = {
+					    has_war_with = ENG
+						has_war_with = SPN
+					}
+				}
+			}
+		}
+		ai_will_do = { 
+		    base = 5
+            modifier = {
+                factor = 5
+                SPN = {
+				    check_variable = { german_drift > 3 }
+					check_variable = { german_drift < 5 }
+				}
+            }
+			modifier = {
+                factor = 10
+                SPN = {
+				    OR = {
+					    AND = {
+				            check_variable = { german_drift > 5 }
+					        check_variable = { german_drift < 7 }
+						}
+						check_variable = { german_drift = 5 }
+					}
+				}
+            }
+			modifier = {
+                factor = 20
+                SPN = {
+				    OR = {
+				        check_variable = { german_drift > 7 }
+						check_variable = { german_drift = 7 }
+					}
+				}
+            }
+		}
+		cost = 125
+		complete_effect = {
+		    SPN = { country_event = { id = spa.67 } }
+        }
+
+	}
+
+	ENG_demand_end_tungsten = {
+		allowed = { tag = ENG }
+		fire_only_once = yes
+		icon = tungsten
+		visible = {
+		}
+
+		available = {
+            SPN = { has_completed_focus = SPA_tungsten_exports }
+            SPN = { has_idea = SPA_german_capital } 			
+		}
+		ai_will_do = { 
+		    base = 50
+		}
+		cost = 75
+		complete_effect = {
+		    SPN = { country_event = { id = spa.73 } }
+        }
+
+	}
+
+	ENG_demand_end_access = {
+		allowed = { tag = ENG }
+		fire_only_once = yes
+		icon = generic_naval
+		visible = {
+		}
+
+		available = {
+            SPN = { has_completed_focus = SPA_naval_access }		
+		}
+		ai_will_do = { 
+		    base = 50
+		}
+		cost = 50
+		complete_effect = {
+		    SPN = { country_event = { id = spa.68 } }
+        }
+
+	}
+
+	ENG_threaten_blockade = {
+		allowed = { tag = ENG }
+		fire_only_once = yes
+		visible = {
+		}
+
+		available = {
+		    SPN = {
+			    check_variable = { german_drift > 2 }
+			}
+		}
+		ai_will_do = { 
+		    base = 50
+		}
+		cost = 10
+		complete_effect = {
+		    SPN = { country_event = { id = spa.66 } }
+        }
+
+	}
+
+	ENG_embargo_spain = {
+		allowed = { tag = ENG }
+		fire_only_once = yes
+		visible = {
+		}
+
+		available = {
+            SPN = {
+			    check_variable = { german_drift > 6 }
+			}		
+		}
+		ai_will_do = { 
+		    base = 70
+		}
+		cost = 0
+		complete_effect = {
+		    SPN = { country_event = { id = spa.76 } }
+        }
+
+	}
+
+	ENG_blockade_spain = {
+		allowed = { tag = ENG }
+		fire_only_once = yes
+		icon = generic_naval
+		visible = {
+		}
+
+		available = {
+            SPN = {
+			    check_variable = { german_drift > 7 }
+			}		
+		}
+		ai_will_do = { 
+		    base = 70
+		}
+		cost = 0
+		complete_effect = {
+		    SPN = { country_event = { id = spa.77 } }
+        }
+
+	}
+
+	ENG_intervention_spain = {
+		allowed = { tag = ENG }
+		fire_only_once = yes
+		icon = generic_prepare_civil_war
+		visible = {
+		}
+
+		available = {
+		    SPN = {
+			    check_variable = { german_drift > 8 }
+			}
+		}
+		ai_will_do = { 
+		    base = 100
+			modifier = {
+                factor = 0
+                ENG = {
+				    strength_ratio = {
+                        tag = SPN
+                        ratio < 0.9
+                    }
+				}
+            }
+			modifier = {
+                factor = 0
+                ENG = {
+				    surrender_progress > 0.8
+				}
+            }
+			modifier = {
+                factor = 0.1
+                ENG = {
+				    surrender_progress > 0.6
+					surrender_progress < 0.8
+				}
+            }
+			modifier = {
+                factor = 0.5
+                ENG = {
+				    surrender_progress > 0.4
+					surrender_progress < 0.6
+				}
+            }
+			modifier = {
+                factor = 0.8
+                ENG = {
+				    surrender_progress > 0.2
+					surrender_progress < 0.4
+				}
+            }
+		}
+		cost = 0
+		complete_effect = {
+		    declare_war_on = { target = SPN type = annex_everything }
+        }
+
+	}
+	
+}

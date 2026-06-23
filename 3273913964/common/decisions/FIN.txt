@@ -1,0 +1,1969 @@
+FIN_Winter_War = {
+	FIN_survive = {
+		icon = GFX_decision_Finland_Emblem
+		allowed = {
+			always = yes
+		}
+		visible = {
+			tag = FIN
+			has_defensive_war_with = SOV
+		}
+		available = {
+			OR = {
+				NOT = {
+					controls_state = 722
+					controls_state = 147
+					controls_state = 146
+				}
+				surrender_progress > 0.5
+			}
+		}
+		activation = {
+			has_global_flag = winter_war_flag
+			has_defensive_war_with = SOV
+		}
+		is_good = yes
+		days_mission_timeout = 180
+		fire_only_once = yes
+		complete_effect = {
+			country_event = {
+				id = fin_external.2
+			}
+		}
+		timeout_effect = {
+			country_event = {
+				id = fin_external.4
+			}
+		}
+	}
+}
+FIN_Continuation_War = {
+	FIN_start_cont_war = {
+		icon = GFX_decision_Finland_Emblem
+		allowed = {
+			tag = FIN
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					tag = ENG
+					tag = FRA
+					tag = GER
+					tag = WGR
+					tag = DDR
+				}
+				has_war_with = SOV
+			}
+		}
+		visible = {
+			tag = FIN
+			has_war = no
+			NOT = {
+				has_country_flag = FIN_joined_war
+			}
+		}
+		available = {
+		}
+		cost = 15
+		fire_only_once = yes
+		days_remove = 3
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					is_in_faction = no
+				}
+				FROM = {
+					country_event = {
+						id = fin_external.8
+					}
+				}
+			}
+			set_country_flag = FIN_joined_war
+			set_variable = {
+				FIN_cont_war_ally = FROM.id
+			}
+		}
+		remove_effect = {
+			add_state_claim = 213
+			add_state_claim = 216
+			add_state_claim = 215
+			add_state_claim = 828
+			if = {
+				limit = {
+					is_in_faction = no
+				}
+				declare_war_on = {
+					target = SOV
+					type = annex_everything
+				}
+			}
+			else = {
+				add_war_support = 0.10
+			}
+		}
+	}
+	FIN_moscow_armistice = {
+		icon = GFX_decision_generic_accord
+		allowed = {
+			tag = FIN
+		}
+		visible = {
+			tag = FIN
+			has_war_with = SOV
+			has_country_flag = FIN_joined_war
+			FIN = {
+				is_in_faction = no
+			}
+			any_country = {
+				tag = FIN_cont_war_ally
+				surrender_progress > 0
+			}
+			date > 1944.6.1
+		}
+		available = {
+			any_country = {
+				tag = FIN_cont_war_ally
+				surrender_progress > 0.1
+			}
+		}
+		cost = 0
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			SOV = {
+				country_event = {
+					id = fin_external.9
+				}
+			}
+		}
+	}
+}
+FIN_Eduskunta = {
+	FIN_parliament_explanation = {
+		icon = GFX_decision_Finland_Emblem
+		allowed = { tag = FIN }
+		visible = {
+			always = yes
+		}
+		available = { always = yes }
+		ai_will_do = { factor = 0 } # computers don't need to know how parliament works
+		cost = 0
+		complete_effect = {
+			# country_event = { id = bavaria.45 }
+		}
+		days_re_enable = 1
+	}
+}
+
+KR_Escalation = {
+	KR_attack_Repola = { #828
+		icon = border_war
+		allowed = {
+			OR = {
+				tag = FIN
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 828 }
+		target_root_trigger = {
+			has_global_flag = Russian_Civil_War
+			NOT = { has_global_flag = KR_conflict_ended_flag }
+			if = {
+				limit = {
+					tag = FIN
+				}
+				OR = {
+					controls_state = 146
+					controls_state = 149
+					controls_state = 150
+				}
+				828 = {
+					OR = {
+						is_owned_and_controlled_by = SOV
+						is_owned_and_controlled_by = RUS
+						is_owned_and_controlled_by = RFP
+					}
+				}
+				828 = {
+					owner = {
+						NOT = { has_war_with = FIN }
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = SOV
+						tag = RUS
+						tag = RFP
+					}
+				}
+				NOT = {
+					owns_state = 828
+					controls_state = 828
+				}
+				OR = {
+					controls_state = 146
+					controls_state = 215
+					controls_state = 216
+				}
+				828 = { is_owned_and_controlled_by = FIN }
+				NOT = { has_war_with = FIN }
+			}
+		}
+		target_trigger = {
+			NOT = {
+				FROM = { is_owned_and_controlled_by = ROOT }
+			}
+			FROM = {
+				OR = {
+					is_core_of = ROOT
+					is_claimed_by = ROOT
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_border_war = yes
+				has_global_flag = KR_planning_attack
+			}
+		}
+		highlight_states = {
+			state = 828
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 30
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = KR_planning_attack
+		}
+		remove_effect = {
+			KR_attack_effect = yes
+			if = {
+				limit = {
+					tag = FIN
+				}
+				if = {
+					limit = { controls_state = 150 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 150
+							num_provinces = 3
+							on_win = fin_civil_war.3 #offensive victory Repola
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 828
+							num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 146 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 146
+							num_provinces = 2
+							on_win = fin_civil_war.3 #offensive victory Repola
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 828
+							num_provinces = 1
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 149 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 149
+							num_provinces = 1
+							on_win = fin_civil_war.3 #offensive victory Repola
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 828
+							num_provinces = 2
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					OR = {
+						tag = SOV
+						tag = RUS
+						tag = RFP
+					}
+				}
+				if = {
+					limit = { controls_state = 215 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 215
+							num_provinces = 5
+							on_win = fin_civil_war.3 #offensive victory Repola
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 828
+							num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 146 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 146
+							# num_provinces = 5
+							on_win = fin_civil_war.3 #offensive victory Repola
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 828
+							# num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 216 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 216
+							# num_provinces = 5
+							on_win = fin_civil_war.3 #offensive victory Repola
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 828
+							# num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+			}
+		}
+	}
+
+	KR_attack_Karelia = { #215
+		icon = border_war
+		allowed = {
+			OR = {
+				tag = FIN
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 215 }
+		target_root_trigger = {
+			has_global_flag = Russian_Civil_War
+			NOT = { has_global_flag = KR_conflict_ended_flag }
+			if = {
+				limit = {
+					tag = FIN
+				}
+				NOT = {
+					owns_state = 215
+					controls_state = 215
+				}
+				OR = {
+					controls_state = 149
+					controls_state = 828
+					controls_state = 213
+					controls_state = 216
+				}
+				215 = {
+					OR = {
+						is_owned_and_controlled_by = SOV
+						is_owned_and_controlled_by = RUS
+						is_owned_and_controlled_by = RFP
+					}
+				}
+				215 = {
+					owner = {
+						NOT = { has_war_with = FIN }
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = SOV
+						tag = RUS
+						tag = RFP
+					}
+				}
+				NOT = {
+					owns_state = 215
+					controls_state = 215
+				}
+				OR = {
+					controls_state = 214
+					controls_state = 216
+					controls_state = 828
+					controls_state = 213
+				}
+				215 = { is_owned_and_controlled_by = FIN }
+				NOT = { has_war_with = FIN }
+			}
+
+			215 = {
+				OR = {
+					is_core_of = ROOT
+					is_claimed_by = ROOT
+				}
+			}
+		}
+
+		available = {
+			NOT = {
+				has_border_war = yes
+				has_global_flag = KR_planning_attack
+			}
+		}
+		highlight_states = {
+			state = 828
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 30
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = KR_planning_attack
+		}
+		remove_effect = {
+			KR_attack_effect = yes
+			if = {
+				limit = {
+					tag = FIN
+				}
+				if = {
+					limit = { controls_state = 149 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 149
+							num_provinces = 1
+							on_win = fin_civil_war.4 #offensive victory Onega
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 215
+							num_provinces = 2
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 828 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 828
+							num_provinces = 3
+							on_win = fin_civil_war.4 #offensive victory Onega
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 215
+							num_provinces = 4
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 213 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 213
+							num_provinces = 3
+							on_win = fin_civil_war.4 #offensive victory Onega
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 215
+							num_provinces = 4
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 216 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 216
+							num_provinces = 2
+							on_win = fin_civil_war.4 #offensive victory Onega
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 215
+							num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						tag = FIN
+					}
+				}
+				if = {
+					limit = {
+						controls_state = 216 #Olonets
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 216
+							num_provinces = 2
+							on_win = fin_civil_war.4 #offensive victory Onega
+							on_lose = fin_civil_war.2 #offensive loss
+						}
+						defender = {
+							state = 215
+							num_provinces = 3
+							on_win = fin_civil_war.3 #defensive victory
+							on_lose = fin_civil_war.2 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 214 #Arkhangelsk
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 214
+							num_provinces = 4
+							on_win = fin_civil_war.4 #offensive victory Onega
+							on_lose = fin_civil_war.2 #offensive loss
+						}
+						defender = {
+							state = 215
+							num_provinces = 4
+							on_win = fin_civil_war.3 #defensive victory
+							on_lose = fin_civil_war.2 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 213 #Murmansk
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 214
+							num_provinces = 3
+							on_win = fin_civil_war.4 #offensive victory Onega
+							on_lose = fin_civil_war.2 #offensive loss
+						}
+						defender = {
+							state = 215
+							num_provinces = 4
+							on_win = fin_civil_war.3 #defensive victory
+							on_lose = fin_civil_war.2 #defensive loss
+						}
+					}
+				}
+			}
+		}
+	}
+
+	KR_attack_Olonets = { #216
+		icon = border_war
+		allowed = {
+			OR = {
+				tag = FIN
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 216 }
+		target_root_trigger = {
+			has_global_flag = Russian_Civil_War
+			NOT = { has_global_flag = KR_conflict_ended_flag }
+			if = {
+				limit = {
+					tag = FIN
+				}
+				NOT = {
+					owns_state = 216
+					controls_state = 216
+				}
+				OR = {
+					controls_state = 146
+					controls_state = 264
+					controls_state = 215
+				}
+				216 = {
+					OR = {
+						is_owned_and_controlled_by = SOV
+						is_owned_and_controlled_by = RUS
+						is_owned_and_controlled_by = RFP
+					}
+				}
+				216 = {
+					owner = {
+						NOT = { has_war_with = FIN }
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = SOV
+						tag = RUS
+						tag = RFP
+					}
+				}
+				NOT = {
+					owns_state = 216
+					controls_state = 216
+				}
+				OR = {
+					controls_state = 264
+					controls_state = 215
+					controls_state = 146
+				}
+				216 = { is_owned_and_controlled_by = FIN }
+				NOT = { has_war_with = FIN }
+			}
+			216 = {
+				OR = {
+					is_core_of = ROOT
+					is_claimed_by = ROOT
+				}
+			}
+		}
+		available = {
+			has_border_war = no
+			NOT = {
+				has_global_flag = KR_planning_attack
+			}
+		}
+		highlight_states = {
+			state = 216
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = KR_planning_attack
+		}
+		remove_effect = {
+			KR_attack_effect = yes
+			if = {
+				limit = {
+					tag = FIN
+				}
+				if = {
+					limit = { controls_state = 146 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 146
+							num_provinces = 2
+							on_win = fin_civil_war.5 #offensive victory Olonets
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 216
+							num_provinces = 4
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 215 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 215
+							num_provinces = 3
+							on_win = fin_civil_war.5 #offensive victory Olonets
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 216
+							num_provinces = 2
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 264 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 264
+							num_provinces = 3
+							on_win = fin_civil_war.5 #offensive victory Olonets
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 216
+							num_provinces = 2
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						tag = FIN
+					}
+				}
+				if = {
+					limit = {
+						controls_state = 264
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 264
+							num_provinces = 3
+							on_win = fin_civil_war.5 #offensive victory Olonets
+							on_lose = fin_civil_war.2 #offensive loss
+						}
+						defender = {
+							state = 216
+							num_provinces = 4
+							on_win = fin_civil_war.3 #defensive victory
+							on_lose = fin_civil_war.2 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 215
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 215
+							num_provinces = 2
+							on_win = fin_civil_war.5 #offensive victory Olonets
+							on_lose = fin_civil_war.2 #offensive loss
+						}
+						defender = {
+							state = 216
+							num_provinces = 2
+							on_win = fin_civil_war.3 #defensive victory
+							on_lose = fin_civil_war.2 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 146
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 146
+							num_provinces = 2
+							on_win = fin_civil_war.5 #offensive victory Olonets
+							on_lose = fin_civil_war.2 #offensive loss
+						}
+						defender = {
+							state = 216
+							num_provinces = 3
+							on_win = fin_civil_war.3 #defensive victory
+							on_lose = fin_civil_war.2 #defensive loss
+						}
+					}
+				}
+			}
+		}
+	}
+
+	KR_attack_Murmansk = { #213
+		icon = border_war
+		allowed = {
+			OR = {
+				tag = FIN
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 213 }
+		target_root_trigger = {
+			has_global_flag = Russian_Civil_War
+			NOT = { has_global_flag = KR_conflict_ended_flag }
+			if = {
+				limit = {
+					tag = FIN
+				}
+				NOT = {
+					owns_state = 213
+					controls_state = 213
+				}
+				OR = {
+					controls_state = 722
+					controls_state = 147
+					controls_state = 215
+				}
+				213 = {
+					OR = {
+						is_owned_and_controlled_by = SOV
+						is_owned_and_controlled_by = RUS
+						is_owned_and_controlled_by = RFP
+					}
+				}
+				213 = {
+					owner = {
+						NOT = { has_war_with = FIN }
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = SOV
+						tag = RUS
+						tag = RFP
+					}
+				}
+				NOT = {
+					owns_state = 213
+					controls_state = 213
+				}
+				OR = {
+					controls_state = 722
+					controls_state = 147
+					controls_state = 215
+				}
+				213 = { is_owned_and_controlled_by = FIN }
+				NOT = { has_war_with = FIN }
+			}
+			213 = {
+				OR = {
+					is_core_of = ROOT
+					is_claimed_by = ROOT
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_border_war = yes
+				has_global_flag = KR_planning_attack
+			}
+		}
+		highlight_states = {
+			state = 213
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = KR_planning_attack
+		}
+		remove_effect = {
+			KR_attack_effect = yes
+			if = {
+				limit = {
+					tag = FIN
+				}
+				if = {
+					limit = {
+						controls_state = 722
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 722
+							num_provinces = 1
+							on_win = fin_civil_war.6 #offensive victory Murmansk
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 213
+							num_provinces = 2
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 215
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 215
+							num_provinces = 4
+							on_win = fin_civil_war.6 #offensive victory Murmansk
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 213
+							num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 147
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 147
+							num_provinces = 1
+							on_win = fin_civil_war.6 #offensive victory Murmansk
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 213
+							num_provinces = 2
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						tag = FIN
+					}
+				}
+				if = {
+					limit = {
+						controls_state = 215
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 215
+							num_provinces = 4
+							on_win = fin_civil_war.6 #offensive victory Murmansk
+							on_lose = fin_civil_war.2 #offensive loss
+						}
+						defender = {
+							state = 213
+							num_provinces = 3
+							on_win = fin_civil_war.3 #defensive victory
+							on_lose = fin_civil_war.2 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 722
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 722
+							num_provinces = 1
+							on_win = fin_civil_war.6 #offensive victory Murmansk
+							on_lose = fin_civil_war.2 #offensive loss
+						}
+						defender = {
+							state = 213
+							num_provinces = 2
+							on_win = fin_civil_war.3 #defensive victory
+							on_lose = fin_civil_war.2 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 142
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 142
+							num_provinces = 1
+							on_win = fin_civil_war.6 #offensive victory Murmansk
+							on_lose = fin_civil_war.2 #offensive loss
+						}
+						defender = {
+							state = 213
+							num_provinces = 2
+							on_win = fin_civil_war.3 #defensive victory
+							on_lose = fin_civil_war.2 #defensive loss
+						}
+					}
+				}
+			}
+		}
+	}
+
+	KR_counterclaim = { #If Russia/Fascist Russia/USSR has their core territories and tension > 20, they can counterclaim
+		icon = eng_trade_unions_demand
+		allowed = {
+			OR = {
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		visible = {
+			has_global_flag = Russian_Civil_War
+			FIN = {
+				has_country_flag = KR_Full_Claims
+			}
+			OR = {
+				controls_state = 213
+				controls_state = 215
+				controls_state = 828
+				controls_state = 216
+			}
+			check_variable = {
+				global.KR_Tension > 19
+			}
+		}
+		available = {
+			controls_state = 213
+			controls_state = 215
+			controls_state = 828
+			controls_state = 216
+		}
+		highlight_states = {
+			state = 146
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		cost = 50
+		days_remove = 75
+		fire_only_once = yes
+		#days_re_enable = 25
+		complete_effect = {
+			add_state_claim = 722
+			add_state_claim = 147
+			add_state_claim = 146
+			add_state_claim = 832
+			set_country_flag = KR_counterclaim_flag
+		}
+		# modifier = {
+		# 	war_support_factor = 0.05
+		# }
+		remove_effect = {
+			if = {
+				limit = {
+					NOT = {
+						controls_state = 213
+						controls_state = 215
+						controls_state = 828
+						controls_state = 216
+					}
+				}
+				add_war_support = -0.05
+			}
+		}
+	}
+
+	KR_attack_isthmus = { #832
+		icon = border_war
+		allowed = {
+			OR = {
+				tag = FIN
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 832 }
+		target_root_trigger = {
+			has_global_flag = Russian_Civil_War
+			NOT = { has_global_flag = KR_conflict_ended_flag }
+			if = {
+				limit = {
+					tag = FIN
+				}
+				NOT = {
+					owns_state = 832
+					controls_state = 832
+				}
+				OR = {
+					controls_state = 195
+					controls_state = 146
+				}
+				832 = {
+					OR = {
+						is_owned_and_controlled_by = SOV
+						is_owned_and_controlled_by = RUS
+						is_owned_and_controlled_by = RFP
+					}
+				}
+				832 = {
+					owner = {
+						NOT = { has_war_with = FIN }
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = SOV
+						tag = RUS
+						tag = RFP
+					}
+				}
+				NOT = {
+					owns_state = 832
+					controls_state = 832
+				}
+				OR = {
+					controls_state = 195
+					controls_state = 146
+				}
+				832 = { is_owned_and_controlled_by = FIN }
+				NOT = { has_war_with = FIN }
+			}
+			832 = {
+				OR = {
+					is_core_of = ROOT
+					is_claimed_by = ROOT
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_border_war = yes
+				has_global_flag = KR_planning_attack
+			}
+		}
+		highlight_states = {
+			state = 832
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = KR_planning_attack
+		}
+		remove_effect = {
+			KR_attack_effect = yes
+			if = {
+				limit = {
+					tag = FIN
+				}
+				if = {
+					limit = {
+						controls_state = 146
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 146
+							num_provinces = 3
+							on_win = fin_civil_war.7 #offensive victory Terijoki
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 832
+							num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 195
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 195
+							num_provinces = 2
+							on_win = fin_civil_war.7 #offensive victory Terijoki
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 832
+							num_provinces = 2
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						tag = FIN
+					}
+				}
+				if = {
+					limit = {
+						controls_state = 195
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 195
+							num_provinces = 2
+							on_win = fin_civil_war.7 #offensive victory Terijoki
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 832
+							num_provinces = 2
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 146
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 146
+							num_provinces = 3
+							on_win = fin_civil_war.7 #offensive victory Terijoki
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 832
+							num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+			}
+		}
+	}
+
+	KR_attack_Viipuri = { #146
+		icon = border_war
+		allowed = {
+			OR = {
+				tag = FIN
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 146 }
+		target_root_trigger = {
+			has_global_flag = Russian_Civil_War
+			NOT = { has_global_flag = KR_conflict_ended_flag }
+			if = {
+				limit = {
+					tag = FIN
+				}
+				NOT = {
+					owns_state = 146
+					controls_state = 146
+				}
+				OR = {
+					controls_state = 150
+					controls_state = 1181
+					controls_state = 832
+					controls_state = 216
+				}
+				146 = {
+					OR = {
+						is_owned_and_controlled_by = SOV
+						is_owned_and_controlled_by = RUS
+						is_owned_and_controlled_by = RFP
+					}
+				}
+				146 = {
+					owner = {
+						NOT = { has_war_with = FIN }
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = SOV
+						tag = RUS
+						tag = RFP
+					}
+				}
+				NOT = {
+					owns_state = 146
+					controls_state = 146
+				}
+				OR = {
+					controls_state = 150
+					controls_state = 1181
+					controls_state = 832
+					controls_state = 216
+				}
+				146 = { is_owned_and_controlled_by = FIN }
+				NOT = { has_war_with = FIN }
+			}
+
+			832 = {
+				OR = {
+					is_core_of = ROOT
+					is_claimed_by = ROOT
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_border_war = yes
+				has_global_flag = KR_planning_attack
+			}
+		}
+		highlight_states = {
+			state = 146
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = KR_planning_attack
+		}
+		remove_effect = {
+			KR_attack_effect = yes
+			if = {
+				limit = {
+					tag = FIN
+				}
+				if = {
+					limit = {
+						controls_state = 1181
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 1181
+							num_provinces = 3
+							on_win = fin_civil_war.8 #offensive victory Viipuri
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 146
+							num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 150
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 150
+							num_provinces = 3
+							on_win = fin_civil_war.8 #offensive victory Viipuri
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 146
+							num_provinces = 5
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 832
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 832
+							num_provinces = 3
+							on_win = fin_civil_war.8 #offensive victory Viipuri
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 146
+							num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 216
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 216
+							num_provinces = 3
+							on_win = fin_civil_war.8 #offensive victory Viipuri
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 146
+							num_provinces = 2
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						tag = FIN
+					}
+				}
+				if = {
+					limit = {
+						controls_state = 832
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 832
+							num_provinces = 3
+							on_win = fin_civil_war.8 #offensive victory Viipuri
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 146
+							num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 216
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 216
+							num_provinces = 3
+							on_win = fin_civil_war.8 #offensive victory Viipuri
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 146
+							num_provinces = 2
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 150
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 150
+							num_provinces = 3
+							on_win = fin_civil_war.8 #offensive victory Viipuri
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 146
+							num_provinces = 5
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 1181
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 1181
+							num_provinces = 3
+							on_win = fin_civil_war.8 #offensive victory Viipuri
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 146
+							num_provinces = 3
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+			}
+		}
+	}
+
+	KR_attack_Petsamo = { #722
+		icon = border_war
+		allowed = {
+			OR = {
+				tag = FIN
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 722 }
+		target_root_trigger = {
+			has_global_flag = Russian_Civil_War
+			NOT = { has_global_flag = KR_conflict_ended_flag }
+			if = {
+				limit = {
+					tag = FIN
+				}
+				NOT = {
+					owns_state = 722
+					controls_state = 722
+				}
+				OR = {
+					controls_state = 148
+					controls_state = 213
+				}
+				722 = {
+					OR = {
+						is_owned_and_controlled_by = SOV
+						is_owned_and_controlled_by = RUS
+						is_owned_and_controlled_by = RFP
+					}
+				}
+				722 = {
+					owner = {
+						NOT = { has_war_with = FIN }
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = SOV
+						tag = RUS
+						tag = RFP
+					}
+				}
+				NOT = {
+					owns_state = 722
+					controls_state = 722
+				}
+				OR = {
+					controls_state = 148
+					controls_state = 213
+				}
+				722 = { is_owned_and_controlled_by = FIN }
+				NOT = { has_war_with = FIN }
+			}
+
+			722 = {
+				OR = {
+					is_core_of = ROOT
+					is_claimed_by = ROOT
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_border_war = yes
+				has_global_flag = KR_planning_attack
+			}
+		}
+		highlight_states = {
+			state = 722
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = KR_planning_attack
+		}
+		remove_effect = {
+			KR_attack_effect = yes
+			if = {
+				limit = {
+					tag = FIN
+				}
+				if = {
+					limit = { controls_state = 148 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 148
+							num_provinces = 3
+							on_win = fin_civil_war.10 #offensive victory Petsamo
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 722
+							num_provinces = 1
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 213 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 213
+							num_provinces = 2
+							on_win = fin_civil_war.10 #offensive victory Petsamo
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 722
+							num_provinces = 1
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						tag = FIN
+					}
+				}
+				if = {
+					limit = { controls_state = 213 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 213
+							num_provinces = 2
+							on_win = fin_civil_war.10 #offensive victory Petsamo
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 722
+							num_provinces = 1
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 148 }
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 148
+							num_provinces = 3
+							on_win = fin_civil_war.10 #offensive victory Petsamo
+							on_lose = fin_civil_war.1 #offensive loss
+						}
+						defender = {
+							state = 722
+							num_provinces = 1
+							on_win = fin_civil_war.2 #defensive victory
+							on_lose = fin_civil_war.1 #defensive loss
+						}
+					}
+				}
+			}
+		}
+	}
+
+	KR_claim_victory = { #
+		icon = generic_nationalism
+		allowed = {
+			OR = {
+				tag = FIN
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		visible = {
+			has_global_flag = Russian_Civil_War
+			has_country_flag = is_in_KR_conflict
+		}
+		available = {
+			has_full_control_of_state = 213
+			has_full_control_of_state = 215
+			has_full_control_of_state = 828
+			has_full_control_of_state = 216
+			if = {
+				limit = {
+					OR = {
+						tag = SOV
+						tag = RUS
+						tag = RFP
+					}
+				}
+				OR = {
+					NOT = { has_country_flag = KR_counterclaim_flag }
+					AND = {
+						has_full_control_of_state = 722
+						has_full_control_of_state = 147
+						has_full_control_of_state = 146
+						has_full_control_of_state = 832
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		cost = 0
+		# days_remove = 30
+		# days_re_enable = 25
+		complete_effect = {
+			add_stability = 0.10
+			add_war_support = -0.10
+			if = {
+				limit = {
+					controls_state = 828
+					NOT = {
+						828 = { is_core_of = ROOT }
+					}
+				}
+				add_state_core = 828
+			}
+			if = {
+				limit = {
+					controls_state = 213
+					NOT = {
+						213 = { is_core_of = ROOT }
+					}
+				}
+				add_state_core = 213
+			}
+			if = {
+				limit = {
+					controls_state = 215
+					NOT = {
+						215 = { is_core_of = ROOT }
+					}
+				}
+				add_state_core = 215
+			}
+			if = {
+				limit = {
+					controls_state = 216
+					NOT = {
+						216 = { is_core_of = ROOT }
+					}
+				}
+				add_state_core = 216
+			}
+			if = {
+				limit = {
+					controls_state = 722
+					NOT = {
+						722 = { is_core_of = ROOT }
+					}
+				}
+				add_state_core = 722
+			}
+			if = {
+				limit = {
+					controls_state = 146
+					NOT = {
+						146 = { is_core_of = ROOT }
+					}
+				}
+				add_state_core = 146
+			}
+			if = {
+				limit = {
+					controls_state = 832
+					NOT = {
+						832 = { is_core_of = ROOT }
+					}
+				}
+				add_state_core = 832
+			}
+			every_other_country = {
+				limit = {
+					has_country_flag = is_in_KR_conflict
+				}
+				country_event = {
+					id = fin_civil_war.11
+				}
+				clr_country_flag = is_in_KR_conflict
+			}
+			clr_country_flag = is_in_KR_conflict
+			clear_variable = global.KR_Tension
+			set_global_flag = KR_conflict_ended_flag
+		}
+	}
+	
+	KR_start_war = {
+		icon = generic_ignite_civil_war
+		allowed = {
+			OR = {
+				tag = FIN
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+			# check_variable = {
+			# 	global.KR_Tension < 3
+			# }
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 30
+		fire_only_once = yes
+		complete_effect = {
+			# add_stability = 0.10
+		}
+		timeout_effect = {
+			clear_variable = global.KR_Tension
+			set_global_flag = KR_conflict_ended_flag
+			clr_country_flag = is_in_KR_conflict
+			if = {
+				limit = {
+					NOT = {
+						tag = event_target:KR_most_recent_attacker
+					}
+				}
+				event_target:KR_most_recent_attacker = {
+					declare_war_on = {
+						target = ROOT
+						type = annex_everything
+					}
+				}
+				clear_global_event_target = KR_most_recent_attacker
+			}
+		}
+	}
+}

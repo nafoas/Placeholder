@@ -1,0 +1,4390 @@
+######################################
+# Yugoslavian Guerilla Warfare Events
+######################################
+
+add_namespace = ygw_victory
+
+#############
+###VICTORY###
+#############
+
+country_event = {  # Victory check
+	id = ygw_victory.1
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		OR = {
+			has_country_flag = ygw_mnt
+			has_country_flag = ygw_mac
+			has_country_flag = ygw_bos
+		}
+	}
+	option = {
+		country_event = { 
+			id = ygw_victory.1
+			days = 40
+		}
+		### 6 Parts Yugoslavia wins
+		if = {
+			limit = {
+				YUG = {
+					controls_state = 105
+					controls_state = 916
+					controls_state = 909
+					has_idea = YUG_federal_yug_hss
+				}
+				OR = {
+					AND = {check_variable = { ygw_mnt_w_pow > 80 }	check_variable = { ygw_mnt_w_pop > 50 }  has_country_flag = ygw_mnt_ben_w}
+					AND = {check_variable = { ygw_mnt_w_pow > 50 }	check_variable = { ygw_mnt_w_pop > 80 }  has_country_flag = ygw_mnt_ben_w}
+				}
+				OR = {
+					AND = {check_variable = { ygw_mac_s_pow > 80 }	check_variable = { ygw_mac_s_pop > 50 }  has_country_flag = ygw_mac_ben_s}
+					AND = {check_variable = { ygw_mac_s_pow > 50 }	check_variable = { ygw_mac_s_pop > 80 }  has_country_flag = ygw_mac_ben_s}
+				}
+				OR = {
+					AND = {check_variable = { ygw_bos_s_pow > 80 }	check_variable = { ygw_bos_s_pop > 50 }  has_country_flag = ygw_bos_ben_s}
+					AND = {check_variable = { ygw_bos_s_pow > 50 }	check_variable = { ygw_bos_s_pop > 80 }  has_country_flag = ygw_bos_ben_s}
+				}
+			}	
+			country_event = { id = yugoslavia.248 }
+		}
+	}
+}
+
+
+add_namespace = ygw_montenegro
+
+################
+###MONTENEGRO###
+################
+
+country_event = {  # Greens in power cause dissent
+	id = ygw_montenegro.1
+	title = ygw_montenegro.1.t
+	desc = ygw_montenegro.1.d
+	picture = GFX_montenegrin_greens_march
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_montenegro.1.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_montenegro.2
+			}
+			country_event = {
+				days = 30
+				id = ygw_montenegro.1002
+			}
+			country_event = {
+				days = 60
+				id = ygw_montenegro.3
+			}
+			country_event = {
+				days = 60
+				id = ygw_montenegro.1003
+			}
+			country_event = {
+				days = 90
+				id = ygw_montenegro.4
+			}
+			country_event = {
+				days = 90
+				id = ygw_montenegro.1004
+			}
+			country_event = {
+				days = 120
+				id = ygw_montenegro.9
+			}
+			country_event = {
+				days = 120
+				id = ygw_montenegro.1009
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mnt_r_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_g_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Greens in power cause dissent (occupation)
+	id = ygw_montenegro.1001
+	title = ygw_montenegro.1.t
+	desc = ygw_montenegro.1.d
+	picture = GFX_montenegrin_greens_march
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes		
+	option = {
+		name = ygw_montenegro.1.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_montenegro.2
+			}
+			country_event = {
+				days = 30
+				id = ygw_montenegro.1002
+			}
+			country_event = {
+				days = 60
+				id = ygw_montenegro.3
+			}
+			country_event = {
+				days = 60
+				id = ygw_montenegro.1003
+			}
+			country_event = {
+				days = 90
+				id = ygw_montenegro.4
+			}
+			country_event = {
+				days = 90
+				id = ygw_montenegro.1004
+			}
+			country_event = {
+				days = 120
+				id = ygw_montenegro.9
+			}
+			country_event = {
+				days = 120
+				id = ygw_montenegro.1009
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mnt_r_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_g_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Rebellion starts
+	id = ygw_montenegro.2
+	title = ygw_montenegro.2.t
+	desc = ygw_montenegro.2.d
+	picture = GFX_13_july_uprising
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_montenegro.2.a
+		hidden_effect = {
+			105 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			841 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_stability = -0.25
+					add_war_support = 0.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_stability = -0.10
+					add_war_support = 0.10
+				}
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mnt_r_pow
+				value = 10
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_g_pow
+				value = 15
+			}			
+		}
+	}
+}
+
+country_event = {  # Rebellion starts (occupation)
+	id = ygw_montenegro.1002
+	title = ygw_montenegro.2.t
+	desc = ygw_montenegro.2.d
+	picture = GFX_13_july_uprising
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_montenegro.2.a
+		hidden_effect = {
+			105 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			841 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_stability = -0.25
+					add_war_support = 0.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_stability = -0.10
+					add_war_support = 0.10
+				}
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mnt_r_pow
+				value = 10
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_g_pow
+				value = 15
+			}			
+		}
+	}
+}
+
+country_event = {  # Rebels suceed, communists are leaders
+	id = ygw_montenegro.3
+	title = ygw_montenegro.3.t
+	desc = ygw_montenegro.3.d
+	picture = GFX_montenegrin_red_leaders
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_montenegro.3.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_popularity = { ideology = communism popularity = 0.30 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = communism popularity = 0.10 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_w_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mnt_r_pop
+				value = 25
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_g_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Rebels suceed, communists are leaders (occupation)
+	id = ygw_montenegro.1003
+	title = ygw_montenegro.3.t
+	desc = ygw_montenegro.3.d
+	picture = GFX_montenegrin_red_leaders
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_montenegro.3.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_popularity = { ideology = communism popularity = 0.30 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = communism popularity = 0.10 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_w_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mnt_r_pop
+				value = 25
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_g_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Leftist Errors, Chetniks split
+	id = ygw_montenegro.4
+	title = ygw_montenegro.4.t
+	desc = ygw_montenegro.4.d
+	picture = GFX_montenegrin_chetniks
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_montenegro.4.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_popularity = { ideology = communism popularity = -0.10 }
+					add_stability = -0.10
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = communism popularity = -0.06 }
+					add_popularity = { ideology = monarchism popularity = 0.04 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_r_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pop
+				value = 10
+			}
+			add_to_variable = {
+				var = ygw_mnt_g_pop
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # Leftist Errors, Chetniks split (occupation)
+	id = ygw_montenegro.1004
+	title = ygw_montenegro.4.t
+	desc = ygw_montenegro.4.d
+	picture = GFX_montenegrin_chetniks
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_montenegro.4.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_popularity = { ideology = communism popularity = -0.10 }
+					add_stability = -0.10
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = communism popularity = -0.06 }
+					add_popularity = { ideology = monarchism popularity = 0.04 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_r_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pop
+				value = 10
+			}
+			add_to_variable = {
+				var = ygw_mnt_g_pop
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # Reds in power cause dissent
+	id = ygw_montenegro.5
+	title = ygw_montenegro.5.t
+	desc = ygw_montenegro.5.d
+	picture = GFX_montenegrin_red_leaders
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_montenegro.5.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_montenegro.6
+			}
+			country_event = {
+				days = 30
+				id = ygw_montenegro.1006
+			}
+			country_event = {
+				days = 60
+				id = ygw_montenegro.7
+			}
+			country_event = {
+				days = 60
+				id = ygw_montenegro.1007
+			}
+			country_event = {
+				days = 90
+				id = ygw_montenegro.8
+			}
+			country_event = {
+				days = 90
+				id = ygw_montenegro.1008
+			}
+			country_event = {
+				days = 120
+				id = ygw_montenegro.9
+			}
+			country_event = {
+				days = 120
+				id = ygw_montenegro.1009
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mnt_g_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_r_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Reds in power cause dissent (occupation)
+	id = ygw_montenegro.1005
+	title = ygw_montenegro.5.t
+	desc = ygw_montenegro.5.d
+	picture = GFX_montenegrin_red_leaders
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_montenegro.5.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_montenegro.6
+			}
+			country_event = {
+				days = 30
+				id = ygw_montenegro.1006
+			}
+			country_event = {
+				days = 60
+				id = ygw_montenegro.7
+			}
+			country_event = {
+				days = 60
+				id = ygw_montenegro.1007
+			}
+			country_event = {
+				days = 90
+				id = ygw_montenegro.8
+			}
+			country_event = {
+				days = 90
+				id = ygw_montenegro.1008
+			}
+			country_event = {
+				days = 120
+				id = ygw_montenegro.9
+			}
+			country_event = {
+				days = 120
+				id = ygw_montenegro.1009
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mnt_g_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_r_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Violence outbreaks by Greens
+	id = ygw_montenegro.6
+	title = ygw_montenegro.6.t
+	desc = ygw_montenegro.6.d
+	picture = GFX_montenegrin_greens_march
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_montenegro.6.a
+		hidden_effect = {
+			105 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			841 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_stability = -0.25
+					add_war_support = 0.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_stability = -0.10
+					add_war_support = 0.10
+				}
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mnt_g_pow
+				value = 10
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_r_pow
+				value = 15
+			}			
+		}
+	}
+}
+
+country_event = {  # Violence outbreaks by Greens (occupation)
+	id = ygw_montenegro.1006
+	title = ygw_montenegro.6.t
+	desc = ygw_montenegro.6.d
+	picture = GFX_montenegrin_greens_march
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_montenegro.6.a
+		hidden_effect = {
+			105 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			841 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_stability = -0.25
+					add_war_support = 0.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_stability = -0.10
+					add_war_support = 0.10
+				}
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mnt_g_pow
+				value = 10
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_r_pow
+				value = 15
+			}			
+		}
+	}
+}
+
+country_event = {  # Chetniks claim leadership
+	id = ygw_montenegro.7
+	title = ygw_montenegro.7.t
+	desc = ygw_montenegro.7.d
+	picture = GFX_montenegrin_chetnik_leaders
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_montenegro.7.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_popularity = { ideology = monarchism popularity = 0.20 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = monarchism popularity = 0.08 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_r_pop
+				value = 10
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pop
+				value = 15
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_g_pop
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # Chetniks claim leadership (occupation)
+	id = ygw_montenegro.1007
+	title = ygw_montenegro.7.t
+	desc = ygw_montenegro.7.d
+	picture = GFX_montenegrin_chetnik_leaders
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_montenegro.7.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_popularity = { ideology = monarchism popularity = 0.20 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = monarchism popularity = 0.08 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_r_pop
+				value = 10
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pop
+				value = 15
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_g_pop
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # Chetniks and Greens split
+	id = ygw_montenegro.8
+	title = ygw_montenegro.8.t
+	desc = ygw_montenegro.8.d
+	picture = GFX_montenegrin_chetniks
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_montenegro.8.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_popularity = { ideology = monarchism popularity = -0.15 }
+					add_popularity = { ideology = nationalism popularity = 0.08 }
+					add_popularity = { ideology = fascism popularity = 0.04 }
+					add_stability = -0.05
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = monarchism popularity = -0.03 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_g_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pop
+				value = 10
+			}
+			add_to_variable = {
+				var = ygw_mnt_r_pop
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # Chetniks and Greens split (occupation)
+	id = ygw_montenegro.1008
+	title = ygw_montenegro.8.t
+	desc = ygw_montenegro.8.d
+	picture = GFX_montenegrin_chetniks
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_montenegro.8.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MNT = {controls_state = 105}
+						MNT = {controls_state = 841}
+					}
+				}
+				MNT = {
+					add_popularity = { ideology = monarchism popularity = -0.15 }
+					add_popularity = { ideology = nationalism popularity = 0.08 }
+					add_popularity = { ideology = fascism popularity = 0.04 }
+					add_stability = -0.05
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 105}
+						YUG = {controls_state = 841}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = monarchism popularity = -0.03 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mnt_g_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mnt_w_pop
+				value = 10
+			}
+			add_to_variable = {
+				var = ygw_mnt_r_pop
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # CIVIL WAR STARTS IN MONTENEGRO
+	id = ygw_montenegro.9
+	title = ygw_montenegro.9.t
+	desc = ygw_montenegro.9.d
+	picture = GFX_montenegro
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_montenegro.9.a
+		hidden_effect = {
+			YUG = {
+				set_country_flag = ygw_mnt
+			}
+			country_event = { 
+				id = ygw_montenegro.10
+				days = 50
+			}
+			country_event = { 
+				id = ygw_montenegro.11
+				days = 40
+			}
+			country_event = { 
+				id = ygw_macedonia.1
+				days = 25
+			}
+			country_event = { 
+				id = ygw_bosnia.6
+				days = 35
+			}
+			country_event = {
+				id = ygw_victory.1
+				days = 70
+			}
+		}
+	}
+}
+
+country_event = {  # CIVIL WAR STARTS IN MONTENEGRO (occupation)
+	id = ygw_montenegro.1009
+	title = ygw_montenegro.9.t
+	desc = ygw_montenegro.9.d
+	picture = GFX_montenegro
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 105
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_montenegro.9.a
+		hidden_effect = {
+			YUG = {
+				set_country_flag = ygw_mnt
+			}
+			country_event = { 
+				id = ygw_montenegro.10
+				days = 50
+			}
+			country_event = { 
+				id = ygw_montenegro.11
+				days = 40
+			}
+			country_event = { 
+				id = ygw_macedonia.1
+				days = 25
+			}
+			country_event = { 
+				id = ygw_bosnia.6
+				days = 35
+			}
+			country_event = {
+				id = ygw_victory.1
+				days = 70
+			}
+		}
+	}
+}
+
+country_event = {  # Power and popularity check
+	id = ygw_montenegro.10
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_mnt
+	}
+	option = {
+		country_event = { 
+			id = ygw_montenegro.10
+			days = 50
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_mnt_w_pow > ygw_mnt_w_pop }
+				}
+				subtract_from_variable = { ygw_mnt_w_pow = 5 }
+				add_to_variable = { ygw_mnt_w_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_mnt_w_pop = 5 }
+				add_to_variable = { ygw_mnt_w_pow = 5 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ygw_mnt_g_pow > ygw_mnt_g_pop }
+				}
+				subtract_from_variable = { ygw_mnt_g_pow = 5 }
+				add_to_variable = { ygw_mnt_g_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_mnt_g_pop = 5 }
+				add_to_variable = { ygw_mnt_g_pow = 5 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ygw_mnt_r_pow > ygw_mnt_r_pop }
+				}
+				subtract_from_variable = { ygw_mnt_r_pow = 5 }
+				add_to_variable = { ygw_mnt_r_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_mnt_r_pop = 5 }
+				add_to_variable = { ygw_mnt_r_pow = 5 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Whites and Greens fight
+	id = ygw_montenegro.11
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_mnt
+	}
+	option = {
+		random_list = {
+			33 = {
+				country_event = { 
+					id = ygw_montenegro.11
+					days = 40
+				}
+			}
+			33 = {
+				country_event = { 
+					id = ygw_montenegro.12
+					days = 40
+				}
+			}
+			34 = {
+				country_event = { 
+					id = ygw_montenegro.13
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_mnt_w_pow > ygw_mnt_g_pow }
+				}
+				subtract_from_variable = { ygw_mnt_g_pow = 10 }
+				add_to_variable = { ygw_mnt_w_pow = 10 }
+				subtract_from_variable = { ygw_mnt_g_pop = 10 }
+				add_to_variable = { ygw_mnt_r_pop = 10 }
+				else = {
+				subtract_from_variable = { ygw_mnt_w_pow = 10 }
+				add_to_variable = { ygw_mnt_g_pow = 10 }
+				subtract_from_variable = { ygw_mnt_w_pop = 10 }
+				add_to_variable = { ygw_mnt_r_pop = 10 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Reds and Greens fight
+	id = ygw_montenegro.12
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_mnt
+	}
+	option = {
+		random_list = {
+			33 = {
+				country_event = { 
+					id = ygw_montenegro.11
+					days = 40
+				}
+			}
+			33 = {
+				country_event = { 
+					id = ygw_montenegro.12
+					days = 40
+				}
+			}
+			34 = {
+				country_event = { 
+					id = ygw_montenegro.13
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_mnt_r_pow > ygw_mnt_g_pow }
+				}
+				subtract_from_variable = { ygw_mnt_g_pow = 10 }
+				add_to_variable = { ygw_mnt_r_pow = 10 }
+				subtract_from_variable = { ygw_mnt_g_pop = 10 }
+				add_to_variable = { ygw_mnt_w_pop = 10 }
+				else = {
+				subtract_from_variable = { ygw_mnt_r_pow = 10 }
+				add_to_variable = { ygw_mnt_g_pow = 10 }
+				subtract_from_variable = { ygw_mnt_r_pop = 10 }
+				add_to_variable = { ygw_mnt_w_pop = 10 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Reds and Whites fight
+	id = ygw_montenegro.13
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_mnt
+	}
+	option = {
+		random_list = {
+			33 = {
+				country_event = { 
+					id = ygw_montenegro.11
+					days = 40
+				}
+			}
+			33 = {
+				country_event = { 
+					id = ygw_montenegro.12
+					days = 40
+				}
+			}
+			34 = {
+				country_event = { 
+					id = ygw_montenegro.13
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_mnt_r_pow > ygw_mnt_w_pow }
+				}
+				subtract_from_variable = { ygw_mnt_w_pow = 10 }
+				add_to_variable = { ygw_mnt_r_pow = 10 }
+				subtract_from_variable = { ygw_mnt_w_pop = 10 }
+				add_to_variable = { ygw_mnt_g_pop = 10 }
+				else = {
+				subtract_from_variable = { ygw_mnt_r_pow = 10 }
+				add_to_variable = { ygw_mnt_w_pow = 10 }
+				subtract_from_variable = { ygw_mnt_r_pop = 10 }
+				add_to_variable = { ygw_mnt_g_pop = 10 }
+				}
+			}
+		}
+	}
+}
+
+add_namespace = ygw_macedonia
+
+###############
+###MACEDONIA###
+###############
+
+country_event = {  # Civil War elsewhere sparks Macedonia
+	id = ygw_macedonia.1
+	title = ygw_macedonia.1.t
+	desc = ygw_macedonia.1.d
+	picture = GFX_skopje_1941
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		controls_state = 916
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_macedonia.1.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_macedonia.2
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.1002
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.3
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.1003
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.4
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.1004
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.5
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.1005
+			}
+			country_event = {
+				days = 90
+				id = ygw_macedonia.6
+			}
+			country_event = {
+				days = 90
+				id = ygw_macedonia.1006
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.10
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.10010
+			}
+		}
+	}
+}
+
+country_event = {  # Civil War elsewhere sparks Macedonia (occupation)
+	id = ygw_macedonia.1001
+	title = ygw_macedonia.1.t
+	desc = ygw_macedonia.1.d
+	picture = GFX_skopje_1941
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		controls_state = 916
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes	
+	option = {
+		name = ygw_macedonia.1.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_macedonia.2
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.1002
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.3
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.1003
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.4
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.1004
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.5
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.1005
+			}
+			country_event = {
+				days = 90
+				id = ygw_macedonia.6
+			}
+			country_event = {
+				days = 90
+				id = ygw_macedonia.1006
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.10
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.10010
+			}
+		}
+	}
+}
+
+country_event = {  # Attacks on Serb administration
+	id = ygw_macedonia.2
+	title = ygw_macedonia.2.t
+	desc = ygw_macedonia.2.d
+	picture = GFX_war_in_macedonia
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+		has_country_flag = ygw_mac_ben_s
+	}
+	option = {
+		name = ygw_macedonia.2.a
+		hidden_effect = {
+			106 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			916 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_stability = -0.25
+					add_war_support = 0.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_stability = -0.10
+					add_war_support = 0.10
+				}
+			}
+			add_to_variable = {
+				var = ygw_mac_m_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mac_p_pow
+				value = 10
+			}
+			subtract_from_variable = {
+				var = ygw_mac_s_pow
+				value = 15
+			}			
+		}
+	}
+}
+
+country_event = {  # Attacks on Serb administration (occupation)
+	id = ygw_macedonia.1002
+	title = ygw_macedonia.2.t
+	desc = ygw_macedonia.2.d
+	picture = GFX_war_in_macedonia
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+		has_country_flag = ygw_mac_ben_s
+	}
+	hidden = yes
+	option = {
+		name = ygw_macedonia.2.a
+		hidden_effect = {
+			106 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			916 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_stability = -0.25
+					add_war_support = 0.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_stability = -0.10
+					add_war_support = 0.10
+				}
+			}
+			add_to_variable = {
+				var = ygw_mac_m_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mac_p_pow
+				value = 10
+			}
+			subtract_from_variable = {
+				var = ygw_mac_s_pow
+				value = 15
+			}			
+		}
+	}
+}
+
+country_event = {  # Attacks on Macedonian administration
+	id = ygw_macedonia.3
+	title = ygw_macedonia.3.t
+	desc = ygw_macedonia.3.d
+	picture = GFX_war_in_macedonia
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+		has_country_flag = ygw_mac_ben_m
+	}
+	option = {
+		name = ygw_macedonia.3.a
+		hidden_effect = {
+			106 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			916 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_stability = -0.25
+					add_war_support = 0.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_stability = -0.10
+					add_war_support = 0.10
+				}
+			}
+			add_to_variable = {
+				var = ygw_mac_s_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mac_p_pow
+				value = 10
+			}
+			subtract_from_variable = {
+				var = ygw_mac_m_pow
+				value = 15
+			}			
+		}
+	}
+}
+
+country_event = {  # Attacks on Macedonian administration (occupation)
+	id = ygw_macedonia.1003
+	title = ygw_macedonia.3.t
+	desc = ygw_macedonia.3.d
+	picture = GFX_war_in_macedonia
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+		has_country_flag = ygw_mac_ben_m
+	}
+	hidden = yes
+	option = {
+		name = ygw_macedonia.3.a
+		hidden_effect = {
+			106 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			916 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_stability = -0.25
+					add_war_support = 0.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_stability = -0.10
+					add_war_support = 0.10
+				}
+			}
+			add_to_variable = {
+				var = ygw_mac_s_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mac_p_pow
+				value = 10
+			}
+			subtract_from_variable = {
+				var = ygw_mac_m_pow
+				value = 15
+			}			
+		}
+	}
+}
+
+country_event = {  # Communists unite with leftist VMRO and gain land
+	id = ygw_macedonia.4
+	title = ygw_macedonia.4.t
+	desc = ygw_macedonia.4.d
+	picture = GFX_macedonian_reds
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+		has_country_flag = ygw_mac_ben_s
+	}
+	option = {
+		name = ygw_macedonia.4.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_popularity = { ideology = communism popularity = 0.20 }
+					add_popularity = { ideology = authoritarian_socialism popularity = 0.10 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = communism popularity = 0.08 }
+					add_popularity = { ideology = authoritarian_socialism popularity = 0.02 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mac_s_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mac_p_pop
+				value = 25
+			}
+			subtract_from_variable = {
+				var = ygw_mac_m_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Communists unite with leftist VMRO and gain land (occupation)
+	id = ygw_macedonia.1004
+	title = ygw_macedonia.4.t
+	desc = ygw_macedonia.4.d
+	picture = GFX_macedonian_reds
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+		has_country_flag = ygw_mac_ben_s
+	}
+	hidden = yes
+	option = {
+		name = ygw_macedonia.4.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_popularity = { ideology = communism popularity = 0.20 }
+					add_popularity = { ideology = authoritarian_socialism popularity = 0.10 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = communism popularity = 0.08 }
+					add_popularity = { ideology = authoritarian_socialism popularity = 0.02 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mac_s_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mac_p_pop
+				value = 25
+			}
+			subtract_from_variable = {
+				var = ygw_mac_m_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Macedonian administration uses VMRO
+	id = ygw_macedonia.5
+	title = ygw_macedonia.5.t
+	desc = ygw_macedonia.5.d
+	picture = GFX_vmro
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+		has_country_flag = ygw_mac_ben_m
+	}
+	option = {
+		name = ygw_macedonia.5.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_popularity = { ideology = nationalism popularity = 0.20 }
+					add_popularity = { ideology = neutrality popularity = 0.10 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = nationalism popularity = 0.08 }
+					add_popularity = { ideology = neutrality popularity = 0.02 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mac_s_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mac_m_pop
+				value = 25
+			}
+			subtract_from_variable = {
+				var = ygw_mac_p_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Macedonian administration uses VMRO (occupation)
+	id = ygw_macedonia.1005
+	title = ygw_macedonia.5.t
+	desc = ygw_macedonia.5.d
+	picture = GFX_vmro
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+		has_country_flag = ygw_mac_ben_m
+	}
+	hidden = yes
+	option = {
+		name = ygw_macedonia.5.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_popularity = { ideology = nationalism popularity = 0.20 }
+					add_popularity = { ideology = neutrality popularity = 0.10 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = nationalism popularity = 0.08 }
+					add_popularity = { ideology = neutrality popularity = 0.02 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mac_s_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mac_m_pop
+				value = 25
+			}
+			subtract_from_variable = {
+				var = ygw_mac_p_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Split between Chetniks, communists and VMRO
+	id = ygw_macedonia.6
+	title = ygw_macedonia.6.t
+	desc = ygw_macedonia.6.d
+	picture = GFX_war_in_macedonia
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_macedonia.6.a
+		hidden_effect = {
+		}
+	}
+}
+
+country_event = {  # Split between Chetniks, communists and VMRO (occupation)
+	id = ygw_macedonia.1006
+	title = ygw_macedonia.6.t
+	desc = ygw_macedonia.6.d
+	picture = GFX_war_in_macedonia
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_macedonia.6.a
+		hidden_effect = {
+		}
+	}
+}
+
+country_event = {  # Communists in power cause dissent
+	id = ygw_macedonia.7
+	title = ygw_macedonia.7.t
+	desc = ygw_macedonia.7.d
+	picture = GFX_macedonian_reds
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_macedonia.7.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_macedonia.8
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.1008
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.9
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.1009
+			}
+			country_event = {
+				days = 90
+				id = ygw_macedonia.6
+			}
+			country_event = {
+				days = 90
+				id = ygw_macedonia.1006
+			}
+			country_event = {
+				days = 120
+				id = ygw_macedonia.10
+			}
+			country_event = {
+				days = 120
+				id = ygw_macedonia.10010
+			}
+			add_to_variable = {
+				var = ygw_mac_m_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mac_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_mac_p_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Communists in power cause dissent (occuation)
+	id = ygw_macedonia.1007
+	title = ygw_macedonia.7.t
+	desc = ygw_macedonia.7.d
+	picture = GFX_macedonian_reds
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_macedonia.7.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_macedonia.8
+			}
+			country_event = {
+				days = 30
+				id = ygw_macedonia.1008
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.9
+			}
+			country_event = {
+				days = 60
+				id = ygw_macedonia.1009
+			}
+			country_event = {
+				days = 90
+				id = ygw_macedonia.6
+			}
+			country_event = {
+				days = 90
+				id = ygw_macedonia.1006
+			}
+			country_event = {
+				days = 120
+				id = ygw_macedonia.10
+			}
+			country_event = {
+				days = 120
+				id = ygw_macedonia.10010
+			}
+			add_to_variable = {
+				var = ygw_mac_m_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mac_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_mac_p_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Local population seeks for protection
+	id = ygw_macedonia.8
+	title = ygw_macedonia.8.t
+	desc = ygw_macedonia.8.d
+	picture = GFX_macedonian_soldiers
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_macedonia.8.a
+		hidden_effect = {
+			106 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			916 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_stability = -0.25
+					add_war_support = 0.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_stability = -0.10
+					add_war_support = 0.10
+				}
+			}
+			add_to_variable = {
+				var = ygw_mac_s_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mac_m_pow
+				value = 10
+			}
+			subtract_from_variable = {
+				var = ygw_mac_p_pow
+				value = 15
+			}			
+		}
+	}
+}
+
+country_event = {  # Local population seeks for protection (occupation)
+	id = ygw_macedonia.1008
+	title = ygw_macedonia.8.t
+	desc = ygw_macedonia.8.d
+	picture = GFX_macedonian_soldiers
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_macedonia.8.a
+		hidden_effect = {
+			106 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			916 = { add_dynamic_modifier = { modifier = YUG_state_guerilla_war } }
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_stability = -0.25
+					add_war_support = 0.25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_stability = -0.10
+					add_war_support = 0.10
+				}
+			}
+			add_to_variable = {
+				var = ygw_mac_s_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_mac_m_pow
+				value = 10
+			}
+			subtract_from_variable = {
+				var = ygw_mac_p_pow
+				value = 15
+			}			
+		}
+	}
+}
+
+country_event = {  # Chetniks and VMRO control villages
+	id = ygw_macedonia.9
+	title = ygw_macedonia.9.t
+	desc = ygw_macedonia.9.d
+	picture = GFX_war_in_macedonia
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_macedonia.9.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_popularity = { ideology = nationalism popularity = 0.20 }
+					add_popularity = { ideology = neutrality popularity = 0.10 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = nationalism popularity = 0.05 }
+					add_popularity = { ideology = neutrality popularity = 0.02 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mac_p_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mac_m_pop
+				value = 10
+			}
+			add_to_variable = {
+				var = ygw_mac_s_pop
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # Chetniks and VMRO control villages (occupation)
+	id = ygw_macedonia.1009
+	title = ygw_macedonia.9.t
+	desc = ygw_macedonia.9.d
+	picture = GFX_war_in_macedonia
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_macedonia.9.a
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						MCE = {controls_state = 106}
+						MCE = {controls_state = 916}
+					}
+				}
+				MCE = {
+					add_popularity = { ideology = nationalism popularity = 0.20 }
+					add_popularity = { ideology = neutrality popularity = 0.10 }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						YUG = {controls_state = 106}
+						YUG = {controls_state = 916}
+					}
+				}
+				YUG = {
+					add_popularity = { ideology = nationalism popularity = 0.05 }
+					add_popularity = { ideology = neutrality popularity = 0.02 }
+				}
+			}
+			subtract_from_variable = {
+				var = ygw_mac_p_pop
+				value = 15
+			}
+			add_to_variable = {
+				var = ygw_mac_m_pop
+				value = 10
+			}
+			add_to_variable = {
+				var = ygw_mac_s_pop
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # CIVIL WAR STARTS IN MACEDONIA
+	id = ygw_macedonia.10
+	title = ygw_macedonia.10.t
+	desc = ygw_macedonia.10.d
+	picture = GFX_war_in_macedonia
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_macedonia.10.a
+		hidden_effect = {
+			YUG = {
+				set_country_flag = ygw_mac
+			}
+			country_event = { 
+				id = ygw_macedonia.11
+				days = 50
+			}
+			country_event = { 
+				id = ygw_macedonia.12
+				days = 40
+			}
+		}
+	}
+}
+
+country_event = {  # CIVIL WAR STARTS IN MACEDONIA (occupation)
+	id = ygw_macedonia.10010
+	title = ygw_macedonia.10.t
+	desc = ygw_macedonia.10.d
+	picture = GFX_war_in_macedonia
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 916
+		NOT = {
+			OR = {
+				tag = YUG
+				tag = SER
+				tag = CRO
+				tag = SLV
+				tag = BOS
+				tag = MNT
+				tag = MCE
+			}
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_macedonia.10.a
+		hidden_effect = {
+			YUG = {
+				set_country_flag = ygw_mac
+			}
+			country_event = { 
+				id = ygw_macedonia.11
+				days = 50
+			}
+			country_event = { 
+				id = ygw_macedonia.12
+				days = 40
+			}
+		}
+	}
+}
+
+country_event = {  # Power and popularity check
+	id = ygw_macedonia.11
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_mac
+	}
+	option = {
+		country_event = { 
+			id = ygw_macedonia.11
+			days = 50
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_mac_s_pow > ygw_mac_s_pop }
+				}
+				subtract_from_variable = { ygw_mac_s_pow = 5 }
+				add_to_variable = { ygw_mac_s_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_mac_s_pop = 5 }
+				add_to_variable = { ygw_mac_s_pow = 5 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ygw_mac_m_pow > ygw_mac_m_pop }
+				}
+				subtract_from_variable = { ygw_mac_m_pow = 5 }
+				add_to_variable = { ygw_mac_m_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_mac_m_pop = 5 }
+				add_to_variable = { ygw_mac_m_pow = 5 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ygw_mac_p_pow > ygw_mac_p_pop }
+				}
+				subtract_from_variable = { ygw_mac_p_pow = 5 }
+				add_to_variable = { ygw_mac_p_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_mac_p_pop = 5 }
+				add_to_variable = { ygw_mac_p_pow = 5 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Serbs and Macedonians fight
+	id = ygw_macedonia.12
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_mac
+	}
+	option = {
+		random_list = {
+			33 = {
+				country_event = { 
+					id = ygw_macedonia.12
+					days = 40
+				}
+			}
+			33 = {
+				country_event = { 
+					id = ygw_macedonia.13
+					days = 40
+				}
+			}
+			34 = {
+				country_event = { 
+					id = ygw_macedonia.14
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_mac_s_pow > ygw_mac_m_pow }
+				}
+				subtract_from_variable = { ygw_mac_m_pow = 10 }
+				add_to_variable = { ygw_mac_s_pow = 10 }
+				subtract_from_variable = { ygw_mac_m_pop = 10 }
+				add_to_variable = { ygw_mac_p_pop = 10 }
+				else = {
+				subtract_from_variable = { ygw_mac_s_pow = 10 }
+				add_to_variable = { ygw_mac_m_pow = 10 }
+				subtract_from_variable = { ygw_mac_s_pop = 10 }
+				add_to_variable = { ygw_mac_p_pop = 10 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Partizans and Macedonians fight
+	id = ygw_macedonia.13
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_mac
+	}
+	option = {
+		random_list = {
+			33 = {
+				country_event = { 
+					id = ygw_macedonia.12
+					days = 40
+				}
+			}
+			33 = {
+				country_event = { 
+					id = ygw_macedonia.13
+					days = 40
+				}
+			}
+			34 = {
+				country_event = { 
+					id = ygw_macedonia.14
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_mac_p_pow > ygw_mac_m_pow }
+				}
+				subtract_from_variable = { ygw_mac_m_pow = 10 }
+				add_to_variable = { ygw_mac_p_pow = 10 }
+				subtract_from_variable = { ygw_mac_m_pop = 10 }
+				add_to_variable = { ygw_mac_s_pop = 10 }
+				else = {
+				subtract_from_variable = { ygw_mac_p_pow = 10 }
+				add_to_variable = { ygw_mac_m_pow = 10 }
+				subtract_from_variable = { ygw_mac_p_pop = 10 }
+				add_to_variable = { ygw_mac_s_pop = 10 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Partizans and Serbs fight
+	id = ygw_macedonia.14
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_mac
+	}
+	option = {
+		random_list = {
+			33 = {
+				country_event = { 
+					id = ygw_macedonia.12
+					days = 40
+				}
+			}
+			33 = {
+				country_event = { 
+					id = ygw_macedonia.13
+					days = 40
+				}
+			}
+			34 = {
+				country_event = { 
+					id = ygw_macedonia.14
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_mac_p_pow > ygw_mac_s_pow }
+				}
+				subtract_from_variable = { ygw_mac_s_pow = 10 }
+				add_to_variable = { ygw_mac_p_pow = 10 }
+				subtract_from_variable = { ygw_mac_s_pop = 10 }
+				add_to_variable = { ygw_mac_m_pop = 10 }
+				else = {
+				subtract_from_variable = { ygw_mac_p_pow = 10 }
+				add_to_variable = { ygw_mac_s_pow = 10 }
+				subtract_from_variable = { ygw_mac_p_pop = 10 }
+				add_to_variable = { ygw_mac_m_pop = 10 }
+				}
+			}
+		}
+	}
+}
+
+add_namespace = ygw_bosnia
+
+############
+###BOSNIA###
+############
+
+country_event = {  # Ustase laws against the Serbs
+	id = ygw_bosnia.1
+	title = ygw_bosnia.1.t
+	desc = ygw_bosnia.1.d
+	picture = GFX_ustase_salute
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_bosnia.1.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_bosnia.2
+			}
+			country_event = {
+				days = 30
+				id = ygw_bosnia.1002
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.5
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.1005
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.11
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.10011
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_c_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Ustase laws against the Serbs (occupation)
+	id = ygw_bosnia.1001
+	title = ygw_bosnia.1.t
+	desc = ygw_bosnia.1.d
+	picture = GFX_ustase_salute
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	hidden = yes		
+	option = {
+		name = ygw_bosnia.1002.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_bosnia.2
+			}
+			country_event = {
+				days = 30
+				id = ygw_bosnia.1002
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.5
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.1005
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.11
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.10011
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_c_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Hostilities against Serb villages
+	id = ygw_bosnia.2
+	title = ygw_bosnia.2.t
+	desc = ygw_bosnia.2.d
+	picture = GFX_ustase_fighters
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_bosnia.2.a
+		hidden_effect = {
+			YUG = {	add_popularity = { ideology = nationalism popularity = 0.10 }	}
+			SER = {	add_popularity = { ideology = nationalism popularity = 0.10 }	}
+			add_to_variable = {
+				var = ygw_bos_p_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_c_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pow
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Hostilities against Serb villages (occupation)
+	id = ygw_bosnia.1002
+	title = ygw_bosnia.2.t
+	desc = ygw_bosnia.2.d
+	picture = GFX_ustase_fighters
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_bosnia.2.a
+		hidden_effect = {
+			YUG = {	add_popularity = { ideology = nationalism popularity = 0.10 }	}
+			SER = {	add_popularity = { ideology = nationalism popularity = 0.10 }	}
+			add_to_variable = {
+				var = ygw_bos_p_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_c_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pow
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Chetnik laws against the Muslims
+	id = ygw_bosnia.3
+	title = ygw_bosnia.3.t
+	desc = ygw_bosnia.3.d
+	picture = GFX_draza_and_chetniks
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_bosnia.3.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_bosnia.4
+			}
+			country_event = {
+				days = 30
+				id = ygw_bosnia.1004
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.5
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.1005
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.11
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.10011
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Chetnik laws against the Muslims (occupation)
+	id = ygw_bosnia.1003
+	title = ygw_bosnia.3.t
+	desc = ygw_bosnia.3.d
+	picture = GFX_draza_and_chetniks
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_bosnia.3.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_bosnia.4
+			}
+			country_event = {
+				days = 30
+				id = ygw_bosnia.1004
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.5
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.1005
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.11
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.10011
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pop
+				value = 10
+			}
+		}
+	}
+}
+
+country_event = {  # Hostilities against Muslim villages
+	id = ygw_bosnia.4
+	title = ygw_bosnia.4.t
+	desc = ygw_bosnia.4.d
+	picture = GFX_chetniks
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_bosnia.4.a
+		hidden_effect = {
+			add_to_variable = {
+				var = ygw_bos_p_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_s_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_c_pow
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # Hostilities against Muslim villages (occupation)
+	id = ygw_bosnia.1004
+	title = ygw_bosnia.4.t
+	desc = ygw_bosnia.4.d
+	picture = GFX_chetniks
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_bosnia.4.a
+		hidden_effect = {
+			add_to_variable = {
+				var = ygw_bos_p_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_s_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_c_pow
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # Communists mobilize
+	id = ygw_bosnia.5
+	title = ygw_bosnia.5.t
+	desc = ygw_bosnia.5.d
+	picture = GFX_yugoslav_partisans
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_bosnia.5.a
+		hidden_effect = {
+			subtract_from_variable = {
+				var = ygw_bos_c_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pow
+				value = 15
+			}
+			subtract_from_variable = {
+				var = ygw_bos_c_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pop
+				value = 15
+			}
+		}
+	}
+}
+
+country_event = {  # Communists mobilize (occupation)
+	id = ygw_bosnia.1005
+	title = ygw_bosnia.5.t
+	desc = ygw_bosnia.5.d
+	picture = GFX_yugoslav_partisans
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_bosnia.5.a
+		hidden_effect = {
+			subtract_from_variable = {
+				var = ygw_bos_c_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pow
+				value = 15
+			}
+			subtract_from_variable = {
+				var = ygw_bos_c_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pop
+				value = 15
+			}
+		}
+	}
+}
+
+country_event = {  # Civil war in Yugoslavia sparks conflict in Bosnia
+	id = ygw_bosnia.6
+	title = ygw_bosnia.6.t
+	desc = ygw_bosnia.6.d
+	picture = GFX_sarajevo_1945
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_bosnia.6.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_bosnia.7
+			}
+			country_event = {
+				days = 30
+				id = ygw_bosnia.1007
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.10
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.10010
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.11
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.10011
+			}
+		}
+	}
+}
+
+country_event = {  # Civil war in Yugoslavia sparks conflict in Bosnia (occupation)
+	id = ygw_bosnia.1006
+	title = ygw_bosnia.6.t
+	desc = ygw_bosnia.6.d
+	picture = GFX_sarajevo_1945
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_bosnia.6.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_bosnia.7
+			}
+			country_event = {
+				days = 30
+				id = ygw_bosnia.1007
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.10
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.10010
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.11
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.10011
+			}
+		}
+	}
+}
+
+country_event = {  # Communist network mobilizes, sporadic violence
+	id = ygw_bosnia.7
+	title = ygw_bosnia.7.t
+	desc = ygw_bosnia.7.d
+	picture = GFX_yugoslav_partisans
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_bosnia.7.a
+		hidden_effect = {
+			subtract_from_variable = {
+				var = ygw_bos_c_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pow
+				value = 15
+			}
+			subtract_from_variable = {
+				var = ygw_bos_c_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pop
+				value = 15
+			}
+		}
+	}
+}
+
+country_event = {  # Communist network mobilizes, sporadic violence (occupation)
+	id = ygw_bosnia.1007
+	title = ygw_bosnia.7.t
+	desc = ygw_bosnia.7.d
+	picture = GFX_yugoslav_partisans
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_bosnia.7.a
+		hidden_effect = {
+			subtract_from_variable = {
+				var = ygw_bos_c_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pow
+				value = 15
+			}
+			subtract_from_variable = {
+				var = ygw_bos_c_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_p_pop
+				value = 15
+			}
+		}
+	}
+}
+
+country_event = {  # Communists attempt land reform
+	id = ygw_bosnia.8
+	title = ygw_bosnia.8.t
+	desc = ygw_bosnia.8.d
+	picture = GFX_sarajevo_1945
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_bosnia.8.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_bosnia.9
+			}
+			country_event = {
+				days = 30
+				id = ygw_bosnia.1009
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.10
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.10010
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.11
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.10011
+			}
+			add_to_variable = {
+				var = ygw_bos_c_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_m_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_p_pop
+				value = 15
+			}
+		}
+	}
+}
+
+country_event = {  # Communists attempt land reform (occupation)
+	id = ygw_bosnia.1008
+	title = ygw_bosnia.8.t
+	desc = ygw_bosnia.8.d
+	picture = GFX_sarajevo_1945
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_bosnia.8.a
+		hidden_effect = {
+			country_event = {
+				days = 30
+				id = ygw_bosnia.9
+			}
+			country_event = {
+				days = 30
+				id = ygw_bosnia.1009
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.10
+			}
+			country_event = {
+				days = 60
+				id = ygw_bosnia.10010
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.11
+			}
+			country_event = {
+				days = 90
+				id = ygw_bosnia.10011
+			}
+			add_to_variable = {
+				var = ygw_bos_c_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_m_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_p_pop
+				value = 15
+			}
+		}
+	}
+}
+
+country_event = {  # Serbs and Muslims organize paramilitaries
+	id = ygw_bosnia.9
+	title = ygw_bosnia.9.t
+	desc = ygw_bosnia.9.d
+	picture = GFX_chetniks
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_bosnia.9.a
+		hidden_effect = {
+			add_to_variable = {
+				var = ygw_bos_s_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_m_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_c_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_p_pow
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # Serbs and Muslims organize paramilitaries (occupation)
+	id = ygw_bosnia.1009
+	title = ygw_bosnia.9.t
+	desc = ygw_bosnia.9.d
+	picture = GFX_chetniks
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_bosnia.9.a
+		hidden_effect = {
+			add_to_variable = {
+				var = ygw_bos_s_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_m_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_c_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_p_pow
+				value = 5
+			}
+		}
+	}
+}
+
+country_event = {  # Ustase popularity rises
+	id = ygw_bosnia.10
+	title = ygw_bosnia.10.t
+	desc = ygw_bosnia.10.d
+	picture = GFX_ustase_fighters
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_bosnia.10.a
+		hidden_effect = {
+			subtract_from_variable = {
+				var = ygw_bos_p_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_c_pow
+				value = 15
+			}
+			subtract_from_variable = {
+				var = ygw_bos_p_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_c_pop
+				value = 15
+			}
+		}
+	}
+}
+
+country_event = {  # Ustase popularity rises (occupation)
+	id = ygw_bosnia.10010
+	title = ygw_bosnia.10.t
+	desc = ygw_bosnia.10.d
+	picture = GFX_ustase_fighters
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_bosnia.10010.a
+		hidden_effect = {
+			subtract_from_variable = {
+				var = ygw_bos_p_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pow
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pow
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_c_pow
+				value = 15
+			}
+			subtract_from_variable = {
+				var = ygw_bos_p_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_s_pop
+				value = 5
+			}
+			subtract_from_variable = {
+				var = ygw_bos_m_pop
+				value = 5
+			}
+			add_to_variable = {
+				var = ygw_bos_c_pop
+				value = 15
+			}
+		}
+	}
+}
+
+country_event = {  # CIVIL WAR STARTS IN BOSNIA
+	id = ygw_bosnia.11
+	title = ygw_bosnia.11.t
+	desc = ygw_bosnia.11.d
+	picture = GFX_sarajevo_1945
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	option = {
+		name = ygw_bosnia.11.a
+		hidden_effect = {
+			YUG = {
+				set_country_flag = ygw_bos
+			}
+			country_event = { 
+				id = ygw_bosnia.12
+				days = 50
+			}
+			country_event = { 
+				id = ygw_bosnia.13
+				days = 40
+			}
+		}
+	}
+}
+
+country_event = {  # CIVIL WAR STARTS IN BOSNIA (occupation)
+	id = ygw_bosnia.10011
+	title = ygw_bosnia.11.t
+	desc = ygw_bosnia.11.d
+	picture = GFX_sarajevo_1945
+	is_triggered_only = yes
+	trigger = {
+		controls_state = 909
+		OR = {
+			tag = YUG
+			tag = SER
+			tag = CRO
+			tag = SLV
+			tag = BOS
+			tag = MNT
+			tag = MCE
+		}
+	}
+	hidden = yes
+	option = {
+		name = ygw_bosnia.11.a
+		hidden_effect = {
+			YUG = {
+				set_country_flag = ygw_bos
+			}
+			country_event = { 
+				id = ygw_bosnia.12
+				days = 50
+			}
+			country_event = { 
+				id = ygw_bosnia.13
+				days = 40
+			}
+		}
+	}
+}
+
+country_event = {  # Power and popularity check
+	id = ygw_bosnia.12
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_bos
+	}
+	option = {
+		country_event = { 
+			id = ygw_bosnia.12
+			days = 50
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_bos_s_pow > ygw_bos_s_pop }
+				}
+				subtract_from_variable = { ygw_bos_s_pow = 5 }
+				add_to_variable = { ygw_bos_s_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_bos_s_pop = 5 }
+				add_to_variable = { ygw_bos_s_pow = 5 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ygw_bos_c_pow > ygw_bos_c_pop }
+				}
+				subtract_from_variable = { ygw_bos_c_pow = 5 }
+				add_to_variable = { ygw_bos_c_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_bos_c_pop = 5 }
+				add_to_variable = { ygw_bos_c_pow = 5 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ygw_bos_m_pow > ygw_bos_m_pop }
+				}
+				subtract_from_variable = { ygw_bos_m_pow = 5 }
+				add_to_variable = { ygw_bos_m_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_bos_m_pop = 5 }
+				add_to_variable = { ygw_bos_m_pow = 5 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { ygw_bos_p_pow > ygw_bos_p_pop }
+				}
+				subtract_from_variable = { ygw_bos_p_pow = 5 }
+				add_to_variable = { ygw_bos_p_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_bos_p_pop = 5 }
+				add_to_variable = { ygw_bos_p_pow = 5 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Serbs and Croats fight
+	id = ygw_bosnia.13
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_bos
+	}
+	option = {
+		random_list = {
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.13
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.14
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.15
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.16
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.17
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.18
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_bos_s_pow > ygw_bos_c_pow }
+				}
+				subtract_from_variable = { ygw_bos_c_pow = 10 }
+				add_to_variable = { ygw_bos_s_pow = 10 }
+				subtract_from_variable = { ygw_bos_c_pow = 10 }
+				add_to_variable = { ygw_bos_p_pop = 5 }
+				add_to_variable = { ygw_bos_m_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_bos_s_pow = 10 }
+				add_to_variable = { ygw_bos_c_pow = 10 }
+				subtract_from_variable = { ygw_bos_s_pow = 10 }
+				add_to_variable = { ygw_bos_p_pop = 5 }
+				add_to_variable = { ygw_bos_m_pop = 5 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Serbs and Muslims fight
+	id = ygw_bosnia.14
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_bos
+	}
+	option = {
+		random_list = {
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.13
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.14
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.15
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.16
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.17
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.18
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_bos_s_pow > ygw_bos_m_pow }
+				}
+				subtract_from_variable = { ygw_bos_m_pow = 10 }
+				add_to_variable = { ygw_bos_s_pow = 10 }
+				subtract_from_variable = { ygw_bos_m_pow = 10 }
+				add_to_variable = { ygw_bos_p_pop = 5 }
+				add_to_variable = { ygw_bos_c_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_bos_s_pow = 10 }
+				add_to_variable = { ygw_bos_m_pow = 10 }
+				subtract_from_variable = { ygw_bos_s_pow = 10 }
+				add_to_variable = { ygw_bos_p_pop = 5 }
+				add_to_variable = { ygw_bos_c_pop = 5 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Serbs and Partisans fight
+	id = ygw_bosnia.15
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_bos
+	}
+	option = {
+		random_list = {
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.13
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.14
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.15
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.16
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.17
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.18
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_bos_s_pow > ygw_bos_p_pow }
+				}
+				subtract_from_variable = { ygw_bos_p_pow = 10 }
+				add_to_variable = { ygw_bos_s_pow = 10 }
+				subtract_from_variable = { ygw_bos_p_pow = 10 }
+				add_to_variable = { ygw_bos_m_pop = 5 }
+				add_to_variable = { ygw_bos_c_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_bos_s_pow = 10 }
+				add_to_variable = { ygw_bos_p_pow = 10 }
+				subtract_from_variable = { ygw_bos_s_pow = 10 }
+				add_to_variable = { ygw_bos_m_pop = 5 }
+				add_to_variable = { ygw_bos_c_pop = 5 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Muslims and Croats fight
+	id = ygw_bosnia.16
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_bos
+	}
+	option = {
+		random_list = {
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.13
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.14
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.15
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.16
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.17
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.18
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_bos_m_pow > ygw_bos_c_pow }
+				}
+				subtract_from_variable = { ygw_bos_c_pow = 10 }
+				add_to_variable = { ygw_bos_m_pow = 10 }
+				subtract_from_variable = { ygw_bos_c_pow = 10 }
+				add_to_variable = { ygw_bos_p_pop = 5 }
+				add_to_variable = { ygw_bos_s_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_bos_m_pow = 10 }
+				add_to_variable = { ygw_bos_c_pow = 10 }
+				subtract_from_variable = { ygw_bos_m_pow = 10 }
+				add_to_variable = { ygw_bos_p_pop = 5 }
+				add_to_variable = { ygw_bos_s_pop = 5 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Muslims and Partisans fight
+	id = ygw_bosnia.17
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_bos
+	}
+	option = {
+		random_list = {
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.13
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.14
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.15
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.16
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.17
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.18
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_bos_m_pow > ygw_bos_p_pow }
+				}
+				subtract_from_variable = { ygw_bos_p_pow = 10 }
+				add_to_variable = { ygw_bos_m_pow = 10 }
+				subtract_from_variable = { ygw_bos_p_pow = 10 }
+				add_to_variable = { ygw_bos_s_pop = 5 }
+				add_to_variable = { ygw_bos_c_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_bos_m_pow = 10 }
+				add_to_variable = { ygw_bos_p_pow = 10 }
+				subtract_from_variable = { ygw_bos_m_pow = 10 }
+				add_to_variable = { ygw_bos_s_pop = 5 }
+				add_to_variable = { ygw_bos_c_pop = 5 }
+				}
+			}
+		}
+	}
+}
+
+country_event = {  # Croats and Partisans fight
+	id = ygw_bosnia.18
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_country_flag = ygw_bos
+	}
+	option = {
+		random_list = {
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.13
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.14
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.15
+					days = 40
+				}
+			}
+			17 = {
+				country_event = { 
+					id = ygw_bosnia.16
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.17
+					days = 40
+				}
+			}
+			16 = {
+				country_event = { 
+					id = ygw_bosnia.18
+					days = 40
+				}
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					check_variable = { ygw_bos_c_pow > ygw_bos_p_pow }
+				}
+				subtract_from_variable = { ygw_bos_p_pow = 10 }
+				add_to_variable = { ygw_bos_c_pow = 10 }
+				subtract_from_variable = { ygw_bos_p_pow = 10 }
+				add_to_variable = { ygw_bos_s_pop = 5 }
+				add_to_variable = { ygw_bos_m_pop = 5 }
+				else = {
+				subtract_from_variable = { ygw_bos_c_pow = 10 }
+				add_to_variable = { ygw_bos_p_pow = 10 }
+				subtract_from_variable = { ygw_bos_c_pow = 10 }
+				add_to_variable = { ygw_bos_s_pop = 5 }
+				add_to_variable = { ygw_bos_m_pop = 5 }
+				}
+			}
+		}
+	}
+}

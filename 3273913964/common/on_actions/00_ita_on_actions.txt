@@ -1,0 +1,367 @@
+on_actions = {
+	#ROOT is new controller #FROM is old controller #FROM.FROM is state ID
+	on_state_control_changed = {
+		effect = {
+			if = { #Necessary for Civil war mechanic
+				limit = {
+					FROM = { tag = ITA }
+					NOT = {
+						ITA = { has_country_flag = ITA_armistice_inminent }
+						ITA = { has_country_flag = ITA_armistice_with_allies }
+						has_global_flag = Italian_Civil_War_flag
+					}
+					ITA = {
+						has_war_support > 0.49
+						#WW2 is ongoing
+						OR = {
+							has_war_with = ALY
+							AND = {
+								has_war_with = ENG
+								ENG = { is_faction_leader = yes }
+							}
+						}
+						is_in_faction_with = GER #TODO: OR is in an alliance with Germany (pact of steel)
+						has_war_together_with = GER
+					}
+					FROM.FROM = {
+						OR = {
+							region = 23
+							region = 219
+							region = 216
+							state = 1033
+							state = 158
+							state = 1034
+							state = 790
+							state = 791
+							state = 39
+						}
+					}
+				}
+				ITA = {
+					if = {
+						limit = { has_war_support > 0.79 }
+						add_war_support = -0.11
+					}
+					else_if = {
+						limit = {
+							has_war_support < 0.80
+							has_war_support > 0.69
+						}
+						add_war_support = -0.15
+					}
+					else_if = {
+						limit = { has_war_support < 0.70 }
+						add_war_support = -0.2
+					}
+				}
+			}
+
+			if = { #Activates missions to start Italian civil war
+				limit = {
+					FROM = { tag = ITA }
+					NOT = {
+						ITA = { has_country_flag = ITA_armistice_inminent }
+						ITA = { has_country_flag = ITA_armistice_with_allies }
+						has_global_flag = Italian_Civil_War_flag
+					}
+					FROM.FROM = {
+						OR = {
+							region = 23
+							region = 219
+							region = 216
+							state = 1033
+							state = 158
+						}
+					}
+					ITA = {
+						has_war_support < 0.51 #War support for Italy must be equal or below 50
+						#WW2 is ongoing.
+						#TODO: maybe make a global flag for ww2 ongoing that is added through on actions
+						OR = {
+							AND = {
+								ALY = {
+									exists = yes
+									is_subject = no
+									has_war_with = ITA
+								}
+							}
+							AND = {
+								has_war_with = ENG
+								ENG = {
+									is_faction_leader = yes
+									exists = yes
+									is_subject = no
+								}
+							}
+						}
+						is_in_faction_with = GER #TODO: OR is in an alliance with Germany (pact of steel)
+						has_war_together_with = GER
+					}
+					#Hacer que se active si Italia tiene war support por debajo de un valor? en cuyo caso hacer eventos que bajan el war support cuando Italia pierde en ethiopia y norte de africa.
+					#Armisticio con Francia añade war support
+				}
+				# ROOT = { #Not used atm
+				# 	# save_event_target_as = ita_occupier_mainland
+				# 	ITA = {
+				# 		add_to_array = {
+				# 			array = occupiers_of_italy
+				# 			value = PREV
+				# 		}
+				# 	}
+				# }
+
+				ITA = {
+					add_to_array = {
+						array = ITA_occupied_states
+						value = FROM.FROM
+					}
+				}
+
+				if = {
+					limit = {
+						FROM.FROM = { state = 115 }
+					}
+					ITA = { activate_mission = ITA_retake_sicily }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 156 }
+					}
+					ITA = { activate_mission = ITA_retake_calabria }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 1026 }
+					}
+					ITA = { activate_mission = ITA_retake_basilicata }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 1027 }
+					}
+					ITA = { activate_mission = ITA_retake_puglia }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 117 }
+					}
+					ITA = { activate_mission = ITA_retake_campania }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 157 }
+					}
+					ITA = { activate_mission = ITA_retake_abruzzi }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 1030 }
+					}
+					ITA = { activate_mission = ITA_retake_umbria }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 1029 }
+					}
+					ITA = { activate_mission = ITA_retake_marche }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 162 }
+					}
+					ITA = { activate_mission = ITA_retake_toscana }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 161 }
+					}
+					ITA = { activate_mission = ITA_retake_emilia_romagna }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 160 }
+					}
+					ITA = { activate_mission = ITA_retake_veneto }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 159 }
+					}
+					ITA = { activate_mission = ITA_retake_lombardia }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 158 }
+					}
+					ITA = { activate_mission = ITA_retake_piemonte }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 1033 }
+					}
+					ITA = { activate_mission = ITA_retake_liguria }
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 2 }
+					}
+					ITA = { activate_mission = ITA_retake_lazio }
+				}
+			}
+		}
+
+		effect = { #Libyan Revolt
+			if = {
+				limit = {
+					NOT = { country_exists = LBA }
+					FROM = { tag = ITA }
+					FROM.FROM = {
+						OR = {
+							state = 448
+							state = 449
+							state = 450
+							state = 451
+							# state = 661
+							# state = 663
+						}
+					}
+					# date > 1942.1.1
+					ITA = {
+						check_variable = {
+							ITA_lba_stability < 30
+						}
+						OR = {
+							is_historical_focus_on = no
+							is_ai = no
+						}
+						OR = {
+							controls_state = 661
+							controls_state = 663
+						}
+					}
+					ROOT = { #Occupier
+						OR = {
+							tag = ENG
+							is_in_faction_with = ENG
+							is_subject_of = ENG
+						}
+					}
+				}
+
+				#TODO: make mission for italy to re-occupy the state/s. if failed revolt starts
+				ITA = {
+					country_event = {
+						id = ita_lba.4
+						hours = 20
+					}
+				}
+			}
+		}
+	}
+
+	on_startup = {
+		effect = {
+			ITA = {
+				country_event = { id = italy.57 }
+				country_event = {
+					id = italy_internal.19
+					days = 638
+				}
+				country_event = {
+					id = ita_economic.6
+					days = 1374
+				}
+				country_event = {
+					id = ita_diplomacy.2
+					days = 565
+				}
+				country_event = {
+					id = italy_internal.1
+					days = 120
+					random = 5
+				}
+				country_event = {
+					id = ita_lba.1
+					days = 1582
+				}
+				country_event = {
+					id = ita_lba.2
+					days = 2008
+				}
+				country_event = {
+					id = ita_lba.3
+					days = 2801
+				}
+				if = {
+					limit = {
+						NOT = { has_dlc = "By Blood Alone" }
+					}
+					# add_equipment_to_stockpile = {
+					# 	type = early_fighter_equipment
+					# 	amount = 234
+					# 	producer = ITA
+					# }
+					add_equipment_to_stockpile = {
+						type = iw_fighter_equipment
+						amount = 469
+						producer = ITA
+					}
+					add_equipment_to_stockpile = {
+						type = gw_bomber_equipment
+						amount = 385
+						producer = ITA
+					}
+					add_equipment_to_stockpile = {
+						type = tac_bomber_equipment_0
+						amount = 193
+						producer = ITA
+					}
+				}
+				else = {
+					add_equipment_to_stockpile = {
+						type = small_plane_airframe_0
+						amount = 469
+						producer = ENG
+					}
+					add_equipment_to_stockpile = {
+						type = medium_plane_airframe_0
+						amount = 578
+						producer = ITA
+					}
+				}
+
+				448 = { set_compliance = 35 }
+				450 = { set_compliance = 35 }
+				449 = { set_compliance = 35 }
+				451 = { set_compliance = 35 }
+				661 = { set_compliance = 30 }
+				663 = { set_compliance = 30 }
+
+				## Used for Italian civil war checks
+				#If new regions or states are added to Italy, update this
+				every_core_state = {
+					limit = {
+						OR = {
+							region = 23
+							region = 219
+							region = 216
+							state = 1033
+							state = 158
+							#Aosta, Friuli, Tirol, Sardinia and Trieste are not considered important
+						}
+					}
+					add_to_array = {
+						array = ITA_important_states
+					}
+				}
+			}
+			ENG = {
+				country_event = {
+					id = ita_diplomacy.2
+					days = 565
+
+				}
+			}
+		}
+	}
+}

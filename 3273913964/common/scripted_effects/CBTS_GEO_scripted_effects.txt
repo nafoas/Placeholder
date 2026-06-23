@@ -1,0 +1,298 @@
+GEO_Get_Men_Pop = {
+	set_variable = {
+		GEO_Men_Pop = 0
+	}
+	set_variable = {
+		GEO_Men_Pop = party_popularity@social_democracy
+	}
+	add_to_variable = {
+		GEO_Men_Pop = party_popularity@socialism
+	}
+	if = {
+		limit = {
+			has_country_flag = GEO_soclibs_returned
+		}
+		add_to_variable = {
+			GEO_Men_Pop = party_popularity@social_liberalism
+		}
+	}
+}
+GEO_Get_Trad_Pop = {
+	set_variable = {
+		GEO_Trad_Pop = 0
+	}
+	add_to_variable = {
+		GEO_Trad_Pop = party_popularity@democratic
+	}
+	add_to_variable = {
+		GEO_Trad_Pop = party_popularity@neutrality
+	}
+	add_to_variable = {
+		GEO_Trad_Pop = party_popularity@monarchism
+	}
+	add_to_variable = {
+		GEO_Trad_Pop = party_popularity@nationalism
+	}
+	if = {
+		limit = {
+			has_country_flag = GEO_libcons_returned
+		}
+		add_to_variable = {
+			GEO_Trad_Pop = party_popularity@jacobin
+		}
+	}
+}
+GEO_add_influence_traditionalist = {
+	if = {
+		limit = {
+			check_variable = {
+				GEO_traditionalist_influence < 100
+			}
+		}
+		add_to_variable = {
+			GEO_traditionalist_influence = GEO_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = GEO_traditionalist_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = GEO_menshevik_influence
+				check_variable = {
+					GEO_menshevik_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				GEO_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				GEO_add_influence_value = 100
+			}
+			round_variable = GEO_add_influence_value
+			divide_variable = {
+				GEO_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = GEO_menshevik_influence
+					check_variable = {
+						GEO_menshevik_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					GEO_menshevik_influence = GEO_add_influence_value
+				}
+				clamp_variable = {
+					var = GEO_menshevik_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			GEO_add_influence_value = 0
+		}
+		GEO_check_for_hundred = yes
+		GEO_Get_Trad_Pop = yes
+		GEO_Get_Men_Pop = yes
+	}
+}
+GEO_add_influence_menshevik = {
+	if = {
+		limit = {
+			check_variable = {
+				GEO_menshevik_influence < 100
+			}
+		}
+		add_to_variable = {
+			GEO_menshevik_influence = GEO_add_influence_value #adds the passed value to the influence
+		}
+		clamp_variable = {
+			var = GEO_menshevik_influence # clamps it between 0 and 100
+			min = 0
+			max = 100
+		}
+		set_temp_variable = {
+			faction_number = 0 #this next section counts the amount of factions you have
+		}
+		if = {
+			limit = {
+				has_variable = GEO_traditionalist_influence
+				check_variable = {
+					GEO_traditionalist_influence > 0
+				}
+			}
+			add_to_temp_variable = {
+				faction_number = 1
+			}
+		}
+		if = {
+			limit = { #if there is no opposition, nothing happens
+				check_variable = {
+					faction_number = 0
+				}
+			}
+		}
+		else = { #otherwise, it divides by the faction number, rounds to two decimal places, and subtracts it from the other influences
+			divide_variable = {
+				GEO_add_influence_value = faction_number
+			}
+			multiply_variable = {
+				GEO_add_influence_value = 100
+			}
+			round_variable = GEO_add_influence_value
+			divide_variable = {
+				GEO_add_influence_value = 100
+			}
+			if = {
+				limit = {
+					has_variable = GEO_traditionalist_influence
+					check_variable = {
+						GEO_traditionalist_influence > 0
+					}
+				}
+				subtract_from_variable = {
+					GEO_traditionalist_influence = GEO_add_influence_value
+				}
+				clamp_variable = {
+					var = GEO_traditionalist_influence # clamps it between 0 and 100
+					min = 0
+					max = 100
+				}
+			}
+		}
+		set_variable = {
+			GEO_add_influence_value = 0
+		}
+		GEO_check_for_hundred = yes
+		GEO_Get_Trad_Pop = yes
+		GEO_Get_Men_Pop = yes
+	}
+}
+GEO_Rally_Supporters = {
+	if = {
+		limit = {
+			has_country_flag = GEO_show_blr_traditionalist
+		}
+		GEO_Get_Trad_Pop = yes
+		set_variable = {
+			GEO_manpower_add = GEO_Trad_Pop
+		}
+		multiply_variable = {
+			GEO_manpower_add = 50000
+		}
+		add_manpower = GEO_manpower_add
+		set_variable = {
+			GEO_manpower_add = GEO_manpower_add
+		}
+		round_variable = GEO_manpower_add
+		set_variable = {
+			GEO_add_influence_value = 5
+		}
+		GEO_add_influence_traditionalist = yes
+		GEO_Get_Trad_Pop = yes
+		GEO_Get_Men_Pop = yes
+	}
+	else_if = {
+		limit = {
+			has_country_flag = GEO_show_menshevik
+		}
+		GEO_Get_Men_Pop = yes
+		set_variable = {
+			GEO_manpower_add = GEO_Men_Pop
+		}
+		multiply_variable = {
+			GEO_manpower_add = 50000
+		}
+		add_manpower = GEO_manpower_add
+		set_variable = {
+			GEO_manpower_add = GEO_manpower_add
+		}
+		round_variable = GEO_manpower_add
+		set_variable = {
+			GEO_add_influence_value = 5
+		}
+		GEO_add_influence_menshevik = yes
+		GEO_Get_Trad_Pop = yes
+		GEO_Get_Men_Pop = yes
+	}
+}
+GEO_check_for_hundred = {
+	set_variable = {
+		GEO_discrepency_check = 0
+	}
+	if = {
+		limit = {
+			has_variable = GEO_traditionalist_influence
+		}
+		add_to_variable = {
+			GEO_discrepency_check = GEO_traditionalist_influence
+		}
+	}
+	if = {
+		limit = {
+			has_variable = GEO_menshevik_influence
+		}
+		add_to_variable = {
+			GEO_discrepency_check = GEO_menshevik_influence
+		}
+	}
+	subtract_from_variable = {
+		GEO_discrepency_check = 100
+	}
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					GEO_discrepency_check = 0
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = GEO_show_blr_traditionalist
+			}
+			subtract_from_variable = {
+				GEO_traditionalist_influence = GEO_discrepency_check
+			}
+			clamp_variable = {
+				var = GEO_traditionalist_influence
+				min = 0
+				max = 100
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = GEO_show_menshevik
+			}
+			subtract_from_variable = {
+				GEO_menshevik_influence = GEO_discrepency_check
+			}
+			clamp_variable = {
+				var = GEO_menshevik_influence
+				min = 0
+				max = 100
+			}
+		}
+	}
+	set_variable = {
+		GEO_discrepency_check = 0
+	}
+}

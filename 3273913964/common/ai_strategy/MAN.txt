@@ -1,0 +1,85 @@
+MON_garrison_areas = {
+	allowed = {
+		tag = MAN
+	}
+	enable = {
+		is_subject_of = JAP
+	}
+	abort = {
+		OR = {
+			has_war_with = SOV
+			has_war_with = JAP
+		}
+	}
+
+	ai_strategy = {
+		type = put_unit_buffers
+		ratio = 0.4
+		states = {
+			716
+			717
+			328
+		}
+		area = china
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+}
+
+MAN_prepare_for_nea = {
+	allowed = {
+		original_tag = MAN
+	}
+	enable = {
+		date > 1932.1.1
+		date < 1934.1.1
+	}
+	abort = {
+		has_global_flag = Tanguu_Truce_flag
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = NEA
+
+		value = 50
+	}
+}
+
+MAN_the_soviets_are_important = {
+	allowed = {
+		original_tag = MAN
+	}
+	enable = {
+		date > 1934.1.1
+	}
+	abort = {
+		NOT = {
+			controls_state = 1144
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+
+		tag = SOV
+
+		value = 50
+	}
+}
+
+MAN_dont_focus_on_china_too_much = {
+	allowed = {
+		original_tag = MAN
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = consider_weak
+		id = "CHI"
+		value = 75
+	}
+}

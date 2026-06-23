@@ -1,0 +1,189 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			LXI = {
+				country_event = {
+					id = sichuan.5
+					days = 300
+				}
+				country_event = {
+					id = sichuan.6
+					days = 1844
+				}
+			}
+		}
+	}
+
+	on_capitulation = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = { tag = LWH }
+					FROM = {
+						OR = {
+							tag = LXI
+							tag = DXH
+							tag = TSY
+						}
+					}
+					has_global_flag = Two_Liu_war_flag
+				}
+
+				clr_global_flag = Two_Liu_war_flag
+
+				LXI = {
+					country_event = sichuan.18
+					transfer_state = 1192
+					transfer_state = 1121
+				}
+				DXH = {
+					transfer_state = 605
+				}
+
+				if = {
+					limit = {
+						1124 = { is_controlled_by = DXH }
+					}
+					DXH = {
+						transfer_state = 1124
+					}
+				}
+
+				LXI = {
+					white_peace = {
+						tag = LXI
+						message = TWO_LIU_WAR_END_LXI_LWH
+					}
+					white_peace = DXH
+					white_peace = TSY
+					country_event = sichuan.19
+				}
+			}
+		}
+	}
+
+	on_state_control_changed = {
+		effect = {
+			if = {
+				limit = {
+					has_global_flag = Two_Liu_war_flag
+
+					ROOT = {
+						OR = {
+							tag = LXI
+							tag = DXH
+							tag = TSY
+						}
+					}
+
+					FROM = {
+						tag = LWH
+					}
+
+					OR = {
+						AND = {
+							FROM.FROM = { state = 605 }
+							1192 = {
+								OR = {
+									is_controlled_by = LXI
+									is_controlled_by = DXH
+								}
+							}
+							1124 = {
+								OR = {
+									is_controlled_by = LXI
+									is_controlled_by = DXH
+								}
+							}
+						}
+						AND = {
+							FROM.FROM = { state = 1192 }
+							605 = {
+								OR = {
+									is_controlled_by = LXI
+									is_controlled_by = DXH
+								}
+							}
+							1124 = {
+								OR = {
+									is_controlled_by = LXI
+									is_controlled_by = DXH
+								}
+							}
+						}
+						AND = {
+							FROM.FROM = { state = 1124 }
+							605 = {
+								OR = {
+									is_controlled_by = LXI
+									is_controlled_by = DXH
+								}
+							}
+							1192 = {
+								OR = {
+									is_controlled_by = LXI
+									is_controlled_by = DXH
+								}
+							}
+						}
+					}
+				}
+
+				LWH = {
+					country_event = {
+						id = sichuan.8
+						days = 1
+					}
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_global_flag = Two_Liu_war_flag
+					FROM = { tag = LWH }
+					ROOT = {
+						OR = {
+							tag = LXI
+							tag = DXH
+							tag = TSY
+						}
+					}
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 605 }
+					}
+					605 = {
+						add_manpower = -143763
+						add_core_of = DXH
+					}
+					DXH = {
+						remove_ideas = SIC_chengdu_offensive
+					}
+					LWH = {
+						set_capital = {
+							state = 1124
+						}
+					}
+				}
+				if = {
+					limit = {
+						FROM.FROM = { state = 1124 }
+					}
+					LWH = {
+						set_capital = {
+							state = 1127
+						}
+					}
+					1124 = {
+						controller = {
+							add_state_core = 1124
+						}
+					}
+				}
+			}
+		}
+	}
+}

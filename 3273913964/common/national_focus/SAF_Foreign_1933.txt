@@ -1,0 +1,626 @@
+#1933 Foreign Policy Tree
+	shared_focus = {
+		id = SAF_Westminster_Question
+		icon = GFX_focus_eng_imperial_federation
+		prerequisite = {}
+		x = 24
+		y = 0
+		cost = 1
+		available = {
+			has_country_flag = SAF_Depression_Over_flag
+			has_country_flag = SAF_United_Party_formed
+			}
+		completion_reward = {
+			country_event = {
+				id = saf_westminster.1
+			}
+			}
+	}
+	shared_focus = {
+		id = SAF_Enact_Ratification
+		icon = GFX_goal_tfv_strengthen_commonwealth_ties
+		prerequisite = { focus = SAF_Westminster_Question }
+		x = -5
+		y = 1
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			OR = {
+			has_country_flag = SAF_Agree_To_Terms
+			has_country_flag = SAF_Forced_To_Settle
+			}
+		}
+		mutually_exclusive = { focus = SAF_A_New_Policy }
+		completion_reward = {
+			add_political_power = 50
+			set_country_flag = SAF_Agreed_To_Settle
+			}
+	}
+	shared_focus = {
+		id = SAF_A_New_Policy
+		icon = GFX_goal_tfv_sever_ties_with_uk
+		prerequisite = { focus = SAF_Westminster_Question }
+		mutually_exclusive = { focus = SAF_Enact_Ratification }
+		x = 5
+		y = 1
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			OR = {
+			has_country_flag = SAF_Democratic_Only
+			has_country_flag = SAF_Full_Diplomacy
+			}
+		}
+		completion_reward = {
+			add_political_power = 25
+			}
+	}
+	shared_focus = {
+		id = SAF_Ties_Other_Democracies
+		icon = GFX_focus_Torch_of_Freedom
+		prerequisite = { focus = SAF_A_New_Policy }
+		mutually_exclusive = { focus = SAF_Ties_Rising_Powers }
+		x = 1
+		y = 2
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			OR = {
+			has_country_flag = SAF_Democratic_Only
+			has_country_flag = SAF_Full_Diplomacy
+			}
+		}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Mild_Anger
+			add_timed_idea = { 
+			
+			idea = SAF_Moving_Away_Britain_Mild
+			days = 180
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_America_Ties
+		icon = GFX_focus_Befriend_USA
+		prerequisite = { focus = SAF_Ties_Other_Democracies }
+		x = -1
+		y = 3
+		relative_position_id = SAF_Westminster_Question
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			country_event = {
+				id = saf_westminster.6
+			}
+			}
+	}
+	shared_focus = {
+		id = SAF_Invite_American_Business
+		icon = GFX_focus_American_Glory
+		prerequisite = { focus = SAF_America_Ties }
+		x = -2
+		y = 4
+		relative_position_id = SAF_Westminster_Question
+		cost = 4
+		available = {
+			has_country_flag = SAF_Americans_Accept
+			}
+		completion_reward = {
+			random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+				is_coastal = yes
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Invite_American_Auto_Corporations
+		icon = GFX_focus_American_Automobiles
+		prerequisite = { focus = SAF_Invite_American_Business }
+		x = -2
+		y = 5
+		relative_position_id = SAF_Westminster_Question
+		cost = 4
+		available = {
+			has_country_flag = SAF_Americans_Accept
+			}
+		completion_reward = {
+			add_timed_idea = {
+				idea = SAF_American_Cars
+				days = 180
+			}
+			}
+	}
+	shared_focus = {
+		id = SAF_Open_New_Markets
+		icon = GFX_focus_Press_Barons
+		prerequisite = { focus = SAF_America_Ties focus = SAF_French_Ties }
+		x = 1
+		y = 4
+		relative_position_id = SAF_Westminster_Question
+		cost = 6
+		available = {
+			}
+		completion_reward = {
+			every_country = {
+			limit = {
+				NOT = {
+					has_government = communism
+					has_government = authoritarian_socialism
+					has_government = socialism
+				}
+			}
+			add_opinion_modifier = { target = SAF modifier = SAF_democracy_trade }
+		}
+			}
+	}
+	shared_focus = {
+		id = SAF_Diversify_Our_Industry
+		icon = GFX_focus_Industrialization
+		prerequisite = { focus = SAF_Open_New_Markets }
+		x = 0
+		y = 5
+		relative_position_id = SAF_Westminster_Question
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				is_coastal = yes
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Invite_Foreign_Merchants
+		icon = GFX_focus_Business_Bills
+		prerequisite = { focus = SAF_Open_New_Markets }
+		x = 2
+		y = 5
+		relative_position_id = SAF_Westminster_Question
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			add_timed_idea = {
+				idea = SAF_Foreign_Merchants
+				days = 180
+			}
+			}
+	}
+	shared_focus = {
+		id = SAF_French_Ties
+		icon = GFX_Focus_Agreemente_with_France
+		prerequisite = { focus = SAF_Ties_Other_Democracies }
+		x = 3
+		y = 3
+		relative_position_id = SAF_Westminster_Question
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			country_event = {
+				id = saf_westminster.10
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Work_With_Madagascar
+		icon = GFX_focus_Work_With_French_Madagascar
+		prerequisite = { focus = SAF_French_Ties }
+		x = 4
+		y = 4
+		relative_position_id = SAF_Westminster_Question
+		cost = 4
+		available = {
+			has_country_flag = SAF_French_Accept
+			}
+		completion_reward = {
+			add_ideas =  SAF_Work_With_Madagascar_Spirit 
+			}
+	}
+	shared_focus = {
+		id = SAF_Invite_French_Officers
+		icon = GFX_focus_FrenchSoldiers
+		prerequisite = { focus = SAF_Work_With_Madagascar }
+		x = 4
+		y = 5
+		relative_position_id = SAF_Westminster_Question
+		cost = 4
+		available = {
+		has_country_flag = SAF_French_Accept
+			}
+		completion_reward = {
+			army_experience = 15
+			add_timed_idea = {
+				idea = SAF_French_Officers
+				days = 180
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_An_Independent_Dem_SAF
+		icon = GFX_focus_Freedom_of_Speech
+		prerequisite = { focus = SAF_Invite_French_Officers focus = SAF_Invite_American_Auto_Corporations }
+		prerequisite = { focus = SAF_Diversify_Our_Industry }
+		prerequisite = { focus = SAF_Invite_Foreign_Merchants }
+		x = 1
+		y = 6
+		relative_position_id = SAF_Westminster_Question
+		cost = 6
+		available = {
+			}
+		completion_reward = {
+			add_ideas = SAF_Independent_Dem_SAF
+			}
+	}
+	shared_focus = {
+		id = SAF_Ties_Rising_Powers
+		icon = GFX_focus_Fascist_Assembly
+		prerequisite = { focus = SAF_A_New_Policy }
+		mutually_exclusive = { focus = SAF_Ties_Other_Democracies }
+		x = 9
+		y = 2
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			has_country_flag = SAF_Full_Diplomacy
+			custom_trigger_tooltip = {
+				tooltip = CHI_Post_Update_tt
+				has_country_flag = SAF_Post_Update
+			}
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Not_Completed_tt
+		}
+	}
+	shared_focus = {
+		id = SAF_Germany_Ties
+		icon = GFX_focus_German_Empire
+		prerequisite = { focus = SAF_Ties_Rising_Powers }
+		x = 7
+		y = 3
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CHI_Post_Update_tt
+				has_country_flag = SAF_Post_Update
+			}
+		}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Not_Completed_tt
+			hidden_effect = {
+				country_event = {
+					id = saf_westminster.14
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Increase_European_Exports
+		icon = GFX_focus_Exports_to_Europe
+		prerequisite = { focus = SAF_Germany_Ties focus = SAF_Italy_Ties }
+		x = 9
+		y = 4
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CHI_Post_Update_tt
+				has_country_flag = SAF_Post_Update
+			}
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Not_Completed_tt
+		}
+	}
+	shared_focus = {
+		id = SAF_Promote_Corporatist_Industries
+		icon = GFX_focus_Fascist_Trade_Union
+		prerequisite = { focus = SAF_Increase_European_Exports }
+		x = 10
+		y = 5
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CHI_Post_Update_tt
+				has_country_flag = SAF_Post_Update
+			}
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Not_Completed_tt
+		}
+	}
+	shared_focus = {
+		id = SAF_De-Emphasize_British_Trade
+		icon = GFX_focus_De_Emphasize_trade_with_Britain
+		prerequisite = { focus = SAF_Increase_European_Exports }
+		x = 8
+		y = 5
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CHI_Post_Update_tt
+				has_country_flag = SAF_Post_Update
+			}
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Not_Completed_tt
+		}
+	}
+	shared_focus = {
+		id = SAF_Promote_German_Immigration
+		icon = GFX_focus_German_Colonialism
+		prerequisite = { focus = SAF_Germany_Ties }
+		x = 6
+		y = 4
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CHI_Post_Update_tt
+				has_country_flag = SAF_Post_Update
+			}
+		has_country_flag = SAF_Germans_Accept
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Not_Completed_tt
+		}
+	}
+	shared_focus = {
+		id = SAF_Invite_German_Officers
+		icon = GFX_focus_German_Advisors
+		prerequisite = { focus = SAF_Promote_German_Immigration }
+		x = 6
+		y = 5
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			has_country_flag = SAF_Germans_Accept
+			custom_trigger_tooltip = {
+				tooltip = CHI_Post_Update_tt
+				has_country_flag = SAF_Post_Update
+			}
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Not_Completed_tt
+		}
+	}
+	shared_focus = {
+		id = SAF_Italy_Ties
+		icon = GFX_focus_Italian_Shield
+		prerequisite = { focus = SAF_Ties_Rising_Powers }
+		x = 11
+		y = 3
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CHI_Post_Update_tt
+				has_country_flag = SAF_Post_Update
+			}
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Not_Completed_tt
+			hidden_effect = {
+				country_event = {
+					id = saf_westminster.18
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Invite_Italian_Merchants
+		icon = GFX_focus_Invite_Italian_Merchants
+		prerequisite = { focus = SAF_Italy_Ties }
+		x = 12
+		y = 4
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			has_country_flag = SAF_Italians_Accept
+			custom_trigger_tooltip = {
+				tooltip = CHI_Post_Update_tt
+				has_country_flag = SAF_Post_Update
+			}
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Not_Completed_tt
+		}
+	}
+	shared_focus = {
+		id = SAF_Invite_Aircraft_Industries
+		icon = GFX_focus_Airports
+		prerequisite = { focus = SAF_Invite_Italian_Merchants }
+		x = 12
+		y = 5
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {				
+		has_country_flag = SAF_Italians_Accept
+			custom_trigger_tooltip = {
+				tooltip = CHI_Post_Update_tt
+				has_country_flag = SAF_Post_Update
+			}
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Not_Completed_tt
+		}
+	}
+	shared_focus = {
+		id = SAF_A_Rising_Policy
+		icon = GFX_focus_Fascist_Treaties
+		prerequisite = { focus = SAF_Invite_Aircraft_Industries focus = SAF_Invite_German_Officers }
+		prerequisite = { focus = SAF_Promote_Corporatist_Industries }
+		prerequisite = { focus = SAF_De-Emphasize_British_Trade }
+		x = 9
+		y = 6
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CHI_Post_Update_tt
+				has_country_flag = SAF_Post_Update
+			}
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Not_Completed_tt
+		}
+	}
+	shared_focus = {
+		id = SAF_1934_Status_Act
+		icon = GFX_focus_British_Bulldog
+		prerequisite = { focus = SAF_Enact_Ratification focus = SAF_A_New_Policy }
+		x = -5
+		y = 2
+		relative_position_id = SAF_Westminster_Question
+		cost = 5
+		available = {
+			has_country_flag = SAF_Agreed_To_Settle
+			}
+		completion_reward = {
+			custom_effect_tooltip = SAF_Low_Anger
+			add_ideas = SAF_1934_Status_Of_The_Union_Act
+			}
+	}
+	shared_focus = {
+		id = SAF_Create_Seal
+		icon = GFX_focus_SAF_Create_A_Seal
+		prerequisite = { focus = SAF_1934_Status_Act }
+		x = -7
+		y = 3
+		relative_position_id = SAF_Westminster_Question
+		cost = 3
+		available = {
+			}
+		completion_reward = {
+			add_stability = 0.03
+			}
+	}
+	shared_focus = {
+		id = SAF_Increase_Rhodesian_Trade
+		icon = GFX_focus_RhodesiaTrade
+		prerequisite = { focus = SAF_1934_Status_Act }
+		x = -3
+		y = 3
+		relative_position_id = SAF_Westminster_Question
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			country_event = {
+				id = saf_westminster.2
+			}
+			}
+	}
+	shared_focus = {
+		id = SAF_Expand_Sterling_Ties
+		icon = GFX_focus_Befriend_United_Kingdom
+		prerequisite = { focus = SAF_1934_Status_Act }
+		x = -5
+		y = 3
+		relative_position_id = SAF_Westminster_Question
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			if = {
+				limit = {
+					has_country_flag = SAF_Joined_Sterling
+				}
+				add_ideas = SAF_Tighter_Stirling_Area
+			}
+			else = {
+					add_ideas = SAF_Loose_Stirling_Area
+				}
+			}
+	}
+	shared_focus = {
+		id = SAF_Support_British_Railways
+		icon = GFX_focus_Trains
+		prerequisite = { focus = SAF_Increase_Rhodesian_Trade }
+		prerequisite = { focus = SAF_Expand_Sterling_Ties }
+		x = -4
+		y = 4
+		relative_position_id = SAF_Westminster_Question
+		cost = 4
+		available = {
+		}
+		completion_reward = {
+			275 = {
+				#TODO: add railways or idk
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Improve_Harbor_Facilities
+		icon = GFX_Focus_British_Navy
+		prerequisite = { focus = SAF_Create_Seal }
+		prerequisite = { focus = SAF_Expand_Sterling_Ties }
+		x = -6
+		y = 4
+		relative_position_id = SAF_Westminster_Question
+		cost = 5
+		available = {
+		}
+		completion_reward = {
+			random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				is_coastal = yes
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Our_Place_In_Britain_Shadow
+		icon = GFX_focus_Our_Place_In_Britains_Shadow
+		prerequisite = { focus = SAF_Improve_Harbor_Facilities }
+		prerequisite = { focus = SAF_Support_British_Railways }
+		x = -5
+		y = 5
+		relative_position_id = SAF_Westminster_Question
+		cost = 6
+		available = {
+			}
+		completion_reward = {
+			add_ideas = SAF_Britain_Shadow
+			}
+	}

@@ -1,0 +1,542 @@
+TKS_Constitution = {
+	TKS_placate_the_emirs = {
+		icon = generic_political_discourse
+			visible = {
+				tag = TKS
+				has_country_flag = TKS_Fed_mechanic
+			}
+			allowed = {
+				tag = TKS
+			}
+			available = {
+			
+			}
+			ai_will_do = {
+				factor = 25
+				modifier = {
+				}
+			}
+			#modifier = {
+			#}
+			highlight_states = {
+
+			}
+			fire_only_once = no
+			days_re_enable = 42
+			cost = 150
+			remove_effect = {
+			
+			}
+			complete_effect = {
+				custom_effect_tooltip = TKS_opposition_decrease
+				subtract_from_variable = {
+					var = discontent_level
+					value = 1
+				}
+			}
+	}
+	TKS_offer_concessions = {
+		icon = generic_political_discourse
+			visible = {
+				tag = TKS
+				has_country_flag = TKS_Fed_mechanic
+			}
+			allowed = {
+				tag = TKS
+			}
+			available = {
+			
+			}
+			ai_will_do = {
+				factor = 25
+				modifier = {
+				}
+			}
+			#modifier = {
+			#}
+			highlight_states = {
+
+			}
+			fire_only_once = no
+			days_re_enable = 60
+			cost = 150
+			remove_effect = {
+			
+			}
+			complete_effect = {
+				custom_effect_tooltip = TKS_opposition_decrease
+				subtract_from_variable = {
+					var = discontent_level
+					value = 1
+				}
+				add_timed_idea = {
+					idea = TKS_fed_concessions
+					days = 60
+				}
+			}
+	}
+	TKS_fed_civil_war = { #for when you screw up
+		allowed = {
+			tag = TKS
+			#country flag
+		}
+		available = {
+			check_variable = {
+				var = discontent_level
+				value = 5
+				compare = greater_than_or_equals
+			}
+		}
+		activation = {
+			check_variable = {
+				var = discontent_level
+				value = 5
+				compare = greater_than_or_equals
+			}
+		}
+		is_good = no
+		selectable_mission = no
+		days_mission_timeout = 20
+		timeout_effect = {
+			#get dunked on loser
+		}
+		complete_effect = {
+			country_event = {
+				id = uzb_internal.29
+			}
+		}
+	}
+}
+
+TKS_Alims_Gambit = {
+	TKS_anger_increasing = { #keeps increasing anger
+		allowed = {
+			tag = TKS
+		}
+		available = {
+			tag = TKS
+			has_country_flag = TKS_Cen_mechanic
+			always = no
+		}
+		activation = {
+			#tag = TKS
+			has_country_flag = TKS_Cen_mechanic
+		}
+		is_good = no
+		selectable_mission = no
+		fire_only_once = no
+		days_mission_timeout = 14
+		timeout_effect = {
+			#get dunked on loser
+			hidden_effect = {
+				activate_mission = TKS_anger_increasing
+			}
+			custom_effect_tooltip = TKS_anger_level_increase_by_10
+			add_to_variable = {
+				var = anger_level
+				value = 10
+			}
+		}
+		complete_effect = {
+			
+		}
+	}
+	TKS_fully_centralized = { #you win!
+		icon = generic_form_nation
+			visible = {
+				tag = TKS
+			}
+			allowed = {
+				tag = TKS
+				#has_completed_focus = TKS_Federal_Constitution_Start
+			}
+			available = {
+				custom_trigger_tooltip ={
+					tooltip = TKS_has_100_centralization
+					check_variable = {
+						var = centralization_power
+						value = 100
+						compare = greater_than_or_equals
+					}
+				}
+				#check_variable = {
+				#	var = centralization_power
+				#	value = 100
+				#	compare = greater_than_or_equals
+				#}
+			}
+			ai_will_do = {
+				factor = 100
+				modifier = {
+				}
+			}
+			#modifier = {
+			#}
+			highlight_states = {
+
+			}
+			fire_only_once = yes
+			remove_effect = {
+				
+			}
+			complete_effect = {
+				hidden_effect = {
+					clr_country_flag = TKS_Fed_mechanic
+					remove_mission = TKS_anger_increasing
+				}
+				country_event = {
+					id = uzb_internal.36
+				}
+				#event which gives idea and probably switches focus trees
+			}
+	}
+	TKS_bribe_local_rulers = {
+		icon = generic_political_discourse
+			visible = {
+				tag = TKS
+			}
+			allowed = {
+				tag = TKS
+				#has_completed_focus = TKS_Federal_Constitution_Start
+			}
+			available = {
+			
+			}
+			ai_will_do = {
+				factor = 25
+				modifier = {
+				}
+			}
+			#modifier = {
+			#}
+			highlight_states = {
+
+			}
+			fire_only_once = no
+			cost = 50
+			days_re_enable = 60
+			complete_effect = {
+				add_timed_idea = {
+					idea = TKS_fed_concessions
+					days = 60
+				}
+				custom_effect_tooltip = TKS_anger_level_decrease_by_15
+				custom_effect_tooltip = TKS_centralization_increase_by_6
+				add_to_variable = {
+					var = centralization_power
+					value = 6
+				}
+				subtract_from_variable = {
+					var = anger_level
+					value = 15
+				}
+			}
+	}
+	TKS_neuter_local_forces = {
+		icon = generic_political_discourse
+			visible = {
+				tag = TKS
+			}
+			allowed = {
+				tag = TKS
+				#has_completed_focus = TKS_Federal_Constitution_Start
+			}
+			available = {
+				has_equipment = {
+					infantry_equipment > 5000
+				}
+			}
+			ai_will_do = {
+				factor = 25
+				modifier = {
+				}
+			}
+			#modifier = {
+			#}
+			highlight_states = {
+
+			}
+			fire_only_once = yes
+			days_remove = 30
+			cost = 25
+			#custom_cost_trigger = {
+			#	has_equipment = {
+			#		infantry_equipment > 5000
+			#	}
+			#}
+			custom_cost_text = TKS_infantry_equipment_more_than_5000
+			days_remove = 28
+			remove_effect = {
+				custom_effect_tooltip = TKS_centralization_increase_by_10
+				add_to_variable = {
+					var = centralization_power
+					value = 10
+				}
+			}
+			complete_effect = {
+				hidden_effect = {
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = -5000
+					}
+				}
+			}
+	}
+	TKS_hunt_down_commie_remnants = {
+		icon = generic_political_discourse
+			visible = {
+				tag = TKS
+			}
+			allowed = {
+				tag = TKS
+				#has_completed_focus = TKS_Federal_Constitution_Start
+			}
+			available = {
+				has_manpower > 10000
+			}
+			ai_will_do = {
+				factor = 25
+				modifier = {
+				}
+			}
+			#modifier = {
+			#}
+			highlight_states = {
+
+			}
+			days_remove = 60
+			fire_only_once = yes
+			cost = 100
+			#custom_cost_trigger = {
+			#	has_manpower > 10000
+			#}
+			custom_cost_text = TKS_manpower_more_than_10000
+			#add gun cost and maybe command power
+			remove_effect = {
+				custom_effect_tooltip = TKS_centralization_increase_by_10
+				add_to_variable = {
+					var = centralization_power
+					value = 10
+				}
+				add_popularity = {
+					ideology = communism
+					popularity = -0.20
+				} 
+			}
+			complete_effect = {
+				hidden_effect = {
+					add_manpower = -10000
+				}
+			}
+	}
+	TKS_charitable_handouts = {
+		icon = generic_political_discourse
+			visible = {
+				tag = TKS
+			}
+			allowed = {
+				tag = TKS
+				#has_completed_focus = TKS_Federal_Constitution_Start
+			}
+			available = {
+			
+			}
+			ai_will_do = {
+				factor = 25
+				modifier = {
+				}
+			}
+			#modifier = {
+			#}
+			highlight_states = {
+
+			}
+			fire_only_once = yes
+			days_remove = 30
+			cost = 150
+			remove_effect = {
+				custom_effect_tooltip = TKS_anger_level_decrease_by_15
+				subtract_from_variable = {
+					var = anger_level
+					value = 15
+				}
+			}
+			complete_effect = {
+				
+			}
+	}
+	TKS_control_cities = {
+		icon = generic_political_discourse
+			visible = {
+				tag = TKS
+			}
+			allowed = {
+				tag = TKS
+				#has_completed_focus = TKS_Federal_Constitution_Start
+			}
+			available = {
+				has_manpower > 5000
+			}
+			ai_will_do = {
+				factor = 25
+				modifier = {
+				}
+			}
+			#modifier = {
+			#}
+			highlight_states = {
+
+			}
+			fire_only_once = yes
+			days_remove = 30
+			cost = 50
+			#custom_cost_trigger = {
+			#	has_manpower > 5000
+			#}
+			custom_cost_text = TKS_manpower_more_than_5000
+			remove_effect = {
+				custom_effect_tooltip = TKS_centralization_increase_by_10
+				add_to_variable = {
+					var = centralization_power
+					value = 10
+				}
+			}
+			complete_effect = {
+				hidden_effect = {
+					add_manpower = -5000
+				}
+			}
+	}
+	TKS_control_countryside = {
+		icon = generic_political_discourse
+			visible = {
+				tag = TKS
+			}
+			allowed = {
+				tag = TKS
+				#has_completed_focus = TKS_Federal_Constitution_Start
+			}
+			available = {
+				has_manpower > 10000
+			}
+			ai_will_do = {
+				factor = 25
+				modifier = {
+				}
+			}
+			#modifier = {
+			#}
+			highlight_states = {
+
+			}
+			fire_only_once = yes
+			days_remove = 30
+			cost = 100
+			#custom_cost_trigger = {
+			#	has_manpower > 10000
+			#}
+			custom_cost_text = TKS_manpower_more_than_10000
+			remove_effect = {
+				custom_effect_tooltip = TKS_centralization_increase_by_10
+				add_to_variable = {
+					var = centralization_power
+					value = 10
+				}
+			}
+			complete_effect = {
+				hidden_effect = {
+					add_manpower = -10000
+				}
+			}
+	}
+	TKS_combat_banditry = {
+		icon = generic_political_discourse
+			visible = {
+				tag = TKS
+			}
+			allowed = {
+				tag = TKS
+				#has_completed_focus = TKS_Federal_Constitution_Start
+			}
+			available = {
+				has_manpower > 5000
+				has_equipment = {
+					infantry_equipment > 5000
+				}
+			}
+			ai_will_do = {
+				factor = 25
+				modifier = {
+				}
+			}
+			#modifier = {
+			#}
+			highlight_states = {
+
+			}
+			fire_only_once = yes
+			days_remove = 30
+			#custom_cost_trigger = {
+			#	has_manpower > 5000
+			#}
+			custom_cost_text = TKS_manpower_more_than_5000
+			#custom_cost_trigger = {
+			#	has_equipment = {
+			#		infantry_equipment > 5000
+			#	}
+			#}
+			custom_cost_text = TKS_infantry_equipment_more_than_5000
+			remove_effect = {
+				custom_effect_tooltip = TKS_anger_level_decrease_by_10
+				custom_effect_tooltip = TKS_centralization_increase_by_6
+				add_to_variable = {
+					var = centralization_power
+					value = 6
+				}
+				subtract_from_variable = {
+					var = anger_level
+					value = 10
+				}
+			}
+			complete_effect = {
+				hidden_effect = {
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = -5000
+					}
+					add_manpower = -5000
+				}
+			}
+	}
+	TKS_cen_civil_war = { #triggers ethnic revolts
+		allowed = {
+			tag = TKS
+			#country flag
+		}
+		available = {
+			check_variable = {
+				var = anger_level
+				value = 100
+				compare = greater_than_or_equals
+			}
+		}
+		activation = {
+			check_variable = {
+				var = anger_level
+				value = 100
+				compare = greater_than_or_equals
+			}
+		}
+		is_good = no
+		selectable_mission = no
+		days_mission_timeout = 1
+		timeout_effect = {
+			#get dunked on loser
+		}
+		complete_effect = {
+			country_event = {
+				id = uzb_internal.35
+			}
+		}
+	}
+}

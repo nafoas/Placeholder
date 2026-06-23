@@ -1,0 +1,620 @@
+
+chaco_war_category = {
+	BOL_loss_of_momentum_mission = {
+		priority = 2
+
+		icon = GFX_decision_eng_blackshirt_march
+
+		is_good = no
+
+		activation = {
+			always = no
+		}
+		allowed = {
+			tag = BOL
+		}
+		days_mission_timeout = 212
+
+		available = {
+			BOL = {
+				controls_province = 8713
+			}
+		}
+		timeout_effect = {
+			swap_ideas = {
+				remove_idea = BOL_bolivian_army
+				add_idea = BOL_bolivian_army_2
+			}
+			hidden_effect = {
+				set_country_flag = BOL_lost_momentum
+				if = {
+					limit = {
+						has_idea = BOL_ai_attack
+					}
+					swap_ideas = {
+						remove_idea = BOL_ai_attack
+						add_idea = BOL_ai_defense
+					}
+				}
+			}
+			#TODO: Add event informing BOL that they have lost momentum and that it's time to defend the occupied territory
+		}
+		complete_effect = {
+			#probably the end of the war - Bolivian victory
+			#set a global flag to end the war or smth similar
+		}
+	}
+
+	PAR_hold_out_until_stalemate = {
+		icon = GFX_decision_generic_civil_support
+		priority = 2
+		activation = {
+			always = no
+		}
+		allowed = {
+			tag = PAR
+		}
+
+		is_good = yes
+
+		days_mission_timeout = 212
+		
+		available = {
+			
+			BOL = {
+				controls_province = 8713
+			}
+		}
+		timeout_effect = {
+			swap_ideas = {
+				remove_idea = PAR_paraguayan_army
+				add_idea = PAR_paraguayan_army_2
+			}
+			hidden_effect = {
+				set_country_flag = PAR_unlock_offensives
+				remove_ideas = PAR_cautious_command
+				if = {
+					limit = {
+						has_idea = PAR_ai_defense
+					}
+					swap_ideas = {
+						remove_idea = PAR_ai_defense
+						add_idea = PAR_ai_attack
+					}
+				}
+				every_unit_leader = {
+					limit = {
+						has_id = 46
+					}
+					remove_unit_leader_trait = trait_cautious
+				}
+			}
+			#TODO: Add event informing PAR that the Bolivians have lost momentum and that its time to counter-attack
+			#unlock Paraguayan offensives
+		}
+		complete_effect = {
+			#Probably end of the war, Bolivian victory
+		}
+	}
+
+	BOL_nanawa_offensive = {
+
+		icon = hol_draw_up_staff_plans
+
+		available = {
+			hidden_trigger = {
+				NOT = {
+					OR = {
+						has_decision = BOL_poi_offensive
+						has_active_mission = BOL_poi_mission
+						has_decision = BOL_hayes_offensive
+						has_active_mission = BOL_hayes_mission
+					}
+				}
+			}
+		}
+		highlight_states = {
+			# highlight_state_targets = { state = 869 }
+			highlight_provinces = {
+				13243
+			}
+		}
+
+		cost = 0
+
+		fire_only_once = yes
+
+		days_remove = 5
+
+		visible = {
+			tag = BOL
+			has_idea = SA_chaco_war
+			OR = {
+				BOL = {	controls_province = 4913 }
+				BOL = {	controls_province = 2209 }
+				BOL = {	controls_province = 10138 }
+			}
+			PAR = { controls_province = 13243 }
+		}
+
+		complete_effect = {
+			custom_effect_tooltip = BOL_offensive_tt
+			effect_tooltip = {
+				add_days_mission_timeout = {
+					mission = BOL_loss_of_momentum_mission
+					days = 36 #provisional
+				}
+			}
+		}
+
+		remove_effect = {
+			869 = {
+				remove_province_modifier = {
+					static_modifiers = { unplanned_chaco_offensive }
+					province = { id = 13243 } 
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = BOL_lost_momentum }
+					}
+					BOL = { activate_mission = BOL_nanawa_mission }
+					PAR = { activate_mission = PAR_nanawa_defense }
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 0.5
+			modifier = {
+				factor = 10
+				is_historical_focus_on = yes
+			}
+		}
+	}
+
+	BOL_nanawa_mission = {
+
+		icon = hol_draw_up_staff_plans
+
+		days_mission_timeout = 90
+
+		priority = 1
+
+		activation = {
+			always = no
+		}
+
+		allowed = {
+			tag = BOL
+		}
+
+		available = {
+			BOL = { controls_province = 13243 }
+		}
+
+		is_good = no
+
+		visible = {
+			tag = BOL
+			has_global_flag = SA_chaco_war_flag
+			OR = {
+				BOL = {	controls_province = 4913 }
+				BOL = {	controls_province = 2209 }
+				BOL = {	controls_province = 10138 }
+			}
+		}
+
+		cancel_if_not_visible = yes
+
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = BOL_loss_of_momentum_mission
+				days = 36 #provisional
+			}
+		}
+
+		timeout_effect = {
+			add_political_power = -10
+			#TODO:add custom tooltip indicating that the loss of momentum will continue
+		}
+	}
+
+	PAR_nanawa_defense = {
+		icon = GFX_decision_generic_ignite_civil_war
+
+		days_mission_timeout = 90
+
+		activation = {
+			always = no
+		}
+
+		allowed = {
+			tag = PAR
+		}
+
+		available = {
+			NOT = {
+				PAR = { controls_province = 13243 }
+			}
+		}
+
+		is_good = yes
+
+		visible = {
+			hidden_trigger = {
+				tag = PAR
+				has_global_flag = SA_chaco_war_flag
+				OR = {
+					BOL = {	controls_province = 4913 }
+					BOL = {	controls_province = 2209 }
+					BOL = {	controls_province = 10138 }
+				}
+				PAR = {
+					controls_province = 13243
+				}
+			}
+		}
+
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = PAR_hold_out_until_stalemate
+				days = 36 #provisional
+			}
+			
+			add_war_support = -0.02
+			
+		}
+
+		timeout_effect = {
+			add_political_power = 10
+			army_experience = 5
+		}
+	}
+
+	BOL_poi_offensive = {
+
+		icon = hol_draw_up_staff_plans
+
+		available = {
+			hidden_trigger = {
+				NOT = {
+					OR = {
+						has_decision = BOL_nanawa_offensive
+						has_active_mission = BOL_nanawa_mission
+						has_decision = BOL_hayes_offensive
+						has_active_mission = BOL_hayes_mission
+					}
+				}
+			}
+		}
+		highlight_states = {
+			# highlight_state_targets = { state = 869 }
+			highlight_provinces = {
+				4994
+			}	
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		is_good = yes
+
+		days_remove = 5
+
+		visible = {
+			tag = BOL
+			has_idea = SA_chaco_war
+			OR = {
+				BOL = { controls_province = 13244 }	
+				BOL = { controls_province = 13245 }	
+				BOL = { controls_province = 2195 }
+				BOL = {	controls_province = 10138 }
+				BOL = {	controls_province = 4307 }
+			}		
+			
+			PAR = { controls_province = 4994 }
+		}
+
+		complete_effect = {
+			#custom tooltip: We'll begin to plan the offensive and execute it when its ready
+			#you can only select one offensive at a time
+			custom_effect_tooltip = BOL_offensive_tt
+			effect_tooltip = {
+				add_days_mission_timeout = {
+					mission = BOL_loss_of_momentum_mission
+					days = 14 #provisional
+				}
+			}
+		}
+
+		remove_effect = {
+			869 = {
+				remove_province_modifier = {
+					static_modifiers = { unplanned_chaco_offensive }
+					province = { id = 4994 } 
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = BOL_lost_momentum }
+					}
+					ROOT = { activate_mission = BOL_poi_mission }
+					PAR = { activate_mission = PAR_poi_defense }
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 0.5
+		}
+	}
+
+	BOL_poi_mission = {
+
+		icon = hol_draw_up_staff_plans
+
+		days_mission_timeout = 28 
+
+		activation = {
+			always = no
+		}
+
+		priority = 1
+
+		is_good = no
+
+		allowed = {
+			tag = BOL
+		}
+
+		available = {
+			BOL = {controls_province = 4994 }
+		}
+
+		visible = {
+			tag = BOL
+			has_idea = SA_chaco_war
+			OR = {
+				BOL = { controls_province = 13244 }	
+				BOL = { controls_province = 13245 }	
+				BOL = { controls_province = 2195 }
+				BOL = {	controls_province = 10138 }
+				BOL = {	controls_province = 4307 }
+			}	
+		}
+
+		
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = BOL_loss_of_momentum_mission
+				days = 14 #provisional
+			}
+		}
+
+		timeout_effect = {
+			add_political_power = -5
+		}
+	}
+
+	PAR_poi_defense = {
+		icon = GFX_decision_generic_ignite_civil_war
+
+		days_mission_timeout = 28
+
+		activation = {
+			always = no
+		}
+
+		allowed = {
+			tag = PAR
+		}
+
+		available = {
+			NOT = {
+				PAR = {controls_province = 4994}
+			}
+		}
+
+		visible = {
+			hidden_trigger = {
+				tag = PAR
+				has_global_flag = SA_chaco_war_flag
+				OR = {
+					BOL = { controls_province = 13244 }	
+					BOL = { controls_province = 13245 }	
+					BOL = { controls_province = 2195 }
+					BOL = {	controls_province = 10138 }
+					BOL = {	controls_province = 4307 }
+					PAR = {controls_province = 4994}
+				}
+			}
+		}
+
+		cancel_if_not_visible = yes
+
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = PAR_hold_out_until_stalemate
+				days = 14 #provisiona
+			}
+			
+			add_war_support = -0.02
+		}
+
+		timeout_effect = {
+			army_experience = 5
+			add_political_power = 10
+		}
+	}
+
+	BOL_hayes_offensive = {
+
+		icon = hol_draw_up_staff_plans
+
+		available = {
+			hidden_trigger = {
+				NOT = {
+					OR = {
+						has_decision = BOL_poi_offensive
+						has_active_mission = BOL_poi_mission
+						has_decision = BOL_nanawa_offensive
+						has_active_mission = BOL_nanawa_mission
+					}
+				}
+			}
+		}
+		highlight_states = {
+			# highlight_state_targets = { state = 869 }
+			highlight_provinces = {
+				2209
+				8713
+			}
+		}
+
+		cost = 0
+
+		fire_only_once = yes
+
+		days_remove = 5
+
+		visible = {
+			tag = BOL
+			has_idea = SA_chaco_war
+			BOL = {	controls_province = 13243 }
+			OR = {
+				PAR = { controls_province = 2209 }
+				PAR = { controls_province = 8713 }
+			}
+		}
+
+		complete_effect = {
+		}
+
+		remove_effect = {
+			869 = {
+				remove_province_modifier = {
+					static_modifiers = { unplanned_chaco_offensive }
+					province = { id = 2209 } 
+				}
+				remove_province_modifier = {
+					static_modifiers = { unplanned_chaco_offensive }
+					province = { id = 8713 } 
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = BOL_lost_momentum }
+					}
+					BOL = { activate_mission = BOL_hayes_mission }
+					PAR = { activate_mission = PAR_hayes_defense }
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 0.5
+			modifier = {
+				factor = 10
+				is_historical_focus_on = yes
+			}
+		}
+	}
+
+	BOL_hayes_mission = {
+
+		icon = hol_draw_up_staff_plans
+
+		days_mission_timeout = 90 
+
+		priority = 1
+
+		activation = {
+			always = no
+		}
+
+		allowed = {
+			tag = BOL
+		}
+
+		available = {
+			BOL = { controls_province = 2209 }
+			BOL = { controls_province = 8713 }
+		}
+
+		is_good = no
+
+		visible = {
+			tag = BOL
+			has_global_flag = SA_chaco_war_flag
+			BOL = {	controls_province = 13243 }
+		}
+
+		cancel_if_not_visible = yes
+
+		complete_effect = {
+			#win the war, probably
+		}
+
+		timeout_effect = {
+			add_political_power = -12
+			#TODO:add custom tooltip indicating that the loss of momentum will continue
+		}
+	}
+
+	PAR_hayes_defense = {
+		icon = GFX_decision_generic_ignite_civil_war
+
+		days_mission_timeout = 90
+
+		activation = {
+			always = no
+		}
+
+		allowed = {
+			tag = PAR
+		}
+
+		available = {
+			NOT = {
+				OR = {
+					PAR = { controls_province = 2209 }
+					PAR = { controls_province = 8713 }
+				}
+			}
+		}
+
+		is_good = yes
+
+		visible = {
+			hidden_trigger = {
+				tag = PAR
+				has_global_flag = SA_chaco_war_flag
+				BOL = {	controls_province = 13243 }
+				OR = {
+					PAR = { controls_province = 2209 }
+					PAR = { controls_province = 8713 }
+				}
+			}
+		}
+
+		complete_effect = {
+			add_days_mission_timeout = {
+				mission = PAR_hold_out_until_stalemate
+				days = 36 #provisional
+			}
+			
+			add_war_support = -0.02
+			
+		}
+
+		timeout_effect = {
+			add_political_power = 10
+			army_experience = 5
+		}
+	}
+}

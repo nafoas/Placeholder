@@ -1,0 +1,1165 @@
+
+SPR_republican_struggle = {
+
+	pce_mission = {
+		icon = generic_political_discourse
+		fire_only_once = yes
+		available = {
+			OR = {
+				check_variable = { com_inf < 75 }
+				has_country_flag = pce_power
+				has_country_flag = struggle_over
+			}
+		}
+		is_good = no
+		days_mission_timeout = 45
+		fire_only_once = yes
+
+		activation = {
+			original_tag = SPR
+			has_country_flag = pce_mission_start
+		}
+
+		complete_effect = {
+		}
+
+		timeout_effect = {
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Jose_Diaz
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = yes
+				last_election = "1936.2.16"
+				election_frequency = 48
+			}
+			set_country_flag = pce_power
+			clr_country_flag = cnt_in_power
+			set_country_flag = struggle_over
+			add_political_power = -300
+			add_stability = -0.2
+			add_to_variable = { var = com_inf value = 30 }
+			add_to_variable = { var = ana_inf value = -15 }
+			add_to_variable = { var = lib_inf value = -15 }
+		}
+	}
+
+
+	give_pce_power = {
+		icon = generic_civil_support
+		allowed = {
+			tag = SPR
+		}
+		available = {
+			has_country_flag = pce_mission_start
+			NOT = { has_country_flag = pce_power }
+		}
+		cost = 0
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = spr_ai_communist }
+			}
+		}
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+			has_country_flag = pce_mission_start
+		}
+		fire_only_once = yes
+		complete_effect = {
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Jose_Diaz
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = yes
+				last_election = "1936.2.16"
+				election_frequency = 48
+			}
+			set_country_flag = pce_power
+			set_country_flag = struggle_over
+			clr_country_flag = cnt_in_power
+			add_political_power = -75
+			add_to_variable = { var = com_inf value = 30 }
+			add_to_variable = { var = ana_inf value = -15 }
+			add_to_variable = { var = lib_inf value = -15 }
+		}
+
+	}
+
+	cnt_mission = {
+		icon = generic_political_discourse
+		fire_only_once = yes
+		available = {
+			OR = {
+				check_variable = { ana_inf < 75 }
+				has_country_flag = cnt_in_power
+				has_country_flag = struggle_over
+			}
+		}
+		is_good = no
+		days_mission_timeout = 45
+		fire_only_once = yes
+
+		activation = {
+			original_tag = SPR
+			has_country_flag = cnt_mission_start
+		}
+
+		complete_effect = {
+		}
+
+		timeout_effect = {
+		set_party_name = {
+				ideology = authoritarian_socialism
+				long_name = SPC_cntfai_long
+				name = SPC_cntfai
+			}
+
+		set_politics = { ruling_party = authoritarian_socialism }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Juan_Garcia
+		clr_country_flag = pce_power
+		set_country_flag = cnt_in_power
+			set_country_flag = struggle_over
+			add_political_power = -300
+			add_stability = -0.2
+			add_to_variable = { var = com_inf value = -15 }
+		add_to_variable = { var = ana_inf value = 30 }
+		add_to_variable = { var = lib_inf value = -15 }
+		}
+	}
+
+
+	give_cnt_power = {
+		icon = generic_civil_support
+		allowed = {
+			tag = SPR
+		}
+		available = {
+			has_country_flag = cnt_mission_start
+			NOT = { has_country_flag = cnt_in_power }
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = spr_ai_anarchist }
+			}
+		}
+		cost = 0
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+			has_country_flag = cnt_mission_start
+		}
+		fire_only_once = yes
+		complete_effect = {
+		set_party_name = {
+				ideology = authoritarian_socialism
+				long_name = SPC_cntfai_long
+				name = SPC_cntfai
+			}
+
+		set_politics = { ruling_party = authoritarian_socialism }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Juan_Garcia
+		clr_country_flag = pce_power
+		set_country_flag = cnt_in_power
+			set_country_flag = struggle_over
+			add_political_power = -300
+			add_stability = -0.2
+			add_to_variable = { var = com_inf value = -15 }
+		add_to_variable = { var = ana_inf value = 30 }
+		add_to_variable = { var = lib_inf value = -15 }
+		}
+
+	}
+
+	dem_mission = {
+		icon = generic_political_discourse
+		fire_only_once = yes
+		available = {
+			OR = {
+				check_variable = { lib_inf < 75 }
+				OR = { has_government = socialism has_government = social_democracy }
+				has_country_flag = struggle_over
+			}
+		}
+		is_good = no
+		days_mission_timeout = 45
+		fire_only_once = yes
+
+		activation = {
+			original_tag = SPR
+			has_country_flag = dem_mission_start
+		}
+
+		complete_effect = {
+		}
+
+		timeout_effect = {
+			set_politics = { ruling_party = social_democracy }
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Prieto
+			set_country_flag = struggle_over
+			add_political_power = -300
+			add_stability = -0.2
+			clr_country_flag = pce_power
+			clr_country_flag = cnt_in_power
+			add_to_variable = { var = com_inf value = -15 }
+			add_to_variable = { var = ana_inf value = -15 }
+			add_to_variable = { var = lib_inf value = 30 }
+		}
+	}
+
+
+	give_dems_power = {
+		icon = generic_civil_support
+		allowed = {
+			tag = SPR
+		}
+		available = {
+			has_country_flag = dem_mission_start
+			NOT = { OR = { has_government = socialism has_government = social_democracy } }
+		}
+		cost = 0
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+			has_country_flag = dem_mission_start
+		}
+		ai_will_do = {
+			base = 100
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = spr_ai_democratic }
+			}
+		}
+		fire_only_once = yes
+		complete_effect = {
+			set_politics = { ruling_party = social_democracy }
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Prieto
+			set_country_flag = struggle_over
+			add_political_power = -300
+			add_stability = -0.2
+			clr_country_flag = pce_power
+			clr_country_flag = cnt_in_power
+			add_to_variable = { var = com_inf value = -15 }
+			add_to_variable = { var = ana_inf value = -15 }
+			add_to_variable = { var = lib_inf value = 30 }
+		}
+
+	}
+
+	enforce_authority = {
+		icon = generic_civil_support
+		allowed = {
+			tag = SPR
+		}
+		available = {
+		}
+		ai_will_do = {
+			base = 100
+		}
+		cost = 100
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+			OR = {
+				has_country_flag = pce_power
+				has_country_flag = cnt_in_power
+				has_government = socialism
+				has_government = social_democracy
+			}
+			if = {
+				limit = {
+					has_country_flag = pce_power
+				}
+				check_variable = { com_inf > 74 }
+			}
+			if = {
+				limit = {
+					has_country_flag = cnt_in_power
+				}
+				check_variable = { ana_inf > 74 }
+			}
+			if = {
+				limit = {
+					OR = {
+						has_government = social_democracy
+						has_government = socialism
+					}
+				}
+				check_variable = { lib_inf > 74 }
+			}
+		}
+		fire_only_once = yes
+		complete_effect = {
+			custom_effect_tooltip = end_struggle_now
+			set_country_flag = struggle_over
+			add_stability = 0.15
+			add_political_power = 300
+		}
+	}
+
+	redistribute_sov = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = SPR
+		}
+		available = {
+			has_completed_focus = SPR_moscow_gold
+			has_war_with = SPA
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = pce_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					has_active_mission = dem_mission
+					has_active_mission = cnt_mission
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					check_variable = { com_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					check_variable = { com_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_communist
+				}
+			}
+		}
+		cost = 35
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		fire_only_once = yes
+		complete_effect = {
+			add_to_variable = { var = com_inf value = -20 }
+			add_to_variable = { var = ana_inf value = 10 }
+			add_to_variable = { var = lib_inf value = 10 }
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2000
+				producer = SOV
+			}
+
+		}
+
+	}
+
+	stop_colective = {
+		icon = generic_civil_support
+		allowed = {
+			original_tag = SPR
+		}
+		available = {
+			has_war_with = SPA
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = cnt_mission
+					has_active_mission = pce_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					has_active_mission = dem_mission
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					check_variable = { ana_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					check_variable = { ana_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+		}
+		cost = 60
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		fire_only_once = yes
+		complete_effect = {
+			add_to_variable = { var = com_inf value = 5 }
+			add_to_variable = { var = ana_inf value = -25 }
+			add_to_variable = { var = lib_inf value = 20 }
+			add_stability = 0.1
+		}
+
+	}
+
+	train_militias = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = SPR
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = pce_mission
+					has_active_mission = dem_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					has_active_mission = cnt_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					check_variable = { ana_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					check_variable = { ana_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_historical
+				}
+			}
+		}
+		available = {
+		   has_war_with = SPA
+		}
+		cost = 45
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		modifier = { army_org_Factor = 0.15  }
+		days_remove = 90
+		fire_only_once = yes
+		complete_effect = {
+			add_to_variable = { var = com_inf value = -10 }
+			add_to_variable = { var = ana_inf value = 20 }
+			add_to_variable = { var = lib_inf value = -10 }
+		}
+
+	}
+
+	cnt_min = {
+		icon = generic_political_discourse
+		allowed = {
+			original_tag = SPR
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = pce_mission
+					has_active_mission = dem_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					has_active_mission = cnt_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					check_variable = { ana_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					check_variable = { ana_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_communist
+				}
+			}
+		}
+		available = {
+			has_war_with = SPA
+		}
+		cost = 30
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		fire_only_once = yes
+		complete_effect = {
+			add_to_variable = { var = com_inf value = -10 }
+			add_to_variable = { var = ana_inf value = 10 }
+			add_to_variable = { var = lib_inf value = 0 }
+			add_war_support = 0.1
+			add_stability = 0.05
+		}
+
+	}
+
+	pce_min = {
+		icon = generic_political_discourse
+		allowed = {
+			original_tag = SPR
+		}
+		available = {
+			has_war_with = SPA
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = cnt_mission
+					has_active_mission = dem_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					check_variable = { com_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					check_variable = { com_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+		}
+		cost = 30
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		fire_only_once = yes
+		complete_effect = {
+			add_to_variable = { var = com_inf value = 10 }
+			add_to_variable = { var = ana_inf value = -10 }
+			add_to_variable = { var = lib_inf value = 0 }
+			add_war_support = 0.05
+			add_stability = 0.1
+
+		}
+
+	}
+
+	professional_officers = {
+		icon = generic_army_support
+		allowed = {
+			original_tag = SPR
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = cnt_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					has_active_mission = dem_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					check_variable = { dem_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					check_variable = { dem_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+		}
+		available = {
+			has_war_with = SPA
+		}
+		cost = 55
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		modifier = {
+			recon_factor = 0.1
+			supply_consumption_factor = -0.1
+		}
+		days_remove = 90
+		fire_only_once = yes
+		complete_effect = {
+			add_to_variable = { var = com_inf value = 0 }
+			add_to_variable = { var = ana_inf value = -15 }
+			add_to_variable = { var = lib_inf value = 15 }
+		}
+
+	}
+
+	expand_police = {
+		icon = generic_civil_support
+		allowed = {
+			original_tag = SPR
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = cnt_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					has_active_mission = dem_mission
+					has_active_mission = pce_mission
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					check_variable = { ana_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					check_variable = { ana_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+		}
+		available = {
+			has_war_with = SPA
+		}
+		cost = 40
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		fire_only_once = yes
+		complete_effect = {
+			add_to_variable = { var = com_inf value = 5 }
+			add_to_variable = { var = ana_inf value = -20 }
+			add_to_variable = { var = lib_inf value = 15 }
+			add_political_power = 10
+			add_stability = 0.1
+
+		}
+
+	}
+
+
+	quinto_officers = {
+		icon = generic_army_support
+		allowed = {
+			original_tag = SPR
+		}
+		available = {
+			has_war_with = SPA
+			has_completed_focus = SPR_people_army
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = cnt_mission
+					has_active_mission = dem_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					check_variable = { com_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					check_variable = { com_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+		}
+		cost = 80
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		modifier = { army_core_defence_factor = 0.1 }
+		days_remove = 90
+		fire_only_once = yes
+		complete_effect = {
+			add_to_variable = { var = com_inf value = 20 }
+			add_to_variable = { var = ana_inf value = -10 }
+			add_to_variable = { var = lib_inf value = -10 }
+		}
+
+	}
+
+	rep_nat_guard = {
+		icon = generic_army_support
+		allowed = {
+			original_tag = SPR
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = cnt_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					has_active_mission = dem_mission
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					check_variable = { ana_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					check_variable = { ana_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+		}
+		available = {
+			has_war_with = SPA
+		}
+		cost = 55
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		fire_only_once = yes
+		complete_effect = {
+			add_war_support = 0.05
+			add_stability = 0.05
+			add_to_variable = { var = com_inf value = 5 }
+			add_to_variable = { var = ana_inf value = -15 }
+			add_to_variable = { var = lib_inf value = 10 }
+		}
+
+	}
+
+	guerrillas_retaguardia = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = SPR
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = pce_mission
+					has_active_mission = dem_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					has_active_mission = cnt_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					check_variable = { ana_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					check_variable = { ana_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_historical
+				}
+			}
+		}
+		available = {
+			has_war_with = SPA
+		}
+		cost = 85
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		fire_only_once = yes
+		modifier = { army_core_attack_factor = 0.1 recon_factor = 0.2 }
+		days_remove = 100
+		complete_effect = {
+			add_to_variable = { var = com_inf value = -15 }
+			add_to_variable = { var = ana_inf value = 20 }
+			add_to_variable = { var = lib_inf value = -5 }
+
+
+		}
+
+	}
+
+	reserva_milicia = {
+		allowed = {
+			original_tag = SPR
+		}
+		available = {
+			has_war_with = SPA
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = pce_mission
+					has_active_mission = dem_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					has_active_mission = cnt_mission
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					check_variable = { ana_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					check_variable = { ana_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_communist
+				}
+			}
+		}
+		cost = 75
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		fire_only_once = yes
+		complete_effect = {
+			add_to_variable = { var = com_inf value = -5 }
+			add_to_variable = { var = ana_inf value = 10 }
+			add_to_variable = { var = lib_inf value = -5 }
+			add_manpower = 25000
+
+		}
+
+	}
+
+	quinta_biberon = {
+		allowed = {
+			original_tag = SPR
+		}
+		available = {
+			has_war_with = SPA
+		}
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_active_mission = pce_mission
+					has_active_mission = dem_mission
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_active_mission = cnt_mission
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					check_variable = { ana_inf > 50 }
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					check_variable = { ana_inf > 75 }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+		}
+		cost = 90
+		visible = {
+			NOT = { has_country_flag = struggle_over }
+		}
+		fire_only_once = yes
+		complete_effect = {
+			add_to_variable = { var = com_inf value = 5 }
+			add_to_variable = { var = ana_inf value = -10 }
+			add_to_variable = { var = lib_inf value = 5 }
+			add_manpower = 15000
+
+		}
+
+	}
+}
+
+repspain_spanish_cw = {
+
+	SPR_join_allies_cw = {
+		icon = hol_exchange_intelligence_data
+		allowed = {
+			tag = SPR
+		}
+		available = {
+			scw_in_progress = yes
+			ENG = {
+				is_faction_leader = yes
+				not_has_autocratic_government = yes
+				has_war_with = GER
+				GER = {
+					has_autocratic_government = yes
+				}
+			}
+			NOT = { is_in_faction = yes }
+			NOT = { has_war_with = ENG }
+		}
+		visible = {
+			has_completed_focus = SPR_call_western
+		}
+		fire_only_once = yes
+		cost = 0
+		complete_effect = {
+			ENG = {
+				country_event = { id = spain.112 hours = 12 }
+			}
+		}
+		ai_will_do = {
+			base = 100
+		}
+	}
+
+	SPR_defeatist_coup = {
+		icon = generic_military
+		allowed = {
+			tag = SPR
+		}
+		# available = {
+		# 	OR = {
+		# 		AND = {
+		# 			controls_state = 41
+		# 			controls_state = 165
+		# 		}
+		# 		AND = {
+		# 			controls_state = 752
+		# 			controls_state = 167
+		# 		}
+		# 	}
+		# }
+		is_good = no
+		days_mission_timeout = 60
+		fire_only_once = yes
+
+		activation = {
+			scw_in_progress = yes
+			# date > 1938.6.1
+			SPR = {
+				NOT = {
+					controls_state = 170
+					controls_state = 169
+					controls_state = 1220
+					controls_state = 176
+					controls_state = 1217
+					controls_state = 826
+					controls_state = 1169
+					controls_state = 752
+					controls_state = 172
+					controls_state = 166
+					controls_province = 875
+					controls_province = 9979
+					OR = {
+						controls_state = 165
+						controls_state = 167
+					}
+				}
+			}
+		}
+
+		cancel_trigger = {
+			AND = {
+				controls_state = 165
+				controls_state = 167
+				controls_state = 168
+				controls_state = 166
+			}
+		}
+
+		timeout_effect = {
+			country_event = { id = scw.70 }
+			SPA = { country_event = { id = scw.71 days = 1 } }
+		}
+	}
+}
+

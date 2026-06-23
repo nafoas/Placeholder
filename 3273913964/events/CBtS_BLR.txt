@@ -1,0 +1,512 @@
+﻿###########################
+# Belarus Events
+###########################
+
+add_namespace = blr_internal
+add_namespace = blr_external
+add_namespace = blr_civil_war #handles path changes and revolts. Other things go in internal
+add_namespace = blr_flavor
+add_namespace = blr_test
+add_namespace = blr_ai
+
+country_event = { #Intro, SOV declares war
+	id = blr_civil_war.1
+	title = blr_civil_war.1.t
+	desc = blr_civil_war.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Belarusian_Democratic_Republic
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			SOV = {
+				set_province_controller = 294
+				set_province_controller = 11322
+				set_province_controller = 216
+				set_province_controller = 6292
+				set_province_controller = 3378
+				set_province_controller = 9289
+			}
+			RUS = {
+				country_event = {
+					id = rus_civil_war.39 #informed of thing
+					days = 1
+				}
+			}
+			POL = {
+				country_event = {
+					id = blr_civil_war.2 #alerted
+				}
+			}
+			country_event = {
+				id = blr_civil_war.3
+				days = 18
+			}
+			random_list = {
+				62 = {
+					set_country_flag = BLR_AI_Bulak_personality
+				}
+				31 = {
+					set_country_flag = BLR_AI_Nationalist_personality
+				}
+				5 = {
+					set_country_flag = BLR_AI_Autonomist_personality
+				}
+				2 = {
+					set_country_flag = BLR_AI_Triunionist_personality
+				}
+			}
+		}
+	}
+	option = {
+		name = blr_civil_war.1.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Pol gets message
+	id = blr_civil_war.2
+	title = blr_civil_war.2.t
+	desc = blr_civil_war.2.d
+	picture = GFX_Event_USSR_Polish_Communists
+	is_triggered_only = yes
+	option = {
+		name = blr_civil_war.2.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Autonomists
+	id = blr_civil_war.3
+	title = blr_civil_war.3.t
+	desc = blr_civil_war.3.d
+	picture = GFX_event_Jewish_Bund
+	is_triggered_only = yes
+	option = {
+		name = blr_civil_war.3.a
+		ai_chance = {
+			base = 100
+		}
+		COALITION_add_revsoc = yes
+		COALITION_add_demsoc = yes
+		set_variable = {
+			BLR_autonomist_influence = 0
+		}
+		set_variable = {
+			BLR_add_influence_value = 15
+		}
+		BLR_add_influence_autonomist = yes
+		custom_effect_tooltip = BLR_aut_gain_15
+		hidden_effect = {
+			country_event = {
+				id = blr_civil_war.4 #Rada
+				days = 24
+			}
+		}
+	}
+}
+country_event = { #Rada
+	id = blr_civil_war.4
+	title = blr_civil_war.4.t
+	desc = blr_civil_war.4.d
+	picture = GFX_event_BLR_Rada #BLR_Rada
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_party_name = {
+				ideology = social_democracy
+				name = BLR_BNR_Party
+				long_name = BLR_BNR_Party_long
+			}
+			set_party_name = {
+				ideology = social_liberalism
+				name = BLR_BNR_Party
+				long_name = BLR_BNR_Party_long
+			}
+			set_party_name = {
+				ideology = market_liberalism
+				name = BLR_BNR_Party
+				long_name = BLR_BNR_Party_long
+			}
+			set_party_name = {
+				ideology = jacobin
+				name = BLR_BNR_Party
+				long_name = BLR_BNR_Party_long
+			}
+			set_party_name = {
+				ideology = democratic
+				name = BLR_BNR_Party
+				long_name = BLR_BNR_Party_long
+			}
+		}
+	}
+	option = {
+		name = blr_civil_war.4.a
+		ai_chance = {
+			base = 80
+		}
+		add_political_power = 75
+		add_ideas = BLR_Dual_Government
+		COALITION_add_CENTRIST = yes
+		set_variable = {
+			BLR_nationalist_influence = 0
+		}
+		set_variable = {
+			BLR_add_influence_value = 10
+		}
+		BLR_add_influence_nationalist = yes
+		custom_effect_tooltip = BLR_nat_gain_10
+		set_country_flag = BLR_Rada_Returns
+		hidden_effect = {
+			country_event = {
+				id = blr_civil_war.5 #Far-Right
+				days = 8
+			}
+		}
+	}
+	option = {
+		name = blr_civil_war.4.b
+		ai_chance = {
+			base = 20
+		}
+		COALITION_add_CENTRIST = yes
+		set_variable = {
+			BLR_nationalist_influence = 0
+		}
+		set_variable = {
+			BLR_add_influence_value = 10
+		}
+		BLR_add_influence_nationalist = yes
+		custom_effect_tooltip = BLR_nat_gain_10
+		set_country_flag = BLR_Rada_Returns
+		hidden_effect = {
+			country_event = {
+				id = blr_civil_war.5 #Far-Right
+				days = 8
+			}
+		}
+	}
+}
+country_event = { #Far-Rightists
+	id = blr_civil_war.5
+	title = blr_civil_war.5.t
+	desc = blr_civil_war.5.d
+	picture = GFX_event_Vitushka #Vitushka
+	is_triggered_only = yes
+	option = {
+		name = blr_civil_war.5.a
+		ai_chance = {
+			base = 80
+		}
+		create_corps_commander = {
+			name = "Mikhal Vitushka"
+			portrait_path = "gfx/leaders_cbts/BLR/Portrait_Belarus_Mikhal_Vitushka.tga"
+			traits = {
+				trait_reckless
+			}
+			skill = 1
+			attack_skill = 2
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 1
+		}
+		COALITION_add_nat = yes
+		COALITION_add_fas = yes
+		set_variable = {
+			BLR_add_influence_value = 3
+		}
+		BLR_add_influence_nationalist = yes
+		custom_effect_tooltip = BLR_nat_gain_3
+		set_country_flag = BLR_Fascists_Rturn
+		hidden_effect = {
+			country_event = {
+				id = blr_civil_war.6 #Triunionists
+				days = 34
+			}
+		}
+	}
+}
+country_event = { #Triunionists
+	id = blr_civil_war.6
+	title = blr_civil_war.6.t
+	desc = blr_civil_war.6.d
+	picture = GFX_event_Sergei_Wojciechowski
+	is_triggered_only = yes
+	option = {
+		name = blr_civil_war.6.a
+		ai_chance = {
+			base = 80
+		}
+		add_corps_commander_role = {
+			character = BLR_sergei_wojciechowski
+			traits = {
+				organizer
+				politically_connected
+				infantry_officer
+				infantry_leader
+				commando
+			}
+			skill = 3
+			attack_skill = 2
+			defense_skill = 4
+			planning_skill = 3
+			logistics_skill = 3
+			legacy_id=-1
+		}
+		COALITION_add_mon = yes
+		set_party_name = {
+			ideology = monarchism
+			name = BLR_Triunionist_Party
+			long_name = BLR_Triunionist_Party_long
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.08
+		}
+		set_variable = {
+			BLR_triunionist_influence = 0
+		}
+		set_variable = {
+			BLR_add_influence_value = 8
+		}
+		BLR_add_influence_triunionist = yes
+		custom_effect_tooltip = BLR_tri_gain_8
+		hidden_effect = {
+			country_event = {
+				id = blr_civil_war.7
+				days = 48
+			}
+		}
+	}
+}
+country_event = { #Fascist Rally
+	id = blr_civil_war.7
+	title = blr_civil_war.7.t
+	desc = blr_civil_war.7.d
+	picture = GFX_event_Fascist_Rally #Fascist_Rally
+	is_triggered_only = yes
+	option = { #Stop this!
+		name = blr_civil_war.7.a
+		ai_chance = {
+			base = 93
+		}
+		add_political_power = -30
+		add_stability = 0.03
+		hidden_effect = {
+			country_event = {
+				id = blr_civil_war.8
+				days = 84
+			}
+		}
+	}
+	option = { #allow
+		name = blr_civil_war.7.b
+		ai_chance = {
+			base = 7
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.02
+		}
+		set_variable = {
+			BLR_add_influence_value = 2
+		}
+		BLR_add_influence_nationalist = yes
+		custom_effect_tooltip = BLR_nat_gain_2
+		hidden_effect = {
+			country_event = {
+				id = blr_civil_war.8
+				days = 84
+			}
+		}
+	}
+}
+country_event = { #Bund vs BNP
+	id = blr_civil_war.8
+	title = blr_civil_war.8.t
+	desc = blr_civil_war.8.d
+	picture = GFX_event_Jewish_Bund
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = blr_civil_war.9
+				days = 72
+			}
+		}
+	}
+	option = { #Side with the Bund
+		name = blr_civil_war.8.a
+		ai_chance = {
+			base = 20
+		}
+		add_stability = 0.02
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+		set_variable = {
+			BLR_add_influence_value = 2
+		}
+		BLR_add_influence_autonomist = yes
+		custom_effect_tooltip = BLR_aut_gain_2
+	}
+	option = { #Side with the BNP
+		name = blr_civil_war.8.b
+		ai_chance = {
+			base = 30
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 20
+			producer = BLR
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.02
+		}
+		set_variable = {
+			BLR_add_influence_value = 2
+		}
+		BLR_add_influence_nationalist = yes
+		custom_effect_tooltip = BLR_nat_gain_2
+	}
+	option = { #allow
+		name = blr_civil_war.8.c
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = 20
+		set_variable = {
+			BLR_add_influence_value = 2
+		}
+		BLR_add_influence_bulakovich = yes
+		custom_effect_tooltip = BLR_bulak_gain_2
+	}
+}
+country_event = { #Incident in Barracks
+	id = blr_civil_war.9
+	title = blr_civil_war.9.t
+	desc = blr_civil_war.9.d
+	picture = GFX_Events_Germany_Czechs_on_Patrol
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = blr_civil_war.10
+				days = 108
+			}
+		}
+	}
+	option = { #Stop Political Activity
+		name = blr_civil_war.9.a
+		ai_chance = {
+			base = 90
+		}
+		add_political_power = -30
+	}
+	option = { #allow it to continue
+		name = blr_civil_war.9.b
+		ai_chance = {
+			base = 10
+		}
+		set_variable = {
+			BLR_add_influence_value = -6
+		}
+		BLR_add_influence_bulakovich = yes
+		custom_effect_tooltip = BLR_bulak_lose_6
+	}
+}
+country_event = { #POL - Belarus wants Industry
+	id = blr_external.1
+	title = blr_external.1.t
+	desc = blr_external.1.d
+	picture = GFX_event_Polish_Industry #Polish_Industry
+	is_triggered_only = yes
+	option = {
+		name = blr_external.1.a
+		ai_chance = {
+			base = 98
+			modifier = {
+				factor = 0.1
+				has_defensive_war = yes
+			}
+			modifier = {
+				factor = 0
+				surrender_progress > 0.34
+			}
+		}
+		BLR = {
+			country_event = {
+				id = blr_external.2
+				days = 5
+			}
+		}
+		add_political_power = -30
+	}
+	option = {
+		name = blr_external.1.b
+		ai_chance = {
+			base = 2
+		}
+		BLR = {
+			country_event = {
+				id = blr_external.3
+				days = 1
+			}
+		}
+		add_political_power = -30
+	}
+}
+country_event = { #Poland invests
+	id = blr_external.2
+	title = blr_external.2.t
+	desc = blr_external.2.d
+	picture = GFX_event_Polish_Industry
+	is_triggered_only = yes
+	option = {
+		name = blr_external.2.a
+		ai_chance = {
+			base = 100
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		set_variable = {
+			BLR_add_influence_value = 6
+		}
+		BLR_add_influence_bulakovich = yes
+		custom_effect_tooltip = BLR_bulak_gain_6
+	}
+}
+country_event = { #Poland does not invest
+	id = blr_external.3
+	title = blr_external.3.t
+	desc = blr_external.3.d
+	picture = GFX_event_Polish_Industry
+	is_triggered_only = yes
+	option = {
+		name = blr_external.3.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			BLR_add_influence_value = -6
+		}
+		BLR_add_influence_bulakovich = yes
+		custom_effect_tooltip = BLR_bulak_lose_6
+	}
+}

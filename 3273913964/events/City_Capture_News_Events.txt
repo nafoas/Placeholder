@@ -1,0 +1,830 @@
+###########################
+# City Capture Events
+###########################
+
+#Event code structure borrowed from Kaiserreich, all credit goes to them <3
+
+# If you want to add more city capture events:
+#
+# First add an entry for the city in on_actions_city_occupation in the common\on_actions folder
+# Then add a news event here - you can copy occ_news.1 for the most basic version
+# which provides a separate comment for the owner (old_controller), the conqueror (new_controller), and then everyone else
+
+add_namespace = occ_news
+
+#Fall of Warsaw
+news_event = {
+	id = occ_news.1
+	title = occ_news.1.t
+	desc = {
+		text = occ_news.1.desc.germany
+		trigger = {
+			event_target:new_controller = { tag = GER }
+			event_target:old_controller = { tag = POL }
+		}
+	}
+	desc = {
+		text = occ_news.1.desc.generic
+		trigger = {
+			NOT = { event_target:new_controller = { tag = GER } }
+		}
+	}
+	picture = GFX_event_Fall_of_Warsaw
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		10 = {
+			set_state_flag = state_has_fallen
+			owner = { save_event_target_as = old_controller }
+			controller = { save_event_target_as = new_controller }
+		}
+		if = {
+			limit = {
+				event_target:new_controller = { tag = GER }
+				NOT = { 10 = { has_state_flag = warsaw_fallen_to_GER } }
+			}
+			10 = { set_state_flag = warsaw_fallen_to_GER }
+		}
+		else_if = {
+			limit = {
+				event_target:new_controller = { tag = SOV }
+				NOT = { 10 = { has_state_flag = warsaw_fallen_to_SOV } }
+			}
+			10 = { set_state_flag = warsaw_fallen_to_SOV }
+		}
+	}
+
+	option = { #For old controller
+		name = occ_news.1.a
+		trigger = {
+			tag = event_target:old_controller
+		}
+	}
+
+	option = { #For Generic new controller
+		name = occ_news.1.b
+		trigger = {
+			tag = event_target:new_controller
+			NOT = {
+				event_target:new_controller = { tag = SOV }
+				event_target:new_controller = { original_tag = GER }
+			}
+		}
+	}
+
+	option = { #For Germany
+		name = occ_news.1.germany
+		trigger = {
+			tag = event_target:new_controller
+			event_target:new_controller = { tag = GER }
+		}
+	}
+
+	option = { #For Soviets
+		name = occ_news.1.soviet
+		trigger = {
+			tag = event_target:new_controller
+			event_target:new_controller = { tag = SOV }
+		}
+	}
+
+	option = { #Generic neutral
+		name = occ_news.1.other
+		trigger = {
+			NOT = {
+				tag = event_target:old_controller
+				tag = event_target:new_controller
+			}
+		}
+	}
+}
+
+#Liberation of Warsaw (Historical)
+news_event = {
+	id = occ_news.2
+	title = occ_news.2.t
+	desc = ooc_news.2.d
+	picture = x
+
+	major = yes
+	is_triggered_only = yes
+
+	trigger = {
+		10 = {
+			has_state_flag = warsaw_fallen_to_GER
+		}
+	}
+
+	immediate = {
+		10 = {
+			set_state_flag = state_has_been_liberated
+			owner = { save_event_target_as = old_controller }
+			controller = { save_event_target_as = new_controller }
+		}
+		if = {
+			limit = {
+				10 = { has_state_flag = warsaw_fallen_to_GER }
+			}
+			10 = { clr_state_flag = warsaw_fallen_to_GER }
+		}
+	}
+
+	option = { #For Germany and its allies
+		name = occ_news.2.a
+		trigger = {
+			OR = {
+				tag = event_target:old_controller
+				is_in_faction_with = event_target:old_controller
+			}
+		}
+	}
+
+	option = { #For Soviets
+		name = occ_news.2.b
+		trigger = {
+			tag = event_target:new_controller
+		}
+	}
+
+	option = { #For Soviets
+		name = occ_news.2.c
+		trigger = {
+			tag = POL
+		}
+	}
+
+	option = { #Generic neutral
+		name = occ_news.2.other
+		trigger = {
+			NOT = {
+				tag = event_target:old_controller
+				tag = event_target:new_controller
+			}
+		}
+	}
+}
+
+#Liberation of Warsaw (A-historical Generic)
+#news_event = {
+#	id = occ_news.3
+#	title = occ_news.3.t
+#	desc = {
+#		text = occ_news.3.d.from_germany #Old controller were Germans
+#		trigger = {
+#			10 = { has_state_flag = warsaw_fallen_to_GER }
+#		}
+#	}
+#	desc = {
+#		text = occ_news.3.d.from_soviets #Old controller were Soviets
+#		trigger = {
+#			10 = { has_state_flag = warsaw_fallen_to_SOV }
+#		}
+#	}
+#	picture = x
+#
+#	major = yes
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		10 = {
+#			controller = { save_event_target_as = new_controller }
+#		}
+#	}
+#
+#	option = { #For previous controller (Germany)
+#		name = occ_news.3.a
+#		trigger = {
+#			10 = { has_state_flag = warsaw_fallen_to_GER }
+#			original_tag = GER
+#		}
+#		hidden_effect = {
+#			10 = { clr_state_flag = warsaw_fallen_to_GER }
+#		}
+#	}
+#
+#	option = { #For previous controller (Soviet)
+#		name = occ_news.3.b
+#		trigger = {
+#			10 = { has_state_flag = warsaw_fallen_to_SOV }
+#			tag = SOV
+#		}
+#		hidden_effect = {
+#			10 = { clr_state_flag = warsaw_fallen_to_SOV }
+#		}
+#	}
+#
+#	option = {
+#		name = occ_news.3.c
+#		trigger = {
+#			NOT = {
+#				OR = {
+#					original_tag = GER
+#					tag = SOV
+#				}
+#			}
+#		}		
+#	}
+#}
+
+## Fall of Rome
+news_event = {
+	id = occ_news.4
+	title = occ_news.4.t
+	desc = occ_news.4.desc
+	picture = GFX_event_Fall_of_Rome
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		2 = {
+			set_state_flag = state_has_fallen
+			owner = { save_event_target_as = old_controller }
+			controller = { save_event_target_as = new_controller }
+		}
+	}
+
+	option = { #For old controller (Italy)
+		name = occ_news.4.a
+		trigger = {
+			tag = event_target:old_controller
+		}
+	}
+
+	option = { #For new controller
+		name = occ_news.4.b
+		trigger = {
+			tag = event_target:new_controller
+		}
+	}
+	option = { #For generic
+		name = occ_news.4.other
+		trigger = {
+			NOT = {
+				tag = event_target:new_controller
+				tag = event_target:old_controller
+			}
+		}
+	}
+}
+
+# Fall of Berlin
+news_event = {
+	id = occ_news.5
+	title = occ_news.5.t
+	desc = {
+		text = occ_news.5.desc.generic
+		trigger = {
+			NOT = {
+				OR = {
+					event_target:new_controller = { tag = SOV }
+					event_target:new_controller = { tag = ENG }
+					event_target:new_controller = { is_in_faction_with = ENG }
+				}
+			}
+			event_target:old_controller = { tag = GER }
+		}
+	}
+	desc = {
+		text = occ_news.5.desc.soviets
+		trigger = {
+			event_target:new_controller = { tag = SOV }
+			event_target:old_controller = { tag = GER }
+		}
+	}
+	desc = {
+		text = occ_news.5.desc.allies
+		trigger = {
+			OR = {
+				event_target:new_controller = { tag = ENG }
+				event_target:new_controller = { is_in_faction_with = ENG }
+			}
+			event_target:old_controller = { tag = GER }
+		}
+	}
+	picture = GFX_event_Fall_of_Berlin
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		64 = {
+			set_state_flag = state_has_fallen
+			owner = { save_event_target_as = old_controller }
+			controller = { save_event_target_as = new_controller }
+		}
+	}
+
+	option = { #For Germany
+		name = occ_news.5.a
+		trigger = {
+			OR = {
+				tag = GER
+				tag = DDR
+				tag = WGR
+			}
+		}
+	}
+
+	option = { #For new controller (generic)
+		name = occ_news.5.b.generic
+		trigger = {
+			NOT = {
+				event_target:new_controller = { tag = SOV }
+				event_target:new_controller = { tag = ENG }
+				event_target:new_controller = { is_in_faction_with = ENG }
+			}
+			tag = event_target:new_controller
+		}
+	}
+	option = { #For Soviets (Soviet occ)
+		name = occ_news.5.b.soviets
+		trigger = {
+			event_target:new_controller = { tag = SOV }
+			tag = SOV
+		}
+	}
+	option = { #For Allies (Soviet occ)
+		name = occ_news.5.b.allies
+		trigger = {
+			event_target:new_controller = { tag = SOV }
+			OR = {
+				tag = ENG
+				is_in_faction_with = ENG
+			}
+		}
+	}
+	option = { #For Soviets (Allied occ)
+		name = occ_news.5.c.soviets
+		trigger = {
+			OR = {
+				event_target:new_controller = { tag = ENG }
+				event_target:new_controller = { is_in_faction_with = ENG }
+			}
+			OR = {
+				tag = SOV
+				is_in_faction_with = SOV
+			}
+		}
+	}
+	option = { #For Allies (Allied occ)
+		name = occ_news.5.c.allies
+		trigger = {
+			OR = {
+				event_target:new_controller = { tag = ENG }
+				event_target:new_controller = { is_in_faction_with = ENG }
+			}
+			OR = {
+				tag = ENG
+				is_in_faction_with = ENG
+			}
+		}
+	}
+	option = { #For others (Sov occ)
+		name = occ_news.5.other.soviets
+		trigger = {
+			event_target:new_controller = { tag = SOV }
+			NOT = {
+				tag = SOV
+				tag = ENG
+				is_in_faction_with = ENG
+				is_in_faction_with = SOV
+			}
+		}
+	}
+	option = { #For others (Allied occ)
+		name = occ_news.5.other.allies
+		trigger = {
+			OR = {
+				event_target:new_controller = { tag = ENG }
+				event_target:new_controller = { is_in_faction_with = ENG }
+			}
+			NOT = {
+				tag = SOV
+				tag = ENG
+				is_in_faction_with = ENG
+				is_in_faction_with = SOV
+			}
+		}
+	}
+	option = { #For others (Generic occ)
+		name = occ_news.5.other
+		trigger = {
+			NOT = {
+				event_target:new_controller = { tag = SOV }
+				event_target:new_controller = { tag = ENG }
+				event_target:new_controller = { is_in_faction_with = ENG }
+				tag = event_target:new_controller
+				tag = event_target:old_controller
+			}
+		}
+	}
+}
+
+# Berlin (GCW)
+news_event = {
+	id = occ_news.6
+	title = occ_news.6.t
+	desc = {
+		text = occ_news.6.desc.ddr
+		trigger = {
+			event_target:new_controller = { tag = DDR }
+			event_target:old_controller = { tag = WGR }
+		}
+	}
+	desc = {
+		text = occ_news.6.desc.nazis
+		trigger = {
+			event_target:new_controller = { tag = GER }
+			event_target:old_controller = { tag = WGR }
+		}
+	}
+	picture = GFX_news_event_german_reichstag_ruins_02
+
+	trigger = {
+		has_global_flag = GCW_ongoing_flag #TODO: when GCW ends, remove this global flag
+		# Has game rule to see city fall events
+	}
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		64 = {
+			owner = { save_event_target_as = old_controller }
+			controller = { save_event_target_as = new_controller }
+		}
+	}
+
+	option = { #For old controller (Republicans)
+		name = occ_news.6.a
+		trigger = {
+			tag = event_target:old_controller
+		}
+	}
+
+	option = { #For new controller (DDR)
+		name = occ_news.6.b.ddr
+		trigger = {
+			tag = event_target:new_controller
+		}
+	}
+	option = { #For new controller (Nazis)
+		name = occ_news.6.b.nazis
+		trigger = {
+			tag = event_target:new_controller
+			tag = SOV
+		}
+	}
+	option = { #For generic
+		name = occ_news.6.other
+		trigger = {
+			NOT = {
+				tag = event_target:new_controller
+				tag = event_target:old_controller
+			}
+		}
+	}
+}
+
+# Paris (Generic)
+news_event = {
+	id = occ_news.7
+	title = occ_news.7.t
+	desc = occ_news.7.desc
+	picture = GFX_event_Fall_of_Paris_generic
+
+	major = yes
+	is_triggered_only = yes
+
+
+	immediate = {
+		16 = {
+			set_state_flag = state_has_fallen
+			owner = { save_event_target_as = old_controller }
+			controller = { save_event_target_as = new_controller }
+		}
+	}
+
+	option = { #For old controller (France)
+		name = occ_news.7.a
+		trigger = {
+			tag = event_target:old_controller
+		}
+	}
+
+	option = { #For New Controller
+		name = occ_news.7.b
+		trigger = {
+			tag = event_target:new_controller
+		}
+	}
+	option = { #For generic
+		name = occ_news.7.other
+		trigger = {
+			NOT = {
+				tag = event_target:new_controller
+				tag = event_target:old_controller
+			}
+		}
+	}
+}
+
+# Paris (Germans)
+news_event = {
+	id = occ_news.8
+	title = occ_news.8.t
+	desc = occ_news.8.desc
+	picture = GFX_event_Fall_of_Paris_Germans
+
+	major = yes
+	is_triggered_only = yes
+
+
+	immediate = {
+		16 = {
+			set_state_flag = state_has_fallen
+			owner = { save_event_target_as = old_controller }
+			controller = { save_event_target_as = new_controller }
+		}
+	}
+
+	option = { #For France and Allies
+		name = occ_news.8.a
+		trigger = {
+			OR = {
+				tag = FRA
+				is_in_faction_with = FRA
+			}
+		}
+	}
+
+	option = { #For Germany
+		name = occ_news.8.b
+		trigger = {
+			tag = GER
+		}
+	}
+	option = { #For generic
+		name = occ_news.8.other
+		trigger = {
+			NOT = {
+				OR = {
+					tag = FRA
+					tag = GER
+					is_in_faction_with = FRA
+				}
+			}
+		}
+	}
+}
+
+# Liberation of Paris
+news_event = {
+	id = occ_news.9
+	title = occ_news.9.t
+	desc = occ_news.9.desc
+	picture = GFX_news_event_051
+
+	major = yes
+	is_triggered_only = yes
+
+
+	immediate = {
+		16 = {
+			set_state_flag = state_has_been_liberated
+			owner = { save_event_target_as = old_controller }
+			controller = { save_event_target_as = new_controller }
+		}
+	}
+
+	option = { #For Germany
+		name = occ_news.9.a.germany
+		trigger = {
+			tag = GER
+		}
+	}
+
+	option = { #For Axis
+		name = occ_news.9.a.axis
+		trigger = {
+			NOT = { tag = GER }
+			is_in_faction_with = GER
+		}
+	}
+
+	option = { #For Allies
+		name = occ_news.9.b
+		trigger = {
+			OR = {
+				is_in_faction_with = FRA
+				is_in_faction_with = ENG
+				is_in_faction_with = USA
+				is_in_faction_with = SOV
+			}
+		}
+	}
+	option = { #For generic
+		name = occ_news.9.other
+		trigger = {
+			NOT = {
+				tag = GER
+				is_in_faction_with = GER
+				is_in_faction_with = FRA
+				is_in_faction_with = ENG
+				is_in_faction_with = USA
+				is_in_faction_with = SOV
+			}
+		}
+	}
+}
+
+## Fall of London
+news_event = {
+	id = occ_news.10
+	title = occ_news.10.t
+	desc = {
+		text = occ_news.10.desc.generic
+		trigger = {
+			event_target:new_controller = {
+				NOT = { tag = GER }
+			}
+		}
+	}
+	desc = {
+		text = occ_news.10.desc.germany
+		trigger = { 
+			event_target:new_controller = {
+				tag = GER
+			}
+		}
+	}
+	picture = GFX_event_Fall_of_London
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		126 = {
+			set_state_flag = state_has_fallen
+			owner = { save_event_target_as = old_controller }
+			controller = { save_event_target_as = new_controller }
+		}
+	}
+
+	option = { #For UK and allies (german occupation)
+		name = occ_news.10.a.germany
+		trigger = {
+			event_target:new_controller = { tag = GER }
+			OR = {
+				tag = ENG
+				is_in_faction_with = ENG
+			}
+		}
+	}
+
+	option = { #For UK (generic)
+		name = occ_news.10.a.generic
+		trigger = {
+			NOT = { event_target:new_controller = { tag = GER } }
+			tag = ENG
+		}
+	}
+
+	option = { #For Germany (german occupation)
+		name = occ_news.10.b.germany
+		trigger = {
+			event_target:new_controller = { tag = GER }
+			OR = {
+				tag = GER
+				is_subject_of = GER
+			}
+		}
+	}
+	option = { #For new controller (generic)
+		name = occ_news.10.b.generic
+		trigger = {
+			NOT = { event_target:new_controller = { tag = GER } }
+			tag = event_target:new_controller
+		}
+	}
+	option = { #For generic
+		name = occ_news.10.other
+		trigger = {
+			OR = {
+				AND = {
+					event_target:new_controller = { tag = GER }
+					NOT = {
+						tag = ENG
+						is_in_faction_with = ENG
+						tag = GER
+						is_subject_of = GER
+					}
+				}
+				NOT = {
+					event_target:new_controller = { tag = GER }
+					tag = event_target:new_controller
+					tag = event_target:old_controller
+				}
+			}
+		}
+	}
+}
+
+# Fall of Moscow (Germans)
+news_event = {
+	id = occ_news.11
+	title = occ_news.11.t
+	desc = occ_news.11.desc
+	picture = GFX_event_Fall_of_Moscow_Germans
+
+	major = yes
+	is_triggered_only = yes
+
+
+	immediate = {
+		219 = {
+			set_state_flag = state_has_fallen
+			owner = { save_event_target_as = old_controller }
+			controller = { save_event_target_as = new_controller }
+		}
+	}
+
+	option = { #For Germant and allies
+		name = occ_news.11.a
+		trigger = {
+			OR = {
+				tag = GER
+				is_in_faction_with = GER
+				is_subject_of = GER
+			}
+		}
+	}
+
+	option = { #For Soviets
+		name = occ_news.11.b
+		trigger = {
+			tag = SOV
+		}
+	}
+	option = { #Everyone else
+		name = occ_news.11.other
+		trigger = {
+			NOT = {
+				tag = GER
+				tag = SOV
+				is_in_faction_with = GER
+				is_subject_of = GER
+			}
+		}
+	}
+}
+
+# Fall of Kiev (Germans)
+news_event = {
+	id = occ_news.13
+	title = occ_news.13.t
+	desc = occ_news.13.desc
+	picture = GFX_event_Fall_of_Kiev
+
+	major = yes
+	is_triggered_only = yes
+
+
+	immediate = {
+		202 = {
+			set_state_flag = state_has_fallen
+			owner = { save_event_target_as = old_controller }
+			controller = { save_event_target_as = new_controller }
+		}
+	}
+
+	option = { #For Germans
+		name = occ_news.13.a
+		trigger = {
+			OR = {
+				tag = GER
+				is_subject_of = GER
+			}
+		}
+	}
+
+	option = { #For Soviets
+		name = occ_news.13.b
+		trigger = {
+			tag = SOV
+		}
+	}
+	option = { #Everyone else
+		name = occ_news.13.other
+		trigger = {
+			NOT = {
+				tag = GER
+				tag = SOV
+				is_subject_of = GER
+			}
+		}
+	}
+}

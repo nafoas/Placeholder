@@ -1,0 +1,1856 @@
+shared_focus = {
+	id = TAN_army_start_focus
+	icon = GFX_focus_Tuvan_armed_forces # This needs change 
+	x = 42
+	y = 0
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+ 		has_completed_focus = TAN_cement_the_party
+	}	
+	bypass = {
+	}
+	completion_reward = {
+		army_experience = 5
+	}
+}
+###################################### TOP BRANCH ########################################
+shared_focus = {
+	id = TAN_finish_vostoka # Located outside of Kyzyl, built in 1932
+	icon = GFX_focus_Military_Government
+	prerequisite = { 
+		focus = TAN_army_start_focus
+	}
+	x = 0
+	y = 1
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		custom_trigger_tooltip = {
+				tooltip = TAN_1_gold_tt		
+			check_variable = {
+					TAN_gold_amt > 0
+			}     
+		}
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_lose_1_gold_tt
+		add_to_variable = {
+			var = TAN_gold_amt
+			value = -1
+		}
+		add_command_power = 15
+		add_political_power = 15
+	}
+}
+shared_focus = {
+	id = TAN_territorial_gatherings #
+	icon = GFX_focus_Promote_Social_Solidarism
+	prerequisite = { 
+		focus = TAN_finish_vostoka
+	}
+	x = -1
+	y = 2
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		country_event = {
+			id = tuva_army.4
+		}
+	}
+}
+shared_focus = {
+	id = TAN_partition_workers_from_soldiers # Located outside of Kyzyl, built in 1932
+	icon = GFX_focus_Officers_Command
+	prerequisite = { 
+		focus = TAN_finish_vostoka
+	}
+	x = 1
+	y = 2
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = TAN_irregular_army
+			add_idea = TAN_irregular_army_2
+		}
+	}
+}
+shared_focus = {
+	id = TAN_parade_in_kyzyl # 1934
+	icon = GFX_focus_Rally
+	prerequisite = { 
+		focus = TAN_territorial_gatherings
+	}
+	prerequisite = { 
+		focus = TAN_partition_workers_from_soldiers
+	}
+	x = 0
+	y = 3
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		country_event = {
+			id = tuva_army.1
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_unite_the_regiments # coordinated command
+	icon = GFX_focus_Flexible_chain_of_command
+	prerequisite = { 
+		focus = TAN_territorial_gatherings
+	}
+
+	x = -2
+	y = 3
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = TAN_irregular_army_2
+			add_idea = TAN_irregular_army_3
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_tambov_military_commanders #
+	icon = GFX_focus_Military_Attache
+	prerequisite = { 
+		focus = TAN_partition_workers_from_soldiers
+	}
+
+	x = 2
+	y = 3
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		add_ideas = TAN_tambov_cavalry_commanders_idea
+	}
+}
+
+shared_focus = {
+	id = TAN_org_reform_of_1935 #
+	icon = GFX_goal_Regime_of_the_Army
+	prerequisite = { 
+		focus = TAN_parade_in_kyzyl
+	}
+	prerequisite = { 
+		focus = TAN_unite_the_regiments
+	}
+	prerequisite = { 
+		focus = TAN_tambov_military_commanders
+	}
+
+	x = 0
+	y = 4
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = TAN_irregular_army_3
+			add_idea = TAN_irregular_army_4
+		}		
+	}
+}
+shared_focus = {
+	id = TAN_future_of_the_army_debate #
+	icon = GFX_focus_Red_Army
+	prerequisite = { 
+		focus = TAN_org_reform_of_1935
+	}
+
+
+	x = 0
+	y = 5
+	relative_position_id = TAN_army_start_focus
+	cost = 1
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		date > 1936.6.1
+	}
+	bypass = {
+		OR = {
+			has_country_flag = TAN_seren_imprisoned
+			has_country_flag = TAN_seren_retired
+
+		}
+	}
+
+	completion_reward = {
+		country_event = {
+			id = tuva_army.5
+		}
+	}
+}
+#########################################################################################
+#################################### SEREN KUZ BRANCH ###################################
+#########################################################################################
+
+shared_focus = {
+	id = TAN_maintain_cavalry_primacy #
+	icon = GFX_focus_Tuvan_Horse
+	prerequisite = { 
+		focus = TAN_future_of_the_army_debate
+	}
+	mutually_exclusive = {
+		focus = TAN_promote_modern_military
+	}
+	x = -6
+	y = 6
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = TAN_kuzhuget_seren_school_flag
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		add_ideas = TAN_cavalry_primacy_idea
+	}
+}
+shared_focus = {
+	id = TAN_nomadic_mobility #
+	icon = GFX_focus_Tuvan_traditions
+	prerequisite = { 
+		focus = TAN_maintain_cavalry_primacy
+	}
+
+	x = -7
+	y = 7
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = TAN_cavalry_primacy_idea
+			add_idea = TAN_cavalry_primacy_idea_2
+		}
+
+	}
+}
+shared_focus = {
+	id = TAN_controlling_the_tannuolas #
+	icon = GFX_focus_Mountain_Troops
+	prerequisite = { 
+		focus = TAN_nomadic_mobility
+	}
+
+	x = -7
+	y = 8
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = TAN_cavalry_primacy_idea_2
+			add_idea = TAN_cavalry_primacy_idea_3
+		}
+
+	}
+}
+shared_focus = {
+	id = TAN_reform_into_cavalry_regiment #
+	icon = GFX_focus_Ecomomic_Banditry
+	prerequisite = { 
+		focus = TAN_maintain_cavalry_primacy
+	}
+
+	x = -5
+	y = 7
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		controls_state = 329
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_reorganizing_regiments_tt
+		custom_effect_tooltip = TAN_reorganizing_warning
+
+		hidden_effect = {
+
+			division_template = {
+				name = "Strelkovyye Polki"	# rifle only reg.	
+
+				regiments = {
+					militia = { x = 0 y = 0 }
+				}
+			}
+			delete_unit_template_and_units = {
+   				division_template = "Svodnyy Polk"
+					disband = yes 
+			}
+			load_oob = TAN_reorganizing_regiments_oob
+		}
+	}
+}
+shared_focus = {
+	id = TAN_add_a_cavalry_school #
+	icon = GFX_focus_Cavalry
+	prerequisite = { 
+		focus = TAN_reform_into_cavalry_regiment
+	}
+
+	x = -5
+	y = 8
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_unlock_cav_regiment_tt
+		hidden_effect = {
+			set_division_template_lock = {
+					division_template = "Kavaleriyskiye Polki"
+					is_locked = no
+			}
+		}
+	}
+}
+shared_focus = {
+	id = TAN_introduce_mobile_warfare #
+	icon = GFX_focus_Tankettes
+	prerequisite = { 
+		focus = TAN_controlling_the_tannuolas
+	}
+	prerequisite = { 
+		focus = TAN_add_a_cavalry_school
+	}
+
+	x = -8
+	y = 9
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		add_tech_bonus = {
+ 		  	bonus = 0.33
+				uses = 2
+				category = cat_mobile_warfare
+		}
+	}
+}
+shared_focus = {
+	id = TAN_communications_expansion #
+	icon = GFX_focus_Radio
+	prerequisite = { 
+		focus = TAN_controlling_the_tannuolas
+	}
+	prerequisite = { 
+		focus = TAN_add_a_cavalry_school
+	}
+
+	x = -6
+	y = 9
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		add_tech_bonus = {
+ 		  	bonus = 0.33
+				uses = 1
+				category = radio_category
+		}
+		add_tech_bonus = {
+ 		  	bonus = 0.33
+				uses = 1
+				category = signal_company_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_train_the_arats #
+	icon = GFX_focus_Recruitment_Drive
+	prerequisite = { 
+		focus = TAN_controlling_the_tannuolas
+	}
+	prerequisite = { 
+		focus = TAN_add_a_cavalry_school
+	}
+
+	x = -4
+	y = 9
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		add_stability = -0.03
+		add_manpower = 200
+	}
+}
+shared_focus = {
+	id = TAN_defenders_of_tannu_tuva #
+	icon = GFX_focus_Protect_Government
+	prerequisite = { 
+		focus = TAN_communications_expansion
+	}
+	prerequisite = { 
+		focus = TAN_introduce_mobile_warfare
+	}
+	prerequisite = { 
+		focus = TAN_train_the_arats
+	}
+
+	x = -6
+	y = 10
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		add_ideas = TAN_defenders_of_the_homeland_idea
+	}
+}
+#########################################################################################
+###################################### SHOOMA BRANCH ####################################
+#########################################################################################
+shared_focus = {
+	id = TAN_promote_modern_military #
+	icon = GFX_focus_Soviet_Army
+	prerequisite = { 
+		focus = TAN_future_of_the_army_debate
+	}
+	mutually_exclusive = {
+		focus = TAN_maintain_cavalry_primacy
+	}
+	x = 6
+	y = 6
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		OR = {
+			has_country_flag = TAN_shooma_school_flag
+			has_country_flag = TAN_seren_imprisoned
+			has_country_flag = TAN_seren_retired
+
+		}
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = TAN_irregular_army_4
+			add_idea = TAN_irregular_army_shooma
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_soviet_tactics_usage #
+	icon = GFX_focus_Into_the_Flames
+	prerequisite = { 
+		focus = TAN_promote_modern_military
+	}
+
+	x = 5
+	y = 7
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_if_we_are_subject_the_bonuses_are_better
+
+		IF = {
+			limit = {
+				OR = {
+					is_subject_of = SOV
+					is_subject_of = RUS
+				}
+			}
+			add_tech_bonus = {
+ 		  		bonus = 0.33
+					uses = 2
+					category = cat_mass_assault
+			}
+			else = {
+				add_tech_bonus = {
+ 		  			bonus = 0.33
+						uses = 1
+						category = cat_mass_assault
+				}		
+			}
+		}		
+	}
+}
+
+shared_focus = {
+	id = TAN_soviet_military_advisors #
+	icon = GFX_focus_Soviet_Army_2
+	prerequisite = { 
+		focus = TAN_soviet_tactics_usage
+	}
+
+	x = 5
+	y = 8
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = TAN_tambov_cavalry_commanders_idea
+			add_idea = TAN_all_types_of_commanders_idea
+		}	
+	}
+}
+
+shared_focus = {
+	id = TAN_engineer_platoon #
+	icon = GFX_focus_Support_Equipment
+	prerequisite = { 
+		focus = TAN_promote_modern_military
+	}
+
+	x = 7
+	y = 7
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		controls_state = 329
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+
+		custom_effect_tooltip = TAN_reorganizing_regiments_engineer_tt
+		custom_effect_tooltip = TAN_reorganizing_warning
+
+		hidden_effect = {
+
+			division_template = {
+				name = "Svodnyy Polk s Inzhenerami"	#
+				regiments = {
+					militia = { x = 0 y = 0 }
+					cavalry = { x = 0 y = 1 }
+				}
+				support = {
+					engineer = { x = 0 y = 0 }
+				}
+			}
+			delete_unit_template_and_units = {
+   				division_template = "Svodnyy Polk"
+					disband = yes 
+			}
+			load_oob = TAN_add_engineers_oob
+		}				
+	}
+}
+
+shared_focus = {
+	id = TAN_modernizing_equipment #
+	icon = GFX_focus_Rifle_Blueprints
+	prerequisite = { 
+		focus = TAN_engineer_platoon
+	}
+
+	x = 7
+	y = 8
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_if_we_are_subject_the_bonuses_are_better
+
+		IF = {
+			limit = {
+				OR = {
+					is_subject_of = SOV
+					is_subject_of = RUS
+				}
+			}
+			add_tech_bonus = {
+ 		  		bonus = 0.33
+					uses = 2
+					category = infantry_weapons
+			}
+			else = {
+				add_tech_bonus = {
+ 		  			bonus = 0.33
+						uses = 1
+						category = infantry_weapons
+				}		
+			}
+		}			
+	}
+}
+
+shared_focus = {
+	id = TAN_grenade_development #
+	icon = GFX_focus_Bombs_Away
+	prerequisite = { 
+		focus = TAN_soviet_military_advisors
+	}
+	prerequisite = { 
+		focus = TAN_modernizing_equipment
+	}
+
+	x = 8
+	y = 9
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		add_tech_bonus = {
+				bonus = 0.66
+				uses = 1
+				technology = infantry_grenade
+				technology = infantry_mortar1
+				technology = infantry_mortar2
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_local_training_program #
+	icon = GFX_Focus_Red_Army_Exercises
+	prerequisite = { 
+		focus = TAN_soviet_military_advisors
+	}
+	prerequisite = { 
+		focus = TAN_modernizing_equipment
+	}
+
+	x = 4
+	y = 9
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		IF = {
+			limit = {
+				has_idea = TAN_irregular_army_officers
+			}
+			remove_ideas = TAN_irregular_army_officers
+			else = {
+				swap_ideas = {
+					remove_idea = TAN_irregular_army_shooma
+					add_idea = TAN_irregular_army_training
+				}
+			}
+
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_expand_officer_schools #
+	icon = GFX_focus_raise_military_budget
+	prerequisite = { 
+		focus = TAN_soviet_military_advisors
+	}
+	prerequisite = { 
+		focus = TAN_modernizing_equipment
+	}
+
+	x = 6
+	y = 9
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		custom_trigger_tooltip = {
+				tooltip = TAN_1_gold_tt		
+			check_variable = {
+					TAN_gold_amt > 0
+			}     
+		}
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_lose_1_gold_tt
+		add_to_variable = {
+			var = TAN_gold_amt
+			value = -1
+		}
+		IF = {
+			limit = {
+				has_idea = TAN_irregular_army_training
+			}
+			remove_ideas = TAN_irregular_army_training
+			else = {
+				swap_ideas = {
+					remove_idea = TAN_irregular_army_shooma
+					add_idea = TAN_irregular_army_officers
+				}
+			}
+
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_tuva_red_army #
+	icon = GFX_focus_Tuvan_Army
+	prerequisite = { 
+		focus = TAN_grenade_development
+	}
+	prerequisite = { 
+		focus = TAN_local_training_program
+	}
+	prerequisite = { 
+		focus = TAN_expand_officer_schools
+	}
+
+	x = 6
+	y = 10
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		add_ideas = TAN_TNRA_idea
+	}
+}
+#########################################################################################
+####################################### THE MIDDLE ######################################
+#########################################################################################
+
+shared_focus = {
+	id = TAN_milico #
+	icon = GFX_goal_Regime_of_the_Army
+	prerequisite = { 
+		focus = TAN_future_of_the_army_debate
+	}
+
+	x = 0
+	y = 7
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		add_political_power = 15
+		army_experience = 5
+	}
+}
+shared_focus = {
+	id = TAN_recomission_old_weapons #
+	icon = GFX_focus_Buy_Foreign_Weapons
+	prerequisite = { 
+		focus = TAN_milico
+	}
+
+	x = -1
+	y = 8
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 50
+				producer = TAN
+		}	
+		add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 50
+				producer = SOV
+		}
+		add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 50
+				producer = RUS
+		}		
+	}
+}
+
+shared_focus = {
+	id = TAN_import_soviet_artillery #
+	icon = GFX_goal_generic_artillery
+	prerequisite = { 
+		focus = TAN_milico
+	}
+
+	x = 1
+	y = 8
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		is_subject_of = SOV
+
+	}
+	bypass = {
+		NOT = {
+			is_subject_of = SOV
+		}
+	}
+
+	completion_reward = {
+		add_equipment_to_stockpile = {
+				type = artillery_equipment_1
+				amount = 25
+				producer = SOV
+		}	
+	}
+}
+shared_focus = {
+	id = TAN_frunze #
+	icon = GFX_focus_Glory_of_the_Soviet_Union
+	prerequisite = { 
+		focus = TAN_recomission_old_weapons
+	}
+	prerequisite = { 
+		focus = TAN_import_soviet_artillery
+	}
+
+	x = 0
+	y = 10
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_gain_five_influence
+		add_to_variable = {
+			var = TAN_soviet_influence
+			value = 5
+		}
+		country_event = {
+			id = tuva_army.6
+		}
+	}
+}
+#########################################################################################
+########################################## 3yap #########################################
+#########################################################################################
+
+shared_focus = {
+	id = TAN_3yap #
+	icon = GFX_focus_Army_Reform
+	prerequisite = { 
+		focus = TAN_frunze
+	}
+	prerequisite = { 
+		focus = TAN_tuva_red_army
+		focus = TAN_defenders_of_tannu_tuva
+
+	}
+
+
+	x = 0
+	y = 11
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		date > 1940.1.1
+		custom_trigger_tooltip = {
+				tooltip = TAN_1_gold_tt		
+			check_variable = {
+					TAN_gold_amt > 0
+			}     
+		}
+		custom_trigger_tooltip = {
+				tooltip = TAN_japan_threatens_tt		
+			has_war = yes
+			MEN = {
+				exists = yes
+				is_puppet_of = JAP
+			}
+		}
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_lose_1_gold_tt
+		add_to_variable = {
+			var = TAN_gold_amt
+			value = -1
+		}	
+		custom_effect_tooltip = TAN_3yap_begins_tt
+		
+	}
+}
+
+shared_focus = {
+	id = TAN_military_commisars #
+	icon = GFX_focus_Revolution
+	prerequisite = { 
+		focus = TAN_3yap
+	}
+
+
+
+	x = 0
+	y = 12
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		OR = {
+			has_government = communism
+			has_government = authoritarian_socialism
+
+		}
+
+	}
+	bypass = {
+		NOT = {
+			OR = {
+				has_government = communism
+				has_government = authoritarian_socialism
+
+			}
+		}
+	}
+
+	completion_reward = {
+		add_political_power = 10
+		add_command_power = -50
+
+		IF = {
+			limit = {
+				has_government = communism
+
+			}
+			add_popularity = {
+					ideology = communism
+					popularity = 0.01
+			}
+			else = {
+				add_popularity = {
+						ideology = authoritarian_socialism
+						popularity = 0.01
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_bolster_militia # changed
+	icon = GFX_focus_Military_Intervention
+	prerequisite = { 
+		focus = TAN_military_commisars
+	}
+
+
+
+	x = -1
+	y = 13
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		add_war_support = 0.02
+		add_political_power = 20
+		
+	}
+}
+shared_focus = {
+	id = TAN_technological_deveopment #
+	icon = GFX_focus_Renewed_Arms
+	prerequisite = { 
+		focus = TAN_military_commisars
+	}
+
+
+
+	x = 1
+	y = 13
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_if_we_are_subject_the_bonuses_are_better
+
+		IF = {
+			limit = {
+				OR = {
+					is_subject_of = SOV
+					is_subject_of = RUS
+				}
+			}
+			add_tech_bonus = {
+ 		  		bonus = 0.66
+					uses = 1
+					category = infantry_weapons
+			}
+			add_tech_bonus = {
+ 		  		bonus = 0.66
+					uses = 1
+					category = artillery
+			}
+
+			else = {
+				add_tech_bonus = {
+ 		  			bonus = 0.33
+						uses = 1
+						category = infantry_weapons
+				}		
+				add_tech_bonus = {
+ 		  			bonus = 0.33
+						uses = 1
+						category = artillery
+				}
+		
+			}
+		}				
+	}
+}
+
+shared_focus = {
+	id = TAN_logistical_development #
+	icon = GFX_focus_Supply_Troops
+	prerequisite = { 
+		focus = TAN_technological_deveopment
+	}
+
+
+
+	x = 2
+	y = 14
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_if_we_are_subject_the_bonuses_are_better
+
+		IF = {
+			limit = {
+				OR = {
+					is_subject_of = SOV
+					is_subject_of = RUS
+				}
+			}
+			add_tech_bonus = {
+ 		  		bonus = 0.5
+					uses = 2
+					category = support_tech
+			}
+
+
+			else = {
+				add_tech_bonus = {
+ 		  			bonus = 0.5
+						uses = 1
+						category = support_tech
+				}		
+			}
+		}				
+	}
+}
+
+shared_focus = {
+	id = TAN_tanks #
+	icon = GFX_focus_Light_Tanks
+	prerequisite = { 
+		focus = TAN_bolster_militia
+	}
+	prerequisite = { 
+		focus = TAN_technological_deveopment
+	}
+
+
+
+	x = 0
+	y = 14
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		OR = {
+			date > 1943.1.1
+			has_war = yes
+		}
+		is_subject_of = SOV
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_tannu_tanks_tt
+		hidden_effect = {
+			set_technology = {
+					gwtank = 1
+			}		
+			set_technology = {
+					light_tank_1 = 1
+			}		
+		}
+		add_equipment_to_stockpile = {
+			type = light_tank_chassis
+			amount = 5
+			producer = SOV
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_request_infantry_equipment #
+	icon = GFX_focus_Guns_Shipment
+	prerequisite = { 
+		focus = TAN_bolster_militia
+	}
+
+	x = -2
+	y = 14
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		is_subject_of = SOV
+	}
+	bypass = {
+		NOT = {
+			is_subject_of = SOV
+		}
+	}
+
+	completion_reward = {
+		SOV = {
+			country_event = {
+				id = tan_sov.9
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_kyzyl_artillery_battalion #
+	icon = GFX_focus_Anti-Tank
+
+	prerequisite = { 
+		focus = TAN_request_infantry_equipment
+	}
+	prerequisite = { 
+		focus = TAN_logistical_development
+	}
+	x = -1
+	y = 15
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	bypass = {
+
+	}
+
+	completion_reward = {
+		army_experience = 10
+		add_equipment_to_stockpile = {
+				type = artillery_equipment_1
+				amount = 20
+				producer = SOV
+		}			
+	}
+}
+
+shared_focus = {
+	id = TAN_khalkhin_gol #
+	icon = GFX_focus_North_China_Buffer_State
+
+	prerequisite = { 
+		focus = TAN_request_infantry_equipment
+	}
+	prerequisite = { 
+		focus = TAN_logistical_development
+	}
+	x = 1
+	y = 15
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		custom_trigger_tooltip = {
+				tooltip = TAN_WIP_kgol_tt
+			date > 1999.1.1		
+		}
+	}
+	bypass = {
+		always = yes
+	}
+
+	completion_reward = {
+				
+	}
+}
+
+shared_focus = {
+	id = TAN_mass_military_training #
+	icon = GFX_focus_Recruitment
+
+	prerequisite = { 
+		focus = TAN_kyzyl_artillery_battalion
+	}
+	prerequisite = { 
+		focus = TAN_khalkhin_gol
+	}
+	x = 0
+	y = 16
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_stability > 0.7
+		OR = {
+			threat > 0.9
+			AND = {
+				has_war = yes
+				date > 1941.1.1
+			}
+
+		}
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		country_event = {
+			id = tuva_army.7
+		}
+
+	}
+}
+shared_focus = {
+	id = TAN_the_inevitable_war #
+	icon = GFX_focus_Into_the_Flames_of_Glory
+
+	prerequisite = { 
+		focus = TAN_mass_military_training
+	}
+
+	x = 0
+	y = 17
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		date > 1941.6.1
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		country_event = {
+			id = tuva_army.3
+		}
+	}
+}
+
+#########################################################################################
+#################################### Military industry ##################################
+#########################################################################################
+
+shared_focus = {
+	id = TAN_local_military_industry #
+	icon = GFX_focus_Firearms
+	prerequisite = { 
+		focus = TAN_3yap
+	}
+
+
+
+	x = -6
+	y = 12
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+
+	}
+	bypass = {
+
+	}
+
+	completion_reward = {
+		add_political_power = -50
+		add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 100
+				producer = TAN
+		}			
+	}
+}
+
+shared_focus = {
+	id = TAN_small_scale_support_production #
+	icon = GFX_focus_support_small_bussiness
+	prerequisite = { 
+		focus = TAN_local_military_industry
+	}
+
+
+
+	x = -7
+	y = 13
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+
+	}
+	bypass = {
+
+	}
+
+	completion_reward = {
+		add_political_power = -25
+
+		add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 25
+				producer = TAN
+		}			
+	}
+}
+
+shared_focus = {
+	id = TAN_defences_at_vostoka #
+	icon = GFX_focus_The_Last_Stand
+	prerequisite = { 
+		focus = TAN_local_military_industry
+	}
+
+
+
+	x = -5
+	y = 13
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		OR = {
+			has_war = yes
+			date > 1942.1.1
+		}
+
+	}
+	bypass = {
+
+	}
+
+	completion_reward = {
+		329 = {
+			add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+  				province = 10627
+			}	
+		}		
+	}
+}
+
+shared_focus = {
+	id = TAN_prepare_military_industrialization #
+	icon = GFX_focus_Tractors
+	prerequisite = { 
+		focus = TAN_defences_at_vostoka
+	}
+	prerequisite = { 
+		focus = TAN_small_scale_support_production
+	}
+
+
+	x = -6
+	y = 14
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		num_of_civilian_factories > 0
+		has_war = yes
+		custom_trigger_tooltip = {
+				tooltip = TAN_3_gold_tt		
+			check_variable = {
+					TAN_gold_amt > 2
+			}     
+		}
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_lose_3_gold_tt
+		add_to_variable = {
+			var = TAN_gold_amt
+			value = -3
+		}	
+		custom_effect_tooltip = TAN_expiry_industrialization_tt
+
+		add_timed_idea = {
+				idea = TAN_preparing_military_industrialization_idea
+				days = 210
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_build_factory #
+	icon = GFX_focus_Factory_Town
+	prerequisite = { 
+		focus = TAN_prepare_military_industrialization
+	}
+
+	x = -6
+	y = 15
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		controls_state = 329
+		NOT = {
+			has_idea = TAN_preparing_military_industrialization_idea
+		}
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		329 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+			}
+		}
+	}
+}
+
+#########################################################################################
+######################################## Air Force ######################################
+#########################################################################################
+
+shared_focus = {
+	id = TAN_legacy_of_the_flying_boat #
+	icon = GFX_focus_Revolutionary_Air
+	prerequisite = { 
+		focus = TAN_3yap
+	}
+
+
+
+	x = 6
+	y = 12
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		has_country_flag = TAN_aviation_exists
+	}
+	bypass = {
+
+	}
+
+	completion_reward = {
+		air_experience = 5	
+	}
+}
+
+shared_focus = {
+	id = TAN_kyzyl_airstrip #
+	icon = GFX_focus_Airports
+	prerequisite = { 
+		focus = TAN_legacy_of_the_flying_boat
+	}
+
+
+
+	x = 5
+	y = 13
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		controls_state = 329
+		custom_trigger_tooltip = {
+				tooltip = TAN_1_gold_tt		
+			check_variable = {
+					TAN_gold_amt > 0
+			}     
+		}
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_lose_1_gold_tt
+		add_to_variable = {
+			var = TAN_gold_amt
+			value = -1
+		}
+		329 = {
+			add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = TAN_local_air_development #
+	icon = GFX_focus_Air_Superiority_Doctrine
+	prerequisite = { 
+		focus = TAN_legacy_of_the_flying_boat
+	}
+
+
+
+	x = 7
+	y = 13
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_if_we_are_subject_the_bonuses_are_better
+
+		IF = {
+			limit = {
+				OR = {
+					is_subject_of = SOV
+					is_subject_of = RUS
+				}
+			}
+			add_tech_bonus = {
+ 		  		bonus = 0.33
+					uses = 2
+					category = air_equipment
+			}
+			else = {
+				add_tech_bonus = {
+ 		  			bonus = 0.33
+						uses = 1
+						category = air_equipment
+				}		
+			}
+		}		
+	}
+}
+shared_focus = { #WTF is this supposed to do
+	id = TAN_the_snowy_runway_system #
+	icon = GFX_focus_Mountain_Defense
+	prerequisite = { 
+		focus = TAN_kyzyl_airstrip
+	}
+	prerequisite = { 
+		focus = TAN_local_air_development
+	}
+
+	x = 6
+	y = 14
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		controls_state = 329
+		has_tech = iw_20s_fighter
+		custom_trigger_tooltip = {
+			tooltip = TAN_1_gold_tt		
+			check_variable = {
+				TAN_gold_amt > 0
+			}     
+		}
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = TAN_lose_1_gold_tt
+		add_to_variable = {
+			var = TAN_gold_amt
+			value = -1
+		}		
+	}
+}
+
+shared_focus = {
+	id = TAN_ussr_fighters #
+	icon = GFX_focus_SOV_Red_Fighters
+	prerequisite = { 
+		focus = TAN_the_snowy_runway_system
+	}
+
+	x = 6
+	y = 15
+	relative_position_id = TAN_army_start_focus
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		is_subject_of = SOV
+	}
+	bypass = {
+	}
+
+	completion_reward = {
+		SOV = {
+			country_event = {
+				id = tan_sov.6
+			}
+		}		
+	}
+}

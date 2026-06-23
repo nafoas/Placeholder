@@ -1,0 +1,553 @@
+#18 focuses here
+#s_team337
+shared_focus = {
+	id = SOV_2RCW_Military_Start
+	icon = GFX_focus_Red_Army
+	#prerequisite = { focus = SOV_2RCW_Military_Start }
+	x = 28
+	y = 0
+	offset = {
+		x = 8
+		y = 0
+		trigger = {
+			has_focus_tree = SOV_2RCW_Troika_Tree
+		}
+	}
+	offset = {
+		x = -8
+		y = 0
+		trigger = {
+			has_focus_tree = SOV_2RCW_Coup_Tree
+		}
+	}
+	#relative_position_id = SOV_2RCW_Military_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 1000
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_political_power = 50
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Include_Navy
+	icon = GFX_focus_Soviet_Navy
+	prerequisite = {
+		focus = SOV_2RCW_Military_Start
+	}
+	mutually_exclusive = {
+		focus = SOV_2RCW_Military_Army_Air
+	}
+	x = -2
+	y = 1
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 8.58
+	ai_will_do = {
+		factor = 120
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		army_experience = 20
+		navy_experience = 20
+		air_experience = 20
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Dockyards
+	icon = GFX_focus_Naval_Effort
+	prerequisite = {
+		focus = SOV_2RCW_Military_Include_Navy
+	}
+	x = -3
+	y = 2
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 6.72
+	ai_will_do = {
+		factor = 150
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				dockyard > 0
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				dockyard > 0
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Naval_Doctrines
+	icon = GFX_focus_admiralty
+	prerequisite = {
+		focus = SOV_2RCW_Military_Dockyards
+	}
+	x = -3
+	y = 3
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 120
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = naval_doctrine_bonus
+			uses = 3
+			bonus = 0.35
+			category = naval_doctrine
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Army_Air
+	icon = GFX_focus_Soviet_Air_Forces
+	prerequisite = {
+		focus = SOV_2RCW_Military_Start
+	}
+	mutually_exclusive = {
+		focus = SOV_2RCW_Military_Include_Navy
+	}
+	x = 2
+	y = 1
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 8.58
+	ai_will_do = {
+		factor = 800
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		army_experience = 30
+		air_experience = 30
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Airfields
+	icon = GFX_focus_Airports
+	prerequisite = {
+		focus = SOV_2RCW_Military_Army_Air
+	}
+	x = 3
+	y = 2
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 6
+	ai_will_do = {
+		factor = 250
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 2
+					include_locked = yes
+				}
+				air_base > 0
+			}
+			add_building_construction = {
+				type = air_base
+				level = 2
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 2
+					include_locked = yes
+				}
+				air_base > 0
+			}
+			add_building_construction = {
+				type = air_base
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Land_Doctrine
+	icon = GFX_focus_Military_Intervention
+	prerequisite = {
+		focus = SOV_2RCW_Military_Include_Navy
+		focus = SOV_2RCW_Military_Army_Air
+	}
+	x = -1
+	y = 2
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 600
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = land_doctrine_bonus
+			uses = 1
+			bonus = 0.25
+			category = land_doctrine
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Small_Arms
+	icon = GFX_focus_Firearms
+	prerequisite = {
+		focus = SOV_2RCW_Military_Land_Doctrine
+	}
+	x = -1
+	y = 3
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 5
+	ai_will_do = {
+		factor = 400
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = small_arms_bonus
+			uses = 1
+			bonus = 0.40
+			category = infantry_gear
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Air_Doctrine
+	icon = GFX_focus_Aerial_Offensive
+	prerequisite = {
+		focus = SOV_2RCW_Military_Include_Navy
+		focus = SOV_2RCW_Military_Army_Air
+	}
+	x = 1
+	y = 2
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 200
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = air_doctrine_bonus
+			uses = 1
+			bonus = 0.25
+			category = air_doctrine
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Fighters
+	icon = GFX_focus_SOV_Red_Fighters
+	prerequisite = {
+		focus = SOV_2RCW_Military_Air_Doctrine
+	}
+	x = 1
+	y = 3
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 6
+	ai_will_do = {
+		factor = 240
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = fighter_bonus
+			uses = 1
+			bonus = 0.3
+			category = light_fighter
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_CAS
+	icon = GFX_goal_generic_CAS
+	prerequisite = {
+		focus = SOV_2RCW_Military_Airfields
+	}
+	x = 3
+	y = 3
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 5
+	ai_will_do = {
+		factor = 340
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = cas_bomber_bonus
+			uses = 1
+			bonus = 0.3
+			category = cas_bomber
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Destroyers
+	icon = GFX_focus_Small_Navy
+	prerequisite = {
+		focus = SOV_2RCW_Military_Naval_Doctrines
+	}
+	prerequisite = {
+		focus = SOV_2RCW_Military_Small_Arms
+	}
+	prerequisite = {
+		focus = SOV_2RCW_Military_Fighters
+	}
+	x = -2
+	y = 4
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 5
+	ai_will_do = {
+		factor = 120
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = destoyer_bonus
+			uses = 1
+			bonus = 0.2
+			category = dd_tech
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_TacBombers
+	icon = GFX_focus_Bombs_Away
+	prerequisite = {
+		focus = SOV_2RCW_Military_Small_Arms
+	}
+	prerequisite = {
+		focus = SOV_2RCW_Military_Fighters
+	}
+	prerequisite = {
+		focus = SOV_2RCW_Military_CAS
+	}
+	x = 2
+	y = 4
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 6.43
+	ai_will_do = {
+		factor = 240
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = bomber_bonus
+			uses = 1
+			bonus = 0.2
+			category = tactical_bomber
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Mechanized
+	icon = GFX_focus_Motorization_Effort
+	prerequisite = {
+		focus = SOV_2RCW_Military_Destroyers
+		focus = SOV_2RCW_Military_TacBombers
+	}
+	x = -1
+	y = 5
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 5
+	ai_will_do = {
+		factor = 500
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = bomber_bonus
+			uses = 1
+			bonus = 0.2
+			category = cat_mechanized_equipment
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Cruisers
+	icon = GFX_focus_Bluewater_Navy
+	prerequisite = {
+		focus = SOV_2RCW_Military_Destroyers
+	}
+	prerequisite = {
+		focus = SOV_2RCW_Military_Mechanized
+	}
+	x = -2
+	y = 6
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 5
+	ai_will_do = {
+		factor = 200
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = cruiser_bonus
+			uses = 1
+			bonus = 0.2
+			category = cl_tech
+			category = cv_tech
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Armor
+	icon = GFX_focus_t_34
+	prerequisite = {
+		focus = SOV_2RCW_Military_Destroyers
+		focus = SOV_2RCW_Military_TacBombers
+	}
+	x = 1
+	y = 5
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 5
+	ai_will_do = {
+		factor = 600
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = armor_bonus
+			uses = 1
+			bonus = 0.3
+			category = armor
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Naval_Bombers
+	icon = GFX_focus_Naval_Operations
+	prerequisite = {
+		focus = SOV_2RCW_Military_Mechanized
+	}
+	prerequisite = {
+		focus = SOV_2RCW_Military_Armor
+	}
+	x = 0
+	y = 6
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 5
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = naval_bomber_bonus
+			uses = 1
+			bonus = 0.4
+			category = naval_bomber
+		}
+	}
+}
+shared_focus = {
+	id = SOV_2RCW_Military_Air_Doctrine2
+	icon = GFX_focus_Aerial_Fleet_2
+	prerequisite = {
+		focus = SOV_2RCW_Military_Armor
+	}
+	prerequisite = {
+		focus = SOV_2RCW_Military_TacBombers
+	}
+	x = 2
+	y = 6
+	relative_position_id = SOV_2RCW_Military_Start
+	cost = 5.72
+	ai_will_do = {
+		factor = 100
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = air_doctrine_bonus
+			uses = 1
+			bonus = 0.25
+			category = air_doctrine
+		}
+	}
+}

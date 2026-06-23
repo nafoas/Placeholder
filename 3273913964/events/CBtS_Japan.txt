@@ -1,0 +1,2886 @@
+###########################
+# Japanese Events
+###########################
+
+add_namespace = jap_internal
+add_namespace = jap_external
+add_namespace = jap_army
+add_namespace = jap_navy
+add_namespace = jap_factionalism
+add_namespace = jap_army_navy
+add_namespace = jap_endsieg
+add_namespace = jap_kodoha
+add_namespace = jap_democratic
+add_namespace = JAP_north_china
+
+country_event = { # Japan in 1933
+    id = jap_internal.1
+    title = jap_internal.1.t
+    desc = jap_internal.1.d
+    is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_Japan_in_1933
+	trigger = {
+		tag = JAP
+	}
+    option = {
+        name = jap_internal.1.a
+		country_event = { id = jap_factionalism.1 }
+        ai_chance = {
+            base = 100
+        }
+    }
+}
+country_event = { # Japan factionalism explained
+	id = jap_factionalism.1
+	title = jap_factionalism.1.t
+	desc = jap_factionalism.1.d
+	is_triggered_only = yes
+	picture = GFX_event_Japanese_Political_Factionalism
+	option = {
+		name = jap_factionalism.1.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}	
+country_event = { #Operation Nekka (Nekka Incident)
+	id = jap_external.1
+	title = jap_external.1.t
+	desc = jap_external.1.d
+	picture = GFX_event_Operation_Nekka
+	is_triggered_only = yes
+	fire_only_once = yes	
+	option = {
+		name = jap_external.1.a
+		ai_chance = {
+			base = 100
+		}
+		declare_war_on = {
+			target = NEA
+			type = take_claimed_state
+		}
+		hidden_effect = { 
+			news_event = { id = jap_news.1 }
+			set_country_flag = JAP_operation_nekka
+			NEA = { add_ideas = CHI_no_surrender }
+			JAP = { add_ideas = JAP_operation_nekka }
+		}
+	}
+}
+country_event = { #Tanggu Truce
+	id = jap_external.2
+	title = jap_external.2.t
+	desc = jap_external.2.d
+	picture = GFX_event_Operation_Nekka
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			609 = { set_demilitarized_zone = yes }
+			847 = { set_demilitarized_zone = yes }
+			MAN = {	
+				add_state_core = 887
+				transfer_state = 887
+				add_state_core = 610
+				transfer_state = 610
+				set_truce = {
+					target = CHI
+					days = 1400
+				}
+			}
+			JAP = {
+				remove_ideas = JAP_operation_nekka
+				swap_ideas = {
+					remove_idea = JAP_chinese_expansion
+					add_idea = JAP_chinese_expansion_2
+				}
+			}
+			# NEA = { white_peace = JAP }
+			set_truce = {
+				target = CHI
+				days = 1400
+			}
+			set_global_flag = Tanguu_Truce_flag
+			NEA = {
+				remove_ideas = CHI_nea_nekka_incident
+				every_state = {
+					limit = {
+						is_core_of = NEA
+					}
+					remove_core_of = NEA
+				}
+				transfer_units_fraction = {
+					target = CHI
+					size = 1
+					stockpile_ratio = 0.5
+				}
+			}
+
+			CHI = {
+				annex_country = {
+					target = NEA
+					transfer_troops = yes
+				}
+			}
+			
+			MAN = {
+				give_resource_rights = {
+					receiver = JAP
+					state = 887
+				}
+			}
+			614 = { add_core_of = CHI }
+			923 = { add_core_of = CHI }
+			608 = { add_core_of = CHI }
+			609 = { add_core_of = CHI }
+			847 = { add_core_of = CHI }
+		}
+	}
+
+	option = {
+		name = jap_external.2.a		
+	}
+}
+country_event = { # League of Nations votes to recommend Japan to withdraw from Manchuria - Japan Leaves League of Nations
+	id = jap_external.3
+	title = jap_external.3.t
+	desc = jap_external.3.d
+	is_triggered_only = yes	
+	picture = GFX_event_Japan_withdraws_from_LoN
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = jap_external.4
+				days = 32
+			}
+			news_event = {
+				id = cbts_news.4
+			}
+		}
+	}
+	option = {
+		name = jap_external.3.a
+		ai_chance = {
+			base = 100
+		}	
+	}
+}
+country_event = { # Japan officially withdraws from League of Nations
+	id = jap_external.4
+	title = jap_external.4.t
+	desc = jap_external.4.desc
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_Japan_withdraws_from_LoN
+	
+	option = {
+		name = jap_external.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_opinion_modifier = {
+			target = CHI
+			modifier = JAP_fuck_the_league_chi
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = USA_stimson_doctrine
+		}
+		add_opinion_modifier = {
+			target = FRA
+			modifier = JAP_fuck_the_league	
+		}
+		add_opinion_modifier = {
+			target = ENG
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = SOV
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = AST
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = NZL
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = CAN
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = POL
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = MEX
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = POR
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = HOL
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = TUR
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = GRE
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = RAJ
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = NOR
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = SWE
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = FIN
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = IRE
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = SAF
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = YUG
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = BEL
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = SWI
+			modifier = JAP_fuck_the_league
+		}
+		add_opinion_modifier = {
+			target = BUL
+			modifier = JAP_fuck_the_league
+		}
+		#complete_national_focus = JAP_withdraw_from_the_league_of_nations
+	}
+}
+country_event = { #Mongol Military Government established
+	id = jap_external.5
+	title = jap_external.5.t
+	desc = jap_external.5.d
+	is_triggered_only = yes
+	picture = GFX_event_Operation_Nekka
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			MEN = {
+				country_event = { id = mengjiang.1 days = 658 random_days = 20 }
+			}
+		}
+	}
+	option = {
+		name = jap_external.5.a
+		ai_chance = {
+			base = 100
+		}
+		MEN = {
+			add_state_core = 612
+			transfer_state = 612
+			add_state_core = 611
+			transfer_state = 611
+			add_state_core = 1131
+			transfer_state = 1131
+			add_state_claim = 1141
+			add_state_claim = 1132
+			add_state_claim = 1133
+			add_state_claim = 621
+			every_controlled_state = {
+				limit = {
+					is_demilitarized_zone = yes
+				}
+				set_demilitarized_zone = no
+			}
+		}
+		939 = { set_demilitarized_zone = no }
+		puppet = MEN
+		hidden_effect = {
+			JAP = {
+				swap_ideas = {
+					remove_idea = JAP_chinese_expansion_2
+					add_idea = JAP_chinese_expansion_3
+				}
+			}
+			612 = { set_state_name = "Xilinguole" }
+			621 = { set_state_name = "Bayantala" }
+			MEN = {
+				add_manpower = 3000
+				division_template = {
+					name = "Morit Shi"
+					# Mengjiang Army was divided into divisions of aprox. 1500 men each, composed of 3 regiments of 500 mean each
+					# One regiment included 4 cavalry squadrons and a machine gun company, the latter with a strength of 120 men.
+					# However, the standard structure mostly existed on paper and it was unlikely that it was used in reality
+					# 1937 Cavalry Divisions had ~1000 men per division. That is equivalent to 2 in-game cavalry battalions
+					regiments = {
+						cavalry = { x = 0 y = 0 }
+						cavalry = { x = 0 y = 1 }
+					}
+				}
+				division_template = {
+					name = "Inner Mongolian Banner"
+
+					regiments = {
+						cavalry = { x = 0 y = 0 }
+						cavalry = { x = 0 y = 1 }
+					}
+				}
+				division_template = {
+					name = "Mongol Bandits"
+
+					regiments = {
+						militia = { x = 0 y = 0 }
+						militia = { x = 0 y = 1 }
+						militia = { x = 0 y = 2 }
+						militia = { x = 1 y = 0 }
+						militia = { x = 1 y = 1 }
+					}
+				}
+				set_politics = { ruling_party = monarchism }
+				#set_cosmetic_tag = MEN_mmg
+				set_popularities = {
+					communism = 9
+					authoritarian_socialism = 0
+					socialism = 10
+					social_democracy = 0
+					social_liberalism = 0
+					market_liberalism = 0
+					jacobin = 0
+					democratic = 8
+					neutrality = 0
+					monarchism = 68
+					nationalism = 3
+					fascism = 2
+				}
+			}
+			
+			612 = {
+				remove_dynamic_modifier = { modifier = Mongol_autonomy } 
+				create_unit = {
+					division = "name = \"8th Morit Shi\" division_template = \"Morit Shi\" start_experience_factor = 0.1 start_equipment_factor = 0.6"
+					owner = MEN
+					prioritize_location = 1551
+					allow_spawning_on_enemy_provs = no
+				}
+				create_unit = {
+					division = "name = \"Mongol Bandits\" division_template = \"Mongol Bandits\" start_equipment_factor = 0.5"
+					owner = MEN
+					prioritize_location = 7648
+					allow_spawning_on_enemy_provs = no
+				}
+			}
+			611 = {
+				remove_dynamic_modifier = { modifier = Mongol_autonomy }
+				create_unit = {
+					division = "name = \"Chahar Mongols\" division_template = \"Inner Mongolian Banner\" start_experience_factor = 0.1 start_equipment_factor = 0.5"
+					owner = MEN
+					prioritize_location = 1489
+					allow_spawning_on_enemy_provs = no
+				}
+			}
+			939 = {
+				remove_dynamic_modifier = { modifier = Mongol_autonomy }
+			}
+			1131 = {
+				remove_dynamic_modifier = { modifier = Mongol_autonomy }
+			}
+			621 = {
+				remove_dynamic_modifier = { modifier = Mongol_autonomy }
+			}
+			1132 = {
+				remove_dynamic_modifier = { modifier = Mongol_autonomy }
+			}
+			1133 = {
+				remove_dynamic_modifier = { modifier = Mongol_autonomy }
+			}
+		}
+	}
+}
+country_event = { #Marco Polo Bridge Incident
+	id = jap_external.6
+	title = jap_external.6.t
+	desc = jap_external.6.d
+	is_triggered_only = yes
+	picture = GFX_event_Operation_Nekka
+	fire_only_once = yes
+
+	option = {
+		name = jap_external.6.a
+		ai_chance = {
+			base = 100
+		}
+		create_faction = JAP_taitoakyoueiken
+		declare_war_on = {
+			target = HEB
+			type = annex_everything
+		}
+		declare_war_on = {
+			target = CHI
+			type = annex_everything
+		}
+		declare_war_on = {
+			target = SHD
+			type = annex_everything
+		}
+		declare_war_on = {
+			target = PRC
+			type = annex_everything
+		}
+		hidden_effect = {
+			set_global_flag = Second_Sino_Japanese_War
+			JAP = {
+				transfer_state = 608
+				country_lock_all_division_template = no
+				set_division_template_lock = { division_template = "Dai-1 Dokuritsu Konsei Ryodan" is_locked = no }
+				delete_unit_template_and_units = { 
+					division_template = "Dai-1 Dokuritsu Konsei Ryodan"
+					disband = yes
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_idea = service_by_requirement
+						}
+					}
+					add_ideas = service_by_requirement
+				}
+				if = {
+					limit = {
+						JAP = { is_ai = yes }
+					}
+					JAP = {
+						add_timed_idea = {
+							idea = JAP_invasion_of_china
+							days = 360
+						}
+					}
+				}
+			}
+			HEB = {
+				every_owned_state = {
+					add_claim_by = JAP
+				}
+			}
+			HNA = {
+				HNA_he_jian = {
+					remove_country_leader_role = {
+						ideology = social_nationalism
+					}
+					remove_unit_leader_trait = cannot_promote
+				}
+				set_nationality = {
+					target_country = CHI
+					character = HNA_he_jian
+				}
+			}
+			CHI = {
+				create_faction = CHI_united_front
+				add_ideas = CHI_no_surrender
+				give_military_access = HEB
+				annex_country = {
+					target = HNA
+					transfer_troops = no
+				}
+				add_state_core = 602
+				add_state_core = 1112
+				add_state_core = 1113
+				add_state_core = 1193
+				add_timed_idea = {
+					idea = CHI_nineteen_century_army
+					days = 300
+				}
+			}
+			if = {
+				limit = {
+					CHI = { is_ai = yes }
+				}
+				CHI = {
+					add_ideas = CHI_war_of_resistance
+				}
+			}
+			
+			PRC = { add_ideas = PRC_war_of_resistance }
+			XSM = { add_ideas = Ma_war_of_resistance }
+			MHK = { add_ideas = Ma_war_of_resistance }
+			SHD = { add_ideas = CHI_no_surrender_warlord }
+			every_country = {
+				limit = {
+					if = {
+						limit = {
+							has_global_flag = Two_Liu_war_flag
+						}
+						NOT = {
+							tag = LWH
+							tag = LXI
+							tag = TSY
+							tag = DXH
+							tag = YSN
+							tag = LCH
+						}
+					}
+					is_chinese_warlord = yes
+					NOT = {
+						tag = SHD #Temporal to test
+						tag = HEB
+						tag = SIK
+						# tag = PRC
+					}
+				}
+				CHI = { add_to_faction = PREV }
+				add_ideas = CHI_no_surrender_warlord
+			}
+			news_event = {
+				id = jap_news.4
+				hours = 7
+			}
+		}
+	}
+}
+
+country_event = { #Pacific War
+	id = jap_external.7
+	title = jap_external.7.t
+	desc = jap_external.7.d
+	is_triggered_only = yes
+	picture = GFX_event_Operation_Nekka
+	fire_only_once = yes
+	option = {
+		name = jap_external.7.a
+		USA = { country_event = { id = usfor.73 } }
+		ai_chance = {
+			base = 100
+		}
+		declare_war_on = {
+			target = ENG
+			type = annex_everything
+		}
+		declare_war_on = {
+			target = FRA
+			type = annex_everything
+		}
+		declare_war_on = {
+			target = INS
+			type = annex_everything
+		}
+		# add_ideas = JAP_taitoasensou
+	}
+}
+
+country_event = { # IJA factionalism explained
+	id = jap_army.1
+	title = jap_army.1.t
+	desc = jap_army.1.d
+	is_triggered_only = yes
+	picture = GFX_event_Japanese_Army_Factionalism
+	option = {
+		name = jap_army.1.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { # IJN factionalism explained
+	id = jap_navy.1
+	title = jap_navy.1.t
+	desc = jap_navy.1.d
+	is_triggered_only = yes
+	picture = GFX_event_Japanese_Navy_Factionalism
+	option = {
+		name = jap_navy_1.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { # Okada resigns
+	id = jap_navy.2
+	title = jap_navy.2.t
+	desc = jap_navy.2.d
+	is_triggered_only = yes
+	picture = GFX_event_Okada_Keisuke
+	option = {
+		name = jap_navy.2.a
+		ai_chance = {
+			base = 100	
+		}
+		add_ideas = CoN_Osumi_Mineo
+	}
+}
+country_event = { # 2.4 Incident
+	id = jap_internal.2
+	title = jap_internal.2.t
+	desc = jap_internal.2.d
+	is_triggered_only = yes
+	picture = GFX_event_Tokko
+	option = {
+		name = jap_internal.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -20
+	}
+}
+country_event = { # Showa Sanriku Earthquake
+	id = jap_internal.3
+	title = jap_internal.3.t
+	desc = jap_internal.3.d
+	is_triggered_only = yes	
+	picture = GFX_event_Showa_Sanriku_Earthquake
+	immediate = {
+		hidden_effect = {
+			533 = {
+				damage_building = {
+					type = infrastructure
+					damage = 0.25
+				}
+			}
+		}
+	}
+	option = {
+		name = jap_internal.3.a
+		ai_chance = {
+			base = 100
+		}
+		effect_tooltip = {
+			533 = {
+				damage_building = {
+					type = infrastructure
+					damage = 0.25
+				}
+			}
+		}
+	}
+}
+country_event = { # Shinpeitai Incident
+	id = jap_internal.4
+	title = jap_internal.4.t
+	desc = jap_internal.4.d
+	is_triggered_only = yes
+	picture = GFX_event_Kenpeitai
+	option = {
+		name = jap_internal.4.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.03
+		add_political_power = -30
+		add_to_variable = {
+			var = JAP_Kodoha_Points
+			value = 5
+		}
+		subtract_from_variable = {
+			var = JAP_Toseiha_Points
+			value = 5
+		}	
+	}
+}
+country_event = { # Uchida Resigns
+	id = jap_internal.5
+	title = jap_internal.5.t
+	desc = jap_internal.5.d
+	is_triggered_only = yes
+	picture = GFX_event_Uchida_Kosai
+	option = {
+		name = jap_internal.5.a
+		ai_chance = {
+			base = 100
+		}
+		add_ideas = FM_Hirota_Koki	
+	}
+}
+country_event = { # Akihito Born
+	id = jap_internal.6
+	title = jap_internal.6.t
+	desc = jap_internal.6.d
+	is_triggered_only = yes	
+	picture = GFX_event_Akihito
+	option = {
+		name = jap_internal.6.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 20	
+	}
+}
+
+###### Go-Stop Incident Event Chain ######
+###### Small Event Chain that decides NUG's fate ######
+
+country_event = { # Go-Stop Incident starts
+	id = jap_factionalism.2
+	title = jap_factionalism.2.t
+	desc = jap_factionalism.2.d
+	is_triggered_only = yes
+	picture = GFX_event_Beginning_of_Go-Stop_Incident
+	option = {
+		name = jap_factionalism.2.a
+		ai_chance = {
+			base = 100
+		}	
+		country_event = {
+			id = jap_factionalism.3
+			days = 7
+		}	
+	}
+}
+country_event = { # Incident escalates
+	id = jap_factionalism.3
+	title = jap_factionalism.3.t
+	desc = jap_factionalism.3.d
+	is_triggered_only = yes
+	picture = GFX_event_Beginning_of_Go-Stop_Incident
+	option = { # escalates further
+		name = jap_factionalism.3.a
+		ai_chance = {
+			base = 85
+        	modifier = {
+          		is_historical_focus_on = yes
+            	add = 15
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = jap_factionalism.5
+				days = 27
+			}
+		}
+		add_stability = -0.01
+	}
+	option = { # bureaucrats stop it
+		name = jap_factionalism.3.b
+		ai_chance = {
+			base = 15
+        	modifier = {
+          		is_historical_focus_on = yes
+            	factor = 0
+			}
+		}
+		hidden_effect = {
+			country_event = { 
+				id = jap_factionalism.4
+				days = 7
+			}	
+		}
+	}
+}
+country_event = { # bureaucratic Victory
+	id = jap_factionalism.4
+	title = jap_factionalism.4.t
+	desc = jap_factionalism.4.d
+	is_triggered_only = yes
+	picture = GFX_event_Go-Stop_Incident_ends
+	option = {
+		name = jap_factionalism.4.a
+		ai_chance = {
+			base = 100
+		}
+		set_country_flag = JAP_bureaucracy_gostop
+		add_stability = -0.02
+		add_political_power = 30
+	}
+}
+country_event = { # Incident escalates 2
+	id = jap_factionalism.5
+	title = jap_factionalism.5.t
+	desc = jap_factionalism.5.d
+	is_triggered_only = yes
+	picture = GFX_event_Beginning_of_Go-Stop_Incident
+	option = { # to the Emperor!
+		name = jap_factionalism.5.a
+		ai_chance = {
+			base = 83
+        	modifier = {
+          		is_historical_focus_on = yes
+            	add = 17
+			}
+		}	
+		hidden_effect = {
+			country_event = {
+				id = jap_factionalism.7
+				days = 124
+			}
+		}
+		add_stability = -0.02
+	}	
+	option = { # bent to military
+		name = jap_factionalism.5.b
+		ai_chance = {
+			base = 17
+        	modifier = {
+          		is_historical_focus_on = yes
+            	factor = 0
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = jap_factionalism.6
+				days = 7
+			}	
+		}
+	}
+}
+country_event = { # militarists won
+	id = jap_factionalism.6
+	title = jap_factionalism.6.t
+	desc = jap_factionalism.6.d
+	is_triggered_only = yes
+	picture = GFX_event_Go-Stop_Incident_ends
+	option = {
+		name = jap_factionalism.6.a
+		ai_chance = {
+			base = 100
+		}
+		set_country_flag = JAP_military_gostop
+		add_stability = -0.01
+		add_political_power = 20
+	}
+}
+country_event = { # Tenno ends this conflict, historical
+	id = jap_factionalism.7
+	title = jap_factionalism.7.t
+	desc = jap_facitonalism.7.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	picture = GFX_event_Go-Stop_Incident_ends
+	option = {
+		name = jap_factionalism.7.a
+		ai_chance = {
+			base = 100
+		}
+		set_country_flag = JAP_mediation_gostop
+		add_political_power = -30
+	}
+}	
+
+###### Go-Stop Incident Event Chain Ends ######
+
+country_event = { #Sadaki Resigns
+	id = jap_army.3
+	title = jap_army.3.t
+	desc = jap_army.3.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = jap_army.3.a
+		ai_chance = {
+			base = 100
+		}	
+		remove_ideas_with_trait = coa
+		add_ideas = {
+			CoA_Hayashi_Senjuro
+		}
+		subtract_from_variable = {
+			var = JAP_Kodoha_Points
+			value = 5
+		}
+		add_to_variable = {
+			var = JAP_Toseiha_Points
+			value = 5
+		}
+	}
+}	
+
+country_event = { # Tomozuru Incident
+	id = jap_navy.3
+	title = jap_navy.3.t
+	desc = jap_navy_3.d
+	is_triggered_only = yes	
+	fire_only_once = yes
+	option = {
+		name = jap_navy.3.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -10
+		add_to_variable = {
+			JAP_Fleet_Points = 5
+		}
+		subtract_from_variable = {
+			JAP_Treaty_Points = 5
+		}
+	}
+}
+country_event = { # Teijin Incident reveals
+	id = jap_internal.7
+	title = jap_internal.7.t
+	desc = jap_internal.7.d	
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = jap_internal.9
+				days = 77
+			}
+		}
+	}	
+	is_triggered_only = yes
+	option = {
+		name = jap_internal.7.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -30
+		add_to_variable = {
+			JAP_Hiranuma_Points = 2
+		}
+		add_to_variable = {
+			JAP_Kodoha_Points = 3
+		}
+		subtract_from_variable = {
+			JAP_Toseiha_Points = 3
+		}
+	}
+}
+country_event = { # Togo Heihachiro dies
+	id = jap_internal.8
+	title = jap_internal.8.t
+	desc = jap_internal.8.d
+	is_triggered_only = yes
+	option = {
+		name = jap_internal.8.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { # Saito Cabinet resigns
+	id = jap_internal.9
+	title = jap_internal.9.t
+	desc = jap_internal.9.d
+	is_triggered_only = yes	
+	option = {
+		name = jap_internal.9.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -30
+		add_ideas = {
+			HoG_Okada_Keisuke
+			FM_Hirota_Koki
+			EM_Fujii_Sadanobu
+		}	
+		COALITION_clr_con = yes
+		COALITION_clr_mon = yes
+		COALITION_clr_aut = yes
+	}
+}	
+country_event = { # November Incident
+	id = jap_army.2
+	title = jap_army.2.t
+	desc = jap_army.2.d
+	is_triggered_only = yes		
+	option = {
+		name = jap_army.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = -35
+		add_stability = -0.03
+		subtract_from_variable = {
+			JAP_Kodoha_Points = 5
+		}
+		add_to_variable = {
+			JAP_Toseiha_Points = 5
+		}
+	}
+}
+country_event = { #EcoMin Fujii resigns
+	id = jap_internal.10
+	title = jap_internal.10.t
+	desc = jap_internal.10.d
+	is_triggered_only = yes
+	option = {
+		name = jap_internal.10.a
+		ai_chance = {
+			base = 100
+		}
+		add_ideas = { EM_Takahashi_Korekiyo }
+	}
+}
+
+country_event = { #Emperor Organ Theory
+	id = jap_internal.11
+	title = jap_internal.11.t
+	desc = jap_internal.11.d
+	is_triggered_only = yes
+	option = {
+		name = jap_internal.11.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.03
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.03
+		}
+		country_event = { 
+			id = jap_internal.12
+			days = 119
+		}
+		add_stability = -0.05
+	}
+}
+country_event = { #Kokutai Meicho Seimei
+	id = jap_internal.12
+	title = jap_internal.12.t
+	desc = jap_internal.12.d
+	is_triggered_only = yes
+	option = {
+		name = jap_internal.12.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = 0.05
+		add_war_support = 0.05
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.02
+		}
+	}
+}	
+country_event = { #Aizawa Incident
+	id = jap_army.4
+	title = jap_army.4.t
+	desc = jap_army.4.d
+	is_triggered_only = yes
+	option = {
+		ai_chance = {
+			base = 100
+		}
+		name = jap_army.4.a
+		set_country_flag = Nagata_dead
+		add_ideas = CoA_Kawashima_Yoshiyuki
+		add_to_variable = {
+			var = JAP_Kodoha_Points
+			value = 10
+		}
+		subtract_from_variable = {
+			var = JAP_Toseiha_Points
+			value = 10
+		}
+	}
+}
+country_event = { #Showakai Established
+	id = jap_internal.13
+	title = jap_internal.13.t
+	desc = jap_internal.13.d
+	is_triggered_only = yes
+	option = {
+		name = jap_internal.13.a
+		ai_chance = {
+			base = 100
+		}
+		set_party_name = {
+			ideology = jacobin
+			name = JAP_jacobin_party_showakai
+			long_name = JAP_jacobin_party_showakai_long
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.03
+		}
+	}
+}	
+country_event = { #1936 Elections
+	id = jap_internal.14
+	title = jap_internal.14.t
+	desc = jap_internal.14.d
+	is_triggered_only = yes
+	option = {
+		name = jap_internal.14.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.03
+		}
+	}
+}
+
+country_event = { #Okada resigns
+	id = jap_internal.101
+	title = jap_internal.101.t
+	desc = jap_internal.101.d
+	is_triggered_only = yes
+	option = {
+		name = jap_internal.101.a
+		ai_chance = {
+			base = 100
+		}
+		add_ideas = {
+			HoG_Hirota_Koki
+			FM_Arita_Hachiro
+			IM_Ushio_Shigenosuke
+			IM_Baba_Eiichi
+			CoA_Terauchi_Hisaichi
+			CoN_Nagano_Osami
+		}
+		add_stability = -0.15
+		if = {
+			limit = { has_idea = JAP_fading_democracy }
+			remove_ideas = { JAP_fading_democracy }
+		}
+		if = {
+			limit = { has_idea = JAP_fading_democracy_A }
+			remove_ideas = { JAP_fading_democracy_A }
+		}
+		if = {
+			limit = { has_idea = JAP_fading_democracy_B }
+			remove_ideas = { JAP_fading_democracy_B }
+		}
+		if = {
+			limit = { has_idea = JAP_fading_democracy_C }
+			remove_ideas = { JAP_fading_democracy_C }
+		}
+		if = {
+			limit = { has_idea = JAP_social_anxiety }
+			remove_ideas = { JAP_social_anxiety }
+		}
+		if = {
+			limit = { has_idea = JAP_social_anxiety_A }
+			remove_ideas = { JAP_social_anxiety_A }
+		}
+		if = {
+			limit = { has_idea = JAP_social_anxiety_AB }
+			remove_ideas = { JAP_social_anxiety_AB }
+		}
+		if = {
+			limit = { has_idea = JAP_social_anxiety_AC }
+			remove_ideas = { JAP_social_anxiety_AC }
+		}
+		if = {
+			limit = { has_idea = JAP_social_anxiety_ABC }
+			remove_ideas = { JAP_social_anxiety_ABC }
+		}
+		if = {
+			limit = { has_idea = JAP_social_anxiety_D }
+			remove_ideas = { JAP_social_anxiety_D }
+		}
+		if = {
+			limit = { has_idea = JAP_social_anxiety_E }
+			remove_ideas = { JAP_social_anxiety_E }
+		}
+		if = {
+			limit = { has_idea = JAP_social_anxiety_DE }
+			remove_ideas = { JAP_social_anxiety_DE }
+		}
+		if = {
+			limit = { has_idea = JAP_social_anxiety_F }
+			remove_ideas = { JAP_social_anxiety_F }
+		}
+		if = {
+			limit = { has_idea = JAP_social_anxiety_G }
+			remove_ideas = { JAP_social_anxiety_G }
+		}
+		if = {
+			limit = { has_idea = JAP_rising_militarism }
+			remove_ideas = { JAP_rising_militarism }
+		}
+		if = {
+			limit = { has_idea = JAP_rising_militarism_A }
+			remove_ideas = { JAP_rising_militarism_A }
+		}
+		if = {
+			limit = { has_idea = JAP_rising_militarism_AB }
+			remove_ideas = { JAP_rising_militarism_AB }
+		}
+		if = {
+			limit = { has_idea = JAP_rising_militarism_AC }
+			remove_ideas = { JAP_rising_militarism_AC }
+		}
+		if = {
+			limit = { has_idea = JAP_rising_militarism_ABC }
+			remove_ideas = { JAP_rising_militarism_ABC }
+		}
+		if = {
+			limit = { has_idea = JAP_bent_to_military }
+			remove_ideas = { JAP_bent_to_military }
+		}
+		if = {
+			limit = { has_idea = JAP_bent_to_military_A }
+			remove_ideas = { JAP_bent_to_military_A }
+		}
+		if = {
+			limit = { has_idea = JAP_bent_to_military_B }
+			remove_ideas = { JAP_bent_to_military_B }
+		}
+		if = {
+			limit = { has_idea = JAP_bent_to_military_AB }
+			remove_ideas = { JAP_bent_to_military_AB }
+		}
+		if = {
+			limit = { has_idea = JAP_bent_to_military_C }
+			remove_ideas = { JAP_bent_to_military_C }
+		}
+		if = {
+			limit = { has_idea = JAP_bent_to_military_D }
+			remove_ideas = { JAP_bent_to_military_D }
+		}
+		if = {
+			limit = { has_idea = JAP_bent_to_military_CD }
+			remove_ideas = { JAP_bent_to_military_CD }
+		}
+		if = {
+			limit = { has_idea = JAP_bent_to_military_E }
+			remove_ideas = { JAP_bent_to_military_E }
+		}
+		if = {
+			limit = { has_idea = JAP_bent_to_military_F }
+			remove_ideas = { JAP_bent_to_military_F }
+		}
+		if = {
+			limit = { has_idea = JAP_bent_to_military_EF }
+			remove_ideas = { JAP_bent_to_military_EF }
+		}
+		if = {
+			limit = { has_idea = JAP_bent_to_military_G }
+			remove_ideas = { JAP_bent_to_military_G }
+		}
+		if = {
+			limit = { has_idea = JAP_army_minister_mediation }
+			remove_ideas = { JAP_army_minister_mediation }
+		}
+		if = {
+			limit = { has_idea = JAP_army_minister_mediation_A }
+			remove_ideas = { JAP_army_minister_mediation_A }
+		}
+		if = {
+			limit = { has_idea = JAP_army_minister_mediation_B }
+			remove_ideas = { JAP_army_minister_mediation_B }
+		}
+		if = {
+			limit = { has_idea = JAP_army_minister_mediation_AB }
+			remove_ideas = { JAP_army_minister_mediation_AB }
+		}
+		if = {
+			limit = { has_idea = JAP_army_minister_mediation_C }
+			remove_ideas = { JAP_army_minister_mediation_C }
+		}
+		if = {
+			limit = { has_idea = JAP_army_minister_mediation_D }
+			remove_ideas = { JAP_army_minister_mediation_D }
+		}
+		if = {
+			limit = { has_idea = JAP_army_minister_mediation_CD }
+			remove_ideas = { JAP_army_minister_mediation_CD }
+		}
+		if = {
+			limit = { has_idea = JAP_army_minister_mediation_E }
+			remove_ideas = { JAP_army_minister_mediation_E }
+		}
+		if = {
+			limit = { has_idea = JAP_army_minister_mediation_F }
+			remove_ideas = { JAP_army_minister_mediation_F }
+		}
+		if = {
+			limit = { has_idea = JAP_army_minister_mediation_EF }
+			remove_ideas = { JAP_army_minister_mediation_EF }
+		}
+		if = {
+			limit = { has_idea = JAP_army_minister_mediation_G }
+			remove_ideas = { JAP_army_minister_mediation_G }
+		}
+		if = {
+			limit = { has_idea = JAP_bureaucratic_victory }
+			remove_ideas = { JAP_bureaucratic_victory }
+		}
+		if = {
+			limit = { has_idea = JAP_bureaucratic_victory_A }
+			remove_ideas = { JAP_bureaucratic_victory_A }
+		}
+		if = {
+			limit = { has_idea = JAP_bureaucratic_victory_B }
+			remove_ideas = { JAP_bureaucratic_victory_B }
+		}
+		if = {
+			limit = { has_idea = JAP_bureaucratic_victory_AB }
+			remove_ideas = { JAP_bureaucratic_victory_AB }
+		}
+		if = {
+			limit = { has_idea = JAP_bureaucratic_victory_C }
+			remove_ideas = { JAP_bureaucratic_victory_C }
+		}
+		if = {
+			limit = { has_idea = JAP_bureaucratic_victory_D }
+			remove_ideas = { JAP_bureaucratic_victory_D }
+		}
+		if = {
+			limit = { has_idea = JAP_bureaucratic_victory_CD }
+			remove_ideas = { JAP_bureaucratic_victory_CD }
+		}
+		if = {
+			limit = { has_idea = JAP_bureaucratic_victory_E }
+			remove_ideas = { JAP_bureaucratic_victory_E }
+		}
+		if = {
+			limit = { has_idea = JAP_bureaucratic_victory_F }
+			remove_ideas = { JAP_bureaucratic_victory_F }
+		}
+		clr_country_flag = JAP_National_Unity_Government
+		set_country_flag = JAP_Toseiha
+		load_focus_tree = JAP_Hirota
+	}
+}
+
+### 2.26 Incident Event Chain Starts ###
+
+#The Gekokujō
+country_event = {
+	id = jap_army.100
+	title = jap_army.100.t
+	desc = jap_army.100.d
+	picture = GFX_event_226_Incident
+	is_triggered_only = yes
+	immediate = {
+		clr_country_flag = JAP_okada_survived
+		clr_country_flag = JAP_okada_died
+	}
+	option = { #Okada Survived
+		name = jap_army.100.a
+		ai_chance = {
+			base = 0
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+		}
+		set_country_flag = JAP_okada_survived
+		country_event = {
+			id = jap_army.101
+			hours = 6
+		}
+	}
+	option = { #Okada Died
+		name = jap_army.100.b
+		ai_chance = {
+			base = 0
+		}
+		set_country_flag = JAP_okada_died
+		country_event = {
+			id = jap_army.101
+			hours = 6
+		}
+	}
+}
+
+#Intervention of Masaki and Araki
+country_event = {
+	id = jap_army.101
+	title = jap_army.101.t
+	desc = jap_army.101.d
+	picture = GFX_event_Kanji_and_Araki
+	is_triggered_only = yes
+	option = { #They will intervene
+		name = jap_army.101.a
+		ai_chance = {
+			base = 0
+		}
+		if = {
+			limit = {
+				has_country_flag = JAP_okada_survived
+			}
+			country_event = {
+				id = jap_army.102
+				hours = 7
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = JAP_okada_died
+			}
+			country_event = {
+				id = jap_army.103
+				hours = 7
+			}
+		}
+	}
+	option = { #They won't intervene
+		name = jap_army.101.b
+		ai_chance = {
+			base = 0
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 100
+			}
+		}
+		country_event = {
+			id = jap_army.105
+			hours = 54
+		}
+	}
+}
+
+#Masaki and Araki met the Prime Minister
+country_event = {
+	id = jap_army.102
+	title = jap_army.102.t
+	desc = jap_army.102.d
+	picture = GFX_event_Okada_Keisuke
+	is_triggered_only = yes
+	option = { #They will oppose
+		name = jap_army.102.a
+		country_event = {
+			id = jap_army.103
+			days = 1
+		}
+	}
+
+	option = { #They won't oppose
+		name = jap_army.102.b
+		country_event = {
+			id = jap_army.105
+			days = 2
+		}
+	}
+}
+
+#The Emperor's decision
+country_event = {
+	id = jap_army.103
+	title = jap_army.103.t
+	desc = jap_army.103.d
+	picture = GFX_event_Emperor_Choices
+	is_triggered_only = yes
+	option = { #Accept coup
+		name = jap_army.103.a
+		if = {
+			limit = {
+				has_country_flag = JAP_okada_died
+			}
+			country_event = {
+				id = jap_army.104
+				days = 3
+			}	
+		}
+		if = {
+			limit = {
+				has_country_flag = JAP_okada_survived
+			}
+			country_event = {
+				id = jap_army.104
+				days = 2
+			}
+		}
+	}
+
+	option = { #Reject coup
+		name = jap_army.103.b
+		country_event = {
+			id = jap_army.105
+			days = 2
+		}
+	}
+}
+
+#Successful Coup
+country_event = {
+	id = jap_army.104
+	title = jap_army.104.t
+	desc = jap_army.104.d
+	picture = GFX_event_Showa_Restoration_Jade_Broadcast
+	is_triggered_only = yes
+	option = {
+		name = jap_army.104.a
+		clr_country_flag = JAP_National_Unity_Government
+		set_country_flag = JAP_Kodoha
+		hidden_effect = {
+		    news_event = { id = jap_news.3 }
+		}
+		#custom_effect_tooltip = JAP_this_is_last_event
+	}
+}
+
+#Coup fails
+country_event = {
+	id = jap_army.105
+	title = jap_army.105.t
+	desc = jap_army.105.d
+	picture = GFX_event_Coup_Is_Over
+	is_triggered_only = yes
+	option = {
+		name = jap_army.105.a
+		clr_country_flag = JAP_National_Unity_Government
+		set_country_flag = JAP_Toseiha
+		JAP_jiro_minami = {
+			remove_unit_leader_role = yes
+		}
+		hidden_effect = {
+		    news_event = { id = jap_news.2 }
+			country_event = {
+				id = jap_internal.101
+				days = 10
+			}
+		}
+		#custom_effect_tooltip = JAP_this_is_last_event
+	}
+}
+
+
+### North China Buffer State Strategy ###
+country_event = { #Start
+	id = JAP_north_china.1
+	title = JAP_north_china.1.t
+	desc = JAP_north_china.1.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { #Good Luck
+		name = JAP_north_china.1.a
+		ai_chance = { factor = 1 }
+		set_country_flag = North_China_Buffer_State_Strategy
+	}
+	option = { #Zettaidame!
+		name = JAP_north_china.1.b
+		ai_chance = { factor = 0 }
+		
+	}
+}
+
+country_event = { #successful assassination
+	id = JAP_north_china.2
+	title = JAP_north_china.2.t
+	desc = JAP_north_china.2.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { #Great!
+		name = JAP_north_china.2.a
+		
+	}
+}
+
+country_event = { #Assassination!(KMT)
+	id = JAP_north_china.3
+	title = JAP_north_china.3.t
+	desc = JAP_north_china.3.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { #Damn it
+		name = JAP_north_china.3.a
+		ai_chance = { factor = 1 }
+		# hidden_effect = {
+		# 	JAP = {
+		# 		country_event = {
+		# 			id = JAP_north_china.4
+		# 			days = 23
+		# 		}
+		# 	}
+		# }
+	}
+}
+
+# country_event = { #5/25 Sakai's Report
+# 	id = JAP_north_china.4
+# 	title = JAP_north_china.4.t
+# 	desc = JAP_north_china.4.desc
+# 	#picture = 
+	
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+	
+# 	option = { #Follow our requirements!
+# 		name = JAP_north_china.4.a
+# 		ai_chance = { factor = 1 }
+# 	}
+# }
+
+#### He–Umezu Agreement ####
+
+country_event = { # Terrorist Incident at Aigusha - 2 of May 1935
+	id = JAP_north_china.5
+	title = JAP_north_china.5.t
+	desc = JAP_north_china.5.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Terrorist Incident at Aigusha"
+			if = {
+				limit = { tag = JAP }
+				CHI = {
+					country_event = {
+						id = JAP_north_china.5
+					}
+				}
+				JAP = {
+					country_event = {
+						id = JAP_north_china.6
+						days = 23
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = JAP_north_china.5.a
+	}
+}
+
+country_event = { # Bandits in the Demilitarized Zone - 25 of May (date not given in any source so its invented)
+	id = JAP_north_china.6
+	title = JAP_north_china.6.t
+	desc = JAP_north_china.6.desc
+	#picture = 
+	is_triggered_only = yes
+	timeout_days = 4
+
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Bandits in the DMZ Zone"
+			country_event = {
+				id = JAP_north_china.7
+				days = 4
+			}
+		}
+	}
+	
+	option = {
+		name = JAP_north_china.6.a
+	}
+}
+
+country_event = { # Japanese demands - Start of the He–Umezu chain
+	#29 of May 1935
+	id = JAP_north_china.7
+	title = {
+		trigger = {
+			tag = JAP
+		}
+		text = JAP_north_china.7.t_jap
+	}
+	title = {
+		trigger = {
+			tag = CHI
+		}
+		text = JAP_north_china.7.t_chi
+	}
+	desc = {
+		trigger = {
+			tag = JAP
+		}
+		text = JAP_north_china.7.d_jap
+	}
+	desc = {
+		trigger = {
+			tag = CHI
+		}
+		text = JAP_north_china.7.d_chi
+	}
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: He–Umezu, japanese demands"
+			if = {
+				limit = { tag = JAP }
+				CHI = {
+					country_event = {
+						id = JAP_north_china.7
+					}
+				}
+				country_event = {
+					id = JAP_north_china.8
+					days = 6
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = JAP_north_china.7.a
+	}
+	option = {
+		name = JAP_north_china.7.b
+	}
+}
+
+country_event = { #More Japanese Pressure and additional demands added
+	#4 of June 1935
+	id = JAP_north_china.8
+	title = {
+		trigger = {
+			tag = JAP
+		}
+		text = JAP_north_china.8.t_jap
+	}
+	title = {
+		trigger = {
+			tag = CHI
+		}
+		text = JAP_north_china.8.t_chi
+	}
+	desc = {
+		trigger = {
+			tag = JAP
+		}
+		text = JAP_north_china.8.d_jap
+	}
+	desc = {
+		trigger = {
+			tag = CHI
+		}
+		text = JAP_north_china.8.d_chi
+	}
+	#picture = 
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: He–Umezu, more japanese demands"
+			if = {
+				limit = { tag = JAP }
+				CHI = {
+					country_event = {
+						id = JAP_north_china.8
+					}
+					country_event = {
+						id = JAP_north_china.9
+						days = 3
+					}
+				}
+				JAP = {
+					country_event = {
+						id = JAP_north_china.10
+						days = 5
+					}
+				}
+			}
+		}
+	}
+	
+	option = { #
+		name = JAP_north_china.8.a
+	}
+	option = { #
+		name = JAP_north_china.8.b
+	}
+}
+
+country_event = { # 7 June 1935 - forward units of the Kwantung Army move to the front lines at the Great Wall.
+	id = JAP_north_china.9
+	title = JAP_north_china.9.t
+	desc = JAP_north_china.9.desc
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { #
+		name = JAP_north_china.9.a
+	}
+}
+
+country_event = { # 9 of June 1935 - A verbal ultimatum is issued, with a deadline for compliance set of 12 June. (demanded a response by June 12)
+	#More demands are added.
+	#The Chinese side attempted to ease the conditions through negotiations, but the Japanese side refused to budge, saying that the Japanese military resolution could never be changed.
+	id = JAP_north_china.10
+	title = {
+		trigger = {
+			tag = JAP
+		}
+		text = JAP_north_china.10.t_jap
+	}
+	title = {
+		trigger = {
+			tag = CHI
+		}
+		text = JAP_north_china.10.t_chi
+	}
+	desc = {
+		trigger = {
+			tag = JAP
+		}
+		text = JAP_north_china.10.d_jap
+	}
+	desc = {
+		trigger = {
+			tag = CHI
+		}
+		text = JAP_north_china.10.d_chi
+	}
+	#picture = 
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: He–Umezu, verbal ultimatum is issued"
+			if = {
+				limit = { tag = JAP }
+				CHI = {
+					country_event = {
+						id = JAP_north_china.10
+					}
+					country_event = {
+						id = JAP_north_china.11
+						days = 1
+					}
+				}
+				country_event = {
+					id = JAP_north_china.12
+					days = 1
+					hours = 6
+				}
+				country_event = { #Stage uprising in Hebei
+					id = JAP_north_china.20
+					days = 128
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = JAP_north_china.10.a
+	}
+}
+
+country_event = { # 10 June 1935 - Wang Jingwei consults the National Defense Council to withdraw the Central Army from North China in order to avoid war.
+	#This was based on the recognition that once hostilities began, heavy casualties would be incurred and further broader concessions would be forced upon the armistice.
+	#Not prepared at the time to go to war with Japan since his forces were still tied down in a campaign to exterminate the Chinese Communist Party, Chiang Kai-shek agreed to comply.
+	id = JAP_north_china.11
+	title = JAP_north_china.11.t
+	desc = JAP_north_china.11.desc
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { #
+		name = JAP_north_china.11.a
+	}
+}
+
+country_event = { # 10 of June 1935 - He–Umezu Agreement signed
+	#At 6:00, at the fourth meeting, He Yingqin verbally answered the following matters to Takahashi Tan based on the instructions of the central government.
+	id = JAP_north_china.12
+	title = JAP_north_china.12.t
+	desc = { 
+		text = JAP_north_china.12.desc_jap
+		trigger = { tag = JAP }
+    }
+	desc = { 
+		text = JAP_north_china.12.desc_chi
+		trigger = { tag = CHI }
+    }
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: He–Umezu Agreement signed"
+			if = {
+				limit = { tag = JAP }
+				CHI = {
+					country_event = {
+						id = JAP_north_china.12
+					}
+				}
+				608 = {
+					teleport_armies = { 
+						to_state = 614
+					}
+					set_demilitarized_zone = yes
+				}
+			}
+		}
+	}
+	
+	option = { #
+		name = JAP_north_china.12.a
+		trigger = { tag = JAP }
+	}
+	
+	option = { #
+		name = JAP_north_china.12.b
+		trigger = { tag = CHI }
+	}
+}
+
+country_event = { #to be used
+	id = JAP_north_china.34
+	title = JAP_north_china.34.t
+	desc = { 
+		text = JAP_north_china.34.desc_jap
+		trigger = { tag = JAP }
+    }
+	desc = { 
+		text = JAP_north_china.34.desc_chi
+		trigger = { tag = CHI }
+    }
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = JAP_north_china.34.a
+	}	
+	
+}
+
+### Chin–Doihara Agreement
+country_event = { #zhangbei incident
+	#https://en.wikipedia.org/wiki/North_Chahar_incident
+	id = JAP_north_china.13
+	title = JAP_north_china.13.t
+	desc = JAP_north_china.13.desc
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: zhangbei incident"
+			country_event = {
+				id = JAP_north_china.14
+				hours = 3
+			}
+		}
+	}
+	option = {
+		name = JAP_north_china.13.a
+	}
+}
+
+country_event = { #start event chain
+	id = JAP_north_china.14
+	title = JAP_north_china.14.t
+	desc = JAP_north_china.14.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: zhangbei incident start event chain"
+			if = {
+				limit = {
+					tag = JAP
+				}
+				CHI = {
+					country_event = {
+						id = JAP_north_china.15
+						days = 1
+					}
+				}
+			}
+		}
+	}
+	option = { #
+		name = JAP_north_china.14.a
+		trigger = { tag = JAP }
+	}
+	option = { #
+		name = JAP_north_china.14.b
+		trigger = { tag = CHI }
+	}
+}
+
+country_event = { #Japanese protest
+	id = JAP_north_china.15
+	title = JAP_north_china.15.t
+	desc = JAP_north_china.15.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: zhangbei incident, japanese protest"
+			JAP = {
+				country_event = {
+					id = JAP_north_china.16
+					days = 11
+				}
+			}
+		}
+	}
+	
+	option = { #What's the trick this time?
+		name = JAP_north_china.15.a
+	}
+}
+
+country_event = { #A protest against China
+	id = JAP_north_china.16
+	title = JAP_north_china.16.t
+	desc = JAP_north_china.16.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: zhangbei incident, Final Japanese requirements"
+			CHI = {
+				country_event = {
+					id = JAP_north_china.17
+					hours = 1
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = JAP_north_china.16.a
+	}
+}
+
+country_event = { #Chin–Doihara Agreement
+	#The Chin–Doihara Agreement was one of the causes of the December 9th Movement at the end of 1935. 
+	id = JAP_north_china.17
+	title = JAP_north_china.17.t
+	desc = JAP_north_china.17.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 4
+	
+	option = { #Accept
+		name = JAP_north_china.17.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Chin–Doihara Agreement"
+			JAP = {
+				country_event = {
+					id = JAP_north_china.18
+				}
+			}
+		}
+		effect_tooltip = {
+			612 = {
+				set_demilitarized_zone = yes
+			}
+			611 = {
+				set_demilitarized_zone = yes
+			}
+			939 = {
+				set_demilitarized_zone = yes
+			}
+		}
+		add_political_power = -50
+	}
+	option = { #Reject
+		name = JAP_north_china.17.b
+		ai_chance = { factor = 0 }
+		hidden_effect = {
+			JAP = {
+				country_event = {
+					id = JAP_north_china.21
+				}
+			}
+		}
+		add_political_power = 50
+	}
+}
+
+country_event = { #China accepts
+	id = JAP_north_china.18
+	title = JAP_north_china.18.t
+	desc = JAP_north_china.18.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			612 = {
+				set_demilitarized_zone = yes
+			}
+			611 = {
+				set_demilitarized_zone = yes
+			}
+			939 = {
+				set_demilitarized_zone = yes
+			}
+		}
+	}
+	
+	option = {
+		name = JAP_north_china.18.a
+		add_political_power = 40
+		effect_tooltip = {
+			612 = {
+				set_demilitarized_zone = yes
+			}
+			611 = {
+				set_demilitarized_zone = yes
+			}
+			939 = {
+				set_demilitarized_zone = yes
+			}
+		}
+	}
+}
+
+country_event = { #China Rejects
+	id = JAP_north_china.21
+	title = JAP_north_china.21.t
+	desc = JAP_north_china.21.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { #For Emperor!
+		name = JAP_north_china.21.a
+		ai_chance = { factor = 1 }
+		start_border_war = {
+			change_state_after_war = yes
+			attacker = {
+				state = 887
+				num_provinces = 4
+				on_win = JAP_north_china.22
+				on_lose = JAP_north_china.23
+				on_cancel = JAP_north_china.10
+			}
+			defender = {
+				state = 612
+				num_provinces = 4
+				on_win = JAP_north_china.23
+				on_lose = JAP_north_china.22
+				on_cancel = JAP_north_china.10
+			}
+		}
+		start_border_war = {
+			change_state_after_war = yes
+			attacker = {
+				state = 887
+				num_provinces = 4
+				on_win = JAP_north_china.22
+				on_lose = JAP_north_china.23
+				on_cancel = JAP_north_china.10
+			}
+			defender = {
+				state = 611
+				num_provinces = 4
+				on_win = JAP_north_china.23
+				on_lose = JAP_north_china.22
+				on_cancel = JAP_north_china.10
+			}
+		}
+		start_border_war = {
+			change_state_after_war = yes
+			attacker = {
+				state = 610
+				num_provinces = 4
+				on_win = JAP_north_china.22
+				on_lose = JAP_north_china.23
+				on_cancel = JAP_north_china.10
+			}
+			defender = {
+				state = 611
+				num_provinces = 4
+				on_win = JAP_north_china.23
+				on_lose = JAP_north_china.22
+				on_cancel = JAP_north_china.10
+			}
+		}
+		start_border_war = {
+			change_state_after_war = yes
+			attacker = {
+				state = 610
+				num_provinces = 4
+				on_win = JAP_north_china.22
+				on_lose = JAP_north_china.23
+				on_cancel = JAP_north_china.10
+			}
+			defender = {
+				state = 939
+				num_provinces = 4
+				on_win = JAP_north_china.23
+				on_lose = JAP_north_china.22
+				on_cancel = JAP_north_china.10
+			}
+		}
+	}
+}
+
+country_event = { #japan wins
+	id = JAP_north_china.22
+	title = JAP_north_china.22.t
+	desc = JAP_north_china.22.desc
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { #oh,,,,,yeah,,,?
+		name = JAP_north_china.22.a
+		ai_chance = { factor = 1 }
+		JAP = {
+			set_state_owner = 612
+			set_state_owner = 611
+			set_state_owner = 939
+		}
+	}
+}
+
+country_event = { #chi wins
+	id = JAP_north_china.23
+	title = JAP_north_china.23.t
+	desc = JAP_north_china.23.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { #
+		name = JAP_north_china.23.a
+		ai_chance = { factor = 1 }
+		
+	}
+}
+
+### East Hebei Autonomous Government
+
+#There is also info here >>>>>>>>>>> https://ja-m-wikipedia-org.translate.goog/wiki/%E5%86%80%E5%AF%9F%E6%94%BF%E5%8B%99%E5%A7%94%E5%93%A1%E4%BC%9A?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=es&_x_tr_pto=wapp#%E6%B2%B3%E5%8C%97%E8%87%AA%E6%B2%BB%E9%81%8B%E5%8B%95
+#more info that I have not added ^^^^
+
+country_event = { # Japan stages uprising in Hebei - For japan. small info onwhat is to come
+	id = JAP_north_china.20
+	title = JAP_north_china.20.t
+	desc = JAP_north_china.20.desc
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Japan stages uprising in Hebei"
+			CHI = {
+				country_event = {
+					id = JAP_north_china.28
+					days = 6
+				}
+			}
+		}
+	}
+	
+	option = { #
+		name = JAP_north_china.20.a
+	}
+}
+country_event = { # 21 October 1935. Popular uprising in Hebei
+	#On October 21, 1935, a popular uprising broke out in Hebei. The first movement was led by Wu Yiting, a prominent figure in Xianghe County, demanding tax reductions and autonomy, and armed with rifles and shotguns; the incident was called the Xianghe Incident on the Chinese side. Japanese "ronin" were involved, and the Japanese military police arrested and interrogated six of them and transferred them to Tianjin under surveillance.
+	#A report was submitted to the Nanjing government by Shang Zhen, then president of Hebei Province, who claimed to be convinced that some Japanese were behind these popular movements, but the Japanese at the time denied any involvement, and the Chinese side at the time could find no evidence of such involvement. 
+	#However, in later years, it was pointed out that the establishment of the regime and the autonomy movement were the result of the work of the special agency by the Japanese side for the separation of North China. According to this view, the autonomy movement was not spontaneous on the part of the residents, but was instigated by the directives of the Japanese Special Mission Agency. 
+	#It was also pointed out that the popular movement was actually a hired vagrant movement, although it was called a peasant movement, and that Chinese politicians and generals outside of power were feared to be on board. The Japanese had stated that the Japanese military authorities would respond quickly to any attempt to involve Japanese military influence in a movement instigated by Chinese groups outside of power.
+	id = JAP_north_china.28
+	title = { 
+		text = JAP_north_china.28.t_jap
+		trigger = { tag = JAP }
+    }
+	title = { 
+		text = JAP_north_china.28.t_chi
+		trigger = { tag = CHI }
+    }
+	desc = { 
+		text = JAP_north_china.28.d_jap
+		trigger = { tag = JAP }
+    }
+	desc = { 
+		text = JAP_north_china.28.d_chi
+		trigger = { tag = CHI }
+    }
+	#picture = 
+	is_triggered_only = yes
+	timeout_days = 3
+
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Popular Uprising in Hebei"
+			if = {
+				limit = { tag = CHI }
+				country_event = {
+					id = JAP_north_china.30
+					days = 2
+				}
+				JAP = {
+					country_event = {
+						id = JAP_north_china.30
+						days = 2
+					}
+					country_event = {
+						id = JAP_north_china.28
+						hours = 4
+					}
+				}
+			}
+		}
+	}
+	
+	option = { #
+		name = JAP_north_china.28.a
+	}
+}
+
+country_event = { #Popular uprising takes Hebei. 23 of october 1935
+	#On October 23, a popular uprising occupied Xianghe County City and issued a declaration demanding "the overthrow of the Kuomintang," "the dismissal of officials," and "local autonomy and peasant relief based on Sun Yat-sen's founding principles," and the movement spread to the entire Hebei Province. 
+	#The declaration stated the principle of autonomy, opposition to public ownership of land, vigilance against communist forces, rural relief, tax reduction, and welfare promotion. 
+	#On the same day, the Federation of Representatives of Hebei Province held an emergency meeting and resolved to support the campaign against heavy taxation.
+	
+	id = JAP_north_china.30
+	title = JAP_north_china.30.t
+	desc = JAP_north_china.30.desc
+	#picture = 
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Popular Uprising TAKES Hebei"
+			if = {
+				limit = { tag = CHI }
+				JAP = {
+					country_event = {
+						id = JAP_north_china.31
+						days = 4
+					}
+					country_event = {
+						id = JAP_north_china.24
+						days = 5
+					}
+				}
+				CHI = {
+					country_event = {
+						id = JAP_north_china.32
+						days = 33
+					}
+				}
+			}
+			
+		}
+	}
+	
+	option = {
+		name = JAP_north_china.30.a
+	}
+}
+
+country_event = {
+	##It was reported in Japan at the time that the root cause of this movement was exploitation by the national government, and on October 27, after discussions, Xianghe County Castle was seized by the security forces and a settlement was reached in that area, but uprisings continued one after another in search of autonomy.
+	#However, because the autonomous movement took place within the demilitarized zone defined by the Tanggu cease-fire agreement, it could not be suppressed by force (it is believed that the parties who started the movement also took this into consideration).
+	#The Japanese military command also checked (restrained) the Chinese government's armed suppression of the peasant movement in northern China, but the autonomous movement came to a lull thanks to the mediation of Shang Zhen and the peace efforts of the Japanese military commander, Major General Shun Tada.
+	id = JAP_north_china.31
+	title = JAP_north_china.31.t
+	desc = JAP_north_china.31.desc
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = JAP_north_china.31.a
+	}
+}
+
+country_event = { #Hirota speech #TODO: this is very badly written. Almost incomprehensible
+	#28 October 1935
+	id = JAP_north_china.24
+	title = JAP_north_china.24.t
+	desc = JAP_north_china.24.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			add_opinion_modifier = {
+				target = CHI
+				modifier = JAP_hirota
+			}
+			CHI = {
+				country_event = JAP_north_china.25
+				add_opinion_modifier = {
+					target = JAP
+					modifier = JAP_hirota
+				}
+			}
+		}
+	}
+	
+	option = { #That's right.
+		name = JAP_north_china.24.a
+		ai_chance = { factor = 1 }
+		effect_tooltip = {
+			add_opinion_modifier = {
+				target = CHI
+				modifier = JAP_hirota
+			}
+		}
+	}
+}
+
+country_event = { #hirota speech (KMT)
+	id = JAP_north_china.25
+	title = JAP_north_china.24.t
+	desc = JAP_north_china.24.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = JAP_north_china.24.a
+		effect_tooltip = {
+			add_opinion_modifier = {
+				target = JAP
+				modifier = JAP_hirota
+			}
+		}
+	}
+}
+
+#On November 20, 1935, the popular demand for autonomy was expressed in a proclamation to all the people of northern China, urging Governor Yin Ru-kung to implement autonomy. In addition, many petitions for autonomy were delivered to Yin Ru-kung from the Yilu District People's Association and other groups.
+
+country_event = { #Yin Ju-keng proclaims the autonomy of Hebei. Establishment of East Hebei Autonomous Council
+	#25 of November 1935
+	#On November 25, Yin Rukhang established the Jidong Defense and Communist Self-government Committee in Tongzhou, separate from the central government, and announced a declaration of self-government to China and abroad, beginning the self-government of the people in the region.
+	#At 8:00 a.m., the committee members gathered for the formation ceremony of the committee, and the KMT flag was also removed to announce the separation from the KMT's misgovernment. In addition to its chairman, Yin Ru-ko, the committee members included Ike Zong-mo, Wang Xia-zai, Zhang Qing-yu, Zhang Inkstone, Li Haitian, Zhao Lei, Li Yun-voiced, and Yin Taishen.
+	#The organization was headed by Secretary General Ike Zong-Mo, under whom were established the Secretarial Office, Security Office, Diplomatic Office, Civil Administration Office, Finance Office, Construction Office, Education Office, Tax Administration Office, and Supervision Office of Beining Railway New Yuldan, as well as the Tangshan Benji Office directly under the Chairman and each security general unit.
+
+	#On the same day, representatives of various private-sector self-governing bodies crowded into the committee one after another to express their joy at the achievement of self-government to Chairman Yin You-keng. The reporters from domestic and foreign newspapers were the first to ask about the raising of the blue-and-white flag, to which Chairman Yin replied, "We are currently considering the matter. Before the foreign journalists could ask him about it, he said, "We fully respect the rights and interests of foreign countries. In response to a question about finances, he stated that the budget of 6.5 million yuan was sufficient, and that the Nanjing government's subsidy of 1.5 million yuan was sufficient to generate a surplus through the seizure of a major portion of national taxes, and that he intended to reduce farmers' debt and use the surplus for agricultural improvement to encourage cotton cultivation and create an exemplary agricultural zone. Chairman Yin explained that the area under the jurisdiction of the committee is about the size of Kyushu in Japan, a fertile area that has been devastated due to political unrest, and that the committee will make every effort to improve the welfare of the farmers, who account for the majority of the 4.6 million population. When asked by a reporter on the same day what he would do if the Song Zheyuan-centered anticommunist autonomous committee was formed in northern China, he immediately responded, "I will join them.
+	id = JAP_north_china.32
+	title = JAP_north_china.32.t
+	desc = { 
+		text = JAP_north_china.32.desc_jap
+		trigger = { tag = JAP }
+    }
+	desc = { 
+		text = JAP_north_china.32.desc_chi
+		trigger = { tag = chi }
+    }
+	#picture = 
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: East Hebei Autonomous Council Established"
+			if = {
+				limit = { tag = CHI }
+				JAP = {
+					country_event = JAP_north_china.32
+				}
+				country_event = {
+					id = JAP_north_china.35
+					days = 23
+				}
+				609 = { set_demilitarized_zone = no }
+				847 = { set_demilitarized_zone = no }
+				EHA = {
+					transfer_state = 609
+					add_state_core = 609
+					transfer_state = 847
+					add_state_core = 847
+					load_oob = "EHA_1935"
+					country_lock_all_division_template = yes
+				}
+				# CHI = {
+				# 	remove_state_core = 609
+				# 	remove_state_core = 847
+				# }
+				JAP = { puppet = EHA }
+				EHA = {
+					set_politics = { ruling_party = monarchism }
+					set_cosmetic_tag = EHA_government
+				}
+			}
+		}
+		
+	}
+	
+	option = { #Banzai!
+		name = JAP_north_china.32.a
+		trigger = { tag = jap }
+		add_political_power = 50
+	}
+	
+	option = { #Fucking Hanjian scum!
+		name = JAP_north_china.32.b
+		trigger = { tag = chi }
+	}
+}
+
+#On December 15, Chairman Yin announced that he would not participate in the autonomous government because it was not thorough enough, contrary to the expectations of the people in northern China. However, Yin replied that the new government was still in contact with the Nanjing government and would not leave the central government, and that it could not join the Jidong government because of its different political principles from those of the Jidong government.
+#On December 25, the committee was reorganized to form the Jidong Anti-Communist Autonomous Government, with Yin Ru-kang as Secretary for Political Affairs and in charge of all political affairs. 
+
+
+country_event = { # Temporal event for establishment of Hebei-Chahar Political Council - 18 December 1935
+	id = JAP_north_china.35
+	title = JAP_north_china.35.t
+	desc = { 
+		text = JAP_north_china.35.desc_jap
+		trigger = { tag = JAP }
+    }
+	desc = { 
+		text = JAP_north_china.35.desc_chi
+		trigger = { tag = CHI }
+    }
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Hebei-Chahar Political Council established"
+			if = {
+				limit = { tag = CHI }
+				HEB = {
+					transfer_state = 608
+					add_state_core = 608
+					transfer_state = 614
+					add_state_core = 614
+					transfer_state = 923
+					add_state_core = 923
+					transfer_state = 939
+					add_state_core = 939
+					transfer_state = 611
+					add_state_core = 611
+					transfer_state = 612
+					add_state_core = 612
+					inherit_technology = CHI
+					delete_unit_template_and_units = {
+						disband = no
+					}
+					load_oob = "CHI_29th_army"
+					add_manpower = -300000
+					country_lock_all_division_template = yes
+				}
+				CHI = {
+					set_nationality = {
+						target_country = HEB
+						character = CHI_song_zheyuan
+					}
+				}
+
+				HEB = {
+					add_country_leader_role = {
+						character = "CHI_song_zheyuan"
+						promote_leader = yes
+						country_leader = {
+							ideology = warlordism
+							expire = "1965.1.1.1"
+							traits = {
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = { #
+		name = JAP_north_china.34.a
+		trigger = { tag = JAP }
+	}
+	
+	option = { #
+		name = JAP_north_china.34.b
+		trigger = { tag = CHI }
+	}
+}
+
+
+country_event = { #tada speech
+	id = JAP_north_china.26
+	title = JAP_north_china.26.t
+	desc = JAP_north_china.26.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { #lol
+		name = JAP_north_china.26.a
+		ai_chance = { factor = 1 }
+		add_opinion_modifier = {
+			target = CHI
+			modifier = JAP_tada
+		}
+	}
+}
+
+country_event = { #tada speech (KMT)
+	id = JAP_north_china.27
+	title = JAP_north_china.27.t
+	desc = JAP_north_china.27.desc
+	#picture = 
+	
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { #WTF
+		name = JAP_north_china.27.a
+		ai_chance = { factor = 1 }
+		add_opinion_modifier = {
+			target = JAP
+			modifier = JAP_tada
+		}
+	}
+}
+
+
+country_event = { #trigger event (tada)
+	id = JAP_north_china.29
+	title = JAP_north_china.29.t
+	desc = JAP_north_china.29.desc
+	#picture = 
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = { #
+		name = JAP_north_china.29.a
+		ai_chance = { factor = 1 }
+		set_country_flag = tada_speech
+	}
+}
+
+
+# country_event = { #12.9 Incident - unused
+# 	id = JAP_north_china.33
+# 	title = JAP_north_china.33.t
+# 	desc = JAP_north_china.33.desc
+# 	#picture = 
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+	
+# 	option = { #
+# 		name = JAP_north_china.33.a
+# 		add_stability = -0.01
+# 		add_political_power = -50
+# 	}
+# }
+
+####NEWS EVENTS ~Basileios
+add_namespace = jap_news
+
+news_event = { #Operation Nekka
+	id = jap_news.1
+	title = jap_news.1.t
+	desc = jap_news.1.d
+	picture = GFX_event_news_operation_nekka
+	major = yes
+	is_triggered_only = yes
+
+	option = { 
+		name = jap_news.1.a
+		trigger = {
+		    NOT = {
+				tag = JAP
+				#tag = DEA
+				tag = CHI
+				tag = MAN
+			}
+		}
+	}
+	option = { 
+		name = jap_news.1.b
+		trigger = {
+		    OR = {
+			    tag = JAP
+				tag = MAN
+			}
+		}
+	}
+	option = { 
+		name = jap_news.1.c
+		trigger = {
+		    OR = {
+			    tag = CHI
+				#tag = DEA
+			}
+		}
+	}
+	
+}
+
+news_event = { #2-26 Incident
+	id = jap_news.2
+	title = jap_news.2.t
+	desc = jap_news.2.d
+	picture = GFX_event_news_japan_incident_suppresed
+	major = yes
+	is_triggered_only = yes
+	
+	option = { 
+		name = jap_news.2.a
+		trigger = {
+		    NOT = {
+				tag = JAP
+			}
+		}
+	}
+	option = { 
+		name = jap_news.2.b
+		trigger = {
+		    OR = {
+			    tag = JAP
+			}
+		}
+	}	
+}
+news_event = { #Showa Restoration
+	id = jap_news.3
+	title = jap_news.3.t
+	desc = jap_news.3.d
+	picture = GFX_event_news_japa_showa_restoration
+	major = yes
+	is_triggered_only = yes
+	
+	option = { 
+		name = jap_news.3.a
+		trigger = {
+		    NOT = {
+				tag = JAP
+			}
+		}
+	}
+	option = { 
+		name = jap_news.3.b
+		trigger = {
+		    OR = {
+			    tag = JAP
+			}
+		}
+	}	
+}
+news_event = { #Marco Polo Bridge incident
+	id = jap_news.4
+	title = jap_news.4.t
+	desc = jap_news.4.d
+	picture = GFX_news_event_001
+	major = yes
+	is_triggered_only = yes
+	
+	option = { 
+		name = jap_news.4.a
+		trigger = {
+		    NOT = {
+				tag = JAP
+				tag = CHI 
+			}
+		}
+	}
+	option = { 
+		name = jap_news.4.b
+		trigger = {
+			tag = CHI
+		}
+	}
+    option = { 
+		name = jap_news.4.c
+		trigger = {
+			tag = JAP
+		}
+	}
+}
+
+country_event = { # 
+	id = jap_army.5
+	title = jap_army.5.t
+	desc = jap_army.5.d
+	# picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = jap_army.5.a
+		hidden_effect = {
+			country_lock_all_division_template = no
+			delete_unit_template_and_units = {
+				division_template = "Shengyang Army"
+				disband = yes
+			}
+			delete_unit_template_and_units = {
+				division_template = "Infantry Brigade 1"
+				disband = yes
+			}
+			delete_unit_template_and_units = {
+				division_template = "Infantry Brigade 2"
+				disband = yes
+			}
+			delete_unit_template_and_units = {
+				division_template = "Mixed Infantry Brigade 3"
+				disband = yes
+			}
+			delete_unit_template_and_units = {
+				division_template = "Mixed Infantry Brigade 2"
+				disband = yes
+			}
+			delete_unit_template_and_units = {
+				division_template = "Mixed Infantry Brigade 1"
+				disband = yes
+			}
+			delete_units = { 
+				division_template = "Cavalry Brigade 1"
+				disband = yes
+			}
+			delete_units = { 
+				division_template = "Cavalry Brigade 2"
+				disband = yes
+			}
+			delete_units = { 
+				division_template = "Cavalry Brigade 3"
+				disband = yes
+			}
+			load_oob = "MAN_1934"
+			country_lock_all_division_template = yes
+		}
+	}
+}
+

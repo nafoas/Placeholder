@@ -1,0 +1,719 @@
+	   ###WIP###
+	   
+	   #Focus for Mujica´s Presdiency
+	   shared_focus = {
+		id = MEX_mujicapresidency
+		icon = GFX_focus_MEX_President_Mujica
+		x = 13
+		y = 1
+		cost = 1
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			set_party_name = { ideology = authoritarian_socialism long_name = "Partido de la Revolucion Mexicana (Revolutionary)" name = "PRM(Rev)" }
+			add_political_power = 150
+			COALITION_RESET = yes		  
+		}
+	}
+	#Focus for Continue the Revolution
+	shared_focus = {
+		id = MEX_continuerevolution
+		icon = GFX_focus_Revolution
+		x = 7
+		y = 2
+		cost = 1
+		available_if_capitulated = yes
+		available = {
+			has_country_flag = cardenas_democratic_socialist
+		}		
+		prerequisite = { focus = MEX_mujicapresidency }
+		mutually_exclusive = { focus = MEX_therevolutionfinished }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.05 }
+			set_politics = {
+				ruling_party = authoritarian_socialism
+			}
+			COALITION_add_demsoc = yes
+			set_country_flag = mujica_revsoc
+		}
+	}
+	
+	#Focus for The Revolution is finished
+	shared_focus = {
+		id = MEX_therevolutionfinished
+		icon = GFX_focus_Integrate_Bolsheviks
+		x = 19
+		y = 2
+		cost = 1
+		available_if_capitulated = yes
+		available = {
+			has_country_flag = cardenas_social_democrat
+		}	
+		prerequisite = { focus = MEX_mujicapresidency }
+		mutually_exclusive = { focus = MEX_continuerevolution }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = socialism popularity = 0.05 }
+			set_politics = {
+				ruling_party = socialism
+			}
+			COALITION_add_revsoc = yes
+			set_country_flag = mujica_demsoc
+		}
+	}
+	
+	#Focus for Left Wing Coalition
+	shared_focus = {
+		id = MEX_leftwingcoalition
+		icon = GFX_focus_Communist_Star
+		x = 13
+		y = 3
+		cost = 2.9
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_continuerevolution 
+			focus = MEX_therevolutionfinished 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_stability = 0.04
+		}
+	}
+	
+	#Focus for Attract the PCM
+	shared_focus = {
+		id = MEX_attractpcm
+		icon = GFX_focus_Communist_Discourse
+		x = 11
+		y = 4
+		cost = 4.3
+		available_if_capitulated = yes
+		available = {
+			has_government = authoritarian_socialism
+		}		
+		prerequisite = { focus = MEX_leftwingcoalition }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = 0.04 }
+			COALITION_add_com = yes	           
+		}
+	}
+	#Focus for Convince the Moderates
+	shared_focus = {
+		id = MEX_convincemoderates
+		icon = GFX_focus_Rose_of_Democracy
+		x = 15
+		y = 4
+		cost = 4.3
+		available_if_capitulated = yes
+		available = {
+			has_government = socialism
+		}		
+		prerequisite = { focus = MEX_leftwingcoalition }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = { 
+			add_popularity = { ideology = social_democracy popularity = 0.02 }
+			COALITION_add_socdem = yes
+		}
+	}
+	#Focus for Integrate Former Rivals
+	shared_focus = {
+		id = MEX_integrateformerrivals
+		icon = GFX_focus_Electoral_Thresholds
+		x = 13
+		y = 4
+		cost = 2.2
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_leftwingcoalition }
+		ai_will_do = {
+			factor = 1
+		} 
+		completion_reward = { 
+			add_popularity = { ideology = socialism popularity = 0.02 }
+			add_popularity = { ideology = authoritarian_socialism  popularity = 0.02 }
+		}
+	}
+	#Focus for A United Left
+	shared_focus = {
+		id = MEX_aunitedleft
+		icon = GFX_focus_Pride_of_The_Left
+		x = 13
+		y = 5
+		cost = 1.5
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_attractpcm 
+			focus = MEX_convincemoderates
+		}
+		prerequisite = { 
+			focus = MEX_integrateformerrivals 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = 0.02 }
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.02 }
+			add_popularity = { ideology = socialism popularity = 0.02 }
+			add_popularity = { ideology = social_democracy popularity = 0.02 }
+		}
+	}
+	
+	#Focus for Establish State Atheism
+	shared_focus = {
+		id = MEX_establishstateatheism
+		icon = GFX_focus_Fight_Christianity
+		x = 5
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_continuerevolution }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_secularization  add_idea = mex_state_atheism  }
+		}
+	}	
+	#Focus for Memory of the Red Shirts
+	shared_focus = {
+		id = MEX_memoryofredshirts
+		icon = GFX_focus_Red_Army
+		x = 5
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_establishstateatheism }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_political_army add_idea = mex_political_army2 }
+			army_experience = -20 
+		}
+	}
+	
+	#Focus for A Socialist Army
+	shared_focus = {
+		id = MEX_dismissreactionaryofficers
+		icon = GFX_Focus_Red_Army_Exercises
+		x = 5
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_memoryofredshirts }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			# remove_unit_leader  = 1303
+			# remove_unit_leader  = 1319
+			# remove_unit_leader  = 1324 
+			# remove_unit_leader  = 1311
+			# remove_unit_leader  = 1321
+			MEX_juan_carbal = {
+				remove_unit_leader_role = yes
+			}
+			MEX_enrique_reynosa = {
+				remove_unit_leader_role = yes
+			}
+			MEX_joaquin_dominguez = {
+				remove_unit_leader_role = yes
+			}
+			MEX_pablo_escamilla = {
+				remove_unit_leader_role = yes
+			}
+			MEX_cesareo_castro = {
+				remove_unit_leader_role = yes
+			}
+		}
+	}	
+	#Focus for Socialism Secured
+	shared_focus = {
+		id = MEX_socialismsecured
+		icon = GFX_focus_Communist_Loyalty
+		x = 5
+		y = 6
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_dismissreactionaryofficers }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_stability = 0.04
+		}
+	}
+	#Focus for The Education Question
+	shared_focus = {
+		id = MEX_educationquestion
+		icon = GFX_focus_Brainpower
+		x = 7
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_continuerevolution }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_socialist_education  add_idea = mex_socialist_education_1  }
+		}
+	}
+	#Focus for Radicalize the Reforms
+	shared_focus = {
+		id = MEX_radicalizereforms
+		icon = GFX_focus_Education_Reform
+		x = 7
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_educationquestion }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_socialist_education_1  add_idea = mex_socialist_education_2  }
+		}
+	}
+	
+	#Focus for Expand Socialist Education
+	shared_focus = {
+		id = MEX_expandsocialisteducation
+		icon = GFX_focus_Communist_Scientists
+		x = 7
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_radicalizereforms }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_socialist_education_2  add_idea = mex_socialist_education_3  }
+		}	
+	}
+	
+	#Focus for Oppose Democracy in Schools
+	shared_focus = {
+		id = MEX_opposecapitalismeducation
+		icon = GFX_focus_Anti_Democracy
+		x = 7
+		y = 6
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_expandsocialisteducation }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = social_liberalism popularity = -0.01 }
+			add_popularity = { ideology = market_liberalism popularity = -0.01 }
+			add_popularity = { ideology = jacobin popularity = -0.01 }
+			add_popularity = { ideology = democratic popularity = -0.01 }
+			add_popularity = { ideology = nationalism popularity = -0.01 }
+			add_popularity = { ideology = fascism popularity = -0.01 }
+		}
+	}
+	#Focus for Empower Toledano
+	shared_focus = {
+		id = MEX_empowertoledano
+		icon = GFX_focus_Trade_Union_Focus
+		x = 9
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_continuerevolution }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = 0.02 }
+		}
+	}	
+	#Focus for Empower the CTM
+	shared_focus = {
+		id = MEX_empowerthectm
+		icon = GFX_focus_5_years_plan
+		x = 9
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_empowertoledano }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+		}
+	}
+}
+
+#Focus for Zapata's Dream
+shared_focus = {
+	id = MEX_zaptasdream
+	icon = GFX_focus_Legacy_of_Zapata
+	x = 9
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_empowerthectm }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.01 }
+	}
+}
+
+#Focus for Expand the CNC
+shared_focus = {
+	id = MEX_expandthecnc
+	icon = GFX_focus_Stakhanovite_Movement
+	x = 9
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_zaptasdream }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+	}		
+}
+#Focus for Socialist México
+shared_focus = {
+	id = MEX_socialistmexico
+	icon = GFX_focus_Integrate_Bolsheviks
+	x = 7
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_socialismsecured 
+	}
+	prerequisite = { 
+		focus = MEX_expandthecnc 
+	}
+	prerequisite = { 
+		focus = MEX_opposecapitalismeducation 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.05 }
+	}
+}	
+#Focus for Trust Toledano
+shared_focus = {
+	id = MEX_trusttoledano
+	icon = GFX_focus_Council_Communism
+	x = 17
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_therevolutionfinished }
+	mutually_exclusive = { focus = MEX_cementctm }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = communism popularity = 0.01 }
+	}
+}	
+#Focus for Cement the CTM
+shared_focus = {
+	id = MEX_cementctm
+	icon = GFX_focus_Workers_Rights
+	x = 17
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_trusttoledano }
+	mutually_exclusive = { focus = MEX_trusttoledano  }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		random_owned_controlled_state = { limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes }} add_extra_state_shared_building_slots = 1 add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+	}
+}
+}
+
+#Focus for Expand the Land Reforms
+shared_focus = {
+	id = MEX_expanlandreforms
+	icon = GFX_focus_Agrarian_Reform
+	x = 17
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_cementctm }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = socialism popularity = 0.02 }
+	}
+}
+#Focus for Reform the CNC
+shared_focus = {
+	id = MEX_reformcnc
+	icon = GFX_focus_Agriculture
+	x = 17
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_expanlandreforms }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+		random_owned_state = { add_extra_state_shared_building_slots = 1 }
+	}
+}	
+
+#Focus for Follow Cardenas Policies
+shared_focus = {
+	id = MEX_followcardenas
+	icon = GFX_focus_Education_Reform
+	x = 19
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_therevolutionfinished }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_education_reform  add_idea = mex_education_reform_1  }
+	}	
+}
+
+#Focus for Reform the Education System
+shared_focus = {
+	id = MEX_reformeducationsys
+	icon = GFX_focus_Brainpower
+	x = 19
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_followcardenas }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_education_reform_1  add_idea = mex_education_reform_2 }
+	}
+}	
+#Focus for Limit the Ways
+shared_focus = {
+	id = MEX_limitourways
+	icon = GFX_focus_Proletarian_Intelectualism
+	x = 19
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_reformeducationsys }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = mex_education_reform_2  add_idea = mex_education_reform_3  }
+	}
+}	
+#Focus for Destroy Capitalism with Facts and Logic
+shared_focus = {
+	id = MEX_destroycapitalismfactslogic
+	icon = GFX_focus_Anti_Democracy
+	x = 19
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_limitourways }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = democratic popularity = -0.01 }
+		add_popularity = { ideology = nationalism popularity = -0.01 }
+		add_popularity = { ideology = fascism popularity = -0.01 }
+	}
+}	
+#Focus for Reintroduce Calles Laws
+shared_focus = {
+	id = MEX_reintroducecalleslaws
+	icon = GFX_focus_Reduce_Catholic_Dominance
+	x = 21
+	y = 3
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_therevolutionfinished }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = -0.02
+	}
+}
+#Focus for Purge Political Generals
+shared_focus = {
+	id = MEX_purgepoliticalgenerals
+	icon = GFX_focus_Military_Purges
+	x = 21
+	y = 4
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_reintroducecalleslaws }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		remove_ideas = mex_political_army
+		add_timed_idea = { idea = mex_political_army1 days = 120 }
+		army_experience = -10
+	}
+}
+#Focus for Apolitical Army
+shared_focus = {
+	id = MEX_apoliticalarmy2
+	icon = GFX_focus_Heavy_Strike
+	x = 21
+	y = 5
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_purgepoliticalgenerals }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		remove_unit_leader  = 1314
+		remove_unit_leader  = 1317
+		remove_unit_leader  = 1303
+		remove_unit_leader  = 1319
+		remove_unit_leader  = 1324 
+		remove_unit_leader  = 1316 ##Replace with Mujica
+		MEX_abelardo_rodriguez = {
+			remove_unit_leader_role = yes
+		}
+		MEX_lazaro_cardenas = {
+			remove_unit_leader_role = yes
+		}
+		MEX_juan_carbal = {
+			remove_unit_leader_role = yes
+		}
+		MEX_enrique_reynosa = {
+			remove_unit_leader_role = yes
+		}
+		MEX_joaquin_dominguez = {
+			remove_unit_leader_role = yes
+		}
+		MEX_manuel_camacho = {
+			remove_unit_leader_role = yes
+		}
+		country_event = { days = 1 id = mex_army.3 }
+	}
+}
+#Focus for Democracy Secured by Strength
+shared_focus = {
+	id = MEX_democracysecuredbystrenght
+	icon = GFX_focus_Torch_of_Freedom
+	x = 21
+	y = 6
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_apoliticalarmy2 }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = 0.06
+	}
+}
+#Focus for Liberal Democracy
+shared_focus = {
+	id = MEX_democraticsocialism
+	icon = GFX_focus_Pride_of_The_Left
+	x = 19
+	y = 7
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_reformcnc 
+	}
+	prerequisite = { 
+		focus = MEX_destroycapitalismfactslogic 
+	}
+	prerequisite = { 
+		focus = MEX_democracysecuredbystrenght 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_popularity = { ideology = socialism popularity = 0.05 }
+	}
+}
+#Focus for The Cabral Controversy
+shared_focus = {
+	id = MEX_cabralcontroversy
+	icon = GFX_focus_Civillian_Purges
+	x = 14
+	y = 8
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_democraticsocialism 
+		focus = MEX_socialistmexico 
+	}
+	mutually_exclusive = {
+		focus = MEX_formsocialistrepublic
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	}
+}
+#Focus for Form the Socialist Republic
+shared_focus = {
+	id = MEX_formsocialistrepublic
+	icon = GFX_focus_Communist_Pride
+	x = 12
+	y = 8
+	cost = 10
+	available_if_capitulated = yes
+	available = {
+		has_government = authoritarian_socialism
+	}
+	prerequisite = { 
+		focus = MEX_democraticsocialism 
+		focus = MEX_socialistmexico 
+	}
+	mutually_exclusive = {
+		focus = MEX_cabralcontroversy
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	}
+}

@@ -1,0 +1,379 @@
+shared_focus = {
+	id = ITA_propaganda_flights
+	icon = GFX_focus_Regia_Aeronautica
+	x = 19
+	y = 0
+	cost = 1
+	ai_will_do = {
+		factor = 8
+		modifier = {
+			add = -7
+			is_historical_focus_on = yes
+		}
+	}
+	available = {
+		
+	}	
+	completion_reward = {
+		air_experience = 5
+		add_war_support = 0.05
+	}
+}
+
+shared_focus = {
+	id = ITA_learn_from_72
+	icon = GFX_focus_Engine_Tech
+	prerequisite = { focus = ITA_propaganda_flights}
+	x = 1
+	y = 1
+	relative_position_id = ITA_propaganda_flights
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = ITA_learn_from_72
+			bonus = 0.3
+			uses = 1
+			category = naval_bomber
+		}
+		add_tech_bonus = {
+			name = ITA_learn_from_72
+			uses = 1
+			bonus = 0.3
+			category = naval_air
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_make_cr32
+	icon = GFX_goal_generic_air_fighter
+	prerequisite = { focus = ITA_learn_from_72}
+	x = 1
+	y = 2
+	relative_position_id = ITA_propaganda_flights
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = { has_tech = early_fighter }
+			}
+			set_technology = {
+				early_fighter = 1
+			}
+		}
+		#TODO: create variant of CR.32
+	}
+}
+
+shared_focus = {
+	id = ITA_sky_city
+	icon = GFX_focus_Airports
+	prerequisite = { focus = ITA_learn_from_72}
+	x = 2
+	y = 3
+	relative_position_id = ITA_propaganda_flights
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = ITA_sky_city
+			bonus = 0.2
+			uses = 1
+			category = radar_tech
+		}
+		add_doctrine_cost_reduction = {
+			name = ITA_sky_city
+			cost_reduction = 0.3
+			uses = 3
+			category = air_doctrine
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_convert_s55
+	icon = GFX_focus_Aerial_Offensive
+	prerequisite = { focus = ITA_propaganda_flights}
+	x = -1
+	y = 1
+	relative_position_id = ITA_propaganda_flights
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = ITA_convert_s55
+			bonus = 0.4
+			uses = 1
+			category = naval_bomber
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_air_command_restructure
+	icon = GFX_focus_Military_Attache
+	prerequisite = { focus = ITA_convert_s55}
+	x = -1
+	y = 2
+	relative_position_id = ITA_propaganda_flights
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+		add_political_power = 30
+		air_experience = -20
+	}
+}
+
+shared_focus = {
+	id = ITA_dsse_tests
+	icon = GFX_focus_Brainpower
+	prerequisite = { focus = ITA_convert_s55}
+	x = -2
+	y = 3
+	relative_position_id = ITA_propaganda_flights
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+		air_experience = 25
+	}
+}
+
+shared_focus = {
+	id = ITA_program_r
+	icon = GFX_focus_Air_Academy
+	prerequisite = { focus = ITA_air_command_restructure}
+	prerequisite = { focus = ITA_make_cr32	}
+	x = 0
+	y = 3
+	relative_position_id = ITA_propaganda_flights
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+
+	}
+	completion_reward = {
+		add_timed_idea = { idea = ITA_program_r days = 1095 }
+		add_doctrine_cost_reduction = {
+			name = ITA_program_r
+			cost_reduction = 0.5
+			uses = 2
+			category = air_doctrine
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_overrule_air_ministry
+	icon = GFX_goal_generic_forceful_treaty
+	prerequisite = { focus = ITA_program_r}
+	mutually_exclusive = { focus = ITA_trust_biplanes }
+	x = -1
+	y = 4
+	relative_position_id = ITA_propaganda_flights
+	cost = 7
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+		add_political_power = -60
+		add_timed_idea = { 
+			idea = ITA_forceful_production
+			days = 400
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_force_modernisation
+	icon = GFX_focus_Airforce_Purges
+	prerequisite = { focus = ITA_overrule_air_ministry}
+	x = -2
+	y = 5
+	relative_position_id = ITA_propaganda_flights
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+	add_political_power = -40
+		add_tech_bonus = {
+			name = ITA_force_modernisation
+			bonus = 0.5
+			uses = 2
+			category = light_air
+			category = heavy_air
+		}
+		add_tech_bonus = {
+			name = ITA_force_modernisation
+			bonus = 0.4
+			uses = 2
+			category = tactical_bomber
+			category = cat_strategic_bomber
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_trust_biplanes
+	icon = GFX_focus_Aerial_Fleet
+	prerequisite = { focus = ITA_program_r}
+	mutually_exclusive = { focus = ITA_overrule_air_ministry }
+	x = 1
+	y = 4
+	relative_position_id = ITA_propaganda_flights
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+		air_experience = 20
+		add_timed_idea = {
+			idea = ITA_trusting_biplanes
+			days = 800
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_fund_cr42
+	icon = GFX_goal_generic_build_airforce
+	prerequisite = { focus = ITA_trust_biplanes}
+	x = 2
+	y = 5
+	relative_position_id = ITA_propaganda_flights
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+		air_experience = 20
+	}
+}
+
+shared_focus = {
+	id = ITA_war_is_coming
+	icon = GFX_focus_Burning_Globe
+	prerequisite = {
+		focus = ITA_trust_biplanes
+		focus = ITA_overrule_air_ministry
+	}
+	prerequisite = {
+		focus = ITA_program_r
+	}
+	x = 0
+	y = 5
+	relative_position_id = ITA_propaganda_flights
+	cost = 2
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		OR = {
+			threat > 0.70
+			has_war = yes
+		}
+	}	
+	completion_reward = {
+		air_experience = 20
+		if = {
+			limit = {
+				159 = { is_controlled_by = ITA }
+			}
+			159 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_navy_needs
+	icon = GFX_focus_Naval_Bombers
+	prerequisite = { focus = ITA_war_is_coming}
+	x = -1
+	y = 6
+	relative_position_id = ITA_propaganda_flights
+	cost = 2
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = ITA_navy_needs
+			bonus = 0.3
+			uses = 1
+			category = naval_bomber
+		}
+		add_tech_bonus = {
+			name = ITA_navy_needs
+			uses = 1
+			bonus = 0.4
+			category = naval_air
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_fighter_scramble
+	icon = GFX_focus_Air_Superiority_Doctrine
+	prerequisite = { focus = ITA_war_is_coming}
+	x = 1
+	y = 6
+	relative_position_id = ITA_propaganda_flights
+	cost = 2
+	ai_will_do = {
+		factor = 8
+	}
+	available = {	
+	}	
+	completion_reward = {
+		add_doctrine_cost_reduction = {
+			name = ITA_fighter_scramble
+			cost_reduction = 0.4
+			uses = 1
+			category = air_doctrine
+		}
+	}
+}

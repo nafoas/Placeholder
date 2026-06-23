@@ -1,0 +1,2812 @@
+add_namespace = postwar
+
+country_event = { #Divide Germany - Occupation Of Germany
+	id = postwar.1
+	title = postwar.1.t
+	desc = postwar.1.d
+	picture = GFX_event_London_Economic_Conference
+	is_triggered_only = yes
+	trigger = {
+	    GER = {
+		    has_war_with = ENG
+			has_war_with = FRA
+			has_war_with = SOV
+		}
+		SOV = { 
+		    NOT = {
+			    OR = {
+				    has_war_with = ENG
+					has_war_with = FRA
+					has_war_with = USA
+				}
+			}
+		}
+	}
+
+	#TODO: REDO
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					HUN = { is_in_faction_with = GER }
+				}
+				HUN = { leave_faction = yes }
+			}
+			if = {
+				limit = {
+					CRO = { is_in_faction_with = GER }
+				}
+				CRO = { leave_faction = yes }
+			}
+			if = {
+				limit = {
+					ROM = { is_in_faction_with = GER }
+				}
+				ROM = { leave_faction = yes }
+			}
+
+			if = { #First things first: Give Poland the east
+				limit = { 
+					POL = { 
+						has_war_with = GER
+					}
+				}
+				POL = {
+					transfer_state = 761
+					transfer_state = 68
+					transfer_state = 63
+					transfer_state = 773
+					transfer_state = 5
+					transfer_state = 760
+					transfer_state = 66
+					transfer_state = 67
+				}
+				761 = {
+					remove_core_of = GER
+					add_core_of = POL
+					set_state_name = "Szczecin"
+				}
+				68 = {
+					remove_core_of = GER
+					add_core_of = POL
+					set_state_name = "West Pomerania"
+				}
+				63 = {
+					remove_core_of = GER
+					add_core_of = POL
+					set_state_name = "Słupsk"
+				}
+				773 = {
+					remove_core_of = GER
+					add_core_of = POL
+					set_state_name = "Gdansk"
+				}
+				5 = {
+					remove_core_of = GER
+					add_core_of = POL
+					set_state_name = "Warmia-Masuria"
+				}
+				760 = {
+					remove_core_of = GER
+					add_core_of = POL
+					set_state_name = "Lubusz"
+				}
+				66 = {
+					remove_core_of = GER
+					add_core_of = POL
+					set_state_name = "Lower Silesia"
+				}
+				67 = {
+					remove_core_of = GER
+					add_core_of = POL
+					set_state_name = "Wrocław"
+				}
+			}
+			if = {
+				limit = {
+					SOV = { controls_state = 10 }
+				}
+				POL = {
+					set_country_flag = postwar_soviet_puppet
+					leave_faction = yes
+				}
+				SOV = {
+					add_to_faction = POL
+				}
+			}
+			if = { #Memel
+				limit = {
+					188 = { is_owned_by = GER }
+				}
+
+				if = {
+					limit = {
+						LIT = {
+							exists = yes
+							owns_state = 189
+						}
+					}
+					188 = {
+						transfer_state_to = LIT
+						add_core_of = LIT
+						set_state_name = "Klaipėda"
+					}
+				}
+				else_if = {
+					limit = {
+						LIT = { exists = no }
+					}
+
+					if = {
+						limit = {
+							SOV = { exists = yes }
+							OR = {
+								189 = { is_controlled_by = SOV }
+								11 = { is_controlled_by = SOV }
+								189 = { is_owned_by = SOV }
+								11 = { is_owned_by = SOV }
+							}
+						}
+						188 = {
+							transfer_state_to = SOV
+							set_state_name = "Klajpeda"
+							add_core_of = SOV
+						}
+					}
+					else_if = {
+						limit = {
+							RUS = { exists = yes }
+							OR = {
+								189 = { is_controlled_by = RUS }
+								11 = { is_controlled_by = RUS }
+								189 = { is_owned_by = RUS }
+								11 = { is_owned_by = RUS }
+							}
+						}
+						188 = {
+							transfer_state_to = RUS
+							set_state_name = "Klajpeda"
+							add_core_of = RUS
+						}
+					}
+					else_if = {
+						limit = {
+							POL = { exists = yes }
+							189 = {
+								is_owned_by = POL
+								is_controlled_by = POL
+							}
+						}
+						188 = {
+							transfer_state_to = POL
+							set_state_name = "Kłajpeda"
+							# add_core_of = POL
+						}
+					}
+				}
+				188 = {
+					remove_core_of = GER
+					remove_claim_by = GER
+				}
+			}
+			if = {
+				limit = {
+					LIT = { exists = no }
+					SOV = { owns_state = 11 }
+				}
+				SOV = {
+					transfer_state = 188
+				}
+				188 = {
+					remove_core_of = GER
+					remove_claim_by = GER
+					add_core_of = LIT
+					add_core_of = SOV
+					set_state_name = "Klaipėda"
+				}
+			}
+			if = {
+				limit = {
+					SOV = { controls_state = 9 }
+				}
+				CZE = {
+					set_country_flag = postwar_soviet_puppet
+				}
+			}
+			if = { #Dissolve Bohemia-Moravia
+				limit = {
+					CZE = { exists = yes }
+					CZE = { is_subject_of = GER }
+				}
+				GER = {
+					   release = CZE
+				}
+				every_country = {
+					limit = { has_war_with = CZE }
+					white_peace = CZE
+				}
+				CZE = {
+					drop_cosmetic_tag = yes
+					load_focus_tree = generic_focus
+					create_country_leader = {
+						name = "Edvard Beneš"
+						desc = "POLITICS_BENES_DESC"
+						picture = "gfx/leaders_cbts/CZE/Portrait_Edward_Benes.tga"
+						expire = "1965.1.1"
+						ideology = liberalism
+					
+					}
+					set_politics = { ruling_party = social_liberalism }
+					transfer_state = 69
+					transfer_state = 74
+					transfer_state = 72
+					transfer_state = 767
+				}
+				69 = {
+					remove_core_of = GER
+					add_core_of = CZE
+				}
+				74 = {
+					remove_core_of = GER
+					add_core_of = CZE
+				}
+				72 = {
+					remove_core_of = GER
+					add_core_of = CZE
+				}
+				767 = {
+					remove_core_of = GER
+					add_core_of = CZE
+				}
+			}
+			if = { #Return Slovakia to CZE
+				limit = {
+					SLO = {
+						is_in_faction_with = GER
+						exists = yes
+					}
+				}
+				CZE = {
+					transfer_state = 70
+					transfer_state = 71
+				}
+			}
+			if = {
+				limit = {
+					CZE = { has_country_flag = postwar_soviet_puppet }
+				}
+				SOV = {
+					add_to_faction = CZE
+				}
+			}
+			if = { #Return Carpathian Ruthenia to CZE if SOV doesn't control it
+				limit = {
+					any_country = {
+						owns_state = 73
+						owns_state = 1207
+						OR = {
+							has_war_with = SOV
+							has_war_with = FRA
+							has_war_with = ENG
+						}
+						has_country_flag = axis_country
+					}
+					NOT = {
+						OR = {
+							SOV = { controls_state = 73 }
+							SOV = { controls_state = 1207 }
+						}
+					}
+				}
+				CZE = {
+					transfer_state = 73
+					transfer_state = 1207
+				}
+			}
+			if = { #Transfer Carpathian Ruthenia to SOV if they control it
+				limit = {
+					any_country = {
+						owns_state = 73
+						owns_state = 1207
+						OR = {
+							has_war_with = SOV
+							has_war_with = FRA
+							has_war_with = ENG
+						}
+						has_country_flag = axis_country
+					}
+					OR = {
+						SOV = { controls_state = 73 }
+						SOV = { controls_state = 1207 }
+					}
+				}
+				SOV = {
+					transfer_state = 73
+					transfer_state = 1207
+				}
+				73 = {
+					remove_core_of = CZE
+					remove_core_of = HUN
+					remove_claim_by = HUN
+					remove_core_of = SLO
+					add_core_of = SOV
+					add_core_of = UKR
+				}
+				1207 = {
+					remove_core_of = CZE
+					remove_core_of = HUN
+					remove_claim_by = HUN
+					remove_core_of = SLO
+					add_core_of = SOV
+					add_core_of = UKR
+				}
+			}
+			if = { #Transfer Southern Slovakia to CZE
+				limit = {
+					any_country = {
+						owns_state = 664
+						is_in_faction_with = GER
+						is_major = no
+					}
+				}
+				CZE = {
+					transfer_state = 664
+				}
+				664 = {
+					remove_core_of = HUN
+					remove_claim_by = HUN
+				}
+			}
+			if = { #Transfer the Saarland to France
+				limit = {
+					FRA = {
+						NOT = { is_in_faction_with = GER }
+					}
+				}
+				FRA = {
+					transfer_state = 809
+				}
+				809 = {
+					remove_core_of = GER
+					remove_claim_by = GER
+					add_core_of = WGR
+					set_state_name = "Saar Protectorate"
+				}
+			}
+			
+			if = { #If Germany owns Trieste and/or Friuli
+				limit = {
+					OR = {
+						1035 = { is_owned_by = GER }
+						39 = { is_owned_by = GER }
+						1034 = { is_owned_by = GER }
+						# 736 = { is_owned_by = GER }
+						# 790 = { is_owned_by = GER }
+						# 791 = { is_owned_by = GER }
+						# 837 = { is_owned_by = GER }
+						# 838 = { is_owned_by = GER }
+						# 838 = { is_owned_by = GER }
+					}
+					OR = {
+						country_exists = ITA
+						country_exists = RIT
+					}
+				}
+				if = {
+					limit = {
+						RIT = { exists = yes }
+						OR = {
+							ITA = { exists = no }
+							ITA = { has_capitulated = yes }
+						}
+					}
+					1035 = {
+						set_state_owner_to = RIT
+						remove_core_of = GER
+					}
+					39 = {
+						set_state_owner_to = RIT
+						remove_core_of = GER
+					}
+					1034 = { set_state_owner_to = RIT }
+
+					else = {
+						1035 = {
+							transfer_state_to = ITA
+							remove_core_of = GER
+						}
+						39 = {
+							transfer_state_to = ITA
+							remove_core_of = GER
+						}
+						1034 = { transfer_state_to = ITA }
+					}
+				}
+			}
+		}
+	}
+
+	option = { #divide germany
+		name = postwar.1.a
+
+		#######DIVISIONS OF GERMANY: FIRST AUSTRIA#######
+		if = {
+		    limit = { #If the Soviets have reached Tyrol, give everything to the Soviets
+			    GER = {
+				    owns_state = 4
+				}
+				SOV = {
+				    controls_state = 153
+				}
+			}
+			SOV = {
+			    set_country_flag = occupation_austria
+		        transfer_state = 152
+				transfer_state = 4
+				transfer_state = 811
+				transfer_state = 1174
+				transfer_state = 1175
+				transfer_state = 1173
+				transfer_state = 153
+				transfer_state = 1205
+				transfer_state = 1206
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = AUS
+				}
+				remove_core_of = GER
+			}
+		}
+		if = {
+		    limit = { #If the Allies have reached Vienna, give everything to the Allies
+			    GER = {
+				    owns_state = 4
+				}
+				any_country = {
+				    is_in_faction_with = ENG
+					NOT = { tag = SOV }
+				    controls_state = 4
+				}
+			} 
+			if = {  #For all divisions, there will be one case where the USA is in, and another where it's not
+			    limit = {
+				    USA = { has_war_with = GER }
+				}
+				USA = {
+				    set_country_flag = occupation_austria
+					transfer_state = 811
+				    transfer_state = 4
+				}
+				ENG = {
+				    set_country_flag = occupation_austria
+					transfer_state = 152
+				    transfer_state = 1174
+				    transfer_state = 1206
+				}
+				FRA = {
+				    set_country_flag = occupation_austria
+					transfer_state = 1173
+				    transfer_state = 1175
+					transfer_state = 153
+					transfer_state = 1205
+				}
+			}
+			if = {  #For all divisions, there will be one case where the USA is in, and another where it's not
+			    limit = {
+				    NOT = { USA = { has_war_with = GER } }
+				}
+				ENG = {
+				    set_country_flag = occupation_austria
+					transfer_state = 152
+				    transfer_state = 1174
+					transfer_state = 4
+					transfer_state = 811
+					transfer_state = 1206
+				}
+				FRA = {
+				    set_country_flag = occupation_austria
+					transfer_state = 1173
+				    transfer_state = 1175
+					transfer_state = 153
+					transfer_state = 1205
+				}
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = AUS
+				}
+				remove_core_of = GER
+			}
+		}
+		if = {
+		    limit = { #If the Allies have not reached Vienna, and the Soviets have not reached Tyrol, divide it historically
+			    GER = {
+				    owns_state = 4
+				}
+				NOT = {
+				    any_country = {
+				        is_in_faction_with = ENG
+					    NOT = { tag = SOV }
+				        controls_state = 4
+				    }
+				}
+				NOT = {
+				    SOV = {
+				        controls_state = 153
+					}
+				}
+			} 
+			if = {  #For all divisions, there will be one case where the USA is in, and another where it's not
+			    limit = {
+				    USA = { has_war_with = GER }
+				}
+				USA = {
+				    set_country_flag = occupation_austria
+					transfer_state = 1175
+					transfer_state = 152
+				}
+				ENG = {
+				    set_country_flag = occupation_austria
+					transfer_state = 1173
+				    transfer_state = 1174
+				    transfer_state = 1205
+				}
+				FRA = {
+				    set_country_flag = occupation_austria
+					transfer_state = 153
+				}
+				SOV = {
+				    set_country_flag = occupation_austria
+				    transfer_state = 4
+					transfer_state = 811
+					transfer_state = 1206
+				}
+			}
+			if = {  #For all divisions, there will be one case where the USA is in, and another where it's not
+			    limit = {
+				    NOT = { USA = { has_war_with = GER } }
+				}
+				ENG = {
+				    set_country_flag = occupation_austria
+					transfer_state = 1173
+				    transfer_state = 1174
+					transfer_state = 152
+				}
+				FRA = {
+				    set_country_flag = occupation_austria
+					transfer_state = 153
+					transfer_state = 1175
+					transfer_state = 1205
+				}
+				SOV = {
+				    set_country_flag = occupation_austria
+					transfer_state = 1206
+				    transfer_state = 4
+					transfer_state = 811
+				}
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = AUS
+				}
+				remove_core_of = GER
+			}
+		}
+		#######DIVISIONS OF GERMANY: GER PROPER#######
+		if = { #If the Soviets have reached the Rhineland, give everything to the Soviets
+		    limit = {
+				SOV = {
+				    controls_state = 51
+					controls_state = 57
+					controls_state = 59
+					controls_state = 64
+				}
+			}
+			SOV = {
+			    set_country_flag = occupation_germany
+		        transfer_state = 51
+				transfer_state = 42
+				transfer_state = 810
+				transfer_state = 864
+				transfer_state = 1176
+				transfer_state = 745
+				transfer_state = 50
+				transfer_state = 829
+				transfer_state = 52
+				transfer_state = 53
+				transfer_state = 54
+				transfer_state = 55
+				transfer_state = 57
+				transfer_state = 59
+				transfer_state = 60
+				transfer_state = 56
+				transfer_state = 65
+				transfer_state = 823
+				transfer_state = 58
+				transfer_state = 1189
+				transfer_state = 61
+				transfer_state = 62
+				transfer_state = 64
+				transfer_state = 762
+			}
+			762 = {
+			    remove_core_of = GER
+				add_core_of = SOV
+				set_state_name = "Kaliningrad"
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = GER
+				}
+				remove_core_of = GER
+				add_core_of = DDR
+			}
+		}
+		if = { #If the Soviets have reached Dortmund, give Rhineland to the Allies
+		    limit = {
+				SOV = {
+				    NOT = { controls_state = 51 }
+					controls_state = 57
+					controls_state = 59
+					controls_state = 64
+				}
+			}
+			if = {
+			    limit = {
+				    USA = {
+					    has_war_with = GER
+					}
+                }
+				USA = {
+					set_country_flag = occupation_germany
+					transfer_state = 864
+				    transfer_state = 1176
+				}
+			    ENG = {
+					set_country_flag = occupation_germany
+					transfer_state = 51
+				    transfer_state = 745
+				}
+				FRA = {
+					set_country_flag = occupation_germany
+					transfer_state = 810
+				    transfer_state = 42
+				}
+			}
+			if = {
+			    limit = {
+				    USA = {
+					    NOT = { has_war_with = GER }
+					}
+                }
+			    ENG = {
+					set_country_flag = occupation_germany
+					transfer_state = 51
+				    transfer_state = 745
+					transfer_state = 1176
+				}
+				FRA = {
+					set_country_flag = occupation_germany
+					transfer_state = 810
+				    transfer_state = 42
+					transfer_state = 864
+				}
+			}
+			SOV = {
+			    set_country_flag = occupation_germany
+				transfer_state = 50
+				transfer_state = 829
+				transfer_state = 52
+				transfer_state = 53
+				transfer_state = 54
+				transfer_state = 55
+				transfer_state = 57
+				transfer_state = 59
+				transfer_state = 60
+				transfer_state = 56
+				transfer_state = 65
+				transfer_state = 823
+				transfer_state = 58
+				transfer_state = 1189
+				transfer_state = 61
+				transfer_state = 62
+				transfer_state = 64
+				transfer_state = 762
+			}
+			762 = {
+			    remove_core_of = GER
+				add_core_of = SOV
+				set_state_name = "Kaliningrad"
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = GER
+					is_owned_by = SOV
+				}
+				remove_core_of = GER
+				add_core_of = DDR
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = GER
+					OR = {
+					    is_owned_by = ENG
+						is_owned_by = FRA
+						is_owned_by = USA
+					}
+				}
+				remove_core_of = GER
+				add_core_of = WGR
+			}
+		}
+		if = { #If the Soviets have reached Hannover, give Rhineland; Westphalia, and Bavaria to the Allies
+		    limit = {
+				SOV = {
+				    NOT = { controls_state = 51 }
+					NOT = { controls_state = 57 }
+					controls_state = 59
+					controls_state = 64
+				}
+			}
+			if = {
+			    limit = {
+				    USA = {
+					    has_war_with = GER
+					}
+                }
+				USA = {
+					set_country_flag = occupation_germany
+					transfer_state = 50
+				    transfer_state = 52
+					transfer_state = 53
+					transfer_state = 54
+				}
+			    ENG = {
+					set_country_flag = occupation_germany
+					transfer_state = 51
+				    transfer_state = 745
+					transfer_state = 1176
+					transfer_state = 829
+					transfer_state = 57
+					transfer_state = 55
+				}
+				FRA = {
+					set_country_flag = occupation_germany
+					transfer_state = 810
+				    transfer_state = 42
+					transfer_state = 864
+				}
+			}
+			if = {
+			    limit = {
+				    USA = {
+					    NOT = { has_war_with = GER }
+					}
+                }
+			    ENG = {
+					set_country_flag = occupation_germany
+					transfer_state = 51
+				    transfer_state = 745
+					transfer_state = 1176
+				}
+				FRA = {
+					set_country_flag = occupation_germany
+					transfer_state = 810
+				    transfer_state = 42
+					transfer_state = 864
+				}
+			}
+			SOV = {
+			    set_country_flag = occupation_germany
+				transfer_state = 59
+				transfer_state = 60
+				transfer_state = 56
+				transfer_state = 65
+				transfer_state = 823
+				transfer_state = 58
+				transfer_state = 1189
+				transfer_state = 61
+				transfer_state = 62
+				transfer_state = 64
+				transfer_state = 762
+			}
+			762 = {
+			    remove_core_of = GER
+				add_core_of = SOV
+				set_state_name = "Kaliningrad"
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = GER
+					is_owned_by = SOV
+				}
+				remove_core_of = GER
+				add_core_of = DDR
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = GER
+					OR = {
+					    is_owned_by = ENG
+						is_owned_by = FRA
+						is_owned_by = USA
+					}
+				}
+				remove_core_of = GER
+				add_core_of = WGR
+			}
+		}
+		if = { #If the Soviets have reached Berlin, historical division
+		    limit = {
+				SOV = {
+				    NOT = { controls_state = 51 }
+					NOT = { controls_state = 57 }
+					NOT = { controls_state = 59 }
+					controls_state = 64
+				}
+			}
+			if = {
+			    limit = {
+				    USA = {
+					    has_war_with = GER
+					}
+                }
+				USA = {
+					set_country_flag = occupation_germany
+					transfer_state = 50
+					transfer_state = 55
+				    transfer_state = 52
+					transfer_state = 53
+					transfer_state = 54
+					transfer_state = 1176
+				}
+			    ENG = {
+					set_country_flag = occupation_germany
+					transfer_state = 51
+				    transfer_state = 745
+					transfer_state = 829
+					transfer_state = 57
+					transfer_state = 59
+					transfer_state = 58
+					transfer_state = 1189
+					transfer_state = 823
+				}
+				FRA = {
+					set_country_flag = occupation_germany
+					transfer_state = 810
+					transfer_state = 864
+					transfer_state = 42
+				}
+			}
+			if = {
+			    limit = {
+				    USA = {
+					    NOT = { has_war_with = GER }
+					}
+                }
+			    ENG = {
+					set_country_flag = occupation_germany
+					transfer_state = 51
+				    transfer_state = 42
+				    transfer_state = 745
+					transfer_state = 59
+					transfer_state = 58
+					transfer_state = 1189
+					transfer_state = 823
+				}
+				FRA = {
+					set_country_flag = occupation_germany
+					transfer_state = 810
+					transfer_state = 864
+					transfer_state = 50
+				    transfer_state = 52
+					transfer_state = 53
+					transfer_state = 54
+					transfer_state = 1176
+				}
+			}
+			SOV = {
+			    set_country_flag = occupation_germany
+				transfer_state = 60
+				transfer_state = 56
+				transfer_state = 65
+				transfer_state = 61
+				transfer_state = 62
+				transfer_state = 64
+				transfer_state = 762
+			}
+			762 = {
+			    remove_core_of = GER
+				add_core_of = SOV
+				set_state_name = "Kaliningrad"
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = GER
+					is_owned_by = SOV
+				}
+				remove_core_of = GER
+				add_core_of = DDR
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = GER
+					OR = {
+					    is_owned_by = ENG
+						is_owned_by = FRA
+						is_owned_by = USA
+					}
+				}
+				remove_core_of = GER
+				add_core_of = WGR
+			}
+		}
+		
+		if = { #If the Soviets have NOT reached Berlin, historical division
+		    limit = {
+				SOV = {
+				    NOT = { controls_state = 51 }
+					NOT = { controls_state = 57 }
+					NOT = { controls_state = 59 }
+					NOT = { controls_state = 64 }
+				}
+			}
+			if = {
+			    limit = {
+				    USA = {
+					    has_war_with = GER
+					}
+                }
+				USA = {
+					set_country_flag = occupation_germany
+				    transfer_state = 52
+					transfer_state = 53
+					transfer_state = 54
+					transfer_state = 1176
+					transfer_state = 60
+					transfer_state = 65
+					transfer_state = 55
+					transfer_state = 56
+					transfer_state = 64
+				}
+			    ENG = {
+					set_country_flag = occupation_germany
+					transfer_state = 829
+					transfer_state = 57
+					transfer_state = 745
+					transfer_state = 51
+					transfer_state = 59
+					transfer_state = 58
+					transfer_state = 1189
+					transfer_state = 823
+					transfer_state = 61
+					transfer_state = 62
+				}
+				FRA = {
+					set_country_flag = occupation_germany
+					transfer_state = 809
+					transfer_state = 50
+					transfer_state = 810
+					transfer_state = 864
+					transfer_state = 42
+				}
+			}
+			if = {
+			    limit = {
+				    USA = {
+					    NOT = { has_war_with = GER }
+					}
+                }
+			    ENG = {
+					set_country_flag = occupation_germany
+					transfer_state = 829
+					transfer_state = 57
+					transfer_state = 55
+					transfer_state = 59
+					transfer_state = 58
+					transfer_state = 1189
+					transfer_state = 823
+					transfer_state = 61
+					transfer_state = 60
+					transfer_state = 56
+					transfer_state = 64
+					transfer_state = 62
+				}
+				FRA = {
+					set_country_flag = occupation_germany
+					transfer_state = 51
+				    transfer_state = 745
+					transfer_state = 50
+					transfer_state = 810
+					transfer_state = 864
+					transfer_state = 42
+					transfer_state = 1176
+					transfer_state = 52
+					transfer_state = 53
+					transfer_state = 54
+				}
+			}
+			SOV = {
+			    set_country_flag = occupation_germany
+				transfer_state = 762
+			}
+			762 = {
+			    remove_core_of = GER
+				add_core_of = SOV
+				set_state_name = "Kaliningrad"
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = GER
+					is_owned_by = SOV
+				}
+				remove_core_of = GER
+				add_core_of = DDR
+			}
+			every_state = {
+			    limit = {
+				    is_core_of = GER
+					OR = {
+					    is_owned_by = ENG
+						is_owned_by = FRA
+						is_owned_by = USA
+					}
+				}
+				remove_core_of = GER
+				add_core_of = WGR
+			}
+		}
+		every_state = {   #Remove remaining GER claims
+			limit = {
+				is_claimed_by = GER
+			}
+			remove_claim_by = GER
+		}
+		if = { #Return Slovenia to YUG
+		    limit = {
+			    GER = {
+				    owns_state = 838
+					owns_state = 102
+				}
+				YUG = { exists = yes }
+			}
+			YUG = {
+		        transfer_state = 838
+				transfer_state = 102
+			}
+		}
+		if = { #Return Slovenia to Slovenia
+		    limit = {
+			    GER = {
+				    owns_state = 838
+					owns_state = 102
+				}
+				YUG = { exists = no }
+			}
+			SLV = {
+		        transfer_state = 838
+				transfer_state = 102
+			}
+		}
+		every_state = {   #Add compliance
+			limit = {
+				OR = {
+					is_core_of = AUS 
+					is_core_of = WGR
+					is_core_of = DDR
+				}
+			}
+			add_compliance = 50
+		}
+	}
+}
+
+country_event = { #Restore Bialystok to Poland
+	#TODO: mtth
+	id = postwar.2
+	title = postwar.2.t
+	desc = postwar.2.d
+	picture = GFX_Event_USSR_Soviets_In_Belgrade 
+	mean_time_to_happen = {
+	    days = 14
+    }
+	trigger = {
+	    tag = SOV
+		NOT = {
+		    has_war_with = POL
+		}
+		has_war_together_with = POL
+		POL = {
+		    NOT = {
+			    owns_state = 97
+				owns_state = 1191
+			}
+		}
+		has_full_control_of_state = 97
+		has_full_control_of_state = 1191
+		date > 1942.1.1
+	}
+	option = { #give it back
+		name = postwar.2.a
+		POL = {
+		    set_state_owner = 97
+			set_state_owner = 1191
+		}
+	}
+	option = { #nah
+		name = postwar.2.b
+		ai_chance = {
+		    factor = 0
+		}
+		add_stability = -0.05
+	}
+}
+
+country_event = { #Divide Hungary
+	id = postwar.3
+	title = postwar.3.t
+	desc = postwar3.d
+	picture = GFX_event_London_Economic_Conference
+	is_triggered_only = yes
+	trigger = {
+	    HUN = {
+		    has_war_with = ENG
+			has_war_with = FRA
+			has_war_with = SOV
+		}
+		SOV = { 
+		    NOT = {
+			    OR = {
+				    has_war_with = ENG
+					has_war_with = FRA
+					has_war_with = USA
+				}
+			}
+		}
+	}
+	option = { #divide hungary
+		name = postwar.1.a
+		if = {
+		    limit = { #Return Transylvania
+			    ROM = {
+				    NOT = {
+					    OR = {
+						    has_war_with = SOV
+							has_war_with = ENG
+							has_war_with = FRA
+						}
+					}
+				}
+			}
+			ROM = {
+			    transfer_state = 1048
+				transfer_state = 1054
+				transfer_state = 76
+				transfer_state = 1046
+				transfer_state = 83
+				transfer_state = 1047
+				transfer_state = 84
+				transfer_state = 82
+			}
+			every_state = {
+			    limit = {
+				    OR = {
+					    is_core_of = HUN
+						is_claimed_by = HUN
+					}
+					is_owned_by = ROM
+				}
+				remove_claim_by = HUN
+				remove_core_of = HUN
+			}
+		}
+		if = {
+		    limit = { #Return Banat to Yugoslavia
+			    YUG = {
+				    NOT = {
+					    is_in_faction_with = GER
+					}
+				}
+				YUG = { exists = yes }
+			}
+			YUG = {
+			    transfer_state = 1031
+				transfer_state = 45
+				transfer_state = 840
+				transfer_state = 815
+			}
+			every_state = {
+			    limit = {
+				    OR = {
+					    is_core_of = HUN
+						is_claimed_by = HUN
+					}
+					is_owned_by = YUG
+				}
+				remove_claim_by = HUN
+				remove_core_of = HUN
+			}
+		}
+		if = {
+		    limit = { #Return Banat to Serbia
+			    SER = {
+				    NOT = {
+					    is_in_faction_with = GER
+					}
+				}
+				SER = { exists = yes }
+			}
+			SER = {
+			    transfer_state = 1031
+				transfer_state = 45
+				transfer_state = 840
+			}
+			SLV = {
+				transfer_state = 840
+			}
+			every_state = {
+			    limit = {
+				    OR = {
+					    is_core_of = HUN
+						is_claimed_by = HUN
+					}
+					OR = {
+					    is_owned_by = SER
+						is_owned_by = SLV
+					}
+				}
+				remove_claim_by = HUN
+				remove_core_of = HUN
+			}
+		}
+		every_country = {
+		    limit = {
+			    has_war_with = HUN
+			}
+			white_peace = HUN
+		}
+		HUN = {
+		    leave_faction = yes
+		}
+		if = {
+		    limit = { 
+			    SOV = {
+				    controls_state = 834
+				}
+			}
+			set_country_flag = postwar_soviet_puppet
+			SOV = { add_to_faction = HUN }
+		}
+		HUN = {
+		    retire_country_leader = yes
+		    set_politics = {
+			    ruling_party = jacobin
+			    elections_allowed = yes
+				last_election = "1943.11.4"
+	            election_frequency = 48
+		    }
+			drop_cosmetic_tag = yes
+			create_country_leader = {
+	            name = "Zoltán Tildy"
+	            desc = "POLITICS_TILDY_DESC"
+	            picture = "gfx/leaders_cbts/leader_unknown.png"
+	            expire = "1965.1.1"
+	            ideology = agrarianism
+	            traits = {
+
+	            }
+            }
+			set_popularities = {
+	            communism = 17
+	            authoritarian_socialism = 0
+	            socialism = 0
+	            social_democracy = 17
+	            social_liberalism = 7
+	            market_liberalism = 2
+	            jacobin = 57
+	            democratic = 0
+	            neutrality = 0
+	            monarchism = 0
+	            nationalism = 0
+	            fascism = 0
+            }
+		}
+	}
+}
+
+country_event = { #Italy
+	id = postwar.4
+	title = postwar.4.t
+	desc = postwar.4.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes #temporal
+
+	immediate = {
+		hidden_effect = {
+
+			if = {
+				limit = {
+					ITA = {
+						has_idea = SRI_wehrmacht_occupation
+					}
+				}
+				ITA = { remove_ideas = SRI_wehrmacht_occupation }
+			}
+			if = {
+				limit = {
+					ITA = {
+						has_idea = SRI_civil_war
+					}
+				}
+				ITA = { remove_ideas = SRI_civil_war }
+			}
+			if = {
+				limit = {
+					RIT = {
+						has_idea = SRI_civil_war
+					}
+				}
+				RIT = { remove_ideas = SRI_civil_war }
+			}
+			if = {
+				limit = {
+					ITA = {
+						has_idea = SRI_low_popular_support
+					}
+				}
+				ITA = { remove_ideas = SRI_low_popular_support }
+			}
+
+			if = { #Italy regains what it lost to Germany after operation Ache
+				limit = {
+					ITA = {
+						is_subject_of = GER
+						has_global_flag = Italian_Civil_War_flag
+					}
+					GER = {
+						OR = {
+							owns_state = 1034
+							owns_state = 1035
+							owns_state = 39
+						}
+					}
+				}
+
+				if = {
+					limit = {
+						GER = { owns_state = 1034 }
+					}
+					1034 = { set_state_owner_to = ITA }
+				}
+				if = {
+					limit = {
+						GER = { owns_state = 1035 }
+					}
+					1035 = { set_state_owner_to = ITA }
+				}
+				if = {
+					limit = {
+						GER = { owns_state = 39 }
+					}
+					39 = { set_state_owner_to = ITA }
+				}
+			}
+
+			if = { #If Italy owns Tangier
+				limit = {
+					ITA = { owns_state = 1152 }
+				}
+				1152 = { transfer_state_to = TNG }
+			}
+	
+			if = { #If the Balearic Islands are owned by Italy
+				limit = {
+					ITA = { owns_state = 177 }
+				}
+				if = {
+					limit = {
+						ESP = {
+							exists = yes
+							NOT = {
+								is_subject_of = ITA
+								is_in_faction_with = ITA
+								is_subject_of = GER
+								is_in_faction_with = GER
+							}
+						}
+					}
+					177 = { transfer_state_to = ESP }
+				}
+				else_if = {
+					limit = {
+						ESP = {
+							OR = {
+								exists = no
+								is_subject_of = ITA
+								is_in_faction_with = ITA
+								is_subject_of = GER
+								is_in_faction_with = GER
+							}
+						}
+						ENG = {
+							exists = yes
+							has_war_with = ITA
+							is_subject = no
+						}
+					}
+					177 = { transfer_state_to = ENG }
+				}
+				else = {
+					177 = { transfer_state_to = SPR }
+				}
+			}
+	
+			if = { #If the Canary Islands are owned by Italy
+				limit = {
+					ITA = { owns_state = 178 }
+				}
+				if = {
+					limit = {
+						ESP = {
+							exists = yes
+							NOT = {
+								is_subject_of = ITA
+								is_in_faction_with = ITA
+								is_subject_of = GER
+								is_in_faction_with = GER
+							}
+						}
+					}
+					178 = { transfer_state_to = ESP }
+				}
+				else_if = {
+					limit = {
+						ESP = {
+							OR = {
+								exists = no
+								is_subject_of = ITA
+								is_in_faction_with = ITA
+								is_subject_of = GER
+								is_in_faction_with = GER
+							}
+						}
+						ENG = {
+							exists = yes
+							has_war_with = ITA
+							is_subject = no
+						}
+					}
+					178 = { transfer_state_to = ENG }
+				}
+				else = {
+					178 = { transfer_state_to = SPR }
+				}
+			}
+			
+			if = { #If Rhodes is owned by Italy
+				limit = {
+					ITA = { owns_state = 164 }
+					GRE = { exists = yes }
+				}
+				164 = { transfer_state_to = GRE }
+			}
+	
+			if = { #If Malta is owned by Italy
+				limit = {
+					ITA = { owns_state = 116 }
+					ENG = {
+						exists = yes
+						is_subject = no
+						has_war_with = ITA
+					}
+				}
+				116 = { transfer_state_to = ENG }
+			}
+	
+			if = { #If Italy owns any core state of FRA, they are returned to FRA
+				limit = {
+					FRA = {
+						exists = yes
+						NOT = {
+							is_in_faction_with = ITA
+							is_in_faction_with = GER
+							is_subject_of = ITA
+							is_subject_of = GER
+						}
+					}
+					FRA = {
+						any_core_state = {
+							is_owned_by = ITA
+						}
+					}
+				}
+				FRA = {
+					every_core_state = {
+						limit = { is_owned_by = ITA }
+						transfer_state_to = FRA
+					}
+				}
+			}
+			
+			if = { #If Italy owns any core state of Spain, they are returned to Spain
+				limit = {
+					ESP = {
+						exists = yes
+						NOT = {
+							is_in_faction_with = ITA
+							is_in_faction_with = GER
+							is_subject_of = ITA
+							is_subject_of = GER
+						}
+					}
+					ESP = {
+						any_core_state = {
+							is_owned_by = ITA
+						}
+					}
+				}
+				ESP = {
+					every_core_state = {
+						limit = { is_owned_by = ITA }
+						transfer_state_to = ESP
+					}
+				}
+			}
+	
+			if = { #If Italy owns any core state of Greece, they are returned to them
+				limit = {
+					GRE = {
+						exists = yes
+						NOT = {
+							is_in_faction_with = ITA
+							is_in_faction_with = GER
+							is_subject_of = ITA
+							is_subject_of = GER
+						}
+					}
+					GRE = {
+						any_core_state = {
+							is_owned_by = ITA
+						}
+					}
+				}
+				GRE = {
+					every_core_state = {
+						limit = { is_owned_by = ITA }
+						transfer_state_to = GRE
+					}
+				}
+			}
+	
+			if = { #Albania
+				limit = {
+					ALB = {
+						any_core_state = {
+							is_owned_by = ITA
+						}
+					}
+				}
+				ALB = {
+					every_core_state = {
+						limit = { is_owned_by = ITA }
+						transfer_state_to = ALB
+					}
+				}
+			}
+	
+			if = { #Yugoslavia Region
+				limit = {
+					ITA = {
+						any_owned_state = {
+							OR = {
+								region = 208
+								region = 24
+							}
+						}
+					}
+				}
+	
+				if = { #Slovenia
+					limit = {
+						SLV	= {
+							exists = yes
+							NOT = { is_subject_of = ITA }
+							OR = {
+								736 = { is_owned_by = ITA }
+								any_core_state = {
+									is_owned_by = ITA
+								}
+							}
+						}
+					}
+					ITA = {
+						every_owned_state = {
+							limit = {
+								OR = {
+									is_core_of = SLV
+									state = 736
+								}
+							}
+							transfer_state_to = SLV
+						}
+					}
+				}
+				
+				if = { #Bosnia
+					limit = {
+						BOS	= {
+							exists = yes
+							NOT = { is_subject_of = ITA }
+							any_core_state = {
+								is_owned_by = ITA
+							}
+						}
+					}
+					BOS = {
+						every_core_state = {
+							limit = {
+								is_owned_by = ITA
+							}
+							transfer_state_to = BOS
+						}
+					}
+				}
+	
+				if = { #Montenegro
+					limit = {
+						MNT	= {
+							exists = yes
+							NOT = { is_subject_of = ITA }
+						}
+						ITA = {
+							OR = {
+								owns_state = 105
+								owns_state = 841
+							}
+						}
+					}
+					MNT = {
+						every_core_state = {
+							limit = {
+								is_owned_by = ITA
+							}
+							transfer_state_to = MNT
+						}
+					}
+				}
+	
+				if = { #Macedonia
+					limit = {
+						MCE	= {
+							exists = yes
+							NOT = { is_subject_of = ITA }
+							any_core_state = {
+								is_owned_by = ITA
+							}
+						}
+					}
+					MCE = {
+						every_core_state = {
+							limit = {
+								is_owned_by = ITA
+							}
+							transfer_state_to = MCE
+						}
+					}
+				}
+	
+				if = { #Kosovo
+					limit = {
+						KOS	= {
+							exists = yes
+							NOT = { is_subject_of = ITA }
+							any_core_state = {
+								is_owned_by = ITA
+							}
+						}
+					}
+					KOS = {
+						every_core_state = {
+							limit = {
+								is_owned_by = ITA
+							}
+							transfer_state_to = KOS
+						}
+					}
+				}
+	
+				if = { #Croatia
+					limit = {
+						CRO	= {
+							exists = yes
+							NOT = { is_subject_of = ITA }
+							any_core_state = {
+								is_owned_by = ITA
+							}
+							is_owner_neighbor_of = ITA
+						}
+					}
+					CRO = {
+						every_core_state = {
+							limit = {
+								is_owned_by = ITA
+							}
+							transfer_state_to = CRO
+						}
+					}
+				}
+	
+				if = { #Serbia
+					limit = {
+						SER	= {
+							exists = yes
+							NOT = { is_subject_of = ITA }
+							any_core_state = {
+								is_owned_by = ITA
+							}
+						}
+					}
+					SER = {
+						every_core_state = {
+							limit = {
+								is_owned_by = ITA
+							}
+							transfer_state_to = SER
+						}
+					}
+				}
+	
+				if = { #Yugoslavia
+					limit = {
+						YUG	= {
+							exists = yes
+							NOT = { is_subject_of = ITA }
+							OR = {
+								736 = { is_owned_by = ITA }
+								any_core_state = {
+									is_owned_by = ITA
+								}
+							}
+						}
+					}
+					ITA = {
+						every_owned_state = {
+							limit = {
+								OR = {
+									is_core_of = YUG
+									state = 736
+								}
+							}
+							transfer_state_to = YUG
+						}
+					}
+				}
+			}
+	
+			if = { #If Italy owns any state in Tunis or Algeria
+				limit = {
+					ITA = {
+						any_owned_state = {
+							OR = {
+								state = 665
+								state = 458
+								state = 459
+								state = 460
+								state = 513
+								state = 785
+								state = 1234
+								state = 514
+							}
+						}
+					}
+				}
+				if = { #If France exists and is not with the axis transfer the states to France
+					limit = {
+						FRA = {
+							exists = yes
+							OR = {
+								NOT = { is_in_faction_with = ITA }
+								NOT = { is_in_faction_with = GER }
+								NOT = { has_war_with = ALY }
+							}
+						}
+					}
+					ITA = {
+						every_owned_state = {
+							limit = {
+								OR = {
+									state = 665
+									state = 458
+									state = 459
+									state = 460
+									state = 513
+									state = 785
+									state = 1234
+									state = 514
+								}
+							}
+							transfer_state_to = FRA
+						}
+					}
+	
+					else = { #If France doesnt exist or is with the axis then release ALG and/or TNS
+						every_owned_state = {
+							limit = { is_core_of = TNS }
+							transfer_state_to = TNS
+						}
+						every_owned_state = {
+							limit = { is_core_of = ALG }
+							transfer_state_to = ALG
+						}
+					}
+				}
+			}
+	
+			if = { #If Italy owns any state in Morocco or Western Africa
+				limit = {
+					ITA = {
+						any_owned_state = {
+							OR = {
+								region = 182
+								state = 699
+								state = 557
+								state = 1167
+								state = 788
+								state = 800
+								state = 515
+								region = 140
+								region = 183
+								region = 234
+								region = 235
+								region = 236
+							}
+						}
+					}
+				}
+	
+				if = { #If France exists, transfer to France its ex-colonies
+					limit = {
+						ITA = {
+							any_owned_state = {
+								OR = {
+									#French Morocco
+									state = 1208
+									state = 1209
+									state = 1211
+									state = 1212
+									state = 892
+									state = 461
+									state = 462
+									#Sub-sharian africa
+									state = 557
+									state = 1167
+									state = 788
+									state = 800
+									state = 515
+									region = 140
+									#Central Africa
+									region = 183
+									#Camerun, Gabon and Congo
+									state = 1164
+									state = 539
+									state = 1163
+									#Togo, Benin and Ivory Coast
+									state = 794
+									state = 795
+									state = 796
+									#Senegal and Guinea
+									state = 272
+									state = 797
+								}
+							}
+						}
+						FRA = {
+							exists = yes
+						}
+					}
+					
+					ITA = {
+						every_owned_state = {
+							limit = {
+								OR = {
+									#French Morocco
+									state = 1208
+									state = 1209
+									state = 1211
+									state = 1212
+									state = 892
+									state = 461
+									state = 462
+									#Sub-sharian africa
+									state = 557
+									state = 1167
+									state = 788
+									state = 800
+									state = 515
+									region = 140
+									#Central Africa
+									region = 183
+									#Camerun, Gabon and Congo
+									state = 1164
+									state = 539
+									state = 1163
+									#Togo, Benin and Ivory Coast
+									state = 794
+									state = 795
+									state = 796
+									#Senegal and Guinea
+									state = 272
+									state = 797
+								}
+							}
+							transfer_state_to = FRA
+						}
+					}
+	
+					else_if = { #If France doesnt exist then transfer to ENG
+						limit = {
+							ENG = {
+								exists = yes
+								is_subject = no
+							}
+						}
+						ITA = {
+							every_owned_state = {
+								limit = {
+									OR = {
+										#French Morocco
+										state = 1208
+										state = 1209
+										state = 1211
+										state = 1212
+										state = 892
+										state = 461
+										state = 462
+										#Sub-sharian africa
+										state = 557
+										state = 1167
+										state = 788
+										state = 800
+										state = 515
+										region = 140
+										#Central Africa
+										region = 183
+										#Camerun, Gabon and Congo
+										state = 1164
+										state = 539
+										state = 1163
+										#Togo, Benin and Ivory Coast
+										state = 794
+										state = 795
+										state = 796
+										#Senegal and Guinea
+										state = 272
+										state = 797
+									}
+								}
+								transfer_state_to = ENG
+							}
+						}
+					}
+					else = { #Else release African countries
+						ITA = {
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = MRT
+									}
+								}
+								release = MRT
+							}
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = MLI
+									}
+								}
+								release = MLI
+							}
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = NGR
+									}
+								}
+								release = NGR
+							}
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = CHA
+									}
+								}
+								release = CHA
+							}
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = BRF
+									}
+								}
+								release = BRF
+							}
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = SEN
+									}
+								}
+								release = SEN
+							}
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = DAG
+									}
+								}
+								release = DAG
+							}
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = TOG
+									}
+								}
+								release = TOG
+							}
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = CMR
+									}
+								}
+								release = CMR
+							}
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = GAB
+									}
+								}
+								release = GAB
+							}
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = RCG
+									}
+								}
+								release = RCG
+							}
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = CAR
+									}
+								}
+								release = CAR
+							}
+						}
+					}
+				}
+	
+				if = { #If UK exists, transfer them its ex-colonies
+					limit = {
+						ITA = {
+							any_owned_state = {
+								OR = {
+									#Nigeria
+									state = 558
+									state = 1168
+									state = 1166
+									#Ghana, Sierra Leone and Gambia
+									state = 274
+									state = 700
+									state = 701
+								}
+							}
+						}
+						ENG = {
+							exists = yes
+						}
+					}
+					ITA = {
+						every_owned_state = {
+							limit = {
+								OR = {
+									#Nigeria
+									state = 558
+									state = 1168
+									state = 1166
+									#Ghana, Sierra Leone and Gambia
+									state = 274
+									state = 700
+									state = 701
+								}
+							}
+							transfer_state_to = ENG
+						}
+					}
+	
+					else_if = { #If UK doesnt exist then transfer to FRA if it exists
+						limit = {
+							FRA = {
+								exists = yes
+								is_subject = no
+							}
+						}
+						ITA = {
+							every_owned_state = {
+								limit = {
+									OR = {
+										#Nigeria
+										state = 558
+										state = 1168
+										state = 1166
+										#Ghana, Sierra Leone and Gambia
+										state = 274
+										state = 700
+										state = 701
+									}
+								}
+								transfer_state_to = FRA
+							}
+						}
+					}
+					else = { #Else release African countries
+						ITA = {
+							if = {
+								limit = {
+									any_owned_state = {
+										is_core_of = NGA
+									}
+								}
+								release = NGA
+							}
+						}
+					}
+				}
+	
+				if = { #If Spain (not SPC) exists transfer them its ex-colonies
+					limit = {
+						ITA = {
+							any_owned_state = {
+								OR = {
+									#Morrocco, Ceuta and Melilla
+									state = 290
+									state = 824
+									state = 825
+									state = 1210
+									#Sahara
+									state = 699
+									#Equatorial Guinea
+									state = 297
+								}
+							}
+						}
+						OR = {
+							AND = {
+								SPR = {
+									exists = yes
+									NOT = {
+										is_in_faction_with = ITA
+										is_in_faction_with = GER
+										is_subject_of = ITA
+										is_subject_of = GER
+										is_subject_of = DDR
+										has_government = fascism
+										has_government = communism
+									}
+								}
+							}
+							AND = {
+								SPA = {
+									exists = yes
+									NOT = {
+										is_in_faction_with = ITA
+										is_in_faction_with = GER
+										is_subject_of = ITA
+										is_subject_of = GER
+										is_subject_of = DDR
+										has_government = fascism
+										has_government = communism
+									}
+								}
+							}
+						}
+					}
+					ITA = {
+						every_owned_state = {
+							limit = {
+								OR = {
+									#Morrocco, Ceuta and Melilla
+									state = 290
+									state = 824
+									state = 825
+									state = 1210
+									#Sahara
+									state = 699
+									#Equatorial Guinea
+									state = 297
+								}
+							}
+							transfer_state_to = ENG
+						}
+					}
+				}
+			}
+	
+			if = { #If Egypt is a subject of Italy
+				limit = {
+					EGY = { is_subject_of = ITA }
+				}
+				if = {
+					limit = {
+						ENG = {
+							exists = yes
+							is_subject = no
+							has_war_with = ITA
+						}
+					}
+					EGY = {
+						leave_faction = yes
+					}
+					ENG = {
+						set_autonomy = {
+							target = EGY
+							autonomy_state = autonomy_colony
+						}
+					}
+				}
+				else = {
+					ITA = {
+						set_autonomy = {
+							target = EGY
+							autonomy_state = autonomy_free
+							end_wars = no
+						}
+					}
+				}
+			}
+	
+			if = { #If Italy owns any state in East Africa, Egypt or the Middle East
+				limit = {
+					OR = {
+						ENG = {
+							exists = yes
+							is_subject = no
+							has_war_with = ITA
+						}
+						FRA = {
+							exists = yes
+							has_war_with = ITA
+							is_subject = no
+						}
+					}
+					ITA = {
+						any_owned_state = {
+							OR = {
+								#East Africa
+								region = 17
+								region = 217
+								region = 231
+								region = 102
+								state = 799
+								#Egypt
+								region = 128
+								state = 552
+								#Middle East
+								region = 218
+								region = 28
+								region = 196
+								region = 69
+							}
+						}
+					}
+				}
+				ITA = {
+					if = { #Syria and Lebanon
+						limit = {
+							FRA = {
+								exists = yes
+								OR = {
+									has_war_with = ITA
+									is_in_faction_with = ALY
+									is_subject_of = ALY
+								}
+							}
+							any_owned_state = {
+								OR = {
+									state = 553
+									state = 554
+									state = 1006
+									state = 1007
+									state = 677
+									state = 808
+									state = 893
+									state = 1009
+								}
+							}
+						}
+						every_owned_state = {
+							limit = {
+								OR = {
+									state = 553
+									state = 554
+									state = 1006
+									state = 1007
+									state = 677
+									state = 808
+									state = 893
+									state = 1009
+								}
+							}
+							transfer_state_to = FRA
+						}
+					}
+	
+					every_owned_state = {
+						limit = {
+							OR = {
+								#East Africa
+								region = 17
+								region = 217
+								region = 231
+								region = 102
+								state = 799
+								#Egypt
+								region = 128
+								state = 552
+								#Middle East
+								region = 218
+								region = 28
+								region = 196
+								region = 69
+							}
+						}
+						transfer_state_to = ENG
+					}
+				}
+			}
+
+			#### Occupation of Italy ####
+	
+			if = { #SRI gets annexed by RIT if it exists
+				limit = {
+					ITA = {
+						is_subject_of = GER
+						has_global_flag = Italian_Civil_War_flag
+						RIT = {
+							exists = yes
+							NOT = { is_subject_of = GER }
+							has_war_with = ITA #maybe not necessary?
+						}
+					}
+				}
+				ALY = {
+					set_autonomy = {
+						target = RIT
+						autonomy_state = autonomy_free
+						end_wars = no
+					}
+				}
+				ITA = {
+					set_victory_points = {
+						province = 11568
+						value = 1
+					}
+					every_core_state = {
+						add_core_of = RIT
+						remove_core_of = ITA
+					}
+					for_each_loop = {
+						array = ITA.controlled_states
+						delete_unit = { 
+							state = v
+							disband = yes
+						}
+					}
+	
+					transfer_units_fraction = {
+						target = RIT
+						size = 0.0
+						stockpile_ratio = 1.0
+						army_ratio = 0.0
+						navy_ratio = 1.0
+						air_ratio = 1.0
+						keep_unit_leaders_trigger = {
+							always = yes
+						}
+					}
+				}
+	
+				RIT = {
+					annex_country = {
+						target = ITA
+						transfer_troops = no
+					}
+				}
+			}
+			else = {
+				ITA = {
+					set_variable = { ITA_communist_occ_score = 0 }
+					set_variable = { ITA_allied_occ_score = 0 }
+					every_core_state = { #set up the array of italian states for the scorer
+						limit = {
+							OR = {
+								region = 23
+								region = 219
+								region = 216
+								state = 114
+								state = 1033
+								# state = 1032
+								state = 158
+								state = 1034
+								state = 1035
+								state = 39
+								state = 790
+							}
+						}
+						add_to_array = {
+							array = ITA_occupation_amount
+						}
+					}
+	
+					for_each_scope_loop = { #Scorer of the amount of states that occupier countries have. Important states score more
+						array = ITA_occupation_amount
+	
+						if = { #Rome - 7
+							limit = {
+								state = 2
+							}
+							if = {
+								limit = {
+									controller = {
+										has_government = communism
+									}
+								}
+								ITA = {
+									add_to_variable = { ITA_communist_occ_score = 7 }
+									add_to_array = {
+										array = ITA_com_states
+									}
+								}
+	
+								else = {
+									ITA = {
+										add_to_variable = { ITA_allied_occ_score = 7 }
+									}
+								}
+							}
+						}
+						if = { #Milan - 3
+							limit = {
+								state = 159
+							}
+							if = {
+								limit = {
+									controller = {
+										has_government = communism
+									}
+								}
+								ITA = {
+									add_to_variable = { ITA_communist_occ_score = 3 }
+									add_to_array = {
+										array = ITA_com_states
+									}
+								}
+	
+								else = {
+									ITA = {
+										add_to_variable = { ITA_allied_occ_score = 3 }
+									}
+								}
+							}
+						}
+						if = { #Venecia - 2
+							limit = {
+								state = 160
+							}
+							if = {
+								limit = {
+									controller = {
+										has_government = communism
+									}
+								}
+								ITA = {
+									add_to_variable = { ITA_communist_occ_score = 2 }
+									add_to_array = {
+										array = ITA_com_states
+									}
+								}
+	
+								else = {
+									ITA = {
+										add_to_variable = { ITA_allied_occ_score = 2 }
+									}
+								}
+							}
+						}
+						if = { #Turin - 2
+							limit = {
+								state = 158
+							}
+							if = {
+								limit = {
+									controller = {
+										has_government = communism
+									}
+								}
+								ITA = {
+									add_to_variable = { ITA_communist_occ_score = 2 }
+									add_to_array = {
+										array = ITA_com_states
+									}
+								}
+	
+								else = {
+									ITA = {
+										add_to_variable = { ITA_allied_occ_score = 2 }
+									}
+								}
+							}
+						}
+						if = { #Emilia-Romagna - 2
+							limit = {
+								state = 161
+							}
+							if = {
+								limit = {
+									controller = {
+										has_government = communism
+									}
+								}
+								ITA = {
+									add_to_variable = { ITA_communist_occ_score = 2 }
+									add_to_array = {
+										array = ITA_com_states
+									}
+								}
+	
+								else = {
+									ITA = {
+										add_to_variable = { ITA_allied_occ_score = 2 }
+									}
+								}
+							}
+						}
+						if = { #Napoli - 2
+							limit = {
+								state = 117
+							}
+							if = {
+								limit = {
+									controller = {
+										has_government = communism
+									}
+								}
+								ITA = {
+									add_to_variable = { ITA_communist_occ_score = 2 }
+									add_to_array = {
+										array = ITA_com_states
+									}
+								}
+	
+								else = {
+									ITA = {
+										add_to_variable = { ITA_allied_occ_score = 2 }
+									}
+								}
+							}
+						}
+	
+						if = { #The rest scores 1
+							limit = {
+								NOT = {
+									state = 2
+									state = 158
+									state = 159
+									state = 160
+									state = 161
+									state = 117
+								}
+							}
+							if = {
+								limit = {
+									controller = {
+										has_government = communism
+									}
+								}
+								ITA = {
+									add_to_variable = { ITA_communist_occ_score = 1 }
+									add_to_array = {
+										array = ITA_com_states
+									}
+								}
+	
+								else = {
+									ITA = {
+										add_to_variable = { ITA_allied_occ_score = 1 }
+									}
+								}
+							}
+						}
+					}
+	
+					if = { #Communists >= Allies
+						limit = {
+							check_variable = {
+								var = ITA_communist_occ_score
+								value = ITA_allied_occ_score
+								compare = less_than_or_equals
+							}
+							check_variable = { #They must at least have 10 points
+								var = ITA_communist_occ_score
+								value = 10
+								compare = greater_than_or_equals
+							}
+						}
+						#2 Italies - Like Korea or Germany irl
+						for_each_scope_loop = {
+							array = ITA_com_states
+							transfer_state_to = RIT
+							add_core_of = RIT
+						}
+						ITA = {
+							set_nationality = {
+								target_country = RIT
+								character = ITA_ruggero_grieco
+							}
+							leave_faction = yes
+						}
+						if = {
+							limit = {
+								has_dlc = "Together for Victory"
+							}
+							ALY = {
+								set_autonomy = {
+									target = ITA
+									autonomy_state = autonomy_supervised_state_cbts
+									end_wars = yes
+								}
+							}
+	
+							else = {
+								ALY = { puppet = ITA }
+							}
+						}
+						ITA = {
+							add_popularity = {
+								ideology = neutrality
+								popularity = 0.4
+							}
+	
+							set_politics = {
+								ruling_party = neutrality
+							}
+						}
+						RIT = {
+							set_party_name = {
+								ideology = communism
+								long_name = RIT_communism_party_long
+								name = RIT_communism_party
+							}
+							set_party_name = {
+								ideology = authoritarian_socialism
+								long_name = RIT_authoritarian_socialism_party
+								name = RIT_authoritarian_socialism_party_long
+							}
+							set_party_name = {
+								ideology = socialism
+								long_name = RIT_socialism_party
+								name = RIT_socialism_party_long
+							}
+							promote_character = ITA_ruggero_grieco
+						}
+					}
+					else_if = { #Allies > Communists
+						limit = {
+							check_variable = {
+								var = ITA_allied_occ_score
+								value = ITA_communist_occ_score
+								compare = less_than_or_equals
+							}
+						}
+						#United Italy
+						if = { #If RIT exists; annexes ITA
+							limit = {
+								RIT = { exists = yes }
+							}
+							ITA = {
+								for_each_loop = {
+									array = ITA.owned_states
+									delete_unit = { 
+										state = v
+										disband = yes
+									}
+								}
+				
+								transfer_units_fraction = {
+									target = RIT
+									size = 0.0
+									stockpile_ratio = 1.0
+									army_ratio = 0.0
+									navy_ratio = 1.0
+									air_ratio = 1.0
+									keep_unit_leaders_trigger = {
+										always = yes
+									}
+								}
+							}
+				
+							RIT = {
+								annex_country = {
+									target = ITA
+									transfer_troops = no
+								}
+							}
+	
+							else = { #RIT doesnt exist, Italy is puppeted
+								if = {
+									limit = {
+										has_dlc = "Together for Victory"
+									}
+									ALY = {
+										set_autonomy = {
+											target = ITA
+											autonomy_state = autonomy_supervised_state_cbts
+										}
+									}
+	
+									else = {
+										ALY = {
+											puppet = ITA
+										}
+									}
+								}
+								ITA = {
+									for_each_loop = {
+										array = ITA.owned_states
+										delete_unit = { 
+											state = v
+											disband = yes
+										}
+									}
+	
+									add_popularity = {
+										ideology = neutrality
+										popularity = 0.4
+									}
+	
+									set_politics = {
+										ruling_party = neutrality
+									}
+								}
+							}
+						}
+					}
+	
+					clear_array = ITA_com_states
+					clear_array = ITA_occupation_amount
+				}
+			}
+
+			if = {
+				limit = {
+					has_global_flag = Italian_Civil_War_flag
+				}
+				clr_global_flag = Italian_Civil_War_flag
+			}
+
+		}
+	}
+
+	option = {
+		name = postwar.4.a
+	}
+}
+
+		

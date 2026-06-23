@@ -1,0 +1,303 @@
+#   Example:
+# 
+#   example_trigger = {
+#       tag = GER
+#       is_ai = no
+#   }
+#
+#
+#   In a script file:
+#
+#   trigger = {
+#       exampel_trigger = yes
+#   }
+#
+
+
+agrarians_highest_influence = {
+    OR = {
+        check_variable = { CZE_agrarian_influence > CZE_christian_democrat_influence }
+        AND = {
+            check_variable = { CZE_agrarian_influence = CZE_christian_democrat_influence }
+            check_variable = { CZE.party_popularity@democratic = CZE.party_popularity@jacobin }
+        }
+    }
+    OR = {
+        check_variable = { CZE_agrarian_influence > CZE_national_democrat_influence }
+        AND = {
+            check_variable = { CZE_agrarian_influence = CZE_national_democrat_influence }
+            if = {
+                limit = { has_country_flag = national_democrats_are_rightauth }
+                check_variable = { CZE.party_popularity@democratic > CZE.party_popularity@nationalism }
+            }
+            else = {
+                always = no
+            }
+        }
+    }
+    OR = {
+        check_variable = { CZE_agrarian_influence > CZE_national_socialist_influence }
+        AND = {
+            check_variable = { CZE_agrarian_influence = CZE_national_socialist_influence }
+            check_variable = { CZE.party_popularity@democratic > CZE.party_popularity@social_liberalism }
+        }
+    }
+    OR = {
+        check_variable = { CZE_agrarian_influence > CZE_social_democrat_influence }
+        AND = {
+            check_variable = { CZE_agrarian_influence = CZE_social_democrat_influence }
+            check_variable = { CZE.party_popularity@democratic > CZE.party_popularity@social_democracy }
+        }
+    }
+    OR = {
+        check_variable = { CZE_agrarian_influence > CZE_traders_influence }
+        AND = {
+            check_variable = { CZE_agrarian_influence = CZE_traders_influence }
+            check_variable = { CZE.party_popularity@democratic > CZE.party_popularity@market_liberalism }
+        }
+    }
+}
+
+national_democrats_highest_influence = {
+    OR = {
+        check_variable = { CZE_national_democrat_influence > CZE_christian_democrat_influence }
+        AND = {
+            check_variable = { CZE_national_democrat_influence = CZE_christian_democrat_influence }
+            if = {
+                limit = { has_country_flag = national_democrats_are_rightauth }
+                check_variable = { CZE.party_popularity@nationalism > CZE.party_popularity@jacobin }
+            }
+            else = {
+                check_variable = { CZE.party_popularity@democratic > CZE.party_popularity@jacobin }
+            }
+        }
+    }
+    OR = {
+        check_variable = { CZE_national_democrat_influence > CZE_agrarian_influence }
+        AND = {
+            check_variable = { CZE_national_democrat_influence = CZE_agrarian_influence }
+            if = {
+                limit = { has_country_flag = national_democrats_are_rightauth }
+                check_variable = { CZE.party_popularity@nationalism > CZE.party_popularity@democratic }
+            }
+            else = {
+                always = yes
+            }
+        }
+    }
+    OR = {
+        check_variable = { CZE_national_democrat_influence > CZE_national_socialist_influence }
+        AND = {
+            check_variable = { CZE_national_democrat_influence = CZE_national_socialist_influence }
+            if = {
+                limit = { has_country_flag = national_democrats_are_rightauth }
+                check_variable = { CZE.party_popularity@nationalism > CZE.party_popularity@social_liberalism }
+            }
+            else = {
+                check_variable = { CZE.party_popularity@democratic > CZE.party_popularity@social_liberalism }
+            }
+        }
+    }
+    OR = {
+        check_variable = { CZE_national_democrat_influence > CZE_social_democrat_influence }
+        AND = {
+            check_variable = { CZE_national_democrat_influence = CZE_social_democrat_influence }
+            if = {
+                limit = { has_country_flag = national_democrats_are_rightauth }
+                check_variable = { CZE.party_popularity@nationalism > CZE.party_popularity@social_democracy }
+            }
+            else = {
+                check_variable = { CZE.party_popularity@democratic > CZE.party_popularity@social_democracy }
+            }
+        }
+    }
+    OR = {
+        check_variable = { CZE_national_democrat_influence > CZE_traders_influence }
+        AND = {
+            check_variable = { CZE_national_democrat_influence = CZE_traders_influence }
+            if = {
+                limit = { has_country_flag = national_democrats_are_rightauth }
+                check_variable = { CZE.party_popularity@nationalism > CZE.party_popularity@market_liberalism }
+            }
+            else = {
+                check_variable = { CZE.party_popularity@democratic > CZE.party_popularity@market_liberalism }
+            }
+        }
+    }
+}
+
+christian_democrats_highest_influence = {
+    OR = {
+        check_variable = { CZE_christian_democrat_influence > CZE_agrarian_influence }
+        AND = {
+            check_variable = { CZE_christian_democrat_influence = CZE_agrarian_influence }
+            check_variable = { CZE.party_popularity@jacobin > CZE.party_popularity@democratic }
+        }
+    }
+    OR = {
+        check_variable = { CZE_christian_democrat_influence > CZE_national_democrat_influence }
+        AND = {
+            check_variable = { CZE_christian_democrat_influence = CZE_national_democrat_influence }
+            if = {
+                limit = { has_country_flag = national_democrats_are_rightauth }
+                check_variable = { CZE.party_popularity@jacobin > CZE.party_popularity@nationalism }
+            }
+            else = {
+                check_variable = { CZE.party_popularity@jacobin > CZE.party_popularity@democratic }
+            }
+        }
+    }
+    OR = {
+        check_variable = { CZE_christian_democrat_influence > CZE_national_socialist_influence }
+        AND = {
+            check_variable = { CZE_christian_democrat_influence = CZE_national_socialist_influence }
+            check_variable = { CZE.party_popularity@jacobin > CZE.party_popularity@social_liberalism }
+        }
+    }
+    OR = {
+        check_variable = { CZE_christian_democrat_influence > CZE_social_democrat_influence }
+        AND = {
+            check_variable = { CZE_christian_democrat_influence = CZE_social_democrat_influence }
+            check_variable = { CZE.party_popularity@jacobin > CZE.party_popularity@social_democracy }
+        }
+    }
+    OR = {
+        check_variable = { CZE_christian_democrat_influence > CZE_traders_influence }
+        AND = {
+            check_variable = { CZE_christian_democrat_influence = CZE_traders_influence }
+            check_variable = { CZE.party_popularity@jacobin > CZE.party_popularity@market_liberalism }
+        }
+    }   
+}
+
+national_socialist_highest_influence = {
+    OR = {
+        check_variable = { CZE_national_socialist_influence > CZE_agrarian_influence }
+        AND = {
+            check_variable = { CZE_national_socialist_influence = CZE_agrarian_influence }
+            check_variable = { CZE.party_popularity@social_liberalism > CZE.party_popularity@democratic }
+        }
+    }
+    OR = {
+        check_variable = { CZE_national_socialist_influence > CZE_national_democrat_influence }
+        AND = {
+            check_variable = { CZE_national_socialist_influence = CZE_national_democrat_influence }
+            if = {
+                limit = { has_country_flag = national_democrats_are_rightauth }
+                check_variable = { CZE.party_popularity@social_liberalism > CZE.party_popularity@nationalism }
+            }
+            else = {
+                check_variable = { CZE.party_popularity@social_liberalism > CZE.party_popularity@democratic }
+            }
+        }
+    }
+    OR = {
+        check_variable = { CZE_national_socialist_influence > CZE_christian_democrat_influence }
+        AND = {
+            check_variable = { CZE_national_socialist_influence = CZE_christian_democrat_influence }
+            check_variable = { CZE.party_popularity@social_liberalism > CZE.party_popularity@jacobin }
+        }
+    }
+    OR = {
+        check_variable = { CZE_national_socialist_influence > CZE_social_democrat_influence }
+        AND = {
+            check_variable = { CZE_national_socialist_influence = CZE_social_democrat_influence }
+            check_variable = { CZE.party_popularity@social_liberalism > CZE.party_popularity@social_democracy }
+        }
+    }
+    OR = {
+        check_variable = { CZE_national_socialist_influence > CZE_traders_influence }
+        AND = {
+            check_variable = { CZE_national_socialist_influence = CZE_traders_influence }
+            check_variable = { CZE.party_popularity@social_liberalism > CZE.party_popularity@market_liberalism }
+        }
+    } 
+}
+
+social_democrats_highest_influence = {
+    OR = {
+        check_variable = { CZE_social_democrat_influence > CZE_agrarian_influence }
+        AND = {
+            check_variable = { CZE_social_democrat_influence = CZE_agrarian_influence }
+            check_variable = { CZE.party_popularity@social_democracy > CZE.party_popularity@democratic }
+        }
+    }
+    OR = {
+        check_variable = { CZE_social_democrat_influence > CZE_national_democrat_influence }
+        AND = {
+            check_variable = { CZE_social_democrat_influence = CZE_national_democrat_influence }
+            if = {
+                limit = { has_country_flag = national_democrats_are_rightauth }
+                check_variable = { CZE.party_popularity@social_democracy > CZE.party_popularity@nationalism }
+            }
+            else = {
+                check_variable = { CZE.party_popularity@social_democracy > CZE.party_popularity@democratic }
+            }
+        }
+    }
+    OR = {
+        check_variable = { CZE_social_democrat_influence > CZE_christian_democrat_influence }
+        AND = {
+            check_variable = { CZE_social_democrat_influence = CZE_christian_democrat_influence }
+            check_variable = { CZE.party_popularity@social_democracy > CZE.party_popularity@jacobin }
+        }
+    }
+    OR = {
+        check_variable = { CZE_social_democrat_influence > CZE_national_socialist_influence }
+        AND = {
+            check_variable = { CZE_social_democrat_influence = CZE_national_socialist_influence }
+            check_variable = { CZE.party_popularity@social_democracy > CZE.party_popularity@social_liberalism }
+        }
+    }
+    OR = {
+        check_variable = { CZE_social_democrat_influence > CZE_traders_influence }
+        AND = {
+            check_variable = { CZE_social_democrat_influence = CZE_traders_influence }
+            check_variable = { CZE.party_popularity@social_democracy > CZE.party_popularity@market_liberalism }
+        }
+    } 
+}
+
+traders_highest_influence = {
+    OR = {
+        check_variable = { CZE_traders_influence > CZE_agrarian_influence }
+        AND = {
+            check_variable = { CZE_traders_influence = CZE_agrarian_influence }
+            check_variable = { CZE.party_popularity@market_liberalism > CZE.party_popularity@democratic }
+        }
+    }
+    OR = {
+        check_variable = { CZE_traders_influence > CZE_national_democrat_influence }
+        AND = {
+            check_variable = { CZE_traders_influence = CZE_national_democrat_influence }
+            if = {
+                limit = { has_country_flag = national_democrats_are_rightauth }
+                check_variable = { CZE.party_popularity@market_liberalism > CZE.party_popularity@nationalism }
+            }
+            else = {
+                check_variable = { CZE.party_popularity@market_liberalism > CZE.party_popularity@democratic }
+            }
+        }
+    }
+    OR = {
+        check_variable = { CZE_traders_influence > CZE_christian_democrat_influence }
+        AND = {
+            check_variable = { CZE_traders_influence = CZE_christian_democrat_influence }
+            check_variable = { CZE.party_popularity@market_liberalism > CZE.party_popularity@jacobin }
+        }
+    }
+    OR = {
+        check_variable = { CZE_traders_influence > CZE_national_socialist_influence }
+        AND = {
+            check_variable = { CZE_traders_influence = CZE_national_socialist_influence }
+            check_variable = { CZE.party_popularity@market_liberalism > CZE.party_popularity@social_liberalism }
+        }
+    }
+    OR = {
+        check_variable = { CZE_traders_influence > CZE_social_democrat_influence }
+        AND = {
+            check_variable = { CZE_traders_influence = CZE_social_democrat_influence }
+            check_variable = { CZE.party_popularity@market_liberalism > CZE.party_popularity@social_democracy }
+        }
+    } 
+}

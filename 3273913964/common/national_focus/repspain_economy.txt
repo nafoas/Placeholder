@@ -1,0 +1,585 @@
+   
+   shared_focus = {
+		id = SPR_depression
+		icon = GFX_goal_generic_consumer_goods
+		cost = 10
+		x = 12
+		y = 0
+		offset = {
+			x = 6
+			y = 0
+			trigger = {
+				OR = {
+					has_focus_tree = spain_cw_tree
+					has_focus_tree = spain_revolution_tree
+				}
+			}
+		}
+		offset = {
+			x = 2
+			y = 0
+			trigger = {
+				OR = {
+					has_focus_tree = spain_recovery_tree_left
+				}
+			}
+		}
+		available = {
+			has_country_flag = SPR_1933_elections_occurred
+			OR = {
+				scw_in_progress = no
+				scr_in_progress = no
+			}
+		}
+		bypass = { 
+		    NOT = { 
+			    OR = {
+				    has_idea = SPR_backwards_economy 
+					has_idea = SPR_backwards_economy0
+				}
+			}
+		}		
+		completion_reward = {
+			swap_ideas = { remove_idea = SPR_backwards_economy add_idea = SPR_backwards_economy2 } 
+		}
+	}
+	shared_focus = {
+		id = SPR_mines
+		icon = GFX_focus_Excavations
+		cost = 8
+		prerequisite = {
+			focus = SPR_depression
+		}
+		available = {
+			OR = {
+				scw_in_progress = no
+				scr_in_progress = no
+			}
+			NOT = {
+				OR = {
+					has_idea = postwar4
+					has_idea = postwar_both
+					has_idea = postwar_aid
+					has_idea = postwar_infra
+					has_idea = postwar3
+					has_idea = postwar2
+					has_idea = postwar1
+				}
+			}
+		}
+		
+		completion_reward = {
+			add_resource = {
+				type = tungsten
+				amount = 25
+				state = 171
+			}
+			add_resource = {
+				type = tungsten
+				amount = 5
+				state = 174
+			}
+			add_resource = {
+				type = steel
+				amount = 10
+				state = 826
+			}
+		}
+		x = -2
+		y = 1
+		relative_position_id = SPR_depression
+	}
+	shared_focus = {
+		id = SPR_pef
+		icon = GFX_focus_Trains
+		cost = 8
+		prerequisite = {
+			focus = SPR_depression
+		}
+		available = {
+			OR = {
+				scw_in_progress = no
+				scr_in_progress = no
+			}
+			NOT = {
+				OR = {
+					has_idea = postwar4
+					has_idea = postwar_both
+					has_idea = postwar_aid
+					has_idea = postwar_infra
+					has_idea = postwar3
+					has_idea = postwar2
+					has_idea = postwar1
+				}
+			}
+		}
+		
+		completion_reward = {
+			#TODO: add railways. Plan de Enalce ferroviarios
+			#This is already done (or should be) with a decision and event. Remove the focus
+		}
+		relative_position_id = SPR_depression
+		x = 0
+		y = 1
+
+	}
+	shared_focus = {
+		id = SPR_employment
+		icon = GFX_focus_Trade_Union_Focus
+		cost = 6
+		available = {
+			OR = {
+				scw_in_progress = no
+				scr_in_progress = no
+			}
+		}
+		bypass = {
+			NOT = { has_idea = SPR_backwards_economy2 }
+		}
+		prerequisite = {
+			focus = SPR_mines
+		}
+		prerequisite = {
+			focus = SPR_pef
+		}
+		
+		completion_reward = {
+		swap_ideas = { remove_idea = SPR_backwards_economy2 add_idea = SPR_backwards_economy3 }
+		}		
+		x = -1
+		y = 2
+		relative_position_id = SPR_depression
+
+	}
+	shared_focus = {
+		id = SPR_links
+		icon = GFX_focus_Freedom_of_the_Seas
+		cost = 8
+		available = {
+			OR = {
+				scw_in_progress = no
+				scr_in_progress = no
+			}
+			NOT = {
+				OR = {
+					has_idea = postwar4
+					has_idea = postwar_both
+					has_idea = postwar_aid
+					has_idea = postwar_infra
+					has_idea = postwar3
+					has_idea = postwar2
+					has_idea = postwar1
+				}
+			}
+		}
+		prerequisite = {
+			focus = SPR_depression
+		}
+				
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					is_coastal = yes
+					free_building_slots = {
+						building = dockyard
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 2
+		y = 1
+		relative_position_id = SPR_depression
+	}
+	shared_focus = {
+		id = SPR_connecting
+		icon = GFX_goal_generic_construct_civilian
+		cost = 6
+		available = {
+			OR = {
+				scw_in_progress = no
+				scr_in_progress = no
+			}
+			NOT = {
+				OR = {
+					has_idea = postwar4
+					has_idea = postwar_both
+					has_idea = postwar_aid
+					has_idea = postwar_infra
+					has_idea = postwar3
+					has_idea = postwar2
+					has_idea = postwar1
+				}
+			}
+		}
+		prerequisite = {
+			focus = SPR_pef
+		}
+		prerequisite = {
+			focus = SPR_links
+		}
+		
+		completion_reward = {
+			#TODO: add railways
+		}
+		x = 1
+		y = 2
+		relative_position_id = SPR_depression
+	}
+	shared_focus = {
+		id = SPR_urbanisation
+		icon = GFX_goal_generic_construction
+		cost = 10
+		available = {
+			OR = {
+				scw_in_progress = no
+				scr_in_progress = no
+			}
+			NOT = {
+				OR = {
+					has_idea = postwar4
+					has_idea = postwar_both
+					has_idea = postwar_aid
+					has_idea = postwar_infra
+					has_idea = postwar3
+					has_idea = postwar2
+					has_idea = postwar1
+				}
+			}
+		}
+		prerequisite = {
+			focus = SPR_employment
+		}
+		prerequisite = {
+			focus = SPR_connecting
+		}
+		available = {
+			controls_state = 41
+			controls_state = 165
+		}
+		
+		completion_reward = {
+			41 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+					
+			}
+			165 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 0
+		y = 3
+		relative_position_id = SPR_depression
+	}
+	shared_focus = {
+		id = SPR_catalan
+		icon = GFX_focus_Befriend_Catalonia
+		cost = 5
+		available = {
+			OR = {
+				scw_in_progress = no
+				scr_in_progress = no
+			}
+			NOT = {
+				OR = {
+					has_idea = postwar4
+					has_idea = postwar_both
+					has_idea = postwar_aid
+					has_idea = postwar_infra
+					has_idea = postwar3
+					has_idea = postwar2
+					has_idea = postwar1
+				}
+			}
+		}
+		prerequisite = {
+			focus = SPR_urbanisation
+		}
+		x = -1
+		y = 4
+		relative_position_id = SPR_depression
+		available = {
+			controls_state = 165
+		}
+		
+		completion_reward = {
+			165 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SPR_basque
+		icon = GFX_focus_Befriend_Basque
+		cost = 5
+		available = {
+			OR = {
+				scw_in_progress = no
+				scr_in_progress = no
+			}
+			NOT = {
+				OR = {
+					has_idea = postwar4
+					has_idea = postwar_both
+					has_idea = postwar_aid
+					has_idea = postwar_infra
+					has_idea = postwar3
+					has_idea = postwar2
+					has_idea = postwar1
+				}
+			}
+		}
+		prerequisite = {
+			focus = SPR_urbanisation
+		}
+		x = 1
+		y = 4
+		relative_position_id = SPR_depression
+		available = {
+			controls_state = 752
+		}
+		
+		completion_reward = {
+			752 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SPR_revitalize
+		icon = GFX_goal_generic_consumer_goods
+		cost = 10
+		prerequisite = {
+			focus = SPR_catalan
+		}
+		prerequisite = {
+			focus = SPR_basque
+		}
+		
+		available = {
+			has_country_flag = civil_war_avoided
+		}
+		completion_reward = {
+			remove_ideas = SPR_backwards_economy3
+		}
+		x = 0
+		y = 5
+		relative_position_id = SPR_depression
+	}
+	shared_focus = {
+		id = SPR_investors
+		icon = GFX_goal_generic_positive_trade_relations
+		cost = 10
+		prerequisite = {
+			focus = SPR_revitalize
+			focus = SPR_recovery
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		x = 4
+		y = 6
+		relative_position_id = SPR_depression
+	}
+	shared_focus = {
+		id = SPR_prospect
+		icon = GFX_focus_Excavations
+		cost = 10
+		prerequisite = {
+			focus = SPR_revitalize
+			focus = SPR_recovery
+		}
+		completion_reward = {
+			add_ideas = SPR_mining
+		}
+		x = 0
+		y = 6
+		relative_position_id = SPR_depression
+	}
+
+	shared_focus = {
+		id = SPR_ahv
+		icon = GFX_goal_generic_construct_civ_factory
+		cost = 10
+		prerequisite = {
+			focus = SPR_revitalize
+			focus = SPR_recovery
+		}
+		available = { controls_state = 752 }
+		
+		completion_reward = {
+			add_resource = {
+				type = steel
+				amount = 25
+				state = 752
+			}
+			752 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 2
+		y = 6
+		relative_position_id = SPR_depression
+	}
+	shared_focus = {
+		id = SPR_enrichment
+		icon = GFX_goal_support_democracy
+		cost = 10
+		prerequisite = {
+			focus = SPR_ahv
+		}
+		prerequisite = {
+			focus = SPR_investors
+		}
+		completion_reward = { 
+			add_ideas = SPR_internal_market
+		}
+		x = 3
+	 	y = 7
+		relative_position_id = SPR_depression
+	}
+	shared_focus = {
+		id = SPR_universities
+		icon = GFX_focus_research
+		cost = 10
+		prerequisite = {
+			focus = SPR_enrichment
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+		x = 2
+		y = 8
+		relative_position_id = SPR_depression
+	}
+	shared_focus = {
+		id = SPR_mobilization
+		icon = GFX_goal_generic_propaganda
+		cost = 10
+		prerequisite = {
+			focus = SPR_enrichment
+		}
+		available = {
+			has_war = yes
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_ideas = war_economy
+			
+		}
+		x = 4
+		y = 8
+		relative_position_id = SPR_depression
+	}
+	shared_focus = {
+		id = SPR_boom
+		icon = GFX_focus_generic_the_giant_wakes
+		cost = 10
+		prerequisite = {
+			focus = SPR_universities
+		}
+		prerequisite = {
+			focus = SPR_mobilization
+		}
+		available = {
+			NOT = {
+				has_war = yes
+			}
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPR_internal_market add_idea = SPR_eco_boom }
+		}
+		x = 3
+		y = 9
+		relative_position_id = SPR_depression
+	}

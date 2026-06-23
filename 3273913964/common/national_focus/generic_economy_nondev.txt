@@ -1,0 +1,929 @@
+
+shared_focus = {
+	id = GEN_path_modern_eco
+	icon = GFX_goal_generic_construction2
+	cost = 10
+	completion_reward = {
+	    add_political_power = 50
+	}
+	ai_will_do = {
+		factor = 10
+	}
+	offset = {
+		trigger = {
+			has_focus_tree = GEN_leftist_asia
+		}
+		x = -2
+	}
+	offset = {
+	    x = -3
+		y = 0
+	    trigger = {
+            OR = {		
+		        has_focus_tree = GEN_british_colony
+				has_focus_tree = GEN_right_col
+				has_focus_tree = GEN_dem_col
+				has_focus_tree = GEN_dem_col_uk
+				has_focus_tree = GEN_right_america
+				has_focus_tree = GEN_right_asia
+			}
+		}
+	}
+	x = 32
+    y = 0
+}
+
+shared_focus = {
+	id = GEN_raise_taxes
+	icon = GFX_focus_Fundraising
+	cost = 10
+	prerequisite = {
+	    focus = GEN_new_census
+	}
+	completion_reward = {
+	    add_timed_idea = {
+            idea = idea_raised_taxes
+            days = 365
+        }
+	}
+	x = -2
+    y = 2
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_new_census
+	icon = GFX_focus_Foreign_Diplomacy
+	cost = 10
+	prerequisite = {
+	    focus = GEN_path_modern_eco
+	}
+	completion_reward = {
+	    add_political_power = 50
+	}
+	x = -2
+    y = 1
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_enforce_public_order
+	icon = GFX_focus_Crush_Resistance
+	cost = 10
+	prerequisite = {
+	    focus = GEN_raise_taxes
+	}
+	completion_reward = {
+	    add_stability = 0.05
+	}
+	x = -2
+    y = 3
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_kickstart_industry
+	icon = GFX_focus_Industrialization
+	cost = 10
+	prerequisite = {
+	    focus = GEN_enforce_public_order
+	}
+	prerequisite = {
+	    focus = GEN_new_railways
+	}
+	bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = industrial_complex
+						size < 1
+						include_locked = yes
+					}					
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = -1
+    y = 4
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_administrative_reform_undev
+	icon = GFX_focus_Generic_Bills
+	cost = 10
+	prerequisite = {
+	    focus = GEN_path_modern_eco
+	}
+	completion_reward = {
+	    add_political_power = 100
+	}
+	x = 2
+    y = 1
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_railroad_project
+	icon = GFX_goal_generic_construct_infrastructure
+	cost = 10
+	prerequisite = {
+	    focus = GEN_administrative_reform_undev
+	}
+	completion_reward = {
+	    add_timed_idea = {
+            idea = GEN_railway_project_idea
+            days = 365
+        }
+	    add_political_power = 25
+	}
+	x = 0
+    y = 2
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_new_railways
+	icon = GFX_focus_Trains
+	cost = 10
+	prerequisite = {
+	    focus = GEN_railroad_project
+	}
+	bypass = {
+			custom_trigger_tooltip = {
+				tooltip = infrastructure_effort_tt
+				all_owned_state = {			
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			#TODO: add railways or just remove the focus. Add railway construction speed instead?
+		}
+	x = 0
+    y = 3
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_promote_settlement
+	icon = GFX_focus_Agriculture
+	cost = 10
+	prerequisite = {
+	    focus = GEN_administrative_reform_undev
+	}
+	completion_reward = {
+	    random_owned_controlled_state = {
+			limit = {
+				is_in_home_area = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	x = 3
+    y = 2
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_prevent_famine
+	icon = GFX_focus_Bread_Trade
+	cost = 10
+	prerequisite = {
+	    focus = GEN_promote_settlement
+	}
+	completion_reward = {
+	    add_stability = 0.05
+	}
+	x = 2
+    y = 3
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_ensure_access_water
+	icon = GFX_focus_Agriculture_2
+	cost = 10
+	prerequisite = {
+	    focus = GEN_promote_settlement
+	}
+	completion_reward = {
+	    random_owned_controlled_state = {
+			limit = {
+				is_in_home_area = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	x = 4
+    y = 3
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_electrification_rural_areas
+	icon = GFX_focus_Electrification
+	cost = 10
+	prerequisite = {
+	    focus = GEN_ensure_access_water
+	}
+	prerequisite = {
+	    focus = GEN_prevent_famine
+	}
+
+	completion_reward = {
+		add_political_power = 25
+		add_stability = 0.05
+	}
+	x = 3
+    y = 4
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_a_new_economy
+	icon = GFX_focus_Mechanization
+	cost = 10
+	available = {
+	    num_of_factories > 7
+	}
+	prerequisite = {
+	    focus = GEN_kickstart_industry
+	}
+	prerequisite = {
+	    focus = GEN_electrification_rural_areas
+	}
+	completion_reward = {
+	    add_political_power = 70
+	}
+	x = 1
+    y = 5
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = { #Remove
+	id = GEN_finish_road_paving
+	icon = GFX_focus_Highways
+	cost = 10
+	prerequisite = {
+	    focus = GEN_a_new_economy
+	}
+	bypass = {
+		custom_trigger_tooltip = {
+			tooltip = infrastructure_effort_tt
+			all_owned_state = {			
+				free_building_slots = {
+					building = infrastructure
+					size < 1
+				}
+			}
+		}
+	}
+
+	completion_reward = {
+	}
+	x = 3
+    y = 6
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_promote_urbanisation
+	icon = GFX_focus_strengthen_small_production
+	cost = 10
+	prerequisite = {
+	    focus = GEN_finish_road_paving
+	}
+	completion_reward = {
+	    random_owned_controlled_state = {
+			limit = {
+				is_in_home_area = yes
+				is_capital = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	x = 2
+    y = 7
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_reform_arms_sector
+	icon = GFX_focus_Firearms
+	cost = 10
+	prerequisite = {
+	    focus = GEN_finish_road_paving
+	}
+	bypass = {
+			custom_trigger_tooltip = {
+				tooltip = production_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = arms_factory
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = 4
+    y = 7
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_found_industrial_companies
+	icon = GFX_goal_generic_construct_civ_factory
+	cost = 10
+	prerequisite = {
+	    focus = GEN_reform_arms_sector
+	}
+	prerequisite = {
+	    focus = GEN_promote_urbanisation
+	}
+	bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = industrial_complex
+						size < 1
+						include_locked = yes
+					}					
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = 3
+    y = 8
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_welcome_foreign_experts
+	icon = GFX_focus_Economic_Stimulus
+	cost = 10
+	prerequisite = {
+	    focus = GEN_a_new_economy
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = industrial_bonus
+			bonus = 1.0
+			uses = 1
+			category = industry
+		}
+	}
+	x = 1
+    y = 6
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_lower_tariffs
+	icon = GFX_focus_Free_Trade
+	cost = 10
+	prerequisite = {
+	    focus = GEN_welcome_foreign_experts
+	}
+	completion_reward = {
+	    add_ideas = free_trade
+	}
+	x = 1
+    y = 8
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_agricultural_reforms
+	icon = GFX_focus_Agrarian_Reform
+	cost = 10
+	prerequisite = {
+	    focus = GEN_a_new_economy
+	}
+	completion_reward = {
+	    random_owned_controlled_state = {
+			limit = {
+				is_in_home_area = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	x = -1
+    y = 6
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_introduce_new_tractors
+	icon = GFX_focus_Tractors
+	cost = 10
+	prerequisite = {
+	    focus = GEN_agricultural_reforms
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.0
+				uses = 1
+				category = industry
+			}
+	}
+	x = -2
+    y = 7
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_improve_communication
+	icon = GFX_focus_Radio
+	cost = 10
+	prerequisite = {
+	    focus = GEN_agricultural_reforms
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.0
+				uses = 1
+				category = radar_tech
+			}
+	}
+	x = 0
+    y = 7
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_rural_schools
+	icon = GFX_focus_research2
+	cost = 10
+	available = {
+		num_of_factories > 10
+	}
+	prerequisite = {
+	    focus = GEN_introduce_new_tractors
+	}
+	prerequisite = {
+	    focus = GEN_improve_communication
+	}
+	completion_reward = {
+		if = {
+		    limit = {
+			    has_idea = illiterate_population
+			}
+			swap_ideas = { remove_idea = illiterate_population add_idea = illiterate_population2 }
+		}
+	}
+	x = -1
+    y = 8
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_industrial_investment_program
+	icon = GFX_focus_Money_Bags
+	cost = 10
+	available = {
+	    num_of_factories > 15
+	}
+	prerequisite = {
+	    focus = GEN_lower_tariffs
+	}
+	prerequisite = {
+	    focus = GEN_found_industrial_companies
+	}
+	prerequisite = {
+	    focus = GEN_rural_schools
+	}
+	bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = industrial_complex
+						size < 1
+						include_locked = yes
+					}					
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+		    if = {
+		        limit = {
+			        has_idea = underdeveloped_industry
+			    }
+			    remove_ideas = underdeveloped_industry
+		    }
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = 1
+    y = 9
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_public_university_reform
+	icon = GFX_focus_Brainpower
+	cost = 10
+	prerequisite = {
+	    focus = GEN_industrial_investment_program
+	}
+	available = {
+	    num_of_factories > 25
+	}
+	completion_reward = {
+	    if = {
+		        limit = {
+			        has_idea = illiterate_population2
+			    }
+			    remove_ideas = illiterate_population2
+		    }
+	    add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.0
+				uses = 1
+				category = construction_tech
+			}
+		add_research_slot = 1
+	}
+	x = -2
+    y = 10
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_expand_ports
+	icon = GFX_goal_generic_construct_naval_dockyard
+	cost = 10
+	prerequisite = {
+	    focus = GEN_industrial_investment_program
+	}
+	available = {
+		any_state = {
+			is_coastal = yes
+		    is_controlled_by = ROOT
+	    }
+	}
+	complete_tooltip = {
+			add_extra_state_shared_building_slots = 32
+			add_building_construction = {
+				type = dockyard
+				level = 2
+				instant_build = yes
+			}
+		}
+		
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							dockyard > 0
+							free_building_slots = {
+								building = dockyard
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+					any_owned_state = {
+						is_coastal = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_coastal = yes
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_owned_state = {
+						dockyard > 0
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						dockyard > 0
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = dockyard
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_state = {
+					limit = {
+						controller = { tag = ROOT }
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}			
+		}
+	x = 0
+    y = 10
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_ambitious_military_program
+	icon = GFX_goal_generic_construct_mil_factory
+	cost = 10
+	prerequisite = {
+	    focus = GEN_industrial_investment_program
+	}
+	bypass = {
+			custom_trigger_tooltip = {
+				tooltip = production_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = arms_factory
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	x = 4
+    y = 10
+	relative_position_id = GEN_path_modern_eco
+}
+
+shared_focus = {
+	id = GEN_exploit_natural_wealth
+	icon = GFX_focus_Excavations
+	cost = 10
+	prerequisite = {
+	    focus = GEN_industrial_investment_program
+	}
+
+	completion_reward = {
+		add_ideas = GEN_exploit_resources
+		random_owned_controlled_state = {
+			limit = {
+				is_in_home_area = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	x = 2
+    y = 10
+	relative_position_id = GEN_path_modern_eco
+}

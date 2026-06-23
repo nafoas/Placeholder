@@ -1,0 +1,300 @@
+	#Not run on a specific country.
+on_actions = {
+	on_startup = {
+		effect = {
+			JAP = {
+				add_equipment_to_stockpile = {
+					type = motorized_equipment_1
+					producer = JAP
+					amount = 30
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_1
+					producer = JAP
+					amount = 3000
+				}
+				#country_lock_all_division_template = yes
+				###Temporarily unlocked to see how they pump divisions
+				country_event = { id = jap_internal.1 }
+				country_event = {
+					id = jap_external.1
+					days = 5
+				}
+				country_event = {
+					id = jap_navy.2
+					days = 8
+				}
+				country_event = {
+					id = jap_internal.2
+					days = 35
+				}
+				country_event = {
+					id = jap_internal.3
+					days = 62
+				}
+				country_event = {
+					id = jap_factionalism.2
+					days = 168
+				}
+				country_event = {
+					id = jap_internal.4
+					days = 192
+				}
+				country_event = {
+					id = jap_internal.5
+					days = 257
+				}
+				country_event = {
+					id = jap_internal.6
+					days = 357
+				}
+				country_event = {
+					id = jap_army.3
+					days = 388
+				}
+				country_event = {
+					id = jap_navy.3
+					days = 436
+				}
+				country_event = {
+					id = jap_internal.7
+					days = 473
+				}
+				country_event = {
+					id = jap_internal.8
+					days = 515
+				}
+				country_event = {
+					id = jap_army.2
+					days = 689
+				}
+				country_event = {
+					id = jap_internal.10
+					days = 696
+				}
+				country_event = {
+					id = jap_internal.11
+					days = 827
+				}
+				country_event = {
+					id = jap_army.4
+					days = 954
+				}
+				country_event = {
+					id = jap_internal.13
+					days = 1087
+				}
+				country_event = {
+					id = jap_internal.14
+					days = 1146
+				}
+				country_event = {
+					id = JAP_north_china.1
+					days = 858
+				}
+				country_event = {
+					id = JAP_north_china.26
+					days = 1014
+				}
+				# country_event = {
+				# 	id = JAP_north_china.27
+				# 	days = 1024
+				# }
+				country_event = { #Terrorist Incident at Aigusha
+					id = JAP_north_china.5
+					days = 851
+				}
+				country_event = { #Zhangbei Incident
+					id = JAP_north_china.13
+					days = 907
+				}
+				country_event = {
+					id = jap_army.100
+					days = 1151
+				}
+				country_event = {
+					id = jap_external.3
+					days = 84
+				}
+				country_event = {
+					id = jap_external.5
+					days = 1227
+				}
+				country_event = {
+					id = jap_external.6
+					days = 1648
+				}
+				country_event = {
+					id = jap_external.7
+					days = 3263
+				}
+				set_variable = { JAP_Konoe_Points = 0 }
+				set_variable = { JAP_Hirota_Points = 0 }
+				set_variable = { JAP_Hiranuma_Points = 0 }
+				set_variable = { JAP_Toseiha_Points = 50 }
+				set_variable = { JAP_Kodoha_Points = 50 }
+				set_variable = { JAP_Fleet_Points = 65 }					
+				set_variable = { JAP_Treaty_Points = 35 }
+				set_variable = { JAP_KOR_Literacy = 8 }
+				set_variable = { JAP_KOR_Consciousness = 4.5 }
+				set_variable = { JAP_KOR_Militancy = 2 }
+				set_variable = { JAP_Debt = 60 }
+				set_country_flag = JAP_National_Unity_Government
+				set_country_flag = JAP_KOR_ugaki_kazushige
+			}
+			MAN = {
+				country_event = {
+					id = jap_army.5
+					days = 577
+					random_days = 7
+				}
+			}
+		}
+	}
+
+	on_capitulation = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = {
+						tag = NEA
+					}
+					FROM = {
+						OR = {
+							tag = JAP
+							tag = MON
+						}
+					}
+					JAP = { has_country_flag = JAP_operation_nekka }
+				}
+				JAP = {
+					clr_country_flag = JAP_operation_nekka
+					country_event = {
+						id = jap_external.2
+					}
+				}
+			}
+			
+		}
+	}
+	
+
+	on_state_control_changed = {
+		effect = {
+			if = {
+				limit = {
+					JAP = { has_country_flag = JAP_operation_nekka }
+
+					OR = {
+						AND = {
+							FROM.FROM = { state = 887 }
+							610 = { is_controlled_by = ROOT }
+						}
+						AND = {
+							FROM.FROM = { state = 610 }
+							887 = { is_controlled_by = ROOT }
+						}
+						FROM.FROM = { state = 609 }
+						FROM.FROM = { state = 608 }
+					}
+
+					OR = {
+						ROOT = { tag = JAP }
+						ROOT = { tag = MAN }
+					}
+				}
+
+				JAP = {
+					clr_country_flag = JAP_operation_nekka
+					country_event = {
+						id = jap_external.2
+						hours = 12
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							FROM.FROM = { state = 621 }
+							1131 = { is_controlled_by = ROOT }
+						}
+						AND = {
+							FROM.FROM = { state = 1131 }
+							621 = { is_controlled_by = ROOT }
+						}
+					}
+					OR = {
+						FROM = { tag = CHI }
+						FROM = { tag = SHX }
+					}
+					OR = {
+						ROOT = { tag = JAP }
+						ROOT = { tag = MAN }
+						ROOT = { tag = MEN }
+					}
+					country_exists = MEN
+				}
+				JAP = {
+					country_event = {
+						id = mengjiang.4
+						days = 13
+					}
+				}
+			}
+			if = {
+				limit = {
+					FROM.FROM = { state = 939 }
+					FROM = {
+						OR = {
+							tag = HEB
+							tag = CHI
+							is_chinese_warlord = yes
+						}
+					}
+					ROOT = {
+						OR = {
+							tag = JAP
+							tag = MAN 
+							tag = MEN
+							is_subject_of = JAP
+						}
+					}
+				}
+				JAP = {
+					country_event = {
+						id = mengjiang.2
+						days = 8
+					}
+				}
+			}
+			if = {
+				limit = {
+					FROM.FROM = { state = 1095 }
+					FROM = {
+						OR = {
+							tag = HEB
+							tag = CHI
+							is_chinese_warlord = yes
+						}
+					}
+					ROOT = {
+						OR = {
+							tag = JAP
+							tag = MAN 
+							tag = MEN
+							is_subject_of = JAP
+						}
+					}
+				}
+				JAP = {
+					country_event = {
+						id = mengjiang.3
+						days = 5
+					}
+				}
+			}
+		}
+	}
+}

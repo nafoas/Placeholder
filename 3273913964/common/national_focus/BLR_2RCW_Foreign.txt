@@ -1,0 +1,302 @@
+#9 focuses here
+#s_team337
+shared_focus = {
+	id = BLR_2RCW_Foreign_Start
+	icon = GFX_focus_Foreign_Diplomacy
+	#prerequisite = { focus = BLR_2RCW_Foreign_Start }
+	x = 17
+	y = 0
+	#relative_position_id = BLR_2RCW_Foreign_Start
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = 40
+		#add foreign minister
+	}
+}
+shared_focus = {
+	id = BLR_2RCW_Poland
+	icon = GFX_focus_Poland_Belarus
+	prerequisite = {
+		focus = BLR_2RCW_Foreign_Start
+	}
+	mutually_exclusive = {
+		focus = BLR_2RCW_Russia
+	}
+	x = -1
+	y = 1
+	relative_position_id = BLR_2RCW_Foreign_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		is_in_faction_with = POL
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		set_variable = {
+			BLR_add_influence_value = 5
+		}
+		BLR_add_influence_bulakovich = yes
+		custom_effect_tooltip = BLR_bulak_gain_5
+	}
+}
+shared_focus = {
+	id = BLR_2RCW_Polish_Food
+	icon = GFX_focus_Agriculture
+	prerequisite = {
+		focus = BLR_2RCW_Poland
+	}
+	x = -1
+	y = 2
+	relative_position_id = BLR_2RCW_Foreign_Start
+	cost = 3.15
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		is_in_faction_with = POL
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_ideas = BLR_food_imports
+	}
+}
+shared_focus = {
+	id = BLR_2RCW_Polish_Industry
+	icon = GFX_goal_Public_Works
+	prerequisite = {
+		focus = BLR_2RCW_Polish_Food
+	}
+	x = -1
+	y = 4
+	relative_position_id = BLR_2RCW_Foreign_Start
+	cost = 4
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		is_in_faction_with = POL
+		controls_state = 206
+		any_state = {
+			is_core_of = BLR
+			is_controlled_by = BLR
+			NOT = {
+				state = 206
+			}
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		POL = {
+			country_event = {
+				id = blr_external.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = BLR_2RCW_Russia
+	icon = GFX_focus_Befriend_Russia
+	prerequisite = {
+		focus = BLR_2RCW_Foreign_Start
+	}
+	mutually_exclusive = {
+		focus = BLR_2RCW_Poland
+	}
+	x = 1
+	y = 1
+	relative_position_id = BLR_2RCW_Foreign_Start
+	cost = 1.43
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		is_in_faction_with = RUS
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		set_variable = {
+			BLR_add_influence_value = 5
+		}
+		BLR_add_influence_autonomist = yes
+		custom_effect_tooltip = BLR_aut_gain_5
+		set_variable = {
+			BLR_add_influence_value = 5
+		}
+		BLR_add_influence_triunionist = yes
+		custom_effect_tooltip = BLR_tri_gain_5
+	}
+}
+shared_focus = {
+	id = BLR_2RCW_Learn_from_Vlasov
+	icon = GFX_focus_White_Terror
+	prerequisite = {
+		focus = BLR_2RCW_Russia
+	}
+	x = 1
+	y = 2
+	relative_position_id = BLR_2RCW_Foreign_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		is_in_faction_with = RUS
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		army_experience = 30
+	}
+}
+shared_focus = {
+	id = BLR_2RCW_Language
+	icon = GFX_focus_Russian_Language_Question
+	prerequisite = {
+		focus = BLR_2RCW_Learn_from_Vlasov
+	}
+	x = 1
+	y = 4
+	relative_position_id = BLR_2RCW_Foreign_Start
+	cost = 1
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		is_in_faction_with = RUS
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		RUS = {
+			add_opinion_modifier = {
+				target = BLR
+				modifier = UKR_recognized_russian_language
+			}
+		}
+	}
+}
+shared_focus = {
+	id = BLR_2RCW_Alphabet
+	icon = GFX_focus_Freedom_of_Speech
+	prerequisite = {
+		focus = BLR_2RCW_Poland
+		focus = BLR_2RCW_Russia
+	}
+	x = 0
+	y = 3
+	relative_position_id = BLR_2RCW_Foreign_Start
+	dynamic = yes
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			is_in_faction_with = POL
+			is_in_faction_with = RUS
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_completed_focus = BLR_2RCW_Poland
+			}
+			add_political_power = -30
+			add_war_support = 0.03
+			POL = {
+				add_opinion_modifier = {
+					target = BLR
+					modifier = BLR_our_alphabet
+				}
+			}
+			RUS = {
+				add_opinion_modifier = {
+					target = BLR
+					modifier = BLR_wrong_alphabet
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_completed_focus = BLR_2RCW_Russia
+			}
+			add_political_power = 30
+			add_war_support = -0.03
+			RUS = {
+				add_opinion_modifier = {
+					target = BLR
+					modifier = BLR_our_alphabet
+				}
+			}
+			POL = {
+				add_opinion_modifier = {
+					target = BLR
+					modifier = BLR_wrong_alphabet
+				}
+			}
+		}
+		custom_effect_tooltip = BLR_change_alphabet
+	}
+}
+shared_focus = {
+	id = BLR_2RCW_Recognition
+	icon = GFX_focus_European_Relations
+	prerequisite = {
+		focus = BLR_2RCW_Polish_Industry
+		focus = BLR_2RCW_Language
+	}
+	prerequisite = {
+		focus = BLR_2RCW_Alphabet
+	}
+	x = 0
+	y = 5
+	relative_position_id = BLR_2RCW_Foreign_Start
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			is_in_faction_with = POL
+			is_in_faction_with = RUS
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		remove_ideas = RUS_unrecognized
+	}
+}

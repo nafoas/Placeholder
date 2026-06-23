@@ -1,0 +1,7342 @@
+﻿# Democratic German Events
+
+add_namespace = wgr_election
+add_namespace = wgr_internal
+add_namespace = wgr_parliament
+add_namespace = wgr_external
+add_namespace = wgr_flavor
+
+add_namespace = wgr_grand_coalition
+add_namespace = wgr_civil_war
+
+country_event = { #Choose new reichskanzler
+	id = wgr_grand_coalition.1
+	title = wgr_grand_coalition.1.t
+	desc = wgr_grand_coalition.1.d
+	picture = GFX_Event_Germany_Grand_Coalition
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = wgr_election.15 #hindenburg dies
+				days = 551
+			}
+		}
+	}
+	option = { # Switch to SocLib
+		name = wgr_grand_coalition.1.a
+		ai_chance = {
+			base = 6
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.03
+		}
+		set_politics = {
+			ruling_party = social_liberalism
+			elections_allowed = yes
+		}
+		add_ideas = {
+			GER_Hermann_Dietrich
+			brauer
+			GER_Ernst_Trendelenburg
+			maier
+		}
+		country_event = {
+			id = wgr_grand_coalition.2 #talk to DVP
+			days = 1
+		}
+		GER_get_coalition_seats = yes
+		hidden_effect = {
+		    news_event = { id = ger_news.12 }
+		}
+	}
+	option = { # Switch to natlib
+		name = wgr_grand_coalition.1.b
+		ai_chance = {
+			base = 40
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.03
+		}
+		set_politics = {
+			ruling_party = jacobin 
+			elections_allowed = yes
+		}
+		add_ideas = {
+			GER_Eduard_Dingeldy
+			asmis
+			emil_georg_von_strauss
+			bernstorff
+		}
+		country_event = {
+			id = wgr_grand_coalition.3 #talk to Zentrum
+			days = 1
+		}
+		GER_get_coalition_seats = yes
+		hidden_effect = {
+		    news_event = { id = ger_news.12 }
+		}
+	}
+	option = { # Switch to adenauer
+		name = wgr_grand_coalition.1.c
+		ai_chance = {
+			base = 24
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.03
+		}
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = yes
+		}
+		add_ideas = {
+			adenauer
+			GER_Adam_Stegerwald
+			andread_hermes
+			wirmer
+		}
+		country_event = {
+			id = wgr_grand_coalition.2 #talk to DVP
+			days = 1
+		}
+		GER_get_coalition_seats = yes
+		hidden_effect = {
+		    news_event = { id = ger_news.12 }
+		}
+	}
+	option = { # Switch to kaas
+		name = wgr_grand_coalition.1.e
+		ai_chance = {
+			base = 30
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.03
+		}
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = yes
+		}
+		add_ideas = {
+			kaas
+			GER_Adam_Stegerwald
+			andread_hermes
+			wirmer
+		}
+		country_event = {
+			id = wgr_grand_coalition.2 #talk to DVP
+			days = 1
+		}
+		GER_get_coalition_seats = yes
+		hidden_effect = {
+		    news_event = { id = ger_news.12 }
+		}
+	}
+}
+
+country_event = { #Negotiate with DVP
+	id = wgr_grand_coalition.2
+	title = wgr_grand_coalition.2.t
+	desc = wgr_grand_coalition.2.d
+	picture = GFX_Event_Germany_DVP
+	is_triggered_only = yes
+	option = { #Work with DVP
+		name = wgr_grand_coalition.2.a
+		ai_chance = {
+			base = 98
+			modifier = {
+				has_idea = adenauer
+				factor = 0.75
+			}
+		}
+		add_ideas = asmis
+		COALITION_add_cen = yes
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.02
+		}
+		add_political_power = 5
+		if = {
+			limit = {
+				NOT = {
+					has_government = social_liberalism
+				}
+			}
+			country_event = {
+				id = wgr_grand_coalition.3 #talk to DStP
+				days = 1
+			}
+		}
+		else = {
+			country_event = {
+				id = wgr_grand_coalition.4 #talk to Zentrum
+				days = 1
+			}
+		}
+		GER_get_coalition_seats = yes
+	}
+	option = { #refuse
+		name = wgr_grand_coalition.2.b
+		ai_chance = {
+			base = 2
+		}
+		WGR_start_civil_war = yes
+	}
+}
+country_event = { #Negotiate with DStP
+	id = wgr_grand_coalition.3
+	title = wgr_grand_coalition.3.t
+	desc = wgr_grand_coalition.3.d
+	picture = GFX_Event_Germany_DDP
+	is_triggered_only = yes
+	option = { #Work with DVP
+		name = wgr_grand_coalition.2.a
+		ai_chance = {
+			base = 98
+		}
+		if = {
+			limit = {
+				has_government = jacobin
+			}
+			add_ideas = brauer
+		}
+		else_if = {
+			limit = {
+				has_government = democratic
+			}
+			add_ideas = GER_Ernst_Trendelenburg
+		}
+		COALITION_add_soclib = yes
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+		add_political_power = 5
+		if = {
+			limit = {
+				NOT = {
+					has_government = democratic
+				}
+			}
+			country_event = {
+				id = wgr_grand_coalition.4 #talk to zentrum
+				days = 1
+			}
+		}
+		else = {
+			WGR_go_to_gc_choice = yes
+		}
+		GER_get_coalition_seats = yes
+	}
+	option = { #refuse
+		name = wgr_grand_coalition.3.b
+		ai_chance = {
+			base = 2
+		}
+		WGR_start_civil_war = yes
+	}
+}
+country_event = { #Negotiate with zentrum
+	id = wgr_grand_coalition.4
+	title = wgr_grand_coalition.4.t
+	desc = wgr_grand_coalition.4.d
+	picture = GFX_Event_Germany_Zentrum
+	is_triggered_only = yes
+	option = { #Work with DVP
+		name = wgr_grand_coalition.4.a
+		ai_chance = {
+			base = 98
+		}
+		add_ideas = andread_hermes
+		COALITION_add_con = yes
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+		add_political_power = 20
+		WGR_go_to_gc_choice = yes
+		GER_get_coalition_seats = yes
+	}
+	option = { #refuse
+		name = wgr_grand_coalition.4.b
+		ai_chance = {
+			base = 2
+		}
+		WGR_start_civil_war = yes
+	}
+}
+country_event = { #Choose spd or DNVP - zentrum only
+	id = wgr_grand_coalition.5
+	title = wgr_grand_coalition.5.t
+	desc = wgr_grand_coalition.5.d
+	picture = GFX_Event_Germany_Zentrum
+	is_triggered_only = yes
+	option = { #Work with SPD
+		name = wgr_grand_coalition.5.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				has_idea = kaas
+				factor = 0.2
+			}
+		}
+		country_event = {
+			id = wgr_grand_coalition.6 #spd
+			days = 1
+		}
+	}
+	option = { #work with DNVP
+		name = wgr_grand_coalition.5.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				has_idea = adenauer
+				factor = 0.2
+			}
+		}
+		country_event = {
+			id = wgr_grand_coalition.7 #dnvp
+			days = 1
+		}
+	}
+}
+country_event = { #SPD
+	id = wgr_grand_coalition.6
+	title = wgr_grand_coalition.6.t
+	desc = wgr_grand_coalition.6.d
+	picture = GFX_Event_Germany_SPD
+	is_triggered_only = yes
+	option = { #Work with SPD
+		name = wgr_grand_coalition.6.a
+		ai_chance = {
+			base = 98
+			modifier = {
+				has_idea = kaas
+				factor = 0.4
+			}
+			modifier = {
+				has_government = jacobin
+				factor = 0
+			}
+		}
+		COALITION_add_demsoc = yes
+		COALITION_add_socdem = yes
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.01
+		}
+		add_political_power = 20
+		set_country_flag = WGR_init_tree_available
+		GER_get_coalition_seats = yes
+	}
+	option = { #refuse
+		name = wgr_grand_coalition.6.b
+		ai_chance = {
+			base = 2
+		}
+		WGR_start_civil_war = yes
+	}
+}
+country_event = { #DNVP
+	id = wgr_grand_coalition.7
+	title = wgr_grand_coalition.7.t
+	desc = wgr_grand_coalition.7.d
+	picture = GFX_Event_Ernst_Oberfohren
+	is_triggered_only = yes
+	option = { #Work with Moderate DNVP
+		name = wgr_grand_coalition.7.a
+		ai_chance = {
+			base = 98
+			modifier = {
+				has_idea = adenauer
+				factor = 0.4
+			}
+		}
+		COALITION_add_aut = yes
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.015
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.015
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.015
+		}
+		add_political_power = 10
+		set_party_name = {
+			ideology = neutrality
+			name = "DNVP"
+			long_name = "Deutschnationale Volkspartei - Moderaten"
+		}
+		set_country_flag = WGR_init_tree_available
+		GER_get_coalition_seats = yes
+	}
+	option = { #refuse
+		name = wgr_grand_coalition.7.b
+		ai_chance = {
+			base = 2
+		}
+		WGR_start_civil_war = yes
+	}
+}
+country_event = { #Working with Reichsbanner
+	id = wgr_grand_coalition.8
+	title = wgr_grand_coalition.8.t
+	desc = wgr_grand_coalition.8.d
+	picture = GFX_Event_Germany_Reichsbanner
+	is_triggered_only = yes
+	option = { #Work with Moderate DNVP
+		name = wgr_grand_coalition.8.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 25
+		WGR_move_up_paramilitary = yes
+		hidden_effect = {
+			load_oob = "WGR_reichsbanner"
+		}
+	}
+}
+country_event = { #Working with Stahlhelm
+	id = wgr_grand_coalition.9
+	title = wgr_grand_coalition.9.t
+	desc = wgr_grand_coalition.9.d
+	picture = GFX_Event_Germany_Stahlhelm_Rally
+	is_triggered_only = yes
+	option = { #Work with Moderate DNVP
+		name = wgr_grand_coalition.9.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 25
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.01
+		}
+		WGR_move_up_paramilitary = yes
+		load_oob = "WGR_stahlhelm"
+	}
+}
+country_event = { #KPD Factionalism
+	id = wgr_grand_coalition.10
+	title = wgr_grand_coalition.10.t
+	desc = wgr_grand_coalition.10.d
+	picture = GFX_Event_Germany_Communist_Violence
+	is_triggered_only = yes
+	option = {
+		name = wgr_grand_coalition.10.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = 0.02
+		set_party_name = {
+			ideology = communism
+			name = WGR_prolbund
+			long_name = WGR_prolbund_long
+		}
+	}
+}
+country_event = { #Hitler's arrest's consequences
+	id = wgr_grand_coalition.11
+	title = wgr_grand_coalition.11.t
+	desc = wgr_grand_coalition.11.d
+	picture = GFX_Event_Germany_GER_Police
+	is_triggered_only = yes
+	option = {
+		name = wgr_grand_coalition.11.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = 0.04
+	}
+}
+country_event = { #Rohm dies
+	id = wgr_grand_coalition.12
+	title = wgr_grand_coalition.12.t
+	desc = wgr_grand_coalition.12.d
+	picture = GFX_Event_Germany_GER_Police
+	is_triggered_only = yes
+	option = {
+		name = wgr_grand_coalition.12.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Nazi breakup
+	id = wgr_grand_coalition.13
+	title = wgr_grand_coalition.13.t
+	desc = wgr_grand_coalition.13.d
+	picture = GFX_Event_Germany_GER_Police
+	is_triggered_only = yes
+	option = {
+		name = wgr_grand_coalition.13.a
+		ai_chance = {
+			base = 100
+		}
+		set_party_name = {
+			ideology = fascism
+			name = WGR_saf_party
+			long_name = WGR_saf_party_long
+		}
+	}
+}
+country_event = { #Hitler's arrest
+	id = wgr_grand_coalition.14
+	title = wgr_grand_coalition.14.t
+	desc = wgr_grand_coalition.14.d
+	picture = GFX_Event_Germany_GER_Police
+	is_triggered_only = yes
+	option = {
+		name = wgr_grand_coalition.14.a
+		retire_character = GER_adolf_hitler
+		retire_character = GER_joseph_goebbels
+		retire_character = GER_heinrich_himmler
+		retire_character = GER_hermann_goring
+		retire_character = GER_martin_bormann
+	}
+}
+country_event = { #Grand Coalition Collapse
+	id = wgr_grand_coalition.15
+	title = wgr_grand_coalition.15.t
+	desc = wgr_grand_coalition.15.d
+	picture = GFX_Event_GER_Voter_Line
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = wgr_election.1
+				days = 60
+			}
+			COALITION_RESET = yes
+		}
+	}
+	option = {
+		name = wgr_grand_coalition.15.a
+		effect_tooltip = {
+			COALITION_RESET = yes
+		}
+	}
+}
+
+country_event = { #Turbulent Reichstag session
+	id = wgr_civil_war.100 
+	title = wgr_civil_war.100.t
+	desc = wgr_civil_war.100.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = wgr_civil_war.0
+				hours = 4
+			}
+		}
+	}
+	option = {
+		name = wgr_civil_war.100.a
+		add_political_power = -10
+	}
+}
+
+country_event = { #Motion of No Confidence
+	id = wgr_civil_war.101
+	title = wgr_civil_war.101.t
+	desc = wgr_civil_war.101.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	trigger = {
+	    has_war = no
+	}
+	option = { #
+		name = wgr_civil_war.101.a
+		ai_chance = {
+			base = 100
+		}
+        add_political_power = 40
+	}
+}
+
+country_event = { #Rumblings Reichswehr
+	id = wgr_civil_war.102
+	title = wgr_civil_war.102.t
+	desc = wgr_civil_war.102.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	trigger = {
+	    has_war = no
+	}
+	option = { #
+		name = wgr_civil_war.102.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+country_event = { #Reichsbanner Prepares
+	id = wgr_civil_war.103
+	title = wgr_civil_war.103.t
+	desc = wgr_civil_war.103.d
+	picture = GFX_Event_Germany_Reichsbanner
+	is_triggered_only = yes
+	trigger = {
+	    has_war = no
+	}
+	option = { #
+		name = wgr_civil_war.103.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = 0.05
+	}
+}
+
+#country_event = { #Assasination attempt on the Chancellor
+#	id = wgr_civil_war.0
+#	title = wgr_civil_war.0.t
+#	desc = wgr_civil_war.0.d
+#	picture = GFX_Event_Germany_GER_Police
+#	is_triggered_only = yes
+#	fire_only_once = yes
+#	timeout_days = 3
+#	immediate = {
+#		hidden_effect = {
+#			country_event = {
+#				id = wgr_civil_war.1
+#				days = 3
+#			}
+#		}
+#	}
+#	option = {
+#		name = wgr_civil_war.0.a
+#		add_stability = -0.04
+#		add_political_power = -25
+#	}
+#}
+
+#country_event = { #Battle of Berlin
+#	id = wgr_civil_war.1
+#	title = wgr_civil_war.1.t
+#	desc = wgr_civil_war.1.d
+#	picture = GFX_Event_Germany_GER_Police
+#	is_triggered_only = yes
+#	fire_only_once = yes
+#
+#	immediate = {
+#		hidden_effect = {
+#			load_focus_tree = WGR_civil_war_buildup_tree 
+#			set_country_flag = WGR_cw_buildup
+#			set_country_flag = GCW_happens
+#			GER = { set_country_flag = GCW_happens }
+#			set_global_flag = GCW_ongoing_flag
+#			set_global_flag = GCW_happened_flag
+#			activate_mission = WGR_revolution_countdown
+#			activate_mission = WGR_rebellion_countdown
+#			complete_national_focus = WGR_state_emergency
+#			country_event = {
+#				id = wgr_civil_war.2 #Communist strike in Essen
+#				days = 15
+#			}
+#			country_event = {
+#				id = wgr_civil_war.101 #Motion of No Confidence Defeated
+#				days = 27
+#			}
+#			country_event = {
+#				id = wgr_civil_war.3 #KPD-Stahlhelm
+#				days = 55
+#			}
+#			country_event = {
+#				id = wgr_civil_war.4 #SA Shootout
+#				days = 78 
+#			}
+#			country_event = {
+#				id = wgr_civil_war.102 #Rumblings in the Reichswehr
+#				days = 98
+#			}
+#			country_event = {
+#				id = wgr_civil_war.103 #Reichsbanner prepares
+#				days = 119
+#			}
+#			country_event = {
+#				id = wgr_civil_war.5 #Shoot at commies
+#				days = 144
+#			}
+#			WGR_DDR_reroll_preparation = yes
+#			WGR_GER_reroll_preparation = yes
+#			activate_mission = WGR_DDR_seize_thuringia
+#		    activate_mission = WGR_GER_secure_silesia
+#			GER = {
+#			    set_cosmetic_tag = GER_GCW
+#			}
+#			DDR = {
+#			    set_cosmetic_tag = DDR_GCW
+#			}
+#		}
+#	}
+#
+#	option = { #
+#		name = wgr_civil_war.1.a
+#		add_popularity = {
+#			ideology = fascism
+#			popularity = 0.02
+#		}
+#		add_stability = -0.02		
+#	}
+#}
+#country_event = { #KPD Strike in Essen
+#	id = wgr_civil_war.2
+#	title = wgr_civil_war.2.t
+#	desc = wgr_civil_war.2.d
+#	picture = GFX_Event_Germany_Communist_Violence
+#	is_triggered_only = yes
+#	trigger = {
+#	    has_war = no
+#	}
+#	option = { #
+#		name = wgr_civil_war.2.a
+#		ai_chance = {
+#			base = 100
+#		}
+#		add_popularity = {
+#			ideology = communism
+#			popularity = 0.02
+#		}
+#		add_stability = -0.02
+#		hidden_effect = {
+			#country_event = {
+				#id = wgr_civil_war.3 #Communist-Stahlhelm fight
+				#days = 3
+			#}
+#		}
+#	}
+#}
+#country_event = { #KPD-Stahlhelm
+#	id = wgr_civil_war.3
+#	title = wgr_civil_war.3.t
+#	desc = wgr_civil_war.3.d
+#	picture = GFX_Event_Germany_Communist_Violence
+#	is_triggered_only = yes
+#	trigger = {
+#	    has_war = no
+#	}
+#	option = { #
+#		name = wgr_civil_war.3.a
+#		ai_chance = {
+#			base = 100
+#		}
+#		add_stability = -0.03
+#		hidden_effect = {
+#			#country_event = {
+#				#id = wgr_civil_war.4 #Military-Nazi fight
+#				#days = 4
+#			#}
+#		}
+#	}
+#}
+#country_event = { #Military-Nazi fight
+#	id = wgr_civil_war.4
+#	title = wgr_civil_war.4.t
+#	desc = wgr_civil_war.4.d
+#	picture = GFX_Event_Germany_GER_Police
+#	is_triggered_only = yes
+#	trigger = {
+#	    has_war = no
+#	}
+#	option = { #
+#		name = wgr_civil_war.4.a
+#		ai_chance = {
+#			base = 100
+#		}
+#		add_stability = -0.03
+#		add_popularity = {
+#			ideology = fascism
+#			popularity = -0.01
+#		}
+#		hidden_effect = {
+#			#country_event = {
+#				#id = wgr_civil_war.5 #Police shoot at Communists
+#				#days = 18
+#			#}
+#		}
+#	}
+#}
+#country_event = { #Military shoots at communists
+#	id = wgr_civil_war.5
+#	title = wgr_civil_war.5.t
+#	desc = wgr_civil_war.5.d
+#	picture = GFX_Event_Germany_Communist_Violence
+#	is_triggered_only = yes
+#	trigger = {
+#	    has_war = no
+#	}
+#	option = { #
+#		name = wgr_civil_war.5.a
+#		ai_chance = {
+#			base = 100
+#		}
+#		add_stability = -0.03
+#		add_popularity = {
+#			ideology = communism
+#			popularity = 0.02
+#		}
+#		add_popularity = {
+#			ideology = authoritarian_socialism
+#			popularity = 0.01
+#		}
+#		hidden_effect = {
+			#country_event = {
+				#id = wgr_civil_war.6 #Communists declare revolution
+				#days = 3
+			#}
+#		}
+#	}
+#}
+#country_event = { #Communist Revolution
+#	id = wgr_civil_war.6
+#	title = wgr_civil_war.6.t
+#	desc = wgr_civil_war.6.d
+#	picture = GFX_Event_Germany_KPD_Protest
+#	is_triggered_only = yes
+#	immediate = {
+#	    if = {
+#		    limit = { GER = { exists = yes } }
+#			hidden_effect = {
+#			    WGR_DDR_start_revolution = yes
+#		    }
+#		}
+#	}
+#	option = { #Republicans
+#		name = wgr_civil_war.6.a
+#		ai_chance = {
+#			base = 100
+#		}
+#		if = {
+#		    limit = {
+#			    GER = { exists = no }
+#			}
+#		    hidden_effect = {
+#		        # WGR_DDR_start_revolution = yes
+#				country_event = {
+#				    id = wgr_civil_war.7 #Nationalist Revolution
+#				    hours = 3
+#			    }
+#	        }
+#		}
+#		if = {
+#		    limit = {
+#			    GER = { exists = yes }
+#			}
+#		    hidden_effect = {
+#				news_event = {
+#				    id = gcw_news.1
+#			    }
+#	        }
+#		}
+#	}
+#	option = { #Commies
+#		name = wgr_civil_war.6.b
+#		ai_chance = {
+#			base = 100
+#		}
+#		if = {
+#		    limit = {
+#			    GER = { exists = no }
+#			}
+#		    hidden_effect = {
+#		        # WGR_DDR_start_revolution = yes
+#				country_event = {
+#				    id = wgr_civil_war.7 #Nationalist Revolution
+#				    hours = 3
+#			    }
+#	        }
+#		}
+#		if = {
+#		    limit = {
+#			    GER = { exists = yes }
+#			}
+#		    hidden_effect = {
+#				news_event = {
+#				    id = gcw_news.1
+#			    }
+#	        }
+#		}
+#		DDR = { change_tag_from = WGR }
+#	}
+#}
+#country_event = { #Nationalist Revolution
+#	id = wgr_civil_war.7
+#	title = wgr_civil_war.7.t
+#	desc = wgr_civil_war.7.d
+#	picture = GFX_Event_Germany_Stahlhelm_Rally
+#	is_triggered_only = yes
+#	immediate = {
+#	    if = {
+#		    limit = { DDR = { exists = yes } }
+#			hidden_effect = {
+#			    WGR_GER_start_revolt = yes
+#		    }
+#		}
+#	}
+#	option = { #Republicans
+#		name = wgr_civil_war.7.a
+#		ai_chance = {
+#			base = 100
+#		}
+#		if = {
+#		    limit = {
+#			    DDR = { exists = no }
+#			}
+#		    hidden_effect = {
+#		        WGR_GER_start_revolt = yes
+#				country_event = {
+#				    id = wgr_civil_war.6 #Nationalist Revolution
+#				    hours = 3
+#			    }
+#	        }
+#		}
+#		if = {
+#		    limit = {
+#			    DDR = { exists = yes }
+#			}
+#		    hidden_effect = {
+#				news_event = {
+#				    id = gcw_news.1
+#			    }
+#	        }
+#		}
+#	}
+#	option = { #Nats
+#		name = wgr_civil_war.7.b
+#		ai_chance = {
+#			base = 100
+#		}
+#		if = {
+#		    limit = {
+#			    DDR = { exists = no }
+#			}
+#		    hidden_effect = {
+#		        WGR_GER_start_revolt = yes
+#				country_event = {
+#				    id = wgr_civil_war.6 #Nationalist Revolution
+#				    hours = 3
+#			    }
+#	        }
+#		}
+#		if = {
+#		    limit = {
+#			    DDR = { exists = yes }
+#			}
+#		    hidden_effect = {
+#				news_event = {
+#				    id = gcw_news.1
+#			    }
+#	        }
+#		}
+#		GER = { change_tag_from = WGR }
+#	}
+#}
+#country_event = { #Alternate civil war start if the player did not complete the tree
+#	id = wgr_civil_war.8
+#	title = wgr_civil_war.8.t
+#	desc = wgr_civil_war.8.d
+#	picture = GFX_Event_Germany_KPD_Protest
+#	is_triggered_only = yes
+#	trigger = {
+#	    NOT = { has_country_flag = GCW_happens }
+#	}
+#	option = { #
+#		name = wgr_civil_war.8.a
+#		ai_chance = {
+#			base = 100
+#		}
+#		add_stability = -0.02
+#		hidden_effect = {
+#			country_event = {
+#				id = wgr_civil_war.9
+#				days = 9
+#			}
+#		}
+#	}
+#}
+#country_event = { #Alt. Civil War pt. 2
+#	id = wgr_civil_war.9
+#	title = wgr_civil_war.9.t
+#	desc = wgr_civil_war.9.d
+#	picture = GFX_Event_Germany_GER_Police
+#	is_triggered_only = yes
+#	option = { #
+#		name = wgr_civil_war.8.a
+#		ai_chance = {
+#			base = 100
+#		}
+#		add_stability = -0.02
+#		hidden_effect = {
+#			country_event = {
+#				id = wgr_civil_war.10
+#				days = 3
+#			}
+#		}
+#	}
+#}
+#country_event = { #Alt. Civil War start
+#	id = wgr_civil_war.10
+#	title = wgr_civil_war.10.t
+#	desc = wgr_civil_war.10.d
+#	picture = GFX_Event_Germany_KPD_Protest
+#	is_triggered_only = yes
+#	option = { #
+#		name = wgr_civil_war.8.a
+#		ai_chance = {
+#			base = 100
+#		}
+		#add_stability = -0.03
+		#add_popularity = {
+		#	ideology = communism
+		#	popularity = 0.02
+		#}
+		#add_popularity = {
+		#	ideology = authoritarian_socialism
+		#	popularity = 0.01
+		#}
+#		custom_effect_tooltip = WGR_civil_war_dev_note2
+#		add_timed_idea = {
+#			idea = WGR_civil_war_temp
+#			days = 730
+#		}
+#	}
+#}
+country_event = { # 1st election post hindenburg, should be about october 1934
+	id = wgr_election.1
+	title = wgr_election.1.t
+	desc = wgr_election.1.d
+	picture = GFX_Event_GER_Woman_Voting
+	is_triggered_only = yes
+	option = { #spd
+		name = wgr_election.1.a
+		trigger = {
+			WGR_SPD_passes_threshold = yes
+		}
+		ai_chance = {
+			base = 30
+		}
+		WGR_SPD_wins = yes
+		GER_Set_Parliament = yes
+		if = {
+			limit = {
+				OR = {
+					WGR_SPD_no_majority = yes
+					AND = {
+						NOT = {
+							WGR_SPD_together = yes
+						}
+						socialism < 0.5
+					}
+				}
+				OR = {
+					WGR_SAPD_has_seats = yes
+					WGR_DStP_has_seats = yes
+				}
+			}
+			WGR_SPD_coalition_event = yes
+		}
+		hidden_effect = {
+		    news_event = { id = ger_news.13 }
+		}
+	}
+	option = { #dstp
+		name = wgr_election.1.b
+		trigger = {
+			WGR_DStP_passes_threshold = yes
+		}
+		ai_chance = {
+			base = 5
+		}
+		WGR_DStP_wins = yes
+		GER_Set_Parliament = yes
+		if = {
+			limit = {
+				WGR_DStP_no_majority = yes
+				OR = {
+					WGR_SPD_has_seats = yes
+					WGR_DVP_has_seats = yes
+				}
+			}
+			WGR_DStP_coalition_event = yes
+		}
+		hidden_effect = {
+		    news_event = { id = ger_news.14 }
+		}
+	}
+	option = { #dvp
+		name = wgr_election.1.c
+		trigger = {
+			WGR_DVP_passes_threshold = yes
+		}
+		ai_chance = {
+			base = 15
+		}
+		WGR_DVP_wins = yes
+		GER_Set_Parliament = yes
+		if = {
+			limit = {
+				WGR_DVP_no_majority = yes
+				OR = {
+					WGR_DStP_has_seats = yes
+					WGR_DNVP_has_seats = yes
+				}
+			}
+			WGR_DVP_coalition_event = yes
+		}
+		hidden_effect = {
+		    news_event = { id = ger_news.15 }
+		}
+	}
+	option = { #zentrum
+		name = wgr_election.1.e
+		trigger = {
+			WGR_Zentrum_passes_threshold = yes
+		}
+		ai_chance = {
+			base = 30
+		}
+		WGR_Zentrum_wins = yes
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						WGR_DVP_has_seats = yes
+						has_idea = kaas
+					}
+					AND = {
+						OR = {
+							has_idea = adenauer
+							has_idea = GER_Joseph_Joos
+						}
+						WGR_DStP_has_seats = yes
+					}
+				}
+				
+			}
+			WGR_Zentrum_coalition_event = yes
+		}
+		GER_Set_Parliament = yes
+        if = {
+		    limit = {
+			    has_idea = adenauer
+			}
+			hidden_effect = {
+		        news_event = { id = ger_news.17 }
+		    }
+		}
+		if = {
+		    limit = {
+			    NOT = { has_idea = adenauer }
+			}
+			hidden_effect = {
+		        news_event = { id = ger_news.18 }
+		    }
+		}
+	}
+	option = { #DNVP
+		name = wgr_election.1.f
+		trigger = {
+			WGR_DVNP_passes_threshold = yes
+		}
+		ai_chance = {
+			base = 15
+		}
+		WGR_DVNP_wins = yes
+		GER_Set_Parliament = yes
+		if = {
+			limit = {
+				WGR_DNVP_no_majority = yes
+				WGR_DVP_has_seats = yes
+			}
+			WGR_DVP_coalition_event = yes
+		}
+		hidden_effect = {
+		    news_event = { id = ger_news.16 }
+		}
+	}
+}
+country_event = { # SPD coalition
+	id = wgr_election.2
+	title = wgr_election.2.t
+	desc = wgr_election.2.d
+	picture = GFX_Event_GER_Person_Voted
+	is_triggered_only = yes
+	option = { #SAPD
+		name = wgr_election.2.a
+		trigger = {
+			WGR_SAPD_has_seats = yes
+		}
+		ai_chance = {
+			base = 48
+			modifier = {
+				check_variable = {
+					GER_rso_seats < GER_sli_seats
+				}
+				factor = 0
+			}
+		}
+		COALITION_add_revsoc = yes
+		GER_get_coalition_seats = yes
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.02
+		}
+		add_ideas = imgard_enderle
+	}
+	option = { #DStP
+		name = wgr_election.2.b
+		trigger = {
+			WGR_DStP_has_seats = yes
+		}
+		ai_chance = {
+			#base = 52
+			base = 0
+			modifier = {
+				check_variable = {
+					GER_rso_seats > GER_sli_seats
+				}
+				factor = 0
+			}
+		}
+		COALITION_add_soclib = yes
+		GER_get_coalition_seats = yes
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+		add_ideas = brauer
+	}
+	option = { #no coalition
+		name = wgr_election.2.c
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+country_event = { # DStP coalition
+	id = wgr_election.3
+	title = wgr_election.3.t
+	desc = wgr_election.3.d
+	picture = GFX_Event_GER_Person_Voted
+	is_triggered_only = yes
+	option = { #SPD
+		name = wgr_election.3.a
+		trigger = {
+			WGR_SPD_has_seats = yes
+		}
+		ai_chance = {
+			base = 60
+			#modifier = {
+				#check_variable = {
+					#GER_dso_seats < GER_cen_seats
+				#}
+				#factor = 0
+			#}
+		}
+		WGR_coalition_add_spd = yes
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.01
+		}
+		add_ideas = fechner
+		GER_get_coalition_seats = yes
+	}
+	option = { #DVP
+		name = wgr_election.3.b
+		trigger = {
+			WGR_DVP_has_seats = yes
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				check_variable = {
+					GER_cen_seats > GER_dso_seats
+				}
+				factor = 0
+			}
+		}
+		COALITION_add_cen = yes
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.02
+		}
+		# add_ideas = curtius2
+		GER_get_coalition_seats = yes
+	}
+	option = { #no coalition
+		name = wgr_election.3.c
+		ai_chance = {
+			base = 30
+		}
+	}
+}
+country_event = { # DVP coalition
+	id = wgr_election.4
+	title = wgr_election.4.t
+	desc = wgr_election.4.d
+	picture = GFX_Event_GER_Person_Voted
+	is_triggered_only = yes
+	option = { #DStP
+		name = wgr_election.4.a
+		trigger = {
+			WGR_DStP_has_seats = yes
+			has_government = jacobin
+		}
+		ai_chance = {
+			base = 30
+			modifier = {
+				check_variable = {
+					GER_sli_seats < GER_neu_seats
+				}
+				factor = 0
+			}
+		}
+		COALITION_add_soclib = yes
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+		add_ideas = brauer
+		GER_get_coalition_seats = yes
+	}
+	option = { #DVP
+		name = wgr_election.4.b
+		trigger = {
+			WGR_DVP_has_seats = yes
+			has_government = neutrality
+		}
+		ai_chance = {
+			base = 70
+		}
+		COALITION_add_cen = yes
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.02
+		}
+		# add_ideas = curtius2 #replace with new person
+		GER_get_coalition_seats = yes
+	}
+	option = { #DNVP
+		name = wgr_election.4.c
+		trigger = {
+			WGR_DNVP_has_seats = yes
+			has_government = jacobin
+		}
+		ai_chance = {
+			base = 70
+			modifier = {
+				check_variable = {
+					GER_neu_seats > GER_sli_seats
+				}
+				factor = 0
+			}
+		}
+		COALITION_add_aut = yes
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.02
+		}
+		# add_ideas = sack #replace with new person
+		GER_get_coalition_seats = yes
+	}
+	option = { #no coalition
+		name = wgr_election.4.e
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+country_event = { # Other elections. Should be exactly the same but w/different loc
+	id = wgr_election.5
+	title = wgr_election.5.t
+	desc = wgr_election.5.d
+	picture = GFX_Event_GER_Voting_Play
+	is_triggered_only = yes
+	trigger = {
+		tag = WGR
+	}
+	option = { #spd
+		name = wgr_election.5.a
+		trigger = {
+			WGR_SPD_passes_threshold = yes
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+			    add = 100
+				has_government = socialism
+			}
+		}
+		WGR_SPD_wins = yes
+		GER_Set_Parliament = yes
+		if = {
+			limit = {
+				OR = {
+					WGR_SPD_no_majority = yes
+					AND = {
+						NOT = {
+							WGR_SPD_together = yes
+						}
+						socialism < 0.5
+					}
+				}
+				OR = {
+					WGR_SAPD_has_seats = yes
+					WGR_DStP_has_seats = yes
+				}
+			}
+			WGR_SPD_coalition_event = yes
+		}
+	}
+	option = { #dstp
+		name = wgr_election.5.b
+		trigger = {
+			WGR_DStP_passes_threshold = yes
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+			    add = 100
+				has_government = social_liberalism
+			}
+		}
+		WGR_DStP_wins = yes
+		GER_Set_Parliament = yes
+		if = {
+			limit = {
+				WGR_DStP_no_majority = yes
+				OR = {
+					WGR_SPD_has_seats = yes
+					WGR_DVP_has_seats = yes
+				}
+			}
+			WGR_DStP_coalition_event = yes
+		}
+	}
+	option = { #dvp
+		name = wgr_election.5.c
+		trigger = {
+			WGR_DVP_passes_threshold = yes
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+			    add = 100
+				has_government = jacobin
+			}
+		}
+		WGR_DVP_wins = yes
+		GER_Set_Parliament = yes
+		if = {
+			limit = {
+				WGR_DVP_no_majority = yes
+				OR = {
+					WGR_DStP_has_seats = yes
+					WGR_DNVP_has_seats = yes
+				}
+			}
+			WGR_DVP_coalition_event = yes
+		}
+	}
+	option = { #zentrum
+		name = wgr_election.5.e
+		trigger = {
+			WGR_Zentrum_passes_threshold = yes
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+			    add = 100
+				has_government = democratic
+			}
+		}
+		WGR_Zentrum_wins = yes
+		GER_Set_Parliament = yes
+	}
+	option = { #DNVP
+		name = wgr_election.5.f
+		trigger = {
+			WGR_DVNP_passes_threshold = yes
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+			    add = 100
+				has_government = neutrality
+			}
+		}
+		WGR_DVNP_wins = yes
+		GER_Set_Parliament = yes
+		if = {
+			limit = {
+				WGR_DNVP_no_majority = yes
+				WGR_DVP_has_seats = yes
+			}
+			WGR_DVP_coalition_event = yes
+		}
+	}
+}
+country_event = { # Zentrum
+	id = wgr_election.6
+	title = wgr_election.6.t
+	desc = wgr_election.6.d
+	picture = GFX_Event_Germany_Zentrum
+	is_triggered_only = yes
+	option = { #DStP
+		name = wgr_election.6.a
+		trigger = {
+			WGR_DStP_has_seats = yes
+			OR = {
+				has_idea = adenauer
+				has_idea = GER_Joseph_Joos
+			}
+		}
+		ai_chance = {
+			base = 30
+			modifier = {
+				check_variable = {
+					GER_sli_seats < GER_neu_seats
+				}
+				factor = 0
+			}
+		}
+		COALITION_add_soclib = yes
+		GER_get_coalition_seats = yes
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+		add_ideas = brauer
+	}
+	option = { #DVP
+		name = wgr_election.6.b
+		trigger = {
+			WGR_DVP_has_seats = yes
+			has_idea = kaas
+		}
+		ai_chance = {
+			base = 70
+		}
+		COALITION_add_cen = yes
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.02
+		}
+		# add_ideas = curtius2 #replace with new person
+		GER_get_coalition_seats = yes
+	}
+}
+country_event = { # Hindenburg Dies - WGR
+	id = wgr_election.15
+	title = wgr_election.15.t
+	desc = wgr_election.15.d
+	picture = GFX_Event_Germany_Hindenburgs_Funeral
+	is_triggered_only = yes
+	trigger = {
+	    NOT = {
+			has_country_flag = GCW_happens
+			has_global_flag = GCW_ongoing_flag
+		}
+	}
+	option = {
+		name = wgr_election.15.a
+		retire_character = GER_paul_von_hindenburg
+		add_popularity = { ideology = nationalism popularity = 0.02 }
+		add_stability = -0.02
+		set_country_flag = WGR_hindenburg_dead
+		hidden_effect = {
+			promote_character = GER_erwin_bumke
+			add_country_leader_role = {
+				character = "GER_erwin_bumke"
+				promote_leader = yes
+				country_leader = {
+					ideology = nazism
+					expire = "1965.1.1.1"
+					traits = {}
+				}
+			}
+			add_country_leader_role = {
+				character = "GER_erwin_bumke"
+				promote_leader = yes
+				country_leader = {
+					ideology = despotism
+					expire = "1965.1.1.1"
+					traits = {}
+				}
+			}
+			add_country_leader_role = {
+				character = "GER_erwin_bumke"
+				promote_leader = yes
+				country_leader = {
+					ideology = military
+					expire = "1965.1.1.1"
+					traits = {}
+				}
+			}
+			add_country_leader_role = {
+				character = "GER_erwin_bumke"
+				promote_leader = yes
+				country_leader = {
+					ideology = christian_democracy_soccon
+					expire = "1965.1.1.1"
+					traits = {}
+				}
+			}
+			add_country_leader_role = {
+				character = "GER_erwin_bumke"
+				promote_leader = yes
+				country_leader = {
+					ideology = liberalism
+					expire = "1965.1.1.1"
+					traits = {}
+				}
+			}
+			add_country_leader_role = {
+				character = "GER_erwin_bumke"
+				promote_leader = yes
+				country_leader = {
+					ideology = national_liberalism
+					expire = "1965.1.1.1"
+					traits = {}
+				}
+			}
+			add_country_leader_role = {
+				character = "GER_erwin_bumke"
+				promote_leader = yes
+				country_leader = {
+					ideology = market_liberal
+					expire = "1965.1.1.1"
+					traits = {}
+				}
+			}
+			add_country_leader_role = {
+				character = "GER_erwin_bumke"
+				promote_leader = yes
+				country_leader = {
+					ideology = dem_socialism
+					expire = "1965.1.1.1"
+					traits = {}
+				}
+			}
+			add_country_leader_role = {
+				character = "GER_erwin_bumke"
+				promote_leader = yes
+				country_leader = {
+					ideology = real_socialism
+					expire = "1965.1.1.1"
+					traits = {}
+				}
+			}
+			add_country_leader_role = {
+				character = "GER_erwin_bumke"
+				promote_leader = yes
+				country_leader = {
+					ideology = centrist_marxism
+					expire = "1965.1.1.1"
+					traits = {}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_completed_focus = WGR_Disrupt_Ban_KPD
+						has_completed_focus = WGR_Ban_NSDAP
+					}
+				}
+				country_event = {
+					id = wgr_civil_war.8 #alternate civil war start
+					days = 6
+				}
+			}
+			else = {
+				country_event = {
+					id = wgr_grand_coalition.15
+					days = 16 #coalition collapse start
+				}
+			}
+			news_event = {
+				id = ger_news.2
+			}
+			country_event = {
+				id = wgr_election.16
+				days = 1400
+			}
+		}
+	}
+}
+country_event = { # 1938 presidential election - choose. your. Candidate!
+	id = wgr_election.16
+	title = wgr_election.16.t
+	desc = wgr_election.16.d
+	picture = GFX_Event_GER_Mit_Hugenberg
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = wgr_election.17
+				days = 60
+			}
+		}
+	}
+	option = { # Emil Fuchs
+		name = wgr_election.16.z
+		trigger = {
+			OR = {
+				has_government = social_democracy
+				has_government = socialism
+			}
+		}
+		set_country_flag = WGR_Emil_Fuchs_for_1938
+	}
+	option = { # Hans Vogel
+		name = wgr_election.16.a
+		trigger = {
+			OR = {
+				has_government = social_democracy
+				has_government = socialism
+			}
+		}
+		set_country_flag = WGR_Vogel_for_1938
+	}
+	option = { # Otto Nuschke
+		name = wgr_election.16.b
+		trigger = {
+			has_government = social_liberalism
+		}
+		set_country_flag = WGR_otto_nuschke_for_1938
+	}
+	option = { # Karl Jarres
+		name = wgr_election.16.g
+		trigger = {
+			OR = {
+				has_government = jacobin
+				has_government = market_liberalism
+				has_government = neutrality
+			}
+		}
+		set_country_flag = WGR_Jarres_for_1938
+	}
+	option = { # Konrad Adenauer
+		name = wgr_election.16.h
+		trigger = {
+			has_government = democratic
+			NOT = { has_idea = adenauer }
+			
+		}
+		set_country_flag = WGR_Konrad_Adenaer_for_1938
+	}
+	option = { # Ludwig Kaas
+		name = wgr_election.16.i
+		trigger = {
+			has_government = democratic
+			has_idea = adenauer
+		}
+		set_country_flag = WGR_Ludwig_Kaas_for_1938
+	}
+	option = { # Christine Teusch
+		name = wgr_election.16.j
+		trigger = {
+			has_government = democratic
+		}
+		set_country_flag = WGR_Teusch_for_1938
+	}
+	option = { # Jacob Kaiser
+		name = wgr_election.16.k
+		trigger = {
+			has_government = democratic
+		}
+		set_country_flag = WGR_Kaiser_for_1938
+	}
+}
+country_event = { # 1938 presidential election
+	id = wgr_election.17
+	title = wgr_election.17.t
+	desc = wgr_election.17.d
+	picture = GFX_Event_GER_Voter_Line
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = wgr_election.16
+				days = 2190
+			}
+		}
+	}
+	option = {
+		name = wgr_election.17.z
+		trigger = {
+			has_country_flag = WGR_Emil_Fuchs_for_1938
+		}
+		ai_chance = {
+			factor = 45
+			modifier = {
+				factor = 0.01
+				socialism < 0.05
+				social_democracy < 0.05
+			}
+			modifier = {
+				factor = 1.5
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+				}
+			}
+		}
+		add_popularity = { ideology = social_democracy popularity = 0.01 }
+		add_popularity = { ideology = socialism popularity = 0.025 }
+		add_country_leader_role = {
+			character = "WGR_emil_fuchs"
+			promote_leader = yes
+			country_leader = {
+				ideology = nazism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_emil_fuchs"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_emil_fuchs"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_emil_fuchs"
+			promote_leader = yes
+			country_leader = {
+				ideology = christian_democracy_soccon
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_emil_fuchs"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_emil_fuchs"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_emil_fuchs"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_emil_fuchs"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_emil_fuchs"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_emil_fuchs"
+			promote_leader = yes
+			country_leader = {
+				ideology = centrist_marxism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+	}
+	option = {
+		name = wgr_election.17.a
+		trigger = {
+			OR = {
+				has_country_flag = WGR_Vogel_for_1938
+				NOT = {
+					has_government = socialism
+					has_government = social_democracy
+				}
+			}
+		}
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 0.01
+				socialism < 0.05
+				social_democracy < 0.05
+			}
+			modifier = {
+				factor = 1.5
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+				}
+			}
+		}
+		add_popularity = { ideology = social_democracy popularity = 0.01 }
+		add_popularity = { ideology = socialism popularity = 0.025 }
+		add_country_leader_role = {
+			character = "WGR_hans_vogel"
+			promote_leader = yes
+			country_leader = {
+				ideology = nazism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_hans_vogel"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_hans_vogel"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_hans_vogel"
+			promote_leader = yes
+			country_leader = {
+				ideology = christian_democracy_soccon
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_hans_vogel"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_hans_vogel"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_hans_vogel"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_hans_vogel"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_hans_vogel"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_hans_vogel"
+			promote_leader = yes
+			country_leader = {
+				ideology = centrist_marxism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+	}
+	option = {
+		name = wgr_election.17.b
+		trigger = {
+			has_country_flag = WGR_otto_nuschke_for_1938
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0.01
+				social_liberalism < 0.05
+			}
+			modifier = {
+				factor = 3
+				has_government = social_liberalism
+			}
+		}
+		add_popularity = { ideology = social_liberalism popularity = 0.02 }
+		promote_character = GER_otto_nuschke
+		add_country_leader_role = {
+			character = "GER_otto_nuschke"
+			promote_leader = yes
+			country_leader = {
+				ideology = nazism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_otto_nuschke"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_otto_nuschke"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_otto_nuschke"
+			promote_leader = yes
+			country_leader = {
+				ideology = christian_democracy_soccon
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_otto_nuschke"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_otto_nuschke"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_otto_nuschke"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_otto_nuschke"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_otto_nuschke"
+			promote_leader = yes
+			country_leader = {
+				ideology = centrist_marxism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+	}
+	option = {
+		name = wgr_election.17.g
+		trigger = {
+			has_country_flag = WGR_Jarres_for_1938
+		}
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0.01
+				jacobin < 0.05
+				market_liberalism < 0.05
+			}
+			modifier = {
+				factor = 3
+				OR = {
+					has_government = jacobin
+					has_government = market_liberalism
+				}
+			}
+		}
+		add_popularity = { ideology = market_liberalism popularity = 0.02 }
+		add_country_leader_role = {
+			character = "WGR_karl_jarres"
+			promote_leader = yes
+			country_leader = {
+				ideology = nazism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_karl_jarres"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_karl_jarres"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_karl_jarres"
+			promote_leader = yes
+			country_leader = {
+				ideology = christian_democracy_soccon
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_karl_jarres"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_karl_jarres"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_karl_jarres"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_karl_jarres"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_karl_jarres"
+			promote_leader = yes
+			country_leader = {
+				ideology = centrist_marxism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+	}
+	option = {
+		name = wgr_election.17.h
+		trigger = {
+			has_country_flag = WGR_Konrad_Adenaer_for_1938
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0.01
+				has_government = democratic
+			}
+			modifier = {
+				factor = 3
+				has_government = democratic
+			}
+		}
+		add_popularity = { ideology = democratic popularity = 0.02 }
+		promote_character = GER_konrad_adenauer
+		add_country_leader_role = {
+			character = "GER_konrad_adenauer"
+			promote_leader = yes
+			country_leader = {
+				ideology = nazism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_konrad_adenauer"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_konrad_adenauer"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_konrad_adenauer"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_konrad_adenauer"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_konrad_adenauer"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_konrad_adenauer"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_konrad_adenauer"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_konrad_adenauer"
+			promote_leader = yes
+			country_leader = {
+				ideology = centrist_marxism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+	}
+	option = {
+		name = wgr_election.17.i
+		trigger = {
+			OR = {
+				has_country_flag = WGR_Ludwig_Kaas_for_1938
+				NOT = { has_government = democratic }
+			}
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0.01
+				NOT = { has_government = democratic }
+			}
+			modifier = {
+				factor = 3
+				has_government = democratic
+			}
+		}
+		add_popularity = { ideology = democratic popularity = 0.02 }
+		promote_character = GER_ludwig_kaas
+		add_country_leader_role = {
+			character = "GER_ludwig_kaas"
+			promote_leader = yes
+			country_leader = {
+				ideology = nazism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_ludwig_kaas"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_ludwig_kaas"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_ludwig_kaas"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_ludwig_kaas"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_ludwig_kaas"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_ludwig_kaas"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_ludwig_kaas"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "GER_ludwig_kaas"
+			promote_leader = yes
+			country_leader = {
+				ideology = centrist_marxism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+	}
+	option = {
+		name = wgr_election.17.j
+		trigger = {
+			has_country_flag = WGR_Teusch_for_1938
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0.01
+				NOT = {
+					has_government = democratic
+				}
+			}
+			modifier = {
+				factor = 3
+				has_government = democratic
+			}
+		}
+		add_popularity = { ideology = democratic popularity = 0.02 }
+		add_country_leader_role = {
+			character = "WGR_christine_teusch"
+			promote_leader = yes
+			country_leader = {
+				ideology = nazism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_christine_teusch"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_christine_teusch"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_christine_teusch"
+			promote_leader = yes
+			country_leader = {
+				ideology = christian_democracy_soccon
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_christine_teusch"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_christine_teusch"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_christine_teusch"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_christine_teusch"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_christine_teusch"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_christine_teusch"
+			promote_leader = yes
+			country_leader = {
+				ideology = centrist_marxism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+	}
+	option = {
+		name = wgr_election.17.k
+		trigger = {
+			has_country_flag = WGR_Kaiser_for_1938
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0.01
+				NOT = { has_government = democratic }
+			}
+			modifier = {
+				factor = 3
+				has_government = democratic
+			}
+		}
+		add_popularity = { ideology = democratic popularity = 0.02 }
+		add_country_leader_role = {
+			character = "WGR_jakob_kaiser"
+			promote_leader = yes
+			country_leader = {
+				ideology = nazism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_jakob_kaiser"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_jakob_kaiser"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_jakob_kaiser"
+			promote_leader = yes
+			country_leader = {
+				ideology = christian_democracy_soccon
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_jakob_kaiser"
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_jakob_kaiser"
+			promote_leader = yes
+			country_leader = {
+				ideology = national_liberalism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_jakob_kaiser"
+			promote_leader = yes
+			country_leader = {
+				ideology = market_liberal
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_jakob_kaiser"
+			promote_leader = yes
+			country_leader = {
+				ideology = dem_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_jakob_kaiser"
+			promote_leader = yes
+			country_leader = {
+				ideology = real_socialism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+		add_country_leader_role = {
+			character = "WGR_jakob_kaiser"
+			promote_leader = yes
+			country_leader = {
+				ideology = centrist_marxism
+				expire = "1965.1.1.1"
+				traits = {}
+			}
+		}
+	}
+}
+#wgr.internal 1-4 are available
+
+country_event = { #Kaas hates democracy
+	id = wgr_internal.1
+	title = wgr_internal.1.t
+	desc = wgr_internal.1.d
+	picture = GFX_Event_Germany_Ludwig_Kaas
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { #Open up trade
+		name = wgr_internal.1.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			country_event = {
+				id = wgr_internal.2
+				days = 7
+			}
+		}
+		add_stability = -0.035
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.035
+		}
+	}
+}
+country_event = { #Stegerwald Denounces Kaas
+	id = wgr_internal.2
+	title = wgr_internal.2.t
+	desc = wgr_internal.2.d
+	picture = GFX_Event_Germany_Adam_Stegerwald
+	is_triggered_only = yes
+	option = { #Open up trade
+		name = wgr_internal.2.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			country_event = {
+				id = wgr_internal.3
+				days = 21
+			}
+		}
+		add_stability = -0.01
+	}
+}
+country_event = { #Does Kaas Resign?
+	id = wgr_internal.3
+	title = wgr_internal.3.t
+	desc = wgr_internal.3.d
+	picture = GFX_Event_Germany_Ludwig_Kaas
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Open Vote
+		name = wgr_internal.3.a
+		trigger = {
+			has_idea = kaas
+		}
+		ai_chance = {
+			base = 42
+		}
+		hidden_effect = {
+			country_event = {
+				id = wgr_internal.4
+				days = 2
+			}
+		}
+		custom_effect_tooltip = WGR_zentrum_vote
+	}
+	option = { #Reject Offer
+		name = wgr_internal.3.b
+		trigger = {
+			has_idea = kaas
+		}
+		ai_chance = {
+			base = 0
+		}
+		add_stability = -0.04
+	}
+	option = { #you don't have kaas
+		name = wgr_internal.3.c
+		trigger = {
+			NOT = {
+				has_idea = kaas
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+		hidden_effect = {
+			random_list = {
+				42 = {
+					country_event = {
+						id = wgr_internal.4
+						days = 2
+					}
+				}
+				58 = {
+				}
+			}
+		}
+	}
+}
+country_event = { #Stegerwald voted in
+	id = wgr_internal.4
+	title = wgr_internal.4.t
+	desc = wgr_internal.4.d
+	picture = GFX_Event_Germany_Adam_Stegerwald
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_stegerwald_zentrum
+	}
+	option = { #replace
+		name = wgr_internal.4.a
+		trigger = {
+			has_idea = kaas
+		}
+		ai_chance = {
+			base = 100
+		}
+		if = {
+			limit = {
+				has_idea = kaas
+			}
+			remove_ideas = kaas
+			add_ideas = GER_Joseph_Joos
+		}
+	}
+}
+country_event = { #FRA: WGR asks for buisness contacts - yes I know it's external but it's in the internal part of the focus tree
+	id = wgr_internal.5
+	title = wgr_internal.5.t
+	desc = wgr_internal.5.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #Open up trade
+		name = wgr_internal.5.a
+		ai_chance = {
+			base = 97
+			modifier = {
+				OR = {
+					has_government = social_democracy
+					has_government = democratic
+				}
+				factor = 0.9
+			}
+		}
+		WGR = {
+			country_event = {
+				id = wgr_internal.6
+				days = 1
+			}
+		}
+		add_political_power = -10
+	}
+	option = { #no
+		name = wgr_internal.5.b
+		ai_chance = {
+			factor = 3
+			modifier = {
+				has_government = market_liberalism
+				factor = 0
+			}
+		}
+		WGR = {
+			country_event = {
+				id = wgr_internal.7
+				days = 1
+			}
+		}
+		add_stability = -0.05
+	}
+}
+
+country_event = { #WGR: France agrees to trade
+	id = wgr_internal.6
+	title = wgr_internal.6.t
+	desc = wgr_internal.6.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #Open up trade
+		name = wgr_internal.6.a
+		unlock_decision_category_tooltip = WGR_invite_french_businesses #you can invite Total, Lafarge, Montagut, and Renault
+		set_country_flag = WGR_can_invite_frenchies
+	}
+}
+country_event = { #WGR: France refuses to trade
+	id = wgr_internal.7
+	title = wgr_internal.7.t
+	desc = wgr_internal.7.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #Open up trade
+		name = wgr_internal.7.a
+		add_political_power = -20
+		add_stability = -0.02
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.02
+		}
+	}
+}
+country_event = { #Total agrees
+	id = wgr_internal.8
+	title = wgr_internal.8.t
+	desc = wgr_internal.8.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #Open up trade
+		name = wgr_internal.8.a
+		add_stability = 0.02
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = synthetic_refinery
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = synthetic_refinery
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+country_event = { #Someone agrees - French Side
+	id = wgr_internal.9
+	title = wgr_internal.9.t
+	desc = wgr_internal.9.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_internal.9.a
+		add_political_power = 10
+		if = {
+			limit = {
+				has_idea = FRA_profits_from_WGR_3
+			}
+			swap_ideas = { remove_idea = FRA_profits_from_WGR_3 add_idea = FRA_profits_from_WGR_4 }
+		}
+		if = {
+			limit = {
+				has_idea = FRA_profits_from_WGR_2
+			}
+			swap_ideas = { remove_idea = FRA_profits_from_WGR_2 add_idea = FRA_profits_from_WGR_3 }
+		}
+		if = {
+			limit = {
+				has_idea = FRA_profits_from_WGR
+			}
+			swap_ideas = { remove_idea = FRA_profits_from_WGR add_idea = FRA_profits_from_WGR_2 }
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_idea = FRA_profits_from_WGR_4
+					has_idea = FRA_profits_from_WGR_3
+					has_idea = FRA_profits_from_WGR_2
+					has_idea = FRA_profits_from_WGR
+				}
+			}
+			add_ideas = FRA_profits_from_WGR
+		}
+	}
+}
+country_event = { #Someone refuses
+	id = wgr_internal.10
+	title = wgr_internal.10.t
+	desc = wgr_internal.10.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_internal.10.a
+		add_political_power = -20
+	}
+}
+country_event = { #other comapnies agree
+	id = wgr_internal.11
+	title = wgr_internal.11.t
+	desc = wgr_internal.11.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #Open up trade
+		name = wgr_internal.11.a
+		add_stability = 0.02
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+#Political Rally System
+#rallies are randomly determined by scripted effects
+
+country_event = { #rally
+	id = wgr_internal.13
+	title = wgr_internal.13.t
+	desc = wgr_internal.13.d
+	picture = GFX_Event_GER_KPD_Election_posters
+	is_triggered_only = yes
+	immediate = {
+		WGR_Get_Size = yes
+		WGR_Get_Ideology = yes
+		WGR_Rally_Popularity = yes
+	}
+	option = {
+		name = wgr_internal.13.a
+		WGR_Political_Campaign_Effect = yes
+		WGR_Trigger_Next_Rally = yes
+	}
+}
+country_event = { #workers and employers congress
+	id = wgr_internal.61
+	title = wgr_internal.61.t
+	desc = wgr_internal.61.d
+	picture = GFX_Event_Germany_Zentrum
+	is_triggered_only = yes
+	option = {
+		name = wgr_internal.61.a
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 10
+		add_stability = 0.02
+	}
+}
+country_event = { #FRA - Germany asks for restrictions to be lifted
+	id = wgr_external.1
+	title = wgr_external.1.t
+	desc = wgr_external.1.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #heavy restrictions
+		name = wgr_external.1.a
+		ai_chance = {
+			factor = 60
+		}
+		add_timed_idea = {
+			idea = FRA_payments_from_WGR_heavy
+			days = 1826
+		}
+		effect_tooltip = {
+			WGR = {
+				swap_ideas = { remove_idea = versailles_treaty add_idea = WGR_repayments_to_FRA_heavy }
+			}
+		}
+		WGR = {
+			set_country_flag = WGR_heavy_payment
+			country_event = {
+				id = wgr_external.2
+				days = 1
+			}
+		}
+	}
+	option = { #light restrictions
+		name = wgr_external.1.b
+		ai_chance = {
+			factor = 30
+		}
+		add_timed_idea = {
+			idea = FRA_payments_from_WGR_light
+			days = 2922
+		}
+		effect_tooltip = {
+			WGR = {
+				swap_ideas = { remove_idea = versailles_treaty add_idea = WGR_repayments_to_FRA_light }
+			}
+		}
+		WGR = {
+			set_country_flag = WGR_light_payment
+			country_event = {
+				id = wgr_external.2
+				days = 1
+			}
+		}
+	}
+	option = { #refuse
+		name = wgr_external.1.c
+		ai_chance = {
+			factor = 10
+		}
+		add_stability = 0.02
+		add_political_power = 50
+		custom_effect_tooltip = WGR_may_spawn_coup
+		WGR = {
+			country_event = {
+				id = wgr_external.3
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #Germany gets to re-arm
+	id = wgr_external.2
+	title = wgr_external.2.t
+	desc = wgr_external.2.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.2.a
+		ai_chance = {
+			factor = 100
+		}
+		if = {
+			limit = {
+				has_country_flag = WGR_heavy_payment
+			}
+			effect_tooltip = {
+				swap_ideas = { remove_idea = versailles_treaty add_idea = WGR_repayments_to_FRA_heavy }
+			}
+			hidden_effect = {
+				remove_ideas = versailles_treaty
+				add_timed_idea = {
+					idea = WGR_repayments_to_FRA_heavy
+					days = 1826
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = WGR_light_payment
+			}
+			effect_tooltip = {
+				swap_ideas = { remove_idea = versailles_treaty add_idea = WGR_repayments_to_FRA_light }
+			}
+			hidden_effect = {
+				remove_ideas = versailles_treaty
+				add_timed_idea = {
+					idea = WGR_repayments_to_FRA_light
+					days = 2922
+				}
+			}
+		}
+		every_army_leader = {
+			limit = {
+				has_trait = reichwehr_general
+			}
+			remove_unit_leader_trait = reichwehr_general
+		}
+		country_lock_all_division_template = no
+		remove_ideas = truppenamt
+	}
+	option = { # no fuck you
+		name = wgr_external.2.b
+		ai_chance = {
+			factor = 0
+		}
+		remove_ideas = versailles_treaty
+		add_stability = 0.10
+		add_war_support = 0.10
+		FRA = {
+			country_event = {
+				id = wgr_external.4
+			}
+		}
+		set_country_flag = WGR_lock_out_france_path
+		every_army_leader = {
+			limit = {
+				has_trait = reichwehr_general
+			}
+			remove_unit_leader_trait = reichwehr_general
+		}
+		country_lock_all_division_template = no
+		remove_ideas = truppenamt
+	}
+	option = { # we're good thanks
+		name = wgr_external.2.c
+		ai_chance = {
+			factor = 0
+		}
+		custom_effect_tooltip = WGR_may_spawn_coup
+		add_stability = -0.10
+		add_war_support = 0.20
+		FRA = {
+			country_event = {
+				id = wgr_external.5
+			}
+		}
+	}
+}
+
+country_event = { #Germany does not get to re-arm
+	id = wgr_external.3
+	title = wgr_external.3.t
+	desc = wgr_external.3.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #how about no
+		name = wgr_external.3.a
+		ai_chance = {
+			factor = 3
+		}
+		remove_ideas = versailles_treaty
+		add_stability = 0.10
+		add_war_support = 0.10
+		FRA = {
+			country_event = {
+				id = wgr_external.4
+			}
+		}
+		set_country_flag = WGR_lock_out_france_path
+		every_army_leader = {
+			limit = {
+				has_trait = reichwehr_general
+			}
+			remove_unit_leader_trait = reichwehr_general
+		}
+		country_lock_all_division_template = no
+		remove_ideas = truppenamt
+	}
+	option = { #back down
+		name = wgr_external.3.b
+		ai_chance = {
+			factor = 97
+		}
+		custom_effect_tooltip = WGR_may_spawn_coup
+		add_stability = -0.10
+		add_war_support = 0.20
+	}
+}
+
+country_event = { #Germany tries to re-arm anyways
+	id = wgr_external.4
+	title = wgr_external.4.t
+	desc = wgr_external.4.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			remove_ideas = FRA_payments_from_WGR_light
+			remove_ideas = FRA_payments_from_WGR_heavy
+		}
+	}
+	option = { # go to war
+		name = wgr_external.4.a
+		ai_chance = {
+			factor = 99
+			modifier = {
+			    factor = 0
+				WGR = {
+				    is_in_faction_with = ENG
+				}
+			}
+		}
+		declare_war_on = {
+			target = WGR
+			type = annex_everything
+		}
+		add_political_power = -50
+		add_stability = -0.05
+		hidden_effect = {
+			WGR = {
+				every_owned_state = {
+					limit = {
+						is_demilitarized_zone = yes
+					}
+					set_demilitarized_zone = no
+				}
+			}
+		}
+	}
+	option = { # don't go to war
+		name = wgr_external.4.b
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = -100
+		add_stability = -0.10
+	}
+}
+
+country_event = { #Germans back down
+	id = wgr_external.5
+	title = wgr_external.5.t
+	desc = wgr_external.5.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			remove_ideas = FRA_payments_from_WGR_light
+			remove_ideas = FRA_payments_from_WGR_heavy
+		}
+	}
+	option = {
+		name = wgr_external.5.a
+		add_political_power = 30
+	}
+}
+
+country_event = { #plebiscite in Saarland
+	id = wgr_external.6
+	title = wgr_external.6.t
+	desc = wgr_external.6.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.6.a
+		ai_chance = {
+			factor = 99
+		}
+		if = {
+			limit = {
+				is_historical_focus_on = yes
+			}
+			country_event = {
+				id = wgr_external.8
+				days = 1
+			}
+		}
+		else = {
+			random_list = {
+				90 = { # go with Germany
+					country_event = {
+						id = wgr_external.8
+						days = 1
+					}
+				}
+				9 = { # go with france as colony state
+					country_event = {
+						id = wgr_external.10
+						days = 1
+					}
+				}
+				1 = { # go with france as core state
+					country_event = {
+						id = wgr_external.12
+						days = 1
+					}
+				}
+			}
+		}
+	}
+}
+country_event = { #plebiscite in Saarland goes back to Germany
+	id = wgr_external.8
+	title = wgr_external.8.t
+	desc = wgr_external.8.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.8.a
+		ai_chance = {
+			factor = 1
+		}
+		GRM = {
+			country_event = { id = wgr_external.9 }
+			transfer_state = 809
+		}
+	}
+}
+country_event = { #plebiscite in Saarland goes back to Germany
+	id = wgr_external.9
+	title = wgr_external.9.t
+	desc = wgr_external.9.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.9.a
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = 50
+		add_stability = 0.05
+		add_war_support = -0.05
+		if = {
+			limit = {
+				any_owned_state = {
+					is_demilitarized_zone = yes
+				}
+			}
+			809 = { set_demilitarized_zone = yes }
+		}
+		set_country_flag = WGR_got_saar_back
+	}
+}
+country_event = { #plebiscite in Saarland status quo
+	id = wgr_external.10
+	title = wgr_external.10.t
+	desc = wgr_external.10.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.10.a
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = 20
+		GRM = {
+			country_event = { id = wgr_external.11 }
+		}
+	}
+}
+country_event = { #plebiscite in Saarland status quo
+	id = wgr_external.11
+	title = wgr_external.11.t
+	desc = wgr_external.11.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.11.a
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = -0.05
+		add_war_support = 0.05
+		set_country_flag = WGR_didnt_get_saarland_back
+	}
+}
+country_event = { #plebiscite in Saarland go with France
+	id = wgr_external.12
+	title = wgr_external.12.t
+	desc = wgr_external.12.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.12.a
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = 50
+		add_state_core = 809
+		809 = { set_state_name = "Sarre" }
+		set_province_name = { id = 11531 name = "Sarrebruck" }
+		GRM = {
+			country_event = { id = wgr_external.11 }
+		}
+	}
+}
+country_event = { #plebiscite in Saarland go with France
+	id = wgr_external.13
+	title = wgr_external.13.t
+	desc = wgr_external.13.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.13.a
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = -50
+		add_stability = -0.10
+		add_war_support = 0.10
+		remove_state_claim = 809
+		remove_state_core = 809
+		set_country_flag = WGR_didnt_get_saarland_back
+	}
+}
+
+country_event = { # Germany wants to go the Rhineland by negotiaton
+	id = wgr_external.14
+	title = wgr_external.14.t
+	desc = wgr_external.14.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # allow full access
+		name = wgr_external.14.a
+		add_political_power = -70
+		ai_chance = {
+			factor = 15
+		}
+		FROM = { country_event = { id = wgr_external.15 days = 1 } }
+	}
+	option = { # allow partial access (to 745 and 864 )
+		name = wgr_external.14.b
+		add_political_power = -50
+		ai_chance = {
+			factor = 70
+		}
+		FROM = { country_event = { id = wgr_external.16 days = 1 } }
+	}
+	option = { # allow no access
+		name = wgr_external.14.c
+		add_political_power = -20
+		ai_chance = {
+			factor = 15
+		}
+		FROM = { country_event = { id = wgr_external.17 days = 1 } }
+	}
+}
+
+country_event = { # Germany wants to go the Rhineland by negotiaton - Full access
+	id = wgr_external.15
+	title = wgr_external.15.t
+	desc = wgr_external.15.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # allow full access
+		name = wgr_external.15.a
+		GRM = {
+			every_controlled_state = {
+				limit = {
+					region = 209
+					is_demilitarized_zone = yes
+				}
+				set_demilitarized_zone = no
+			}
+
+		}
+		diplomatic_relation = {
+			country = SOV
+			relation = non_aggression_pact
+			active = yes
+		}
+		set_country_flag = WGR_first_rhineland
+		set_country_flag = WGR_full_rhineland
+	}
+}
+country_event = { # Germany wants to go the Rhineland by negotiaton - East Bank Only
+	id = wgr_external.16
+	title = wgr_external.16.t
+	desc = wgr_external.16.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.16.a
+		ai_chance = {
+			factor = 95
+		}
+		add_war_support = 0.05
+		745 = {
+			set_demilitarized_zone = no
+		}
+		864 = {
+			set_demilitarized_zone = no
+		}
+		1176 = {
+			set_demilitarized_zone = no
+		}
+		set_country_flag = WGR_first_rhineland #next will be done by decision
+	}
+	option = {
+		name = wgr_external.16.b
+		ai_chance = {
+			factor = 5
+		}
+		add_stability = -0.05
+		add_war_support = 0.10
+		42 = {
+			set_demilitarized_zone = no
+		}
+		51 = {
+			set_demilitarized_zone = no
+		}
+		745 = {
+			set_demilitarized_zone = no
+		}
+		809 = {
+			set_demilitarized_zone = no
+		}
+		810 = {
+			set_demilitarized_zone = no
+		}
+		864 = {
+			set_demilitarized_zone = no
+		}
+		1176 = {
+			set_demilitarized_zone = no
+		}
+		set_country_flag = WGR_first_rhineland
+		set_country_flag = WGR_full_rhineland
+		FRA = {
+			country_event = {
+				id = wgr_external.18
+				days = 1
+			}
+		}
+	}
+}
+country_event = { # Germany wants to go the Rhineland by negotiaton - France Says No
+	id = wgr_external.17
+	title = wgr_external.17.t
+	desc = wgr_external.17.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.17.a
+		ai_chance = {
+			factor = 87
+		}
+		add_political_power = -50
+		add_stability = -0.10
+		add_war_support = 0.20
+		add_popularity = { ideology = nationalism popularity = 0.02 }
+		add_popularity = { ideology = fascism popularity = 0.02 }
+	}
+	option = {
+		name = wgr_external.17.b
+		ai_chance = {
+			factor = 13
+		}
+		add_stability = -0.05
+		add_war_support = 0.10
+		GRM = {
+			every_controlled_state = {
+				limit = {
+					region = 209
+					is_demilitarized_zone = yes
+				}
+				set_demilitarized_zone = no
+			}
+
+		}
+		set_country_flag = WGR_first_rhineland
+		set_country_flag = WGR_full_rhineland
+		set_country_flag = WGR_lock_out_france_path
+		FRA = {
+			country_event = {
+				id = wgr_external.18
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #Germany moves in anyways
+	id = wgr_external.18
+	title = wgr_external.18.t
+	desc = wgr_external.18.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # go to war
+		name = wgr_external.18.a
+		ai_chance = {
+			factor = 99
+		}
+		declare_war_on = {
+			target = FROM
+			type = annex_everything
+		}
+		add_political_power = -50
+		add_stability = -0.05
+		FROM = {
+			remove_ideas = versailles_treaty
+			every_army_leader = {
+				limit = {
+					has_trait = reichwehr_general
+				}
+				remove_unit_leader_trait = reichwehr_general
+			}
+			country_lock_all_division_template = no
+			remove_ideas = truppenamt
+		}
+	}
+	option = { # don't go to war
+		name = wgr_external.4.b
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = -100
+		add_stability = -0.10
+	}
+}
+
+country_event = { #choose foreign policy direction
+	id = wgr_external.19
+	title = wgr_external.19.t
+	desc = wgr_external.19.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # neutrality
+		name = wgr_external.19.a
+		ai_chance = {
+			factor = 5
+			modifier = {
+				has_government = jacobin
+				factor = 0
+			}
+		}
+		set_country_flag = WGR_neutral_foreign_policy
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+	}
+	option = { # limited intervention
+		name = wgr_external.19.b
+		ai_chance = {
+			factor = 80
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+	}
+	option = { # intervention
+		name = wgr_external.19.c
+		ai_chance = {
+			factor = 15
+			modifier = {
+				has_government = socialism
+				factor = 0
+			}
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.02
+		}
+		set_country_flag = WGR_interventionism
+		unlock_decision_category_tooltip = WGR_intervention_cat
+	}
+}
+
+country_event = { #FRA research agreement
+	id = wgr_external.20
+	title = wgr_external.20.t
+	desc = wgr_external.20.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.20.a
+		ai_chance = {
+			factor = 90
+		}
+		add_tech_bonus = {
+			bonus = 0.15
+			uses = 1
+			category = armor
+		}
+		FROM = {
+			country_event = {
+				id = wgr_external.21
+				days = 1
+			}
+		}
+	}
+	option = { # yes
+		name = wgr_external.20.b
+		ai_chance = {
+			factor = 10
+		}
+		FROM = {
+			country_event = {
+				id = wgr_external.22
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #WGR research agreement
+	id = wgr_external.21
+	title = wgr_external.21.t
+	desc = wgr_external.21.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.21.a
+		ai_chance = {
+			factor = 1
+		}
+		add_tech_bonus = {
+			bonus = 0.15
+			uses = 1
+			category = infantry_tech
+		}
+	}
+}
+country_event = { #WGR research agreement
+	id = wgr_external.22
+	title = wgr_external.22.t
+	desc = wgr_external.22.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.22.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+country_event = { #anglo-german naval treaty
+	id = wgr_external.23
+	title = wgr_external.23.t
+	desc = wgr_external.23.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.23.a
+		ai_chance = {
+			factor = 82
+		}
+		FROM = {
+			country_event = {
+				id = wgr_external.24
+				days = 1
+			}
+		}
+		add_stability = 0.02
+	}
+	option = { # mo
+		name = wgr_external.23.a
+		ai_chance = {
+			factor = 18
+		}
+		FROM = {
+			country_event = {
+				id = wgr_external.25
+				days = 1
+			}
+		}
+		add_political_power = 20
+	}
+}
+country_event = { #anglo-german naval treaty - success
+	id = wgr_external.24
+	title = wgr_external.24.t
+	desc = wgr_external.24.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.24.a
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = GER_uk_accepted_naval_coop_wgr
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				is_coastal = yes
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+country_event = { #anglo-german naval treaty - failure
+	id = wgr_external.25
+	title = wgr_external.25.t
+	desc = wgr_external.25.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.25.a
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = WGR_lock_britain_path
+		add_stability = -0.02
+		add_war_support = 0.05
+	}
+}
+country_event = { #ENG research agreement
+	id = wgr_external.26
+	title = wgr_external.26.t
+	desc = wgr_external.26.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.26.a
+		ai_chance = {
+			factor = 90
+		}
+		add_tech_bonus = {
+			bonus = 0.15
+			uses = 1
+			category = armor
+		}
+		FROM = {
+			country_event = {
+				id = wgr_external.27
+				days = 1
+			}
+		}
+	}
+	option = { # no
+		name = wgr_external.26.b
+		ai_chance = {
+			factor = 10
+		}
+		FROM = {
+			country_event = {
+				id = wgr_external.28
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #WGR research agreement
+	id = wgr_external.27
+	title = wgr_external.27.t
+	desc = wgr_external.27.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.27.a
+		ai_chance = {
+			factor = 1
+		}
+		add_tech_bonus = {
+			bonus = 0.15
+			uses = 1
+			category = dd_tech
+		}
+		set_country_flag = WGR_uk_accepts_research
+	}
+}
+country_event = { #WGR research agreement
+	id = wgr_external.28
+	title = wgr_external.28.t
+	desc = wgr_external.28.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.28.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = { #WGR wants to defend
+	id = wgr_external.29
+	title = wgr_external.29.t
+	desc = wgr_external.29.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.29.a
+		ai_chance = {
+			factor = 99
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.30
+				days = 1
+			}
+			give_guarantee = PREV
+		}
+	}
+	option = { # no
+		name = wgr_external.29.b
+		ai_chance = {
+			factor = 1
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.31
+				days = 1
+			}
+		}
+	}
+}
+country_event = {
+	id = wgr_external.30
+	title = wgr_external.30.t
+	desc = wgr_external.30.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.30.a
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = 0.02
+	}
+}
+country_event = {
+	id = wgr_external.31
+	title = wgr_external.31.t
+	desc = wgr_external.31.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.31.a
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = -0.02
+	}
+}
+country_event = { #WGR wants to ally
+	id = wgr_external.32
+	title = wgr_external.32.t
+	desc = wgr_external.32.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.32.a
+		ai_chance = {
+			factor = 99
+			modifier = {
+				is_in_faction = yes
+				factor = 0
+			}
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.33
+				days = 1
+			}
+			add_to_faction = PREV
+		}
+	}
+	option = { # no
+		name = wgr_external.32.b
+		ai_chance = {
+			factor = 1
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.34
+				days = 1
+			}
+		}
+	}
+}
+country_event = {
+	id = wgr_external.33
+	title = wgr_external.33.t
+	desc = wgr_external.33.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.33.a
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = 0.02
+	}
+}
+country_event = {
+	id = wgr_external.34
+	title = wgr_external.34.t
+	desc = wgr_external.34.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.34.a
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = -0.02
+	}
+}
+country_event = { #WGR build factory in Helsinki, but applies to any nation
+	id = wgr_external.35
+	title = wgr_external.35.t
+	desc = wgr_external.35.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.35.a
+		ai_chance = {
+			factor = 98
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.36
+				days = 1
+			}
+		}
+		capital_scope = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+	option = { # no
+		name = wgr_external.35.b
+		ai_chance = {
+			factor = 2
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.37
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = wgr_external.36
+	title = wgr_external.36.t
+	desc = wgr_external.36.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.36.a
+		ai_chance = {
+			factor = 1
+		}
+		effect_tooltip = {
+			FROM = {
+				capital_scope = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = wgr_external.37
+	title = wgr_external.37.t
+	desc = wgr_external.37.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.37.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = { #WGR demand access
+	id = wgr_external.38
+	title = wgr_external.38.t
+	desc = wgr_external.38.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.38.a
+		ai_chance = {
+			factor = 20
+			modifier = {
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+				}
+				factor = 0
+			}
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.39
+				days = 1
+			}
+			give_military_access = PREV
+		}
+	}
+	option = { # no
+		name = wgr_external.38.b
+		ai_chance = {
+			factor = 80
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.40
+				days = 1
+			}
+		}
+	}
+}
+country_event = {
+	id = wgr_external.39
+	title = wgr_external.39.t
+	desc = wgr_external.39.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.39.a
+		ai_chance = {
+			factor = 1
+		}
+		effect_tooltip = {
+			WGR = {
+				give_military_access = FROM
+			}
+		}
+	}
+}
+country_event = {
+	id = wgr_external.40
+	title = wgr_external.40.t
+	desc = wgr_external.40.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.40.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = { #Memel economic zone
+	id = wgr_external.41
+	title = wgr_external.41.t
+	desc = wgr_external.41.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.41.a
+		ai_chance = {
+			factor = 14
+			modifier = {
+				NOT = {
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				factor = 0
+			}
+		}
+		add_political_power = -50
+		add_stability = -0.05
+		add_war_support = 0.10
+		WGR = {
+			country_event = {
+				id = wgr_external.42
+				days = 1
+			}
+			transfer_state = 188
+			add_state_core = 188
+			give_guarantee = LIT
+			188 = {
+				set_state_name = "Memelland"
+			}
+			add_opinion_modifier = {
+				target = LIT
+				modifier = WGR_trade_with_france
+			}
+		}
+		remove_state_core = 188
+		add_opinion_modifier = {
+			target = WGR
+			modifier = WGR_trade_with_france
+		}
+	}
+	option = { # no
+		name = wgr_external.41.b
+		ai_chance = {
+			factor = 86
+		}
+		add_political_power = 50
+		add_stability = 0.05
+		WGR = {
+			country_event = {
+				id = wgr_external.43
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = wgr_external.42
+	title = wgr_external.42.t
+	desc = wgr_external.42.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.42.a
+		ai_chance = {
+			factor = 1
+		}
+		effect_tooltip = {
+			transfer_state = 188
+			add_state_core = 188
+			188 = {
+				set_state_name = "Memelland"
+			}
+			give_guarantee = LIT
+			add_opinion_modifier = {
+				target = LIT
+				modifier = WGR_trade_with_france
+			}
+			LIT = {
+				add_opinion_modifier = {
+					target = WGR
+					modifier = WGR_trade_with_france
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = wgr_external.43
+	title = wgr_external.43.t
+	desc = wgr_external.43.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.43.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = { #military cooperation
+	id = wgr_external.44
+	title = wgr_external.44.t
+	desc = wgr_external.44.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.44.a
+		ai_chance = {
+			factor = 99
+		}
+		add_ideas = WGR_military_cooperation_foreign
+		WGR = {
+			country_event = {
+				id = wgr_external.45
+				days = 1
+			}
+		}
+	}
+	option = { # no
+		name = wgr_external.44.b
+		ai_chance = {
+			factor = 1
+		}
+		add_war_support = 0.03
+		WGR = {
+			country_event = {
+				id = wgr_external.46
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = wgr_external.45
+	title = wgr_external.45.t
+	desc = wgr_external.45.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.45.a
+		ai_chance = {
+			factor = 1
+		}
+		army_experience = 10
+		effect_tooltip = {
+			FROM = {
+				add_ideas = WGR_military_cooperation_foreign
+			}
+		}
+	}
+}
+
+country_event = {
+	id = wgr_external.46
+	title = wgr_external.46.t
+	desc = wgr_external.46.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { # yes
+		name = wgr_external.46.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = { #ROM - Transylvania mediation
+	id = wgr_external.47
+	title = wgr_external.47.t
+	desc = wgr_external.47.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = { # Give in
+		name = wgr_external.47.a
+		ai_chance = {
+			base = 20
+		}
+		add_stability = -0.15
+		add_war_support = 0.25
+		add_popularity = {
+			ideology = var:ruling_party_ideology_token
+			popularity = -0.20
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.48
+				hours = 12
+			}
+		}
+		HUN = {
+			country_event = {
+				id = wgr_external.49
+				hours = 12
+			}
+		}
+	}
+	option = { # Ask Germany
+		name = wgr_external.47.b
+		ai_chance = {
+			base = 55
+		}
+		trigger = {
+			owns_state = 76
+			controls_state = 76
+		}
+		add_stability = -0.12
+		add_war_support = 0.15
+		WGR = {
+			country_event = {
+				id = wgr_external.50
+				days = 1
+			}
+		}
+	}
+	option = { # No
+		name = wgr_external.47.c
+		ai_chance = {
+			base = 25
+		}
+		add_war_support = 0.10
+		set_global_flag = Rom_refuses_transylvania_compromise
+		WGR = {
+			country_event = {
+				id = wgr_external.52
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = { #Romania agrees to Hungarian demands - WGR
+	id = wgr_external.48
+	title = wgr_external.48.t
+	desc = wgr_external.48.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.48
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 20
+		effect_tooltip = {
+			HUN = {
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 76
+							controls_state = 76
+						}
+					}
+					transfer_state = 76
+					add_state_core = 76
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 1048
+							controls_state = 1048
+						}
+					}
+					transfer_state = 1048
+					add_state_core = 1048
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 1054
+							controls_state = 1054
+						}
+					}
+					transfer_state = 1054
+					add_state_core = 1054
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 1046
+							controls_state = 1046
+						}
+					}
+					transfer_state = 1046
+					add_state_core = 1046
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 83
+							controls_state = 83
+						}
+					}
+					transfer_state = 83
+					add_state_core = 83
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Romania agrees to our demands - HUN
+	id = wgr_external.49
+	title = wgr_external.49.t
+	desc = wgr_external.49.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_external.49
+		ai_chance = {
+			factor = 100
+		}
+		HUN = {
+			add_stability = 0.06
+			add_war_support = -0.10
+			add_popularity = {
+				ideology = var:ruling_party_ideology_token
+				popularity = 0.15
+			}
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 76
+						controls_state = 76
+					}
+				}
+				transfer_state = 76
+				add_state_core = 76
+			}
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 1046
+						controls_state = 1046
+					}
+				}
+				transfer_state = 1046
+				add_state_core = 1046
+			}
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 1054
+						controls_state = 1054
+					}
+				}
+				transfer_state = 1054
+				add_state_core = 1054
+			}
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 1048
+						controls_state = 1048
+					}
+				}
+				transfer_state = 1048
+				add_state_core = 1048
+			}
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 83
+						controls_state = 83
+					}
+				}
+				transfer_state = 83
+				add_state_core = 83
+			}
+		}
+	}
+}
+
+country_event = { #Romania asks us to impose a compromise - WGR
+	id = wgr_external.50
+	title = wgr_external.50.t
+	desc = wgr_external.50.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+
+	option = { #Favour Romania
+		name = wgr_external.50.a
+		ai_chance = {
+			base = 55
+		}
+		hidden_effect = {
+			set_global_flag = WGR_favours_Romania_in_Transylvania
+			HUN = {
+				country_event = {
+					id = wgr_external.90
+				}
+			}
+			ROM = {
+				country_event = {
+					id = wgr_external.51
+				}
+			}
+		}
+	}
+	option = {
+		name = wgr_external.50.b #Favour Hungary
+		ai_chance = {
+			base = 45
+		}
+		hidden_effect = {
+			set_global_flag = WGR_favours_Hungary_in_Transylvania
+			HUN = {
+				country_event = {
+					id = wgr_external.90
+				}
+			}
+			ROM = {
+				country_event = {
+					id = wgr_external.51
+				}
+			}
+		}
+	}
+}
+
+country_event = { #German division of Transylvania -ROM
+	id = wgr_external.51
+	title = wgr_external.51.t
+	desc = wgr_external.51.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 4
+
+	option = { #accept - ROM
+		name = wgr_external.51.a
+
+		ai_chance = {
+			base = 70
+			modifier = {
+				has_global_flag = WGR_favours_Romania_in_Transylvania
+				add = 10
+			}
+		}
+		
+		hidden_effect = {
+			WGR = { country_event = { id = wgr_external.87 hours = 5 } }
+			HUN = { country_event = { id = wgr_external.89 hours = 5 } }
+			set_global_flag = Rom_agrees_transylvania_offer
+		}
+		
+	}
+
+	option = { #Don't accept -ROM
+		name = wgr_external.51.b
+
+		trigger = {
+			tag = ROM
+		}
+		ai_chance = {
+			base = 3
+			modifier = {
+				has_global_flag = WGR_favours_Hungary_in_Transylvania
+				add = 10
+			}
+			modifier = {
+				strength_ratio = {
+					tag = HUN
+					ratio > 0.5
+				}
+				strength_ratio = {
+					tag = WGR
+					ratio > 0.5
+				}
+				add = 52
+			}
+		}
+
+		effect_tooltip = {
+			HUN = {
+				declare_war_on = {
+					target = ROM
+					type = annex_everything
+				}
+			}
+
+			WGR = {
+				add_to_faction = HUN
+				add_to_war = {
+					targeted_alliance = HUN
+					enemy = ROM
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					has_global_flag = WGR_favours_Romania_in_Transylvania
+				}
+				clr_global_flag = WGR_favours_Romania_in_Transylvania
+			}
+			else_if = {
+				limit = {
+					has_global_flag = WGR_favours_Hungary_in_Transylvania
+				}
+				clr_global_flag = WGR_favours_Hungary_in_Transylvania
+			}
+			set_global_flag = Rom_refuses_transylvania_compromise
+			WGR = { country_event = { id = wgr_external.52 } }
+		}
+	}
+}
+country_event = { #German division of Transylvania -HUN
+	id = wgr_external.90
+	title = wgr_external.51.t
+	desc = wgr_external.90.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 4
+
+	option = { #accept - HUN
+		name = wgr_external.90.a
+
+		ai_chance = {
+			base = 90
+			modifier = {
+				has_global_flag = WGR_favours_Hungary_in_Transylvania
+				add = 10
+			}
+		}
+
+		hidden_effect = {
+			WGR = { country_event = { id = wgr_external.88 hours = 5 } }
+			ROM = { country_event = { id = wgr_external.91 hours = 5 } }
+			set_global_flag = Hun_agrees_transylvania_offer
+		}
+
+	}
+
+	option = { #Don't accept -HUN
+		name = wgr_external.90.b
+
+		ai_chance = {
+			base = 0
+			modifier = {
+				strength_ratio = {
+					tag = ROM
+					ratio > 1
+				}
+				strength_ratio = {
+					tag = WGR
+					ratio > 1
+				}
+				add = 50
+			}
+		}
+
+		effect_tooltip = {
+			ROM = {
+				declare_war_on = {
+					target = HUN
+					type = annex_everything
+				}
+			}
+
+			WGR = {
+				add_to_faction = ROM
+				add_to_war = {
+					targeted_alliance = ROM
+					enemy = HUN
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					has_global_flag = WGR_favours_Romania_in_Transylvania
+				}
+				clr_global_flag = WGR_favours_Romania_in_Transylvania
+			}
+			else_if = {
+				limit = {
+					has_global_flag = WGR_favours_Hungary_in_Transylvania
+				}
+				clr_global_flag = WGR_favours_Hungary_in_Transylvania
+			}
+			set_global_flag = Hun_refuses_transylvania_compromise
+			WGR = { country_event = { id = wgr_external.52 } }
+		}
+	}
+}
+
+country_event = { #Romania/Hungary says no, WGR punts it to Hungary/Romania
+	id = wgr_external.52
+	title = wgr_external.52.t
+	desc ={
+		trigger = {
+			has_global_flag = Rom_refuses_transylvania_compromise
+		}
+		text = wgr_external.52.rom.desc
+	}
+	desc ={
+		trigger = {
+			has_global_flag = Rom_refuses_transylvania_compromise
+		}
+		text = wgr_external.52.hun.desc
+	}
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+
+	option = { #Romania Refuses
+		name = wgr_external.52.rom
+		trigger = {
+			has_global_flag = Rom_refuses_transylvania_compromise
+		}
+		HUN = {
+			country_event = {
+				id = wgr_external.53
+			}
+		}
+		hidden_effect = {
+			clr_global_flag = Rom_refuses_transylvania_compromise
+		}
+	}
+
+	option = { #Hungary Refuses
+		name = wgr_external.52.hun
+		trigger = {
+			has_global_flag = Hun_refuses_transylvania_compromise
+		}
+		ROM = {
+			country_event = {
+				id = wgr_external.53
+			}
+		}
+		hidden_effect = {
+			clr_global_flag = Hun_refuses_transylvania_compromise
+		}
+	}
+}
+
+country_event = { #Break of Negotiations
+	id = wgr_external.53
+	title = wgr_external.53.t
+	desc = {
+		trigger = {
+			tag = ROM
+		}
+		text = wgr_external.53.rom.desc
+	}
+	desc = {
+		trigger = {
+			tag = HUN
+		}
+		text = wgr_external.53.rom.desc
+	}
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #War -ROM
+		name = wgr_external.53.rom.a
+		trigger = {
+			tag = ROM
+		}
+		ai_chance = {
+			base = 60
+			modifier = {
+				strength_ratio = {
+					tag = HUN
+					ratio < 0.7
+				}
+				add = -10
+			}
+		}
+		declare_war_on = {
+			target = HUN
+			type = annex_everything
+		}
+		WGR = {
+			add_to_faction = ROM
+			add_to_war = {
+				targeted_alliance = ROM
+				enemy = HUN
+				hostility_reason = asked_to_join
+			}
+		}
+	}
+
+	option = { #War -HUN
+		name = wgr_external.53.hun.a
+		trigger = {
+			tag = ROM
+		}
+		ai_chance = {
+			base = 80
+			modifier = {
+				strength_ratio = {
+					tag = ROM
+					ratio < 0.7
+				}
+				add = -10
+			}
+		}
+		declare_war_on = {
+			target = ROM
+			type = annex_everything
+		}
+		WGR = {
+			add_to_faction = HUN
+			add_to_war = {
+				targeted_alliance = HUN
+				enemy = ROM
+				hostility_reason = asked_to_join
+			}
+		}
+	}
+}
+
+country_event = { #Romania agrees -WGR
+	id = wgr_external.87
+	title = wgr_external.87.t
+	desc = wgr_external.87.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					has_global_flag = Hun_agrees_transylvania_offer
+				}
+				country_event = { id = wgr_external.92 hours = 2 }
+				clr_global_flag = Hun_agrees_transylvania_offer
+			}
+		}
+	}
+
+	option = { #Good
+		name = wgr_external.87.a
+	}
+}
+
+country_event = { #Hungary agrees -WGR
+	id = wgr_external.88
+	title = wgr_external.88.t
+	desc = wgr_external.88.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					has_global_flag = Rom_agrees_transylvania_offer
+				}
+				country_event = { id = wgr_external.92 hours = 2 }
+				clr_global_flag = Rom_agrees_transylvania_offer
+			}
+		}
+	}
+
+	option = { #Good
+		name = wgr_external.88.a
+	}
+}
+
+country_event = { #Treaty of Viena -HUN
+	id = wgr_external.89
+	title = wgr_external.89.t
+	desc = wgr_external.89.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = wgr_external.89.a
+		add_stability = -0.07
+		add_war_support = -0.15
+		add_popularity = {
+			ideology = var:ruling_party_ideology_token
+			popularity = 0.13
+		}
+		effect_tooltip = {
+			if = {
+				limit = {
+					has_global_flag = WGR_favours_Hungary_in_Transylvania
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 1048
+							controls_state = 1048
+						}
+					}
+					HUN = {
+						transfer_state = 1048
+						add_state_core = 1048
+					}
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 1054
+							controls_state = 1054
+						}
+					}
+					HUN = {
+						transfer_state = 1054
+						add_state_core = 1054
+					}
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 76
+							controls_state = 76
+						}
+					}
+					HUN = {
+						transfer_state = 76
+						add_state_core = 76
+					}
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 1046
+							controls_state = 1046
+						}
+					}
+					HUN = {
+						transfer_state = 1046
+						add_state_core = 1046
+					}
+				}
+			}
+	
+			if = {
+				limit = {
+					has_global_flag = WGR_favours_Romania_in_Transylvania
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 1048
+							controls_state = 1048
+						}
+					}
+					HUN = {
+						transfer_state = 1048
+						add_state_core = 1048
+					}
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 83
+							controls_state = 83
+						}
+					}
+					HUN = {
+						transfer_state = 83
+						add_state_core = 83
+					}
+				}
+				if = {
+					limit = {
+						73 = { is_owned_and_controlled_by = HUN }
+						1207 = { is_owned_and_controlled_by = HUN }
+						ROM = {
+							owns_state = 1054
+							controls_state = 1054
+						}
+					}
+					HUN = {
+						transfer_state = 1054
+						add_state_core = 1054
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Treaty of Viena -ROM
+	id = wgr_external.91
+	title = wgr_external.91.t
+	desc = wgr_external.91.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Good
+		name = wgr_external.91.a
+		add_stability = -0.10
+		add_war_support = 0.20
+		add_popularity = {
+			ideology = var:ruling_party_ideology_token
+			popularity = -0.15
+		}
+		effect_tooltip = {
+			if = {
+				limit = {
+					has_global_flag = WGR_favours_Hungary_in_Transylvania
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 1048
+							controls_state = 1048
+						}
+					}
+					HUN = {
+						transfer_state = 1048
+						add_state_core = 1048
+					}
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 1054
+							controls_state = 1054
+						}
+					}
+					HUN = {
+						transfer_state = 1054
+						add_state_core = 1054
+					}
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 76
+							controls_state = 76
+						}
+					}
+					HUN = {
+						transfer_state = 76
+						add_state_core = 76
+					}
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 1046
+							controls_state = 1046
+						}
+					}
+					HUN = {
+						transfer_state = 1046
+						add_state_core = 1046
+					}
+				}
+			}
+	
+			if = {
+				limit = {
+					has_global_flag = WGR_favours_Romania_in_Transylvania
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 1048
+							controls_state = 1048
+						}
+					}
+					HUN = {
+						transfer_state = 1048
+						add_state_core = 1048
+					}
+				}
+				if = {
+					limit = {
+						ROM = {
+							owns_state = 83
+							controls_state = 83
+						}
+					}
+					HUN = {
+						transfer_state = 83
+						add_state_core = 83
+					}
+				}
+				if = {
+					limit = {
+						73 = { is_owned_and_controlled_by = HUN }
+						1207 = { is_owned_and_controlled_by = HUN }
+						ROM = {
+							owns_state = 1054
+							controls_state = 1054
+						}
+					}
+					HUN = {
+						transfer_state = 1054
+						add_state_core = 1054
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Treaty of Vienna -Hidden
+	id = wgr_external.92
+	title = wgr_external.92.t
+	desc = wgr_external.92.desc
+	picture = x
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes
+
+	immediate = {
+		HUN = { country_event = { id = wgr_external.89 hours = 3 } }
+		ROM = { country_event = { id = wgr_external.91 hours = 3 } }
+		if = {
+			limit = {
+				has_global_flag = WGR_favours_Hungary_in_Transylvania
+			}
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 1048
+						controls_state = 1048
+					}
+				}
+				HUN = {
+					transfer_state = 1048
+					add_state_core = 1048
+				}
+			}
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 1054
+						controls_state = 1054
+					}
+				}
+				HUN = {
+					transfer_state = 1054
+					add_state_core = 1054
+				}
+			}
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 76
+						controls_state = 76
+					}
+				}
+				HUN = {
+					transfer_state = 76
+					add_state_core = 76
+				}
+			}
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 1046
+						controls_state = 1046
+					}
+				}
+				HUN = {
+					transfer_state = 1046
+					add_state_core = 1046
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				has_global_flag = WGR_favours_Romania_in_Transylvania
+			}
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 1048
+						controls_state = 1048
+					}
+				}
+				HUN = {
+					transfer_state = 1048
+					add_state_core = 1048
+				}
+			}
+			if = {
+				limit = {
+					ROM = {
+						owns_state = 83
+						controls_state = 83
+					}
+				}
+				HUN = {
+					transfer_state = 83
+					add_state_core = 83
+				}
+			}
+			if = {
+				limit = {
+					73 = { is_owned_and_controlled_by = HUN }
+					1207 = { is_owned_and_controlled_by = HUN }
+					ROM = {
+						owns_state = 1054
+						controls_state = 1054
+					}
+				}
+				HUN = {
+					transfer_state = 1054
+					add_state_core = 1054
+				}
+			}
+		}
+	}
+	option = {
+		name = wgr_external.92.a
+		
+	}
+}
+
+country_event = { #wgr wants to build forts in Austria
+	id = wgr_external.54
+	title = wgr_external.54.t
+	desc = wgr_external.54.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #accept
+		name = wgr_external.54.a
+		ai_chance = {
+			factor = 98
+		}
+		153 = {
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 9633
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 11618
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 671
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 2
+				province = 6673
+				instant_build = yes
+			}
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.55
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = wgr_external.54.b
+		ai_chance = {
+			factor = 2
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.56
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = wgr_external.55
+	title = wgr_external.55.t
+	desc = wgr_external.55.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #accept
+		name = wgr_external.55.a
+		ai_chance = {
+			factor = 100
+		}
+		effect_tooltip = {
+			AUS = {
+				153 = {
+					add_building_construction = {
+						type = bunker
+						level = 1
+						province = 9633
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						province = 11618
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						province = 671
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 6673
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = wgr_external.56
+	title = wgr_external.56.t
+	desc = wgr_external.56.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #accept
+		name = wgr_external.56.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -5
+	}
+}
+
+country_event = { # treaty of guarantees - cze
+	id = wgr_external.57
+	title = wgr_external.57.t
+	desc = wgr_external.57.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = wgr_external.57.a
+		ai_chance = {
+			factor = 70
+		}
+		add_political_power = 20
+		add_stability = 0.05
+		WGR = {
+			set_country_flag = WGR_cze_accepts_guar_treaty
+			country_event = { id = wgr_external.58 }
+			add_opinion_modifier = { target = CZE modifier = garantiebrief_yes }
+		}
+	}
+	option = {
+		name = wgr_external.57.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				has_opinion = { target = WGR value > 25 }
+				factor = 0.2
+			}
+			modifier = {
+				has_opinion = { target = WGR value > 50 }
+				factor = 0
+			}
+		}
+		WGR = {
+			set_country_flag = WGR_cze_denies_guar_treaty
+			country_event = { id = wgr_external.59 }
+			add_opinion_modifier = { target = CZE modifier = garantiebrief_no }
+		}
+		set_country_flag = CZE_did_not_sign_guar_treaty
+		add_political_power = -20
+		add_stability = -0.05
+	}
+}
+
+country_event = { # treaty of guarantees - ger - cze accepts
+	id = wgr_external.58
+	title = wgr_external.58.t
+	desc = wgr_external.58.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	
+	option = {
+		name = wgr_external.58.a
+		add_political_power = 10
+		CZE = { add_opinion_modifier = { target = WGR modifier = garantiebrief_yes } }
+	}
+}
+
+country_event = { # treaty of guarantees - ger - cze declines
+	id = wgr_external.59
+	title = wgr_external.59.t
+	desc = wgr_external.59.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	
+	option = {
+		name = wgr_external.59.a
+		add_political_power = -10
+		CZE = { add_opinion_modifier = { target = WGR modifier = garantiebrief_no } }
+	}
+}
+
+country_event = { #Zaolzie dispute - POL first event
+	id = wgr_external.60
+	title = wgr_external.60.t
+	desc = wgr_external.60.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #give up claims
+		name = wgr_external.60.a
+		ai_chance = {
+			factor = 7
+			modifier = {
+				NOT = {
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					
+					has_government = democratic
+				}
+				factor = 0
+			}
+		}
+		add_stability = -0.02
+		add_war_support = 0.02
+		CZE = {
+			country_event = {
+				id = wgr_external.61
+				days = 1
+			}
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.61
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = wgr_external.60.b
+		ai_chance = {
+			factor = 93
+		}
+		CZE = {
+			country_event = {
+				id = wgr_external.62
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = { #Zaolzie dispute - POL gives up claims
+	id = wgr_external.61
+	title = wgr_external.61.t
+	desc = wgr_external.61.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #give up claims
+		name = wgr_external.61.a
+		ai_chance = {
+			factor = 7
+		}
+		add_stability = 0.02
+		add_political_power = 10
+	}
+}
+country_event = { #Zaolzie dispute - POL goes to negotiate - CZE
+	id = wgr_external.62
+	title = wgr_external.62.t
+	desc = wgr_external.62.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #Give up Zaolzie
+		name = wgr_external.62.a
+		ai_chance = {
+			factor = 2
+			modifier = {
+				NOT = {
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					
+					has_government = democratic
+				}
+				factor = 0
+			}
+		}
+		add_stability = -0.05
+		add_war_support = 0.05
+		POL = {
+			transfer_state = 72
+			add_state_core = 72
+			country_event = {
+				id = wgr_external.63
+			}
+		}
+	}
+	option = { #Give up Zaolzie
+		name = wgr_external.62.b
+		ai_chance = {
+			factor = 38
+			modifier = {
+				NOT = {
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					
+					has_government = democratic
+				}
+				factor = 0.1
+			}
+		}
+		add_stability = -0.05
+		add_war_support = 0.05
+		POL = {
+			country_event = {
+				id = wgr_external.64
+			}
+		}
+	}
+	option = { #No!
+		name = wgr_external.62.c
+		ai_chance = {
+			factor = 60
+		}
+		add_stability = 0.05
+		add_war_support = 0.01
+		POL = {
+			country_event = {
+				id = wgr_external.67
+			}
+		}
+	}
+}
+country_event = { #Poland Gets Zaolzie
+	id = wgr_external.63
+	title = wgr_external.63.t
+	desc = wgr_external.63.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #Give up Zaolzie
+		name = wgr_external.63.a
+		ai_chance = {
+			factor = 2
+		}
+		add_stability = 0.02
+		add_war_support = -0.02
+		effect_tooltip = {
+			transfer_state = 72
+			add_state_core = 72
+		}
+	}
+}
+country_event = { #CZE offers demilitarized zone
+	id = wgr_external.64
+	title = wgr_external.64.t
+	desc = wgr_external.64.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.64.a
+		ai_chance = {
+			factor = 2
+		}
+		72 = {
+			set_demilitarized_zone = yes
+		}
+		CZE = {
+			country_event = {
+				id = wgr_external.65
+			}
+		}
+	}
+	option = { #no
+		name = wgr_external.64.b
+		ai_chance = {
+			factor = 2
+		}
+		add_political_power = -20
+		CZE = {
+			country_event = {
+				id = wgr_external.66
+			}
+		}
+	}
+}
+country_event = { #CZE offers demilitarized zone
+	id = wgr_external.65
+	title = wgr_external.65.t
+	desc = wgr_external.65.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.65.a
+		ai_chance = {
+			factor = 2
+		}
+		effect_tooltip = {
+			72 = {
+				set_demilitarized_zone = yes
+			}
+		}
+	}
+}
+country_event = { #negotiations over
+	id = wgr_external.66
+	title = wgr_external.66.t
+	desc = wgr_external.66.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.66.a
+		ai_chance = {
+			factor = 2
+		}
+		add_political_power = 20
+	}
+}
+country_event = { #negotiations over
+	id = wgr_external.67
+	title = wgr_external.67.t
+	desc = wgr_external.67.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.67.a
+		ai_chance = {
+			factor = 2
+		}
+		add_political_power = 20
+	}
+}
+country_event = { #cze guns from wgr
+	id = wgr_external.68
+	title = wgr_external.68.t
+	desc = wgr_external.68.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.68.a
+		ai_chance = {
+			factor = 99
+		}
+		WGR = {
+			send_equipment = {
+				equipment = infantry_equipment
+				amount = 750
+				target = PREV
+			}
+			country_event = {
+				id = wgr_external.69
+				days = 1
+			}
+		}
+	}
+	option = { #no
+		name = wgr_external.68.b
+		ai_chance = {
+			factor = 1
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.70
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #cze accepts
+	id = wgr_external.69
+	title = wgr_external.69.t
+	desc = wgr_external.69.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.69.a
+		ai_chance = {
+			factor = 99
+		}
+		add_political_power = 20
+		effect_tooltip = {
+			send_equipment = {
+				equipment = infantry_equipment
+				amount = 750
+				target = FROM
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = WGR_is_arms_deal
+			}
+			#add_ideas = WGR_arms_profit #fix this?
+			clr_country_flag = WGR_is_arms_deal
+		}
+	}
+}
+country_event = { #cze refuses
+	id = wgr_external.70
+	title = wgr_external.70.t
+	desc = wgr_external.70.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.70.a
+		ai_chance = {
+			factor = 99
+		}
+		add_political_power = -20
+		if = {
+			limit = {
+				has_country_flag = WGR_is_arms_deal
+			}
+			clr_country_flag = WGR_is_arms_deal
+		}
+	}
+}
+country_event = { #cze investmetns
+	id = wgr_external.71
+	title = wgr_external.71.t
+	desc = wgr_external.71.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.71.a
+		ai_chance = {
+			factor = 99
+		}
+		69 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.72
+				days = 1
+			}
+		}
+	}
+	option = { #no
+		name = wgr_external.71.b
+		ai_chance = {
+			factor = 1
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.73
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #cze accepts
+	id = wgr_external.72
+	title = wgr_external.72.t
+	desc = wgr_external.72.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.72.a
+		ai_chance = {
+			factor = 99
+		}
+		add_political_power = 20
+		effect_tooltip = {
+			69 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+}
+country_event = { #cze refuses
+	id = wgr_external.73
+	title = wgr_external.73.t
+	desc = wgr_external.73.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.73.a
+		ai_chance = {
+			factor = 99
+		}
+		add_political_power = -20
+	}
+}
+country_event = { # POL - WGR offers NAP
+	id = wgr_external.74
+	title = wgr_external.74.t
+	desc = wgr_external.74.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = { # yes
+		name = wgr_external.74.a
+		ai_chance = {
+			factor = 80
+			modifier = {
+				strength_ratio = { tag = WGR ratio < 0.75 }
+				factor = 1.25
+			}
+			modifier = {
+				strength_ratio = { tag = WGR ratio < 0.5 }
+				factor = 1.5
+			}
+			modifier = {
+				NOT = {
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+					has_government = socialism
+				}
+				factor = 0
+			}
+		}
+		diplomatic_relation = { country = WGR relation = non_aggression_pact }
+		WGR = {
+			country_event = { id = wgr_external.75 }
+			set_country_flag = WGR_pol_does_NAP
+		}
+	}
+	option = { # no
+		name = wgr_external.74.b
+		ai_chance = {
+			factor = 20
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		WGR = {
+			country_event = { id = wgr_external.76 }
+			set_country_flag = WGR_pol_does_not_NAP
+		}
+	}
+}
+
+country_event = { #WGR - POL signs the NAP
+	id = wgr_external.75
+	title = wgr_external.75.t
+	desc = wgr_external.75.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = wgr_external.75.a
+		diplomatic_relation = { country = POL relation = non_aggression_pact }
+	}
+}
+
+country_event = { #WGR - POL does not sign the NAP
+	id = wgr_external.76
+	title = wgr_external.76.t
+	desc = wgr_external.76.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = wgr_external.76.a
+	}
+}
+
+country_event = { #pol investmetns
+	id = wgr_external.77
+	title = wgr_external.77.t
+	desc = wgr_external.77.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.77.a
+		ai_chance = {
+			factor = 99
+		}
+		random_owned_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.78
+				days = 1
+			}
+		}
+	}
+	option = { #no
+		name = wgr_external.77.b
+		ai_chance = {
+			factor = 1
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.79
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #pol accepts
+	id = wgr_external.78
+	title = wgr_external.78.t
+	desc = wgr_external.78.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.78.a
+		ai_chance = {
+			factor = 99
+		}
+		add_political_power = 20
+	}
+}
+country_event = { #pol refuses
+	id = wgr_external.79
+	title = wgr_external.79.t
+	desc = wgr_external.79.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.79.a
+		ai_chance = {
+			factor = 99
+		}
+		add_political_power = -20
+	}
+}
+country_event = { #American Automobiles
+	id = wgr_external.80
+	title = wgr_external.80.t
+	desc = wgr_external.80.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #factory
+		name = wgr_external.80.a
+		ai_chance = {
+			factor = 50
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+	option = { #Fordism
+		name = wgr_external.80.b
+		ai_chance = {
+			factor = 50
+		}
+		add_ideas = WGR_ford_idea
+	}
+}
+country_event = { #ITA - Germany Wants A Refinery in Libya
+	id = wgr_external.81
+	title = wgr_external.81.t
+	desc = wgr_external.81.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #allow
+		name = wgr_external.81.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				NOT = {
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				factor = 0.05
+			}
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.82
+				days = 1
+			}
+			add_offsite_building = {
+				type = synthetic_refinery
+				level = 1
+			}
+			add_opinion_modifier = {
+				target = PREV
+				modifier = WGR_libya_factories
+			}
+		}
+	}
+	option = { #no
+		name = wgr_external.81.b
+		ai_chance = {
+			factor = 50
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.83
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #PREV accepts
+	id = wgr_external.82
+	title = wgr_external.82.t
+	desc = wgr_external.82.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #allow
+		name = wgr_external.82.a
+		ai_chance = {
+			factor = 50
+		}
+		effect_tooltip = {
+			add_offsite_building = { #add event that removes the refinery through decisions
+				type = synthetic_refinery
+				level = 1
+			}
+		}
+	}
+}
+country_event = { #PREV says no
+	id = wgr_external.83
+	title = wgr_external.83.t
+	desc = wgr_external.83.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #allow
+		name = wgr_external.83.a
+		ai_chance = {
+			factor = 50
+		}
+		add_political_power = -10
+	}
+}
+country_event = { #pol investmetns
+	id = wgr_external.84
+	title = wgr_external.84.t
+	desc = wgr_external.84.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.84.a
+		ai_chance = {
+			factor = 99
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.85
+				days = 1
+			}
+		}
+	}
+	option = { #no
+		name = wgr_external.84.b
+		ai_chance = {
+			factor = 1
+		}
+		WGR = {
+			country_event = {
+				id = wgr_external.86
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #pol accepts
+	id = wgr_external.85
+	title = wgr_external.85.t
+	desc = wgr_external.85.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.85.a
+		ai_chance = {
+			factor = 99
+		}
+		#TODO: add highways and railways
+		add_political_power = 20
+	}
+}
+country_event = { #pol refuses
+	id = wgr_external.86
+	title = wgr_external.86.t
+	desc = wgr_external.86.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_external.86.a
+		ai_chance = {
+			factor = 99
+		}
+		add_political_power = -20
+	}
+}
+
+############# Reichstag
+
+country_event = { #parliament explination
+	id = wgr_parliament.0
+	title = bavaria.45.t
+	desc = bavaria.45.d
+	picture = GFX_report_event_german_speech
+	#fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = bavaria.45.a
+	}
+}
+
+
+country_event = { #Communists Agree
+	id = wgr_parliament.1
+	title = wgr_parliament.1.t
+	desc = wgr_parliament.1.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.1.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_com_seats }
+	}
+}
+country_event = { #RevSocs Agree
+	id = wgr_parliament.2
+	title = wgr_parliament.2.t
+	desc = wgr_parliament.2.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.2.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_rso_seats }
+	}
+}
+country_event = { #DemSocs Agree
+	id = wgr_parliament.3
+	title = wgr_parliament.3.t
+	desc = wgr_parliament.3.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.3.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_dso_seats }
+	}
+}
+country_event = { #SocDems Agree
+	id = wgr_parliament.4
+	title = wgr_parliament.4.t
+	desc = wgr_parliament.4.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.4.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_sde_seats }
+	}
+}
+country_event = { #SocLibs Agree
+	id = wgr_parliament.5
+	title = wgr_parliament.5.t
+	desc = wgr_parliament.5.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.5.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_sli_seats }
+	}
+}
+country_event = { #MarLibs Agree
+	id = wgr_parliament.6
+	title = wgr_parliament.6.t
+	desc = wgr_parliament.6.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.6.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_mli_seats }
+	}
+}
+country_event = { #Centrists Agree
+	id = wgr_parliament.7
+	title = wgr_parliament.7.t
+	desc = wgr_parliament.7.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.7.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_cen_seats }
+	}
+}
+country_event = { #SocCons Agree
+	id = wgr_parliament.8
+	title = wgr_parliament.8.t
+	desc = wgr_parliament.8.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.8.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_dem_seats }
+	}
+}
+country_event = { #Monarchists Agree
+	id = wgr_parliament.9
+	title = wgr_parliament.9.t
+	desc = wgr_parliament.9.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.9.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_mon_seats }
+	}
+}
+country_event = { #Authoritarians Agree
+	id = wgr_parliament.10
+	title = wgr_parliament.10.t
+	desc = wgr_parliament.10.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.10.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_neu_seats }
+	}
+}
+country_event = { #Nationalists Agree
+	id = wgr_parliament.11
+	title = wgr_parliament.11.t
+	desc = wgr_parliament.11.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.11.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_nat_seats }
+	}
+}
+country_event = { #Nazis Agree
+	id = wgr_parliament.12
+	title = wgr_parliament.12.t
+	desc = wgr_parliament.12.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = { #yes
+		name = wgr_parliament.12.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = GER_supseat value = GER_fas_seats }
+	}
+}
+country_event = { #negotiate with communists - raise taxes
+	id = wgr_parliament.13
+	title = wgr_parliament.13.t
+	desc = wgr_parliament.13.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_communists
+	}
+	option = { #yes
+		name = wgr_parliament.13.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_communists_high_taxes
+		add_to_variable = { var = GER_supseat value = GER_com_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.13.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with communists - raise welfare
+	id = wgr_parliament.14
+	title = wgr_parliament.14.t
+	desc = wgr_parliament.14.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_communists
+	}
+	option = { #yes
+		name = wgr_parliament.14.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_communists_welfare
+		add_to_variable = { var = GER_supseat value = GER_com_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.14.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with communists - raise military spending
+	id = wgr_parliament.15
+	title = wgr_parliament.15.t
+	desc = wgr_parliament.15.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_communists
+	}
+	option = { #yes
+		name = wgr_parliament.15.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = market_liberalism
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+					has_government = democratic
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_communists_military_spending
+		add_to_variable = { var = GER_supseat value = GER_com_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.15.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with revsocs - support_unions
+	id = wgr_parliament.16
+	title = wgr_parliament.16.t
+	desc = wgr_parliament.16.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_RevSocs
+	}
+	option = { #yes
+		name = wgr_parliament.16.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = market_liberalism
+					has_government = jacobin
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_revsoc_support_unions
+		add_to_variable = { var = GER_supseat value = GER_rso_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.16.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with revsocs - worker protection
+	id = wgr_parliament.17
+	title = wgr_parliament.17.t
+	desc = wgr_parliament.17.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_RevSocs
+	}
+	option = { #yes
+		name = wgr_parliament.17.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = market_liberalism
+					has_government = jacobin
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_revsoc_worker_protection
+		add_to_variable = { var = GER_supseat value = GER_rso_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.17.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with demsocs - increased welfare
+	id = wgr_parliament.18
+	title = wgr_parliament.18.t
+	desc = wgr_parliament.18.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_DemSocs
+	}
+	option = { #yes
+		name = wgr_parliament.18.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = market_liberalism
+					has_government = jacobin
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_demsoc_increased_welfare
+		add_to_variable = { var = GER_supseat value = GER_dso_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.18.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with demsocs - decreased military spending
+	id = wgr_parliament.19
+	title = wgr_parliament.19.t
+	desc = wgr_parliament.19.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_DemSocs
+	}
+	option = { #yes
+		name = wgr_parliament.19.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_demsoc_decreased_military_spending
+		add_to_variable = { var = GER_supseat value = GER_dso_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.19.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with demsocs - public works
+	id = wgr_parliament.20
+	title = wgr_parliament.20.t
+	desc = wgr_parliament.20.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_DemSocs
+	}
+	option = { #yes
+		name = wgr_parliament.20.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = market_liberalism
+					has_government = jacobin
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_demsoc_increased_public_works
+		add_to_variable = { var = GER_supseat value = GER_dso_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.20.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with socdems - increase taxes
+	id = wgr_parliament.21
+	title = wgr_parliament.21.t
+	desc = wgr_parliament.21.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_SocDems
+	}
+	option = { #yes
+		name = wgr_parliament.21.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = market_liberalism
+					has_government = jacobin
+					has_government = democratic
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_socdem_increaesd_taxes
+		add_to_variable = { var = GER_supseat value = GER_sde_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.21.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with socdems - protect minorities
+	id = wgr_parliament.22
+	title = wgr_parliament.22.t
+	desc = wgr_parliament.22.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_SocDems
+	}
+	option = { #yes
+		name = wgr_parliament.22.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = jacobin
+				}
+				factor = 0.07
+			}
+		}
+		set_country_flag = WGR_promised_socdem_protected_minorities
+		add_to_variable = { var = GER_supseat value = GER_sde_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.22.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with socdems - denounce fascism
+	id = wgr_parliament.23
+	title = wgr_parliament.23.t
+	desc = wgr_parliament.23.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_SocDems
+	}
+	option = { #yes
+		name = wgr_parliament.23.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = jacobin
+				}
+				factor = 0.07
+			}
+		}
+		set_country_flag = WGR_promised_socdem_denounce_fascism
+		add_to_variable = { var = GER_supseat value = GER_sde_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.23.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with soclibs - protect minorities
+	id = wgr_parliament.24
+	title = wgr_parliament.24.t
+	desc = wgr_parliament.24.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_SocLibs
+	}
+	option = { #yes
+		name = wgr_parliament.24.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = jacobin
+				}
+				factor = 0.07
+			}
+		}
+		set_country_flag = WGR_promised_soclib_protected_minorities
+		add_to_variable = { var = GER_supseat value = GER_sli_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.24.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with soclibs - social security
+	id = wgr_parliament.25
+	title = wgr_parliament.25.t
+	desc = wgr_parliament.25.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_SocLibs
+	}
+	option = { #yes
+		name = wgr_parliament.25.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = jacobin
+					has_government = market_liberalism
+				}
+				factor = 0.10
+			}
+		}
+		set_country_flag = WGR_promised_soclib_social_security
+		add_to_variable = { var = GER_supseat value = GER_sli_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.25.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+
+country_event = { #negotiate with marlibs - lower taxes
+	id = wgr_parliament.26
+	title = wgr_parliament.26.t
+	desc = wgr_parliament.26.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_MarLibs
+	}
+	option = { #yes
+		name = wgr_parliament.26.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_marlib_lower_Taxes
+		add_to_variable = { var = GER_supseat value = GER_mli_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.26.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with marlibs - lower tariffs
+	id = wgr_parliament.27
+	title = wgr_parliament.27.t
+	desc = wgr_parliament.27.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_MarLibs
+	}
+	option = { #yes
+		name = wgr_parliament.27.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_marlib_lower_tariffs
+		add_to_variable = { var = GER_supseat value = GER_mli_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.27.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with centrists - lower taxes
+	id = wgr_parliament.28
+	title = wgr_parliament.28.t
+	desc = wgr_parliament.28.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_Centrists
+	}
+	option = { #yes
+		name = wgr_parliament.28.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_centre_lower_tariffs
+		add_to_variable = { var = GER_supseat value = GER_cen_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.28.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with centrists - denounce communism
+	id = wgr_parliament.29
+	title = wgr_parliament.29.t
+	desc = wgr_parliament.29.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_Centrists
+	}
+	option = { #yes
+		name = wgr_parliament.29.a
+		ai_chance = {
+			factor = 90
+		}
+		set_country_flag = WGR_promised_centre_denounce_communism
+		add_to_variable = { var = GER_supseat value = GER_cen_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.29.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with conservatives - lower taxes
+	id = wgr_parliament.30
+	title = wgr_parliament.30.t
+	desc = wgr_parliament.30.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_Conservatives
+	}
+	option = { #yes
+		name = wgr_parliament.30.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_conservatives_lower_taxes
+		add_to_variable = { var = GER_supseat value = GER_dem_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.30.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with conservatives - decrease welfare
+	id = wgr_parliament.31
+	title = wgr_parliament.31.t
+	desc = wgr_parliament.31.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_Conservatives
+	}
+	option = { #yes
+		name = wgr_parliament.31.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_conservatives_decreased_welfare
+		add_to_variable = { var = GER_supseat value = GER_dem_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.31.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with conservatives - raised taxes
+	id = wgr_parliament.32
+	title = wgr_parliament.32.t
+	desc = wgr_parliament.32.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_Conservatives
+	}
+	option = { #yes
+		name = wgr_parliament.32.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = jacobin
+					has_government = market_liberalism
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_conservatives_raised_taxes
+		add_to_variable = { var = GER_supseat value = GER_dem_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.32.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with monarchists - Supported Landowners
+	id = wgr_parliament.33
+	title = wgr_parliament.33.t
+	desc = wgr_parliament.33.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_Monarchists
+	}
+	option = { #yes
+		name = wgr_parliament.33.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_monarchists_supported_landowners
+		add_to_variable = { var = GER_supseat value = GER_mon_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.33.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+
+country_event = { #negotiate with nationalists - Supported Industrialists
+	id = wgr_parliament.34
+	title = wgr_parliament.34.t
+	desc = wgr_parliament.34.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_Nationalists
+	}
+	option = { #yes
+		name = wgr_parliament.34.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				OR = {
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+				}
+				factor = 0.1
+			}
+		}
+		set_country_flag = WGR_promised_nationalists_supported_industrialists
+		add_to_variable = { var = GER_supseat value = GER_nat_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.34.b
+		ai_chance = {
+			factor = 10
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with nazis - welfare
+	id = wgr_parliament.35
+	title = wgr_parliament.35.t
+	desc = wgr_parliament.35.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_Nazis
+	}
+	option = { #yes
+		name = wgr_parliament.35.a
+		ai_chance = {
+			factor = 45
+			modifier = {
+				OR = {
+					has_government = jacobin
+					has_government = market_liberalism
+				}
+				factor = 0.01
+			}
+		}
+		set_country_flag = WGR_promised_nazis_increased_welfare
+		add_to_variable = { var = GER_supseat value = GER_fas_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.35.b
+		ai_chance = {
+			factor = 55
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #negotiate with nazis - military spending
+	id = wgr_parliament.36
+	title = wgr_parliament.36.t
+	desc = wgr_parliament.36.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_Nazis
+	}
+	option = { #yes
+		name = wgr_parliament.36.a
+		ai_chance = {
+			factor = 45
+			modifier = {
+				OR = {
+					has_government = jacobin
+					has_government = market_liberalism
+				}
+				factor = 0.01
+			}
+		}
+		set_country_flag = WGR_promised_nazis_military_spending
+		add_to_variable = { var = GER_supseat value = GER_fas_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.36.b
+		ai_chance = {
+			factor = 55
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}
+country_event = { #failed
+	id = wgr_parliament.37
+	title = wgr_parliament.37.t
+	desc = wgr_parliament.37.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	option = {
+		name = wgr_parliament.37.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -20
+		add_stability = -0.02
+		if = {
+			limit = {
+				has_government = communism
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = -0.02
+			}
+		}
+		if = {
+			limit = {
+				has_government = authoritarian_socialism
+			}
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = -0.02
+			}
+		}
+		if = {
+			limit = {
+				has_government = socialism
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = -0.02
+			}
+		}
+		if = {
+			limit = {
+				has_government = social_democracy
+			}
+			add_popularity = {
+				ideology = social_democracy
+				popularity = -0.02
+			}
+		}
+		if = {
+			limit = {
+				has_government = social_liberalism
+			}
+			add_popularity = {
+				ideology = social_liberalism
+				popularity = -0.02
+			}
+		}
+		if = {
+			limit = {
+				has_government = market_liberalism
+			}
+			add_popularity = {
+				ideology = market_liberalism
+				popularity = -0.02
+			}
+		}
+		if = {
+			limit = {
+				has_government = jacobin
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = -0.02
+			}
+		}
+		if = {
+			limit = {
+				has_government = democratic
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.02
+			}
+		}
+		if = {
+			limit = {
+				has_government = monarchism
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = -0.02
+			}
+		}
+		if = {
+			limit = {
+				has_government = nationalism
+			}
+			add_popularity = {
+				ideology = nationalism
+				popularity = -0.02
+			}
+		}
+		if = {
+			limit = {
+				has_government = neutrality
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.02
+			}
+		}
+		if = {
+			limit = {
+				has_government = fascism
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.02
+			}
+		}
+	}
+}
+country_event = { #negotiate with authoritarians
+	id = wgr_parliament.38
+	title = wgr_parliament.38.t
+	desc = wgr_parliament.38.d
+	picture = GFX_report_event_german_speech
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = WGR_negotiated_with_Authoritarians
+	}
+	option = { #yes
+		name = wgr_parliament.38.a
+		ai_chance = {
+			factor = 25
+			modifier = {
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+				}
+				factor = 0.01
+			}
+		}
+		set_country_flag = WGR_promised_aut_decreased_welfare
+		add_to_variable = { var = GER_supseat value = GER_fas_seats }
+		clr_country_flag = WGR_negotiating
+	}
+	option = { #no
+		name = wgr_parliament.38.b
+		ai_chance = {
+			factor = 75
+		}
+		clr_country_flag = WGR_negotiating
+	}
+}

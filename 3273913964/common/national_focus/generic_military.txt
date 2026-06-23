@@ -1,0 +1,1127 @@
+
+shared_focus = {
+	id = GEN_military_start
+	icon = GFX_focus_Recruitment_Drive
+	cost = 10
+	completion_reward = {
+	    army_experience = 15
+		air_experience = 15
+		navy_experience = 15
+	}
+	offset = {
+		trigger = {
+			has_focus_tree = GEN_leftist_asia
+		}
+		x = 1
+	}
+	offset = {
+	    x = 4
+		y = 0
+	    trigger = {
+            OR = {		
+		        has_focus_tree = GEN_monarchy_asia
+				has_focus_tree = GEN_british_protectorate 
+			}
+		}
+	}
+	x = 44
+    y = 0
+}
+
+shared_focus = {
+	id = GEN_new_kind_war
+	icon = GFX_goal_generic_air_fighter2
+	cost = 10
+	prerequisite = {
+	    focus = GEN_military_start
+	}
+	available = {
+		any_controlled_state = {
+			air_base > 0
+		}
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}
+	}
+	x = -7
+    y = 1
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_airbase_expansion
+	icon = GFX_goal_generic_air_production
+	cost = 10
+	prerequisite = {
+	    focus = GEN_new_kind_war
+	}
+	complete_tooltip = {
+			if = { limit = { has_country_flag = aviation_effort_AB }
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}						
+		}
+
+		completion_reward = {
+
+			if = {
+				limit = {
+					capital_scope = {
+						NOT = {
+							free_building_slots = {
+								building = air_base
+								size > 1
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = aviation_effort_AB }
+				}
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = aviation_effort_AB }
+				}
+			}
+		}
+	x = -6
+    y = 2
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_improved_engines
+	icon = GFX_focus_Engine_Tech
+	cost = 10
+	prerequisite = {
+	    focus = GEN_new_kind_war
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+			name = air_doc_bonus
+			bonus = 1.0
+			uses = 1
+			category = plane_engines
+		}
+	}
+	x = -8
+    y = 2
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_air_superiority
+	icon = GFX_goal_generic_air_fighter
+	cost = 10
+	prerequisite = {
+	    focus = GEN_improved_engines
+	}
+	prerequisite = {
+	    focus = GEN_airbase_expansion
+	}
+	mutually_exclusive = {
+	    focus = GEN_strategic_bombing
+		focus = GEN_tactical_bombing
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = fighter_bonus
+				bonus = 1.0
+				uses = 2
+				technology = early_fighter
+				technology = fighter1
+				technology = fighter2
+				technology = fighter3
+				technology = heavy_fighter1
+				technology = heavy_fighter2
+				technology = heavy_fighter3
+			}
+	}
+	x = -9
+    y = 3
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_tactical_bombing
+	icon = GFX_goal_generic_CAS
+	cost = 10
+	prerequisite = {
+	    focus = GEN_improved_engines
+	}
+	prerequisite = {
+	    focus = GEN_airbase_expansion
+	}
+	mutually_exclusive = {
+	    focus = GEN_strategic_bombing
+		focus = GEN_air_superiority
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 1.0
+				uses = 2
+				category = tactical_bomber
+			}
+	}
+	x = -7
+    y = 3
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_strategic_bombing
+	icon = GFX_focus_Bombs_Away
+	cost = 10
+	prerequisite = {
+	    focus = GEN_improved_engines
+	}
+	prerequisite = {
+	    focus = GEN_airbase_expansion
+	}
+	mutually_exclusive = {
+	    focus = GEN_air_superiority
+		focus = GEN_tactical_bombing
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 1.0
+				uses = 2
+				technology = strategic_bomber1
+				technology = strategic_bomber2
+				technology = strategic_bomber3
+			}
+	}
+	x = -5
+    y = 3
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_reform_airforce
+	icon = GFX_goal_generic_air_doctrine
+	cost = 10
+	prerequisite = {
+	    focus = GEN_air_superiority
+		focus = GEN_tactical_bombing
+		focus = GEN_strategic_bombing
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+	}
+	x = -8
+    y = 4
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_pilot_training
+	icon = GFX_focus_Airforce_Purges
+	cost = 10
+	prerequisite = {
+	    focus = GEN_air_superiority
+		focus = GEN_tactical_bombing
+		focus = GEN_strategic_bombing
+	}
+	completion_reward = {
+	    air_experience = 50
+	}
+	x = -6
+    y = 4
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_naval_air
+	icon = GFX_goal_generic_air_naval_bomber
+	cost = 10
+	prerequisite = {
+	    focus = GEN_pilot_training
+	}
+	prerequisite = {
+	    focus = GEN_reform_airforce
+	}
+	available = {
+		any_state = {
+			is_coastal = yes
+		    is_controlled_by = ROOT
+	    }
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = nav_bomber_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = naval_bomber
+			}
+	}
+	x = -7
+    y = 5
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_the_army
+	icon = GFX_focus_Recruitment
+	cost = 10
+	prerequisite = {
+	    focus = GEN_military_start
+	}
+	completion_reward = {
+	    add_war_support = 0.05
+	}
+	x = 0
+    y = 1
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_better_equipment
+	icon = GFX_focus_Renewed_Arms
+	cost = 10
+	prerequisite = {
+	    focus = GEN_the_army
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+			}
+	}
+	x = -1
+    y = 2
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_improved_training
+	icon = GFX_focus_generic_military_mission
+	cost = 10
+	prerequisite = {
+	    focus = GEN_the_army
+	}
+	completion_reward = {
+	    army_experience = 40
+	}
+	x = 1
+    y = 2
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_reform_command_structure
+	icon = GFX_goal_generic_army_doctrines
+	cost = 10
+	prerequisite = {
+	    focus = GEN_improved_training
+	}
+	prerequisite = {
+	    focus = GEN_better_equipment
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+	}
+	x = 0
+    y = 3
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_use_planning
+	icon = GFX_focus_The_Big_Push
+	cost = 10
+	prerequisite = {
+	    focus = GEN_reform_command_structure
+	}
+	mutually_exclusive = {
+	    focus = GEN_use_firepower
+		focus = GEN_use_men
+		focus = GEN_use_speed
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+			name = land_doc_bonus
+			bonus = 1.0
+			uses = 2
+			category = cat_grand_battle_plan
+		}
+	}
+	x = -1
+    y = 4
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_renew_infantry_equip
+	icon = GFX_focus_Firearms
+	cost = 10
+	prerequisite = {
+	    focus = GEN_use_planning
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+			}
+	}
+	x = -1
+    y = 6
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_special_forces
+	icon = GFX_focus_Commando_Operations
+	cost = 10
+	prerequisite = {
+	    focus = GEN_use_firepower
+		focus = GEN_use_men
+		focus = GEN_use_speed
+		focus = GEN_use_planning
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = special_forces_bonus
+				bonus = 1.0
+				uses = 1
+				technology = paratroopers
+				technology = paratroopers2
+				technology = marines
+				technology = marines2
+				technology = tech_mountaineers
+				technology = tech_mountaineers2
+			}
+	}
+	x = -2
+    y = 5
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_dismiss_old_guard
+	icon = GFX_focus_Military_Purges
+	cost = 10
+	prerequisite = {
+	    focus = GEN_use_firepower
+		focus = GEN_use_men
+		focus = GEN_use_speed
+		focus = GEN_use_planning
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+	}
+	x = 0
+    y = 5
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_army_motor
+	icon = GFX_focus_Motorization_Effort
+	cost = 10
+	prerequisite = {
+	    focus = GEN_use_firepower
+		focus = GEN_use_men
+		focus = GEN_use_speed
+		focus = GEN_use_planning
+	}
+	bypass = { has_tech = motorised_infantry }
+	completion_reward = {
+	    add_tech_bonus = {
+				name = motorized_bonus
+				bonus = 3.0
+				technology = motorised_infantry
+			}
+	}
+	x = 2
+    y = 5
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_use_firepower
+	icon = GFX_goal_generic_army_artillery2
+	cost = 10
+	prerequisite = {
+	    focus = GEN_reform_command_structure
+	}
+	available = {
+	    num_of_factories > 15
+	}
+	mutually_exclusive = {
+	    focus = GEN_use_men
+		focus = GEN_use_planning
+		focus = GEN_use_speed
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+			name = land_doc_bonus
+			bonus = 1.0
+			uses = 2
+			category = cat_superior_firepower
+		}
+	}
+	x = -3
+    y = 4
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_improve_artillery
+	icon = GFX_goal_generic_army_artillery
+	cost = 10
+	prerequisite = {
+	    focus = GEN_use_firepower
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = artillery
+			}
+	}
+	x = -3
+    y = 6
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_use_speed
+	icon = GFX_goal_generic_army_motorized
+	cost = 10
+	prerequisite = {
+	    focus = GEN_reform_command_structure
+	}
+	available = {
+	    num_of_factories > 20
+	}
+	mutually_exclusive = {
+	    focus = GEN_use_firepower
+		focus = GEN_use_planning
+		focus = GEN_use_men
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+			name = land_doc_bonus
+			bonus = 1.0
+			uses = 2
+			category = cat_mobile_warfare
+		}
+	}
+	x = 1
+    y = 4
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_modern_tank_designs
+	icon = GFX_focus_Tanks_Across_the_Border
+	cost = 10
+	prerequisite = {
+	    focus = GEN_use_speed
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1.0
+				uses = 2
+				category = armor
+			}
+	}
+	x = 1
+    y = 6
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_use_men
+	icon = GFX_focus_Prepare_the_Troops
+	cost = 10
+	prerequisite = {
+	    focus = GEN_reform_command_structure
+	}
+	available = {
+	    has_manpower > 100000
+	}
+	mutually_exclusive = {
+	    focus = GEN_use_firepower
+		focus = GEN_use_planning
+		focus = GEN_use_speed
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+			name = land_doc_bonus
+			bonus = 1.0
+			uses = 2
+			category = cat_mass_assault
+		}
+	}
+	x = 3
+    y = 4
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_increase_equipment_prod
+	icon = GFX_goal_generic_production
+	cost = 10
+	prerequisite = {
+	    focus = GEN_use_men
+	}
+	completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	x = 3
+    y = 6
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_improve_support
+	icon = GFX_focus_Military_Hospital
+	cost = 10
+	prerequisite = {
+	    focus = GEN_improve_artillery
+		focus = GEN_renew_infantry_equip
+	}
+	prerequisite = {
+	    focus = GEN_special_forces
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1.0
+				uses = 2
+				category = support_tech
+			}
+	}
+	x = -2
+    y = 7
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_army_mech
+	icon = GFX_focus_Mechanized_Divisions
+	cost = 10
+	prerequisite = {
+	    focus = GEN_increase_equipment_prod
+		focus = GEN_modern_tank_designs
+	}
+	prerequisite = {
+	    focus = GEN_army_motor
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = motorized_bonus
+				ahead_reduction = 2
+				uses = 1
+				category = motorized_equipment
+			}
+	}
+	x = 2
+    y = 7
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_modernized_force
+	icon = GFX_focus_Combined_Arms
+	cost = 10
+	prerequisite = {
+	    focus = GEN_army_mech
+		focus = GEN_improve_support
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+		if = {
+		    limit = {
+			    has_idea = HOL_outdated_military 
+			}
+			remove_ideas = HOL_outdated_military
+		}
+		if = {
+		    limit = {
+			    has_idea = BEL_outdated_military  
+			}
+			remove_ideas = BEL_outdated_military 
+		}
+	}
+	x = 0
+    y = 8
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_the_navy
+	icon = GFX_focus_Large_Navy
+	cost = 10
+	prerequisite = {
+	    focus = GEN_military_start
+	}
+	available = {
+		any_controlled_state = {
+			is_coastal = yes
+		}
+	}
+	completion_reward = {
+	    navy_experience = 50
+	}
+	x = 7
+    y = 1
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_dockyard_expansion
+	icon = GFX_goal_generic_construct_naval_dockyard
+	cost = 10
+	prerequisite = {
+	    focus = GEN_the_navy
+	}
+	available = {
+	    num_of_factories > 5
+		any_state = {
+			is_coastal = yes
+		    is_controlled_by = ROOT
+	    }
+	}
+	complete_tooltip = {
+		add_extra_state_shared_building_slots = 1
+		add_building_construction = {
+			type = dockyard
+			level = 1
+			instant_build = yes
+		}
+	}
+		
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = {
+					any_owned_state = {
+						dockyard > 0
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+				}
+				any_owned_state = {
+					is_coastal = yes
+				}
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					is_coastal = yes
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	x = 6
+    y = 2
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_reform_admiralty
+	icon = GFX_focus_admiralty
+	cost = 10
+	prerequisite = {
+	    focus = GEN_the_navy
+	}
+	available = {
+		any_state = {
+			is_coastal = yes
+		    is_controlled_by = ROOT
+	    }
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+			name = fleet_in_being_bonus
+			bonus = 0.5
+			uses = 2
+			category = naval_doctrine
+		}
+	}
+	x = 8
+    y = 2
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_invest_submarines
+	icon = GFX_goal_generic_navy_submarine
+	cost = 10
+	ai_will_do = {
+		base = 0
+	}
+	prerequisite = {
+	    focus = GEN_reform_admiralty
+	}
+	prerequisite = {
+	    focus = GEN_dockyard_expansion
+	}
+	mutually_exclusive = {
+	    focus = GEN_coastal_defense
+		focus = GEN_capital_ships
+	}
+	available = {
+		any_state = {
+			is_coastal = yes
+		    is_controlled_by = ROOT
+	    }
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+			name = ss_bonus
+			bonus = 1.0
+			ahead_reduction = 2
+			uses = 1
+			category = ss_tech
+		}
+	}
+	x = 5
+    y = 3
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_coastal_defense
+	icon = GFX_goal_generic_navy_cruiser
+	cost = 10
+	prerequisite = {
+	    focus = GEN_reform_admiralty
+	}
+	prerequisite = {
+	    focus = GEN_dockyard_expansion
+	}
+	mutually_exclusive = {
+	    focus = GEN_capital_ships
+		focus = GEN_invest_submarines
+	}
+	available = {
+		any_state = {
+			is_coastal = yes
+		    is_controlled_by = ROOT
+	    }
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+			name = cr_bonus
+			bonus = 0.5
+			ahead_reduction = 2
+			uses = 1
+			category = cl_tech
+			category = ca_tech
+		}
+	}
+	x = 7
+    y = 3
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_capital_ships
+	icon = GFX_focus_capital_ships
+	cost = 10
+	prerequisite = {
+	    focus = GEN_reform_admiralty
+	}
+	prerequisite = {
+	    focus = GEN_dockyard_expansion
+	}
+	mutually_exclusive = {
+	    focus = GEN_coastal_defense
+		focus = GEN_invest_submarines
+	}
+	available = {
+		any_state = {
+			is_coastal = yes
+		    is_controlled_by = ROOT
+	    }
+	}
+	completion_reward = {
+	    add_tech_bonus = {
+			name = capital_ships_bonus
+			bonus = 0.5
+			ahead_reduction = 2
+			uses = 1
+			category = bc_tech
+			category = bb_tech
+			category = cv_tech
+		}
+	}
+	x = 9
+    y = 3
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_new_naval_doct
+	icon = GFX_goal_generic_navy_doctrines_tactics
+	cost = 10
+	prerequisite = {
+	    focus = GEN_capital_ships
+		focus = GEN_coastal_defense
+		focus = GEN_invest_submarines
+	}
+	available = {
+		any_state = {
+			is_coastal = yes
+		    is_controlled_by = ROOT
+	    }
+	}
+	completion_reward = {
+	     add_tech_bonus = {
+			name = fleet_in_being_bonus
+			bonus = 0.5
+			uses = 2
+			category = naval_doctrine
+		}
+	}
+	x = 8
+    y = 4
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_expand_merchant_marine
+	icon = GFX_focus_Free_Trade
+	cost = 10
+	prerequisite = {
+	    focus = GEN_capital_ships
+		focus = GEN_coastal_defense
+		focus = GEN_invest_submarines
+	}
+	available = {
+		any_state = {
+			is_coastal = yes
+		    is_controlled_by = ROOT
+	    }
+	}
+	completion_reward = {
+	    add_equipment_to_stockpile = {
+            type = convoy
+            amount = 50
+            #producer = ROOT
+        }
+	}
+	x = 6
+    y = 4
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_streamlined_naval_prod
+	icon = GFX_goal_generic_production2
+	cost = 10
+	prerequisite = {
+	    focus = GEN_expand_merchant_marine
+	}
+	prerequisite = {
+	    focus = GEN_new_naval_doct
+	}
+	mutually_exclusive = {
+	    focus = GEN_towards_modern_fleet
+	}
+	available = {
+	    num_of_factories > 12
+		any_state = {
+			is_coastal = yes
+		    is_controlled_by = ROOT
+	    }
+	}
+	complete_tooltip = {
+		add_extra_state_shared_building_slots = 2
+		add_building_construction = {
+			type = dockyard
+			level = 2
+			instant_build = yes
+		}
+	}
+		
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = {
+					any_owned_state = {
+						dockyard > 0
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+				}
+				any_owned_state = {
+					is_coastal = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_coastal = yes
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	x = 6
+    y = 5
+	relative_position_id = GEN_military_start
+}
+
+shared_focus = {
+	id = GEN_towards_modern_fleet
+	icon = GFX_focus_Battlefleet
+	cost = 10
+	prerequisite = {
+	    focus = GEN_expand_merchant_marine
+	}
+	prerequisite = {
+	    focus = GEN_new_naval_doct
+	}
+	mutually_exclusive = {
+	    focus = GEN_streamlined_naval_prod
+	}
+	available = {
+		any_state = {
+			is_coastal = yes
+		    is_controlled_by = ROOT
+	    }
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = dd_bonus
+			bonus = 0.5
+			ahead_reduction = 1
+			uses = 1
+			category = dd_tech
+		}
+		add_tech_bonus = {
+			name = capital_ships_bonus
+			bonus = 0.5
+			ahead_reduction = 1
+			uses = 1
+			category = bc_tech
+			category = bb_tech
+			category = cv_tech
+		}
+	}
+	x = 8
+    y = 5
+	relative_position_id = GEN_military_start
+}

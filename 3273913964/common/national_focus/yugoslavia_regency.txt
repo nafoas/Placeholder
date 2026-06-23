@@ -1,0 +1,461 @@
+	shared_focus = {
+		id = YUG_uzunovic_regency
+		icon = GFX_focus_Nikola_Uzunovic
+		cost = 5
+		x = 2
+		y = 7
+		
+		available = {
+			has_country_flag = YUG_regency
+			has_country_leader = {
+				name = "Nikola Uzunović"
+				ruling_only = yes
+			}
+		}
+		
+		mutually_exclusive = {
+        focus = YUG_zivkovic_regency
+		focus = YUG_prince_paul_regency
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		bypass = {
+			has_country_flag = YUG_regency
+			has_country_leader = {
+				name = "Nikola Uzunović"
+				ruling_only = yes
+			}
+		}	
+		
+		completion_reward = {
+			add_political_power = 5
+		}
+	}
+	shared_focus = {
+		id = YUG_zivkovic_regency
+		icon = GFX_focus_Petar_Zivkovic
+		cost = 5
+		x = 4
+		y = 7
+		
+		available = {
+			has_country_flag = YUG_regency
+			has_country_leader = {
+				name = "Petar Živković"
+				ruling_only = yes
+			}
+		}
+		
+		mutually_exclusive = {
+        focus = YUG_uzunovic_regency
+		focus = YUG_prince_paul_regency
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		bypass = {
+			has_country_flag = YUG_regency
+			has_country_leader = {
+				name = "Petar Živković"
+				ruling_only = yes
+			}
+		}
+		
+		completion_reward = {
+			add_political_power = 5
+		}
+	}
+	shared_focus = {
+		id = YUG_prince_paul_regency
+		icon = GFX_goal_prince_paul
+		cost = 5
+		x = 6
+		y = 7
+		
+		available = {
+			has_country_flag = YUG_regency
+			has_country_leader = {
+				name = "Prince Paul"
+				ruling_only = yes
+			}
+		}
+		
+		mutually_exclusive = {
+        focus = YUG_zivkovic_regency
+		focus = YUG_uzunovic_regency
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		bypass = {
+			has_country_flag = YUG_regency
+			has_country_leader = {
+				name = "Prince Paul"
+				ruling_only = yes
+			}
+		}	
+		
+		completion_reward = {
+			add_political_power = 5
+		}
+	}
+	shared_focus = {
+		id = YUG_yugoslavian_thaw
+		icon = GFX_focus_Supporters_of_the_president
+		cost = 5
+		x = 3
+		y = 8
+		
+		prerequisite = {
+				focus = YUG_uzunovic_regency
+				focus = YUG_zivkovic_regency
+				focus = YUG_prince_paul_regency
+		}
+		
+		mutually_exclusive = {
+			focus = YUG_continue_dictatorship
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_popularity = { ideology = monarchism popularity = 0.08 }
+			add_popularity = { ideology = nationalism popularity = 0.02 }
+		}
+	}
+	shared_focus = {
+		id = YUG_continue_dictatorship
+		icon = GFX_focus_Swing_the_Sword
+		cost = 5
+		x = 5
+		y = 8
+		
+		prerequisite = {
+				focus = YUG_uzunovic_regency
+				focus = YUG_zivkovic_regency
+				focus = YUG_prince_paul_regency
+		}
+		
+		mutually_exclusive = {
+			focus = YUG_yugoslavian_thaw
+		}
+		
+		ai_will_do = {
+			factor = 30
+		}
+		
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+	shared_focus = {
+		id = YUG_reg_new_electoral_law
+		icon = GFX_focus_Give_Democracy
+		cost = 5
+		x = 2
+		y = 9
+		
+		prerequisite = {
+			focus = YUG_yugoslavian_thaw
+		}
+		
+		ai_will_do = {
+			factor = 16
+		}
+		
+		bypass = {
+			has_country_flag = YUG_new_electoral_law
+		}
+		
+		completion_reward = {
+			add_political_power = 20
+			add_popularity = { ideology = monarchism popularity = 0.06 }
+			add_popularity = { ideology = market_liberalism popularity = 0.03 }
+			add_popularity = { ideology = social_liberalism popularity = 0.03 }
+			add_popularity = { ideology = jacobin popularity = 0.03 }
+			add_popularity = { ideology = democratic popularity = 0.03 }
+			set_country_flag = YUG_new_electoral_law
+		}
+
+	}
+	shared_focus = {
+		id = YUG_reg_replace_prime_minister
+		icon = GFX_focus_provisional_chairman
+		cost = 5
+		x = 4
+		y = 9
+		
+		prerequisite = {
+				focus = YUG_yugoslavian_thaw
+				focus = YUG_continue_dictatorship
+		}
+		bypass = {
+			OR = {
+				has_completed_focus = YUG_jns_replace_prime_minister
+				has_country_flag = YUG_jns_won
+				has_country_flag = YUG_opposition_won
+				has_country_flag = YUG_jrss_government
+				has_country_flag = YUG_hss_government
+				has_country_flag = YUG_sds_government
+				has_country_flag = YUG_ds_government
+				has_country_flag = YUG_zs_government
+				has_country_flag = YUG_nrs_government
+				has_country_flag = YUG_cgfs_government
+				has_country_flag = YUG_zivkovic_dictatorship
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+		
+		completion_reward = {
+			add_stability = 0.03
+			remove_ideas_with_trait = hog
+			add_ideas = YUG_hog_Bogoljub_Jevtic
+			remove_ideas_with_trait = ecomin
+			add_ideas = YUG_eco_Milan_Stojadinovic
+			remove_ideas_with_trait = secmin
+			add_ideas = YUG_sec_Velimir_Popovic
+		}
+
+	}
+	shared_focus = {
+		id = YUG_strike_vmro_regency
+		icon = GFX_focus_Crush_Resistance
+		cost = 5
+		x = 6
+		y = 9
+		
+		prerequisite = {
+			focus = YUG_continue_dictatorship
+		}
+		
+		available = {
+			controls_state = 106
+		}
+		
+		ai_will_do = {
+			factor = 16
+		}
+		
+		bypass = {
+			OR = {
+				has_completed_focus = YUG_strike_VMRO_jrz
+				has_completed_focus = YUG_vmro_no_more
+				NOT = { has_idea = YUG_vmro_activity }
+			}
+		}
+		
+		completion_reward = {
+			add_political_power = -20
+			add_popularity = { ideology = monarchism popularity = 0.02 }
+			add_popularity = { ideology = nationalism popularity = 0.08 }
+			add_popularity = { ideology = neutrality popularity = 0.10 }
+			add_popularity = { ideology = communism popularity = 0.02 }
+			hidden_effect = {
+				subtract_from_variable = { ygw_mac_m_pow = 10 }
+				add_to_variable = { ygw_mac_s_pow = 10 }
+			}
+		}
+
+	}
+	shared_focus = {
+		id = YUG_release_leaders_regency
+		icon = GFX_focus_Collaborate_with_Local_Elites
+		cost = 5
+		x = 3
+		y = 10
+		
+		prerequisite = {
+			focus = YUG_yugoslavian_thaw
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+		
+		bypass = {
+			NOT = {
+				has_country_flag = YUG_macek_imprisoned
+				has_country_flag = YUG_korosec_exiled
+				has_country_flag = YUG_spaho_imprisoned
+			}
+			OR = {
+				has_country_flag = YUG_jns_won
+				has_country_flag = YUG_opposition_won
+				has_country_flag = YUG_jrss_government
+				has_country_flag = YUG_hss_government
+				has_country_flag = YUG_sds_government
+				has_country_flag = YUG_ds_government
+				has_country_flag = YUG_zs_government
+				has_country_flag = YUG_nrs_government
+				has_country_flag = YUG_cgfs_government
+				has_country_flag = YUG_zivkovic_dictatorship
+			}
+		}
+		
+		completion_reward = {
+			add_political_power = 20
+			clr_country_flag = YUG_macek_imprisoned
+			clr_country_flag = YUG_korosec_exiled
+			clr_country_flag = YUG_spaho_imprisoned
+			add_popularity = { ideology = social_liberalism popularity = 0.07 }
+			add_popularity = { ideology = nationalism popularity = 0.07 }
+		}
+
+	}
+	shared_focus = {
+		id = YUG_seek_vengeance
+		icon = GFX_focus_Black_Skull
+		cost = 5
+		x = 5
+		y = 10
+		
+		prerequisite = {
+			focus = YUG_continue_dictatorship
+		}
+		
+		ai_will_do = {
+			factor = 12
+		}
+				
+		completion_reward = {
+			add_political_power = 20
+			add_stability = -0.1
+			add_popularity = { ideology = neutrality popularity = 0.10 }
+			add_popularity = { ideology = nationalism popularity = 0.03 }
+			add_popularity = { ideology = fascism popularity = 0.03 }
+			add_popularity = { ideology = communism popularity = 0.03 }
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.03 }			
+			hidden_effect = {
+				country_event = {
+					id = yugoslavia.116
+					days = 14
+				}
+				country_event = { 
+					id = yugoslavia.1004
+					days = 14
+				}
+				subtract_from_variable = { ygw_mac_s_pop = 15 }
+				add_to_variable = { ygw_mac_p_pop = 10 }
+				add_to_variable = { ygw_mac_m_pop = 5 }
+			}
+		}
+	}
+	shared_focus = {
+		id = YUG_preterm_elections
+		icon = GFX_focus_election
+		cost = 5
+		x = 4
+		y = 11
+		
+		prerequisite = {
+			focus = YUG_reg_replace_prime_minister
+		}
+		
+		bypass = {
+			OR = {
+				has_country_flag = YUG_jns_won
+				has_country_flag = YUG_opposition_won
+				has_country_flag = YUG_jrz_6pt_federation
+				has_country_flag = YUG_rad_peasant_won
+				has_country_flag = YUG_dem_agrarian_won
+				has_country_flag = YUG_nat_radical_won
+				has_country_flag = YUG_jrz_won
+				has_country_flag = YUG_pop_agreement_won
+				has_country_flag = YUG_jrz_3pt_federation
+				has_country_flag = YUG_precani_6pt_federation
+				has_country_flag = YUG_zivkovic_dictatorship
+			}
+		}
+		
+		ai_will_do = {
+			factor = 15
+		}
+		
+		completion_reward = {
+			add_political_power = 20
+			add_popularity = { ideology = monarchism popularity = 0.06 }
+			add_popularity = { ideology = market_liberalism popularity = 0.03 }
+			add_popularity = { ideology = social_liberalism popularity = 0.03 }
+			add_popularity = { ideology = jacobin popularity = 0.03 }
+			add_popularity = { ideology = democratic popularity = 0.03 }
+
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+					}
+				}
+			}
+
+			hidden_effect = {
+				#TODO: what is happening here. The event its supposed to fire is commented out. And what is the purpose of the above if that has no effect body
+				# country_event = {
+				# 	id = yugoslavia.11901
+				# }
+				country_event = { days = 1460 id = yugoslavia.159 }
+			}
+			
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						NOT = {has_country_flag = YUG_new_electoral_law}				
+					}
+				}
+				country_event = { 
+					id = yugoslavia.117 #elections with old electoral law
+				}
+			}
+			if = {
+				limit = {
+					tag = YUG
+					YUG = {
+						is_subject = no
+						has_country_flag = YUG_new_electoral_law				
+					}
+				}
+				country_event = { 
+					 id = yugoslavia.118 #elections with new electoral law
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = YUG_claim_legacy
+		icon = GFX_focus_yugoslavia_crown
+		cost = 5
+		x = 4
+		y = 12
+		
+		prerequisite = {
+			focus = YUG_preterm_elections
+		}
+		prerequisite = {
+			focus = YUG_release_leaders_regency
+			focus = YUG_seek_vengeance
+		}
+		
+		ai_will_do = {
+			factor = 18
+		}
+		
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.08
+			add_popularity = { ideology = monarchism popularity = 0.06 }		
+		}
+
+	}

@@ -1,0 +1,90 @@
+on_actions = {
+	on_startup ={
+		effect = {
+			BEL = {
+				if = {
+					limit = {
+						is_historical_focus_on = yes
+					}
+					country_event = {
+						id = bel_internal.1
+						days = 413
+					}
+				}
+				else = {
+					random_list = {
+						89 = { 
+							country_event = {
+								id = bel_internal.1
+								days = 413
+							}
+						}
+						11 = { 
+							country_event = {
+								id = bel_internal.2
+								days = 413
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	on_state_control_changed = {
+		effect = {
+			if = {
+				limit = {
+					FROM.FROM = { state = 6 }
+					6 = { is_owned_by = BEL }
+					996 = { is_controlled_by = BEL }
+					ROOT = {
+						OR = {
+							tag = GER
+							tag = DDR
+							is_ally_with = GER
+							is_ally_with = DDR
+						}
+					}
+					FROM = {
+						tag = BEL
+					}
+				}
+				set_victory_points = {
+					province = 6560
+					value = 16
+				}
+				BEL = {
+					set_capital = {
+						state = 6560
+						remember_old_capital = yes
+					}
+				}
+			}
+		}
+	}
+	on_capitulation = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = { tag = BEL }
+					FROM = {
+						OR = {
+							tag = GER
+							tag = DDR
+						}
+					}
+				}
+				set_victory_points = {
+					province = 6560
+					value = 12
+				}
+				BEL = {
+					set_capital = {
+						state = 295
+						remember_old_capital = yes
+					}
+				}
+			}
+		}
+	}
+}

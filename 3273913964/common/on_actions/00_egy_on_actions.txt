@@ -1,0 +1,65 @@
+on_actions = {
+
+	on_startup ={
+		effect = {
+			EGY = {
+				country_event = {
+					id = egy_internal.1
+					days = 1214
+				}
+			}
+		}
+	}
+
+	on_capitulation = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = {
+						original_tag = EGY
+						has_war_with = ITA
+						is_subject = yes
+						NOT = {
+							has_country_flag = egy_changed_sides_ita
+							has_country_flag = egy_changed_sides_eng
+						}
+					}
+					FROM = {
+						OR = {
+							original_tag = ITA
+							is_subject_of = ITA
+						}
+					}
+					NOT = {
+						ENG = {
+							has_completed_focus = ENG_Colonial_Abdeen_Palace
+						}
+					}
+				}
+				EGY = { country_event = italy_egypt.1 }
+				set_country_flag = egy_changed_sides_ita
+			}
+			if = {
+				limit = {
+					ROOT = {
+						original_tag = EGY
+						has_war_with = ENG
+						is_subject = yes
+						NOT = { has_country_flag = egy_changed_sides_eng }
+					}
+					FROM = {
+						OR = {
+							original_tag = ENG
+							is_subject_of = ENG
+							is_in_faction_with = ENG
+						}
+					}
+				}
+				EGY = { country_event = italy_egypt.4 }
+				set_country_flag = egy_changed_sides_eng
+			}
+		}
+	}
+
+	
+}

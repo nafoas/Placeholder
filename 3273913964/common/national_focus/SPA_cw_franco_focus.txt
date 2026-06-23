@@ -1,0 +1,1111 @@
+
+
+shared_focus = {
+	id = SPA_generalisimo_franco
+	icon = GFX_focus_General_Franco
+	cost = 6
+	available = { always = no }
+	bypass = {
+		hidden_trigger = {
+			OR = {
+				has_country_flag = franco_power
+				has_country_flag = scr_franco_power
+			}
+		}
+	}
+	completion_reward = {  
+	}
+	x = 7
+	y = 0
+	offset = {
+		x = 0
+		y = 2
+		trigger = {
+			has_focus_tree = SPA_cw_start
+		}
+	}
+}
+
+shared_focus = {
+	id = SPA_diarchy_jose_antonio
+	icon = GFX_focus_Jose_Antonio_Leads
+	cost = 1
+	prerequisite = { focus = SPA_generalisimo_franco }
+	available = {  
+		SPR = {
+			NOT = {
+				has_country_flag = ja_arrested_flag
+			}
+		}
+	}
+	ai_will_do = {
+		base = 100
+		modifier = {
+			factor = 0
+			is_historical_focus_on = yes
+		}
+	}
+	mutually_exclusive = { focus = SPA_franco_rules_alone }
+	completion_reward = {
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Jose_Antonio
+		hidden_effect = { country_event = { days = 43 id = scw.65 } }
+		hidden_effect = { SPR = { country_event = { days = 43 id = scw.66 } } }
+	}
+	x = -3
+	y = 1
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_franco_rules_alone
+	icon = GFX_focus_Crush_Resistance
+	cost = 1
+	prerequisite = { focus = SPA_generalisimo_franco }
+	ai_will_do = {
+		base = 500
+	}
+	mutually_exclusive = { focus = SPA_diarchy_jose_antonio }
+	completion_reward = {
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Franco	
+	}
+	x = 3
+	y = 1
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_secure_military_loyalty
+	icon = GFX_focus_Oath_of_Loyalty
+	cost = 4
+	prerequisite = { focus = SPA_franco_rules_alone focus = SPA_diarchy_jose_antonio }
+	available = { }
+	completion_reward = {
+		if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+			}
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+			}
+			add_political_power = 20
+		}
+	}
+	x = 0
+	y = 2
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_subdue_alfonsines
+	icon = GFX_focus_alfonso
+	cost = 4
+	prerequisite = { 
+		focus = SPA_secure_military_loyalty 
+	}
+	mutually_exclusive = { focus = SPA_eliminate_alfonsines }
+	available = { 
+	
+	}
+	completion_reward = {
+		add_stability = -0.05
+		add_political_power = 30
+	}
+	x = 1
+	y = 3
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_eliminate_alfonsines
+	icon = GFX_focus_Crush_the_Monarchy
+	cost = 6
+	prerequisite = { 
+		focus = SPA_secure_military_loyalty 
+	}
+	mutually_exclusive = { focus = SPA_subdue_alfonsines }
+	ai_will_do = {
+		base = 0
+	}
+	completion_reward = {
+		add_popularity = { ideology = neutrality popularity = -1 }
+		add_stability = -0.15
+		add_war_support = -0.15
+		add_political_power = 150
+	}
+	x = -1
+	y = 3
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_subdue_carlists
+	icon = GFX_focus_carlism
+	cost = 5
+	prerequisite = { 
+		focus = SPA_eliminate_alfonsines
+		focus = SPA_subdue_alfonsines		
+	}
+	mutually_exclusive = { focus = SPA_eliminate_carlists }
+	available = { 
+	
+	}
+	completion_reward = {
+		add_stability = -0.05
+		add_political_power = 20
+	}
+	x = 1
+	y = 4
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_eliminate_carlists
+	icon = GFX_focus_Destroy_Carlism
+	cost = 6
+	prerequisite = { 
+		focus = SPA_eliminate_alfonsines
+		focus = SPA_subdue_alfonsines		
+	}
+	mutually_exclusive = { focus = SPA_subdue_carlists }
+	ai_will_do = {
+		base = 0
+	}
+	completion_reward = {
+		add_popularity = { ideology = nationalism popularity = -1 }
+		add_stability = -0.1
+		add_war_support = -0.1
+		add_political_power = 100
+	}
+	x = -1
+	y = 4
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_purge_dissent
+	icon = GFX_focus_Purge_Dissenters
+	cost = 6
+	prerequisite = { 
+		focus = SPA_eliminate_carlists
+		focus = SPA_subdue_carlists	
+	}
+	ai_will_do = {
+		base = 100
+	}
+	completion_reward = {
+		add_popularity = { ideology = fascism popularity = 0.1 }
+		add_popularity = { ideology = neutrality popularity = -0.25 }
+		add_popularity = { ideology = democratic popularity = -0.25 }
+	}
+	x = 0
+	y = 5
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_organized_repression
+	icon = GFX_focus_No_Mercy_for_the_Bolsheviks
+	cost = 4
+	prerequisite = { 
+		focus = SPA_purge_dissent
+	}
+	ai_will_do = {
+		base = 50
+	}
+	completion_reward = {
+		add_stability = -0.02
+		add_political_power = 30
+	}
+	x = 0
+	y = 6
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_caudillo_of_spain
+	icon = GFX_focus_Triumphant_Will
+	cost = 3
+	prerequisite = { 
+		focus = SPA_franco_rules_alone
+	}
+	ai_will_do = {
+		base = 200
+	}
+	completion_reward = {
+		add_war_support = 0.1		
+	}
+	x = 4
+	y = 2
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_martyrdom_jose_antonio
+	icon = GFX_focus_Jose_Antonio_Martyr
+	cost = 3
+	prerequisite = { 
+		focus = SPA_caudillo_of_spain
+	}
+	ai_will_do = {
+		base = 400
+	}
+	completion_reward = {
+		add_war_support = 0.1
+		add_popularity = { ideology = fascism popularity = 0.03 }
+		add_political_power = 50
+	}
+	x = 3
+	y = 3
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_exile_fal_conde
+	icon = GFX_focus_Collaborate_with_Local_Elites_2
+	cost = 4
+	prerequisite = { 
+		focus = SPA_caudillo_of_spain
+	}
+	ai_will_do = {
+		base = 400
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+			}
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+			}
+			add_political_power = 50
+		}
+		retire_character = SPR_manuel_fal_conde
+	}
+	x = 5
+	y = 3
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_decreto_unificacion
+	icon = GFX_focus_Unification_Decree
+	cost = 4
+	prerequisite = { 
+		focus = SPA_exile_fal_conde
+	}
+	prerequisite = { 
+		focus = SPA_martyrdom_jose_antonio
+	}
+	available = {
+		OR = {
+			has_completed_focus = SPA_subdue_carlists
+			has_completed_focus = SPA_eliminate_carlists
+		}
+	}
+	ai_will_do = {
+		base = 800
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+			}
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+			}
+			add_political_power = 50
+		}
+		set_party_name = {
+			ideology = fascism
+			long_name = SPA_fetjons_long 
+			name = SPA_fetjons
+		}
+		set_party_name = {
+			ideology = nationalism
+			long_name = SPA_fetjons_long 
+			name = SPA_fetjons
+		}
+		set_party_name = {
+			ideology = monarchism
+			long_name = SPA_fetjons_long 
+			name = SPA_fetjons
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = SPA_fetjons_long 
+			name = SPA_fetjons
+		}
+		add_country_leader_role = {
+			character = "SPR_francisco_franco"
+			promote_leader = yes
+			country_leader = {
+				ideology = religious_nationalism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_francisco_franco"
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+			}
+		}
+		add_country_leader_role = {
+			character = "SPR_francisco_franco"
+			promote_leader = yes
+			country_leader = {
+				ideology = military
+				expire = "1965.1.1.1"
+			}
+		}
+		COALITION_add_aut = yes
+		COALITION_add_mon = yes
+		COALITION_add_nat = yes
+		hidden_effect = {
+			if = {
+				limit = {
+					scw_in_progress = yes
+				}
+				SPR = {
+					set_party_name = {
+						ideology = fascism
+						long_name = SPA_fetjons_long 
+						name = SPA_fetjons
+					}
+					set_party_name = {
+						ideology = nationalism
+						long_name = SPA_fetjons_long 
+						name = SPA_fetjons
+					}
+					set_party_name = {
+						ideology = monarchism
+						long_name = SPA_fetjons_long 
+						name = SPA_fetjons
+					}
+					set_party_name = {
+						ideology = neutrality
+						long_name = SPA_fetjons_long 
+						name = SPA_fetjons
+					}
+				}
+				retire_character = SPR_manuel_hedilla
+				promote_character = SCW_false_franco
+				add_country_leader_role = {
+					character = "SCW_false_franco"
+					promote_leader = yes
+					country_leader = {
+						ideology = military
+						expire = "1965.1.1.1"
+					}
+				}
+				add_country_leader_role = {
+					character = "SCW_false_franco"
+					promote_leader = yes
+					country_leader = {
+						ideology = religious_nationalism
+						expire = "1965.1.1.1"
+					}
+				}
+				add_country_leader_role = {
+					character = "SCW_false_franco"
+					promote_leader = yes
+					country_leader = {
+						ideology = despotism
+						expire = "1965.1.1.1"
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					scr_in_progress = yes
+				}
+				SPC = {
+					set_party_name = {
+						ideology = fascism
+						long_name = SPA_fetjons_long 
+						name = SPA_fetjons
+					}
+					set_party_name = {
+						ideology = nationalism
+						long_name = SPA_fetjons_long 
+						name = SPA_fetjons
+					}
+					set_party_name = {
+						ideology = monarchism
+						long_name = SPA_fetjons_long 
+						name = SPA_fetjons
+					}
+					set_party_name = {
+						ideology = neutrality
+						long_name = SPA_fetjons_long 
+						name = SPA_fetjons
+					}
+				}
+			}
+			retire_character = SPR_manuel_hedilla
+		}
+	}
+	x = 4
+	y = 4
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_junta_tecnica
+	icon = GFX_focus_Fascist_Treaties
+	cost = 3
+	prerequisite = { 
+		focus = SPA_franco_rules_alone
+	}
+	available = {
+		has_country_flag = spa_jdn_dissolved
+	}
+	ai_will_do = {
+		base = 800
+	}
+	completion_reward = {
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Gomez_Jordana
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Alfonso_Pena
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Valentin_Galarza
+		set_country_flag = spa_has_cabinet		
+	}
+	x = 6
+	y = 2
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_national_catholicism
+	icon = GFX_focus_For_Christ_and_Country
+	cost = 4
+	prerequisite = { 
+		focus = SPA_junta_tecnica
+	}
+	ai_will_do = {
+		base = 700
+	}
+	completion_reward = {
+		add_stability = 0.1
+		add_popularity = { ideology = fascism popularity = 0.05 }
+		add_popularity = { ideology = democratic popularity = 0.05 }		
+	}
+	x = 6
+	y = 4
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_the_new_state
+	icon = GFX_focus_Military_Government
+	cost = 6
+	prerequisite = { 
+		focus = SPA_national_catholicism
+	}
+	prerequisite = { 
+		focus = SPA_decreto_unificacion
+	}
+	ai_will_do = {
+		base = 100
+	}
+	completion_reward = {
+		remove_ideas = SPA_dis_gov	
+	}
+	x = 5
+	y = 5
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_servicio_trigo
+	icon = GFX_focus_Agriculture
+	cost = 6
+	prerequisite = { 
+		focus = SPA_the_new_state
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		add_ideas = SPA_snt	
+	}
+	x = 7
+	y = 6
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_ban_catalan_administration
+	icon = GFX_focus_Champagne_Repression
+	cost = 6
+	prerequisite = { 
+		focus = SPA_the_new_state
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		add_war_support = 0.1	
+	}
+	x = 6
+	y = 7
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_fuero_trabajo
+	icon = GFX_focus_Fascist_Trade_Union
+	cost = 6
+	prerequisite = { 
+		focus = SPA_the_new_state
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+ 			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+	}
+	x = 5
+	y = 6
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_press_censorship
+	icon = GFX_focus_censor_press
+	cost = 6
+	prerequisite = { 
+		focus = SPA_the_new_state
+	}
+	allow_branch = {
+		tag = SPA
+	}
+	completion_reward = {
+		add_political_power = 100
+		add_popularity = { ideology = fascism popularity = 0.075 }
+	}
+	x = 4
+	y = 7
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_catholic_education
+	icon = GFX_focus_State_Theology
+	cost = 6
+	prerequisite = { 
+		focus = SPA_the_new_state
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		add_stability = 0.05
+		add_popularity = { ideology = fascism popularity = 0.05 }
+		add_popularity = { ideology = neutrality popularity = 0.05 }
+		add_popularity = { ideology = democratic popularity = 0.05 }
+	}
+	x = 3
+	y = 6
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_milicia_nacional
+	icon = GFX_focus_Fascist_Militias
+	cost = 6
+	prerequisite = { 
+		focus = SPA_diarchy_jose_antonio
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		add_ideas = SPA_mnp1
+			if = {
+				limit = {
+					check_variable = { spa_control < 96 }
+				}
+				custom_effect_tooltip = 5_control
+				add_to_variable = { var = spa_control value = 5 }
+			}	
+	}
+	x = -4
+	y = 2
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_martyrdom_franco
+	icon = GFX_focus_spa_caudillo_of_spain
+	cost = 6
+	prerequisite = { 
+		focus = SPA_milicia_nacional
+	}
+	available = { 
+		has_country_leader = {
+			name = "José Antonio Primo de Rivera"
+			ruling_only = yes
+		}
+	}
+	completion_reward = {
+		add_war_support = 0.1
+		add_popularity = { ideology = fascism popularity = -0.05 }		
+	}
+	x = -3
+	y = 3
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_exile_mola
+	icon = GFX_focus_General_Mola
+	cost = 6
+	prerequisite = { 
+		focus = SPA_milicia_nacional
+	}
+	available = { 
+		has_country_leader = {
+			name = "José Antonio Primo de Rivera"
+			ruling_only = yes
+		}
+	}
+	completion_reward = {
+		add_stability = -0.05
+		add_popularity = { ideology = neutrality popularity = -0.15 }
+		if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+			}
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+			}
+			add_political_power = 50
+		}
+	   retire_character = SPR_emilio_mola		
+	}
+	x = -5
+	y = 3
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_empower_falange
+	icon = GFX_focus_Falange_Espanola
+	cost = 6
+	prerequisite = { 
+		focus = SPA_exile_mola
+	}
+	prerequisite = { 
+		focus = SPA_martyrdom_franco
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		add_popularity = { ideology = fascism popularity = 0.1 }
+		add_stability= 0.05
+		add_war_support = 0.05
+		add_political_power = 50		
+	}
+	x = -4
+	y = 4
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_gobierno_salvacion
+	icon = GFX_focus_Fascist_Assembly
+	cost = 6
+	prerequisite = { 
+		focus = SPA_diarchy_jose_antonio
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Vicente_Cardenas
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_JA_Giron
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Juan_Aparicio
+		set_country_flag = spa_has_cabinet		
+	}
+	x = -6
+	y = 2
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_collaborate_church
+	icon = GFX_focus_Ties_with_Bishops
+	cost = 6
+	prerequisite = { 
+		focus = SPA_gobierno_salvacion
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+			}
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+			}
+			add_political_power = 50
+		}
+		add_popularity = { ideology = fascism popularity = 0.05 }
+		add_popularity = { ideology = democratic popularity = 0.05 }		
+	}
+	x = -6
+	y = 4
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_viva_jefe
+	icon = GFX_goal_support_fascism
+	cost = 6
+	prerequisite = { 
+		focus = SPA_collaborate_church
+	}
+	prerequisite = { 
+		focus = SPA_empower_falange
+	}
+	available = { 
+		has_country_leader = {
+			name = "José Antonio Primo de Rivera"
+			ruling_only = yes
+		}
+		has_country_flag = spa_jdn_dissolved
+	}
+	completion_reward = {
+		add_political_power = 150
+		add_war_support = 0.1
+		add_popularity = { ideology = fascism popularity = 0.1 }
+		remove_ideas = SPA_dis_gov		
+	}
+	x = -5
+	y = 5
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_heavy_rationing
+	icon = GFX_focus_civilian_rations
+	cost = 6
+	prerequisite = { 
+		focus = SPA_viva_jefe
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_idea = SPC_civilian_rationing
+			}
+			swap_ideas = {
+				remove_idea = SPC_civilian_rationing
+				add_idea = SPA_harsh_ration
+			}
+		}
+		else = {
+			add_ideas = SPA_harsh_ration
+		}
+	}
+	x = -7
+	y = 6
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_purge_guardia_civil
+	icon = GFX_focus_Military_Purges
+	cost = 6
+	prerequisite = { 
+		focus = SPA_viva_jefe
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+			}
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+			}
+			add_political_power = 50
+		}
+		add_popularity = { ideology = fascism popularity = 0.05 }
+		add_popularity = { ideology = monarchism popularity = -0.1 }		
+	}
+	x = -6
+	y = 7
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_national_syndicalism
+	icon = GFX_focus_Corporatism
+	cost = 6
+	prerequisite = { 
+		focus = SPA_viva_jefe
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}			
+	}
+	x = -5
+	y = 6
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_guerrilla_nacional
+	icon = GFX_focus_Guerilla_Warfare
+	cost = 6
+	prerequisite = { 
+		focus = SPA_viva_jefe
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		add_ideas = SPA_guer_nac	
+	}
+	x = -4
+	y = 7
+	relative_position_id = SPA_generalisimo_franco
+}
+
+shared_focus = {
+	id = SPA_begin_nationalizations
+	icon = GFX_focus_Puppet_Businesses
+	cost = 6
+	prerequisite = { 
+		focus = SPA_viva_jefe
+	}
+	available = { 
+	
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}			
+	}
+	x = -3
+	y = 6
+	relative_position_id = SPA_generalisimo_franco
+}

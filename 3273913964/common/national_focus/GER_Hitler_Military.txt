@@ -1,0 +1,1820 @@
+#66 Focuses here - s_team337
+#This focus tree dedicated to the Senate and Commander Cody
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Start
+	icon = GFX_focus_Military_Intervention
+	#prerequisite = { focus = GER_HitStr_Military_Tree_Start }
+	x = 36
+	y = 0
+	offset = {
+		trigger = {
+			OR = {
+				has_focus_tree = german_focus_dnvp
+				has_focus_tree = german_focus_dnvp_goerdeler
+			}
+		}
+		x = 16
+		y = 0
+	}
+	offset = {
+		trigger = {
+			has_focus_tree = german_focus_dnvp_stahlhelm
+		}
+		x = 12
+		y = 0
+	}
+	#relative_position_id = GER_HitStr_Military_Tree_Start
+	cost = 1
+	ai_will_do = {
+		# base = 1700
+	}
+	available = {
+		OR = {
+			AND = {
+				has_country_flag = GER_hitler_in_power
+				# has_completed_focus = GER_Hitler_Economics_Start
+				date > 1933.4.1
+			}
+			AND = {
+				OR = {
+					has_country_flag = GER_hugenberg_in_power
+					has_country_flag = GER_goerdeler_in_power
+					has_country_flag = GER_seldte_in_power
+				}
+				has_country_flag = GER_hindenburg_dead
+			}
+		}
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_timed_idea = {
+			idea = GER_Temp_Construction_Increase
+			days = 365
+		}
+		increase_spending = yes
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Award_More_Contracts
+	icon = GFX_focus_Firearms
+	prerequisite = { focus = GER_HitStr_Military_Tree_Start }
+	x = -1
+	y = 1
+	relative_position_id = GER_HitStr_Military_Tree_Start
+	cost = 2
+	ai_will_do = {
+		base = 7000
+	}
+	available = {
+		OR = {
+			controls_state = 56
+			controls_state = 59
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		custom_effect_tooltip = secret_armament_production_tt
+		hidden_effect = {
+			add_ideas = secret_armament_production
+		}
+		56 = { #Grusonwerk
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		59 = { #Hanomag
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_idea = siemens
+					has_idea = krupp
+					has_idea = c_lorenz
+					has_idea = ig_faben
+					has_idea = brabag
+				}
+			}
+			add_ideas = krupp
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Dockyards
+	icon = GFX_focus_POL_develop_polish_shipbuilding
+	prerequisite = { focus = GER_HitStr_Military_Tree_Start }
+	x = 1
+	y = 1
+	relative_position_id = GER_HitStr_Military_Tree_Start
+	cost = 2
+	ai_will_do = {
+		base = 350
+		modifier = {
+			date > 1934.11.1
+			add = 1000
+		}
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				is_coastal = yes
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_December_program_1933
+	icon = GFX_focus_Stahlhelm
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Award_More_Contracts
+		focus = GER_HitStr_Military_Tree_Dockyards
+	}
+	x = 0
+	y = 2
+	relative_position_id = GER_HitStr_Military_Tree_Start
+	cost = 0
+	ai_will_do = {
+		base = 300
+	}
+	available = {
+		# date > 1933.12.17
+		hidden_trigger = {
+			has_country_flag = GER_dezemberprogramm
+		}
+	}
+	completion_reward = {
+		custom_effect_tooltip = dezemberprogram_tt
+	}
+}
+
+shared_focus = {
+	id = GER_proclamation_of_military_sovereignty
+	icon = GFX_focus_nazi_wehrmacht
+	prerequisite = { focus = GER_December_program_1933 }
+	x = 0
+	y = 3
+	relative_position_id = GER_HitStr_Military_Tree_Start
+	cost = 0
+	ai_will_do = {
+		base = 12000
+	}
+	available = {
+		date > 1935.3.15
+		OR = {
+			has_completed_focus = GER_Hitler_Politics_Oath_Of_Obedience
+			has_completed_focus = GER_DNVP_Politics_Kaiser
+			has_completed_focus = GER_DNVP_Politics_Fuhrer
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		custom_effect_tooltip = GER_reintroduce_conscription_tt
+		custom_effect_tooltip = GER_recreate_grosser_generalstab_tt
+		hidden_effect = {
+			add_ideas = goring_air
+			add_ideas = raeder_navy
+			if = {
+				limit = {
+					has_idea = limited_conscription
+				}
+				swap_ideas = {
+					remove_idea = limited_conscription
+					add_idea = extensive_conscription
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = volunteer_only
+				}
+				swap_ideas = {
+					remove_idea = volunteer_only
+					add_idea = limited_conscription
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = disarmed_nation
+				}
+				swap_ideas = {
+					remove_idea = disarmed_nation
+					add_idea = limited_conscription
+				}
+			}
+
+			remove_ideas = secret_armament_production
+		}
+		swap_ideas = {
+			remove_idea = truppenamt
+			add_idea = great_general_staff
+		}
+		# set_country_flag = GER_General_Staff_recreated #TODO
+		remove_ideas = versailles_treaty
+		
+		army_experience = 20
+		if = {
+			limit = {
+				has_idea = GER_DNVP_integrate_stalhelm
+			}
+			remove_ideas = GER_DNVP_integrate_stalhelm
+		}
+
+		if = {
+			limit = {
+				has_country_flag = GER_hitler_in_power
+			}
+			every_army_leader = {
+				limit = {
+					has_trait = reichwehr_general
+				}
+				remove_unit_leader_trait = reichwehr_general
+				add_unit_leader_trait = wehrmacht_general
+			}
+		}
+		else = {
+			every_army_leader = {
+				limit = {
+					has_trait = reichwehr_general
+				}
+				remove_unit_leader_trait = reichwehr_general
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_July_program_1935
+	icon = GFX_focus_Prepare_the_Troops #GFX_focus_hans_von_seeckt
+	prerequisite = {
+		focus = GER_proclamation_of_military_sovereignty
+	}
+	relative_position_id = GER_proclamation_of_military_sovereignty
+	x = 0
+	y = 1
+	cost = 4
+	dynamic = yes
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+		date > 1935.7.1
+	}
+	ai_will_do = {
+		base = 10000
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		custom_effect_tooltip = GER_July_program_1935_tt
+	}
+}
+
+shared_focus = {
+	id = GER_announce_creation_wehrmacht
+	icon = GFX_focus_army_tanks
+	prerequisite = {
+		focus = GER_July_program_1935
+	}
+	relative_position_id = GER_proclamation_of_military_sovereignty
+	x = 0
+	y = 2
+	cost = 0.2
+	available = {
+		date > 1935.10.14
+	}
+	ai_will_do = {
+		base = 10000
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		country_lock_all_division_template = no
+		hidden_effect = {
+			news_event = {
+				id = ger_news.4
+			}
+			if = {
+				limit = {
+					has_country_flag = GER_hitler_in_power
+				}
+				drop_cosmetic_tag = yes
+				set_cosmetic_tag = GER_Reich_w
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_tech = motorcycle_infantry }
+			}
+			set_technology = {
+				motorcycle_infantry = 1
+				popup = no
+			}
+		}
+		delete_unit= {
+			division_template = "Infanterie-Division"
+			disband = yes
+		}	
+		load_oob = "GER_Wehrmacht_1935"
+		custom_effect_tooltip = GER_first_panzer_divisions_tt
+	}
+}
+
+#TODO: Draft "Increasing the attack power of the army"
+#https://de-m-wikipedia-org.translate.goog/wiki/Aufr%C3%BCstung_der_Wehrmacht?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=es&_x_tr_pto=wapp
+
+#Final Armament Program 
+
+shared_focus = {
+	id = GER_army_mobile_warfare
+	icon = GFX_focus_Blitzkrieg_alt
+	prerequisite = {
+		focus = GER_announce_creation_wehrmacht
+	}
+	mutually_exclusive = {
+		focus = GER_army_grand_battleplan
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = -2
+	y = 1
+	cost = 2
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 400
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		set_country_flag = GER_bewegungskrieg_ability
+		army_experience = 20
+		add_doctrine_cost_reduction = {
+			name = GER_army_mobile_warfare
+			cost_reduction = 0.5
+			uses = 2
+			category = cat_mobile_warfare
+		}
+		if = {
+			limit = {
+				has_dlc = "No Step Back"
+				NOT = { has_idea = maneuver_warfare_spirit }
+			}
+			add_ideas = maneuver_warfare_spirit
+		}
+		if = {
+			limit = {
+				has_dlc = "No Step Back"
+				NOT = { has_idea = mobile_warfare_academy_spirit }
+			}
+			add_ideas = mobile_warfare_academy_spirit
+		}
+	}
+}
+shared_focus = {
+	id = GER_army_mobile_warfare_motorized
+	icon = GFX_focus_Motorization_Effort
+	prerequisite = {
+		focus = GER_army_mobile_warfare
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = -2
+	y = 2
+	cost = 2
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 500
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_army_mobile_warfare_motorized
+			bonus = 0.5
+			uses = 1
+			category = motorized_equipment
+			category = cat_mechanized_equipment
+		}
+	}
+}
+shared_focus = {
+	id = GER_army_support_equipment
+	icon = GFX_focus_Support_Equipment
+	prerequisite = {
+		focus = GER_army_mobile_warfare_motorized
+		focus = GER_army_battleplan_infantry_weapons
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = 0
+	y = 3
+	cost = 3
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 250
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_army_support_equipment
+			bonus = 0.5
+			uses = 1
+			category = support_tech
+		}
+	}
+}
+shared_focus = {
+	id = GER_army_mobile_warfare_armor
+	icon = GFX_focus_Blitzkrieg
+	prerequisite = {
+		focus = GER_army_mobile_warfare_motorized
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = -2
+	y = 3
+	cost = 2
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 700
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		army_experience = 100
+		add_tech_bonus = {
+			name = GER_army_mobile_warfare_armor
+			bonus = 0.5
+			uses = 1
+			category = armor
+		}
+	}
+}
+shared_focus = {
+	id = GER_army_mobile_warfare_heavy_armor
+	icon = GFX_focus_Heavy_Tanks
+	prerequisite = {
+		focus = GER_army_mobile_warfare_armor
+	}
+	prerequisite = {
+		focus = GER_army_support_equipment
+	}
+	mutually_exclusive = {
+		focus = GER_army_mobile_warfare_light_armor
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = -3
+	y = 4
+	cost = 2
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 450
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_army_mobile_warfare_heavy_armor
+			bonus = 1.0
+			uses = 1
+			category = cat_heavy_armor
+		}
+	}
+}
+shared_focus = {
+	id = GER_army_mobile_warfare_light_armor
+	icon = GFX_focus_Light_Tanks
+	prerequisite = {
+		focus = GER_army_mobile_warfare_armor
+	}
+	prerequisite = {
+		focus = GER_army_support_equipment
+	}
+	mutually_exclusive = {
+		focus = GER_army_mobile_warfare_heavy_armor
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = -1
+	y = 4
+	cost = 2
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 500
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_army_mobile_warfare_light_armor
+			bonus = 1.0
+			uses = 1
+			category = cat_light_armor
+		}
+	}
+}
+shared_focus = {
+	id = GER_army_mobile_warfare_medium_armor
+	icon = GFX_focus_Medium_Tanks
+	prerequisite = {
+		focus = GER_army_mobile_warfare_light_armor
+		focus = GER_army_mobile_warfare_heavy_armor
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = -2
+	y = 5
+	cost = 2
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 800
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_army_mobile_warfare_medium_armor
+			bonus = 1.0
+			uses = 1
+			category = cat_medium_armor
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_army_grand_battleplan
+	icon = GFX_focus_Long_Planning
+	prerequisite = {
+		focus = GER_announce_creation_wehrmacht
+	}
+	mutually_exclusive = {
+		focus = GER_army_mobile_warfare
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = 2
+	y = 1
+	cost = 2
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 80
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_doctrine_cost_reduction = {
+			name = GER_army_grand_battleplan
+			cost_reduction = 0.5
+			uses = 2
+			category = cat_grand_battle_plan
+		}
+	}
+}
+shared_focus = {
+	id = GER_army_battleplan_infantry_weapons
+	icon = GFX_focus_German_Guns
+	prerequisite = {
+		focus = GER_army_grand_battleplan
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = 2
+	y = 2
+	cost = 3
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 170
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = small_arms_bonus
+			bonus = 0.5
+			uses = 1
+			category = infantry_tech
+		}
+	}
+}
+shared_focus = {
+	id = GER_army_battleplan_planning_office
+	icon = GFX_focus_Officers_Command
+	prerequisite = {
+		focus = GER_army_battleplan_infantry_weapons
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = 2
+	y = 3
+	cost = 3
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 350
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_ideas = WGR_decentralized_command
+	}
+}
+shared_focus = {
+	id = GER_army_battleplan_motorized
+	icon = GFX_focus_army_tanks
+	prerequisite = {
+		focus = GER_army_battleplan_planning_office
+	}
+	prerequisite = {
+		focus = GER_army_support_equipment
+	}
+	mutually_exclusive = {
+		focus = GER_army_battleplan_spec_ops
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = 1
+	y = 4
+	cost = 3
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 250
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = motorized_bonus
+			bonus = 0.5
+			uses = 1
+			category = motorized_equipment
+			category = cat_mechanized_equipment
+		}
+	}
+}
+shared_focus = {
+	id = GER_army_battleplan_spec_ops
+	icon = GFX_goal_generic_special_forces
+	prerequisite = {
+		focus = GER_army_battleplan_planning_office
+	}
+	prerequisite = {
+		focus = GER_army_support_equipment
+	}
+	mutually_exclusive = {
+		focus = GER_army_battleplan_motorized
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = 3
+	y = 4
+	cost = 3
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 250
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_tech_bonus = {
+			name = special_forces_bonus
+			bonus = 0.5
+			uses = 1
+			category = mountaineers_tech
+			category = para_tech
+			category = marine_tech
+		}
+	}
+}
+shared_focus = {
+	id = GER_army_battleplan_defensive_posture
+	icon = GFX_focus_Trench_Warfare
+	prerequisite = {
+		focus = GER_army_battleplan_motorized
+		focus = GER_army_battleplan_spec_ops
+	}
+	relative_position_id = GER_announce_creation_wehrmacht
+	x = 2
+	y = 5
+	cost = 3
+	available = {
+		NOT = {
+			has_idea = versailles_treaty
+		}
+	}
+	ai_will_do = {
+		base = 250
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			has_war = yes
+			factor = 1.2
+		}
+		modifier = {
+			has_defensive_war = yes
+			factor = 2
+		}
+	}
+	bypass = {
+	}	
+	completion_reward = {
+		add_ideas = WGR_defense
+	}
+}
+
+shared_focus = {
+	id = GER_form_the_kriegsmarine
+	icon = GFX_focus_Kriegsmarine
+	prerequisite = { focus = GER_proclamation_of_military_sovereignty }
+	x = -8
+	y = 1
+	relative_position_id = GER_proclamation_of_military_sovereignty
+	cost = 1
+	ai_will_do = {
+		base = 10000
+	}
+	available = {
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		navy_experience = 20
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Navy_Donitz_Subs
+	icon = GFX_focus_donitz_submarines
+	prerequisite = { focus = GER_form_the_kriegsmarine }
+	mutually_exclusive = { focus = GER_HitStr_Military_Tree_Navy_Reader_Grand_Navy }
+	x = -1
+	y = 1
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 1
+	ai_will_do = {
+		base = 500
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = { has_tech = trade_interdiction }
+			}
+			set_technology ={
+				trade_interdiction = 1
+			}
+		}
+		add_doctrine_cost_reduction = {
+			name = GER_HitStr_Military_Tree_Navy_Donitz_Subs
+			cost_reduction = 0.5
+			uses = 2
+			category = cat_trade_interdiction
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Navy_Reader_Grand_Navy
+	icon = GFX_focus_raeder_combined_fleet
+	prerequisite = { focus = GER_form_the_kriegsmarine }
+	mutually_exclusive = { focus = GER_HitStr_Military_Tree_Navy_Donitz_Subs }
+	x = 1
+	y = 1
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 1
+	ai_will_do = {
+		base = 200
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = { has_tech = fleet_in_being }
+			}
+			set_technology ={
+				fleet_in_being = 1
+			}
+		}
+		add_doctrine_cost_reduction = {
+			name = GER_HitStr_Military_Tree_Navy_Donitz_Subs
+			cost_reduction = 0.5
+			uses = 2
+			category = cat_fleet_in_being
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Navy_Submarine_Designs
+	icon = GFX_goal_generic_navy_submarine
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Navy_Donitz_Subs
+		focus = GER_HitStr_Military_Tree_Navy_Reader_Grand_Navy
+	}
+	x = -2
+	y = 2
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 3
+	ai_will_do = {
+		base = 500
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = submarine_bonus
+			bonus = 0.5
+			uses = 1
+			category = ss_tech
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Navy_Destroyers
+	icon = GFX_Goal_Generic_Defend_Conveys
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Navy_Submarine_Designs
+	}
+	x = -2
+	y = 3
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 3
+	ai_will_do = {
+		base = 180
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+		modifier = {
+			has_war_with = FRA
+			NOT = {
+				FRA = { has_capitulated = yes }
+				has_global_flag = FRA_has_fallen
+			}
+			factor = 0
+		}
+	}
+	available = {
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = destroyer_bonus
+			bonus = 0.5
+			uses = 1
+			category = dd_tech
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Navy_Dockyards
+	icon = GFX_goal_generic_construct_naval_dockyard
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Navy_Donitz_Subs
+		focus = GER_HitStr_Military_Tree_Navy_Reader_Grand_Navy
+	}
+	x = 0
+	y = 2
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 3
+	ai_will_do = {
+		base = 780
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+		modifier = {
+			has_war = no
+			threat > 0.35
+			factor = 1.35
+		}
+	}
+	available = {
+		any_owned_state = {
+			is_coastal = yes
+		}
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				is_coastal = yes
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = dockyard
+					size > 1
+					include_locked = yes
+				}
+				is_coastal = yes
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Navy_Ports
+	icon = GFX_focus_Naval_Operations
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Navy_Dockyards
+	}
+	x = 0
+	y = 3
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 3
+	ai_will_do = {
+		base = 250
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+		modifier = {
+			has_war_with = FRA
+			NOT = {
+				FRA = { has_capitulated = yes }
+				has_global_flag = FRA_has_fallen
+			}
+			factor = 0
+		}
+	}
+	available = {
+		
+	}
+	bypass = {
+		NOT = {
+			controls_state = 61
+			controls_state = 68
+			controls_state = 762
+		}
+	}
+	completion_reward = {
+		61 = {
+			if = {
+				limit = {
+					is_controlled_by = GER
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 321
+				}
+			}
+		}
+		68 = {
+			if = {
+				limit = {
+					is_controlled_by = GER
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 11372
+				}
+			}
+		}
+		762 = {
+			if = {
+				limit = {
+					is_controlled_by = GER
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					instant_build = yes
+					province = 6332
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Navy_Light_Cruisers
+	icon = GFX_focus_generic_cruiser2
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Navy_Donitz_Subs
+		focus = GER_HitStr_Military_Tree_Navy_Reader_Grand_Navy
+	}
+	x = 2
+	y = 2
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 3
+	ai_will_do = {
+		base = 240
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = cruiser_bonus
+			bonus = 0.5
+			uses = 1
+			category = cl_tech
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Navy_Heavy_Cruisers
+	icon = GFX_goal_generic_navy_cruiser
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Navy_Light_Cruisers
+	}
+	x = 2
+	y = 3
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 3
+	ai_will_do = {
+		base = 240
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+		modifier = {
+			has_war_with = FRA
+			NOT = {
+				FRA = { has_capitulated = yes }
+				has_global_flag = FRA_has_fallen
+			}
+			factor = 0
+		}
+	}
+	available = {
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = cruiser_bonus
+			bonus = 0.5
+			uses = 1
+			category = ca_tech
+			category = bc_tech
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Battleships
+	icon = GFX_focus_capital_ships
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Navy_Destroyers
+	}
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Navy_Ports
+	}
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Navy_Heavy_Cruisers
+	}
+	x = 0
+	y = 4
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 5
+	ai_will_do = {
+		base = 240
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = battleship_bonus
+			bonus = 0.5
+			uses = 1
+			category = bb_tech
+			category = shbb_tech
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Plan_D
+	icon = GFX_focus_Bluewater_Navy
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Battleships
+	}
+	mutually_exclusive = { focus = GER_HitStr_Military_Tree_Plan_Z }
+	x = -1
+	y = 5
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 5
+	ai_will_do = {
+		base = 80
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		date > 1938.8.14
+	}
+	bypass = {
+	}
+	completion_reward = {
+		activate_mission = GER_Plan_D_Mission
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Plan_Z
+	icon = GFX_focus_Battlefleet
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Battleships
+	}
+	mutually_exclusive = { focus = GER_HitStr_Military_Tree_Plan_D }
+	x = 1
+	y = 5
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 5
+	ai_will_do = {
+		base = 500
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+		date > 1938.8.14
+	}
+	bypass = {
+	}
+	completion_reward = {
+		activate_mission = GER_Plan_Z_Mission
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Plan_Z_Aircraft_Carriers
+	icon = GFX_focus_Carrier_Focus
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Plan_Z
+		focus = GER_HitStr_Military_Tree_Plan_D
+	}
+	x = 0
+	y = 6
+	relative_position_id = GER_form_the_kriegsmarine
+	cost = 5
+	ai_will_do = {
+		base = 170
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+		date > 1938.8.14
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_HitStr_Military_Tree_Plan_Z_Aircraft_Carriers
+			bonus = 0.3
+			uses = 1
+			category = cv_tech
+		}
+	}
+}
+shared_focus = {
+	id = GER_form_the_luftwaffe
+	icon = GFX_focus_Form_the_Luftwaffe
+	prerequisite = { focus = GER_proclamation_of_military_sovereignty }
+	x = 8
+	y = 1
+	relative_position_id = GER_proclamation_of_military_sovereignty
+	cost = 1
+	ai_will_do = {
+		base = 12000
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		air_experience = 40
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Wever
+	icon = GFX_focus_Aerial_Offensive
+	prerequisite = { focus = GER_form_the_luftwaffe }
+	x = 0
+	y = 1
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 3
+	ai_will_do = {
+		base = 400
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_doctrine_cost_reduction = {
+			name = GER_HitStr_Military_Tree_Airforce_Wever
+			cost_reduction = 0.5
+			uses = 2
+			category = cat_strategic_destruction
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Bombers
+	icon = GFX_goal_generic_air_bomber
+	prerequisite = { focus = GER_HitStr_Military_Tree_Airforce_Wever }
+	x = -2
+	y = 2
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 3
+	ai_will_do = {
+		base = 500
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_HitStr_Military_Tree_Airforce_Bombers
+			bonus = 0.5
+			uses = 1
+			category = tactical_bomber
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Airports
+	icon = GFX_focus_Airports
+	prerequisite = { focus = GER_HitStr_Military_Tree_Airforce_Wever }
+	x = 0
+	y = 2
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 3
+	ai_will_do = {
+		base = 400
+	}
+	available = {
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_building_construction = {
+				type = air_base
+				level = 2
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_building_construction = {
+				type = air_base
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Fighters
+	icon = GFX_goal_generic_air_fighter
+	prerequisite = { focus = GER_HitStr_Military_Tree_Airforce_Wever }
+	x = 2
+	y = 2
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 3
+	ai_will_do = {
+		base = 600
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+		
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_HitStr_Military_Tree_Airforce_Fighters
+			bonus = 0.5
+			uses = 2
+			category = light_fighter
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Go_With_Udet
+	icon = GFX_focus_udet
+	prerequisite = { focus = GER_HitStr_Military_Tree_Airforce_Bombers }
+	prerequisite = { focus = GER_HitStr_Military_Tree_Airforce_Airports }
+	prerequisite = { focus = GER_HitStr_Military_Tree_Airforce_Fighters }
+	mutually_exclusive = { focus = GER_HitStr_Military_Tree_Airforce_Keep_Wevers_Strategy }
+	x = -1
+	y = 3
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 2
+	ai_will_do = {
+		base = 900
+		modifier = {
+			has_country_flag = GER_wever_is_dead
+			factor = 3
+		}
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+		has_country_flag = GER_wever_is_dead
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = { has_tech = formation_flying }
+			}
+			set_technology = { formation_flying = 1 }
+		}
+		air_experience = 150
+		add_doctrine_cost_reduction = {
+			name = GER_HitStr_Military_Tree_Airforce_Go_With_Udet
+			cost_reduction = 0.6
+			uses = 4
+			category = cat_battlefield_support
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Keep_Wevers_Strategy
+	icon = GFX_focus_strategic_bomber
+	prerequisite = { focus = GER_HitStr_Military_Tree_Airforce_Bombers }
+	prerequisite = { focus = GER_HitStr_Military_Tree_Airforce_Airports }
+	prerequisite = { focus = GER_HitStr_Military_Tree_Airforce_Fighters }
+	mutually_exclusive = { focus = GER_HitStr_Military_Tree_Airforce_Go_With_Udet }
+	x = 1
+	y = 3
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 2
+	ai_will_do = {
+		base = 250
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+		OR = {
+			has_country_flag = GER_wever_is_dead
+			has_country_flag = GER_wever_is_not_dead
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		air_experience = 150
+		add_doctrine_cost_reduction = {
+			name = GER_HitStr_Military_Tree_Airforce_Keep_Wevers_Strategy
+			cost_reduction = 0.5
+			uses = 1
+			category = cat_strategic_destruction
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Udet_Naval_Plane
+	icon = GFX_focus_Naval_Bombers
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Airforce_Go_With_Udet
+		focus = GER_HitStr_Military_Tree_Airforce_Keep_Wevers_Strategy
+	}
+	x = 0
+	y = 4
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 3
+	ai_will_do = {
+		base = 300
+		modifier = {
+			has_war = yes
+			add = 300
+		}
+		modifier = {
+			date > 1940.1.1
+			add = 100
+		}
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_HitStr_Military_Tree_Airforce_Udet_Naval_Plane
+			bonus = 0.5
+			uses = 1
+			category = naval_bomber
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_CAS
+	icon = GFX_focus_Close_Air_Support
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Airforce_Go_With_Udet
+		focus = GER_HitStr_Military_Tree_Airforce_Keep_Wevers_Strategy
+	}
+	x = -2
+	y = 4
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 3
+	ai_will_do = {
+		base = 300
+		modifier = {
+			has_war = yes
+			add = 200
+		}
+		modifier = {
+			date > 1940.1.1
+			add = 300
+		}
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_HitStr_Military_Tree_Airforce_CAS
+			bonus = 0.75
+			uses = 1
+			category = cas_bomber
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Wever_Strategic_Bombers
+	icon = GFX_focus_Heavy_Fighters
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Airforce_Go_With_Udet
+		focus = GER_HitStr_Military_Tree_Airforce_Keep_Wevers_Strategy
+	}
+	x = 2
+	y = 4
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 3
+	ai_will_do = {
+		base = 250
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+		modifier = {
+			has_war_with = SOV
+			factor = 2
+		}
+	}
+	available = {
+		OR = {
+			has_war_with = SOV
+			has_war_with = RUS
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_HitStr_Military_Tree_Airforce_Wever_Strategic_Bombers
+			bonus = 1
+			uses = 1
+			category = cat_strategic_bomber
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Udet_Amerika_Bomber
+	icon = GFX_focus_Night_Bombing
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Airforce_CAS
+		focus = GER_HitStr_Military_Tree_Airforce_Wever_Strategic_Bombers
+		focus = GER_HitStr_Military_Tree_Airforce_Udet_Naval_Plane
+	}
+	x = 2
+	y = 5
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 3
+	ai_will_do = {
+		base = 250
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+		modifier = {
+			has_war_with = USA
+			factor = 2
+		}
+	}
+	available = {
+		has_war_with = USA
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_HitStr_Military_Tree_Airforce_Udet_Amerika_Bomber
+			bonus = 0.75
+			uses = 1
+			category = cat_strategic_bomber
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Rocketry
+	icon = GFX_focus_rocketry
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Airforce_CAS
+		focus = GER_HitStr_Military_Tree_Airforce_Wever_Strategic_Bombers
+		focus = GER_HitStr_Military_Tree_Airforce_Udet_Naval_Plane
+	}
+	x = 0
+	y = 5
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 3
+	ai_will_do = {
+		base = 100
+		modifier = {
+			date > 1943.1.1
+			add = 900
+		}
+	}
+	available = {
+		date > 1941.12.31
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 1.0
+			uses = 2
+			category = rocketry
+		}
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Wever_Bomber_Production
+	icon = GFX_focus_Aviation_industry
+	prerequisite = {
+		focus = GER_HitStr_Military_Tree_Airforce_CAS
+		focus = GER_HitStr_Military_Tree_Airforce_Wever_Strategic_Bombers
+		focus = GER_HitStr_Military_Tree_Airforce_Udet_Naval_Plane
+	}
+	x = -2
+	y = 5
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 3
+	ai_will_do = {
+		base = 400
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+		date > 1941.12.31
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = GER_Bomber_Production
+	}
+}
+shared_focus = {
+	id = GER_HitStr_Military_Tree_Airforce_Doctrine
+	icon = GFX_focus_Army_Reform
+	prerequisite = { focus = GER_HitStr_Military_Tree_Airforce_Rocketry }
+	prerequisite = { focus = GER_HitStr_Military_Tree_Airforce_Udet_Amerika_Bomber focus = GER_HitStr_Military_Tree_Airforce_Wever_Bomber_Production }
+	x = 0
+	y = 6
+	relative_position_id = GER_form_the_luftwaffe
+	cost = 3
+	ai_will_do = {
+		base = 250
+		modifier = {
+			has_war = yes
+			factor = 1.5
+		}
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			name = GER_HitStr_Military_Tree_Airforce_Doctrine
+			bonus = 0.5
+			uses = 1
+			category = air_doctrine
+		}
+	}
+}

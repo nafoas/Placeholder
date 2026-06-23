@@ -1,0 +1,1136 @@
+focus_tree = {
+	id = WGR_civil_war_tree
+	country = {
+		factor = 0
+		modifier = {
+			add = 0
+			tag = WGR
+		}
+	}
+    continuous_focus_position = { x = 50 y = 2500 }
+    focus = {
+		id = WGR_defense_republic
+		icon = GFX_focus_A_Free_Germany
+		cost = 3
+		bypass = {
+		    always = yes
+		}
+        available = {
+        }
+		completion_reward = {
+		}
+		x = 8
+		y = 0
+	}
+	
+	focus = {
+		id = WGR_order_mobilization
+		icon = GFX_focus_Officers_Command
+		cost = 1
+		prerequisite = {
+		    focus = WGR_defense_republic
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_ideas = war_economy
+			add_ideas = extensive_conscription
+		}
+		x = 7
+		y = 1
+	}
+	
+	focus = {
+		id = WGR_emergency_powers
+		icon = GFX_Government_Crisis
+		cost = 2
+		prerequisite = {
+		    focus = WGR_defense_republic
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_widespread_chaos add_idea = GCW_WGR_widespread_chaos1 }
+		}
+		x = 9
+		y = 1
+	}
+	
+	focus = {
+		id = WGR_convene_reichstag
+		icon = GFX_focus_Parliament
+		cost = 2
+		prerequisite = {
+		    focus = WGR_emergency_powers
+		}
+		prerequisite = {
+		    focus = WGR_order_mobilization
+		}
+        available = {
+        }
+		completion_reward = {
+		    country_event = {
+		        id = wgr_gcw.2 #spd?
+	        }
+		}
+		x = 8
+		y = 2
+	}
+	
+	focus = {
+		id = WGR_weimar_coalition
+		icon = GFX_focus_Befriend_Weimar_Germany
+		cost = 1
+		prerequisite = {
+		    focus = WGR_convene_reichstag
+		}
+		mutually_exclusive = {
+		    focus = WGR_bourgeois_bloc
+		}
+        available = {
+		    always = no
+        }
+		completion_reward = {
+		}
+		x = 6
+		y = 3
+	}
+	
+	focus = {
+		id = WGR_arm_people
+		icon = GFX_focus_Renewed_Arms
+		cost = 3
+		prerequisite = {
+		    focus = WGR_weimar_coalition
+		}
+        available = {
+        }
+		completion_reward = {
+		    custom_effect_tooltip = WGR_arm_people_tt
+		    hidden_effect = {
+		    random_owned_controlled_state = {
+			    create_unit = {
+                    division = "name = \"Republikanische Miliz\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+                    owner = WGR
+                }
+				create_unit = {
+                    division = "name = \"Republikanische Miliz\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+                    owner = WGR
+                }
+			}
+			random_owned_controlled_state = {
+			    create_unit = {
+                    division = "name = \"Republikanische Miliz\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+                    owner = WGR
+                }
+				create_unit = {
+                    division = "name = \"Republikanische Miliz\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+                    owner = WGR
+                }
+			}
+			random_owned_controlled_state = {
+			    create_unit = {
+                    division = "name = \"Republikanische Miliz\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+                    owner = WGR
+                }
+				create_unit = {
+                    division = "name = \"Republikanische Miliz\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+                    owner = WGR
+                }
+			}
+			}
+		}
+		x = 5
+		y = 4
+	}
+	
+	focus = {
+		id = WGR_reinvigorated_propaganda
+		icon = GFX_focus_Freedom_of_Speech
+		cost = 3
+		prerequisite = {
+		    focus = WGR_weimar_coalition
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_ideas = GCW_WGR_republican_propaganda
+		}
+		x = 3
+		y = 4
+	}
+	
+	focus = {
+		id = WGR_not_italy
+		icon = GFX_focus_Target_Fascism
+		cost = 3
+		prerequisite = {
+		    focus = WGR_reinvigorated_propaganda
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_republican_propaganda add_idea = GCW_WGR_republican_propaganda2 }
+		}
+		x = 2
+		y = 5
+	}
+	
+	focus = {
+		id = WGR_volkskrieg
+		icon = GFX_focus_Civil_Unrest
+		cost = 3
+		prerequisite = {
+		    focus = WGR_reinvigorated_propaganda
+		}
+		prerequisite = {
+		    focus = WGR_arm_people
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_war_support = 0.3
+			add_stability = 0.1
+			add_political_power = 100
+		}
+		x = 4
+		y = 5
+	}
+	
+	focus = {
+		id = WGR_expand_reichsbanner_cw
+		icon = GFX_focus_Recruitment_Drive
+		cost = 3
+		prerequisite = {
+		    focus = WGR_volkskrieg
+		}
+        available = {
+		    has_completed_focus = WGR_dissolve_committees
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_disbanded_army2 add_idea = GCW_WGR_reichsbanner1 }
+		}
+		x = 4
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_organize_volunteers
+		icon = GFX_focus_Recruitment
+		cost = 3
+		prerequisite = {
+		    focus = WGR_expand_reichsbanner_cw
+		}
+        available = {
+        }
+		completion_reward = {
+		    custom_effect_tooltip = WGR_organize_volunteers_tt
+		    hidden_effect = {
+		    random_owned_controlled_state = {
+			    create_unit = {
+                    division = "name = \"Lincoln-Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+                    owner = WGR
+                }
+				create_unit = {
+                    division = "name = \"Napoleon-Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+                    owner = WGR
+                }
+			}
+			random_owned_controlled_state = {
+			    create_unit = {
+                    division = "name = \"Freiheit-Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+                    owner = WGR
+                }
+				create_unit = {
+                    division = "name = \"Trikolore-Brigade\" division_template = \"Republikanische Miliz\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+                    owner = WGR
+                }
+		    }
+			}
+		}
+		x = 3
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_sideline_reichswehr_leaders
+		icon = GFX_focus_Prussian_Military
+		cost = 3
+		prerequisite = {
+		    focus = WGR_expand_reichsbanner_cw
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_reichsbanner1 add_idea = GCW_WGR_reichsbanner2 }
+			every_unit_leader = {
+			    limit = {
+				    OR = {
+					    has_id = 10044
+						has_id = 10045
+					}
+				}
+				add_attack = 2
+				add_defense = 2
+				add_planning = 1
+				add_logistics = 1
+			}
+		}
+		x = 5
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_seize_civilian_planes
+		icon = GFX_focus_Aerial_Fleet
+		cost = 3
+		prerequisite = {
+		    focus = WGR_expand_reichsbanner_cw
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_equipment_to_stockpile = {
+                type = small_plane_airframe 
+                amount = 150
+                producer = WGR
+            }
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				add_equipment_to_stockpile = {
+					type = gw_bomber_equipment
+					amount = 60
+					producer = WGR
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = medium_plane_airframe
+					amount = 60
+					producer = WGR
+				}
+			}
+		}
+		x = 4
+		y = 8
+	}
+	
+	focus = {
+		id = WGR_enlist_intellectuals
+		icon = GFX_focus_Brainpower
+		cost = 3
+		prerequisite = {
+		    focus = WGR_volkskrieg
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_ideas = GCW_WGR_intellectual_support
+		}
+		x = 2
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_emergency_nationalizations
+		icon = GFX_focus_Grab_Money
+		cost = 3
+		prerequisite = {
+		    focus = WGR_volkskrieg
+		}
+        available = {
+        }
+		completion_reward = {
+		    random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 0
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_streamline_arms_prod
+		icon = GFX_focus_Firearms
+		cost = 3
+		prerequisite = {
+		    focus = WGR_emergency_nationalizations
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_ideas = GCW_WGR_streamlined_arms
+		}
+		x = 1
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_mobilize_german_worker
+		icon = GFX_focus_Union_Workers
+		cost = 3
+		prerequisite = {
+		    focus = WGR_streamline_arms_prod
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_streamlined_arms add_idea = GCW_WGR_mobilize_worker }
+		}
+		x = 0
+		y = 8
+	}
+	
+	focus = {
+		id = WGR_secret_gun_imports
+		icon = GFX_focus_Buy_Foreign_Weapons
+		cost = 3
+		prerequisite = {
+		    focus = WGR_streamline_arms_prod
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_timed_idea = {
+			    idea = GCW_WGR_import_payments
+				days = 180
+			}
+			add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = 2000
+                producer = WGR
+            }
+			add_equipment_to_stockpile = {
+                type = artillery_equipment
+                amount = 500
+                producer = WGR
+            }
+			add_equipment_to_stockpile = {
+                type = support_equipment
+                amount = 500
+                producer = WGR
+            }
+		}
+		x = 2
+		y = 8
+	}
+	
+	focus = {
+		id = WGR_international_antifa_call
+		icon = GFX_focus_Anti_Fascist
+		cost = 3
+		prerequisite = {
+		    focus = WGR_secret_gun_imports
+		}
+		prerequisite = {
+		    focus = WGR_organize_volunteers
+		}
+        available = {
+		    GER = { exists = yes }
+			DDR = { exists = no }
+        }
+		completion_reward = {
+		    add_ideas = GCW_WGR_international_anti_fascist_effort
+		}
+		x = 3
+		y = 9
+	}
+	
+	focus = {
+		id = WGR_secure_agrarian_production
+		icon = GFX_focus_Agriculture
+		cost = 3
+		prerequisite = {
+		    focus = WGR_emergency_nationalizations
+		}
+        available = {
+        }
+		completion_reward = {
+		    random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_political_power = 70
+		}
+		x = -1
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_wartime_planning
+		icon = GFX_focus_Planned_Economy
+		cost = 3
+		prerequisite = {
+		    focus = WGR_secure_agrarian_production
+		}
+		prerequisite = {
+		    focus = WGR_mobilize_german_worker
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_ideas = GCW_WGR_wartime_planning
+		}
+		x = -1
+		y = 9
+	}
+	
+	focus = {
+		id = WGR_bourgeois_bloc
+		icon = GFX_focus_Press_Barons
+		cost = 1
+		prerequisite = {
+		    focus = WGR_convene_reichstag
+		}
+		mutually_exclusive = {
+		    focus = WGR_weimar_coalition
+		}
+        available = {
+		    always = no
+        }
+		completion_reward = {
+		}
+		x = 10
+		y = 3
+	}
+	
+	focus = {
+		id = WGR_deal_spd
+		icon = GFX_focus_GER_SPD
+		cost = 3
+		prerequisite = {
+		    focus = WGR_bourgeois_bloc
+		}
+        available = {
+        }
+		completion_reward = {
+		    COALITION_add_socdem = yes
+		}
+		x = 11
+		y = 4
+	}
+	
+	focus = {
+		id = WGR_concessions_bvp
+		icon = GFX_focus_Befriend_Bavaria
+		cost = 3
+		prerequisite = {
+		    focus = WGR_bourgeois_bloc
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_popularity = {
+			    ideology = jacobin
+			    popularity = 0.05
+		    }
+			add_stability = 0.1
+			add_political_power = 50
+		}
+		x = 13
+		y = 4
+	}
+	
+	focus = {
+		id = WGR_kriegskoalition
+		icon = GFX_focus_Compromise
+		cost = 3
+		prerequisite = {
+		    focus = WGR_deal_spd
+		}
+		prerequisite = {
+		    focus = WGR_concessions_bvp
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_stability = 0.1
+			add_war_support = 0.15
+			add_political_power = 200
+		}
+		x = 12
+		y = 5
+	}
+	
+	focus = {
+		id = WGR_not_russia
+		icon = GFX_focus_Anti_Communist
+		cost = 3
+		prerequisite = {
+		    focus = WGR_concessions_bvp
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_ideas = GCW_WGR_anticommunist_ideals
+		}
+		x = 14
+		y = 5
+	}
+	
+	focus = {
+		id = WGR_disband_unruly_militias
+		icon = GFX_focus_Prepare_the_Troops
+		cost = 3
+		prerequisite = {
+		    focus = WGR_kriegskoalition
+		}
+        available = {
+		    has_completed_focus = WGR_dissolve_committees
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_disbanded_army2 add_idea = GCW_WGR_reichswehr1 }
+		}
+		x = 12
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_strict_professionalism
+		icon = GFX_focus_Into_the_Flames
+		cost = 3
+		prerequisite = {
+		    focus = WGR_disband_unruly_militias
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_reichswehr1 add_idea = GCW_WGR_reichswehr2 }
+		}
+		x = 11
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_contacts_britain
+		icon = GFX_focus_Befriend_United_Kingdom
+		cost = 3
+		prerequisite = {
+		    focus = WGR_disband_unruly_militias
+		}
+        available = {
+        }
+		completion_reward = {
+		    ENG = { 
+		        country_event = {
+		            id = wgr_gcw.4
+		            days = 1
+	            }
+		    }
+		}
+		x = 12
+		y = 8
+	}
+	
+	focus = {
+		id = WGR_cooperate_reichswehr_leaders
+		icon = GFX_focus_Befriend_Imperial_Germany
+		cost = 3
+		prerequisite = {
+		    focus = WGR_disband_unruly_militias
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = land_doctrine
+			}
+			army_experience = 30
+			add_political_power = -50
+		}
+		x = 13
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_support_church
+		icon = GFX_focus_For_Christ_and_Country
+		cost = 3
+		prerequisite = {
+		    focus = WGR_kriegskoalition
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_ideas = GCW_WGR_church_support
+		}
+		x = 14
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_cooperate_loyal_companies
+		icon = GFX_focus_Business_Men
+		cost = 3
+		prerequisite = {
+		    focus = WGR_kriegskoalition
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_ideas = GCW_WGR_private_coop
+		}
+		x = 16
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_strengthen_military_sector
+		icon = GFX_focus_Mechanization
+		cost = 3
+		prerequisite = {
+		    focus = WGR_cooperate_loyal_companies
+		}
+        available = {
+        }
+		completion_reward = {
+		    random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		x = 15
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_fix_railways
+		icon = GFX_focus_Railways
+		cost = 3
+		prerequisite = {
+		    focus = WGR_cooperate_loyal_companies
+		}
+        available = {
+        }
+		completion_reward = {
+			#TODO:railways
+		}
+		x = 17
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_militarized_production
+		icon = GFX_focus_Swing_the_Sword
+		cost = 3
+		prerequisite = {
+		    focus = WGR_strengthen_military_sector
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_ideas = GCW_WGR_militarized_prod
+		}
+		x = 14
+		y = 8
+	}
+	
+	focus = {
+		id = WGR_kriegsproduktionsburo
+		icon = GFX_focus_Combined_Arms
+		cost = 3
+		prerequisite = {
+		    focus = WGR_strengthen_military_sector
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_private_coop add_idea = GCW_WGR_private_coop2 }
+		}
+		x = 16
+		y = 8
+	}
+	
+	focus = {
+		id = WGR_integrated_war_effort
+		icon = GFX_focus_Common_Identity
+		cost = 3
+		prerequisite = {
+		    focus = WGR_kriegsproduktionsburo
+		}
+		prerequisite = {
+		    focus = WGR_fix_railways
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_private_coop2 add_idea = GCW_WGR_private_coop3 }
+		}
+		x = 17
+		y = 9
+	}
+	
+	focus = {
+		id = WGR_coordinating_reichswehr
+		icon = GFX_focus_Weimar_Army
+		cost = 3
+		prerequisite = {
+		    focus = WGR_militarized_production
+		}
+		prerequisite = {
+		    focus = WGR_cooperate_reichswehr_leaders
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_militarized_prod add_idea = GCW_WGR_reichswehr_rearmament }
+		}
+		x = 13
+		y = 9
+	}
+	
+	focus = {
+		id = WGR_restore_order
+		icon = GFX_focus_Crush_Resistance
+		cost = 3
+		prerequisite = {
+		    focus = WGR_weimar_coalition
+			focus = WGR_bourgeois_bloc
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_widespread_chaos1 add_idea = GCW_WGR_widespread_chaos2 }
+		}
+		x = 8
+		y = 4
+	}
+	
+	focus = {
+		id = WGR_centralize_police
+		icon = GFX_focus_Enlist_the_Police
+		cost = 3
+		prerequisite = {
+		    focus = WGR_restore_order
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_widespread_chaos2 add_idea = GCW_WGR_widespread_chaos3 }
+		}
+		x = 9
+		y = 5
+	}
+	
+	focus = {
+		id = WGR_dissolve_committees
+		icon = GFX_focus_Peasant_Militias
+		cost = 3
+		prerequisite = {
+		    focus = WGR_restore_order
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_disbanded_army add_idea = GCW_WGR_disbanded_army2 }
+		}
+		x = 7
+		y = 5
+	}
+	
+	focus = {
+		id = WGR_communist_crackdown
+		icon = GFX_focus_GCW_Left_focus
+		cost = 3
+		prerequisite = {
+		    focus = WGR_dissolve_committees
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_popularity = {
+			    ideology = communism
+			    popularity = -0.07
+		    }
+			add_stability = 0.1
+		}
+		x = 6
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_rightist_crackdown
+		icon = GFX_focus_GCW_Right_focus
+		cost = 3
+		prerequisite = {
+		    focus = WGR_centralize_police
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_popularity = {
+			    ideology = fascism
+			    popularity = -0.1
+		    }
+			add_war_support = 0.15
+		}
+		x = 10
+		y = 6
+	}
+
+	
+	focus = {
+		id = WGR_reorganize_judiciary
+		icon = GFX_focus_Judicial_System
+		cost = 3
+		prerequisite = {
+		    focus = WGR_dissolve_committees
+		}
+		prerequisite = {
+		    focus = WGR_centralize_police
+		}
+        available = {
+        }
+		completion_reward = {
+		    swap_ideas = { remove_idea = GCW_WGR_widespread_chaos3 add_idea = GCW_WGR_widespread_chaos4 }
+		}
+		x = 8
+		y = 6
+	}
+	
+	focus = {
+		id = WGR_align_unions
+		icon = GFX_focus_Trade_Union_Focus
+		cost = 3
+		prerequisite = {
+		    focus = WGR_reorganize_judiciary
+		}
+		prerequisite = {
+		    focus = WGR_rightist_crackdown
+		}
+		mutually_exclusive = {
+		    focus = WGR_limit_unions
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_ideas = GCW_WGR_union_support
+		}
+		x = 9
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_limit_unions
+		icon = GFX_focus_Destroy_Trade_Unions
+		cost = 3
+		prerequisite = {
+		    focus = WGR_reorganize_judiciary
+		}
+		prerequisite = {
+		    focus = WGR_communist_crackdown
+		}
+		mutually_exclusive = {
+		    focus = WGR_align_unions
+		}
+        available = {
+        }
+		completion_reward = {
+		    add_stability = 0.1
+			add_political_power = 100
+			add_war_support = -0.1
+		}
+		x = 7
+		y = 7
+	}
+	
+	focus = {
+		id = WGR_deal_schleicher_clique
+		icon = GFX_focus_Military_Purges
+		cost = 3
+		prerequisite = {
+		    focus = WGR_limit_unions
+			focus = WGR_align_unions
+		}
+        available = {
+        }
+		completion_reward = {
+		    remove_ideas = GCW_WGR_widespread_chaos4
+		}
+		x = 8
+		y = 8
+	}
+}

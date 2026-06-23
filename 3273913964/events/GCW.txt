@@ -1,0 +1,323 @@
+# add_namespace = gcw
+add_namespace = gcw_flavor
+add_namespace = gcw_news
+
+# country_event = { #Reactionary Uprising
+# 	id = gcw.1
+# 	title = gcw.1.t
+# 	desc = gcw.1.d
+# 	picture = GFX_Event_Germany_Stahlhelm_Rally
+# 	is_triggered_only = yes
+	
+# 	option = { #Fuck
+# 		name = wgr_grand_coalition.2.a
+# 		hidden_effect = {
+# 		    # GER_GRR_start_revolt = yes
+# 		}
+# 		custom_effect_tooltip = gcw_play_nazi_tt
+# 	}
+# 	option = { #Yay
+# 		name = wgr_grand_coalition.2.b
+# 		hidden_effect = {
+# 		    # GER_GRR_start_revolt = yes
+# 			# GRR = { change_tag_from = GER }
+# 		}
+# 		custom_effect_tooltip = gcw_play_react_tt
+# 	}
+# }
+
+country_event = {
+	id = gcw_flavor.1
+	title = gcw_flavor.1.t
+	desc = gcw_flavor.1.desc
+	picture = GFX_event_fallen_zeppelin
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		country_exists = WGR
+		country_exists = GER
+	}
+	
+
+	option = {
+		trigger = {
+			OR = {
+				tag = WGR
+				tag = DDR
+			}
+		}
+		name = gcw_flavor.1.a
+	}
+
+	option = {
+		trigger = {
+			tag = GER
+		}
+		name = gcw_flavor.1.b
+	}
+}
+
+country_event = {
+	id = gcw_flavor.2
+	title = gcw_flavor.2.t
+	desc = gcw_flavor.2.desc
+	picture = GFX_Event_Germany_Communist_Violence
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_global_flag = GCW_ongoing_flag
+		country_exists = DDR
+		OR = {
+			DDR = { has_war_with = GER }
+			DDR = { has_war_with = WGR }
+		}
+		826 = { is_owned_and_controlled_by = FRA }
+		28 = { is_owned_and_controlled_by = FRA }
+		824 = { is_controlled_by = DDR }
+		810 = { is_controlled_by = DDR }
+		OR = {
+			42 = { is_controlled_by = DDR }
+			809 = { is_controlled_by = DDR }
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			FRA = {
+				add_opinion_modifier = {
+					target = DDR
+					modifier = gcw_strasbourg_incident
+				}
+			}
+		}
+	}
+
+	major = yes
+
+	option = {
+		name = gcw_flavor.2.a
+		trigger = {
+			tag = FRA
+		}
+	}
+	option = {
+		name = gcw_flavor.2.b
+		trigger = {
+			OR = {
+				tag = WGR
+				tag = GER
+			}
+		}
+	}
+	option = {
+		name = gcw_flavor.2.c
+		trigger = {
+			tag = DDR
+		}
+	}
+
+	option = {
+		name = gcw_flavor.2.d
+		trigger = {
+			NOT = {
+				OR = {
+					tag = WGR
+					tag = GER
+					tag = FRA
+					tag = DDR
+				}
+			}
+		}
+	}
+}
+
+news_event = { 
+	id = gcw_news.1
+	title = gcw_news.1.t
+	desc = gcw_news.1.d
+	picture = GFX_News_Event_GCW_start
+	is_triggered_only = yes
+	major = yes
+	
+	option = { 
+		name = gcw_news.1.a
+		trigger = {
+		    tag = DDR
+		}
+	}
+	option = { 
+		name = gcw_news.1.b
+		trigger = {
+		    tag = WGR
+		}
+	}
+	option = { 
+		name = gcw_news.1.c
+		trigger = {
+		    tag = GER
+		}
+	}
+	option = { 
+		name = gcw_news.1.e
+		trigger = {
+		    NOT = {
+			    OR = {
+		            tag = DDR
+				    tag = WGR
+					tag = GER
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				tag = SOV
+				SOV = {
+					has_far_left_government = yes
+				}
+			}
+			# SOV = {
+			# 	set_relation_rule = {
+			# 		target = DDR
+			# 		can_send_volunteers = yes
+			# 	}
+			# }
+		}
+	}
+}
+
+news_event = { 
+	id = gcw_news.2
+	title = gcw_news.2.t
+	desc = gcw_news.2.d
+	picture = GFX_News_Event_GCW_Nationalists
+	is_triggered_only = yes
+	major = yes
+	
+	option = { 
+		name = gcw_news.2.a
+		trigger = {
+		    tag = GER
+			has_government = fascism
+		}
+	}
+	option = { 
+		name = gcw_news.2.b
+		trigger = {
+		    tag = GER
+			has_government = nationalism
+		}
+	}
+	option = { 
+		name = gcw_news.2.c
+		trigger = {
+		    NOT = { tag = GER }
+		}
+	}
+}
+
+news_event = { 
+	id = gcw_news.3
+	title = gcw_news.3.t
+	desc = gcw_news.3.d
+	picture = GFX_News_Event_GCW_Republicans
+	is_triggered_only = yes
+	major = yes
+	
+	option = { 
+		name = gcw_news.3.a
+		trigger = {
+		    tag = WGR
+		}
+	}
+	option = { 
+		name = gcw_news.3.b
+		trigger = {
+		    NOT = { tag = WGR }
+			OR = {
+			    has_government = democratic
+				has_government = jacobin
+				has_government = market_liberalism
+				has_government = social_liberalism
+				has_government = social_democracy
+			}
+		}
+	}
+	option = { 
+		name = gcw_news.3.c
+		trigger = {
+		    NOT = { tag = WGR }
+			OR = {
+			    has_government = communism
+				has_government = authoritarian_socialism
+			}
+		}
+	}
+	option = { 
+		name = gcw_news.3.e
+		trigger = {
+		    NOT = { tag = WGR }
+			OR = {
+			    has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+				has_government = neutrality
+				has_government = socialism
+			}
+		}
+	}
+}
+
+news_event = { 
+	id = gcw_news.4
+	title = gcw_news.4.t
+	desc = gcw_news.4.d
+	picture = GFX_News_Event_GCW_Communists
+	is_triggered_only = yes
+	major = yes
+	
+	option = { 
+		name = gcw_news.4.a
+		trigger = {
+		    tag = DDR
+		}
+	}
+	option = { 
+		name = gcw_news.4.b
+		trigger = {
+		    NOT = { tag = DDR }
+			OR = {
+			    has_government = communism
+				has_government = authoritarian_socialism
+				has_government = socialism
+			}
+		}
+	}
+	option = { 
+		name = gcw_news.4.c
+		trigger = {
+		    NOT = { tag = DDR }
+			OR = {
+			    has_government = democratic
+				has_government = jacobin
+				has_government = market_liberalism
+				has_government = social_liberalism
+				has_government = social_democracy
+			}
+		}
+	}
+	option = { 
+		name = gcw_news.4.e
+		trigger = {
+		    NOT = { tag = DDR }
+			OR = {
+			    has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+				has_government = neutrality
+			}
+		}
+	}
+}

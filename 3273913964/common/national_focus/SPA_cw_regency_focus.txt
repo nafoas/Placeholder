@@ -1,0 +1,737 @@
+
+shared_focus = {
+	id = SPA_la_regencia
+	icon = GFX_focus_Crown_a_king
+	cost = 1
+	available = { always = no }
+	bypass = {
+		OR = {
+			has_country_flag = kindelan_power
+			has_country_flag = fal_conde
+		}
+	}
+	completion_reward = {
+	}
+	x = 7
+	y = 0
+	offset = {
+		x = 40
+		y = 2
+		trigger = {
+			has_focus_tree = SPA_cw_start
+		}
+	}
+}
+
+shared_focus = {
+	id = SPA_regent_kindelan
+	icon = GFX_focus_General_Kindelan
+	cost = 1
+	prerequisite = {
+		focus = SPA_la_regencia
+	}
+	available = { always = no }
+	bypass = {
+		has_country_flag = kindelan_power
+	}
+	mutually_exclusive = { focus = SPA_regent_javier }
+	completion_reward = {
+	}
+	x = -3
+	y = 1
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_consejo_ministros
+	icon = GFX_manage_administration
+	cost = 6
+	prerequisite = {
+		focus = SPA_regent_kindelan
+	}
+	available = { }
+	allow_branch = {
+		tag = SPA
+	}
+	completion_reward = {
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Kindelan
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Ramiro_Maeztu
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Andres_Amado
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Antonio_Goicoechea
+		set_country_flag = spa_has_cabinet
+	}
+	x = -6
+	y = 2
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_invite_prince_juan
+	icon = GFX_focus_King_Juan_III
+	cost = 6
+	prerequisite = {
+		focus = SPA_consejo_ministros
+	}
+	available = { }
+	completion_reward = {
+		country_event = { id = scw.83 }
+	}
+	x = -6
+	y = 4
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_goicoechea_cabinet
+	icon = GFX_focus_Champagne_Repression
+	cost = 6
+	prerequisite = {
+		focus = SPA_invite_prince_juan
+	}
+	prerequisite = {
+		focus = SPA_frente_nacional_contrarrevolucionario
+	}
+	available = {
+		has_country_flag = spa_jdn_dissolved
+	}
+	completion_reward = {
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Goicoechea
+		remove_ideas = SPA_dis_gov
+	}
+	x = -5
+	y = 5
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_sway_franco
+	icon = GFX_focus_General_Franco
+	cost = 6
+	prerequisite = {
+		focus = SPA_regent_kindelan
+	}
+	available = { }
+	completion_reward = {
+		COALITION_add_aut = yes
+		random_list = {
+			50 = {
+				get_ruling_party_ideology = yes
+				add_popularity = {
+					ideology = var:ruling_party_ideology_token
+					popularity = 0.1
+				}
+			}
+			50 = {}
+		}
+	}
+	x = -4
+	y = 2
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_destroy_carlist
+	icon = GFX_focus_Destroy_Carlism
+	cost = 6
+	prerequisite = {
+		focus = SPA_sway_franco
+	}
+	available = { }
+	completion_reward = {
+		add_popularity = { ideology = nationalism popularity = -0.2 }
+		add_political_power = 40
+	}
+	x = -5
+	y = 3
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_support_nobility
+	icon = GFX_focus_Nobility
+	cost = 4
+	prerequisite = {
+		focus = SPA_sway_franco
+	}
+	available = { }
+	completion_reward = {
+		add_war_support = 0.04
+		if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+			}
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+			}
+			add_political_power = 50
+		}
+	}
+	x = -3
+	y = 3
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_frente_nacional_contrarrevolucionario
+	icon = GFX_focus_Anti_Communist
+	cost = 6
+	prerequisite = {
+		focus = SPA_support_nobility
+	}
+	prerequisite = {
+		focus = SPA_destroy_carlist
+	}
+	available = { }
+	completion_reward = {
+		add_political_power = 100
+	}
+	x = -4
+	y = 4
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_rehabilitate_alfonso
+	icon = GFX_focus_Coronation
+	cost = 4
+	prerequisite = { focus = SPA_expand_guardia_civil }
+	prerequisite = { focus = SPA_economic_corporatism }
+	prerequisite = { focus = SPA_agrarian_counter_reform }
+	available = { }
+	completion_reward = {
+		add_popularity = { ideology = monarchism popularity = 0.08 }
+	}
+	x = -5
+	y = 7
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_expand_guardia_civil
+	icon = GFX_focus_Enlist_the_Police
+	cost = 6
+	prerequisite = {
+		focus = SPA_goicoechea_cabinet
+	}
+	available = { }
+	completion_reward = {
+		add_manpower = 20000
+	}
+	x = -7
+	y = 6
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_economic_corporatism
+	icon = GFX_focus_Industrial_Council
+	cost = 6
+	prerequisite = {
+		focus = SPA_goicoechea_cabinet
+	}
+	available = { }
+	completion_reward = {
+		
+	}
+	x = -5
+	y = 6
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_agrarian_counter_reform
+	icon = GFX_focus_Agriculture
+	cost = 6
+	prerequisite = {
+		focus = SPA_goicoechea_cabinet
+	}
+	available = { }
+	completion_reward = {
+		add_ideas = SPA_agr_counter
+	}
+	x = -3
+	y = 6
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_viva_rey
+	icon = GFX_focus_gre_restore_monarchy
+	cost = 1
+	prerequisite = {
+		focus = SPA_regent_kindelan
+		focus = SPA_regent_javier
+	}
+	available = { }
+	completion_reward = {
+		add_stability = 0.02
+	}
+	x = 0
+	y = 2
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_purge_rep_generals
+	icon = GFX_focus_Military_Purges
+	cost = 6
+	mutually_exclusive = { focus = SPA_convince_rep_generals }
+	prerequisite = {
+		focus = SPA_viva_rey
+	}
+	available = { }
+	completion_reward = {
+		add_political_power = -50
+		add_stability = 0.05
+		add_command_power = -50
+	}
+	x = 1
+	y = 3
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_convince_rep_generals
+	icon = GFX_focus_Republican_Officer
+	cost = 6
+	prerequisite = {
+		focus = SPA_viva_rey
+	}
+	mutually_exclusive = { focus = SPA_purge_rep_generals }
+	available = { }
+	completion_reward = {
+		add_political_power = 50
+		add_stability = -0.05
+	}
+	x = -1
+	y = 3
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_purge_falange
+	icon = GFX_focus_The_Noose
+	cost = 6
+	mutually_exclusive = { focus = SPA_subdue_falangists }
+	prerequisite = {
+		focus = SPA_purge_rep_generals
+		focus = SPA_convince_rep_generals
+	}
+	available = { }
+	completion_reward = {
+		if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+			}
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+			}
+			add_political_power = 50
+		}
+		add_stability = -0.05
+	}
+	x = 1
+	y = 4
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_subdue_falangists
+	icon = GFX_focus_Falange_Espanola
+	cost = 6
+	prerequisite = {
+		focus = SPA_purge_rep_generals
+		focus = SPA_convince_rep_generals
+	}
+	mutually_exclusive = { focus = SPA_purge_falange }
+	available = { }
+	completion_reward = {
+		COALITION_add_fas = yes
+		add_stability = 0.05
+		add_political_power = -30
+	}
+	x = -1
+	y = 4
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_a_reactionary_war
+	icon = GFX_focus_For_Christ_and_Country
+	cost = 6
+	prerequisite = {
+		focus = SPA_subdue_falangists
+		focus = SPA_purge_falange
+	}
+	available = { }
+	completion_reward = {
+		add_war_support = 0.05
+	}
+	x = 0
+	y = 5
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_systematic_repression
+	icon = GFX_focus_The_Scourge
+	cost = 6
+	prerequisite = {
+		focus = SPA_a_reactionary_war
+	}
+	available = { }
+	completion_reward = {
+		add_stability = 0.1
+		add_war_support = -0.07
+		if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+			}
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+			}
+			add_political_power = 140
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			prioritize = { 165 41 }
+			add_manpower = -4216
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			add_manpower = -115
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			prioritize = { 166 826 }
+			add_manpower = -3541
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			prioritize = { 169 173 174 }
+			add_manpower = -1583
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			add_manpower = -526
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			add_manpower = -362
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			add_manpower = -124
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			add_manpower = -271
+		}
+	}
+	x = 0
+	y = 6
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_regent_javier
+	icon = GFX_focus_King_Javier_I
+	cost = 1
+	prerequisite = {
+		focus = SPA_la_regencia
+	}
+	available = { always = no }
+	bypass = { has_government = nationalism }
+	mutually_exclusive = { focus = SPA_regent_kindelan }
+	completion_reward = {
+	}
+	x = 3
+	y = 1
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_consejo_real_guerra
+	icon = GFX_focus_Military_Government
+	cost = 6
+	prerequisite = {
+		focus = SPA_regent_javier
+	}
+	available = { }
+	completion_reward = {
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Javier_Borbon
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Tomas_Dominguez
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Francisco_Estevez
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Julio_Urquijo
+		set_country_flag = spa_has_cabinet
+	}
+	x = 6
+	y = 2
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_church_privileges
+	icon = GFX_focus_Papal_Bull
+	cost = 6
+	prerequisite = {
+		focus = SPA_consejo_real_guerra
+	}
+	available = { }
+	completion_reward = {
+		add_ideas = SPA_church_carlist
+	}
+	x = 6
+	y = 4
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_sway_mola
+	icon = GFX_focus_General_Mola
+	cost = 6
+	prerequisite = {
+		focus = SPA_regent_javier
+	}
+	available = { }
+	completion_reward = {
+		COALITION_add_aut = yes
+		add_popularity = { ideology = neutrality popularity = -0.25 }
+	}
+	x = 4
+	y = 2
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_remove_alfonsines
+	icon = GFX_focus_alfonso
+	cost = 6
+	prerequisite = {
+		focus = SPA_sway_mola
+	}
+	available = { }
+	completion_reward = {
+		add_popularity = { ideology = monarchism popularity = -0.2 }
+		add_stability = -0.06
+	}
+	x = 5
+	y = 3
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_new_carlist_aristocracy
+	icon = GFX_focus_Collaborate_with_Local_Elites
+	cost = 6
+	prerequisite = {
+		focus = SPA_sway_mola
+	}
+	available = { }
+	completion_reward = {
+		if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+			}
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+			}
+			add_political_power = 50
+		}
+	}
+	x = 3
+	y = 3
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_expand_requetes
+	icon = GFX_focus_Recruitment
+	cost = 5
+	prerequisite = {
+		focus = SPA_new_carlist_aristocracy
+	}
+	prerequisite = {
+		focus = SPA_remove_alfonsines
+	}
+	available = { }
+	completion_reward = {
+		add_manpower = 10000
+	}
+	x = 4
+	y = 4
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_fal_conde_cabinet
+	icon = GFX_focus_carlism
+	cost = 6
+	prerequisite = {
+		focus = SPA_expand_requetes
+	}
+	prerequisite = {
+		focus = SPA_church_privileges
+	}
+	available = {
+		has_country_flag = spa_jdn_dissolved
+	}
+	completion_reward = {
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Manuel_Fal_Conde
+		if = {
+			limit = { has_idea = SPA_dis_gov }
+			remove_ideas = SPA_dis_gov
+		}
+	}
+	x = 5
+	y = 5
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_ley_educacion_catolica
+	icon = GFX_focus_State_Theology
+	cost = 6
+	prerequisite = {
+		focus = SPA_fal_conde_cabinet
+	}
+	available = { }
+	completion_reward = {
+		add_stability = 0.05
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.01
+		}
+	}
+	x = 3
+	y = 6
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_extreme_fanaticism
+	icon = GFX_focus_Black_Skull
+	cost = 6
+	prerequisite = {
+		focus = SPA_fal_conde_cabinet
+	}
+	available = { }
+	completion_reward = {
+		add_ideas = SPA_carlist_fanaticism
+	}
+	x = 5
+	y = 6
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_new_tercios
+	icon = GFX_focus_Prepare_the_Troops
+	cost = 4
+	prerequisite = {
+		focus = SPA_fal_conde_cabinet
+	}
+	available = { }
+	completion_reward = {
+		add_manpower = 20000
+	}
+	x = 7
+	y = 6
+	relative_position_id = SPA_la_regencia
+}
+
+shared_focus = {
+	id = SPA_religious_purity
+	icon = GFX_focus_inquisition
+	cost = 6
+	prerequisite = {
+		focus = SPA_ley_educacion_catolica
+	}
+	prerequisite = {
+		focus = SPA_extreme_fanaticism
+	}
+	prerequisite = {
+		focus = SPA_new_tercios
+	}
+	available = { }
+	completion_reward = {
+		add_stability = 0.05
+		add_war_support = -0.07
+		if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+			}
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+			}
+			add_political_power = 100
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			prioritize = { 165 41 }
+			add_manpower = -2010
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			add_manpower = -400
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			prioritize = { 166 826 }
+			add_manpower = -3012
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			add_manpower = -852
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			add_manpower = -207
+		}
+		random_controlled_state = {
+			limit = { is_on_continent = europe }
+			add_manpower = -526
+		}
+	}
+	x = 5
+	y = 7
+	relative_position_id = SPA_la_regencia
+}

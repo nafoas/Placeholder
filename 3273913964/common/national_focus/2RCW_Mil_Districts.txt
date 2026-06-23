@@ -1,0 +1,1087 @@
+# focuses
+focus_tree = {
+	id = FER_MOS_SBR_2RCW
+	country = {
+		factor = 0
+		modifier = {
+			tag = MOS
+			add = 10
+		}
+	}
+	default = no
+	continuous_focus_position = { x = 50 y = 2700 }
+	focus = {
+		id = VLA_2RCW_Start
+		icon = GFX_focus_White_Terror
+		#prerequisite = { focus = VLA_2RCW_Start }
+		x = 4
+		y = 0
+		#relative_position_id = VLA_2RCW_Start
+		cost = 3.58
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_political_power = 40
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Occupy_Political_Offices
+		icon = GFX_focus_Enlist_the_Police
+		prerequisite = {
+			focus = VLA_2RCW_Start
+		}
+		x = 0
+		y = 1
+		relative_position_id = VLA_2RCW_Start
+		cost = 1.43
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_stability = 0.04
+			add_political_power = 20
+			hidden_effect = {
+				country_event = {
+					id = rus_civil_war.18
+					days = 2
+				}
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Try_Bolsheviks
+		icon = GFX_focus_Anti_Communist_alt
+		prerequisite = {
+			focus = VLA_2RCW_Occupy_Political_Offices
+		}
+		x = -2
+		y = 2
+		relative_position_id = VLA_2RCW_Start
+		cost = 3
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_political_power = -15
+			add_popularity = {
+				ideology = communism
+				popularity = -0.03
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Free_Camps
+		icon = GFX_focus_Give_Democracy
+		prerequisite = {
+			focus = VLA_2RCW_Occupy_Political_Offices
+		}
+		x = 0
+		y = 2
+		relative_position_id = VLA_2RCW_Start
+		cost = 4.29
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Encourage_Volunteers
+		icon = GFX_focus_Recruitment_Drive
+		prerequisite = {
+			focus = VLA_2RCW_Try_Bolsheviks
+		}
+		x = -3
+		y = 3
+		relative_position_id = VLA_2RCW_Start
+		cost = 5
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_ideas = RUS_recruits
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Professionalism
+		icon = GFX_focus_Ecomomic_Banditry
+		prerequisite = {
+			focus = VLA_2RCW_Try_Bolsheviks
+		}
+		prerequisite = {
+			focus = VLA_2RCW_Free_Camps
+		}
+		dynamic = yes
+		x = -1
+		y = 3
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.15
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					tag = MOS
+				}
+				add_ideas = RUS_dybenkoism
+				hidden_effect = {
+					if = {
+						limit = {
+							country_exists = RUS
+						}
+						RUS = {
+							country_event = {
+								id = rus_civil_war.15
+								days = 18
+							}
+						}
+					}
+				}
+			}
+			else = {
+				add_ideas = RUS_professionalism
+			}
+		}
+	}
+		focus = {
+		id = VLA_2RCW_Allow_Political_Refugees
+		icon = GFX_focus_Torch_of_Freedom
+		prerequisite = {
+			focus = VLA_2RCW_Encourage_Volunteers
+		}
+		mutually_exclusive = {
+			focus = VLA_2RCW_KONR_Only
+		}
+		x = -3
+		y = 4
+		relative_position_id = VLA_2RCW_Start
+		cost = 2.15
+		ai_will_do = {
+			factor = 16
+			modifier = {
+				tag = MOS
+				factor = 0
+			}
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.06
+			}
+			COALITION_add_revsoc = yes
+			COALITION_add_demsoc = yes
+			COALITION_add_CENTRIST = yes
+			COALITION_add_RIGHTIST = yes
+			COALITION_clr_fas = yes
+			if = {
+				limit = {
+					country_exists = RUS
+				}
+				RUS = {
+					country_event = {
+						id = rus_civil_war.16
+						days = 3
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_KONR_Only
+		icon = GFX_focus_KONR_Icon
+		prerequisite = {
+			focus = VLA_2RCW_Professionalism
+		}
+		mutually_exclusive = {
+			focus = VLA_2RCW_Allow_Political_Refugees
+		}
+		x = -1
+		y = 4
+		relative_position_id = VLA_2RCW_Start
+		cost = 2.15
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_political_power = 60
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Equality
+		icon = GFX_focus_Minority_rights
+		prerequisite = {
+			focus = VLA_2RCW_Allow_Political_Refugees
+			focus = VLA_2RCW_KONR_Only
+		}
+		mutually_exclusive = {
+			focus = VLA_2RCW_Not_Yet
+		}
+		x = -3
+		y = 5
+		relative_position_id = VLA_2RCW_Start
+		cost = 2.86
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+			NOT = {
+				tag = MOS
+			}
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.03
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Not_Yet
+		icon = GFX_focus_eng_concessions_to_the_trade_unions
+		prerequisite = {
+			focus = VLA_2RCW_Allow_Political_Refugees
+			focus = VLA_2RCW_KONR_Only
+		}
+		mutually_exclusive = {
+			focus = VLA_2RCW_Equality
+		}
+		x = -1
+		y = 5
+		relative_position_id = VLA_2RCW_Start
+		cost = 1
+		ai_will_do = {
+			factor = 4
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_political_power = 30
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.06
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Restrictions
+		icon = GFX_focus_Repress_Freedom
+		prerequisite = {
+			focus = VLA_2RCW_Not_Yet
+		}
+		mutually_exclusive = {
+			focus = VLA_2RCW_Free_Speech
+		}
+		x = 0
+		y = 6
+		relative_position_id = VLA_2RCW_Start
+		cost = 2.15
+		ai_will_do = {
+			factor = 4
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_ideas = VLA_speech_restrictions #flavor event
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Free_Speech
+		icon = GFX_focus_Press_Barons
+		prerequisite = {
+			focus = VLA_2RCW_Equality
+			focus = VLA_2RCW_Not_Yet
+		}
+		mutually_exclusive = {
+			focus = VLA_2RCW_Restrictions
+		}
+		x = -2
+		y = 6
+		relative_position_id = VLA_2RCW_Start
+		cost = 2.86
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+			NOT = {
+				tag = MOS
+			}
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_ideas = VLA_speech_free
+			hidden_effect = {
+				if = {
+					limit = {
+						tag = FER
+					}
+					country_event = {
+						id = rus_civil_war.20 #fascist papers
+						days = 12
+					}
+				}
+				else_if = {
+					limit = {
+						tag = MOS
+					}
+					country_event = {
+						id = rus_civil_war.23 #russian orthodox papers
+						days = 14
+					}
+				}
+				else = {
+					country_event = {
+						id = rus_civil_war.25 #anarchist papers
+						days = 30
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Legalize_Private_Enterprise
+		icon = GFX_focus_Capitalist_Systems
+		prerequisite = {
+			focus = VLA_2RCW_Occupy_Political_Offices
+		}
+		x = 2
+		y = 2
+		relative_position_id = VLA_2RCW_Start
+		cost = 2.86
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_ideas = RUS_capitalism
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Decollectivize
+		icon = GFX_focus_Agriculture
+		prerequisite = {
+			focus = VLA_2RCW_Legalize_Private_Enterprise
+		}
+		x = 1
+		y = 3
+		relative_position_id = VLA_2RCW_Start
+		cost = 3.45
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = RUS_decollectivize
+				days = 912
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Infrastructure
+		icon = GFX_focus_Highways
+		prerequisite = {
+			focus = VLA_2RCW_Decollectivize
+		}
+		x = 1
+		y = 4
+		relative_position_id = VLA_2RCW_Start
+		cost = 7.15
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Infrastructure2
+		icon = GFX_focus_Trains
+		prerequisite = {
+			focus = VLA_2RCW_Infrastructure
+		}
+		x = 1
+		y = 5
+		relative_position_id = VLA_2RCW_Start
+		cost = 7.15
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			#Add railways
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Industrial_Complex
+		icon = GFX_focus_Industrialization
+		prerequisite = {
+			focus = VLA_2RCW_Legalize_Private_Enterprise
+		}
+		x = 3
+		y = 3
+		relative_position_id = VLA_2RCW_Start
+		cost = 8.58
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Convert
+		icon = GFX_focus_Mechanization
+		prerequisite = {
+			focus = VLA_2RCW_Industrial_Complex
+		}
+		x = 3
+		y = 4
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.45
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					is_controlled_by = ROOT
+					industrial_complex > 0
+				}
+				remove_building = {
+					type = industrial_complex
+					level = 1
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Arms_Factory
+		icon = GFX_focus_Renewed_Arms
+		prerequisite = {
+			focus = VLA_2RCW_Convert
+		}
+		x = 3
+		y = 5
+		relative_position_id = VLA_2RCW_Start
+		cost = 7.86
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					is_controlled_by = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Resources
+		icon = GFX_focus_Excavations
+		prerequisite = {
+			focus = VLA_2RCW_Infrastructure2
+		}
+		prerequisite = {
+			focus = VLA_2RCW_Arms_Factory
+		}
+		x = 2
+		y = 6
+		relative_position_id = VLA_2RCW_Start
+		cost = 6
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+			OR = {
+				any_state = {
+					is_controlled_by = ROOT
+					has_resources_amount = {
+						resource = steel
+						amount > 4
+					}
+				}
+				any_state = {
+					is_controlled_by = ROOT
+					has_resources_amount = {
+						resource = aluminium
+						amount > 4
+					}
+				}
+				any_state = {
+					is_controlled_by = ROOT
+					has_resources_amount = {
+						resource = oil
+						amount > 4
+					}
+				}
+			}
+		}
+		bypass = {
+			NOT = {
+				any_state = {
+					is_controlled_by = ROOT
+					has_resources_amount = {
+						resource = steel
+						amount > 4
+					}
+				}
+				any_state = {
+					is_controlled_by = ROOT
+					has_resources_amount = {
+						resource = aluminium
+						amount > 4
+					}
+				}
+				any_state = {
+					is_controlled_by = ROOT
+					has_resources_amount = {
+						resource = oil
+						amount > 4
+					}
+				}
+			}
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					has_resources_amount = {
+						resource = steel
+						amount > 4
+					}
+				}
+				add_resource = {
+					type = steel
+					amount = 5
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					has_resources_amount = {
+						resource = aluminium
+						amount > 4
+					}
+				}
+				add_resource = {
+					type = aluminium
+					amount = 5
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					has_resources_amount = {
+						resource = oil
+						amount > 4
+					}
+				}
+				add_resource = {
+					type = oil
+					amount = 5
+				}
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Deep_Battle
+		icon = GFX_focus_Tanks_Across_the_Border
+		prerequisite = {
+			focus = VLA_2RCW_Free_Speech
+			focus = VLA_2RCW_Restrictions
+		}
+		mutually_exclusive = {
+			focus = VLA_2RCW_Grand_Battleplan
+		}
+		x = -1
+		y = 7
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.72
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doctrine_bonus
+				uses = 1
+				bonus = 0.4
+				category = cat_mass_assault
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Motorized
+		icon = GFX_focus_Motorization_Effort
+		prerequisite = {
+			focus = VLA_2RCW_Deep_Battle
+		}
+		x = -4
+		y = 8
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.72
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = motorized_bonus
+				uses = 1
+				bonus = 0.2
+				category = motorized_equipment
+				category = cat_mechanized_equipment
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Armor
+		icon = GFX_goal_generic_build_tank
+		prerequisite = {
+			focus = VLA_2RCW_Motorized
+		}
+		x = -3
+		y = 9
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.72
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = armour_bonus
+				uses = 1
+				bonus = 0.2
+				category = armor
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Fighters
+		icon = GFX_focus_Aerial_Fleet
+		prerequisite = {
+			focus = VLA_2RCW_Deep_Battle
+		}
+		dynamic = yes
+		x = -2
+		y = 8
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.72
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = fighter_bonus
+				uses = 1
+				bonus = 0.2
+				category = light_fighter
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_CAS
+		icon = GFX_focus_Aerial_Offensive
+		prerequisite = {
+			focus = VLA_2RCW_Fighters
+		}
+		prerequisite = {
+			focus = VLA_2RCW_Small_Arms
+		}
+		x = -1
+		y = 9
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.72
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = cas_bonus
+				uses = 1
+				bonus = 0.2
+				category = cas_bomber
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Grand_Battleplan
+		icon = GFX_focus_The_Big_Push
+		prerequisite = {
+			focus = VLA_2RCW_Resources
+		}
+		mutually_exclusive = {
+			focus = VLA_2RCW_Deep_Battle
+		}
+		x = 1
+		y = 7
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.72
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doctrine_bonus
+				uses = 2
+				bonus = 0.4
+				category = cat_grand_battle_plan
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Small_Arms
+		icon = GFX_focus_Firearms
+		prerequisite = {
+			focus = VLA_2RCW_Deep_Battle
+			focus = VLA_2RCW_Grand_Battleplan
+		}
+		x = 0
+		y = 8
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.72
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = small_arms_bonus
+				uses = 1
+				bonus = 0.4
+				category = infantry_weapons
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Support
+		icon = GFX_focus_Commando_Operations
+		prerequisite = {
+			focus = VLA_2RCW_Grand_Battleplan
+		}
+		x = 2
+		y = 8
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.72
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = support_bonus
+				uses = 1
+				bonus = 0.4
+				category = support_tech
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Chain_Of_Command
+		icon = GFX_focus_Officers_Command
+		prerequisite = {
+			focus = VLA_2RCW_Small_Arms
+		}
+		prerequisite = {
+			focus = VLA_2RCW_Support
+		}
+		x = 1
+		y = 9
+		relative_position_id = VLA_2RCW_Start
+		cost = 4.29
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_command_power = -30
+			army_experience = 30
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Defense
+		icon = GFX_focus_Fortification_Effort
+		prerequisite = {
+			focus = VLA_2RCW_Grand_Battleplan
+		}
+		x = 4
+		y = 8
+		relative_position_id = VLA_2RCW_Start
+		cost = 5
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_ideas = VLA_defense
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Artillery
+		icon = GFX_focus_Skull_Cannon
+		prerequisite = {
+			focus = VLA_2RCW_Defense
+		}
+		x = 3
+		y = 9
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.72
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = artillery_bonus
+				uses = 1
+				bonus = 0.4
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = VLA_2RCW_Doctrine
+		icon = GFX_focus_Military_Intervention
+		prerequisite = {
+			focus = VLA_2RCW_Armor
+			focus = VLA_2RCW_Artillery
+		}
+		prerequisite = {
+			focus = VLA_2RCW_CAS
+			focus = VLA_2RCW_Chain_Of_Command
+		}
+		x = 0
+		y = 10
+		relative_position_id = VLA_2RCW_Start
+		cost = 5.72
+		ai_will_do = {
+			factor = 16
+		}
+		available = {
+			has_global_flag = Russian_Civil_War
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doctrine_bonus
+				uses = 1
+				bonus = 0.5
+				category = land_doctrine
+			}
+		}
+	}
+}

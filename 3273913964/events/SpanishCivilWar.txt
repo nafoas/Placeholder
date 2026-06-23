@@ -1,0 +1,4900 @@
+add_namespace = scw
+
+#TODO: rework all events with mtth
+
+# Coup in Africa
+country_event = {
+	id = scw.1
+	title = scw.1.t
+	desc = scw.1.d
+	picture = GFX_report_event_spr_army_of_africa
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = SPR_1936_elections_held
+		}
+	}
+
+	option = {
+		name = scw.1.a
+		custom_effect_tooltip = scw_play_republicans.tt
+		hidden_effect = {
+			start_spanish_civil_war = yes
+		}
+	}
+
+	option = {
+		name = scw.1.b
+		custom_effect_tooltip = scw_play_nationalists.tt
+		hidden_effect = {
+			start_spanish_civil_war = yes
+			SPA = {
+				change_tag_from = SPR
+			}
+		}
+	}
+}
+
+# Peninsular troops join the coup
+country_event = {
+	id = scw.2
+	title = scw.2.t
+	desc = scw.2.d
+	picture = GFX_report_event_spr_spanish_civil_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			news_event = { id = spa_news.6 hours = 6 } #News event about the Civil War
+			transfer_state = 171
+			add_state_core = 171
+			# transfer_state = 177
+			# add_state_core = 177
+			transfer_state = 176
+			add_state_core = 176
+			transfer_state = 174
+			add_state_core = 174
+			# transfer_state = 166
+			# add_state_core = 166
+			transfer_state = 172
+			add_state_core = 172
+			transfer_state = 1214
+			add_state_core = 1214
+			transfer_state = 1215
+			add_state_core = 1215
+			transfer_state = 1216
+			add_state_core = 1216
+			transfer_state = 1217
+			add_state_core = 1217
+			transfer_state = 1219
+			add_state_core = 1219
+			transfer_state = 1220
+			add_state_core = 1220
+			set_capital = {
+				state = 1220 #Salamanca
+			}
+			add_state_claim = 118 #Gibraltar
+			declare_war_on = { target = SPR type = annex_everything }
+			#Extremadura
+			set_province_controller = 9839
+			set_province_controller = 13697
+			set_province_controller = 11756
+			set_province_controller = 9877
+			#Baleares
+			set_province_controller = 9793
+			set_province_controller = 7114
+			#Vitoria
+			set_province_controller = 3735
+			set_province_controller = 13687
+
+			country_event = { id = scw.5 days = 1 } # First movements of the war, Nats
+			random_list = {
+				50 = {
+					SPA = {
+						country_event = {
+							id = scw.98 #Mola dies
+							days = 319
+						}
+					}
+				}
+				50 = {
+					modifier = {
+						factor = 0
+						is_historical_focus_on = yes
+					}
+				}
+			}
+			random_list = {
+				50 = {
+					SPA = {
+						country_event = {
+							id = scw.99 #Cabanellas dies
+							days = 665
+						}
+					}
+				}
+				50 = {
+					modifier = {
+						factor = 0
+						is_historical_focus_on = yes
+					}
+				}
+			}
+			SPR = {
+				SPR_transfer_fleet_to_SPA = yes
+				set_province_controller = 13703
+				set_province_controller = 9699
+				set_province_controller = 9845
+				set_province_controller = 6734
+				# set_province_controller = 939
+				country_event = { id = scw.49 hours = 55 } # Factionalism in the Army
+				#TODO
+				create_corps_commander = {
+					name = "Francisco Galán"
+					portrait_path = "gfx/leaders_cbts/SPC/Portrait_Spain_Francisco_Galan.png"
+					traits = { trickster infantry_leader }
+					skill = 2
+					attack_skill = 1
+					defense_skill = 2
+					planning_skill = 1
+					logistics_skill = 2
+				}
+				create_corps_commander = {
+					name = "Juan Modesto"
+					portrait_path = "gfx/leaders_cbts/SPC/Portrait_Spain_Juan_Modesto.png"
+					traits = { infantry_leader }
+					id = 1493
+					skill = 2
+					attack_skill = 2
+					defense_skill = 1
+					planning_skill = 2
+					logistics_skill = 1
+				}
+				create_corps_commander = {
+					name = "José María Galán"
+					portrait_path = "gfx/leaders_cbts/SPC/Portrait_Spain_Jose_Maria_Galan.png"
+					traits = { adaptable trait_mountaineer }
+					skill = 2
+					attack_skill = 1
+					defense_skill = 2
+					planning_skill = 2
+					logistics_skill = 1
+				}
+				create_corps_commander = {
+					name = "Cipriano Mera"
+					portrait_path = "gfx/leaders_cbts/SPC/Portraits_Spain_Cipriano_Mera.png"
+					traits = { infantry_officer organizer }
+					skill = 2
+					attack_skill = 3
+					defense_skill = 1
+					planning_skill = 1
+					logistics_skill = 1
+				}
+				create_corps_commander = {
+					name = "Valentín González"
+					portrait_path = "gfx/leaders_cbts/SPC/Portrait_Spain_Valentin_Gonzalez.png"
+					traits = { trait_reckless urban_assault_specialist }
+					skill = 2
+					attack_skill = 2
+					defense_skill = 1
+					planning_skill = 2
+					logistics_skill = 1
+				}
+				create_corps_commander = {
+					name = "Manuel Tagueña"
+					portrait_path = "gfx/leaders_cbts/SPC/Portrait_Spain_Manuel_Taguna.png"
+					traits = { career_officer trait_engineer }
+					skill = 2
+					attack_skill = 1
+					defense_skill = 1
+					planning_skill = 2
+					logistics_skill = 2
+				}
+				create_corps_commander = {
+					name = "Buenaventura Durruti"
+					portrait_path = "gfx/leaders_cbts/SPC/Portrait_Spain_General_Buenaventura_Durruti.png"
+					traits = { infantry_officer unyielding_defender trickster guerilla_fighter }
+					id = 1909
+					skill = 2
+					attack_skill = 3
+					defense_skill = 2
+					planning_skill = 1
+					logistics_skill = 2
+				}
+				create_field_marshal = {
+					name = "Enrique Líster"
+					portrait_path = "gfx/leaders_cbts/SPC/Portrait_Spain_Enrique_Lister.png"
+					traits = { politically_connected inspirational_leader }
+					skill = 2
+					attack_skill = 2
+					defense_skill = 2
+					planning_skill = 1
+					logistics_skill = 2
+				}
+			}
+		}
+	}
+
+	option = {
+		name = scw.2.a
+	}
+
+}
+
+# country_event = {
+# 	id = scw.3
+# 	title = scw.3.t
+# 	desc = scw.3.d
+# 	picture = GFX_report_event_spr_nationalist_soldiers
+
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = scw.3.a
+# 		hidden_effect = {
+
+
+# 		}
+# 	}
+
+# }
+
+# Nationalist troops
+country_event = {
+	id = scw.4
+	title = scw.4.t
+	desc = scw.4.d
+	picture = GFX_report_event_spr_spanish_civil_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = scw.4.a
+		hidden_effect = {
+			#TODO: fix momentum idea for nationalists
+			set_variable = { morale_momentum_var = 0.14 }
+			set_variable = { breaktrough_momentum_var = 0.10 }
+			set_variable = { momentum_days_s = Global.num_days }
+			subtract_from_variable = { momentum_days_s = 705545 } #1933*365
+			set_variable = { max_momentum_days = 138 }
+			SPA = {
+				add_dynamic_modifier = {
+					modifier = SPA_initial_momentum
+					days = 138 #This is the maximum time you have to take madrid. 4m 2w and 1d
+				}
+				set_country_flag = SPA_momentum_flag
+				activate_mission = SPA_take_madrid_mission
+			}
+
+			country_event = {
+				id = test.5
+				days = 84 #nº of days when the idea changes to "stagnating momentum"
+			}
+
+			# add_timed_idea = { idea = SPA_military_coup days = 15 }
+			random_list = {
+				log = yes
+				80 = {
+					set_country_flag = SPA_sanjurjo_going_to_die
+				}
+				20 = {
+					modifier = {
+						factor = 0
+						is_historical_focus_on = yes
+					}
+					set_country_flag = SPA_sanjurjo_doesnt_die
+				}
+			}
+			country_event = { days = 1 id = scw.11 } # Flight of Sanjurjo
+
+			# if = {
+			# 	limit = { has_dlc = "La Resistance" }
+			# 	create_intelligence_agency = yes
+			# }
+
+			### OOBs
+			load_oob = SPA_civil_war
+			if = {
+				limit = { is_ai = yes }
+				load_oob = SPA_ejercito_de_africa_ai
+			}
+			else = {
+				load_oob = SPA_ejercito_de_africa
+			}
+			177 = {
+				create_unit = {
+					division = "name = \"Comandancia Militar de Baleares\" division_template = \"Comandancia Militar de Baleares\" start_experience_factor = 0.15"
+					owner = SPA
+					prioritize_location = 9793  # Palma de Mallorca
+					allow_spawning_on_enemy_provs = yes
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_template = "Comandancia Militar de Asturias" }
+				}
+				SPA = {
+					division_template = {
+						name = "Comandancia Militar de Asturias" 	#2 Inf Regiments, 1 engineer bn, 1 supply company, 1 signal company
+						# 1x 105mm Mountain Howitzer Battalion
+						regiments = {
+							light_infantry = { x = 0 y = 0 } #Oviedo
+							light_infantry = { x = 0 y = 1 }
+
+							light_infantry = { x = 1 y = 0 } #Gijón
+							light_infantry = { x = 1 y = 1 }
+
+							artillery_brigade = { x = 2 y = 0 } #Mountain Howitzer
+						}
+						support = {
+							engineer = { x = 0 y = 0 }
+							signal_company = { x = 0 y = 1 }
+							logistics_company = { x = 0 y = 2 }
+						}
+						priority = 0
+						is_locked = yes
+					}
+				}
+			}
+			826 = {
+				create_unit = {
+					division = "name = \"Comandancia Militar de Asturias\" division_template = \"Comandancia Militar de Asturias\" start_experience_factor = 0.15 start_equipment_factor = 0.7"
+					owner = SPA
+					prioritize_location = 13567  # Oviedo
+					allow_spawning_on_enemy_provs = yes
+				}
+				create_unit = {
+					division = "name = \"10º Grupo de Guardia de Asalto\" division_template = \"Grupo de Guardia de Asalto\" start_experience_factor = 0.2 start_equipment_factor = 0.9"
+					owner = SPA
+					prioritize_location = 13567  # Oviedo
+					allow_spawning_on_enemy_provs = yes
+				}
+			}
+			delete_unit_template_and_units = {
+				division_template = "División de Infantería"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Circunscripcion Oriental"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Circunscripcion Occidental"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Comandancia General"
+			}
+			delete_unit_template_and_units = {
+				division_template = "División de Caballería"
+			}
+			# delete_unit_template_and_units = {
+			# 	division_template = "Regimiento de Caballería"
+			# }
+			delete_unit_template_and_units = {
+				division_template = "Regimiento Ligero de Carros de Combate"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Brigada de Montaña"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Batallón de Infantería"
+			}
+			# delete_units = {
+			# 	division_template = "Regimiento de Infantería"
+			# 	disband = yes
+			# }
+			# delete_unit_template_and_units = {
+			# 	division_template = "Regimiento de Infantería"
+			# }
+			# delete_units = {
+			# 	division_template = "Regimiento Artillería de Montaña"
+			# 	disband = yes
+			# }
+			# delete_unit_template_and_units = {
+			# 	division_template = "Regimiento Artillería de Montaña"
+			# }
+			# delete_units = {
+			# 	division_template = "Regimiento Artillería de Montaña 2"
+			# 	disband = yes
+			# }
+			# delete_unit_template_and_units = {
+			# 	division_template = "Regimiento Artillería de Montaña 2"
+			# }
+			delete_units = {
+				division_template = "Regimiento de Artillería"
+				disband = yes
+			}
+			delete_unit_template_and_units = {
+				division_template = "Regimiento de Artillería"
+			}
+
+			delete_unit_template_and_units = {
+				division_template = "Brigada de Infantería II"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Brigada de Artillería"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Regimiento de Comandancia General"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Regimiento Artillería a Caballo"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Media Brigada de Montaña"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Media Brigada de Montaña II"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Motorized-Division"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Armored-Division"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Mountaineer-Division"
+			}
+
+			load_oob = SPA_civil_war2 #Nationalist Militias
+
+			# Air bridge over Gibraltar strait
+			country_event = { id = scw.215 hours = 1 }
+		}
+	}
+}
+
+# 1st Movements of the war, Nationalists
+country_event = {
+	id = scw.5
+	title = scw.5.t
+	desc = scw.5.d
+	picture = GFX_report_event_spr_solidify_the_frontlines
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = scw.4 days = 1 } #Spawns Units
+			# set_province_controller = 13567
+			# set_province_controller = 794
+			# set_province_controller = 13695
+			# set_province_controller = 9770
+			#Andalucia
+			set_province_controller = 1048
+			set_province_controller = 7183
+			set_province_controller = 875
+			set_province_controller = 13684
+			#Aragon
+			set_province_controller = 6878
+			set_province_controller = 813
+			set_province_controller = 3816
+			set_province_controller = 11737
+			set_province_controller = 948
+			set_province_controller = 7213
+			set_province_controller = 9812
+			set_province_controller = 6901
+			set_province_controller = 9842
+			set_province_controller = 11838
+			set_province_controller = 9840
+			set_province_controller = 9813
+			set_province_controller = 13259
+			#Siguenza
+			set_province_controller = 9933
+			set_province_controller = 9785
+			# transfer_state = 169
+			# add_state_core = 169
+			# SPR = {
+				# remove_state_core = 169
+				# set_province_controller = 13415
+				# set_province_controller = 10094
+				# set_province_controller = 879
+				# set_province_controller = 950
+ 				# set_province_controller = 1178
+				# set_province_controller = 3810
+				# set_province_controller = 3871
+				# set_province_controller = 3940
+				# set_province_controller = 4080
+				# set_province_controller = 4182
+				# set_province_controller = 6744
+				# set_province_controller = 7098
+				# set_province_controller = 9815
+				# set_province_controller = 9891
+				# set_province_controller = 10111
+				# set_province_controller = 11749
+				# set_province_controller = 12070
+				# set_province_controller = 13699
+				# set_province_controller = 13700
+			# }
+		}
+	}
+
+	option = {
+		name = scw.5.a
+	}
+
+}
+
+# 1st Movements of the war, Republicans
+country_event = {
+	id = scw.6
+	title = scw.6.t
+	desc = scw.6.d
+	picture = GFX_report_event_spr_solidify_the_frontlines
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = scw.7 days = 1 } #Spawns units
+			# set_province_controller = 12790
+			# set_province_controller = 871
+			# set_province_controller = 798
+			# set_province_controller = 3909
+			# set_province_controller = 3954
+			# set_province_controller = 790
+			# set_province_controller = 11793
+			# set_province_controller = 11821
+			# set_province_controller = 11819
+			# set_province_controller = 915
+			# set_province_controller = 899
+			# set_province_controller = 13257
+			# set_province_controller = 13696
+			# set_province_controller = 13691
+			# set_province_controller = 13692
+		}
+	}
+
+	option = {
+		name = scw.6.a
+	}
+
+}
+
+# Republican troops
+country_event = {
+	id = scw.7
+	title = scw.7.t
+	desc = scw.7.d
+	picture = GFX_report_event_spr_no_pasaran
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			41 = {
+				create_unit = {
+					division = "name = \"Quinto Regimiento\" division_template = \"Regimiento de Infantería\" start_experience_factor = 0.3 start_equipment_factor = 0.9"
+					owner = SPR
+					prioritize_location = 3938  # Madrid
+					# allow_spawning_on_enemy_provs = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = scw.7.a
+		load_oob = SPR_cw_militias
+		add_stability = 0.4
+	}
+}
+
+# Nationalist Navy
+# country_event = {
+# 	id = scw.8
+# 	title = scw.8.t
+# 	desc = scw.8.d
+# 	picture = GFX_report_event_spr_nationalist_soldiers
+
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = scw.8.a
+
+# 	}
+# }
+
+# Rebel Sympathies
+country_event = {
+	id = scw.9
+	title = scw.9.t
+	desc = scw.9.d
+	picture = GFX_report_event_spr_spanish_civil_war2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = scw.9.a
+		add_ideas = SPR_officer_plot
+	}
+
+}
+
+# Peninsular Troops - Reps
+country_event = {
+	id = scw.10
+	title = scw.10.t
+	desc = scw.10.d
+	picture = GFX_report_event_spr_nationalist_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = scw.6 days = 1 } # First movements of the war, Reps
+			SPR = {
+				delete_units = {
+					division_template = "Regimiento de Infantería"
+					disband = yes
+				}
+				delete_units = {
+					division_template = "Brigada de Infantería"
+					disband = yes
+				}
+				delete_unit_template_and_units = {
+					division_template = "Brigada de Infantería"
+				}
+				delete_units = {
+					division_template = "Brigada de Infantería II"
+					disband = yes
+				}
+				delete_unit_template_and_units = {
+					division_template = "Brigada de Infantería II"
+				}
+				delete_units = {
+					division_template = "Brigada de Artillería"
+					disband = yes
+				}
+				delete_unit_template_and_units = {
+					division_template = "Brigada de Artillería"
+				}
+				delete_units = {
+					division_template = "Regimiento Artillería a Caballo"
+					disband = yes
+				}
+				delete_unit_template_and_units = {
+					division_template = "Regimiento Artillería a Caballo"
+				}
+				delete_units = {
+					division_template = "Regimiento de Caballería"
+					disband = yes
+				}
+				delete_unit_template_and_units = {
+					division_template = "Regimiento de Caballería"
+				}
+				delete_units = {
+					division_template = "Media Brigada de Montaña"
+					disband = yes
+				}
+				delete_unit_template_and_units = {
+					division_template = "Media Brigada de Montaña"
+				}
+				delete_units = {
+					division_template = "Media Brigada de Montaña II"
+					disband = yes
+				}
+				delete_unit_template_and_units = {
+					division_template = "Media Brigada de Montaña II"
+				}
+				delete_unit_template_and_units = {
+					division_template = "División de Infantería"
+				}
+			}
+		}
+	}
+
+	option = {
+		name = scw.10.a
+	}
+
+}
+
+# Flight of Sanjurjo
+country_event = {
+	id = scw.11
+	title = scw.11.t
+	desc = scw.11.d
+	picture = GFX_event_Sanjurjo_plane
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = scw.11.a
+		trigger = {
+			has_country_flag = SPA_sanjurjo_going_to_die
+		}
+		kill_country_leader = yes
+		hidden_effect = {
+			add_country_leader_role = {
+				character = "SPR_miguel_cabanellas"
+				promote_leader = yes
+				country_leader = {
+					ideology = military
+					expire = "1965.1.1.1"
+				}
+			}
+			clr_country_flag = SPA_sanjurjo_going_to_die
+		}
+		set_country_flag = sanjurjo_dead
+	}
+
+	option = {
+		name = scw.11.b
+		trigger = {
+			has_country_flag = SPA_sanjurjo_doesnt_die
+		}
+		set_country_flag = sanjurjo_lives
+		hidden_effect = {
+			clr_country_flag = SPA_sanjurjo_doesnt_die
+			country_event = { id = scw.62 days = 1 }
+			SPA = { load_focus_tree = SPA_junta_tree }
+			add_country_leader_role = {
+				character = "SPR_jose_sanjurjo"
+				promote_leader = yes
+				country_leader = {
+					ideology = despotism
+					expire = "1965.1.1.1"
+				}
+			}
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Sanjurjo
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Ricardo_Cortes
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_Rafael_Aizpun
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Julio_Urquijo
+		}
+	}
+}
+
+# Giral Goverment
+country_event = {
+	id = scw.14
+	title = scw.14.t
+	desc = scw.14.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_party_name = {
+				ideology = authoritarian_socialism
+				long_name = SPR_psoe_c_party_long
+				name = SPR_psoe_c_party
+			}
+			set_party_name = {
+				ideology = socialism
+				long_name = SPR_psoe_p_party_long
+				name = SPR_psoe_p_party
+			}
+			set_popularities = {
+				communism = 6.42
+				authoritarian_socialism = 23.76 #Caballerists
+				socialism = 21.29 #Prietists & Besteirists
+				social_democracy = 36.36 #IR + ERC + PNRE + EV + Indep
+				social_liberalism = 10.27 #UR + ACR + PG + PDRF + UdR
+				market_liberalism = 0
+				jacobin = 0
+				democratic = 1.9 #PNV
+				neutrality = 0 
+				monarchism = 0 
+				nationalism = 0
+				fascism = 0
+			}
+			add_country_leader_role = {
+				character = "SPR_manuel_azana"
+				promote_leader = yes
+				country_leader = {
+					ideology = caballerism
+					expire = "1940.11.7.1"
+				}
+			}
+		}
+	}
+
+	option = {
+		name = scw.14.a
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Jose_Giral
+		set_politics = { ruling_party = social_democracy elections_allowed = yes }
+		hidden_effect = {
+			country_event = { days = 60 id = scw.12 }
+		}
+	}
+
+}
+
+# Largo Caballero Government
+country_event = {
+	id = scw.12
+	title = scw.12.t
+	desc = scw.12.d
+	picture = GFX_report_event_spr_no_pasaran
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = scw.12.a
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			add_ideas = HoG_Largo_Caballero
+			remove_ideas_with_trait = frnmin
+			add_ideas = FM_Julio_Vayo
+			remove_ideas_with_trait = ecomin
+			add_ideas = EM_Juan_Negrin
+			remove_ideas_with_trait = secmin
+			add_ideas = SM_Angel_Galarza
+
+			country_event = { days = 230 id = scw.15 }
+			COALITION_RESET = yes
+		}
+		set_politics = { ruling_party = authoritarian_socialism elections_allowed = yes }
+		COALITION_add_com = yes
+		COALITION_add_demsoc = yes
+		COALITION_add_socdem = yes
+		COALITION_add_soclib = yes
+	}
+
+}
+
+# country_event = {
+# 	id = scw.13
+# 	title = scw.13.t
+# 	desc = scw.13.d
+# 	picture = GFX_report_event_generic_riot
+
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		tag = SPR
+# 		has_country_leader = {
+# 			character = "SPR_niceto_alcala_zamora"
+# 			ruling_only = yes
+# 		}
+# 		NOT = {
+# 			has_country_leader = {
+# 				name = "Manuel Azaña"
+# 				ruling_only = yes
+# 			}
+# 		}
+# 	}
+
+# 	option = {
+# 		name = scw.13.a
+# 		add_country_leader_role = {
+# 			character = "SPR_manuel_azana"
+# 			promote_leader = yes
+# 			country_leader = {
+# 				ideology = stalinism
+# 				expire = "1940.11.3.1"
+# 			}
+# 		}
+# 		add_country_leader_role = {
+# 			character = "SPR_manuel_azana"
+# 			promote_leader = yes
+# 			country_leader = {
+# 				ideology = caballerism
+# 				expire = "1940.11.3.1"
+# 			}
+# 		}
+# 		add_country_leader_role = {
+# 			character = "SPR_manuel_azana"
+# 			promote_leader = yes
+# 			country_leader = {
+# 				ideology = prietism
+# 				expire = "1940.11.3.1"
+# 			}
+# 		}
+# 		add_country_leader_role = {
+# 			character = "SPR_manuel_azana"
+# 			promote_leader = yes
+# 			country_leader = {
+# 				ideology = republicanism_spr
+# 				expire = "1940.11.3.1"
+# 			}
+# 		}
+# 		add_country_leader_role = {
+# 			character = "SPR_manuel_azana"
+# 			promote_leader = yes
+# 			country_leader = {
+# 				ideology = french_radicalism
+# 				expire = "1940.11.3.1"
+# 			}
+# 		}
+# 		add_country_leader_role = {
+# 			character = "SPR_manuel_azana"
+# 			promote_leader = yes
+# 			country_leader = {
+# 				ideology = market_liberal
+# 				expire = "1940.11.3.1"
+# 			}
+# 		}
+# 		add_country_leader_role = {
+# 			character = "SPR_manuel_azana"
+# 			promote_leader = yes
+# 			country_leader = {
+# 				ideology = lerrouxism
+# 				expire = "1940.11.3.1"
+# 			}
+# 		}
+# 		add_country_leader_role = {
+# 			character = "SPR_manuel_azana"
+# 			promote_leader = yes
+# 			country_leader = {
+# 				ideology = soccon_agrarianism
+# 				expire = "1940.11.3.1"
+# 			}
+# 		}
+# 		add_country_leader_role = {
+# 			character = "SPR_manuel_azana"
+# 			promote_leader = yes
+# 			country_leader = {
+# 				ideology = spr_ceda
+# 				expire = "1940.11.3.1"
+# 			}
+# 		}
+# 	}
+
+# }
+
+# Incidents in Barcelona
+country_event = {
+	id = scw.15
+	title = scw.15.t
+	desc = scw.15.d
+	picture = GFX_report_event_spr_poum_militia
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPR
+		has_war_with = SPA
+	}
+
+
+	option = {
+		name = scw.12.a
+		trigger = {
+			check_variable = { ana_inf > 39 }
+		}
+		add_to_variable = { var = ana_inf value = 15 }
+		add_to_variable = { var = com_inf value = -8 }
+		add_to_variable = { var = lib_inf value = -7 }
+		add_political_power = 100
+		add_stability = -0.1
+		set_country_flag = spr_crisis_barcelona
+		ai_chance = {
+			base = 35
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+		}
+	}
+	option = {
+		name = scw.15.b
+		trigger = {
+			check_variable = { ana_inf < 75 }
+		}
+		set_politics = { ruling_party = socialism elections_allowed = yes }
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.07
+		} 
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Juan_Negrin
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Julio_Vayo
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Juan_Negrin
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Juan_Zugazagoitia
+		add_stability = 0.05
+		add_to_variable = { var = ana_inf value = -20 }
+		add_to_variable = { var = com_inf value = 10 }
+		add_to_variable = { var = lib_inf value = 10 }
+		set_country_flag = spr_crisis_barcelona
+		ai_chance = {
+			base = 65
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = spr_ai_anarchist
+				}
+			}
+		}
+	}
+
+}
+
+# Incidents in Valencia - NO LONGER USED
+country_event = {
+	id = scw.16
+	title = scw.16.t
+	desc = scw.16.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Power to Largo Caballero
+		name = scw.16.a
+		set_politics = { ruling_party = authoritarian_socialism }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Largo_Caballero
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Julio_Vayo
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Juan_Negrin
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Angel_Galarza
+	}
+	option = { #Power to Prieto
+		name = scw.16.b
+		set_politics = { ruling_party = socialism }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Prieto
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Besteiro
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Juan_Negrin
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Juan_Zugazagoitia
+	}
+	option = { #Crackdown
+		name = scw.16.b
+		add_political_power = -200
+	}
+
+}
+
+# Death of Durruti
+country_event = {
+	#TODO: fix mtth
+	id = scw.17
+	title = scw.17.t
+	desc = scw.17.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	mean_time_to_happen = {
+		days = 150	# Historical
+	}
+	trigger = {
+		tag = SPR
+		has_war_with = SPA
+	}
+
+
+	option = { #Memento Mori
+		name = scw.17.a
+		set_country_flag = SPR_Durruti_dead
+		remove_unit_leader = 1909
+		hidden_effect = {
+			SPC = {
+				remove_unit_leader = 1910
+			}
+		}
+	}
+
+}
+
+# Nationalists - Take Badajoz
+country_event = {
+	id = scw.18
+	title = scw.18.t
+	desc = scw.18.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	#TODO: change this shit
+	mean_time_to_happen = {
+		days = 2	# Historical
+	}
+	trigger = {
+		tag = SPA
+		always = no
+		has_war_with = SPR
+		controls_state = 170
+	}
+
+
+	option = { #Kill the Reds
+		name = scw.18.a
+		add_political_power = 50
+		170 = {
+			damage_building = { type = industrial_complex damage = 0.5 }
+			damage_building = { type = infrastructure damage = 0.5 }
+		}
+		hidden_effect = {
+			country_event = { days = 1 id = scw.23 }
+		}
+	}
+
+	option = { #We are all spaniards
+		name = scw.18.b
+		add_political_power = -25
+	}
+
+}
+
+# Nationalists - Take Bilbao
+country_event = {
+	id = scw.19
+	title = scw.19.t
+	desc = scw.19.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	#TODO:  change this shit
+	mean_time_to_happen = {
+		days = 2	# Historical
+	}
+	trigger = {
+		always = no
+		tag = SPA
+		has_war_with = SPR
+		controls_state = 752
+	}
+
+
+	option = { #Kill the Reds
+		name = scw.18.a
+		add_political_power = 50
+		752 = {
+			damage_building = { type = industrial_complex damage = 0.5 }
+			damage_building = { type = arms_factory damage = 0.5 }
+			damage_building = { type = infrastructure damage = 0.5 }
+		}
+		hidden_effect = {
+			country_event = { days = 1 id = scw.23 }
+		}
+	}
+
+	option = { #We are all spaniards
+		name = scw.18.b
+		add_political_power = -25
+	}
+
+}
+
+# Nationalists - Take Barcelona
+country_event = {
+	id = scw.20
+	title = scw.20.t
+	desc = scw.20.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	#TODO: change this shit
+	mean_time_to_happen = {
+		days = 2	# Historical
+	}
+	trigger = {
+		tag = SPA
+		always = no
+		has_war_with = SPR
+		controls_state = 165
+	}
+
+
+	option = { #Kill the Reds
+		name = scw.18.a
+		add_political_power = 50
+		165 = {
+			damage_building = { type = industrial_complex damage = 0.5 }
+			damage_building = { type = arms_factory damage = 0.5 }
+			damage_building = { type = infrastructure damage = 0.5 }
+		}
+		hidden_effect = {
+			country_event = { days = 1 id = scw.23 }
+		}
+	}
+
+	option = { #We are all spaniards
+		name = scw.18.b
+		add_political_power = -25
+	}
+
+}
+
+# Nationalists - Take Valencia
+country_event = {
+	id = scw.21
+	title = scw.21.t
+	desc = scw.21.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	#TODO: change this shit
+	mean_time_to_happen = {
+		days = 2	# Historical
+	}
+	trigger = {
+		tag = SPA
+		has_war_with = SPR
+		always = no
+		controls_state = 167
+	}
+
+
+	option = { #Kill the Reds
+		name = scw.18.a
+		add_political_power = 50
+		167 = {
+			damage_building = { type = industrial_complex damage = 0.5 }
+			damage_building = { type = arms_factory damage = 0.5 }
+			damage_building = { type = infrastructure damage = 0.5 }
+		}
+		hidden_effect = {
+			country_event = { days = 1 id = scw.23 }
+		}
+	}
+
+	option = { #We are all spaniards
+		name = scw.18.b
+		add_political_power = -25
+	}
+
+}
+
+# Nationalists - Take Madrid
+country_event = {
+	id = scw.22
+	title = scw.22.t
+	desc = scw.22.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	#TODO: change this shit
+	mean_time_to_happen = {
+		days = 2	# Historical
+	}
+	trigger = {
+		tag = SPA
+		always = no
+		has_war_with = SPR
+		controls_state = 41
+	}
+
+
+	option = { #Kill the Reds
+		name = scw.18.a
+		add_political_power = 50
+		41 = {
+			damage_building = { type = industrial_complex damage = 0.6 }
+			damage_building = { type = arms_factory damage = 0.6 }
+			damage_building = { type = infrastructure damage = 0.6 }
+		}
+		hidden_effect = {
+			country_event = { days = 1 id = scw.24 }
+		}
+	}
+
+	option = { #We are all spaniards
+		name = scw.18.b
+		add_political_power = -25
+		hidden_effect = {
+			country_event = { days = 1 id = scw.24 }
+		}
+	}
+
+}
+
+# Nationalist Atrocities
+country_event = {
+	id = scw.23
+	title = scw.23.t
+	desc = scw.23.d
+	picture = GFX_report_event_generic_riot
+
+	is_triggered_only = yes
+	trigger = {
+		tag = SPR
+		has_war_with = SPA
+	}
+
+	option = { #Not an inch!
+		name = scw.23.a
+		add_political_power = 75
+	}
+
+}
+
+# Nationalists in Madrid
+country_event = {
+	id = scw.24
+	title = scw.24.t
+	desc = scw.24.d
+	picture = GFX_report_event_generic_riot
+
+	is_triggered_only = yes
+	trigger = {
+		tag = SPR
+		has_war_with = SPA
+	}
+
+
+	option = { #Catastrophe!
+		name = scw.23.a
+		add_political_power = -200
+	}
+}
+
+# End of the war - Reps
+country_event = {
+	id = scw.100
+	title = scw.100.t
+	desc = scw.100.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPR
+		has_global_flag = scw_ongoing
+		SPA = { exists = no }
+	}
+
+	option = {
+		name = scw.100.a
+		delete_unit_template_and_units = {
+			division_template = "Columna de Milicianos"
+		}
+		hidden_effect = {
+			remove_ideas = SCW_SPA_war_of_attrition
+			remove_ideas = SCW_increased_div_limit
+			add_ideas = postwar1
+			add_ideas = SPR_defeated_right1
+			add_ideas = SPR_victorious_left1
+			clr_global_flag = scw_ongoing
+			set_country_flag = won_scw
+			set_war_support = 0.15
+			set_stability = 0.3
+			#clr_country_flag = parliament_closed
+			remove_ideas = SPR_no_pasaran
+			remove_ideas = SPR_officer_plot
+			remove_ideas = SPR_disorganized_militia
+			remove_ideas = SPR_disorganized_militia2
+			remove_ideas = SPR_disorganized_militia3
+			remove_ideas = SPR_revolutionary_army
+			remove_ideas = SPR_revolutionary_army2
+			remove_ideas = SPR_ofensiva_final
+			remove_ideas = SPR_people_army
+			remove_ideas = SPR_people_army2
+			remove_ideas = SPR_resistir_vencer_idea
+			if = {
+				limit = {
+					SPA = { has_country_flag = SPA_conected_extr }
+				}
+				clr_country_flag = SPA_conected_extr
+			}
+			every_state = {
+				limit = {
+					is_core_of = SPA
+				}
+				add_core_of = SPR
+				remove_core_of = SPA
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+			drop_cosmetic_tag = yes
+			load_focus_tree = { tree = spain_recovery_tree_left keep_completed = yes }
+			hidden_effect = {
+				country_event = { days = 7 id = scw.51 }
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+			country_event = { days = 4 id = scw.25 }
+		}
+	}
+
+}
+
+# End of the war - Nats
+country_event = {
+	id = scw.101
+	title = scw.101.t
+	desc = scw.101.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPA
+		has_global_flag = scw_ongoing
+		SPR = { exists = no }
+	}
+
+	option = {
+		name = scw.101.a
+		hidden_effect = {
+			remove_ideas = SCW_SPA_war_of_attrition
+			remove_ideas = SCW_increased_div_limit
+			add_ideas = postwar1
+			add_ideas = SPA_famine_risk1
+			remove_ideas = SPA_dis_gov
+			clr_global_flag = scw_ongoing
+			if = {
+				limit = {
+					SPA = { has_country_flag = SPA_conected_extr }
+				}
+				clr_country_flag = SPA_conected_extr
+			}
+			# load_focus_tree = spain_rightwing_tree
+			set_war_support = 0.15
+			every_state = {
+				limit = {
+					is_core_of = SPR
+				}
+				add_core_of = SPA
+				remove_core_of = SPR
+			}
+			country_event = { hours = 2 id = spa.4 }
+			country_event = { hours = 2 id = spa.5 }
+			country_event = { hours = 2 id = spa.6 }
+			country_event = { hours = 2 id = spa.7 }
+			country_event = { hours = 2 id = spa.8 }
+			country_event = { hours = 2 id = spa.9 }
+			country_event = { hours = 2 id = spa.10 }
+			if = {
+				limit = {
+					has_opinion_modifier = SPA_cw_support
+				}
+				remove_opinion_modifier = {
+					target = GER
+					modifier = SPA_cw_support
+				}
+				add_opinion_modifier = {
+					target = GER
+					modifier = SPA_supported_cw
+				}
+			}
+			if = {
+				limit = {
+					has_opinion_modifier = SPA_cw_support
+				}
+				remove_opinion_modifier = {
+					target = ITA
+					modifier = SPA_cw_support
+				}
+				add_opinion_modifier = {
+					target = ITA
+					modifier = SPA_supported_cw
+				}
+			}
+			ITA = {
+				remove_opinion_modifier = {
+					target = SPA
+					modifier = SPA_supporting_cw
+				}
+			}
+			GER = {
+				remove_opinion_modifier = {
+					target = SPA
+					modifier = SPA_supporting_cw
+				}
+			}
+		}
+		delete_unit_template_and_units = {
+			division_template = "Milicia Nacional"
+		}
+		set_country_flag = won_scw
+		effect_political_control = yes
+	}
+
+}
+
+# Depose President Azaña?
+country_event = {
+	id = scw.25
+	title = scw.25.t
+	desc = scw.25.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Take full power!
+		#TODO: WTF is this. this could break a lot of stuff
+		name = scw.25.a
+		ai_chance = {
+			base = 90
+		}
+		every_state = {
+				limit = { is_core_of = SPR }
+				add_core_of = SPC
+				remove_core_of = SPR
+			}
+		every_state = {
+			limit = { is_claimed_by = SPR }
+			remove_claim_by = SPR
+			add_claim_by = SPC
+		}
+		random_owned_controlled_state = {
+			SPC = { transfer_state = PREV }
+		}
+		SPC = {
+			add_ideas = postwar1
+			add_ideas = SPC_disorg_army
+			add_ideas = SPC_chaotic_adm
+			add_ideas = SPC_polit_division
+			if = {
+				limit = {
+					SPR = {
+						has_government = authoritarian_socialism
+						NOT = { has_country_flag = cnt_in_power }
+					}
+				}
+				remove_ideas_with_trait = hog
+				add_ideas = HoG_Largo_Caballero
+				remove_ideas_with_trait = frnmin
+				add_ideas = FM_Julio_Vayo
+				remove_ideas_with_trait = ecomin
+				add_ideas = EM_Juan_Negrin
+				remove_ideas_with_trait = secmin
+				add_ideas = SM_Angel_Galarza
+				set_country_flag = won_scw
+				set_stability = 0.6
+				add_political_power = 50
+				set_war_support = 0.25
+			}
+			if = {
+				limit = {
+					SPR = {has_government = authoritarian_socialism}
+					has_country_flag = cnt_in_power
+				}
+				remove_ideas_with_trait = hog
+				add_ideas = HoG_Juan_Garcia
+				remove_ideas_with_trait = frnmin
+				add_ideas = FM_Angel_Pestana
+				remove_ideas_with_trait = ecomin
+				add_ideas = EM_Joan_Peiro
+				remove_ideas_with_trait = secmin
+				add_ideas = SM_Angel_Galarza
+				set_party_name = {
+					ideology = authoritarian_socialism
+					long_name = SPC_cntfai_long
+					name = SPC_cntfai
+				}
+				set_country_flag = cnt_has_full_power
+				set_country_flag = SPC_congress_over
+				set_country_flag = SPC_arm_mil
+				set_country_flag = SPC_air_bom
+				set_country_flag = SPC_united_communes
+				set_country_flag = SPC_eco_syn
+				set_country_flag = SPC_ter_dec
+				set_country_flag = SPC_cnt_won
+				set_cosmetic_tag = CNT
+				set_stability = 0.4
+				add_political_power = 25
+				set_war_support = 0.4
+			}
+
+			if = {
+				limit = {
+					SPR = { has_government = communism }
+				}
+				set_politics = { ruling_party = communism }
+				remove_ideas_with_trait = hog
+				add_ideas = HoG_Jose_Diaz
+				remove_ideas_with_trait = frnmin
+				add_ideas = FM_Dolores_Ibarruri
+				remove_ideas_with_trait = ecomin
+				add_ideas = EM_Vicente_Uribe
+				remove_ideas_with_trait = secmin
+				add_ideas = SM_Enrique_Lister
+				set_country_flag = pce_has_full_power
+				set_country_flag = SPC_congress_over
+				set_country_flag = SPC_arm_org
+				set_country_flag = SPC_air_bom
+				set_country_flag = SPC_nav_off
+				set_country_flag = SPC_people_rep
+				set_country_flag = SPC_eco_pl
+				set_country_flag = SPC_ter_ctr
+				set_country_flag = SPC_pce_won
+				set_stability = 0.45
+				add_political_power = 35
+				set_war_support = 0.33
+				set_cosmetic_tag = PCE
+			}
+			annex_country = { target = SPR transfer_troops = yes }
+			change_tag_from = SPR
+		}
+	}
+	option = { #He is alright
+		name = scw.25.b
+		ai_chance = {
+			base = 10
+		}
+		hidden_effect = {
+			country_event = { days = 4 id = scw.26 }
+			country_event = { days = 8 id = scw.51 }
+		}
+	}
+}
+
+# Azaña replaces the government
+country_event = {
+	id = scw.26
+	title = scw.26.t
+	desc = scw.26.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = { days = 130 id = scw.64 }
+		}
+	}
+
+	option = { #The Republic holds on
+		name = scw.26.a
+		set_politics = { ruling_party = social_democracy }
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Casares_Quiroga
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Augusto_Barcia
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Alvaro_Albornoz
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Gabriel_Franco
+		load_focus_tree = { tree = spain_recovery_tree_left keep_completed = yes }
+		drop_cosmetic_tag = yes
+	}
+}
+
+
+# The Spanish Republic asks for help
+country_event = {
+	id = scw.27
+	title = scw.27.t
+	desc = scw.27.d
+	picture = GFX_report_event_spanish_civil_war_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = FRA
+	}
+
+
+	option = { #We shall send help!
+		name = scw.27.a
+		hidden_effect = { ENG = { country_event = { days = 3 id = scw.28 } } } #Britain is informed
+		hidden_effect = { SPR = { country_event = { days = 1 id = scw.31 } } } #Spain is informed
+		custom_effect_tooltip = fra_can_support_spr
+		add_stability = -0.05
+		ai_chance = {
+			base = 50
+		}
+	}
+
+	option = { #We can't...
+		name = scw.27.b
+		hidden_effect = { SPR = { country_event = { days = 1 id = scw.29 } } } #Spain is informed
+		add_political_power = -30
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+# Britain reacts to french involvement
+country_event = {
+	id = scw.28
+	title = scw.28.t
+	desc = scw.28.d
+	picture = GFX_report_event_spanish_civil_war_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = ENG
+	}
+
+
+	option = { #Demand them to stop their support
+		name = scw.28.a
+		hidden_effect = { FRA = { country_event = { days = 4 id = scw.30 } } } #France is informed
+		add_stability = 0.03
+		add_political_power = 50
+		ai_chance = {
+			base = 80
+		}
+	}
+
+	option = { #Let them do it
+		name = scw.28.b
+		ai_chance = {
+			base = 20
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+			modifier = {
+				factor = 0
+				has_government = socialism
+			}
+		}
+	}
+}
+
+# France receives british warning
+country_event = {
+	id = scw.30
+	title = scw.30.t
+	desc = scw.30.d
+	picture = GFX_report_event_spanish_civil_war_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = FRA
+	}
+
+
+	option = { #Without the british we must withdraw
+		name = scw.30.a
+		hidden_effect = { SPR = { country_event = { days = 2 id = scw.32 } } } #Spain is informed
+		custom_effect_tooltip = fra_not_support_spr
+		add_political_power = 30
+		ai_chance = {
+			base = 60
+		}
+	}
+
+	option = { #Screw the british
+		name = scw.30.b
+		add_stability = -0.05
+		add_political_power = -50
+		ai_chance = {
+			base = 40
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+# Spain - France refuses
+country_event = {
+	id = scw.29
+	title = scw.29.t
+	desc = scw.29.d
+	picture = GFX_report_event_spanish_civil_war_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Damn them
+		name = scw.29.a
+	}
+
+}
+
+# Spain - France accepts
+country_event = {
+	id = scw.31
+	title = scw.31.t
+	desc = scw.31.d
+	picture = GFX_report_event_spanish_civil_war_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #yay
+		name = scw.31.a
+		set_country_flag = france_promised_sup
+	}
+
+}
+
+# Spain - France withdraws their support
+country_event = {
+	id = scw.32
+	title = scw.32.t
+	desc = scw.32.d
+	picture = GFX_report_event_spanish_civil_war_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Are they really abandoning us to the fascists?
+		name = scw.32.a
+		clr_country_flag = france_promised_sup
+	}
+
+}
+
+# Soviets - Support Spain?
+country_event = {
+	id = scw.33
+	title = scw.33.t
+	desc = scw.33.d
+	picture = GFX_report_event_spanish_civil_war_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SOV
+	}
+
+
+	option = { #We stand with our spanish comrades!
+		name = scw.33.a
+		ai_chance = {
+			base = 90
+		}
+		hidden_effect = { SPR = { country_event = { days = 1 id = scw.34 } } } #Spain is informed
+		custom_effect_tooltip = sov_unlock_spr_gold
+	}
+
+	option = { #We can't break our commitments
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		name = scw.33.b
+	}
+}
+
+# Spain - USSR support
+country_event = {
+	id = scw.34
+	title = scw.34.t
+	desc = scw.34.d
+	picture = GFX_report_event_spanish_civil_war_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #We can only be thankful
+		name = scw.34.a
+		set_country_flag = soviets_promised_sup
+	}
+
+}
+
+# USSR - Spain sends the gold
+country_event = {
+	id = scw.35
+	title = scw.35.t
+	desc = scw.35.d
+	picture = GFX_report_event_spain_civil_war_volunteers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SOV
+	}
+
+
+	option = { #We can now begin
+		name = scw.35.a
+		custom_effect_tooltip = sov_unlock_spr_dec
+		set_country_flag = spr_moscow_sent
+		add_political_power = 75
+		add_stability = 0.03
+	}
+
+}
+
+# The International Brigades
+country_event = {
+	id = scw.36
+	title = scw.36.t
+	desc = scw.36.d
+	picture = GFX_report_event_spr_republican_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Thanks, comrades
+		name = scw.36.a
+		load_oob = SPR_international_brigades
+		add_stability = 0.03
+	}
+
+}
+
+# The Mixed Brigades
+country_event = {
+	id = scw.37
+	title = scw.37.t
+	desc = scw.37.d
+	picture = GFX_report_event_spr_republican_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Organization is key!
+		name = scw.37.a
+		load_oob = SPR_mixta
+		set_country_flag = SPR_brigadas_mixtas
+		add_stability = 0.03
+	}
+
+}
+
+# PCE too much power
+country_event = {
+	id = scw.38
+	title = scw.38.t
+	desc = scw.38.d
+	picture = GFX_report_event_generic_communist_congress
+
+	fire_only_once = yes
+	mean_time_to_happen = { days = 1 }
+	trigger = {
+		original_tag = SPR
+		check_variable = {
+			com_inf > 74
+		}
+		NOT = { has_country_flag = pce_power }
+		NOT = {
+			is_ai = yes
+			SOV = { is_ai = yes }
+			is_historical_focus_on = yes
+		}
+	}
+
+	option = {
+		name = scw.38.a
+		add_political_power = 50
+		set_country_flag = pce_mission_start
+	}
+}
+
+# CNT too much power
+country_event = {
+	id = scw.39
+	title = scw.39.t
+	desc = scw.39.d
+	picture = GFX_report_event_generic_communist_congress
+
+	fire_only_once = yes
+	mean_time_to_happen = { days = 1 }
+	trigger = {
+		original_tag = SPR
+		check_variable = {
+			ana_inf > 74
+		}
+		NOT = { has_country_flag = cnt_in_power }
+	}
+
+	option = {
+		name = scw.38.a
+		add_political_power = 50
+		set_country_flag = cnt_mission_start
+	}
+}
+
+# Democrats too much power
+country_event = {
+	id = scw.40
+	title = scw.40.t
+	desc = scw.40.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	mean_time_to_happen = { days = 1 }
+	trigger = {
+		original_tag = SPR
+		check_variable = {
+			lib_inf > 74
+		}
+		NOT = { OR = { has_government = social_democracy has_government = socialism } }
+	}
+
+	option = {
+		name = scw.38.a
+		add_political_power = 50
+		set_country_flag = dem_mission_start
+	}
+}
+
+# Proffesional Officers Complain
+country_event = {
+	id = scw.41
+	title = scw.41.t
+	desc = scw.41.d
+	picture = GFX_report_event_spain_civil_war_soldiers
+
+	mean_time_to_happen = { days = 150 }
+	trigger = {
+		original_tag = SPR
+		check_variable = {
+			ana_inf > 20
+		}
+		check_variable = {
+			ana_inf < 75
+		}
+		has_war_with = SPA
+		NOT = { has_country_flag = struggle_over }
+		NOT = { has_country_flag = cnt_in_power }
+		NOT = { has_completed_focus = SPR_people_army }
+	}
+
+	option = {
+		name = scw.41.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				has_country_flag = spr_ai_anarchist
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = { ana_inf > 50 }
+			}
+		}
+		add_political_power = -25
+		add_war_support = -0.025
+		custom_effect_tooltip = -5_ana_inf
+		add_to_variable = { var = ana_inf value = -5 }
+		add_to_variable = { var = com_inf value = 2 }
+		add_to_variable = { var = lib_inf value = 3 }
+	}
+
+	option = {
+		name = scw.41.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				has_country_flag = spr_ai_anarchist
+			}
+			modifier = {
+				factor = 2
+				check_variable = { ana_inf < 10 }
+			}
+		}
+		army_experience = -25
+		add_stability = -0.025
+		custom_effect_tooltip = 5_ana_inf
+		add_to_variable = { var = ana_inf value = 5 }
+		add_to_variable = { var = com_inf value = -2 }
+		add_to_variable = { var = lib_inf value = -3 }
+	}
+}
+
+# Riots
+country_event = {
+	id = scw.42
+	title = scw.42.t
+	desc = scw.42.d
+	picture = GFX_report_event_generic_riot
+
+	mean_time_to_happen = { days = 125 }
+	trigger = {
+		original_tag = SPR
+		check_variable = {
+			ana_inf > 25
+		}
+		check_variable = {
+			ana_inf < 75
+		}
+		has_war_with = SPA
+		NOT = { has_country_flag = struggle_over }
+		NOT = { has_country_flag = cnt_in_power }
+		NOT = { has_completed_focus = SPR_restore_ord }
+	}
+
+	option = { #Order
+		name = scw.42.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				has_country_flag = spr_ai_anarchist
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = { ana_inf > 50 }
+			}
+		}
+		add_political_power = 25
+		add_war_support = -0.05
+		custom_effect_tooltip = -5_ana_inf
+		add_to_variable = { var = ana_inf value = -5 }
+		add_to_variable = { var = com_inf value = 3 }
+		add_to_variable = { var = lib_inf value = 2 }
+	}
+
+	option = { #Chaos
+		name = scw.42.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				has_country_flag = spr_ai_anarchist
+			}
+			modifier = {
+				factor = 2
+				check_variable = { ana_inf < 10 }
+			}
+		}
+		add_stability = -0.025
+		custom_effect_tooltip = 5_ana_inf
+		add_to_variable = { var = ana_inf value = 5 }
+		add_to_variable = { var = com_inf value = -3 }
+		add_to_variable = { var = lib_inf value = -2 }
+	}
+}
+
+# NKVD agents
+country_event = {
+	id = scw.43
+	title = scw.43.t
+	desc = scw.43.d
+	picture = GFX_report_event_generic_communist_congress
+
+	mean_time_to_happen = { days = 150 }
+	trigger = {
+		original_tag = SPR
+		check_variable = {
+			com_inf > 10
+		}
+		check_variable = {
+			ana_inf < 75
+		}
+		has_war_with = SPA
+		has_country_flag = republican_spain
+		NOT = { has_country_flag = struggle_over }
+		NOT = { has_country_flag = pce_power }
+		has_country_flag = sov_advisors
+		NOT = { has_completed_focus = SPR_resistir_vencer }
+	}
+
+	option = { #Allow them to operate
+		name = scw.43.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_country_flag = spr_ai_anarchist
+					has_country_flag = spr_ai_democratic
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = { com_inf < 10 }
+			}
+		}
+		add_stability = 0.025
+		add_political_power = -75
+		custom_effect_tooltip = 5_com_inf
+		add_to_variable = { var = ana_inf value = -3 }
+		add_to_variable = { var = com_inf value = 5 }
+		add_to_variable = { var = lib_inf value = -2 }
+	}
+
+	option = { #Limit their activity
+		name = scw.43.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_anarchist
+					has_country_flag = spr_ai_democratic
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = { com_inf > 50 }
+			}
+		}
+		add_stability = -0.025
+		add_political_power = 50
+		custom_effect_tooltip = -5_com_inf
+		add_to_variable = { var = ana_inf value = 3 }
+		add_to_variable = { var = com_inf value = -5 }
+		add_to_variable = { var = lib_inf value = 2 }
+	}
+}
+
+# Militias target politicians
+country_event = {
+	id = scw.44
+	title = scw.44.t
+	desc = scw.44.d
+	picture = GFX_report_event_generic_riot
+
+	mean_time_to_happen = { days = 150 }
+	trigger = {
+		original_tag = SPR
+		check_variable = {
+			ana_inf > 10
+		}
+		check_variable = {
+			ana_inf < 75
+		}
+		has_war_with = SPA
+		has_country_flag = republican_spain
+		NOT = { has_country_flag = struggle_over }
+		NOT = { has_country_flag = cnt_power }
+		NOT = { has_completed_focus = SPR_restore_ord }
+	}
+
+	option = { #Stop these thugs
+		name = scw.104.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_country_flag = spr_ai_anarchist
+					has_country_flag = spr_ai_communist
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = { dem_inf < 10 }
+			}
+		}
+		add_political_power = 50
+		add_war_support = -0.025
+		custom_effect_tooltip = 5_lib_inf
+		add_to_variable = { var = ana_inf value = -3 }
+		add_to_variable = { var = com_inf value = -2 }
+		add_to_variable = { var = lib_inf value = 5 }
+	}
+
+	option = { #The Revolution demands blood
+		name = scw.104.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_anarchist
+					has_country_flag = spr_ai_communist
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = { dem_inf > 50 }
+			}
+		}
+		add_war_support = 0.025
+		add_political_power = -75
+		custom_effect_tooltip = -5_lib_inf
+		add_to_variable = { var = ana_inf value = 3 }
+		add_to_variable = { var = com_inf value = 2 }
+		add_to_variable = { var = lib_inf value = -5 }
+	}
+}
+
+# Consejo de Aragón
+country_event = {
+	id = scw.45
+	title = scw.45.t
+	desc = scw.45.d
+	picture = GFX_report_event_spain_civil_war_soldiers
+
+	mean_time_to_happen = { days = 90 }
+	fire_only_once = yes
+	trigger = {
+		original_tag = SPR
+		has_war_with = SPA
+		check_variable = {
+			ana_inf > 10
+		}
+		check_variable = {
+			ana_inf < 75
+		}
+		NOT = { has_country_flag = struggle_over }
+		NOT = { has_country_flag = cnt_power }
+		NOT = { has_completed_focus = SPR_restore_ord }
+		if = {
+			limit = {
+				tag = SPR
+			}
+			SPA = {
+				NOT = {
+					has_full_control_of_state = 166
+				}
+			}
+		}
+	}
+
+	option = { #For the defense of Aragon
+		name = scw.45.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				has_country_flag = spr_ai_anarchist
+			}
+			modifier = {
+				factor = 2
+				check_variable = { ana_inf < 10 }
+			}
+		}
+		add_political_power = 50
+		add_war_support = 0.05
+		custom_effect_tooltip = 5_ana_inf
+		add_to_variable = { var = ana_inf value = 5 }
+		add_to_variable = { var = com_inf value = -3 }
+		add_to_variable = { var = lib_inf value = -2 }
+	}
+
+	option = { #Dissolve it
+		name = scw.45.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				has_country_flag = spr_ai_anarchist
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = { ana_inf > 50 }
+			}
+		}
+		add_war_support = -0.05
+		add_stability = 0.025
+		custom_effect_tooltip = -5_ana_inf
+		add_to_variable = { var = ana_inf value = -5 }
+		add_to_variable = { var = com_inf value = 3 }
+		add_to_variable = { var = lib_inf value = 2 }
+	}
+}
+
+# Catalonia moves for the anarchists
+country_event = {
+	id = scw.46
+	title = scw.46.t
+	desc = scw.46.d
+	picture = GFX_report_event_spain_civil_war_soldiers
+
+	mean_time_to_happen = { days = 90 }
+	fire_only_once = yes
+	trigger = {
+		original_tag = SPR
+		check_variable = {
+			ana_inf > 10
+		}
+		check_variable = {
+			ana_inf < 75
+		}
+		has_war_with = SPA
+		NOT = { has_country_flag = struggle_over }
+		NOT = { has_country_flag = cnt_power }
+		NOT = { has_completed_focus = SPR_restore_ord }
+		controls_state = 165
+	}
+
+	option = { #Yay for anarchists
+		name = scw.46.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				has_country_flag = spr_ai_anarchist
+			}
+			modifier = {
+				factor = 2
+				check_variable = { ana_inf < 10 }
+			}
+		}
+		add_political_power = -50
+		add_war_support = 0.1
+		custom_effect_tooltip = 5_ana_inf
+		add_to_variable = { var = ana_inf value = 5 }
+		add_to_variable = { var = com_inf value = -2 }
+		add_to_variable = { var = lib_inf value = -3 }
+	}
+
+	option = { #Bad anarachists
+		name = scw.46.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				has_country_flag = spr_ai_anarchist
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = { ana_inf > 50 }
+			}
+		}
+		add_war_support = -0.1
+		add_stability = 0.05
+		add_political_power = 30
+		custom_effect_tooltip = -5_ana_inf
+		add_to_variable = { var = ana_inf value = -5 }
+		add_to_variable = { var = com_inf value = 2 }
+		add_to_variable = { var = lib_inf value = 3 }
+	}
+}
+
+# Council of Ministers votes for amnesty
+country_event = {
+	id = scw.47
+	title = scw.47.t
+	desc = scw.47.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	mean_time_to_happen = { days = 60 }
+	fire_only_once = yes
+	trigger = {
+		original_tag = SPR
+		check_variable = {
+			com_inf > 10
+		}
+		check_variable = {
+			com_inf < 75
+		}
+		has_war_with = SPA
+		NOT = { has_country_flag = struggle_over }
+		NOT = { has_country_flag = pce_power }
+		has_government = socialism
+	}
+
+	option = { #Concede amnesty
+		name = scw.47.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_anarchist
+					has_country_flag = spr_ai_democratic
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = { com_inf > 50 }
+			}
+		}
+		add_stability = -0.05
+		add_political_power = 75
+		add_war_support = 0.05
+		custom_effect_tooltip = -5_com_inf
+		add_to_variable = { var = com_inf value = -5 }
+		add_to_variable = { var = lib_inf value = 5 }
+	}
+
+	option = { #Fascists have no place here
+		name = scw.47.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_country_flag = spr_ai_anarchist
+					has_country_flag = spr_ai_democratic
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = { com_inf < 10 }
+			}
+		}
+		add_stability = 0.05
+		add_political_power = -90
+		custom_effect_tooltip = 5_com_inf
+		add_to_variable = { var = com_inf value = 5 }
+		add_to_variable = { var = lib_inf value = -5 }
+	}
+}
+
+# Social Revolution
+country_event = {
+	id = scw.48
+	title = scw.48.t
+	desc = scw.48.d
+	picture = GFX_report_event_spain_civil_war_volunteers
+
+	is_triggered_only = yes
+	trigger = {
+		original_tag = SPR
+	}
+
+	option = {
+		name = scw.48.a
+		custom_effect_tooltip = 10_ana_inf_5_com_inf
+		add_to_variable = { var = ana_inf value = 10 }
+		add_to_variable = { var = com_inf value = 5 }
+		add_to_variable = { var = lib_inf value = -15 }
+	}
+}
+
+# Factionalism - Introduction
+country_event = {
+	id = scw.49
+	title = scw.49.t
+	desc = scw.49.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.49.a
+		custom_effect_tooltip = unlock_strug
+	}
+}
+
+# Agricultural Collectivization
+country_event = {
+	id = scw.50
+	title = scw.50.t
+	desc = scw.50.d
+	picture = GFX_report_event_generic_riot
+
+	mean_time_to_happen = { days = 100 }
+	fire_only_once = yes
+	trigger = {
+		original_tag = SPR
+		check_variable = {
+			ana_inf > 25
+		}
+		check_variable = {
+			ana_inf < 75
+		}
+		has_war_with = SPA
+		NOT = { has_country_flag = struggle_over }
+		NOT = { has_country_flag = cnt_in_power }
+		NOT = { has_completed_focus = SPR_restore_ord }
+	}
+
+	option = { #Private Property is sacred
+		name = scw.50.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				has_country_flag = spr_ai_anarchist
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = { ana_inf > 50 }
+			}
+		}
+		add_political_power = 25
+		add_war_support = -0.05
+		custom_effect_tooltip = -5_ana_inf
+		add_to_variable = { var = ana_inf value = -5 }
+		add_to_variable = { var = com_inf value = 3 }
+		add_to_variable = { var = lib_inf value = 2 }
+	}
+
+	option = { #The land belongs to the people
+		name = scw.50.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_country_flag = spr_ai_communist
+					has_country_flag = spr_ai_democratic
+					has_country_flag = spr_ai_historical
+				}
+			}
+			modifier = {
+				factor = 2
+				has_country_flag = spr_ai_anarchist
+			}
+			modifier = {
+				factor = 2
+				check_variable = { ana_inf < 10 }
+			}
+		}
+		add_stability = -0.025
+		custom_effect_tooltip = 5_ana_inf
+		add_to_variable = { var = ana_inf value = 5 }
+		add_to_variable = { var = com_inf value = -3 }
+		add_to_variable = { var = lib_inf value = -2 }
+	}
+}
+
+# Anti-Fascism Day I
+country_event = {
+	id = scw.51
+	title = scw.51.t
+	desc = scw.51.d
+	picture = GFX_Event_Spain_Republic
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Fascism shall never return
+		name = scw.51.a
+		add_political_power = 30
+		add_popularity = { ideology = fascism popularity = -0.1 }
+		hidden_effect = { country_event = { days = 365 id = scw.52 } }
+	}
+
+}
+
+# Anti-Fascism Day II
+country_event = {
+	id = scw.52
+	title = scw.52.t
+	desc = scw.52.d
+	picture = GFX_Event_Spain_Republic
+
+	is_triggered_only = yes
+
+	option = { #Fascism shall never return
+		name = scw.52.a
+		add_political_power = 30
+		add_popularity = { ideology = fascism popularity = -0.1 }
+		hidden_effect = { country_event = { days = 365 id = scw.52 } }
+	}
+
+}
+
+# Soviet Ammunition arrives
+country_event = {
+	id = scw.53
+	title = scw.53.t
+	desc = scw.53.d
+	picture = GFX_report_event_spr_civil_war_equipment
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.53.a
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1500
+			producer = SOV
+		}
+		custom_effect_tooltip = 3_com_inf
+		add_to_variable = { var = ana_inf value = -2 }
+		add_to_variable = { var = com_inf value = 3 }
+		add_to_variable = { var = lib_inf value = -1 }
+
+	}
+}
+
+# Soviet Artillery arrives
+country_event = {
+	id = scw.54
+	title = scw.54.t
+	desc = scw.54.d
+	picture = GFX_report_event_spr_civil_war_equipment
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.54.a
+		add_equipment_to_stockpile = {
+			type = artillery_equipment
+			amount = 100
+			producer = SOV
+		}
+		custom_effect_tooltip = 3_com_inf
+		add_to_variable = { var = ana_inf value = -2 }
+		add_to_variable = { var = com_inf value = 3 }
+		add_to_variable = { var = lib_inf value = -1 }
+	}
+}
+
+# Soviet Tanks arrive
+country_event = {
+	id = scw.55
+	title = scw.55.t
+	desc = scw.55.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.55.a
+		add_equipment_to_stockpile = {
+			type = light_tank_chassis_1
+			amount = 300
+			producer = SOV
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = spr_first_tank_shipment }
+			}
+			set_country_flag = spr_first_tank_shipment
+			load_oob = SPR_soviet_tanks
+		}
+		custom_effect_tooltip = 3_com_inf
+		add_to_variable = { var = ana_inf value = -2 }
+		add_to_variable = { var = com_inf value = 3 }
+		add_to_variable = { var = lib_inf value = -1 }
+	}
+}
+
+# Soviet Food arrives
+country_event = {
+	id = scw.56
+	title = scw.56.t
+	desc = scw.56.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.56.a
+		add_stability = 0.05
+		custom_effect_tooltip = 3_com_inf
+		add_to_variable = { var = ana_inf value = -2 }
+		add_to_variable = { var = com_inf value = 3 }
+		add_to_variable = { var = lib_inf value = -1 }
+	}
+}
+
+# Soviet Advisors arrive
+country_event = {
+	id = scw.57
+	title = scw.57.t
+	desc = scw.57.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.57.a
+		add_timed_idea = { idea = SPC_soviet_help days = 60 }
+		add_political_power = 40
+		army_experience = 25
+		custom_effect_tooltip = 3_com_inf
+		add_to_variable = { var = ana_inf value = -2 }
+		add_to_variable = { var = com_inf value = 3 }
+		add_to_variable = { var = lib_inf value = -1 }
+	}
+}
+
+# Soviet Fighters arrive
+country_event = {
+	id = scw.58
+	title = scw.58.t
+	desc = scw.58.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.56.a
+		if = {
+			limit = {
+				NOT = { has_dlc = "By Blood Alone" }
+			}
+			add_equipment_to_stockpile = {
+				type = early_fighter_equipment
+				amount = 125
+				producer = SOV
+			}
+		}
+		else = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe_1
+				amount = 125
+				producer = SOV
+				variant_name = "I-16"
+			}
+		}
+		custom_effect_tooltip = 3_com_inf
+		add_to_variable = { var = ana_inf value = -2 }
+		add_to_variable = { var = com_inf value = 3 }
+		add_to_variable = { var = lib_inf value = -1 }
+	}
+}
+
+# Soviet Bombers arrive
+country_event = {
+	id = scw.59
+	title = scw.59.t
+	desc = scw.59.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.59.a
+		if = {
+			limit = {
+				NOT = { has_dlc = "By Blood Alone" }
+			}
+			add_equipment_to_stockpile = {
+				type = tac_bomber_equipment_0
+				amount = 75
+				producer = SOV
+			}
+		}
+		else = {
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe
+				amount = 75
+				producer = SOV
+			}
+		}
+		custom_effect_tooltip = 3_com_inf
+		add_to_variable = { var = ana_inf value = -2 }
+		add_to_variable = { var = com_inf value = 3 }
+		add_to_variable = { var = lib_inf value = -1 }
+	}
+}
+
+# Spain purges the communists - SOV
+country_event = {
+	id = scw.60
+	title = scw.60.t
+	desc = scw.60.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.60.a
+		clr_country_flag = spr_moscow_sent
+		add_political_power = 50
+		custom_effect_tooltip = disable_sov_help
+		SPR = {
+			country_event = { id = scw.61 days = 1 }
+		}
+	}
+
+	option = {
+		name = scw.60.b
+		add_political_power = -25
+	}
+}
+
+# Soviets withdraw their support
+country_event = {
+	id = scw.61
+	title = scw.61.t
+	desc = scw.61.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.61.a
+		add_war_support = 0.1
+	}
+
+}
+
+# Political Control intro
+country_event = {
+	id = scw.62
+	title = scw.62.t
+	desc = scw.62.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPA
+	}
+
+
+	option = {
+		name = scw.62.a
+		custom_effect_tooltip = unlocked_control_spa
+	}
+
+}
+
+# Franco executed
+country_event = {
+	id = scw.63
+	title = scw.63.t
+	desc = scw.63.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Hang the bastard
+		name = scw.63.a
+	}
+
+}
+
+# First postwar elections
+country_event = {
+	id = scw.64
+	title = scw.64.t
+	desc = scw.64.d
+	picture = GFX_report_event_election_vote
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #PSOE
+		name = scw.64.a
+		add_popularity = { ideology = socialism popularity = 0.1 }
+		set_country_flag = scw_legacy
+		set_country_flag = SPR_held_forty_elections
+		add_political_power = 50
+		add_stability = 0.05
+		#remove_ideas_with_trait = hog
+		#add_ideas = HoG_Prieto
+		if = {
+			limit = {
+				NOT = {
+					has_government = socialism
+				}
+			}
+		set_politics = { ruling_party = socialism elections_allowed = yes }
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Augusto_Barcia
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Juan_Negrin
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Juan_Zugazagoitia
+		}
+
+		set_variable = { socdem_seats = 121 }
+		set_variable = { SPR_rightist_seats = 13 }
+		set_variable = { radsoc_seats = 83 }
+		set_variable = { communist_seats = 26 }
+		set_variable = { demsoc_seats = 137 }
+		set_variable = { SPR_cen_seats = 52 }
+		set_variable = { marlib_seats = 36 }
+		set_variable = { SPR_lib_rep_seats = 2 }
+		set_variable = { nat_seats = 0 }
+		set_variable = { mon_seats = 0 }
+		set_variable = { fas_seats = 0 }
+		
+		# set_variable = { aut_seats = 2 }
+
+		hidden_effect = { country_event = { days = 15 id = scw.84 } }
+		if = {
+			limit = {
+				date < 1941.1.1
+			}
+			hidden_effect = { country_event = { days = 30 id = spain.130 } }
+		}
+		country_event = { id = scw.211 }
+	}
+	option = { #IR
+		name = scw.64.b
+		add_popularity = { ideology = social_democracy popularity = 0.1 }
+		add_political_power = 50
+		add_stability = 0.05
+		set_country_flag = scw_legacy
+		set_country_flag = SPR_held_forty_elections
+		if = {
+			limit = {
+				NOT = {
+					has_government = social_democracy
+				}
+			}
+		set_politics = { ruling_party = social_democracy elections_allowed = yes }
+		remove_ideas_with_trait = hog
+		#add_ideas = HoG_Casares_Quiroga
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Justino_Azacarate
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Gabriel_Franco
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Jose_Minones
+		}
+
+		set_variable = { socdem_seats = 169 }
+		set_variable = { SPR_rightist_seats = 14 }
+		set_variable = { radsoc_seats = 72 }
+		set_variable = { communist_seats = 26 }
+		set_variable = { demsoc_seats = 86 }
+		set_variable = { SPR_cen_seats = 59 }
+		set_variable = { marlib_seats = 32 }
+		set_variable = { SPR_lib_rep_seats = 2 }
+		# set_variable = { aut_seats = 2 }
+		set_variable = { nat_seats = 0 }
+		set_variable = { mon_seats = 0 }
+		set_variable = { fas_seats = 0 }
+
+		hidden_effect = { country_event = { days = 15 id = scw.84 } }
+		if = {
+			limit = {
+				date < 1941.1.1
+			}
+			hidden_effect = { country_event = { days = 30 id = spain.130 } }
+		}
+		country_event = { id = scw.211 }
+	}
+
+}
+
+# Franco captured - Nationalists
+country_event = {
+	id = scw.65
+	title = scw.65.t
+	desc = scw.65.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPA
+	}
+
+
+	option = { #Jose Antonio time
+		name = scw.65.a
+		set_country_flag = Franco_incap
+		retire_character = SPR_francisco_franco
+		clr_country_flag = franco_power
+		set_country_flag = jose_antonio
+		custom_effect_tooltip = 25_control
+		add_to_variable = { var = spa_control value = -25 }
+		hidden_effect = { country_event = { days = 1 id = scw.67 } }
+	}
+
+}
+
+# Franco captured - Reps
+country_event = {
+	id = scw.66
+	title = scw.65.t
+	desc = scw.65.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #good
+		name = scw.65.b
+		add_political_power = 25
+		hidden_effect = { country_event = { days = 30 id = scw.68 } }
+	}
+
+}
+
+# JA takes power
+country_event = {
+	id = scw.67
+	title = scw.67.t
+	desc = scw.67.d
+	picture = GFX_report_event_spr_falange_troops
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #good
+		name = scw.67.b
+	}
+
+}
+
+# Franco killed in prision
+country_event = {
+	id = scw.68
+	title = scw.68.t
+	desc = scw.68.d
+	picture = GFX_report_event_spain_civil_war_volunteers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { #good
+		name = scw.68.b
+		add_war_support = 0.05
+		add_political_power= 50
+	}
+
+}
+
+# Aguirre sworn in
+country_event = {
+	id = scw.69
+	title = scw.69.t
+	desc = scw.69.d
+	picture = GFX_report_event_generic_parliament
+
+	fire_only_once = yes
+	#TODO: change this shit
+	mean_time_to_happen = { days = 30 }
+	trigger = {
+		tag = SPR
+		has_war_with = SPA
+		date > 1936.9.15
+		controls_state = 752
+	}
+
+
+	option = { #ok
+		name = scw.69.b
+		add_political_power= 5
+		752 = {
+			add_dynamic_modifier = { modifier = euzkadi_autonomy }
+		}
+	}
+
+}
+
+# Casado's coup
+country_event = {
+	id = scw.70
+	title = scw.70.t
+	desc = scw.70.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	#TODO: REWORK
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = scw.726
+				days = 6 #6 days of buffer until forced capitulation
+			}
+			add_country_leader_role = {
+				character = "SPR_jose_miaja"
+				promote_leader = yes
+				country_leader = {
+					ideology = military
+					expire = "1965.1.1.1"
+				}
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.15
+			}
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+				long_name = SPR_consejo_long
+				name = SPR_consejo
+			}
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = frnmin
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = secmin
+			add_stability = -0.3
+			add_war_support = -0.4
+			add_ideas = SPR_demoralized_army
+		}
+	}
+
+	option = { #shite
+		name = scw.70.a
+		effect_tooltip = {
+			add_country_leader_role = {
+				character = "SPR_jose_miaja"
+				promote_leader = yes
+				country_leader = {
+					ideology = military
+					expire = "1965.1.1.1"
+				}
+			}
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+				long_name = SPR_consejo_long
+				name = SPR_consejo
+			}
+			add_stability = -0.3
+			add_war_support = -0.4
+			add_ideas = SPR_demoralized_army
+		}
+	}
+
+}
+
+# Casado's Coup: Nationalists
+country_event = {
+	id = scw.71
+	title = scw.71.t
+	desc = scw.71.d
+	picture = GFX_report_event_spain_civil_war_volunteers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPA
+		SPR = {
+			exists = yes
+		}
+	}
+
+	option = { #good
+		name = scw.71.a
+		effect_tooltip = {
+			SPR = {
+				add_stability = -0.3
+				add_war_support = -0.4
+				add_ideas = SPR_demoralized_army
+			}
+		}
+	}
+
+}
+
+# Queipo's Coup
+country_event = {
+	id = scw.72
+	title = scw.72.t
+	desc = scw.72.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = scw.726
+				days = 5 #5 days of buffer until forced capitulation
+			}
+			add_country_leader_role = {
+				character = "SPR_gonzalo_queipo_de_llano"
+				promote_leader = yes
+				country_leader = {
+					ideology = military
+					expire = "1965.1.1.1"
+				}
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.15
+			}
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+				long_name = SPR_consejo_long
+				name = SPR_consejo
+			}
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = frnmin
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = secmin
+			add_stability = -0.3
+			add_war_support = -0.4
+			add_ideas = SPR_demoralized_army
+		}
+	}
+
+	option = { #shite
+		name = scw.72.a
+		effect_tooltip = {
+			add_country_leader_role = {
+				character = "SPR_gonzalo_queipo_de_llano"
+				promote_leader = yes
+				country_leader = {
+					ideology = military
+					expire = "1965.1.1.1"
+				}
+			}
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+				long_name = SPR_consejo_long
+				name = SPR_consejo
+			}
+			add_stability = -0.3
+			add_war_support = -0.4
+			add_ideas = SPR_demoralized_army
+		}
+	}
+
+}
+
+# Queipo's Coup: Reps
+country_event = {
+	id = scw.725
+	title = scw.725.t
+	desc = scw.725.d
+	picture = GFX_report_event_spain_civil_war_volunteers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPR
+		SPA = {
+			exists = yes
+		}
+	}
+
+	option = { #good
+		name = scw.725.a
+		effect_tooltip = {
+			SPA = {
+				add_stability = -0.3
+				add_war_support = -0.4
+				add_ideas = SPR_demoralized_army
+			}
+		}
+	}
+
+}
+
+country_event = { #Temporal event to force capitulation of loosing scw side after defeatist coup. Should be replaced with an event informing about negotiationg peace in the rework
+	id = scw.726
+	title = scw.726.t
+	desc = scw.726.d
+	picture = x
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_capitulated = no
+		has_war = yes
+	}
+	immediate = {
+		hidden_effect = {
+			add_ideas = ready_to_surrender
+		}
+	}
+
+	option = {
+		name = scw.726.a
+		
+	}
+
+}
+
+# Badajoz Massacre
+country_event = {
+	id = scw.78
+	title = scw.78.t
+	desc = scw.78.d
+	picture = GFX_report_event_spr_spanish_civil_war2
+
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = SPA
+			tag = SPR
+		}
+		scw_in_progress = yes
+		SPA = { controls_province = 6902 }
+	}
+
+	#TODO: change this shit
+	mean_time_to_happen = {
+		base = 0.2
+	}
+
+	option = {
+		name = scw.78.a
+		trigger = { tag = SPA }
+		effect_tooltip = {
+			170 = { add_manpower = -2900 }
+		}
+	}
+	option = {
+		name = scw.78.b
+		trigger = { tag = SPR }
+		170 = { add_manpower = -2900 }
+	}
+}
+
+# Paracuellos Massacre
+country_event = {
+	id = scw.79
+	title = scw.79.t
+	desc = scw.79.d
+	picture = GFX_report_event_spr_spanish_civil_war2
+
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = SPA
+			tag = SPR
+		}
+		scw_in_progress = yes
+		OR = {
+			SPA = { controls_province = 13624 }
+			SPA = { controls_province = 3794 }
+			SPA = { controls_province = 9767 }
+			SPA = { controls_province = 977 }
+		}
+	}
+
+	#TODO: change this shit
+	mean_time_to_happen = {
+		base = 0.2
+	}
+
+	option = {
+		name = scw.79.a
+		trigger = { tag = SPA }
+		effect_tooltip = {
+			41 = { add_manpower = -2500 }
+		}
+	}
+	option = {
+		name = scw.79.b
+		trigger = { tag = SPR }
+		41 = { add_manpower = -2500 }
+	}
+}
+
+# Malaga-Almeria Massacre
+country_event = {
+	id = scw.80
+	title = scw.80.t
+	desc = scw.80.d
+	picture = GFX_report_event_spr_spanish_civil_war2
+
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = SPA
+			tag = SPR
+		}
+		scw_in_progress = yes
+		SPA = { controls_province = 9979 }
+	}
+
+	#TODO: change this shit
+	mean_time_to_happen = {
+		base = 0.2
+	}
+
+	option = {
+		name = scw.80.a
+		trigger = { tag = SPA }
+		effect_tooltip = {
+			173 = { add_manpower = -4327 }
+		}
+	}
+	option = {
+		name = scw.81.a
+		trigger = { tag = SPR }
+		173 = { add_manpower = -4327 }
+	}
+}
+
+# Guernica
+country_event = {
+	id = scw.81
+	title = scw.81.t
+	desc = scw.81.d
+	picture = GFX_report_event_spr_civil_war_faction_defeated
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		scw_in_progress = yes
+		SPR = { controls_province = 740 }
+	}
+
+	option = {
+		name = scw.81.a
+		trigger = { tag = SPR }
+		752 = { add_manpower = -300 }
+		#TODO: Add news event
+	}
+}
+
+# Move capital to Valencia?
+country_event = {
+	id = scw.82
+	title = scw.82.t
+	desc = scw.82.d
+	picture = GFX_report_event_spain_civil_war_soldiers
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = scw.82.a
+		ai_chance = {
+			base = 100
+		}
+		set_capital = {
+			state = 167
+		}
+	}
+	option = {
+		name = scw.82.b
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+# The Return of Prince Juan
+country_event = {
+	id = scw.83
+	title = scw.83.t
+	desc = scw.83.d
+	picture = GFX_report_event_spain_civil_war_soldiers
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.83.a
+		add_popularity = { ideology = monarchism popularity = 0.075 }
+		add_political_power = 50
+	}
+}
+
+# End of the Popular Front
+country_event = {
+	id = scw.84
+	title = scw.84.t
+	desc = scw.84.d
+	picture = GFX_report_event_spain_civil_war_soldiers
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.84.a
+		COALITION_clr_com = yes
+	}
+}
+
+# NatSpain - Italian guns
+country_event = {
+	id = scw.85
+	title = scw.85.t
+	desc = scw.85.d
+	picture = GFX_report_event_spr_civil_war_equipment
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.85.a
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1300
+			producer = ITA
+		}
+
+	}
+}
+
+# NatSpain - Italian arty
+country_event = {
+	id = scw.86
+	title = scw.86.t
+	desc = scw.86.d
+	picture = GFX_report_event_spr_civil_war_equipment
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.86.a
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 350
+			producer = ITA
+		}
+
+	}
+}
+
+# TODO: NatSpain - Legionaria airforce: redo this with historical variants and numbers or find a better way to implement this
+country_event = {
+	id = scw.87
+	title = scw.87.t
+	desc = scw.87.d
+	picture = GFX_report_event_spr_italian_volunteers
+
+	is_triggered_only = yes
+	option = {
+		name = scw.86.a
+		if = {
+			limit = {
+				NOT = { has_dlc = "By Blood Alone" }
+			}
+			add_equipment_to_stockpile = {
+				type = fighter_equipment_1
+				amount = 390
+				producer = ITA
+			}
+			add_equipment_to_stockpile = {
+				type = tac_bomber_equipment_1
+				amount = 250
+				producer = ITA
+			}
+		}
+		else = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe_0
+				amount = 390
+				producer = ITA
+			}
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe_0
+				amount = 250
+				producer = ITA
+			}
+		}
+		add_manpower = 5000
+	}
+}
+
+# Reps - Italy is fucking with us
+# country_event = {
+# 	id = scw.88
+# 	title = scw.88.t
+# 	desc = scw.88.d
+# 	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = scw.88.a
+# 	}
+# }
+
+# Germany - support Nationalists?
+country_event = {
+	id = scw.89
+	title = scw.89.t
+	desc = {
+		text = scw.89.scw.d
+		trigger = {
+			scw_in_progress = yes
+		}
+	}
+	desc = {
+		text = scw.89.scr.d
+		trigger = {
+			scr_in_progress = yes
+		}
+	}
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = { #yes
+		name = scw.89.a
+		set_country_flag = ger_support_spa
+		SPN = { country_event = { id = scw.90 days = 2 } }
+		add_opinion_modifier = {
+			target = SPN
+			modifier = SPA_supporting_cw
+		}
+		SPN = {
+			add_opinion_modifier = {
+				target = GER
+				modifier = SPA_cw_support
+			}
+		}
+	}
+
+	option = { #nah
+		name = scw.89.b
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+# Spain - German support
+country_event = {
+	id = scw.90
+	title = scw.90.t
+	desc = scw.90.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = { #good
+		name = scw.90.a
+	}
+
+}
+
+#HISMA
+# country_event = {
+# 	id = scw.91
+# 	title = scw.91.t
+# 	desc = scw.91.d
+# 	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = scw.91.a
+# 			add_equipment_to_stockpile = {
+# 				type = convoy
+# 				amount = 100
+# 				producer = GER
+# 			}
+# 			add_equipment_to_stockpile = {
+# 				type = transport_plane_equipment_1
+# 				amount = 120
+# 				producer = GER
+# 			}
+# 			add_war_support = 0.15
+# 			add_political_power = 40
+# 	}
+# }
+
+# NatSpain - Condor 1
+country_event = {
+	id = scw.92
+	title = scw.92.t
+	desc = scw.92.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = {
+		#TODO: legion condor: send historical amount of planes with correct variants and type
+		name = scw.92.a
+		if = {
+			limit = {
+				NOT = { has_dlc = "By Blood Alone" }
+			}
+			add_equipment_to_stockpile = {
+				type = fighter_equipment_1
+				amount = 130
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = tac_bomber_equipment_1
+				amount = 100
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = strat_bomber_equipment_1
+				amount = 70
+				producer = GER
+			}
+		}
+		else = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe_0
+				amount = 130
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe_0
+				amount = 100
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = large_plane_airframe
+				amount = 70
+				producer = GER
+			}
+		}
+		add_manpower = 3400
+		air_experience = 30
+		#TODO: change this to load an oob with the condor legion in Leon
+		if = {
+			limit = {
+				scw_in_progress = yes
+				SPR = { controls_province = 740 }
+			}
+			hidden_effect = {
+				country_event = {
+					id = scw.81
+					days = 55
+					random_days = 116
+				}
+			}
+		}
+	}
+}
+
+# NatSpain - Condor 2
+country_event = {
+	id = scw.93
+	title = scw.93.t
+	desc = scw.93.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.93.a
+		#TODO: send historical amount of planes and viariants/designs
+		if = {
+			limit = {
+				NOT = { has_dlc = "By Blood Alone" }
+			}
+			add_equipment_to_stockpile = {
+				type = fighter_equipment_1
+				amount = 150
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = tac_bomber_equipment_1
+				amount = 90
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = strat_bomber_equipment_1
+				amount = 80
+				producer = GER
+			}
+		}
+		else = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe_0
+				amount = 150
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = medium_plane_airframe_0
+				amount = 90
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = large_plane_airframe
+				amount = 80
+				producer = GER
+			}
+		}
+		add_manpower = 2800
+		air_experience = 50
+	}
+}
+
+# NatSpain - Feuerzauber
+country_event = {
+	id = scw.94
+	title = scw.94.t
+	desc = scw.94.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.94.a
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 2000
+			producer = GER
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			amount = 140
+			producer = GER
+		}
+	}
+}
+
+# NatSpain - tanks
+country_event = {
+	id = scw.95
+	title = scw.95.t
+	desc = scw.95.d
+	picture = GFX_report_event_spr_nationalists_capture_tank
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.94.a
+		#TODO send historical amount of tanks and correct types
+		add_equipment_to_stockpile = {
+			type = light_tank_chassis_1
+			amount = 80
+			producer = GER
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = spa_first_tank_shipment }
+			}
+			set_country_flag = spa_first_tank_shipment
+			load_oob = SPA_german_tanks #TODO: rework this shit
+		}
+	}
+}
+
+# NatSpain - arty
+country_event = {
+	id = scw.96
+	title = scw.96.t
+	desc = scw.96.d
+	picture = GFX_report_event_spr_civil_war_equipment
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.96.a
+		add_equipment_to_stockpile = {
+			type = artillery_equipment_2
+			amount = 300
+			producer = GER
+		}
+		add_equipment_to_stockpile = {
+			type = anti_tank_equipment
+			amount = 120
+			producer = GER
+		}
+		add_equipment_to_stockpile = {
+			type = anti_air_equipment
+			amount = 120
+			producer = GER
+		}
+	}
+}
+
+# Secret AI event: decide faction to support
+country_event = {
+	id = scw.1000
+	title = scw.1000.t
+	desc = scw.1000.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+
+	is_triggered_only = yes
+	trigger = {
+		is_ai = yes
+	}
+
+	option = {
+		name = scw.10.a
+		ai_chance = {
+			base = 0.5
+		}
+		set_country_flag = spr_ai_historical
+	}
+	option = {
+		name = scw.10.a
+		ai_chance = {
+			base = 0.2
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		set_country_flag = spr_ai_anarchist
+	}
+	option = {
+		name = scw.10.a
+		ai_chance = {
+			base = 0.15
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		set_country_flag = spr_ai_communist
+	}
+	option = {
+		name = scw.10.a
+		ai_chance = {
+			base = 0.15
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		set_country_flag = spr_ai_democratic
+	}
+}
+
+# Mola ded
+country_event = {
+	id = scw.98
+	title = scw.98.t
+	desc = scw.98.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		has_war_with = SPR
+	}
+
+	option = {
+		name = scw.98.a
+		add_political_power = 50
+		hidden_effect = {
+			set_country_flag = Mola_dead
+			retire_character = SPR_emilio_mola
+		}
+		SPR_fidel_davila = {
+			promote_leader = yes
+		}
+	}
+}
+
+# Cabanellas ded
+country_event = {
+	id = scw.99
+	title = scw.99.t
+	desc = scw.99.d
+	picture = GFX_report_event_spain_civil_war_volunteers_01
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		NOT = { has_completed_focus = SPA_chairman_cabanellas }
+	}
+
+	option = {
+		name = scw.99.a
+		add_political_power = 50
+		hidden_effect = {
+			retire_character = SPR_miguel_cabanellas
+			if = {
+				limit = {
+					has_idea = HoG_Cabanellas
+				}
+				remove_ideas = HoG_Cabanellas
+			}
+		}
+	}
+}
+
+# Partial End of the war - Reps
+country_event = {
+	id = scw.110
+	title = scw.110.t
+	desc = scw.110.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPR
+		scw_in_progress = yes
+		SPA = { is_in_faction = yes }
+	}
+
+	immediate = {
+		hidden_effect = {
+			remove_ideas = SCW_SPA_war_of_attrition
+			add_ideas = postwar1
+			add_ideas = SPR_defeated_right1
+			add_ideas = SPR_victorious_left1
+			clr_global_flag = scw_ongoing
+			set_country_flag = won_scw
+			add_war_support = -0.3
+			add_stability = -0.15
+			#clr_country_flag = parliament_closed
+			41 = {
+				remove_dynamic_modifier = {
+					modifier = SPR_no_pasaran_modifier
+				}
+			}
+			remove_ideas = SPR_officer_plot
+			remove_ideas = SPR_disorganized_militia
+			remove_ideas = SPR_disorganized_militia2
+			remove_ideas = SPR_disorganized_militia3
+			remove_ideas = SPR_revolutionary_army
+			remove_ideas = SPR_revolutionary_army2
+			remove_ideas = SPR_ofensiva_final
+			remove_ideas = SPR_people_army
+			remove_ideas = SPR_people_army2
+			remove_ideas = SPR_resistir_vencer_idea
+			remove_ideas = SCW_increased_div_limit
+			delete_unit_template_and_units = {
+				division_template = "Columna de Milicianos"
+			}
+			every_state = {
+				limit = {
+					is_core_of = SPA
+				}
+				add_core_of = SPR
+				add_compliance = 90
+			}
+			drop_cosmetic_tag = yes
+			load_focus_tree = { tree = spain_recovery_tree_left keep_completed = yes }
+			unlock_national_focus = SPR_world
+			unlock_national_focus = SPR_war_against_fascism
+			country_event = { days = 2 id = scw.26 }
+		}
+	}
+
+	option = {
+		name = scw.110.a
+	}
+
+}
+
+# Partial End of the war - Nats
+country_event = {
+	id = scw.111
+	title = scw.111.t
+	desc = scw.111.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPA
+		scw_in_progress = yes
+		SPR = {
+			is_in_faction = yes
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			add_ideas = postwar1
+			add_ideas = SPA_famine_risk1
+			remove_ideas = SPA_dis_gov
+			remove_ideas = SCW_increased_div_limit
+			clr_global_flag = scw_ongoing
+			# load_focus_tree = spain_rightwing_tree
+			add_war_support = -0.3
+			41 = {
+				remove_dynamic_modifier = {
+					modifier = SPR_no_pasaran_modifier
+				}
+			}
+			remove_ideas = SCW_SPA_war_of_attrition
+			every_state = {
+				limit = {
+					is_core_of = SPR
+				}
+				add_core_of = SPA
+				add_compliance = 90
+			}
+			country_event = { hours = 2 id = spa.4 }
+			country_event = { hours = 2 id = spa.5 }
+			country_event = { hours = 2 id = spa.6 }
+			country_event = { hours = 2 id = spa.7 }
+			country_event = { hours = 2 id = spa.8 }
+			country_event = { hours = 2 id = spa.9 }
+			country_event = { hours = 2 id = spa.10 }
+			if = {
+				limit = {
+					has_opinion_modifier = SPA_cw_support
+				}
+				remove_opinion_modifier = {
+					target = GER
+					modifier = SPA_cw_support
+				}
+				add_opinion_modifier = {
+					target = GER
+					modifier = SPA_supported_cw
+				}
+			}
+			if = {
+				limit = {
+					has_opinion_modifier = SPA_cw_support
+				}
+				remove_opinion_modifier = {
+					target = ITA
+					modifier = SPA_cw_support
+				}
+				add_opinion_modifier = {
+					target = ITA
+					modifier = SPA_supported_cw
+				}
+			}
+			ITA = {
+				if = {
+					limit = {
+						has_opinion_modifier = SPA_supporting_cw
+					}
+					remove_opinion_modifier = {
+						target = SPA
+						modifier = SPA_supporting_cw
+					}
+				}
+			}
+			GER = {
+				if = {
+					limit = {
+						has_opinion_modifier = SPA_supporting_cw
+					}
+					remove_opinion_modifier = {
+						target = SPA
+						modifier = SPA_supporting_cw
+					}
+				}
+			}
+			delete_unit_template_and_units = {
+				division_template = "Milicia Nacional"
+			}
+			set_country_flag = won_scw
+			unlock_national_focus = SPA_new_diplomacy
+			unlock_national_focus = SPA_take_side
+			if = {
+				limit = {
+					is_in_faction_with = GER
+					GER = {
+						is_faction_leader = yes
+					}
+				}
+				unlock_national_focus = SPA_axis
+			}
+			effect_political_control = yes
+		}
+	}
+
+	option = {
+		name = scw.111.a
+		
+	}
+}
+
+#The Church Question
+country_event = {
+	id = scw.201
+	title = scw.201.t
+	desc = scw.201.d
+	picture = GFX_Event_Spain_Cabinet
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Allow the Church to resume activity
+		name = scw.201.a
+		add_stability = 0.1
+		add_political_power = -50
+	}
+	option = { #Allow the Church to resume activity-under our terms
+		name = scw.201.b
+		add_political_power = 10
+		add_stability = 0.03
+		add_war_support = -0.08
+	}
+	option = { #Don't cooperate
+		name = scw.201.c
+		add_political_power = 100
+		add_stability = -0.1
+		add_war_support = -0.05
+	}
+}
+
+#The CEDA Question
+country_event = {
+	id = scw.202
+	title = scw.202.t
+	desc = scw.202.d
+	picture = GFX_Event_CEDA_Spain
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Allow the CEDA to be restored
+		name = scw.202.a
+		add_stability = 0.05
+		add_political_power = -20
+		add_popularity = { ideology = neutrality popularity = 0.08 }
+		add_popularity = { ideology = democratic popularity = 0.05 }
+		set_party_name = {
+			ideology = democratic
+			long_name = SPR_prc_long
+			name = SPR_prc
+		}
+	}
+	option = { #Allow conservative parties, but not the CEDA
+		name = scw.202.b
+		set_party_name = {
+			ideology = democratic
+			long_name = SPR_prc_long
+			name = SPR_prc
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = SPR_pae_long
+			name = SPR_pae
+		}
+		add_popularity = { ideology = democratic popularity = 0.1 }
+		add_political_power = 10
+	}
+	option = { #Don't cooperate
+		name = scw.202.c
+		add_political_power = 50
+		add_stability = -0.05
+		add_popularity = { ideology = monarchism popularity = 0.03 }
+		add_popularity = { ideology = nationalism popularity = 0.03 }
+		set_party_name = {
+			ideology = democratic
+			long_name = SPR_prc_long
+			name = SPR_prc
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = SPR_pae_long
+			name = SPR_pae
+		}
+	}
+}
+
+#The Property Question
+country_event = {
+	id = scw.203
+	title = scw.203.t
+	desc = scw.203.d
+	picture = GFX_Event_Spain_Asturias
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Return stolen properties to their rightful owners
+		name = scw.203.a
+		add_stability = 0.07
+		add_war_support = -0.1
+		add_political_power = -50
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.08 }
+	}
+	option = { #Set up a comission to investigate each case, and give compensation
+		name = scw.203.b
+		add_stability = 0.05
+		add_political_power = -80
+	}
+	option = { #Give a token compensation and forget about it
+		name = scw.203.c
+		add_political_power = 20
+		add_stability = -0.05
+		add_popularity = { ideology = monarchism popularity = 0.03 }
+		add_popularity = { ideology = nationalism popularity = 0.03 }
+	}
+}
+
+#The PCE Question
+country_event = {
+	id = scw.204
+	title = scw.204.t
+	desc = scw.204.d
+	picture = GFX_report_event_generic_communist_congress
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Discredit the PCE through their crimes
+		name = scw.204.a
+		add_stability = -0.05
+		add_political_power = -70
+		add_popularity = { ideology = communism popularity = -0.1 }
+	}
+	option = { #Restrict soviet involvement in national politics
+		name = scw.204.b
+		add_political_power = -50
+		add_war_support = -0.1
+		add_popularity = { ideology = communism popularity = -0.05 }
+	}
+	option = { #We'll continue cooperating with the PCE
+		name = scw.204.c
+		add_political_power = 20
+		add_stability = 0.05
+	}
+}
+
+#The Trial
+country_event = {
+	id = scw.205
+	title = scw.205.t
+	desc = scw.205.d
+	picture = GFX_report_event_journalists_speech
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Franco dies, rest life prision
+		name = scw.205.a
+		add_stability = 0.05
+		add_political_power = -50
+		add_war_support = -0.1
+		add_popularity = { ideology = monarchism popularity = 0.03 }
+
+	}
+	option = { #Execute generals, rest life prisions
+		name = scw.205.b
+		add_political_power = 20
+		add_stability = -0.03
+	}
+	option = { #Execute everyone involved in the coup
+		name = scw.205.c
+		add_political_power = 70
+		add_stability = -0.05
+		add_war_support = 0.1
+		add_popularity = { ideology = nationalism popularity = 0.03 }
+	}
+}
+
+#Special Elections for the 3rd Legislature
+country_event = {
+	id = scw.206
+	title = scw.206.t
+	desc = scw.206.d
+	picture = GFX_report_event_election_vote
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #OK
+		name = scw.206.a
+		if = {
+			limit = {
+				has_country_flag = SPR_pf_wins
+			}
+			set_variable = { socdem_seats = 127 }
+			set_variable = { SPR_rightist_seats = 31 }
+			set_variable = { radsoc_seats = 68 }
+			set_variable = { communist_seats = 32 }
+			set_variable = { demsoc_seats = 95 }
+			set_variable = { SPR_cen_seats = 51 }
+			set_variable = { marlib_seats = 64 }
+			set_variable = { SPR_lib_rep_seats = 12 }
+			# set_variable = { aut_seats = 3 }
+			set_variable = { nat_seats = 0 }
+			set_variable = { mon_seats = 0 }
+			set_variable = { fas_seats = 0 }
+		}
+		clr_country_flag = parliament_closed
+		custom_effect_tooltip = reopen_parliament
+	}
+}
+
+#Lib Coal
+country_event = {
+	id = scw.207
+	title = scw.207.t
+	desc = scw.207.d
+	picture = GFX_Event_Spain_Portela
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.207.a
+		add_popularity = { ideology = market_liberalism popularity = 0.05 }
+		add_popularity = { ideology = jacobin popularity = 0.03 }
+		set_party_name = {
+			ideology = market_liberalism
+			long_name = SPR_cl_long
+			name = SPR_cl
+		}
+		set_party_name = {
+			ideology = jacobin
+			long_name = SPR_cl_long
+			name = SPR_cl
+		}
+	}
+}
+
+#Cons
+country_event = {
+	id = scw.208
+	title = scw.208.t
+	desc = scw.208.d
+	picture = GFX_Event_Spain_Cabinet
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.208.a
+		add_popularity = { ideology = democratic popularity = 0.07 }
+		add_stability = 0.03
+	}
+}
+
+#PRS
+country_event = {
+	id = scw.209
+	title = scw.209.t
+	desc = scw.209.d
+	picture = GFX_report_event_generic_riot
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.209.a
+		add_popularity = { ideology = authoritarian_socialism popularity = -0.08 }
+		COALITION_clr_revsoc = yes
+		set_party_name = {
+			ideology = authoritarian_socialism
+			long_name = SPR_prs_long
+			name = SPR_prs
+		}
+		hidden_effect = { country_event = { id = scw.210 days = 90 } }
+	}
+}
+
+#AR
+country_event = {
+	id = scw.210
+	title = scw.210.t
+	desc = scw.210.d
+	picture = GFX_Event_Spain_Asturias
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.210.a
+		add_popularity = { ideology = authoritarian_socialism popularity = 0.05 }
+		set_party_name = {
+			ideology = authoritarian_socialism
+			long_name = SPR_ar_long
+			name = SPR_ar
+		}
+	}
+}
+
+#AR
+country_event = {
+	id = scw.211
+	title = scw.211.t
+	desc = scw.211.d
+	picture = GFX_Event_Spain_Cabinet
+
+	is_triggered_only = yes
+
+	option = {
+		name = scw.211.a
+		trigger = {
+			has_idea = HoG_Juan_Negrin
+			has_government = socialism
+		}
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Juan_Negrin
+		set_country_flag = SPR_chose_hog
+	}
+
+	option = {
+		name = scw.211.b
+		trigger = {
+			has_government = socialism
+		}
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Prieto
+		set_country_flag = SPR_chose_hog
+	}
+
+	option = {
+		name = scw.211.c
+		trigger = {
+			has_government = social_democracy
+		}
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Casares_Quiroga
+		set_country_flag = SPR_chose_hog
+	}
+
+	option = {
+		name = scw.211.e
+		trigger = {
+			has_government = social_democracy
+		}
+		remove_ideas_with_trait = hog
+		add_ideas = HoG_Diego_MBarrio
+		set_country_flag = SPR_chose_hog
+	}
+}
+
+#The AVA Question
+country_event = {
+	id = scw.212
+	title = scw.212.t
+	desc = scw.212.d
+	picture = GFX_report_event_spanish_civil_war_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+
+	option = { #Be nice
+		name = scw.212.a
+		add_stability = 0.04
+	}
+	option = { #Be bad
+		name = scw.212.b
+		add_political_power = 80
+	}
+}
+
+#The Rif Question
+country_event = {
+	id = scw.213
+	title = scw.213.t
+	desc = scw.213.d
+	picture = GFX_report_event_spr_army_of_africa
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPR
+		controls_state = 290
+	}
+
+
+	option = { #ok
+		name = scw.213.a
+		290 = {
+			add_compliance = -30
+			add_resistance = 25
+		}
+		hidden_effect = { country_event = { id = scw.214 days = 90 } }
+	}
+}
+
+#The Rif Question
+country_event = {
+	id = scw.214
+	title = scw.214.t
+	desc = scw.214.d
+	picture = GFX_report_event_spr_army_of_africa
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	trigger = {
+		tag = SPR
+		controls_state = 290
+	}
+
+
+	option = { #crackdown
+		name = scw.214.a
+		add_manpower = -10000
+		add_political_power = 30
+		290 = {
+			add_compliance = -5
+			add_resistance = -40
+		}
+	}
+
+	option = { #rights
+		name = scw.214.b
+		add_political_power = -50
+		add_stability = 0.02
+		290 = {
+			add_compliance = 25
+			add_resistance = 10
+		}
+	}
+}
+
+#Air bridge across the strait
+country_event = {
+	id = scw.215
+	title = scw.215.t
+	desc = scw.215.desc
+	picture = GFX_report_event_spr_army_of_africa
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = {
+				# 290 = { is_owned_and_controlled_by = SPA }
+				OR = {
+					GER = { has_government = fascism }
+					GER = { has_government = nationalism }
+					ITA = { has_government = fascism }
+				}
+			}
+			290 = {
+				teleport_armies = {
+					# limit = {
+					# 	controls_province = 7183
+					# }
+					to_state = 169
+					# to_province = 7183
+				}
+			}
+			824 = {
+				teleport_armies = {
+					# limit = {
+					# 	controls_province = 7183
+					# }
+					to_province = 7183
+				}
+			}
+			825 = {
+				teleport_armies = {
+					# limit = {
+					# 	controls_province = 7183
+					# }
+					to_province = 7183
+				}
+			}
+		}
+	}
+
+	option = {
+		name = scw.215.a
+
+	}
+}
+
+# Events to change flag of Nationalist Spain
+#13 de septiembre de 1936 y el 2 de febrero de 1938.
+country_event = {
+	id = scw.216
+	title = scw.216.t
+	desc = scw.216.d
+	picture = GFX_report_event_spr_army_of_africa
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		set_cosmetic_tag = SPA_cw
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = scr_franco_power
+					has_country_flag = franco_power
+				}
+			}
+			country_event = { id = scw.217 days = 522 }
+		}
+	}
+	option = {
+		name = scw.216.a
+	}
+}
+#2 de febrero de 1938 al 1 de octubre de 1945.
+country_event = {
+	id = scw.217
+	title = scw.217.t
+	desc = scw.217.d
+	picture = GFX_report_event_spr_army_of_africa
+
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_government = fascism
+		OR = {
+			has_country_flag = scr_franco_power
+			has_country_flag = franco_power
+		}
+	}
+
+	option = {
+		name = scw.217.a
+		drop_cosmetic_tag = yes
+	}
+}

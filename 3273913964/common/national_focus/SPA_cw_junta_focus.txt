@@ -1,0 +1,930 @@
+
+
+shared_focus = {
+	id = SPA_junta_defensa
+	icon = GFX_focus_Military_Government
+	cost = 6
+	available = { always = no }
+	bypass = { 
+	    OR = {
+		    has_country_flag = sanjurjo_lives
+	        has_country_flag = mola_power
+	        has_country_flag = cabanellas_power
+		}
+	}
+	completion_reward = {  
+	}
+	x = 10
+    y = 0
+	offset = {
+		x = 17
+		y = 2
+		trigger = {
+			has_focus_tree = SPA_cw_start
+		}
+	}
+}
+
+shared_focus = {
+	id = SPA_general_mola
+	icon = GFX_focus_General_Mola
+	cost = 6
+	prerequisite = { focus = SPA_junta_defensa }
+	available = { always = no }
+	bypass = { 
+	    has_country_flag = mola_power
+	}
+	mutually_exclusive = { 
+	    focus = SPA_chairman_cabanellas
+        focus = SPA_general_sanjurjo
+    }
+	completion_reward = {  
+	}
+	x = 0
+    y = 1
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_reactionary_rethoric
+	icon = GFX_focus_Champagne_Repression
+	cost = 6
+	prerequisite = { focus = SPA_general_mola focus = SPA_general_sanjurjo }
+	available = {  }
+	completion_reward = {
+        add_popularity = { ideology = neutrality popularity = 0.05 }
+        add_popularity = { ideology = monarchism popularity = 0.05 }
+        add_popularity = { ideology = nationalism popularity = 0.05 }		
+	}
+	x = 4
+    y = 2
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_controlled_opposition
+	icon = GFX_focus_Falange_Espanola
+	cost = 6
+	prerequisite = { focus = SPA_reactionary_rethoric }
+	available = {  }
+	mutually_exclusive = { focus = SPA_eliminate_falangists }
+	completion_reward = {
+        COALITION_add_fas = yes
+        add_stability = -0.1		
+	}
+	x = 5
+    y = 3
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_eliminate_jose_antonio
+	icon = GFX_focus_Eliminate_Jose_Antonio
+	cost = 6
+	prerequisite = { focus = SPA_controlled_opposition }
+	available = {  }
+	completion_reward = {
+        add_popularity = { ideology = fascism popularity = -0.1 }
+        add_stability = 0.05	
+	}
+	x = 5
+    y = 4
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_eliminate_falangists
+	icon = GFX_focus_Crush_Resistance
+	cost = 6
+	prerequisite = { focus = SPA_reactionary_rethoric }
+	available = {  }
+	mutually_exclusive = { focus = SPA_controlled_opposition }
+	completion_reward = {
+        add_popularity = { ideology = fascism popularity = -0.25 }
+        add_war_support = -0.1
+	}
+	x = 3
+    y = 3
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_absorb_falangist_militias
+	icon = GFX_focus_Fascist_Militias
+	cost = 6
+	prerequisite = { focus = SPA_eliminate_falangists }
+	available = {  }
+	completion_reward = {
+        add_manpower = 50000
+        add_war_support = 0.05
+        add_stability = 0.05		
+	}
+	x = 3
+    y = 4
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_dgs
+	icon = GFX_focus_Reich_Nazi_Discourse
+	cost = 6
+	prerequisite = { focus = SPA_absorb_falangist_militias focus = SPA_eliminate_jose_antonio }
+	available = {  }
+	completion_reward = {
+        add_ideas = SPA_direccion	
+	}
+	x = 4
+    y = 5
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_contain_franco
+	icon = GFX_focus_Subterfuge
+	cost = 6
+	prerequisite = { focus = SPA_general_mola focus = SPA_chairman_cabanellas }
+	available = {  }
+	completion_reward = {
+        add_political_power = 150	
+	}
+	x = -4
+    y = 2
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_maintain_republican_ideals
+	icon = GFX_focus_Crush_the_Monarchy
+	cost = 6
+	prerequisite = { focus = SPA_contain_franco }
+	mutually_exclusive = { focus = SPA_ignore_monarchist_question }
+	available = {  }
+	completion_reward = {
+	    add_popularity = { ideology = democratic popularity = 0.1 }
+		add_popularity = { ideology = jacobin popularity = 0.05 }
+		add_popularity = { ideology = market_liberalism popularity = 0.05 }
+	}
+	x = -5
+    y = 3
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_rebuild_ceda
+	icon = GFX_focus_Gil_Robles
+	cost = 6
+	prerequisite = { focus = SPA_maintain_republican_ideals }
+	available = {  }
+	completion_reward = {
+        COALITION_add_con = yes	
+	}
+	x = -5
+    y = 4
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_ignore_monarchist_question
+	icon = GFX_focus_Generic_Political
+	cost = 6
+	prerequisite = { focus = SPA_contain_franco }
+	mutually_exclusive = { focus = SPA_maintain_republican_ideals }
+	available = {  }
+	completion_reward = {
+        add_political_power = 75	
+	}
+	x = -3
+    y = 3
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_aristocratic_support
+	icon = GFX_focus_Nobility
+	cost = 6
+	prerequisite = { focus = SPA_ignore_monarchist_question }
+	available = {  }
+	completion_reward = {
+        add_ideas = SPA_aristo_funds	
+	}
+	x = -3
+    y = 4
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_milicia_ciudadana
+	icon = GFX_focus_Firearms
+	cost = 6
+	prerequisite = { focus = SPA_aristocratic_support focus = SPA_rebuild_ceda }
+	available = {  }
+	completion_reward = {
+        add_ideas = SPA_milicia_esp	
+	}
+	x = -4
+    y = 5
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_institution_ume
+	icon = GFX_focus_Recruitment_Drive
+	cost = 6
+	prerequisite = { focus = SPA_general_mola }
+	available = {  }
+	completion_reward = {
+	    if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+		    }
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+		    }
+			add_political_power = 50
+		}
+	}
+	x = 1
+    y = 2
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_instruccion_reservada_one
+	icon = GFX_focus_Purge_Dissenters
+	cost = 6
+	prerequisite = { focus = SPA_general_mola }
+	available = {  }
+	completion_reward = {
+        add_stability = 0.1
+        add_political_power = -30
+        add_popularity = { ideology = neutrality popularity = 0.05 }		
+	}
+	x = -1
+    y = 2
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_junta_militar_nacional
+	icon = GFX_focus_Into_the_Flames
+	cost = 6
+	prerequisite = { 
+		focus = SPA_instruccion_reservada_one
+	}
+	prerequisite = { 
+	    focus = SPA_institution_ume 
+	}
+	available = { 
+        has_country_flag = spa_jdn_dissolved
+	}
+	completion_reward = {
+        remove_ideas = SPA_dis_gov
+        remove_ideas_with_trait = hog
+		add_ideas = HoG_Mola
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Serrano_Suner
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Alfonso_Pena
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Julio_Urquijo
+        set_country_flag = spa_has_cabinet		
+	}
+	x = 0
+    y = 3
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_build_personality_cult
+	icon = GFX_goal_generic_propaganda
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_junta_militar_nacional 
+	}
+	available = {  }
+	completion_reward = {
+        add_war_support = 0.1	
+	}
+	x = -1
+    y = 4
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_assume_permanent_leadership
+	icon = GFX_goal_support_fascism
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_build_personality_cult 
+	}
+	available = {  }
+	completion_reward = {
+	    if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+		    }
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+		    }
+			add_political_power = 50
+		}
+	}
+	x = -1
+    y = 5
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_secure_church_funding
+	icon = GFX_focus_Root_out_Funding
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_junta_militar_nacional 
+	}
+	available = {  }
+	completion_reward = {
+        random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}	
+	}
+	x = 1
+    y = 4
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_secure_carlist_loyalty
+	icon = GFX_focus_carlism
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_secure_church_funding 
+	}
+	available = {  }
+	completion_reward = {
+	    if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+		    }
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+		    }
+			add_political_power = 50
+		}
+		add_stability = -0.05
+        COALITION_add_nat = yes		
+	}
+	x = 1
+    y = 5
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_general_sanjurjo
+	icon = GFX_focus_General_Sanjurjo
+	cost = 6
+	prerequisite = { focus = SPA_junta_defensa }
+	available = { always = no }
+	bypass = { 
+	    has_country_flag = sanjurjo_lives
+	}
+	mutually_exclusive = { 
+	    focus = SPA_general_mola
+        focus = SPA_chairman_cabanellas
+    }
+	completion_reward = {  
+	}
+	x = 8
+    y = 1
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_provisional_auth
+	icon = GFX_focus_Recruitment
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_general_sanjurjo
+	}
+	available = {  }
+	completion_reward = {
+        remove_ideas_with_trait = hog
+		add_ideas = HoG_Sanjurjo
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Ricardo_Cortes
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Rafael_Aizpun
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Julio_Urquijo
+        set_country_flag = spa_has_cabinet		
+	}
+	x = 10
+    y = 2
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_root_out_anti_spain
+	icon = GFX_focus_No_Mercy_for_the_Bolsheviks
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_provisional_auth
+	}
+	available = {  }
+	completion_reward = {
+	    add_popularity = { ideology = social_liberalism popularity = -0.25 }
+		add_popularity = { ideology = social_democracy popularity = -0.25 }
+		add_popularity = { ideology = socialism popularity = -0.25 }
+		add_popularity = { ideology = authoritarian_socialism popularity = -0.25 }
+		add_popularity = { ideology = communism popularity = -0.25 }
+		add_stability = 0.075
+	}
+	x = 10
+    y = 5
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_war_against_democracy
+	icon = GFX_focus_Anti_Democracy
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_root_out_anti_spain
+	}
+	prerequisite = { 
+	    focus = SPA_fight_for_christianity
+	}
+	available = {  }
+	completion_reward = {
+        if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+		    }
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+		    }
+			add_political_power = 50
+		}
+        add_ideas = SPA_righteous_war		
+	}
+	x = 9
+    y = 6
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_second_sanjurjada
+	icon = GFX_focus_Befriend_Nationalist_Spain
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_general_sanjurjo
+	}
+	available = {  }
+	completion_reward = {
+        add_war_support = 0.15	
+	}
+	x = 8
+    y = 2
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_neutralize_franco_mola
+	icon = GFX_focus_Counter_Intelligence
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_second_sanjurjada
+	}
+	available = {  }
+	completion_reward = {
+        if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+		    }
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+		    }
+			add_political_power = 50
+		}	
+	}
+	x = 9
+    y = 3
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_dissolve_communion
+	icon = GFX_focus_Fascist_Subterfuge
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_neutralize_franco_mola
+	}
+	available = {  }
+	completion_reward = {
+        add_popularity = { ideology = nationalism popularity = -0.2 }
+        add_stability = 0.1
+        add_war_support = -0.05		
+	}
+	x = 9
+    y = 4
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_fight_for_christianity
+	icon = GFX_focus_For_Christ_and_Country
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_dissolve_communion
+	}
+	prerequisite = { 
+	    focus = SPA_integrate_alfonsines
+	}
+	available = {  }
+	completion_reward = {
+        add_war_support = 0.1
+        remove_ideas = SPA_dis_gov
+    	add_popularity = { ideology = neutrality popularity = 0.1 }	
+		add_popularity = { ideology = democratic popularity = 0.1 }
+	}
+	x = 8
+    y = 5
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_aristocratic_funding
+	icon = GFX_focus_Nobility
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_second_sanjurjada
+	}
+	available = {  }
+	completion_reward = {
+        add_ideas = SPA_aristo_funds	
+	}
+	x = 7
+    y = 3
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_integrate_alfonsines
+	icon = GFX_focus_alfonso
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_aristocratic_funding
+	}
+	available = {  }
+	completion_reward = {
+        COALITION_add_mon = yes
+        add_political_power = 50		
+	}
+	x = 7
+    y = 4
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_chairman_cabanellas
+	icon = GFX_focus_General_Cabanellas
+	cost = 6
+	prerequisite = { focus = SPA_junta_defensa }
+	available = { always = no }
+	bypass = { 
+	    has_country_flag = cabanellas_power
+	}
+	mutually_exclusive = { 
+	    focus = SPA_general_mola
+        focus = SPA_general_sanjurjo
+    }		
+	completion_reward = {  
+	}
+	x = -8
+    y = 1
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_gobierno_tecnico_provisional
+	icon = GFX_focus_Political_reform_1
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_chairman_cabanellas
+	}
+	available = {  }
+	completion_reward = {
+        remove_ideas_with_trait = hog
+		add_ideas = HoG_Cabanellas
+		remove_ideas_with_trait = frnmin
+		add_ideas = FM_Ricardo_Cortes
+		remove_ideas_with_trait = ecomin
+		add_ideas = EM_Rafael_Aizpun
+		remove_ideas_with_trait = secmin
+		add_ideas = SM_Serrano_Suner
+        set_country_flag = spa_has_cabinet		
+	}
+	x = -10
+    y = 2
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_restore_assault_guard
+	icon = GFX_focus_Enlist_the_Police
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_gobierno_tecnico_provisional
+	}
+	available = {  }
+	completion_reward = {
+        if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+		    }
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+		    }
+			add_political_power = 50
+		}	
+	}
+	x = -10
+    y = 5
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_war_against_communism
+	icon = GFX_focus_Anti_Communist
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_restore_assault_guard
+	}
+	prerequisite = { 
+	    focus = SPA_law_and_order
+	}
+	available = {  }
+	completion_reward = {
+        add_ideas = SPA_righteous_war	
+	}
+	x = -9
+    y = 6
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_decentralized_leadership
+	icon = GFX_goal_generic_national_unity
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_chairman_cabanellas
+	}
+	available = {  }
+	completion_reward = {
+        if = {
+			limit = {
+				check_variable = { spa_control < 91 }
+		    }
+			custom_effect_tooltip = 10_control
+			add_to_variable = { var = spa_control value = 10 }
+		}
+		if = {
+			limit = {
+				check_variable = { spa_control > 91 }
+		    }
+			add_political_power = 50
+		}	
+	}
+	x = -8
+    y = 2
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_business_sympathies
+	icon = GFX_focus_Free_Trade
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_decentralized_leadership
+	}
+	available = {  }
+	completion_reward = {
+	    random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+	}
+	x = -9
+    y = 3
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_eliminate_falange
+	icon = GFX_focus_The_Noose
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_business_sympathies
+	}
+	available = {  }
+	completion_reward = {
+        add_popularity = { ideology = fascism popularity = -0.15 }
+        add_stability = -0.05
+        add_war_support = -0.05
+        add_political_power = 80		
+	}
+	x = -9
+    y = 4
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_legal_facade
+	icon = GFX_focus_A_Deadly_Deal
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_decentralized_leadership
+	}
+	available = {  }
+	completion_reward = {
+        add_stability = 0.1
+        add_political_power = 50		 
+	}
+	x = -7
+    y = 3
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_destroy_carlists
+	icon = GFX_focus_Destroy_Carlism
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_legal_facade
+	}
+	available = {  }
+	completion_reward = {
+        add_popularity = { ideology = nationalism popularity = -0.15 }
+        add_stability = -0.05
+        add_war_support = -0.05
+        add_political_power = 80		
+	}
+	x = -7
+    y = 4
+	relative_position_id = SPA_junta_defensa
+}
+
+shared_focus = {
+	id = SPA_law_and_order
+	icon = GFX_focus_Judicial_System
+	cost = 6
+	prerequisite = { 
+	    focus = SPA_destroy_carlists
+	}
+	prerequisite = { 
+	    focus = SPA_eliminate_falange
+	}
+	available = {  }
+	completion_reward = {
+        remove_ideas = SPA_dis_gov	
+	}
+	x = -8
+    y = 5
+	relative_position_id = SPA_junta_defensa
+}

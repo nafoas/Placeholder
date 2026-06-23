@@ -1,0 +1,1116 @@
+	shared_focus = {
+		id = SPR_review
+		icon = GFX_focus_SPR_army
+		cost = 7
+		x = 27
+		y = 0
+		offset = {
+			x = 22
+			y = 0
+			trigger = {
+				tag = SPA
+			}
+		}
+		offset = {
+			x = 6
+			y = 0
+			trigger = {
+				OR = {
+					has_focus_tree = spain_cw_tree
+					has_focus_tree = spain_revolution_tree
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		available = {
+			has_country_flag = SPR_1933_elections_occurred
+			OR = {
+				scw_not_in_progress = yes
+				scr_not_in_progress = yes
+			}
+		}
+		bypass = {
+			tag = SPA
+			has_country_flag = won_scw
+		}
+		completion_reward = {
+			army_experience = 25
+			navy_experience = 25
+			air_experience = 25
+		}
+	}
+	# shared_focus = {
+	# 	id = SPR_conscription
+	# 	icon = GFX_goal_generic_propaganda
+	# 	cost = 10
+	# 	x = -4
+	# 	y = 4
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_infantry_primacy
+	# 	}
+	# 	completion_reward = {
+	# 	}
+	# }
+	shared_focus = {
+		id = SPR_ammo
+		icon = GFX_goal_generic_construct_mil_factory
+		cost = 7
+		relative_position_id = SPR_review
+		prerequisite = {
+			focus = SPR_review
+		}
+		x = -1
+		y = 1
+		available = {
+			controls_state = 169
+		}
+
+		completion_reward = {
+			169 = {
+				if = {
+					limit = {
+						169 = {
+							free_building_slots = {
+								building = arms_factory
+								size < 1
+							}
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SPR_budget
+		icon = GFX_focus_raise_military_budget
+		cost = 6
+		relative_position_id = SPR_review
+
+		prerequisite = {
+			focus = SPR_review
+		}
+		bypass = {
+			NOT = { has_idea = SPR_inefficient_military }
+		}
+		x = 1
+		y = 1
+		completion_reward = {
+			swap_ideas = { remove_idea = SPR_inefficient_military add_idea = SPR_inefficient_military2 }
+		}
+	}
+	shared_focus = {
+		id = SPR_old_guard
+		icon = GFX_focus_generic_military_mission
+		cost = 10
+		relative_position_id = SPR_review
+		available = {
+			has_country_flag = civil_war_avoided
+		}
+		prerequisite = {
+			focus = SPR_ammo
+		}
+		prerequisite = {
+			focus = SPR_budget
+		}
+		bypass = {
+			NOT = {
+				has_idea = SPR_inefficient_military
+				has_idea = SPR_inefficient_military2
+			}
+		}
+		completion_reward = {
+			remove_ideas = SPR_inefficient_military
+			hidden_effect = {
+				remove_ideas = SPR_inefficient_military2
+			}
+		}
+		x = 0
+		y = 2
+
+	}
+	# shared_focus = {
+	# 	id = SPR_armor_primacy
+	# 	icon = GFX_focus_army_tanks
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_old_guard
+	# 	}
+	# 	mutually_exclusive = {
+	# 		focus = SPR_infantry_primacy
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = armor_bonus
+	# 			bonus = 1.0
+	# 			uses = 1
+	# 			category = armor
+	# 		}
+	# 	}
+	# 	x = -8
+	# 	y = 3
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_infantry_primacy
+	# 	icon = GFX_goal_generic_axis_build_infantry
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_old_guard
+	# 	}
+	# 	mutually_exclusive = {
+	# 		focus = SPR_armor_primacy
+	# 		focus = SPR_armor_primacy
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = infantry_weapons_bonus
+	# 			bonus = 0.8
+	# 			uses = 3
+	# 			category = infantry_weapons
+	# 		}
+	# 		add_tech_bonus = {
+	# 			name = land_doc_bonus
+	# 			bonus = 0.6
+	# 			uses = 3
+	# 			category = cat_superior_firepower
+	# 			category = cat_grand_battle_plan
+	# 		}
+	# 	}
+	# 	x = -4
+	# 	y = 3
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_coordinate_army
+	# 	icon = GFX_focus_Radio
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_armor_primacy
+	# 		focus = SPR_infantry_primacy
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = SPR_coordinate_army
+	# 			bonus = 0.25
+	# 			uses = 1
+	# 			category = electronics
+	# 			technology = radio
+	# 		}
+	# 	}
+	# 	x = -6
+	# 	y = 4
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_expand_engineer_corps
+	# 	icon = GFX_goal_generic_construction2
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_coordinate_army
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = secret_bonus
+	# 			bonus = 1.0
+	# 			uses = 1
+	# 			category = engineers_tech
+	# 		}
+	# 	}
+	# 	x = -6
+	# 	y = 6
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_instalaza
+	# 	icon = GFX_goal_continuous_reduce_training_time
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_conscription
+	# 	}
+	# 	completion_reward = {
+	# 	}
+	# 	x = -5
+	# 	y = 5
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_artillery_academy
+	# 	icon = GFX_goal_generic_artillery
+	# 	cost = 10
+	# 	relative_position_id = SPR_review relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_conscription
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = artillery_bonus
+	# 			bonus = 1.0
+	# 			uses = 1
+	# 			category = artillery
+	# 		}
+	# 	}
+	# 	x = -3
+	# 	y = 5
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_motorize_army
+	# 	icon = GFX_focus_Motorization_Effort
+	# 	cost = 10
+	# 	relative_position_id = SPR_review relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	bypass = { has_tech = motorised_infantry }
+	# 	prerequisite = {
+	# 		focus = SPR_instalaza
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_artillery_academy
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = motorized_bonus
+	# 			bonus = 1.25
+	# 			technology = motorised_infantry
+	# 		}
+	# 	}
+	# 	x = -4
+	# 	y = 6
+
+	# }
+	shared_focus = {
+		id = SPR_fund_secn
+		icon = GFX_focus_spain_secn
+		cost = 3
+		relative_position_id = SPR_review
+		available = {
+			OR = {
+				scw_not_in_progress = yes
+				scr_not_in_progress = yes
+			}
+		}
+		prerequisite = {
+			focus = SPR_review
+		}
+		completion_reward = {
+			set_country_flag = SPR_fund_secn_f
+			# unlock_decision_tooltip = expand_secn
+		}
+		x = 3
+		y = 1
+
+	}
+	# shared_focus = {
+	# 	id = SPR_mediterranean
+	# 	icon = GFX_focus_Mediterranean
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 		OR = {
+	# 			has_country_flag = civil_war_avoided
+	# 			has_country_flag = won_scw
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_fund_secn
+	# 	}
+	# 	mutually_exclusive = {
+	# 		focus = SPR_atlantic
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = naval_doctrine_bonus
+	# 			bonus = 1.0
+	# 			uses = 2
+	# 			category = naval_doctrine
+	# 		}
+	# 	}
+	# 	x = 1
+	# 	y = 2
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_light
+	# 	icon = GFX_goal_generic_navy_cruiser
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_mediterranean
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = SPR_light
+	# 			bonus = 1.0
+	# 			ahead_reduction = 1
+	# 			uses = 3
+	# 			technology = improved_light_cruiser
+	# 			technology = advanced_light_cruiser
+	# 			technology = improved_heavy_cruiser
+	# 			technology = advanced_heavy_cruiser
+	# 		}
+	# 	}
+	# 	x = 0
+	# 	y = 3
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_amphibious
+	# 	icon = GFX_focus_recruit_sailors
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_mediterranean
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			bonus = 1.0
+	# 			uses = 2
+	# 			category = tp_tech
+	# 		}
+	# 	}
+	# 	x = 2
+	# 	y = 3
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_admiralty
+	# 	icon = GFX_focus_admiralty_alt
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_light
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_amphibious
+	# 	}
+	# 	completion_reward = {
+	# 	}
+	# 	x = 1
+	# 	y = 4
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_cartagena
+	# 	icon = GFX_goal_generic_construct_civilian
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	prerequisite = {
+	# 		focus = SPR_admiralty
+	# 	}
+	# 	available = {
+	# 		owns_state = 168
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	completion_reward = {
+	# 		168 = {
+	# 			add_extra_state_shared_building_slots = 3
+	# 			add_building_construction = {
+	# 				type = dockyard
+	# 				level = 3
+	# 				instant_build = yes
+	# 			}
+	# 		}
+	# 	}
+	# 	x = 2
+	# 	y = 5
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_traffic
+	# 	icon = GFX_Goal_Generic_Defend_Conveys
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_admiralty
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = SPR_traffic
+	# 			bonus = 1.0
+	# 			uses = 2
+	# 			category = dd_tech
+	# 		}
+	# 	}
+	# 	x = 0
+	# 	y = 5
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_atlantic
+	# 	icon = GFX_focus_Large_Navy
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 		OR = {
+	# 			has_country_flag = civil_war_avoided
+	# 			has_country_flag = won_scw
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_fund_secn
+	# 	}
+	# 	mutually_exclusive = {
+	# 		focus = SPR_mediterranean
+	# 	}
+	# 	completion_reward = {
+	# 	}
+	# 	x = 5
+	# 	y = 2
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_expand_ferrol
+	# 	icon = GFX_goal_continuous_non_factory_construct
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	prerequisite = {
+	# 		focus = SPR_atlantic
+	# 	}
+	# 	available = {
+	# 		owns_state = 171
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	completion_reward = {
+	# 		171 = {
+	# 			add_extra_state_shared_building_slots = 1
+	# 			add_building_construction = {
+	# 				type = dockyard
+	# 				level = 1
+	# 				instant_build = yes
+	# 			}
+	# 		}
+	# 	}
+	# 	x = 4
+	# 	y = 3
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_air_naval
+	# 	icon = GFX_goal_generic_air_doctrine
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_atlantic
+	# 	}
+	# 	completion_reward = {
+	# 	}
+	# 	x = 6
+	# 	y = 3
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_5_year
+	# 	icon = GFX_focus_Planned_Economy
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_expand_ferrol
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_air_naval
+	# 	}
+	# 	completion_reward = {
+	# 		#country_event = { id = spainf.2 }
+	# 		171 = {
+	# 			add_extra_state_shared_building_slots = 2
+	# 			add_building_construction = {
+	# 				type = dockyard
+	# 				level = 2
+	# 				instant_build = yes
+	# 			}
+	# 		}
+	# 	}
+	# 	x = 5
+	# 	y = 4
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_carriers
+	# 	icon = GFX_focus_Carrier_Focus
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		has_completed_focus = SPR_independent_airforce
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_5_year
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = SPR_carriers
+	# 			bonus = 1.0
+	# 			ahead_reduction = 1
+	# 			uses = 2
+	# 			technology = early_carrier
+	# 			technology = basic_carrier
+	# 			technology = improved_carrier
+	# 			technology = advanced_carrier
+	# 		}
+	# 	}
+	# 	x = 6
+	# 	y = 5
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_support_subs
+	# 	icon = GFX_goal_generic_navy_submarine
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_5_year
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = SPR_support_subs
+	# 			bonus = 1.0
+	# 			uses = 2
+	# 			technology = early_submarine
+	# 			technology = basic_submarine
+	# 			technology = improved_submarine
+	# 			technology = advanced_submarine
+	# 		}
+	# 	}
+	# 	x = 4
+	# 	y = 5
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_battleship
+	# 	icon = GFX_focus_Battleship
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_traffic
+	# 		focus = SPR_cartagena
+	# 		focus = SPR_carriers
+	# 		focus = SPR_support_subs
+	# 	}
+	# 	completion_reward = {
+	# 		navy_experience = 25
+	# 		add_tech_bonus = {
+	# 			name = SPR_battleship
+	# 			bonus = 1.0
+	# 			ahead_reduction = 1
+	# 			uses = 2
+	# 			technology = basic_battlecruiser
+	# 			technology = basic_battleship
+	# 			technology = improved_battleship
+	# 			technology = advanced_battleship
+	# 			technology = heavy_battleship
+	# 			technology = heavy_battleship2
+	# 		}
+	# 	}
+	# 	x = 3
+	# 	y = 6
+
+	# }
+	shared_focus = {
+		id = SPR_form_dga
+		icon = GFX_focus_SPR_air_force
+		cost = 4
+		relative_position_id = SPR_review
+		available = {
+			NOT = {
+				scw_in_progress = yes
+				scr_in_progress = yes
+			}
+		}
+		prerequisite = {
+			focus = SPR_review
+		}
+		completion_reward = {
+			air_experience = 50
+			set_country_flag = SPR_formed_the_DGA
+			add_ideas = CAF_warleta
+		}
+		x = 6
+		y = 1
+	}
+
+	shared_focus = {
+		id = SPR_independent_airforce
+		icon = GFX_focus_Spanish_Republican_Planes
+		cost = 1
+		relative_position_id = SPR_form_dga
+		x = 0
+		y = 2
+		available = {
+			has_idea = CAF_warleta
+			OR = {
+				scw_not_in_progress = yes
+				scr_not_in_progress = yes
+			}
+		}
+		prerequisite = {
+			focus = SPR_license_hawker_fury
+			focus = SPR_license_martin_b10
+		}
+		completion_reward = {
+		}
+	}
+
+	shared_focus = {
+		id = SPR_casa
+		icon = GFX_goal_continuous_air_production
+		cost = 5
+		relative_position_id = SPR_form_dga
+		mutually_exclusive = {
+			focus = SPR_invest_hispano_suiza
+		}
+		available = {
+			has_idea = CAF_warleta
+			OR = {
+				scw_not_in_progress = yes
+				scr_not_in_progress = yes
+			}
+		}
+		prerequisite = {
+			focus = SPR_independent_airforce
+		}
+		completion_reward = {
+		}
+		x = 1
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_invest_hispano_suiza
+		icon = GFX_goal_continuous_air_production
+		cost = 5
+		relative_position_id = SPR_form_dga
+		mutually_exclusive = {
+			focus = SPR_casa
+		}
+		available = {
+			has_idea = CAF_warleta
+			OR = {
+				scw_not_in_progress = yes
+				scr_not_in_progress = yes
+			}
+		}
+		prerequisite = {
+			focus = SPR_independent_airforce
+		}
+		completion_reward = {
+		}
+		x = -1
+		y = 3
+
+	}
+
+	shared_focus = {
+		id = SPR_expand_cuatro_vientos
+		icon = GFX_focus_Airports
+		cost = 5
+		relative_position_id = SPR_form_dga
+		available = {
+			has_idea = CAF_warleta
+			OR = {
+				scw_not_in_progress = yes
+				scr_not_in_progress = yes
+			}
+		}
+		prerequisite = {
+			focus = SPR_casa
+			focus = SPR_invest_hispano_suiza
+		}
+		completion_reward = {
+		}
+		x = 0
+		y = 4
+
+	}
+
+	shared_focus = {
+		id = SPR_license_hawker_fury
+		icon = GFX_Buy_British_Planes
+		cost = 5
+		relative_position_id = SPR_form_dga
+		x = -1
+		y = 1
+		available = {
+			has_idea = CAF_warleta
+			OR = {
+				scw_not_in_progress = yes
+				scr_not_in_progress = yes
+			}
+		}
+		prerequisite = {
+			focus = SPR_form_dga
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				create_equipment_variant = {
+					name = "Hawker Spanish Fury"
+					type = early_fighter_equipment
+					upgrades = {
+						plane_reliability_upgrade = 1
+						plane_engine_upgrade = 1
+					}
+					icon = "GFX_SPR_hawker_fury_medium"
+				}
+				add_equipment_to_stockpile = {
+					type = early_fighter_equipment
+					amount = 3
+					variant_name = "Hawker Spanish Fury"
+				}
+			}
+			else = {
+				#TODO: create Hawker Spanish Fury variant
+				add_equipment_to_stockpile = {
+					type = small_plane_airframe
+					amount = 3
+					producer = ENG
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SPR_license_martin_b10
+		icon = GFX_goal_generic_air_bomber
+		cost = 4
+		relative_position_id = SPR_form_dga
+		x = 1
+		y = 1
+		available = {
+			has_idea = CAF_warleta
+			OR = {
+				scw_not_in_progress = yes
+				scr_not_in_progress = yes
+			}
+		}
+		prerequisite = {
+			focus = SPR_form_dga
+		}
+		completion_reward = {
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { has_tech = gw_bomber }
+					}
+					set_technology = {
+						gw_bomber = 1
+						popup = no
+					}
+				}
+				if = {
+					limit = {
+						NOT = { has_tech = early_bomber }
+					}
+					set_technology = {
+						early_bomber = 1
+						popup = no
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				create_equipment_variant = {
+					name = "Martin B-10"
+					type = tac_bomber_equipment_0
+					upgrades = {
+						plane_engine_upgrade = 1
+					}
+					icon = "GFX_USA_early_bomber_medium"
+				}
+				add_equipment_to_stockpile = {
+					type = tac_bomber_equipment_0
+					amount = 2
+				}
+			}
+			else = {
+				#TODO: create Martin B-10 plane variant
+				add_equipment_to_stockpile = {
+					type = medium_plane_airframe_0
+					amount = 2
+					producer = SPR
+				}
+			}
+		}
+	}
+
+	# shared_focus = {
+	# 	id = SPR_modern_tanks
+	# 	icon = GFX_focus_Medium_Tanks
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_tank_factories
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = armor_bonus
+	# 			bonus = 1.0
+	# 			uses = 2
+	# 			category = armor
+	# 		}
+	# 	}
+	# 	x = -9
+	# 	y = 5
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_guerra_relampago
+	# 	icon = GFX_focus_Tanks_Across_the_Border
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_tank_factories
+	# 	}
+	# 	completion_reward = {
+	# 		add_tech_bonus = {
+	# 			name = land_doc_bonus
+	# 			bonus = 0.6
+	# 			uses = 2
+	# 			category = cat_mobile_warfare
+	# 		}
+	# 	}
+	# 	x = -7
+	# 	y = 5
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_hit
+	# 	icon = GFX_focus_Heavy_Strike
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_modern_tanks
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_guerra_relampago
+	# 	}
+	# 	completion_reward = {
+	# 	}
+	# 	x = -8
+	# 	y = 6
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_tank_factories
+	# 	icon = GFX_goal_generic_production
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_armor_primacy
+	# 	}
+	# 	completion_reward = {
+	# 		random_owned_state = {
+	# 			limit = {
+	# 				free_building_slots = {
+	# 					building = arms_factory
+	# 					size > 1
+	# 					include_locked = yes
+	# 				}
+	# 				OR = {
+	# 					is_in_home_area = yes
+	# 					NOT = {
+	# 						owner = {
+	# 							any_owned_state = {
+	# 								free_building_slots = {
+	# 									building = arms_factory
+	# 									size > 1
+	# 									include_locked = yes
+	# 								}
+	# 								is_in_home_area = yes
+	# 							}
+	# 						}
+	# 					}
+	# 				}
+	# 			}
+	# 			add_extra_state_shared_building_slots = 2
+	# 			add_building_construction = {
+	# 				type = arms_factory
+	# 				level = 2
+	# 				instant_build = yes
+	# 			}
+	# 		}
+	# 	}
+	# 	x = -8
+	# 	y = 4
+
+	# }
+	# shared_focus = {
+	# 	id = SPR_doctrine_innovation
+	# 	icon = GFX_goal_generic_army_doctrines
+	# 	cost = 10
+	# 	relative_position_id = SPR_review
+	# 	available = {
+	# 		OR = {
+	# 			scw_not_in_progress = yes
+	# 			scr_not_in_progress = yes
+	# 		}
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_hit
+	# 		focus = SPR_motorize_army
+	# 	}
+	# 	prerequisite = {
+	# 		focus = SPR_expand_engineer_corps
+	# 	}
+	# 	completion_reward = {
+	# 		army_experience = 200
+	# 	}
+	# 	x = -6
+	# 	y = 7
+
+	# }

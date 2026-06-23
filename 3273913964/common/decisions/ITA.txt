@@ -1,0 +1,4826 @@
+ITA_Istituto_di_Ricostruzione_Industriale = {
+	ITA_emit_obligations = {
+		allowed = {
+			tag = ITA
+		}
+		icon = ger_mefo_bills
+		cost = 20
+		visible = {
+			has_completed_focus = ITA_emit_industrial_obligations
+		}
+		modifier = {
+			political_power_gain = -0.3
+		}
+		ai_will_do = {
+			factor = 10000
+			modifier = {
+				check_variable = {
+					var = ITA_IRI_share_capital_var
+					value = 20
+					compare = greater_than_or_equals
+				}
+				factor = 0
+			}
+		}
+		days_remove = 100
+		remove_effect = {
+			custom_effect_tooltip = ITA_IRI_gain_3_billion_lire
+			add_to_variable = { var = ITA_IRI_share_capital_var value = 3 }
+		}
+	}
+	ITA_absorb_the_liquidation_institute = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_support
+		fire_only_once = yes
+		modifier = {
+			political_power_gain = -0.15
+			consumer_goods_factor = 0.05
+			production_speed_buildings_factor = -0.05
+		}
+		ai_will_do = {
+			factor = 10000
+		}
+		days_remove = 60
+		remove_effect = {
+			custom_effect_tooltip = ITA_IRI_gain_5_billion_lire
+			set_country_flag = ITA_absorbed_the_liquidation_institute
+			add_to_variable = { var = ITA_IRI_share_capital_var value = 5 }
+		}
+	}
+	ITA_nationalise_the_banco_di_roma = {
+		allowed = {
+			tag = ITA
+		}
+		icon = gre_investment_decisions
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		available = {
+			has_completed_focus = ITA_save_the_banks
+			has_country_flag = ITA_absorbed_the_liquidation_institute
+		}
+		custom_cost_trigger = {
+			if = {
+				limit = {
+					has_country_flag = ITA_IRI_loan_from_the_bank_of_italy
+				}
+				check_variable = {
+					var = ITA_IRI_share_capital_var
+					value = 6
+					compare = greater_than_or_equals
+				}
+				else = {
+					check_variable = {
+						var = ITA_IRI_share_capital_var
+						value = 5
+						compare = greater_than_or_equals
+					}
+				}
+			}
+		}
+		custom_cost_text = ITA_5_billion_lire_cost
+		complete_effect = {
+			set_country_flag = ITA_IRI_nationalised_BdR
+			if = {
+				limit = {
+					has_country_flag = ITA_IRI_loan_from_the_bank_of_italy
+				}
+				add_to_variable = { var = ITA_IRI_share_capital_var value = -6 }
+				else = {
+					add_to_variable = { var = ITA_IRI_share_capital_var value = -5 }
+				}
+			}
+		}
+	}
+	ITA_nationalise_the_credito_italiano = {
+		allowed = {
+			tag = ITA
+		}
+		icon = hol_attract_foreign_investors
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		available = {
+			has_completed_focus = ITA_save_the_banks
+			has_country_flag = ITA_absorbed_the_liquidation_institute
+		}
+		custom_cost_trigger = {
+			if = {
+				limit = {
+					has_country_flag = ITA_IRI_loan_from_the_bank_of_italy
+				}
+				check_variable = {
+					var = ITA_IRI_share_capital_var
+					value = 6
+					compare = greater_than_or_equals
+				}
+				else = {
+					check_variable = {
+						var = ITA_IRI_share_capital_var
+						value = 5
+						compare = greater_than_or_equals
+					}
+				}
+			}
+		}
+		custom_cost_text = ITA_5_billion_lire_cost
+		complete_effect = {
+			set_country_flag = ITA_IRI_nationalised_CI
+			if = {
+				limit = {
+					has_country_flag = ITA_IRI_loan_from_the_bank_of_italy
+				}
+				add_to_variable = { var = ITA_IRI_share_capital_var value = -6 }
+				else = {
+					add_to_variable = { var = ITA_IRI_share_capital_var value = -5 }
+				}
+			}
+		}
+	}
+	ITA_nationalise_the_banca_commerciale_italiana = {
+		allowed = {
+			tag = ITA
+		}
+		icon = hol_attract_foreign_investors
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		available = {
+			has_completed_focus = ITA_save_the_banks
+			has_country_flag = ITA_absorbed_the_liquidation_institute
+		}
+		custom_cost_trigger = {
+			if = {
+				limit = {
+					has_country_flag = ITA_IRI_loan_from_the_bank_of_italy
+				}
+				check_variable = {
+					var = ITA_IRI_share_capital_var
+					value = 6
+					compare = greater_than_or_equals
+				}
+				else = {
+					check_variable = {
+						var = ITA_IRI_share_capital_var
+						value = 5
+						compare = greater_than_or_equals
+					}
+				}
+			}
+		}
+		custom_cost_text = ITA_5_billion_lire_cost
+		complete_effect = {
+			set_country_flag = ITA_IRI_nationalised_BCI
+			if = {
+				limit = {
+					has_country_flag = ITA_IRI_loan_from_the_bank_of_italy
+				}
+				add_to_variable = { var = ITA_IRI_share_capital_var value = -6 }
+				else = {
+					add_to_variable = { var = ITA_IRI_share_capital_var value = -5 }
+				}
+			}
+		}
+	}
+	ITA_liquidate_the_SFI = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_support
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		available = {
+			has_country_flag = ITA_IRI_nationalised_BdR
+			has_country_flag = ITA_IRI_nationalised_CI
+			has_country_flag = ITA_IRI_nationalised_BCI
+			NOT = {
+				has_country_flag = ITA_IRI_liquidating_another_society
+			}
+		}
+		modifier = {
+			political_power_gain = -0.15
+			consumer_goods_factor = 0.05
+			production_speed_buildings_factor = -0.05
+		}
+		days_remove = 60
+		complete_effect = {
+			set_country_flag = ITA_IRI_liquidating_another_society
+		}
+		remove_effect = {
+			clr_country_flag = ITA_IRI_liquidating_another_society
+			set_country_flag = ITA_IRI_liquidated_the_SFI
+			custom_effect_tooltip = ITA_IRI_gain_3_billion_lire
+			add_to_variable = { var = ITA_IRI_share_capital_var value = 3 }
+			if = {
+				limit = {
+					has_idea = ITA_grande_depressione
+				}
+				swap_ideas = {
+					remove_idea = ITA_grande_depressione
+					add_idea = ITA_grande_depressione_2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = ITA_grande_depressione_2
+				}
+				swap_ideas = {
+					remove_idea = ITA_grande_depressione_2
+					add_idea = ITA_grande_depressione_3
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = ITA_grande_depressione_3
+					add_idea = ITA_grande_depressione_4
+				}
+			}
+		}
+	}
+	ITA_liquidate_the_Sofindit = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_support
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		available = {
+			has_country_flag = ITA_IRI_nationalised_BdR
+			has_country_flag = ITA_IRI_nationalised_CI
+			has_country_flag = ITA_IRI_nationalised_BCI
+			NOT = {
+				has_country_flag = ITA_IRI_liquidating_another_society
+			}
+		}
+		modifier = {
+			political_power_gain = -0.15
+			consumer_goods_factor = 0.05
+			production_speed_buildings_factor = -0.05
+		}
+		days_remove = 60
+		complete_effect = {
+			set_country_flag = ITA_IRI_liquidating_another_society
+		}
+		remove_effect = {
+			clr_country_flag = ITA_IRI_liquidating_another_society
+			set_country_flag = ITA_IRI_liquidated_the_Sofindit
+			custom_effect_tooltip = ITA_IRI_gain_3_billion_lire
+			add_to_variable = { var = ITA_IRI_share_capital_var value = 3 }
+			if = {
+				limit = {
+					has_idea = ITA_grande_depressione
+				}
+				swap_ideas = {
+					remove_idea = ITA_grande_depressione
+					add_idea = ITA_grande_depressione_2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = ITA_grande_depressione_2
+				}
+				swap_ideas = {
+					remove_idea = ITA_grande_depressione_2
+					add_idea = ITA_grande_depressione_3
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = ITA_grande_depressione_3
+					add_idea = ITA_grande_depressione_4
+				}
+			}
+		}
+	}
+	ITA_liquidate_the_societa_elettrofinanziaria = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_support
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		available = {
+			has_country_flag = ITA_IRI_nationalised_BdR
+			has_country_flag = ITA_IRI_nationalised_CI
+			has_country_flag = ITA_IRI_nationalised_BCI
+			NOT = {
+				has_country_flag = ITA_IRI_liquidating_another_society
+			}
+		}
+		modifier = {
+			political_power_gain = -0.15
+			consumer_goods_factor = 0.05
+			production_speed_buildings_factor = -0.05
+		}
+		days_remove = 60
+		complete_effect = {
+			set_country_flag = ITA_IRI_liquidating_another_society
+		}
+		remove_effect = {
+			clr_country_flag = ITA_IRI_liquidating_another_society
+			set_country_flag = ITA_IRI_liquidated_the_societa_elettrofinanziaria
+			custom_effect_tooltip = ITA_IRI_gain_3_billion_lire
+			add_to_variable = { var = ITA_IRI_share_capital_var value = 3 }
+			if = { #TODO: make this idea a dynamic modifier
+				limit = {
+					has_idea = ITA_grande_depressione
+				}
+				swap_ideas = {
+					remove_idea = ITA_grande_depressione
+					add_idea = ITA_grande_depressione_2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = ITA_grande_depressione_2
+				}
+				swap_ideas = {
+					remove_idea = ITA_grande_depressione_2
+					add_idea = ITA_grande_depressione_3
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = ITA_grande_depressione_3
+					add_idea = ITA_grande_depressione_4
+				}
+			}
+		}
+	}
+
+	ITA_create_the_finmare_des = {
+		allowed = {
+			tag = ITA
+		}
+		icon = generic_politicians2
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			has_completed_focus = ITA_create_the_finmare
+		}
+		available = {
+			has_capitulated = no
+		}
+
+		complete_effect = {
+			add_ideas = ITA_finmare_idea
+			random_owned_state = {
+				limit = {
+					is_core_of = ITA
+					is_fully_controlled_by = ITA
+					is_coastal = yes
+				}
+				add_building_construction = {
+   					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	ITA_create_the_finsider_des = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_support
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			has_completed_focus = ITA_create_the_finsider
+		}
+		available = {
+			has_capitulated = no
+		}
+
+		complete_effect = {
+			add_ideas = ITA_finsider_idea
+			random_owned_state = {
+				limit = {
+					is_coastal = yes
+					is_core_of = ITA
+					is_fully_controlled_by = ITA
+				}
+				add_building_construction = {
+   					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+
+	ITA_civilian_sector = {
+		allowed = {
+			tag = ITA
+		}
+		icon = generic_factory
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			has_completed_focus = ITA_intervene_in_the_civilian_sector
+		}
+		available = {
+			has_capitulated = no
+		}
+		modifier = {
+			political_power_gain = -0.3
+			consumer_goods_factor = 0.15
+			}
+		days_remove = 150
+		complete_effect = {
+			random_owned_state = {
+				limit = {
+					is_core_of = ITA
+					is_fully_controlled_by = ITA
+				}
+				add_building_construction = {
+   					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ITA
+					is_fully_controlled_by = ITA
+				}
+				add_building_construction = {
+   					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+
+		}
+	}
+	ITA_military_sector = {
+		allowed = {
+			tag = ITA
+		}
+		icon = generic_industry
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			has_completed_focus = ITA_intervene_in_the_military_sector
+		}
+		available = {
+			has_capitulated = no
+		}
+		modifier = {
+			political_power_gain = -0.3
+			consumer_goods_factor = 0.15
+		}
+		days_remove = 150
+		complete_effect = {
+			random_owned_state = {
+				limit = {
+					is_core_of = ITA
+					is_fully_controlled_by = ITA
+				}
+				add_building_construction = {
+   					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_state = {
+				limit = {
+					is_core_of = ITA
+					is_fully_controlled_by = ITA
+				}
+				add_building_construction = {
+   					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+}
+
+ITA_parliament = {
+	ITA_parliament_decision = {
+		cost = 0
+		available = {
+			always = no
+		}
+	}
+}
+
+ITA_securing_the_country = {
+	ITA_retake_sicily = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			115 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 115
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 115 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_calabria = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			156 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 156
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 156 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_basilicata = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			1026 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 1026
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 1026 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_puglia = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			1027 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 1027
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 1027 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_campania = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			117 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 117
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 117 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_abruzzi = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			157 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 157
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 157 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_umbria = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			1030 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 1030
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 1030 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_marche = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			1029 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 1029
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 1029 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_toscana = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			162 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 162
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 162 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_emilia_romagna = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			161 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 161
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 161 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_veneto = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			160 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 160
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 160 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_lombardia = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			159 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 159
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 159 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_piemonte = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			158 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 158
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 158 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+	ITA_retake_liguria = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			1033 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 1033
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 1033 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+
+	ITA_retake_lazio = { #TODO: make different chain of events
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		fire_only_once = no
+		activation = {
+			always = no
+		}
+		available = {
+			2 = { is_fully_controlled_by = ITA }
+			hidden_trigger = {
+				NOT = { has_country_flag = ITA_armistice_inminent }
+			}
+		}
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = ITA_armistice_inminent
+			}
+		}
+		days_mission_timeout = 15
+		is_good = no
+		complete_effect = {
+			remove_from_array = {
+				array = ITA_occupied_states
+				value = 2
+			}
+		}
+		timeout_effect = {
+			set_country_flag = ITA_armistice_inminent
+			add_stability = -0.07
+			add_war_support = -0.15
+			hidden_effect = {
+				ITA = {
+					set_variable = { ITA_main_occ_id = 2 }
+					country_event = {
+						id = ita_gov_mussolini.5
+					}
+				}
+			}
+		}
+	}
+}
+
+ITA_prepare_ethiopan_war = {
+
+	ITA_enlarge_little_roma = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 25
+		icon = generic_construction
+		fire_only_once = yes
+
+		visible = {
+			has_global_flag = wal_wal_crisis
+			550 = {
+				free_building_slots = {
+					building = infrastructure
+					size > 2
+				}
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = { state = 550 }
+		}
+		# state_target = yes
+		# targets = { state = 550 }
+		on_map_mode = map_and_decisions_view
+
+		available = {
+			controls_state = 550
+			has_war = no
+		}
+		modifier = {
+			civilian_factory_use = 1
+		}
+		days_remove = 130
+		remove_effect = {
+			add_political_power = 25
+			550 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	ITA_expand_massawa = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 0
+		icon = generic_merge_plant_ship
+		fire_only_once = yes
+		visible = {
+			has_global_flag = wal_wal_crisis
+		}
+		available = {
+			1001 = {
+				is_owned_and_controlled_by = ITA
+				any_province_building_level = {
+					province = {
+						id = 12766
+						limit_to_border = yes
+					}
+					building = naval_base
+					level < 8
+				}
+			}
+		}
+		highlight_states = {
+			highlight_states_trigger = { state = 1001 }
+		}
+		on_map_mode = map_and_decisions_view
+		modifier = {
+			civilian_factory_use = 1
+		}
+		days_remove = 60
+		remove_effect = {
+			1001 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province = 12766
+				}
+			}
+		}
+	}
+
+	ITA_maneuvers_army = {
+		allowed = {
+			tag = ITA
+		}
+		icon = icon_soldiers
+		cost = 25
+		fire_only_once = yes
+		days_remove = 25
+		visible = {
+			has_global_flag = wal_wal_crisis
+		}
+		available = {
+		   has_war = no
+		   strength_ratio = {
+				tag = ETH
+				ratio = 1
+			}
+		}
+		remove_effect = {
+			army_experience = 15
+			add_named_threat = {
+				threat = 1
+				name = ITA_maneuvers_eth
+			}
+		}
+	}
+
+	ITA_raise_2_CCNN_division = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_blackshirt_march
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			date > 1935.5.9
+			NOT = { has_country_flag = ITA_victory_in_ethiopia }
+		}
+		available = {
+			# has_completed_focus = ITA_integrate_fascist_militias
+		}
+
+		complete_effect = {
+			if = {
+				limit = {
+					controls_province = 819
+				}
+				117 = {
+					create_unit = {
+						division = "name = \"2ª Divisione CC.NN. '28 Ottobre'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+						owner = ITA
+						prioritize_location = 819
+					}
+				}
+			}
+			else = {
+				random_controlled_state = {
+					limit = {
+						is_core_of = ITA
+					}
+					prioritize = { 2 }
+					create_unit = {
+						division = "name = \"2ª Divisione CC.NN. '28 Ottobre'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+						owner = ITA
+					}
+				}
+			}
+		}
+	}
+	ITA_raise_4_CCNN_division = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_blackshirt_march
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			date > 1935.6.24
+			NOT = { has_country_flag = ITA_victory_in_ethiopia }
+		}
+		available = {
+			# has_completed_focus = ITA_integrate_fascist_militias
+		}
+
+		complete_effect = {
+			if = {
+				limit = {
+					controls_state = 158
+				}
+				158 = {
+					create_unit = {
+						division = "name = \"4ª Divisione CC.NN. '3 Gennaio'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+						owner = ITA
+						prioritize_location = 3780
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					controls_state = 2
+				}
+				2 = {
+					create_unit = {
+						division = "name = \"4ª Divisione CC.NN. '3 Gennaio'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+						owner = ITA
+					}
+				}
+			}
+			else = {
+				random_controlled_state = {
+					limit = {
+						is_core_of = ITA
+					}
+					create_unit = {
+						division = "name = \"4ª Divisione CC.NN. '3 Gennaio'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+						owner = ITA
+					}
+				}
+			}
+		}
+	}
+	ITA_raise_5_CCNN_division = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_blackshirt_march
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			date > 1935.7.14
+			NOT = { has_country_flag = ITA_victory_in_ethiopia }
+		}
+		available = {
+			# has_completed_focus = ITA_integrate_fascist_militias
+		}
+
+		complete_effect = {
+			set_country_flag = ccnn_div_5
+			if = {
+				limit = {
+					controls_state = 159
+				}
+				159 = {
+					create_unit = {
+						division = "name = \"5ª Divisione CC.NN. '1 Febbraio'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+						owner = ITA
+						id = 3311
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					controls_state = 158
+				}
+				158 = {
+					create_unit = {
+						division = "name = \"5ª Divisione CC.NN. '1 Febbraio'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+						owner = ITA
+						id = 3311
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					controls_state = 2
+				}
+				2 = {
+					create_unit = {
+						division = "name = \"5ª Divisione CC.NN. '1 Febbraio'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+						owner = ITA
+						id = 3311
+					}
+				}
+			}
+			else = {
+				random_controlled_state = {
+					limit = {
+						is_core_of = ITA
+					}
+					create_unit = {
+						division = "name = \"5ª Divisione CC.NN. '1 Febbraio'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+						owner = ITA
+						id = 3311
+					}
+				}
+			}
+		}
+	}
+	ITA_raise_6_CCNN_division = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_blackshirt_march
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			date > 1935.8.6
+			NOT = { has_country_flag = ITA_victory_in_ethiopia }
+		}
+		available = {
+			# has_completed_focus = ITA_integrate_fascist_militias
+		}
+
+		complete_effect = {
+			#The division had only limited combat value due to the age (World War I veterans), the physical disabilities (amputated veterans), and the lack of military training (Italians living abroad) of its troops
+			set_country_flag = ccnn_div_6
+			if = {
+				limit = {
+					controls_state = 2
+				}
+				2 = {
+					create_unit = {
+						division = "name = \"6ª Divisione CC.NN. 'Tevere'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.6 start_equipment_factor = 0.8"
+						owner = ITA
+						id = 3312
+					}
+				}
+			}
+			else = {
+				random_controlled_state = {
+					limit = {
+						is_core_of = ITA
+					}
+					create_unit = {
+						division = "name = \"6ª Divisione CC.NN. 'Tevere'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.6 start_equipment_factor = 0.8"
+						owner = ITA
+						id = 3312
+					}
+				}
+			}
+		}
+	}
+	ITA_raise_7_CCNN_division = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_blackshirt_march
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			date > 1936.4.26
+			has_war_with = ETH
+			NOT = { has_country_flag = ITA_victory_in_ethiopia }
+		}
+		available = {
+		}
+
+		complete_effect = {
+			# The division was deployed in Libya during the war against Abyssinia to threaten the Suez Canal should the British close it to Italian traffic. 
+			# It was never deployed to Abyssinia, but was considered to take part in the campaign. It actually acted as a local garrison and engaged in various construction projects.
+			set_country_flag = ccnn_div_7
+			if = {
+				limit = {
+					controls_state = 451
+				}
+				451 = {
+					create_unit = {
+						division = "name = \"7ª Divisione CC.NN. 'Cirene'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 0.9"
+						owner = ITA
+						prioritize_location = 4151
+						id = 3313
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					controls_state = 450
+				}
+				450 = {
+					create_unit = {
+						division = "name = \"7ª Divisione CC.NN. 'Cirene'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 0.9"
+						owner = ITA
+						id = 3313
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					controls_state = 450
+				}
+				448 = {
+					create_unit = {
+						division = "name = \"7ª Divisione CC.NN. 'Cirene'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 0.9"
+						owner = ITA
+						id = 3313
+					}
+				}
+			}
+			else = {
+				random_controlled_state = {
+					limit = {
+						is_core_of = ITA
+					}
+					create_unit = {
+						division = "name = \"7ª Divisione CC.NN. 'Cirene'\" division_template = \"Divisione CC.NN\" start_experience_factor = 0.1 start_equipment_factor = 0.9"
+						owner = ITA
+						id = 3313
+					}
+				}
+			}
+		}
+	}
+}
+
+ITA_colonial_policy_libya = {
+
+	ITA_close_internment_camps = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 100
+		fire_only_once = yes
+		icon = generic_independence
+		available = {
+			has_war = no
+		}
+		ai_will_do = {
+			factor = 10000
+		}
+		complete_effect = {
+			custom_effect_tooltip = ITA_libya_stability_improve
+			add_to_variable = {
+				var = ITA_lba_stability
+				value = 5
+			}
+		}
+	}
+
+	ITA_develop_bengasi = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 50
+		fire_only_once = yes
+		highlight_states = {
+			highlight_states_trigger = { state = 450 }
+		}
+		state_target = yes
+		targets = { state = 450 }
+		on_map_mode = map_and_decisions_view
+
+		available = {
+			controls_state = 450
+			num_of_civilian_factories_available_for_projects > 0
+		} 
+		days_remove = 100
+		icon = generic_merge_plant_materiel
+		ai_will_do = {
+			factor = 10000
+		}
+		modifier = {
+			civilian_factory_use = 1
+		}
+		complete_effect = {
+			450 = {
+				add_compliance = 5
+				add_extra_state_shared_building_slots = 1
+				set_state_category = big_rural
+			}
+		}
+	}
+
+	ITA_develop_tripoli = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 50
+		fire_only_once = yes
+
+		highlight_states = {
+			highlight_states_trigger = { state = 448 }
+		}
+		state_target = yes
+		targets = { state = 448 }
+		on_map_mode = map_and_decisions_view
+
+		available = {
+			controls_state = 448
+			num_of_civilian_factories_available_for_projects > 0
+		} 
+		days_remove = 100
+		icon = generic_merge_plant_materiel
+		ai_will_do = {
+			factor = 10000
+		}
+		modifier = {
+			civilian_factory_use = 1
+		}
+		complete_effect = {
+			448 = {
+				add_compliance = 5
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+
+	ITA_native_rights_libya = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 30
+		icon = generic_political_discourse
+		fire_only_once = yes
+		icon = generic_operation
+		ai_will_do = {
+			factor = 10000
+		}
+		complete_effect = {
+			custom_effect_tooltip = ITA_libya_stability_improve
+
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.01
+			}
+			add_to_variable = { ITA_lba_stability = 10 }
+		}
+	}
+
+	ITA_resettle_italians = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 40
+		days_remove = 120
+		icon = generic_citizens
+		ai_will_do = {
+			factor = 10000
+		}
+		complete_effect = {
+			custom_effect_tooltip = ITA_libya_stability_improve
+
+			set_temp_variable = { ita_resettle_pop = 0 }
+			set_temp_variable = { ita_resettle_pop_2 = 0 }
+			set_temp_variable = { ita_resettle_pop_3 = 0 }
+			randomize_temp_variable = {
+				var = ita_resettle_pop
+				distribution = uniform
+				min = 1000
+				max = 2500
+			}
+			randomize_temp_variable = {
+				var = ita_resettle_pop2
+				distribution = uniform
+				min = 1000
+				max = 2600
+			}
+			randomize_temp_variable = {
+				var = ita_resettle_pop3
+				distribution = uniform
+				min = 1000
+				max = 2500
+			}
+			
+			set_temp_variable = { ita_resettle_pop_n = ita_resettle_pop }
+			set_temp_variable = { ita_resettle_pop_n2 = ita_resettle_pop2 }
+			set_temp_variable = { ita_resettle_pop_n3 = ita_resettle_pop3 }
+
+			multiply_temp_variable = { ita_resettle_pop_n = -1 }
+			multiply_temp_variable = { ita_resettle_pop_n2 = -1 }
+			multiply_temp_variable = { ita_resettle_pop_n3= -1 }
+
+			random_controlled_state = {
+				limit = {
+					is_core_of = ITA
+					is_fully_controlled_by = ITA
+					NOT = {
+						state = 448
+						state = 449
+						state = 450
+						state = 451
+						state = 790
+						state = 736
+						state = 791
+						state = 837
+						state = 838
+						state = 1037
+						state = 163
+						state = 841
+						state = 1196
+						state = 1
+						state = 1032
+					}
+				}
+				add_manpower = var:ita_resettle_pop_n
+			}
+			random_controlled_state = {
+				limit = {
+					is_core_of = ITA
+					is_fully_controlled_by = ITA
+					NOT = {
+						state = 448
+						state = 449
+						state = 450
+						state = 451
+						state = 790
+						state = 736
+						state = 791
+						state = 837
+						state = 838
+						state = 1037
+						state = 163
+						state = 841
+						state = 1196
+						state = 1
+						state = 1032
+					}
+				}
+				add_manpower = var:ita_resettle_pop_n2
+			}
+			random_controlled_state = {
+				limit = {
+					is_core_of = ITA
+					is_fully_controlled_by = ITA
+					NOT = {
+						state = 448
+						state = 449
+						state = 450
+						state = 451
+						state = 790
+						state = 736
+						state = 791
+						state = 837
+						state = 838
+						state = 1037
+						state = 163
+						state = 841
+						state = 1196
+						state = 1
+						state = 1032
+					}
+				}
+				add_manpower = var:ita_resettle_pop_n3
+			}
+			random_controlled_state = {
+				limit = {
+					is_core_of = LBA
+					is_fully_controlled_by = ITA
+					NOT = {
+						state = 273
+						state = 844
+						state = 843
+					}
+				}
+				add_manpower = var:ita_resettle_pop
+			}
+			random_controlled_state = {
+				limit = {
+					is_core_of = LBA
+					is_fully_controlled_by = ITA
+					NOT = {
+						state = 273
+						state = 844
+						state = 843
+					}
+				}
+				add_manpower = var:ita_resettle_pop2
+			}
+			random_controlled_state = {
+				limit = {
+					is_core_of = LBA
+					is_fully_controlled_by = ITA
+					NOT = {
+						state = 273
+						state = 844
+						state = 843
+					}
+				}
+				add_manpower = var:ita_resettle_pop3
+			}
+			add_to_variable = { ITA_lba_stability = 4 }
+		}
+	}
+
+	ITA_via_balbia = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 0
+		fire_only_once = yes
+		days_remove = 450
+		icon = generic_build_highway
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			date > 1937.3.1
+		}
+		modifier = {
+			civilian_factory_use = 3
+		}
+		cancel_trigger = {
+			OR = {
+				has_war_with = EGY
+				# has_war_with = TNS
+				has_war_with = ENG
+				has_war_with = FRA
+			}
+		}
+		remove_effect = {
+			448 = {
+				add_compliance = 5
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=12039}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=1189}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=1149}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=4194}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=7209}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=9980}
+				}
+			}
+			449 = {
+				add_compliance = 5
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=1118}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=1041}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=4047}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=10046}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=10117}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=12088}
+				}
+			}
+			450 = {
+				add_compliance = 5
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=4057}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=1198}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=1127}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=4120}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=11954}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=10123}
+				}
+			}
+			451 = {
+				add_compliance = 5
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=12094}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=4151}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=1204}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=7082}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=9992}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=1130}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=4136}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=10120}
+				}
+			}
+		}
+	}
+
+	ITA_railway_coast_libya = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 0
+		days_remove = 5200
+		icon = generic_railway
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			date > 1937.3.1
+		}
+		available = {
+			controls_state = 448
+			controls_state = 449
+			controls_state = 450
+			controls_state = 451
+		}
+		cancel_trigger = {
+			OR = {
+				has_war_with = EGY
+				# has_war_with = TNS
+				has_war_with = ENG
+				has_war_with = FRA
+			}
+		}
+		modifier = {
+			civilian_factory_use = 2
+		}
+		complete_effect = {
+			448 = { add_compliance = 5 }
+			449 = { add_compliance = 5 }
+			450 = { add_compliance = 5 }
+			451 = { add_compliance = 5 }
+			build_railway = {
+				level = 1			  
+				fallback = yes
+				path = { 4194 7209 9980 1118 1041 4047 10046 10117 12088 4057 1198 1127 4120 11954 10123 12094 4151 1204 7082 9992 1130 4136 10120 }
+				start_province = 4194
+				target_province = 10120
+			}
+		}
+	}
+
+	ITA_lictor_asso = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 25
+		fire_only_once = yes
+		days_remove = 120
+		icon = eng_trade_unions_support
+		ai_will_do = {
+			factor = 10000
+		}
+		complete_effect = {
+			add_war_support = 0.03
+		}
+	}
+
+	ITA_protector_of_islam = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 30
+		fire_only_once = yes
+		icon = generic_speech
+		ai_will_do = {
+			factor = 10000
+		}
+		available = {
+			has_war = no
+		}
+		complete_effect = {
+			custom_effect_tooltip = ITA_libya_stability_improve
+			add_stability = 0.01
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.01
+			}
+			add_to_variable = { ITA_lba_stability = 5 }
+		}
+	}
+
+	ITA_libyan_citizenship = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 40
+		fire_only_once = yes
+		icon = eng_trade_unions_support
+		ai_will_do = {
+			factor = 10000
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_60_stability_libya
+				check_variable = {
+					ITA_lba_stability > 60
+				}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = ITA_libya_stability_improve
+
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.01
+			}
+			add_stability = 0.01
+			add_to_variable = {
+				var = ITA_lba_stability
+				value = 7
+			}
+			448 = { add_compliance = 5 }
+			449 = { add_compliance = 5 }
+			450 = { add_compliance = 5 }
+			451 = { add_compliance = 5 }
+		}
+	}
+
+	ITA_integrate_libya = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 200
+		icon = generic_nationalism
+		ai_will_do = {
+			factor = 10000
+		}
+		fire_only_once = yes
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_80_stability_libya
+				check_variable = {
+					ITA_lba_stability > 80
+				}
+			}
+		}
+		complete_effect = {
+			448 = { add_compliance = 15 }
+			449 = { add_compliance = 15 }
+			450 = { add_compliance = 15 }
+			451 = { add_compliance = 15 }
+		}
+	}
+}
+
+ITA_influencing_albania = {
+	ITA_invest_in_albania = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 20
+		icon = hol_attract_foreign_investors
+		visible = {
+			country_exists = ALB
+		}
+		available = {
+			num_of_civilian_factories > 0
+		}
+		ai_will_do = {
+			factor = 10000
+		}
+		modifier = {
+			civilian_factory_use = 1
+		}
+		days_remove = 30
+		remove_effect = {
+			custom_effect_tooltip = ITA_albanian_influence_gain_4
+			add_to_variable = {
+				var = ITA_influence_in_albania value = 5
+			}
+
+			hidden_effect = {
+				ALB = {
+					country_event = {
+						id = ALB_italian_influence.1
+						days = 1
+					}
+				}
+			}
+
+		}
+	}
+
+	ITA_send_a_military_delegation_to_albania = {
+		allowed = {
+			tag = ITA
+		}
+		cost = 60
+		icon = generic_military
+		visible = {
+			country_exists = ALB
+		}
+		ai_will_do = {
+			factor = 10000
+		}
+		modifier = {
+			political_power_gain = -0.05
+			planning_speed = -0.05
+			supply_consumption_factor = 0.05
+		}
+		days_remove = 30
+		remove_effect = {
+			custom_effect_tooltip = ITA_albanian_influence_gain_8
+			add_to_variable = {
+				var = ITA_influence_in_albania value = 10
+			}
+			hidden_effect = {
+				ALB = {
+					country_event = {
+						id = ALB_italian_influence.2
+						days = 1
+					}
+				}
+			}
+		}
+	}
+
+	ITA_ultimatum_to_albania_decision = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_trade_unions_demand
+		highlight_states = {
+			state = 1019
+		}
+		ai_will_do = {
+			factor = 10000
+			modifier = {
+				factor = 0
+				date < 1937.9.1
+			}
+		}
+		visible = {
+			date > 1936.9.1
+		}
+		available = {
+			NOT = {
+				YUG = {
+					focus_progress = {
+						focus = YUG_cajole_albania
+						progress > 0
+					}
+				}
+				ALB = {	is_guaranteed_by = YUG }
+				ALB = {	is_in_faction_with = YUG }
+			}
+
+			custom_trigger_tooltip = {
+				tooltip = ITA_ultimatum_to_albania_trigger
+				OR = {
+					has_country_flag = ITA_albania_dangerous_movements
+					check_variable = {
+						ITA_influence_in_albania > 99
+					}
+					has_completed_focus = ITA_conquest_of_albania
+					has_completed_focus = ITA_partition_of_albania
+
+				}
+			}
+			hidden_trigger = {
+				OR = {
+					is_ai = no
+					date > 1938.9.1
+
+				}
+			}
+			NOT = {
+				surrender_progress > 0.1
+			}
+		}
+		fire_only_once = yes
+		complete_effect = {
+			ALB = {
+				country_event = {
+					id = ita_diplomacy.4
+					days = 3
+				}
+			}
+		}
+	}
+}
+
+ITA_draining_marshes = {
+	ITA_drain_the_marshes = {
+		allowed = {
+			tag = ITA
+		}
+		icon = hol_attract_foreign_investors
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		highlight_states = {
+			highlight_states_trigger = { state = 2 }
+		}
+		on_map_mode = map_and_decisions_view
+		visible = {
+			has_completed_focus = ITA_drain_the_pontine_marshes
+		}
+		available = {
+			2 = {
+				is_owned_by = ITA
+				is_core_of = ITA
+				is_fully_controlled_by = ITA
+			}
+			num_of_civilian_factories_available_for_projects > 2
+		}
+		modifier = {
+			civilian_factory_use = 3
+		}
+		days_remove = 150
+		complete_effect = {
+			unlock_decision_tooltip = ITA_1942_EUR
+			2 = { add_extra_state_shared_building_slots = 1 }
+			hidden_effect = { set_country_flag = marshes_drained }
+		}
+	}
+	ITA_1942_EUR = {
+		allowed = {
+			tag = ITA
+		}
+		icon = gre_investment_decisions
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		highlight_states = {
+			highlight_states_trigger = { state = 2 }
+		}
+		on_map_mode = map_and_decisions_view
+		visible = {
+			has_country_flag = marshes_drained
+		}
+		available = {
+			2 = {
+				is_owned_by = ITA
+				is_core_of = ITA
+				is_fully_controlled_by = ITA
+			}
+			num_of_civilian_factories_available_for_projects > 0
+		}
+		modifier = {
+			civilian_factory_use = 1
+		}
+		days_remove = 1
+		complete_effect = {
+			unlock_decision_tooltip = ITA_1942_EUR
+			2 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+   					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			#custom_effect_tooltip = ITA_slight_increase_in_popularity_outside_the_party_tt
+			#hidden_effect = {
+				#add_to_variable = { var = ITA_Mussolini_Popularity value = 3 }
+			#	clamp_variable = {
+			#		var = ITA_Mussolini_Popularity
+			#		min = 0
+			#		max = 100
+			#
+			#	}
+			#}
+		}
+	}
+}
+
+
+ITA_army_decisions = {
+	ITA_army_drills = {
+		allowed = {
+			tag = ITA
+		}
+		icon = icon_soldiers
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			has_completed_focus = ITA_army_manuevers
+			has_idea = Federico_Baistrocchi
+		}
+		available = {
+			NOT = {
+				has_completed_focus = ITA_cave_to_badoglio
+			}
+		}
+		days_remove = 30
+		remove_effect = {
+			army_experience = 25
+			add_war_support = 0.01
+		}
+	}
+
+	ITA_fascist_militas_1 = {
+		allowed = {
+			tag = ITA
+		}
+		icon = eng_blackshirt_march
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		visible = {
+			has_completed_focus = ITA_integrate_fascist_militias
+		}
+		available = {
+			has_war = yes
+		}
+
+		complete_effect = {
+			add_manpower = 20000
+		}
+	}
+
+	ITA_zara_defences = {
+		allowed = {
+			tag = ITA
+		}
+		icon = generic_construction
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		highlight_states = {
+			highlight_states_trigger = {
+				state = 1037
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		visible = {
+			has_completed_focus = ITA_extend_the_alpine_wall
+		}
+		available = {
+			1037 = { is_owned_and_controlled_by = ITA }
+			YUG = {
+				exists = yes
+				is_neighbor_of = ITA
+			}
+		}
+
+		modifier = {
+			civilian_factory_use = 1
+		}
+		days_remove = 916
+		remove_effect = {
+
+			1037 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 13308
+   				}
+			}
+		}
+	}
+}
+
+ITA_vallo_alpino_del_littoro = {
+	
+	### Vallo alpino occidentale ###
+	ITA_vallo_alpino_occ = {
+		allowed = {
+			tag = ITA
+		}
+		icon = generic_mountain_fortification
+		fire_only_once = no
+		# highlight_states = {
+		# 	highlight_states_trigger = {
+		# 		state = 1033
+		# 		state = 1032
+		# 		state = 158
+		# 	}
+		# 	# highlight_provinces = { 11891 11721 13357 9738 611 }
+		# }
+		# on_map_mode = map_and_decisions_view
+		visible = {
+			# has_completed_focus = ITA_extend_the_alpine_wall
+			has_variable = val_occ_d
+		}
+		available = {
+			# num_of_civilian_factories_available_for_projects > 0
+			controls_province = 11891
+			controls_province = 11721
+			controls_province = 13357
+			controls_province = 9738
+			controls_province = 611
+		}
+
+		cancel_trigger = {
+			NOT = {
+				controls_province = 11891
+				controls_province = 11721
+				controls_province = 13357
+				controls_province = 9738
+				controls_province = 611
+			}
+		}
+
+		modifier = {
+			production_speed_bunker_factor = -0.35
+			civilian_factory_use = 1
+		}
+		days_remove = var:val_occ_d
+		remove_effect = {
+			add_to_variable = { val_occ_c = 1 }
+			custom_effect_tooltip = vallo_alpino_occ_tt
+
+			if = { #1st level - 1935
+				limit = {
+					check_variable = { val_occ_c = 1 }
+				}
+				hidden_effect = {
+					#Settori Genova
+					1033 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 11891
+						}
+					}
+					#Settori Alessandria
+					158 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 11721
+						}
+					}
+					#Settori Torino
+					158 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 13357
+						}
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 9738
+						}
+					}
+					1032 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 611
+						}
+					}
+				}
+				set_variable = { val_occ_d = 1495 }
+				activate_decision = ITA_vallo_alpino_occ
+			}
+			else_if = { #2nd level - 1939/40
+				limit = {
+					check_variable = { val_occ_c = 2 }
+				}
+				hidden_effect = {
+					#Settori Genova
+					1033 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 11891
+						}
+					}
+					#Settori Alessandria
+					158 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 11721
+						}
+					}
+					#Settori Torino
+					158 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 13357
+						}
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 9738
+						}
+					}
+					1032 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 611
+						}
+					}
+				}
+				set_variable = { val_occ_d = 1095 }
+				activate_decision = ITA_vallo_alpino_occ
+			}
+			else_if = { #3nd level - 1943
+				limit = {
+					check_variable = { val_occ_c = 3 }
+				}
+				hidden_effect = {
+					#Settori Genova
+					1033 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 11891
+						}
+					}
+					#Settori Alessandria
+					158 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 11721
+						}
+					}
+					#Settori Torino
+					158 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 13357
+						}
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 9738
+						}
+					}
+					1032 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 611
+						}
+					}
+				}
+				clear_variable = val_occ_d
+				clear_variable = val_occ_c
+			}
+		}
+	}
+
+	### Vallo alpino Settentrionale ###
+	ITA_vallo_alpino_swi = {
+		allowed = {
+			tag = ITA
+		}
+		icon = generic_mountain_fortification
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		# highlight_states = {
+		# 	highlight_states_trigger = {
+		# 		state = 158
+		# 		state = 159
+		# 	}
+		# 	highlight_provinces = { 11570 6635 607 9584 6661 11587 }
+		# }
+		# on_map_mode = map_and_decisions_view
+		visible = {
+			has_completed_focus = ITA_extend_the_alpine_wall
+		}
+		available = {
+			# SWI = {
+			# 	exists = yes
+			# 	is_neighbor_of = ITA
+			# }
+			num_of_civilian_factories_available_for_projects > 2
+			controls_province = 11570
+			controls_province = 6635
+			controls_province = 607
+			controls_province = 9584
+			controls_province = 6661
+			controls_province = 11587
+		}
+
+		cancel_trigger = {
+			NOT = {
+				controls_province = 11570
+				controls_province = 6635
+				controls_province = 607
+				controls_province = 9584
+				controls_province = 6661
+				controls_province = 11587
+			}
+		}
+		modifier = {
+			civilian_factory_use = 1
+			production_speed_bunker_factor = -0.35
+		}
+		days_remove = 1123
+		remove_effect = {
+			#TODO: add custom tooltip
+			158 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = 11570
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = 6635
+				}
+			}
+			159 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = {
+						id = 607
+						id = 9584
+						id = 6661
+						id = 11587
+					}
+				}
+			}
+		}
+	}
+
+	ITA_vallo_alpino_alto_adige = {
+		allowed = {
+			tag = ITA
+		}
+		icon = generic_mountain_fortification
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		# highlight_states = {
+		# 	highlight_states_trigger = {
+		# 		state = 1035
+		# 	}
+		# 	highlight_provinces = { 6675 9630 11615 11587 3657 }
+		# }
+		# on_map_mode = map_and_decisions_view
+		visible = {
+			# has_completed_focus = ITA_extend_the_alpine_wall
+		}
+		available = {
+			controls_province = 6675
+			controls_province = 9630
+			controls_province = 11615
+			controls_province = 11587
+			controls_province = 3657
+		}
+
+		cancel_trigger = {
+			NOT = {
+				controls_province = 6675
+				controls_province = 9630
+				controls_province = 11615
+				controls_province = 11587
+				controls_province = 3657
+			}
+		}
+
+		modifier = {
+			production_speed_bunker_factor = -0.2
+			civilian_factory_use = 1
+		}
+		days_remove = 585
+		remove_effect = {
+			custom_effect_tooltip = vallo_alpino_adige_tt
+			1035 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = {
+						id = 6675
+						id = 9630
+						id = 11615
+					}
+				}
+				set_state_flag = ITA_alto_adige_wall
+			}
+			159 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = 11587
+				}
+			}
+			1034 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = 3657
+				}
+			}
+		}
+	}
+
+	ITA_extend_vallo_alpino_alto_adige = {
+		allowed = {
+			tag = ITA
+		}
+		icon = generic_mountain_fortification
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 10000
+		}
+		# highlight_states = {
+		# 	highlight_states_trigger = {
+		# 		state = 1035
+		# 	}
+		# 	highlight_provinces = { 6675 9630 11645 11587 3657 }
+		# }
+		visible = {
+			# has_completed_focus = ITA_extend_the_alpine_wall
+			AUS = { exists = no }
+			GER = {
+				controls_state = 153
+				controls_state = 1173
+				controls_state = 1205
+			}
+			OR = {
+				GER = { has_war_with = FRA }
+				date > 1939.11.20
+			}
+			1035 = { has_state_flag = ITA_alto_adige_wall }
+		}
+		available = {
+			controls_province = 6675
+			controls_province = 9630
+			controls_province = 11645
+			controls_province = 11587
+			controls_province = 3657
+		}
+
+		cancel_trigger = {
+			NOT = {
+				controls_province = 6675
+				controls_province = 9630
+				controls_province = 11645
+				controls_province = 11587
+				controls_province = 3657
+			}
+		}
+
+		modifier = {
+			production_speed_bunker_factor = -0.3
+			civilian_factory_use = 1
+		}
+		days_remove = 1095
+		remove_effect = {
+			custom_effect_tooltip = vallo_alpino_adige_expand_tt
+			1035 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						id = 6675
+						id = 9630
+						id = 11645
+					}
+				}
+				set_state_flag = ITA_alto_adige_wall
+			}
+			159 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 11587
+				}
+			}
+			1034 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = 3657
+				}
+			}
+		}
+	}
+
+	### Vallo alpino orientale ###
+	ITA_vallo_alpino_ori = {
+		allowed = {
+			tag = ITA
+		}
+		icon = generic_mountain_fortification
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 8000
+		}
+		# highlight_states = {
+		# 	highlight_states_trigger = {
+		# 		state = 1034
+		# 		state = 736
+		# 		state = 791
+		# 	}
+		# 	# highlight_provinces = { 9613 11595 599 13913 }
+		# }
+		# on_map_mode = map_and_decisions_view
+		visible = {
+			has_variable = val_ori_d
+		}
+		available = {
+			controls_province = 9613
+			controls_province = 11595
+			controls_province = 599
+			controls_province = 13913
+		}
+
+		cancel_trigger = {
+			NOT = {
+				controls_province = 9613
+				controls_province = 11595
+				controls_province = 599
+				controls_province = 13913
+			}
+		}
+
+		modifier = {
+			civilian_factory_use = 1
+			production_speed_bunker_factor = -0.35
+		}
+		days_remove = var:val_ori_d
+		remove_effect = {
+			add_to_variable = { val_ori_c = 1 }
+			custom_effect_tooltip = vallo_alpino_ori_tt
+			if = { #1st level - 1935
+				limit = {
+					check_variable = { val_ori_c = 1 }
+				}
+				hidden_effect = {
+					1034 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 9613
+						}
+					}
+					736 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = {
+								id = 11595
+								id = 599
+							}
+						}
+					}
+					791 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 13913
+						}
+					}
+				}
+				set_variable = { val_ori_d = 1495 }
+				activate_decision = ITA_vallo_alpino_ori
+			}
+			else_if = { #2nd level - 1939
+				limit = {
+					check_variable = { val_ori_c = 2 }
+				}
+				hidden_effect = {
+					1034 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 9613
+						}
+					}
+					736 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = {
+								id = 11595
+								id = 599
+							}
+						}
+					}
+					791 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 13913
+						}
+					}
+				}
+				set_variable = { val_ori_d = 1095 }
+				activate_decision = ITA_vallo_alpino_ori
+			}
+			else_if = { #3rd level - 1943
+				limit = {
+					check_variable = { val_ori_c = 3 }
+				}
+				hidden_effect = {
+					1034 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 9613
+						}
+					}
+					736 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = {
+								id = 11595
+								id = 599
+							}
+						}
+					}
+					791 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							instant_build = yes
+							province = 13913
+						}
+					}
+				}
+				set_variable = { val_ori_d = 1095 }
+
+				clear_variable = val_ori_d
+				clear_variable = val_ori_c
+			}
+		}
+	}
+}
+
+ITA_foreign_allignment = { # Ally with Axis or Allies
+	ITA_join_the_allies_decision = {
+		allowed = {
+			tag = ITA
+		}
+		icon = hol_exchange_intelligence_data
+		fire_only_once = yes
+		ai_will_do = {
+			base = 30
+		}
+		visible = {
+			has_country_flag = ITA_allied_flirtation_flag
+			NOT = {
+				is_in_faction = yes
+			}
+			OR = {
+				AND = {
+					has_war_with = GER
+					ENG = {has_war_with = GER}
+				}
+				AND = {
+					has_war_with = DDR
+					ENG = {has_war_with = DDR}
+				}
+				AND = {
+					has_war_with = WGR
+					ENG = {has_war_with = WGR}
+				}
+			}
+			OR = {
+				NOT = { has_global_flag = pact_of_steel_signed_flag }
+				AND = {
+					ENG = { is_in_faction = yes }
+					NOT = { has_war_with = ENG }
+				}
+				AND = {
+					FRA = { is_in_faction = yes }
+					NOT = { has_war_with = FRA }
+				}
+			}
+		}
+
+		available = {
+			is_neighbor_of = GER
+		}
+		complete_effect = {
+			ENG = {
+				country_event = {
+					id = italy.51
+					days = 1
+				}
+			}
+		}
+
+	}
+	ITA_join_the_axis_decision = { #TODO: inspect this
+		allowed = {
+			tag = ITA
+		}
+		icon = hol_exchange_intelligence_data
+		fire_only_once = yes
+		ai_will_do = {
+			base = 140
+		}
+		visible = {
+			is_in_faction = no
+			NOT = {
+				has_war_with = GER
+			}
+			OR = {
+				FRA = {
+					any_allied_country = {
+						ITA = {
+							has_war_with = PREV
+						}
+						GER = {
+							has_war_with = PREV
+						}
+					}
+				}
+				AND = {
+					has_war_with = FRA
+					GER = { has_war_with = FRA }
+				}
+				AND = {
+					has_war_with = ENG
+					GER = { has_war_with = ENG }
+				}
+				AND = {
+					has_war_with = YUG
+					GER = { has_war_with = YUG }
+				}
+			}
+		}
+
+		available = {
+			always = yes
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					GER = {
+						is_in_faction = yes
+						is_faction_leader = yes
+					}
+				}
+				GER = { add_to_faction = ITA }
+			}
+			else_if = {
+				limit = {
+					GER = {
+						is_in_faction = no
+					}
+				}
+				GER ={
+					create_faction = Axis
+					add_to_faction = ITA
+				}
+			}
+		}
+
+	}
+}
+
+ITA_Promotions = {
+	#https://en.wikipedia.org/wiki/Marshal_of_Italy
+	ITA_Promote_de_bono_marshal = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1935.11.15
+			has_character = ITA_emilio_de_bono
+			ITA_emilio_de_bono = { is_corps_commander = yes }
+		}
+		available = {
+			ITA_emilio_de_bono = { is_field_marshal = no }
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		priority = 10
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#Promoted to Marshal of Italy on 16 of November 1935
+			ITA_emilio_de_bono = { promote_leader = yes }
+		}
+	}
+	
+	ITA_Promote_Bastico_corps = { #Promote to Corps Commander (lieutenant general)
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			has_character = ITA_ettore_bastico
+			date > 1936.2.9
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		priority = 8
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#10 February 1936 he was promoted to lieutenant general (generale di corpo d'armata). From 1936 to 1937, he was the commander of the II Corps. 
+			#In 1937, during the later stages of the Spanish Civil War, Bastico replaced Mario Roatta as the commander-in-chief of the Italian volunteer corps in Spain, the Corpo Truppe Volontarie.
+			#When Italy entered World War II, Bastico was Governor of the Italian Aegean Islands (Dodecanese) and he was promoted to full general (Generale d'Armata) on 7 August 1940. 
+			#On 19 July 1941, Bastico was named Governor-General of Italian Libya and commander-in-chief over all Axis forces in North Africa. As Erwin Rommel's superior in the North African campaign, Rommel's plans had to be first approved by Bastico. 
+			#Bastico was promoted to Marshal of Italy (Maresciallo d'Italia) on 12 August 1942, largely to avoid him being junior in rank to Rommel, who was promoted to field marshal (Generalfeldmarschall) on 22 June. 
+			#Was dismissed after the defeat in El Alamein and the definitive loss of Libya. Since 2 February 1943 he was left without a command for the rest of the war.
+			add_corps_commander_role = { #promoted feb 1936
+				character = ITA_ettore_bastico
+				traits = {
+					corps_commander_trait
+					infantry_officer
+					infantry_leader
+					military_governor
+				}
+				skill = 2
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 2
+			}
+		}
+	}
+
+	ITA_Promote_Bastico = { #Promote to Army General
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			has_character = ITA_ettore_bastico
+			ITA_ettore_bastico = { has_trait = corps_commander_trait }
+			OR = {
+				date > 1940.8.6
+				has_war_with = FRA
+			}
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		priority = 8
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			ITA_ettore_bastico = {
+				remove_unit_leader_trait = corps_commander_trait
+				add_unit_leader_trait = career_officer
+				add_unit_leader_trait = inflexible_strategist
+			}
+		}
+	}
+
+	ITA_Promote_bastico_marshal = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			#Bastico was promoted to Marshal of Italy (Maresciallo d'Italia) on 12 August 1942, largely to avoid him being junior in rank to Rommel, who was promoted to field marshal (Generalfeldmarschall) on 22 June. 
+			#TODO: maybe make this available when Rommel is promoted to Marshal by Germany
+			date > 1942.8.11
+			has_character = ITA_ettore_bastico
+			ITA_ettore_bastico = {
+				NOT = { has_trait = corps_commander_trait }
+				is_corps_commander = yes
+			}
+		}
+		available = {
+			ITA_ettore_bastico = { is_field_marshal = no }
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		priority = 10
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			ITA_ettore_bastico = { promote_leader = yes }
+		}
+	}
+
+	ITA_Promote_Ambrosio = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1938.10.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			add_corps_commander_role = { #promoted october 1938
+				character = ITA_vittorio_ambrosio
+				traits={ cavalry_officer brilliant_strategist career_officer decided_planner harsh_leader }
+				skill = 2
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 2
+			}
+		}
+	}
+	ITA_Promote_Biroli = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1935.4.1
+		}
+		available = {
+		}
+
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#promoted april 1935
+			generate_character = { #create + recruit
+				token_base = ITA_alessandro_pirzio_biroli
+				name = "Alessandro Pirzio Biroli"
+				portraits = {
+					army = {
+						large = "gfx/leaders_cbts/ITA/Portrait_Italy_Pirzio_Biroli.png"
+						small="gfx/interface/ideas/idea_europe_generic_land_3.dds"
+					}
+				}
+				corps_commander = {
+					traits = {
+						harsh_leader
+						military_governor
+					}
+					skill = 1
+					attack_skill = 1
+					defense_skill = 1
+					planning_skill = 1
+					logistics_skill = 2
+				}
+			}
+		}
+	}
+
+	ITA_Promote_Caracciolo = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1940.12.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#promoted dec 1940
+			generate_character = { #create + recruit
+				token_base = ITA_mario_caracciolo
+				name = "Mario Caracciolo"
+				portraits = {
+					army = {
+						large = "gfx/leaders_cbts/leader_unknown.png"
+						small="gfx/interface/ideas/idea_europe_generic_land_3.dds"
+					}
+				}
+				corps_commander = {
+					traits = {
+						old_guard
+					}
+					skill = 1
+					attack_skill = 1
+					defense_skill = 1
+					planning_skill = 1
+					logistics_skill = 1
+				}
+			}
+		}
+	}
+	ITA_Promote_Cavallero = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1940.7.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#promoted july 1940
+			#Promoted to Marshal of Italy on 1st of July 1942
+			add_corps_commander_role = {
+				character = ITA_ugo_cavallero
+				traits = {
+					politically_connected
+					unpopular
+				}
+				skill = 2
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 2
+			}
+		}
+	}
+	ITA_Promote_Cavallero_marshal = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1942.7.1
+			has_character = ITA_ugo_cavallero
+			ITA_ugo_cavallero = { is_corps_commander = yes }
+		}
+		available = {
+			ITA_ugo_cavallero = { is_field_marshal = no }
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		priority = 9
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#Promoted to Marshal of Italy on 1st of July 1942
+			ITA_ugo_cavallero = { promote_leader = yes }
+		}
+	}
+
+	ITA_Promote_Gabba = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1934.5.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#promoted april 1934
+			# Retired in the military in 1939. Was named senator and was later Ministro dell'Africa Italiana in the Badoglio Government
+			generate_character = { #create + recruit
+				token_base = ITA_melchiade_gabba
+				name = "Melchiade Gabba"
+				portraits = {
+					army = {
+						large = "gfx/leaders_cbts/ITA/Portrait_Italy_Gabba.png"
+						small="gfx/interface/ideas/idea_europe_generic_land_3.dds"
+					}
+				}
+				corps_commander = {
+					traits = {
+						career_officer
+						artillerist
+					}
+					skill = 1
+					attack_skill = 2
+					defense_skill = 1
+					planning_skill = 1
+					logistics_skill = 1
+				}
+			}
+		}
+	}
+
+	ITA_Promote_Gariboldi = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1939.9.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#promoted sept 1939
+			generate_character = { #create + recruit
+				token_base = ITA_italo_gariboldi
+				name = "Italo Gariboldi"
+				portraits = {
+					army = {
+						large = "gfx/leaders_cbts/ITA/Portrait_Italy_Italo_Gariboldi.png"
+						small="gfx/interface/ideas/idea_europe_generic_land_3.dds"
+					}
+				}
+				corps_commander = {
+					traits = {
+						war_hero
+						trait_cautious
+					}
+					skill = 2
+					attack_skill = 1
+					defense_skill = 2
+					planning_skill = 2
+					logistics_skill = 1
+				}
+			}
+		}
+	}
+
+	ITA_Promote_Grossi = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1937.9.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			# 6 June 1941, suddenly died in Turin from a heart attack.
+			generate_character = { #promoted sept 1937
+				token_base = ITA_camillo_grossi
+				name = "Camillo Grossi"
+				portraits = {
+					army = {
+						large = "gfx/leaders_cbts/leader_unknown.png"
+						small="gfx/interface/ideas/idea_europe_generic_land_3.dds"
+					}
+				}
+				corps_commander = {
+					traits = {
+						trait_mountaineer
+						infantry_officer
+						old_guard
+					}
+					skill = 2
+					attack_skill = 2
+					defense_skill = 1
+					planning_skill = 2
+					logistics_skill = 2
+				}
+			}
+		}
+	}
+
+	ITA_Promote_Guzzoni = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1939.4.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			add_corps_commander_role = { #promoted april 1939
+				character = ITA_alfredo_guzzoni
+				traits = {
+					unpopular
+					politically_connected
+				}
+				skill = 1
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 1
+			}
+		}
+	}
+
+	ITA_Promote_Maravinga = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1939.9.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			# 1 September 1935 – 1 June 1936: General Officer Commanding, II Army Corps in Africa
+			# 15 February 1937 – 3 August 1938: General Officer Commanding, Army Corps of Bari
+			# 14 March 1942: transferred to the reserve
+			# Was monarchist and supported Badoglio
+			create_corps_commander = { #promoted sept 1939
+				name = "Pietro Maravinga"
+				portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+				traits = {
+					old_guard
+					corps_commander_trait
+				}
+				skill = 1
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 2
+			}
+		}
+	}
+
+	ITA_Promote_Marinetti = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1937.7.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			# 1 July 1937 – 1 Oct 1937: Designated Commander-in-Chief, Army of Verona 1 Oct 1937 – 15
+			# 1939-XX-XX – 1940-XX-XX General Officer Commanding 1st Army
+			# 30 September 1941: Transferred to the reserve (Retired)
+			# https://comandosupremo.com/wp-content/uploads/2020/05/adriano-Marinetti.png
+			create_corps_commander = { #promoted jul 1937
+				name = "Adriano Marinetti"
+				portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+				traits = {
+				}
+				skill = 1
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 2
+			}
+		}
+	}
+
+	ITA_Promote_Messe_corps = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1940.11.14
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#Promoted for War Merits to Lieutenant General end of 1940
+			#Returning to Italy at the end of 1942, he was promoted to the rank of general of the army, and on 23 January 1943 he was appointed head of the 1st Army in Tunisia.
+			#12 of May 1943 promoted by Mussolini to Marshal of Italy when axis troops in Tunis were without ammunnition and supplies to continue resisting the last fases of the Tunis Campaign. He surrendered the next day
+			#Chief of Staff of the Regio Esercito Cobeligerante Italiano in 1943. Loyal to the Monarchy.
+			#Was retired when the republic was proclaimed in 1946
+			add_corps_commander_role = { #promoted nov 1942
+				character = ITA_giovanni_messe
+				traits = {
+					war_hero
+					trait_engineer
+					brilliant_strategist
+					winter_specialist
+					corps_commander_trait
+				}
+				skill = 2
+				attack_skill = 2
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 2
+			}
+		}
+	}
+
+	ITA_Promote_Messe = { #Promote to Army General
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			has_character = ITA_giovanni_messe
+			ITA_giovanni_messe = { has_trait = corps_commander_trait }
+			date > 1942.12.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		priority = 8
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			ITA_giovanni_messe = {
+				remove_unit_leader_trait = corps_commander_trait
+			}
+		}
+	}
+
+	ITA_Promote_Messe_marshal = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1943.5.11
+			has_character = ITA_giovanni_messe
+			ITA_giovanni_messe = {
+				NOT = { has_trait = corps_commander_trait }
+				is_corps_commander = yes
+			}
+		}
+		available = {
+			ITA_giovanni_messe = { is_field_marshal = no }
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		priority = 10
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			ITA_giovanni_messe = { promote_leader = yes }
+		}
+	}
+
+	ITA_Promote_Baistrocchi = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			OR = {
+				date > 1936.05.23
+				has_country_flag = ITA_victory_in_ethiopia
+			}
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#On 23 May 1936, shortly after the proclamation of the Italian Empire in East Africa, Baistrocchi was promoted to the rank of Army General.
+			add_corps_commander_role = {
+				character = ITA_giovanni_messe
+				traits = {
+					politically_connected
+					unpopular
+					old_guard
+				}
+				skill = 1
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 2
+			}
+		}
+	}
+
+	ITA_Promote_graziani_marshal = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			OR = {
+				date > 1936.7.5
+				ITA = { controls_province = 7161 } #Harar
+			}
+			has_character = ITA_rodolfo_graziani
+			ITA_rodolfo_graziani = { is_corps_commander = yes }
+		}
+		available = {
+			ITA_rodolfo_graziani = { is_field_marshal = no }
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		priority = 10
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#Promoted to Marshal of Italy after the Occupation of Harar. 6 May 1936 
+			ITA_rodolfo_graziani = { promote_leader = yes }
+		}
+	}
+
+	ITA_Promote_Pintor = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1938.9.9
+		}
+		available = {
+			# date > 1938.9.9
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 900
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#commanded the First Army during the Italian invasion of France (11–25 June), which was deployed along the southern sector of the Alps down to the coast.
+			#he was the president of the Commissione Italiana d'Armistizio con la Francia (CIAF), which oversaw the implementation of the Franco-Italian Armistice, from 27 June 1940 until his death.
+			#Died 7 of December 1940. Pintor and fellow general Aldo Pellegrini died when their airplane crashed near Acqui Terme on its way from Rome to the CIAF headquarters in Turin.
+			create_corps_commander = { #promoted sept 1938
+				name = "Pietro Pintor"
+				portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+				traits = {
+					trait_mountaineer
+				}
+				skill = 1
+				attack_skill = 1
+				defense_skill = 2
+				planning_skill = 1
+				logistics_skill = 2
+			}
+		}
+	}
+
+	ITA_Promote_Filiberto = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1939.9.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+
+		ai_will_do = {
+			factor = 900
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#1940: Commander General of the 7º Army. 10 september 1939
+			# held no major commands after Italy joined the Allies
+			create_corps_commander = { #promoted september 1939
+				name = "Filiberto di Savoia-Genova"
+				portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+				traits = {
+					politically_connected
+				}
+				skill = 1
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 1
+			}
+		}
+	}
+
+	ITA_Promote_Roatta = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1942.3.1
+		}
+		available = {
+			# date > 1942.3.1
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#Nasty stuff in Yugoslavia (War crimes)
+			#After leaving Yugoslavia Roatta took over command of the Sixth Army in Sicily on 11 February 1943
+			#Moved to Rome in June 1943 to replace General Vittorio Ambrosio as Chief of Staff of the Italian Army.
+			#On 10 November 1943, the Allies requested that Italian Marshal Pietro Badoglio remove Roatta from his post as Chief of Staff of the Italian Army due to Yugoslavia's charges that he committed war crimes.
+			#On 12 November, Roatta was dismissed from his post
+			add_corps_commander_role = {
+				character = ITA_mario_roatta
+				traits = {
+					trait_reckless
+					harsh_leader
+				}
+				skill = 2
+				attack_skill = 2
+				defense_skill = 2
+				planning_skill = 1
+				logistics_skill = 2
+			}
+		}
+	}
+	ITA_Promote_Robotti = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1943.4.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#In February 1943, he succeeded general Mario Roatta as commander of the Italian Second Army in occupied Yugoslavia.
+			#General Robotti while commanding Italian troops in Axis occupied Yugoslavia in anti-partisan operations, was noted for his brutality, even once complaining to his officers that "you are not slaughtering enough people."
+			#At the time of the Armistice of Cassibile in September 1943, he escaped capture by the Germans and retired to a private life in Rapallo where he lived with his family.
+			add_corps_commander_role = { #promoted apr 1943
+				character = ITA_mario_robotti
+				traits = {
+					harsh_leader
+					#War criminal
+				}
+				skill = 1
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 1
+			}
+		}
+	}
+
+	ITA_Promote_Rosi = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1941.2.15
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#15 february 1941 was nominated commander of the 6ª Army (Army of the Po)
+			add_corps_commander_role = {
+				character = ITA_ezio_rosi
+				traits = {
+					artillerist
+				}
+				skill = 2
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 1
+			}
+		}
+	}
+
+	# ITA_Promote_Santini = {
+	# 	icon = GFX_decision_generic_army_support
+	# 	allowed = {
+	# 		tag = ITA
+	# 	}
+	# 	visible = {
+	# 		date > 1936.4.1
+	# 	}
+	# 	available = {
+	# 		date > 1936.4.1
+	# 	}
+	# 	custom_cost_trigger = {
+	# 		command_power > 9
+	# 	}
+	# 	ai_will_do = {
+	# 		factor = 2000
+	# 	}
+	# 	custom_cost_text = command_power_more_than_10
+	# 	fire_only_once = yes
+	# 	complete_effect = {
+	# 		hidden_effect = {
+	# 			add_command_power = -10
+	# 		}
+	#		#was corps commander
+	# 		create_corps_commander = {
+	# 			name = "Ruggero Santini"
+	# 			portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+	# 			traits = {
+	# 				old_guard
+	# 				military_governor
+	# 			}
+	# 			skill = 1
+	# 			attack_skill = 1
+	# 			defense_skill = 1
+	# 			planning_skill = 1
+	# 			logistics_skill = 1
+	# 		}
+	# 	}
+	# }
+
+	# ITA_Promote_Scala = {
+	# 	icon = GFX_decision_generic_army_support
+	# 	allowed = {
+	# 		tag = ITA
+	# 	}
+	# 	visible = {
+	# 		date > 1939.11.1
+	# 	}
+	# 	available = {
+	# 		date > 1939.11.1
+	# 	}
+	# 	custom_cost_trigger = {
+	# 		command_power > 9
+	# 	}
+	# 	ai_will_do = {
+	# 		factor = 2000
+	# 	}
+	# 	custom_cost_text = command_power_more_than_10
+	# 	fire_only_once = yes
+	# 	complete_effect = {
+	# 		hidden_effect = {
+	# 			add_command_power = -10
+	# 		}
+	# 		#Retired 1940
+	# 		#Corps commander
+	# 		create_corps_commander = { #promoted nov 1939
+	# 			name = "Fabio Massimo Scala"
+	# 			portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+	# 			traits = {
+	# 				war_hero
+	# 			}
+	# 			skill = 1
+	# 			attack_skill = 1
+	# 			defense_skill = 1
+	# 			planning_skill = 1
+	# 			logistics_skill = 1
+	# 		}
+	# 	}
+	# }
+
+	ITA_Promote_Soddu = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1940.11.7
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#was sent to Albania to take over command of the Italian Forces from General Sebastiano Visconti Prasca and then sacked and replaced by the Chief of the General staff Ugo Cavallero four weeks later.
+			add_corps_commander_role = { #promoted 8 nov 1940
+				character = ITA_ubaldu_soddu
+				traits = {
+					trait_cautious
+					#Very Incompetent
+				}
+				skill = 1
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 2
+			}
+		}
+	}
+
+	# ITA_Promote_Trezzani = {
+	# 	icon = GFX_decision_generic_army_support
+	# 	allowed = {
+	# 		tag = ITA
+	# 	}
+	# 	visible = {
+	# 		date > 1941.3.1
+	# 	}
+	# 	available = {
+	# 		date > 1941.3.1
+	# 	}
+	# 	custom_cost_trigger = {
+	# 		command_power > 9
+	# 	}
+	# 	ai_will_do = {
+	# 		factor = 2000
+	# 	}
+	# 	custom_cost_text = command_power_more_than_10
+	# 	fire_only_once = yes
+	# 	complete_effect = {
+	# 		hidden_effect = {
+	# 			add_command_power = -10
+	# 		}
+	# 		#Was Corps Commander
+	# 		#In May 1941, at the end of the siege of Amba Alagi, he surrendered to the British along with the Duke and Generals Luigi Frusci, Pietro Pinna Parpaglia and Marino Valletti-Borgnini.
+	# 		#He was then sent to Great Britain as a prisoner of war, and later transferred to the United States, initially at Camp Crossville and later at Camp Monticello.
+	# 		#After the Armistice of Cassibile, Trezzani was released and attached to the headquarters of the Italian Service Units in Washington.
+	# 		#In December 1944 he was repatriated and returned to active service in the Italian Co-belligerent Army.
+	# 		create_corps_commander = { #promoted mar 1941
+	# 			name = "Claudio Trezzani"
+	# 			portrait_path = "gfx/leaders_cbts/leader_unknown.png"
+	# 			traits = {
+	# 				corps_commander_trait
+	# 			}
+	# 			skill = 1
+	# 			attack_skill = 1
+	# 			defense_skill = 1
+	# 			planning_skill = 1
+	# 			logistics_skill = 1
+	# 		}
+	# 	}
+	# }
+
+	ITA_Promote_Vecchiarelli = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1941.3.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#During the Second World War he was commander of the I and XX Army Corps, and of the 11th Army stationed in Greece, with headquarters in Athens.
+			#After the Armistice was arrested by the Germans
+			add_corps_commander_role = {
+				character = ITA_carlo_vecchiarelli
+				traits = {
+					trait_mountaineer
+					military_governor
+				}
+				skill = 1
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 1
+			}
+		}
+	}
+	
+	ITA_Promote_Prasca = {
+		icon = GFX_decision_generic_army_support
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1940.7.1
+		}
+		available = {
+		}
+		custom_cost_trigger = {
+			command_power > 9
+		}
+		ai_will_do = {
+			factor = 2000
+		}
+		custom_cost_text = command_power_more_than_10
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+			#After the Armistice joined the resistance and was arrested by the Germans
+			generate_character = { #promoted jul 1940
+				token_base = ITA_sebastiano_visconti_prasca
+				name = "Sebastiano Visconti Prasca"
+				portraits = {
+					army = {
+						large = "gfx/leaders_cbts/leader_unknown.png"
+						small="gfx/interface/ideas/idea_europe_generic_land_3.dds"
+					}
+				}
+				corps_commander = {
+					traits = {
+						corps_commander_trait
+					}
+					skill = 2
+					attack_skill = 2
+					defense_skill = 2
+					planning_skill = 2
+					logistics_skill = 2
+				}
+			}
+		}
+	}
+}
+
+ITA_autostrada_decisions = {
+	ITA_Serraville_autostrada = {
+		icon = GFX_decision_generic_build_highway
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			tag = ITA
+		}
+		fire_only_once = yes
+		cost = 0
+		days_remove = 1031
+		modifier = {
+			civilian_factory_use = 1
+		}
+		highlight_states = {
+			highlight_provinces = {
+				6788
+				771
+				11726
+				13307
+			}
+		}
+		remove_effect = {
+			add_political_power = 35
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.02
+			}
+			1033 = {
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=6788}
+				}
+			}
+			158 = {
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=771}
+				}
+			}
+			159 = {
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=11726}
+				}
+				add_province_modifier = {
+					static_modifiers = { narrow_highway_modifier }
+					province = {id=13307}
+				}
+			}
+		}
+	}
+}
+
+ITA_new_tank_designs = {
+
+	### Tankettes ###
+
+	ITA_develop_light_tank_cv_33 = {
+		icon = GFX_decision_generic_light_tank
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+		}
+		available = {
+			date > 1933.1.1
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			factor = 300
+		}
+		complete_effect = {
+			set_country_flag = ita_light_tank_cv_33_production
+			create_equipment_variant = {
+				name = "CV 33" # Renamed L3/33 in 1938
+				type = light_tank_chassis_1
+				parent_version = 0
+				modules = {
+					main_armament_slot = tank_heavy_machine_gun
+					turret_type_slot = tank_light_one_man_tank_turret
+					suspension_type_slot = tank_bogie_suspension
+					armor_type_slot = tank_riveted_armor
+					engine_type_slot = tank_gasoline_engine
+				}
+				icon = "GFX_ITA_light_normal"
+				upgrades = {
+					tank_nsb_engine_upgrade = 3
+					tank_nsb_armor_upgrade = 1
+				}
+			}
+		}
+	}
+	ITA_develop_light_tank_cv_35 = {
+		icon = GFX_decision_generic_light_tank
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+		}
+		available = {
+			date > 1935.8.1
+			has_country_flag = ita_light_tank_cv_33_production
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			factor = 300
+		}
+		complete_effect = {
+			set_country_flag = ita_light_tank_cv_35_production
+			create_equipment_variant = {
+				name = "CV 35" # Renamed L3/35 in 1938
+				type = light_tank_chassis_1
+				parent_version = 0
+				modules = {
+					main_armament_slot = tank_heavy_machine_gun
+					turret_type_slot = tank_light_one_man_tank_turret
+					suspension_type_slot = tank_bogie_suspension
+					armor_type_slot = tank_riveted_armor
+					engine_type_slot = tank_gasoline_engine
+					special_type_slot_1 = additional_machine_guns
+				}
+				icon = "GFX_ITA_light_normal"
+				upgrades = {
+					tank_nsb_engine_upgrade = 3
+					tank_nsb_armor_upgrade = 1
+				}
+			}
+		}
+	}
+	ITA_develop_light_tank_cv_38 = {
+		icon = GFX_decision_generic_light_tank
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+		}
+		available = {
+			date > 1938.1.1
+			has_country_flag = ita_light_tank_cv_35_production
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			factor = 300
+		}
+		complete_effect = {
+			set_country_flag = ita_light_tank_cv_38_production
+			create_equipment_variant = {
+				name = "L33/38"
+				type = light_tank_chassis_1
+				parent_version = 0
+				modules = {
+					main_armament_slot = tank_small_cannon_2
+					turret_type_slot = tank_light_one_man_tank_turret
+					suspension_type_slot = tank_bogie_suspension
+					armor_type_slot = tank_riveted_armor
+					engine_type_slot = tank_gasoline_engine
+					special_type_slot_1 = additional_machine_guns
+				}
+				icon = "GFX_ITA_light_normal"
+				upgrades = {
+					tank_nsb_engine_upgrade = 4
+					tank_nsb_armor_upgrade = 1
+				}
+			}
+		}
+	}
+	ITA_develop_light_tank_l6_40 = {
+		icon = GFX_decision_generic_light_tank
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+		}
+		available = {
+			date > 1940.3.1
+			has_tech = improved_light_tank_chassis
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			factor = 300
+		}
+		complete_effect = {
+			create_equipment_variant = {
+				name = "Carro Armato L6/40"
+				type = light_tank_chassis_2
+				parent_version = 0
+				modules = {
+					main_armament_slot = tank_small_cannon_2
+					turret_type_slot = tank_light_one_man_tank_turret
+					suspension_type_slot = tank_bogie_suspension
+					armor_type_slot = tank_riveted_armor
+					engine_type_slot = tank_gasoline_engine
+					special_type_slot_1 = additional_machine_guns
+					special_type_slot_2 = tank_radio_1
+				}
+				icon = "GFX_ITA_light_normal"
+				upgrades = {
+					tank_nsb_engine_upgrade = 5
+					tank_nsb_armor_upgrade = 3
+				}
+			}
+		}
+	}
+
+	### Infantry Tanks ###
+
+	ITA_develop_m11_39 = {
+		icon = GFX_decision_generic_light_tank
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+		}
+		available = {
+			date > 1939.7.1
+			has_tech = basic_medium_tank_chassis
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			factor = 300
+		}
+		complete_effect = {
+			set_country_flag = ita_infantry_tank_m11_39_production
+			create_equipment_variant = {
+				name = "Carro Armato M11/39"
+				type = medium_tank_chassis_1
+				modules = {
+					main_armament_slot = tank_small_cannon_2
+					turret_type_slot = tank_medium_one_man_tank_turret
+					suspension_type_slot = tank_bogie_suspension
+					armor_type_slot = tank_riveted_armor
+					engine_type_slot = tank_diesel_engine
+					special_type_slot_1 = additional_machine_guns
+				}
+				icon = "GFX_ITA_tank_medium_normal"
+				upgrades = {
+					tank_nsb_engine_upgrade = 4
+					tank_nsb_armor_upgrade = 4
+				}
+			}
+		}
+	}
+
+	### Medium Tanks ###
+
+	ITA_develop_m13_40 = {
+		icon = GFX_decision_generic_light_tank
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+		}
+		available = {
+			date > 1940.1.1
+			has_tech = improved_medium_tank_chassis
+			has_country_flag = ita_infantry_tank_m11_39_production
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			factor = 300
+		}
+		complete_effect = {
+			set_country_flag = ita_medium_tank_m13_40_production
+			create_equipment_variant = {
+				name = "Carro Armato M13/40"
+				type = medium_tank_chassis_2
+				modules = {
+					main_armament_slot = tank_medium_cannon_2
+					turret_type_slot = tank_medium_one_man_tank_turret
+					suspension_type_slot = tank_bogie_suspension
+					armor_type_slot = tank_riveted_armor
+					engine_type_slot = tank_diesel_engine
+					special_type_slot_1 = additional_machine_guns
+					special_type_slot_2 = tank_radio_1
+				}
+				icon = "GFX_ITA_tank_medium_normal"
+				upgrades = {
+					tank_nsb_engine_upgrade = 5
+					tank_nsb_armor_upgrade = 4
+				}
+			}
+		}
+	}
+	ITA_develop_m14_41 = {
+		icon = GFX_decision_generic_light_tank
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+		}
+		available = {
+			date > 1939.7.1
+			has_country_flag = ita_medium_tank_m13_40_production
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			factor = 300
+		}
+		complete_effect = {
+			set_country_flag = ita_medium_tank_m14_41_production
+			create_equipment_variant = {
+				name = "Carro Armato M14/41"
+				type = medium_tank_chassis_2
+				modules = {
+					main_armament_slot = tank_medium_cannon_2
+					turret_type_slot = tank_medium_one_man_tank_turret
+					suspension_type_slot = tank_bogie_suspension
+					armor_type_slot = tank_riveted_armor
+					engine_type_slot = tank_diesel_engine
+					special_type_slot_1 = additional_machine_guns
+					special_type_slot_2 = tank_radio_1
+				}
+				icon = "GFX_ITA_tank_medium_normal"
+				upgrades = {
+					tank_nsb_engine_upgrade = 7
+					tank_nsb_armor_upgrade = 5
+				}
+			}
+		}
+	}
+	ITA_develop_m15_42 = {
+		icon = GFX_decision_generic_light_tank
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+		}
+		available = {
+			date > 1942.8.1
+			has_country_flag = ita_medium_tank_m14_41_production
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			factor = 300
+		}
+		complete_effect = {
+			create_equipment_variant = {
+				name = "Carro Armato M15/42"
+				type = medium_tank_chassis_2
+				modules = {
+					main_armament_slot = tank_high_velocity_cannon_2
+					turret_type_slot = tank_medium_one_man_tank_turret
+					suspension_type_slot = tank_bogie_suspension
+					armor_type_slot = tank_riveted_armor
+					engine_type_slot = tank_diesel_engine
+					special_type_slot_1 = additional_machine_guns
+					special_type_slot_2 = tank_radio_1
+				}
+				icon = "GFX_ITA_tank_medium_normal"
+				upgrades = {
+					tank_nsb_engine_upgrade = 8
+					tank_nsb_armor_upgrade = 6
+				}
+			}
+		}
+	}
+
+	### Heavy Tanks ###
+
+	ITA_develop_p26_40 = {
+		icon = GFX_decision_generic_light_tank
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+		}
+		available = {
+			date > 1940.5.1
+			has_tech = improved_heavy_tank_chassis
+		}
+		fire_only_once = yes
+		cost = 0
+		ai_will_do = {
+			factor = 300
+		}
+		complete_effect = {
+			set_country_flag = ita_heavy_tank_p26_40_production
+			create_equipment_variant = {
+				name = "Carro Armato P26/40"
+				type = heavy_tank_chassis_2
+				modules = {
+					main_armament_slot = tank_medium_cannon_2
+					turret_type_slot = tank_heavy_two_man_tank_turret
+					suspension_type_slot = tank_bogie_suspension
+					armor_type_slot = tank_riveted_armor
+					engine_type_slot = tank_diesel_engine
+					special_type_slot_1 = tank_radio_1
+					special_type_slot_2 = additional_machine_guns
+				}
+				icon = "GFX_ITA_tank_heavy_normal"
+				upgrades = {
+					tank_nsb_engine_upgrade = 7
+					tank_nsb_armor_upgrade = 10
+				}
+			}
+		}
+	}
+}

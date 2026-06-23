@@ -1,0 +1,2459 @@
+d_french_armistice_GER_setup = {
+	log = "Compiegne Armistice - Historical Version - [?Global.date]"
+	set_global_flag = FRA_has_fallen
+	set_victory_points = {
+		province = 9737
+		value = 20
+	}
+	26 = {
+		transfer_state_to = VIC
+	}
+	FRA = {
+		set_cosmetic_tag = FRA_FREE
+
+		retire_character = FRA_albert_lebrun
+		add_country_leader_role = {
+			character = FRA_charles_de_gaulle
+			country_leader={
+				ideology=liberal_nationalism
+				expire="1965.1.1.1"
+				id=-1
+			}
+			promote_leader = yes
+		}
+		add_country_leader_role = {
+			character = FRA_charles_de_gaulle
+			country_leader={
+				ideology=market_liberal
+				expire="1965.1.1.1"
+				id=-1
+			}
+			promote_leader = yes
+		}
+		add_country_leader_role = {
+			character = FRA_charles_de_gaulle
+			country_leader={
+				ideology=military
+				expire="1965.1.1.1"
+				id=-1
+			}
+			promote_leader = yes
+		}
+		add_country_leader_role = {
+			character = FRA_charles_de_gaulle
+			country_leader={
+				ideology=conservatism
+				expire="1965.1.1.1"
+				id=-1
+			}
+			promote_leader = yes
+		}
+		add_country_leader_role = {
+			character = FRA_charles_de_gaulle
+			country_leader={
+				ideology=french_neosocialism
+				expire="1965.1.1.1"
+				id=-1
+			}
+			promote_leader = yes
+		}
+		add_country_leader_role = {
+			character = FRA_charles_de_gaulle
+			country_leader={
+				ideology=french_radicalism
+				expire="1965.1.1.1"
+				id=-1
+			}
+			promote_leader = yes
+		}
+		add_corps_commander_role = {
+			character = FRA_charles_de_gaulle
+			traits={ armor_officer media_personality }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 3
+		}
+		retire_character = FRA_louis_marin
+		retire_character = FRA_leon_blum
+		# retire_ideology_leader = social_democracy
+		# retire_ideology_leader = social_liberalism
+		# retire_ideology_leader = market_liberalism
+		set_politics = {
+			ruling_party = democratic
+			elections_allowed = no
+		}
+		country_event = { # De Gaulle
+			id = france.403
+		}
+
+		retire_character = FRA_alphonse_georges
+		retire_character = FRA_andre_gaston_pretelat
+		retire_character = FRA_gaston_billotte
+		retire_character = FRA_georges_blanchard
+		retire_character = FRA_marcel_garchery
+		retire_character = FRA_victor_bourret #Prisioner of War
+
+		FRA_charles_huntziger = { add_unit_leader_trait = politically_connected }
+
+		every_character = {
+			limit = {
+				is_country_leader = no
+				NOT = {
+					is_character = FRA_charles_de_gaulle
+				}
+			}
+			set_nationality = VIC
+		}
+
+		transfer_units_fraction = {
+			target = VIC
+			size = 1.0
+			stockpile_ratio = 1.0
+			army_ratio = 1.0
+			navy_ratio = 1.0
+			air_ratio = 1.0
+			keep_unit_leaders_trigger = {
+				is_character = FRA_charles_de_gaulle
+			}
+		}
+	}
+
+	#TODO: Puppet Vichy with Reestadt autonomy. Think about what to do with French puppets
+	#set rules for vichy france like cant join factions and make it so they can't join the war (disabling Germany to call Vichy to war)
+	#TODO: De Gulle events and Free France start
+
+	VIC = {
+		#Mainland France
+		every_state = {
+			limit = {
+				OR = {
+					state = 735
+					state = 21
+					state = 32
+					state = 20
+					state = 22
+					state = 31
+					state = 25
+					state = 33
+					state = 1
+					state = 1028
+					state = 1196
+				}
+				CONTROLLER = {
+					OR = {
+						original_tag = FRA
+						has_war_with = FRA
+					}
+				}
+			}
+			add_core_of = VIC
+			VIC = { transfer_state = PREV }
+		}
+
+		1028 = { set_demilitarized_zone = yes }
+		1196 = { set_demilitarized_zone = yes }
+		735 = { set_demilitarized_zone = yes }
+
+		#Colonial France
+		every_state = {
+			limit = {
+				is_owned_by = FRA
+				OR = {
+					is_on_continent = africa
+					is_on_continent = asia
+					is_on_continent = middle_east
+					is_on_continent = south_america
+					is_on_continent = north_america
+					is_on_continent = australia
+					is_on_continent = pacific
+				}
+			}
+			VIC = { transfer_state = PREV }
+		}
+
+		#if = {
+		#	limit = {
+		#		has_country_flag = FRA_Agreement_South_Africa
+		#	}
+		#	FRA = {
+		#		transfer_state = 543
+		#	}
+		#}
+		#else = {
+		#	VIC = {
+		#		transfer_state = 543
+		#	}
+		#}
+
+		set_victory_points = {
+			province = 3594
+			value = 13
+		}
+		set_capital = {
+			state = 26
+		} # Vichy
+
+		FRA = {
+			every_core_state = {
+				add_core_of = VIC
+			}
+			remove_ideas_with_trait = hog
+			remove_ideas_with_trait = frnmin
+			remove_ideas_with_trait = secmin
+			remove_ideas_with_trait = ecomin
+			remove_ideas_with_trait = con
+			remove_ideas_with_trait = cos
+			remove_ideas_with_trait = coa
+			set_country_flag = FRA_maximeweygand_incapable
+			set_country_flag = FRA_charleshuntzinger_incapable
+			set_country_flag = FRA_darlan_incapable
+			set_country_flag = FRA_yvesbouthillier_incapable
+			set_country_flag = FRA_adrienmarquet_incapable
+			set_country_flag = FRA_pierrelaval_incapable
+			FRA_philippe_petain = { set_nationality = VIC }
+			FRA_maxime_weygand = { set_nationality = VIC }
+			FRA_charles_huntziger = { set_nationality = VIC }
+			FRA_francois_darlan = { set_nationality = VIC }
+		}
+		add_ideas = philippepetainhog
+		add_ideas = paulbaudouinfr
+		add_ideas = adrienmarquetsec
+		add_ideas = yvesbouthilliereco
+		add_ideas = francoisdarlan
+
+		add_country_leader_role = {
+			character = FRA_philippe_petain
+			country_leader={
+				ideology=nationalist
+				expire="1965.1.1.1"
+				desc = "POLITICS_PHILIPPE_PÉTAIN_DESC"
+				id=-1
+				traits = {
+					#TODO:give petain unique country leader and general trait
+				}
+			}
+			promote_leader = yes
+		}
+
+		set_politics = {
+			ruling_party = nationalism
+			last_election = "1936.1.1"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		set_popularities = {
+			communism = 5
+			authoritarian_socialism = 0
+			socialism = 5
+			social_democracy = 5
+			social_liberalism = 5
+			market_liberalism = 5
+			jacobin = 5
+			democratic = 20
+			neutrality = 15
+			monarchism = 5
+			nationalism = 20
+			fascism = 10
+		}
+
+		COALITION_add_aut = yes
+		COALITION_add_fas = yes
+
+		add_ideas = {
+			VIC_not_yet_at_war
+		}
+
+		if = {
+			limit = {
+				# has_character = FRA_alphonse_juin
+				FRA = {
+					FRA_alphonse_juin = {
+						is_corps_commander = no
+					}
+				}
+			}
+			add_corps_commander_role = {
+				character = FRA_alphonse_juin
+				traits = { armor_officer career_officer trait_cautious adaptable trait_mountaineer }
+				skill = 4
+				attack_skill = 3
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 3
+			}
+		}
+		if = {
+			limit = {
+				# has_character = FRA_rene_prioux
+				FRA = {
+					FRA_rene_prioux = {
+						is_corps_commander = no
+					}
+				}
+			}
+			add_corps_commander_role = {
+				character = FRA_rene_prioux
+				traits = { cavalry_officer cavalry_leader }
+				skill = 2
+				attack_skill = 1
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 1
+			}
+		}
+		if = {
+			limit = {
+				# has_character = FRA_henri_giraud
+				FRA = {
+					FRA_henri_giraud = {
+						is_corps_commander = no
+					}
+				}
+			}
+
+			add_corps_commander_role = {
+				character = FRA_henri_giraud
+				traits = { armor_officer trickster career_officer adaptable }
+				skill = 3
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 3
+				logistics_skill = 2
+			}
+		}
+		if = {
+			limit = {
+				# has_character = FRA_rene_olry
+				FRA = {
+					FRA_rene_olry = {
+						is_corps_commander = no
+					}
+				}
+			}
+			add_corps_commander_role = {
+				character = FRA_rene_olry
+				traits = { old_guard artillerist trait_mountaineer }
+				skill = 3
+				attack_skill = 1
+				defense_skill = 3
+				planning_skill = 1
+				logistics_skill = 3
+			}
+		}
+		if = {
+			limit = {
+				# has_character = FRA_edouard_requin
+				FRA = {
+					FRA_edouard_requin = {
+						is_corps_commander = no
+					}
+				}
+			}
+			add_corps_commander_role = {
+				character = FRA_edouard_requin
+				traits = { old_guard caring_leader }
+				skill = 3
+				attack_skill = 2
+				defense_skill = 3
+				planning_skill = 2
+				logistics_skill = 3
+			}
+		}
+
+		if = {
+			limit = {
+				has_dlc = "Together for Victory"
+			}
+			set_autonomy = {
+				target = SYR
+				autonomy_state = autonomy_colony
+			}
+			set_autonomy = {
+				target = LEB
+				autonomy_state = autonomy_colony
+			}
+			set_autonomy = {
+				target = VIN
+				autonomy_state = autonomy_colony
+			}
+			
+			else = {
+				puppet = SYR
+				puppet = LEB
+				puppet = VIN
+			}
+		}
+
+		
+		SYR = {
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = SYR_VIC
+			set_politics = {
+				ruling_party = monarchism
+				last_election = "1933.2.16"
+				election_frequency = 36
+				elections_allowed = no
+			}
+			set_popularities = {
+				communism = 4
+				authoritarian_socialism = 4
+				socialism = 7
+				social_democracy = 3
+				social_liberalism = 6
+				market_liberalism = 5
+				jacobin = 5
+				democratic = 3
+				neutrality = 0
+				monarchism = 3
+				nationalism = 50
+				fascism = 10
+			}
+			leave_faction = yes
+			if = {
+				limit = { has_war = yes }
+				every_country = {
+					limit = {
+						has_war_with = SYR
+					}
+					white_peace = {
+						tag = SYR
+					}
+				}
+			}
+		}
+		LEB = {
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = LEB_VIC
+			set_politics = {
+				ruling_party = monarchism
+				last_election = "1933.2.16"
+				election_frequency = 36
+				elections_allowed = no
+			}
+			set_popularities = {
+				communism = 3
+				authoritarian_socialism = 3
+				socialism = 3
+				social_democracy = 2
+				social_liberalism = 2
+				market_liberalism = 4
+				jacobin = 4
+				democratic = 4
+				neutrality = 57
+				monarchism = 4
+				nationalism = 6
+				fascism = 8
+			}
+			leave_faction = yes
+			if = {
+				limit = { has_war = yes }
+				every_country = {
+					limit = {
+						has_war_with = LEB
+					}
+					white_peace = {
+						tag = LEB
+					}
+				}
+			}
+		}
+
+		VIN = {
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = VIN_VIC
+			set_politics = {
+				ruling_party = monarchism
+				last_election = "1933.2.16"
+				election_frequency = 36
+				elections_allowed = no
+			}
+			set_popularities = {
+				communism = 15
+				authoritarian_socialism = 1
+				socialism = 1
+				social_democracy = 3
+				social_liberalism = 1
+				market_liberalism = 1
+				jacobin = 1
+				democratic = 1
+				neutrality = 8
+				monarchism = 64
+				nationalism = 4
+				fascism = 0
+			}
+			leave_faction = yes
+			if = {
+				limit = { has_war = yes }
+				every_country = {
+					limit = {
+						has_war_with = VIN
+					}
+					white_peace = {
+						tag = VIN
+					}
+				}
+			}
+		}
+
+		every_country = {
+			limit = {
+				OR = {
+					tag = VIC
+					is_puppet_of = VIC
+				}
+			}
+			every_owned_state = {
+				limit = {
+					NOT = { is_core_of = FRA }
+				}
+				add_claim_by = FRA
+			}
+		}
+
+		inherit_technology = FRA
+
+	}
+	if = {
+		limit = {
+			FRA = {
+				has_country_flag = FRA_capitulation_tag_switch
+			}
+		}
+		FRA = { clr_country_flag = FRA_capitulation_tag_switch }
+		VIC = { change_tag_from = FRA }
+	}
+}
+
+d_FRA_continue_fight_in_north_africa = {
+	log = "France continues to fight in North Africa. [?Global.date]"
+	set_global_flag = FRA_continues_fight_NA
+	FRA = {
+		every_owned_state = {
+			limit = {
+				is_core_of = FRA
+				NOT = {
+					is_controlled_by = GER
+					is_controlled_by = DDR
+				}
+				if = {
+					limit = {
+						ITA = { has_war_with = FRA }
+						NOT = {
+							ITA = { controls_state = 1 }
+						}
+					}
+					NOT = {
+						state = 1
+						state = 1196
+						state = 1028
+						state = 735
+					}
+				}
+			}
+			FRA = {
+				delete_unit = {
+					state = PREV
+					disband = yes
+				}
+			}
+		}
+		if = {
+			limit = { country_exists = GER }
+			transfer_units_fraction = {
+				target = GER
+				size = 0.1
+				stockpile_ratio = 0.5
+				navy_ratio = 0.1
+				air_ratio = 0.3
+			}
+		}
+		else_if = {
+			limit = { country_exists = DDR }
+			transfer_units_fraction = {
+				target = DDR
+				size = 0.10
+				stockpile_ratio = 0.5
+				navy_ratio = 0.1
+				air_ratio = 0.3
+			}
+		}
+		#Militas composed of armed citizens and soldiers from disbanded Army Divisions form to defend from the Germans
+		division_template = {
+			name = "Citizen Militia"
+			is_locked = yes
+			priority = 0
+			regiments = {
+				militia = { x = 0 y = 0 }
+				militia = { x = 0 y = 1 }
+				militia = { x = 0 y = 2 }
+			}
+		}
+		21 = {
+			create_unit = {
+				division = "name = \"Conseil de défense de Marseille\" division_template = \"Citizen Militia\" start_experience_factor = 0.05 start_equipment_factor = 0.5"
+				owner = FRA
+				allow_spawning_on_enemy_provs = yes
+				prioritize_location = 11834
+			}
+		}
+		19 = {
+			create_unit = {
+				division = "name = \"Milice de défense nationale \"Bordeaux\"\" division_template = \"Citizen Militia\" start_experience_factor = 0.05 start_equipment_factor = 0.5"
+				owner = FRA
+				allow_spawning_on_enemy_provs = yes
+				prioritize_location = 9737
+			}
+		}
+		23 = {
+			create_unit = {
+				division = "name = \"Colonne de défense de la France\" division_template = \"Citizen Militia\" start_experience_factor = 0.05 start_equipment_factor = 0.5"
+				owner = FRA
+				allow_spawning_on_enemy_provs = yes
+				prioritize_location = 6657
+			}
+		}
+		31 = {
+			create_unit = {
+				division = "name = \"Milice de défense nationale de Tolouse\" division_template = \"Citizen Militia\" start_experience_factor = 0.05 start_equipment_factor = 0.5"
+				owner = FRA
+				allow_spawning_on_enemy_provs = yes
+				prioritize_location = 6766
+			}
+		}
+		20 = {
+			create_unit = {
+				division = "name = \"Milice de défense nationale \"Lyon\"\" division_template = \"Citizen Militia\" start_experience_factor = 0.05 start_equipment_factor = 0.5"
+				owner = FRA
+				allow_spawning_on_enemy_provs = yes
+				prioritize_location = 6613
+			}
+		}
+		#Algeria is considered part of France propper.
+		every_owned_state = {
+			limit = { is_core_of = ALG }
+			add_core_of = FRA
+		}
+		# #FRA annexes Morocco and Tunisia
+		# annex_country = {
+		# 	target = MRC
+		# 	transfer_troops = yes
+		# }
+		# annex_country = {
+		# 	target = TNS
+		# 	transfer_troops = yes
+		# }
+	}
+	
+	FRA = { #Algers
+		set_capital = {
+			state = 459
+		}
+	}
+	set_victory_points = { #Return Burdeaux to its previous score
+		province = 9737
+		value = 25
+	}
+	set_victory_points = {
+		province = 1145
+		value = 20
+	}
+	#TODO: Load foreign legion and colonial troops in North Africa
+}
+
+FRA_fall_government = {
+	if = {
+		limit = {
+			has_government = social_liberalism
+		}
+		country_event = {
+			id = france.10
+			hours = 3
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = market_liberalism
+		}
+		country_event = {
+			id = france.11
+			hours = 3
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_democracy
+		}
+		country_event = {
+			id = france.12
+			hours = 3
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = socialism
+		}
+		country_event = {
+			id = france.17
+			hours = 3
+		}
+	}
+}
+
+FRA_coalition_stability_change = {
+	if = {
+		limit = {
+			has_variable = coalition_stability
+		}
+		add_to_variable = { coalition_stability = tempchange }
+		custom_effect_tooltip = change_coalition_stability_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = { coalition_stability < 0.25 }
+					NOT = {
+						has_government = social_liberalism
+					}
+				}
+				country_event = france.14
+			}
+			else_if = {
+				limit = {
+					check_variable = { coalition_stability > 0.65 }
+					NOT = {
+						has_government = socialism
+					}
+				}
+				country_event = france.15
+			}
+			else_if = {
+				limit = {
+					check_variable = { coalition_stability < 0 }
+				}
+				country_event = france.16
+			}
+			clamp_variable = { var = coalition_stability min = -1 max = 1 }
+		}
+	}
+}
+
+
+##Parliament effects##
+
+FRA_parliament_clr_effects = {
+	clr_country_flag = law_passing
+	clr_country_flag = no_neg_communists
+	clr_country_flag = no_neg_socs
+	clr_country_flag = no_neg_socdem
+	clr_country_flag = no_neg_soclib
+	clr_country_flag = no_neg_marlib
+	clr_country_flag = no_neg_centre
+	clr_country_flag = no_neg_cons
+	clr_country_flag = no_neg_agra
+	clr_country_flag = no_neg_rad
+	clr_country_flag = no_neg_indsoc
+	clr_country_flag = already_communists
+	clr_country_flag = already_socs
+	clr_country_flag = already_socdem
+	clr_country_flag = already_soclib
+	clr_country_flag = already_marlib
+	clr_country_flag = already_centre
+	clr_country_flag = already_cons
+	clr_country_flag = already_aut
+	clr_country_flag = already_far_right
+	clr_country_flag = already_agra
+	clr_country_flag = already_rad
+	clr_country_flag = already_indsoc
+	clr_country_flag = yes_neg_soclib
+	clr_country_flag = yes_neg_cons
+	clr_country_flag = yes_neg_centre
+	clr_country_flag = yes_neg_socdem
+	clr_country_flag = yes_neg_demsoc
+	clr_country_flag = yes_neg_communist
+	clr_country_flag = promised_church
+	clr_country_flag = senate_no
+	clr_country_flag = senate_yes
+	clr_country_flag = yes_referendum
+	clr_country_flag = already_defend
+	set_variable = { supseat = 0 }
+}
+
+FRA_parliament_parcial_clr_effects = {
+	clr_country_flag = already_communists
+	clr_country_flag = already_socs
+	clr_country_flag = already_socdem
+	clr_country_flag = already_soclib
+	clr_country_flag = already_marlib
+	clr_country_flag = already_centre
+	clr_country_flag = already_cons
+	clr_country_flag = already_aut
+	clr_country_flag = already_far_right
+	clr_country_flag = already_agra
+	clr_country_flag = already_rad
+	clr_country_flag = already_indsoc
+	clr_country_flag = yes_neg_soclib
+	clr_country_flag = yes_neg_cons
+	clr_country_flag = yes_neg_centre
+	clr_country_flag = yes_neg_socdem
+	clr_country_flag = yes_neg_demsoc
+	clr_country_flag = yes_neg_communist
+	clr_country_flag = promised_church
+	clr_country_flag = already_defend
+	clr_country_flag = yes_referendum
+}
+
+FRA_generic_negotiation = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_country_flag = yes_neg_communist
+			}
+			add_timed_idea = {
+				idea = FRA_temp_worker_condition_commune_edition
+				days = 60
+			}
+		}
+		
+		if = { # DemSoc
+			limit = {
+				has_country_flag = yes_neg_demsoc
+			}
+			add_timed_idea = {
+				idea = FRA_temp_worker_condition
+				days = 60
+			}
+		}
+		
+		if = { # SocDem
+			limit = {
+				has_country_flag = yes_neg_socdem
+			}
+			add_timed_idea = {
+				idea = FRA_temp_public_spending
+				days = 60
+			}
+		}
+
+		if = { # Soclib
+			limit = {
+				has_country_flag = yes_neg_soclib
+			}
+			add_timed_idea = {
+				idea = FRA_temp_gov_help
+				days = 60
+			}
+		}
+
+		if = { # Market Lib
+			limit = {
+				has_country_flag = yes_neg_marlib
+			}
+			add_timed_idea = {
+				idea = FRA_temp_worker_condition
+				days = 60
+			}
+		}
+
+		if = { # Conservative SocCon
+			limit = {
+				has_country_flag = yes_neg_cons
+			}
+			add_timed_idea = {
+				idea = FRA_temp_protectionism
+				days = 60
+			}
+		}
+
+
+		if = { # Centre LibCon
+			limit = {
+				has_country_flag = yes_neg_centre
+			}
+			add_timed_idea = {
+				idea = FRA_temp_tax_cuts
+				days = 60
+			}
+		}	}
+}
+
+calculate_agra_seats = {
+	set_variable = { agra_seats = cons_seats }
+	divide_variable = { agra_seats = 3 }
+	round_variable = agra_seats
+}
+
+calculate_rad_seats = {
+	set_variable = { rad_seats = soclib_seats }
+	divide_variable = { rad_seats = 3 }
+	round_variable = rad_seats
+}
+
+calculate_indsoc_seats = {
+	set_variable = { indsoc_seats = communist_seats }
+	add_to_variable = { indsoc_seats = demsoc_seats }
+	add_to_variable = { indsoc_seats = socdem_seats }
+	divide_variable = { indsoc_seats = 4 }
+	round_variable = indsoc_seats
+}
+
+calculate_nonid_seats = {
+	calculate_agra_seats = yes
+	calculate_indsoc_seats = yes
+	calculate_rad_seats = yes
+}
+
+##Ideas effects##
+
+# Letat Reforms
+letat_reform = {
+	if = {
+		limit = {
+			has_idea = FRA_letat_reform0
+		}
+		swap_ideas = {
+			remove_idea = FRA_letat_reform0
+			add_idea = FRA_letat_reform1
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_letat_reform1
+		}
+		swap_ideas = {
+			remove_idea = FRA_letat_reform1
+			add_idea = FRA_letat_reform2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_letat_reform3
+		}
+		swap_ideas = {
+			remove_idea = FRA_letat_reform3
+			add_idea = FRA_letat_reform4
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_letat_reform4
+		}
+		swap_ideas = {
+			remove_idea = FRA_letat_reform4
+			add_idea = FRA_letat_reform5
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_letat_reform5
+		}
+		swap_ideas = {
+			remove_idea = FRA_letat_reform5
+			add_idea = FRA_letat_reform6
+		}
+	}
+	else = {
+		swap_ideas = {
+			remove_idea = FRA_letat_reform2
+			add_idea = FRA_letat_reform3
+		}
+	}
+}
+
+# Liquidity Crisis
+worsen_liquidity_crisis = {
+	if = {
+		limit = {
+			has_idea = FRA_restored_liquidity2
+		}
+		swap_ideas = {
+			remove_idea = FRA_restored_liquidity2
+			add_idea = FRA_restored_liquidity1
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_restored_liquidity1
+		}
+		swap_ideas = {
+			remove_idea = FRA_restored_liquidity1
+			add_idea = FRA_liquidity_crisis1
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis1
+		}
+		swap_ideas = {
+			remove_idea = FRA_liquidity_crisis1
+			add_idea = FRA_liquidity_crisis2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis2
+		}
+		swap_ideas = {
+			remove_idea = FRA_liquidity_crisis2
+			add_idea = FRA_liquidity_crisis3
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis3
+		}
+		swap_ideas = {
+			remove_idea = FRA_liquidity_crisis3
+			add_idea = FRA_liquidity_crisis4
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis4
+		}
+		swap_ideas = {
+			remove_idea = FRA_liquidity_crisis4
+			add_idea = FRA_liquidity_crisis5
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis5
+		}
+		swap_ideas = {
+			remove_idea = FRA_liquidity_crisis5
+			add_idea = FRA_liquidity_crisis6
+		}
+	}
+	else = {
+		add_stability = -0.05
+	}
+}
+
+improve_liquidity_crisis = {
+	if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis5
+		}
+		swap_ideas = {
+			remove_idea = FRA_liquidity_crisis5
+			add_idea = FRA_liquidity_crisis4
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis4
+		}
+		swap_ideas = {
+			remove_idea = FRA_liquidity_crisis4
+			add_idea = FRA_liquidity_crisis3
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis3
+		}
+		swap_ideas = {
+			remove_idea = FRA_liquidity_crisis3
+			add_idea = FRA_liquidity_crisis2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis2
+		}
+		swap_ideas = {
+			remove_idea = FRA_liquidity_crisis2
+			add_idea = FRA_liquidity_crisis1
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis1
+		}
+		swap_ideas = {
+			remove_idea = FRA_liquidity_crisis1
+			add_idea = FRA_restored_liquidity1
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_restored_liquidity1
+		}
+		swap_ideas = {
+			remove_idea = FRA_restored_liquidity1
+			add_idea = FRA_restored_liquidity2
+		}
+	}
+	else = {
+		add_stability = 0.05
+	}
+}
+
+remove_liquidity_ideas = {
+	if = {
+		limit = {
+			has_idea = FRA_restored_liquidity2
+		}
+		remove_ideas = FRA_restored_liquidity2
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_restored_liquidity1
+		}
+		remove_ideas = FRA_restored_liquidity1
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis1
+		}
+		remove_ideas = FRA_liquidity_crisis1
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis2
+		}
+		remove_ideas = FRA_liquidity_crisis2
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis3
+		}
+		remove_ideas = FRA_liquidity_crisis3
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis4
+		}
+		remove_ideas = FRA_liquidity_crisis4
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_liquidity_crisis5
+		}
+		remove_ideas = FRA_liquidity_crisis5
+	}
+	else = {
+		remove_ideas = FRA_liquidity_crisis6
+	}
+}
+
+# Agricultural Crisis
+
+improve_agricultural_crisis = {
+	if = {
+		limit = {
+			has_idea = FRA_agriculture_crisis3
+		}
+		swap_ideas = {
+			remove_idea = FRA_agriculture_crisis3
+			add_idea = FRA_agriculture_crisis2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_agriculture_crisis2
+		}
+		swap_ideas = {
+			remove_idea = FRA_agriculture_crisis2
+			add_idea = FRA_agriculture_crisis1
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_agriculture_crisis1
+		}
+		remove_ideas = { FRA_agriculture_crisis1 }
+	}
+	else = {
+		add_stability = 0.05
+	}
+}
+
+worsen_agricultural_crisis = {
+	if = {
+		limit = {
+			has_idea = FRA_agriculture_crisis2
+		}
+		swap_ideas = {
+			remove_idea = FRA_agriculture_crisis2
+			add_idea = FRA_agriculture_crisis3
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_agriculture_crisis1
+		}
+		swap_ideas = {
+			remove_idea = FRA_agriculture_crisis1
+			add_idea = FRA_agriculture_crisis2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_agriculture_crisis3
+		}
+		add_stability = -0.05
+	}
+	else = {
+		add_stability = -0.05
+	}
+}
+
+remove_agricultural_crisis = {
+	if = {
+		limit = {
+			has_idea = FRA_agriculture_crisis3
+		}
+		remove_ideas = FRA_agriculture_crisis3
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_agriculture_crisis2
+		}
+		remove_ideas = FRA_agriculture_crisis2
+	}
+	else = {
+		remove_ideas = FRA_agriculture_crisis1
+	}
+}
+
+# Social Crisis
+
+worsen_social_crisis = {
+	if = {
+		limit = {
+			has_idea = FRA_welfare_state3
+		}
+		swap_ideas = {
+			remove_idea = FRA_welfare_state3
+			add_idea = FRA_welfare_state2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_welfare_state2
+		}
+		swap_ideas = {
+			remove_idea = FRA_welfare_state2
+			add_idea = FRA_welfare_state1
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_welfare_state1
+		}
+		swap_ideas = {
+			remove_idea = FRA_welfare_state1
+			add_idea = FRA_social_crisis1
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_social_crisis1
+		}
+		swap_ideas = {
+			remove_idea = FRA_social_crisis1
+			add_idea = FRA_social_crisis2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_social_crisis2
+		}
+		swap_ideas = {
+			remove_idea = FRA_social_crisis2
+			add_idea = FRA_social_crisis3
+		}
+	}
+	else = {
+		add_stability = -0.05
+	}
+}
+
+improve_social_crisis = {
+	if = {
+		limit = {
+			has_idea = FRA_social_crisis3
+		}
+		swap_ideas = {
+			remove_idea = FRA_social_crisis3
+			add_idea = FRA_social_crisis2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_social_crisis2
+		}
+		swap_ideas = {
+			remove_idea = FRA_social_crisis2
+			add_idea = FRA_social_crisis1
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_social_crisis1
+		}
+		swap_ideas = {
+			remove_idea = FRA_social_crisis1
+			add_idea = FRA_welfare_state1
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_welfare_state1
+		}
+		swap_ideas = {
+			remove_idea = FRA_welfare_state1
+			add_idea = FRA_welfare_state2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_welfare_state2
+		}
+		swap_ideas = {
+			remove_idea = FRA_welfare_state2
+			add_idea = FRA_welfare_state3
+		}
+	}
+	else = {
+		add_stability = 0.05
+	}
+}
+
+remove_social_crisis = {
+	if = {
+		limit = {
+			has_idea = FRA_social_crisis3
+		}
+		remove_ideas = FRA_social_crisis3
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_social_crisis2
+		}
+		remove_ideas = FRA_social_crisis2
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_social_crisis1
+		}
+		remove_ideas = FRA_social_crisis1
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_welfare_state1
+		}
+		remove_ideas = FRA_welfare_state1
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_welfare_state2
+		}
+		remove_ideas = FRA_welfare_state2
+	}
+	else = {
+		remove_ideas = FRA_welfare_state3
+	}
+}
+
+# Economic Downturn
+
+improve_economic_downturn = {
+	if = {
+		limit = {
+			has_idea = FRA_economic_downturn3
+		}
+		swap_ideas = {
+			remove_idea = FRA_economic_downturn3
+			add_idea = FRA_economic_downturn2
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_economic_downturn2
+		}
+		swap_ideas = {
+			remove_idea = FRA_economic_downturn2
+			add_idea = FRA_economic_downturn1
+		}
+	}
+	else_if = {
+		limit = {
+			has_idea = FRA_economic_downturn1
+		}
+		remove_ideas = { FRA_economic_downturn1 }
+	}
+	else = {
+		custom_effect_tooltip = FRA_finished_economic_downturn_tt
+	}
+}
+
+##Bloc d'Or effects
+
+add_bloc_dor = { # Add a member, used in the corresponding event
+	add_to_array = { global.member_bloc_dor = var:ROOT }
+
+	add_to_variable = { global.num_member_bloc_dor = 1 }
+
+	if = {
+		limit = {
+			NOT = { has_variable = global.num_member_bloc_dor }
+		}
+		effect_tooltip = {
+			add_ideas = { bloc_dor1 }
+		}
+	}
+
+	for_each_scope_loop = {
+		array = global.member_bloc_dor
+
+
+		if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 1 }
+			}
+			add_ideas = { bloc_dor1 }
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 2 }
+				NOT = { has_country_flag = member_bloc_dor }
+			}
+			add_ideas = { bloc_dor2 }
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 3 }
+				NOT = { has_country_flag = member_bloc_dor }
+			}
+			add_ideas = { bloc_dor3 }
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 4 }
+				NOT = { has_country_flag = member_bloc_dor }
+			}
+			add_ideas = { bloc_dor4 }
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 5 }
+				NOT = { has_country_flag = member_bloc_dor }
+			}
+			add_ideas = { bloc_dor5 }
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 6 }
+				NOT = { has_country_flag = member_bloc_dor }
+			}
+			add_ideas = { bloc_dor6 }
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 2 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor1
+				add_idea = bloc_dor2
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 3 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor2
+				add_idea = bloc_dor3
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 4 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor3
+				add_idea = bloc_dor4
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 5 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor4
+				add_idea = bloc_dor5
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 6 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor5
+				add_idea = bloc_dor6
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 7 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor6
+				add_idea = bloc_dor7
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 8 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor7
+				add_idea = bloc_dor8
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 9 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor8
+				add_idea = bloc_dor9
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 10 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor9
+				add_idea = bloc_dor10
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = member_bloc_dor
+			}
+			country_event = france.32
+		}
+
+		add_opinion_modifier = {
+			target = PREV
+			modifier = FRA_member_bloc_dor
+		}
+		reverse_add_opinion_modifier = {
+			target = PREV
+			modifier = FRA_member_bloc_dor
+		}
+	}
+
+	set_country_flag = member_bloc_dor
+}
+
+remove_block_dor = { # Removes a member, should be used in any focus that abandons the gold standard
+	remove_from_array = { global.member_bloc_dor = var:ROOT }
+
+	subtract_from_variable = { global.num_member_bloc_dor = 1 }
+	clr_country_flag = member_bloc_dor
+
+	if = {
+		limit = {
+			has_idea = bloc_dor1
+		}
+		remove_ideas = { bloc_dor1 }
+	}
+	else_if = {
+		limit = {
+			has_idea = bloc_dor2
+		}
+		remove_ideas = { bloc_dor2 }
+	}
+	else_if = {
+		limit = {
+			has_idea = bloc_dor3
+		}
+		remove_ideas = { bloc_dor3 }
+	}
+	else_if = {
+		limit = {
+			has_idea = bloc_dor4
+		}
+		remove_ideas = { bloc_dor4 }
+	}
+	else_if = {
+		limit = {
+			has_idea = bloc_dor5
+		}
+		remove_ideas = { bloc_dor5 }
+	}
+	else_if = {
+		limit = {
+			has_idea = bloc_dor6
+		}
+		remove_ideas = { bloc_dor6 }
+	}
+	else_if = {
+		limit = {
+			has_idea = bloc_dor7
+		}
+		remove_ideas = { bloc_dor7 }
+	}
+	else_if = {
+		limit = {
+			has_idea = bloc_dor8
+		}
+		remove_ideas = { bloc_dor8 }
+	}
+	else_if = {
+		limit = {
+			has_idea = bloc_dor9
+		}
+		remove_ideas = { bloc_dor9 }
+	}
+	else_if = {
+		limit = {
+			has_idea = bloc_dor10
+		}
+		remove_ideas = { bloc_dor10 }
+	}
+
+	for_each_scope_loop = {
+		array = global.member_bloc_dor
+
+		remove_opinion_modifier = {
+			target = ROOT
+			modifier = FRA_member_bloc_dor
+		}
+		ROOT = {
+			remove_opinion_modifier = {
+				target = PREV
+				modifier = FRA_member_bloc_dor
+			}
+		}
+
+		if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 2 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor3
+				add_idea = bloc_dor2
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 3 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor4
+				add_idea = bloc_dor3
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 4 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor5
+				add_idea = bloc_dor4
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 5 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor6
+				add_idea = bloc_dor5
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 6 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor7
+				add_idea = bloc_dor6
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 7 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor8
+				add_idea = bloc_dor7
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 8 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor9
+				add_idea = bloc_dor8
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 9 }
+				has_country_flag = member_bloc_dor
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor10
+				add_idea = bloc_dor9
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 1 }
+				has_country_flag = member_bloc_dor
+				FRA = {
+					OR = {
+						has_completed_focus = FRA_invite_czechoslovakia
+						NOT = { country_exists = CZE }
+					}
+					OR = {
+						has_completed_focus = FRA_invite_germany
+						AND = {
+							GER = {
+								OR = {
+									has_government = fascism
+									has_government = nationalism
+									exists = no
+								}
+							}
+							WGR = {
+								OR = {
+									has_government = fascism
+									has_government = nationalism
+									exists = no
+								}
+							}
+							DDR = {
+								OR = {
+									has_government = fascism
+									has_government = nationalism
+									exists = no
+								}
+							}
+						}
+					}
+					OR = {
+						has_completed_focus = FRA_invite_yugoslavia
+						NOT = { country_exists = YUG }
+					}
+				}
+			}
+			
+			disband_bloc_dor = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { global.num_member_bloc_dor = 1 }
+				has_country_flag = member_bloc_dor
+				FRA = {
+					OR = {
+						has_completed_focus = FRA_invite_czechoslovakia
+						NOT = { country_exists = CZE }
+					}
+					OR = {
+						has_completed_focus = FRA_invite_germany
+						AND = {
+							GER = {
+								OR = {
+									has_government = fascism
+									has_government = nationalism
+									exists = no
+								}
+							}
+							WGR = {
+								OR = {
+									has_government = fascism
+									has_government = nationalism
+									exists = no
+								}
+							}
+							DDR = {
+								OR = {
+									has_government = fascism
+									has_government = nationalism
+									exists = no
+								}
+							}
+						}
+					}
+					OR = {
+						has_completed_focus = FRA_invite_yugoslavia
+						NOT = { country_exists = YUG }
+					}
+				}
+			}
+			swap_ideas = {
+				remove_idea = bloc_dor2
+				add_idea = bloc_dor1
+			}
+		}
+
+		country_event = {
+			id = france.34
+			days = 1
+		}
+	}
+}
+
+abandon_gold_standard = {
+	set_country_flag = abandoned_gold_standard
+	if = {
+		limit = {
+			in_bloc_dor = yes
+		}
+		remove_block_dor = yes
+	}
+}
+
+disband_bloc_dor = { #Disbands the Bloc, used if france is alone in the bloc and can't invite anyone, a war is declared between one of the members or France abandons the gold standard
+	
+	for_each_scope_loop = {
+		array = global.member_bloc_dor
+
+		clr_country_flag = member_bloc_dor
+
+		if = {
+			limit = {
+				has_idea = bloc_dor1
+			}
+			remove_ideas = { bloc_dor1 }
+		}
+		else_if = {
+			limit = {
+				has_idea = bloc_dor2
+			}
+			remove_ideas = { bloc_dor2 }
+		}
+		else_if = {
+			limit = {
+				has_idea = bloc_dor3
+			}
+			remove_ideas = { bloc_dor3 }
+		}
+		else_if = {
+			limit = {
+				has_idea = bloc_dor4
+			}
+			remove_ideas = { bloc_dor4 }
+		}
+		else_if = {
+			limit = {
+				has_idea = bloc_dor5
+			}
+			remove_ideas = { bloc_dor5 }
+		}
+		else_if = {
+			limit = {
+				has_idea = bloc_dor6
+			}
+			remove_ideas = { bloc_dor6 }
+		}
+		else_if = {
+			limit = {
+				has_idea = bloc_dor7
+			}
+			remove_ideas = { bloc_dor7 }
+		}
+		else_if = {
+			limit = {
+				has_idea = bloc_dor8
+			}
+			remove_ideas = { bloc_dor8 }
+		}
+		else_if = {
+			limit = {
+				has_idea = bloc_dor9
+			}
+			remove_ideas = { bloc_dor9 }
+		}
+		else_if = {
+			limit = {
+				has_idea = bloc_dor10
+			}
+			remove_ideas = { bloc_dor10 }
+		}
+
+		country_event = {
+			id = france.35
+			days = 2
+		}
+	}
+}
+
+
+# Idk how usefull is this and probably will never be use
+set_representative_parliament_seats = {
+
+	set_temp_variable = { total_popularity = 0 }
+
+	## Here it takes the party's popularity
+	if = {
+		limit = {
+			NOT = { has_country_flag = communist_ban }
+		}
+		set_temp_variable = { communist_popularity = party_popularity@communism }
+		multiply_temp_variable = { communist_popularity = 100 }
+		add_to_temp_variable = { total_popularity = communist_popularity }
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = demsoc_ban }
+		}
+		set_temp_variable = { demsoc_popularity = party_popularity@socialism }
+		add_to_temp_variable = { demsoc_popularity = party_popularity@authoritarian_socialism }
+		multiply_temp_variable = { demsoc_popularity = 100 }
+		add_to_temp_variable = { total_popularity = demsoc_popularity}
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = socdem_ban }
+		}
+		set_temp_variable = { socdem_popularity = party_popularity@social_democracy }
+		multiply_temp_variable = { socdem_popularity = 100 }
+		add_to_temp_variable = { total_popularity = socdem_popularity }
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = soclib_ban }
+		}
+		set_temp_variable = { soclib_popularity = party_popularity@social_liberalism }
+		multiply_temp_variable = { soclib_popularity = 100 }
+		add_to_temp_variable = { total_popularity = soclib_popularity }
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = marlib_ban }
+		}
+		set_temp_variable = { marlib_popularity = party_popularity@market_liberalism }
+		multiply_temp_variable = { marlib_popularity = 100 }
+		add_to_temp_variable = { total_popularity = marlib_popularity }
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = centre_ban }
+		}
+		set_temp_variable = { centre_popularity = party_popularity@jacobin }
+		multiply_temp_variable = { centre_popularity = 100 }
+		add_to_temp_variable = { total_popularity = centre_popularity }
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = cons_ban }
+		}
+		set_temp_variable = { cons_popularity = party_popularity@democratic }
+		multiply_temp_variable = { cons_popularity = 100 }
+		add_to_temp_variable = { total_popularity = cons_popularity }
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = aut_ban }
+		}
+		set_temp_variable = { aut_popularity = party_popularity@neutrality }
+		multiply_temp_variable = { aut_popularity = 100 }
+		add_to_temp_variable = { total_popularity = aut_popularity }
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = mon_ban }
+		}
+		set_temp_variable = { mon_popularity = party_popularity@monarchism }
+		multiply_temp_variable = { mon_popularity = 100 }
+		add_to_temp_variable = { total_popularity = mon_popularity }
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = nat_ban }
+		}
+		set_temp_variable = { nat_popularity = party_popularity@nationalism }
+		multiply_temp_variable = { nat_popularity = 100 }
+		add_to_temp_variable = { total_popularity = nat_popularity }
+	}
+	if = {
+		limit = {
+			NOT = { has_country_flag = fas_ban }
+		}
+		set_temp_variable = { fas_popularity = party_popularity@fascism }
+		multiply_temp_variable = { fas_popularity = 100 }
+		add_to_temp_variable = { total_popularity = fas_popularity}
+	}
+
+	## So here is where the seats are calculated, if the party is banned, it will default to 0
+	##
+	## Equation: ideology_seats = total_seats / ( total_popularity / party_popularity )
+	##           ideology_seats = total_seats / party_factor
+
+	set_temp_variable = { temp_total_seats = 0 }
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = communist_ban }
+			check_variable = { communist_popularity > 0 }
+		}
+		set_temp_variable = { communist_factor = total_popularity }
+		set_variable = { communist_seats =  total_seats }
+		divide_temp_variable = { communist_factor = communist_popularity }
+		divide_variable = { communist_seats = communist_factor }
+		round_variable = communist_seats
+		add_to_temp_variable = { temp_total_seats = communist_seats }
+	}
+	else = {
+		set_variable = { communist_seats = 0 }
+	}
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = demsoc_ban }
+			check_variable = { demsoc_popularity > 0 }
+		}
+		set_temp_variable = { demsoc_factor = total_popularity }
+		set_variable = { demsoc_seats =  total_seats }
+		divide_temp_variable = { demsoc_factor = demsoc_popularity }
+		divide_variable = { demsoc_seats = demsoc_factor }
+		round_variable = demsoc_seats
+		add_to_temp_variable = { temp_total_seats = demsoc_seats }
+	}
+	else = {
+		set_variable = { demsoc_seats = 0 }
+	}
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = socdem_ban }
+			check_variable = { socdem_popularity > 0 }
+		}
+		set_temp_variable = { socdem_factor = total_popularity }
+		set_variable = { socdem_seats =  total_seats }
+		divide_temp_variable = { socdem_factor = socdem_popularity }
+		divide_variable = { socdem_seats = socdem_factor }
+		round_variable = socdem_seats
+		add_to_temp_variable = { temp_total_seats = socdem_seats }
+	}
+	else = {
+		set_variable = { socdem_seats = 0 }
+	}
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = soclib_ban }
+			check_variable = { soclib_popularity > 0 }
+		}
+		set_temp_variable = { soclib_factor = total_popularity }
+		set_variable = { soclib_seats =  total_seats }
+		divide_temp_variable = { soclib_factor = soclib_popularity }
+		divide_variable = { soclib_seats = soclib_factor }
+		round_variable = soclib_seats
+		add_to_temp_variable = { temp_total_seats = soclib_seats }
+	}
+	else = {
+		set_variable = { soclib_seats = 0 }
+	}
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = marlib_ban }
+			check_variable = { marlib_popularity > 0 }
+		}
+		set_temp_variable = { marlib_factor = total_popularity }
+		set_variable = { marlib_seats =  total_seats }
+		divide_temp_variable = { marlib_factor = marlib_popularity }
+		divide_variable = { marlib_seats = marlib_factor }
+		round_variable = marlib_seats
+		add_to_temp_variable = { temp_total_seats = marlib_seats }
+	}
+	else = {
+		set_variable = { marlib_seats = 0 }
+	}
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = centre_ban }
+			check_variable = { centre_popularity > 0 }
+		}
+		set_temp_variable = { centre_factor = total_popularity }
+		set_variable = { centre_seats =  total_seats }
+		divide_temp_variable = { centre_factor = centre_popularity }
+		divide_variable = { centre_seats = centre_factor }
+		round_variable = centre_seats
+		add_to_temp_variable = { temp_total_seats = centre_seats }
+	}
+	else = {
+		set_variable = { centre_seats = 0 }
+	}
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = cons_ban }
+			check_variable = { cons_popularity > 0 }
+		}
+		set_temp_variable = { cons_factor = total_popularity }
+		set_variable = { cons_seats =  total_seats }
+		divide_temp_variable = { cons_factor = cons_popularity }
+		divide_variable = { cons_seats = cons_factor }
+		round_variable = cons_seats
+		add_to_temp_variable = { temp_total_seats = cons_seats }
+	}
+	else = {
+		set_variable = { cons_seats = 0 }
+	}
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = aut_ban }
+			check_variable = { aut_popularity > 0 }
+		}
+		set_temp_variable = { aut_factor = total_popularity }
+		set_variable = { aut_seats =  total_seats }
+		divide_temp_variable = { aut_factor = aut_popularity }
+		divide_variable = { aut_seats = aut_factor }
+		round_variable = aut_seats
+		add_to_temp_variable = { temp_total_seats = aut_seats }
+	}
+	else = {
+		set_variable = { aut_seats = 0 }
+	}
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = mon_ban }
+			check_variable = { mon_popularity > 0 }
+		}
+		set_temp_variable = { mon_factor = total_popularity }
+		set_variable = { mon_seats =  total_seats }
+		divide_temp_variable = { mon_factor = mon_popularity }
+		divide_variable = { mon_seats = mon_factor }
+		round_variable = mon_seats
+		add_to_temp_variable = { temp_total_seats = mon_seats }
+	}
+	else = {
+		set_variable = { mon_seats = 0 }
+	}
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = nat_ban }
+			check_variable = { nat_popularity > 0 }
+		}
+		set_temp_variable = { nat_factor = total_popularity }
+		set_variable = { nat_seats =  total_seats }
+		divide_temp_variable = { nat_factor = nat_popularity }
+		divide_variable = { nat_seats = nat_factor }
+		round_variable = nat_seats
+		add_to_temp_variable = { temp_total_seats = nat_seats }
+	}
+	else = {
+		set_variable = { nat_seats = 0 }
+	}
+
+	if = {
+		limit = {
+			NOT = { has_country_flag = fas_ban }
+			check_variable = { fas_popularity > 0 }
+		}
+		set_temp_variable = { fas_factor = total_popularity }
+		set_variable = { fas_seats =  total_seats }
+		divide_temp_variable = { fas_factor = fas_popularity }
+		divide_variable = { fas_seats = fas_factor }
+		round_variable = fas_seats
+		add_to_temp_variable = { temp_total_seats = fas_seats }
+	}
+	else = {
+		set_variable = { fas_seats = 0 }
+	}
+
+	# Checks if the total seats requested are equal to the seats given, if not it will give or remove a random seat from a random party
+	if = {
+		limit = {
+			check_variable = { total_seats > temp_total_seats }
+		}
+		set_temp_variable = { randomvar1 = random }
+		set_temp_variable = { randomvar2 = -1 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { total_seats < temp_total_seats }
+		}
+		set_temp_variable = { randomvar2 = random }
+		set_temp_variable = { randomvar1 = -1 }
+	}
+	else = {
+		set_temp_variable = { randomvar1 = -1 }
+		set_temp_variable = { randomvar2 = -1 }
+	}
+
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = communist_ban
+				check_variable = { communist_seats = 0 }
+			}
+			check_variable = { randomvar1 > 0.917 }
+		}
+		add_to_variable = { communist_seats = 1}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = radsoc_ban
+				check_variable = { radsoc_seats = 0 }
+			}
+			check_variable = { randomvar1 > 0.834 }
+		}
+		add_to_variable = { radsoc_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = demsoc_ban
+				check_variable = { demsoc_seats = 0 }
+			}
+			check_variable = { randomvar1 > 0.751 }
+		}
+		add_to_variable = { demsoc_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = socdem_ban
+				check_variable = { socdem_seats = 0 }
+			}
+			check_variable = { randomvar1 > 0.668 }
+		}
+		add_to_variable = { socdem_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = soclib_ban
+				check_variable = { soclib_seats = 0 }
+			}
+			check_variable = { randomvar1 > 0.585 }
+		}
+		add_to_variable = { soclib_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = marlib_ban
+				check_variable = { marlib_seats = 0 }
+			}
+			check_variable = { randomvar1 > 0.502 }
+		}
+		add_to_variable = { marlib_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = centre_ban
+				check_variable = { centre_seats = 0 }
+			}
+			check_variable = { randomvar1 > 0.419 }
+		}
+		add_to_variable = { centre_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = cons_ban
+				check_variable = { cons_seats = 0 }
+			}
+			check_variable = { randomvar1 > 0.336 }
+		}
+		add_to_variable = { cons_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = aut_ban
+				check_variable = { aut_seats = 0 }
+			}
+			check_variable = { randomvar1 > 0.253 }
+		}
+		add_to_variable = { aut_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = mon_ban
+				check_variable = { mon_seats = 0 }
+			}
+				check_variable = { randomvar1 > 0.170 }
+		}
+		add_to_variable = { mon_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = nat_ban
+				check_variable = { nat_seats = 0 }
+			}
+			check_variable = { randomvar1 > 0.87 }
+		}
+		add_to_variable = { nat_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = fas_ban
+				check_variable = { fas_seats = 0 }
+			}
+			check_variable = {
+				var = randomvar1
+				value = 0
+				compare = greater_than_or_equals
+			}
+		}
+		add_to_variable = { fas_seats = 1 }
+	}
+
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = communist_ban
+				check_variable = { communist_seats = 0 }
+			}
+			check_variable = { randomvar2 > 0.917 }
+		}
+		subtract_from_variable = { communist_seats = 1}
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = radsoc_ban
+				check_variable = { radsoc_seats = 0 }
+			}
+			check_variable = { randomvar2 > 0.834 }
+		}
+		subtract_from_variable = { radsoc_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = demsoc_ban
+				check_variable = { demsoc_seats = 0 }
+			}
+			check_variable = { randomvar2 > 0.751 }
+		}
+		subtract_from_variable = { demsoc_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = socdem_ban
+				check_variable = { socdem_seats = 0 }
+			}
+			check_variable = { randomvar2 > 0.668 }
+		}
+		subtract_from_variable = { socdem_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = soclib_ban
+				check_variable = { soclib_seats = 0 }
+			}
+			check_variable = { randomvar2 > 0.585 }
+		}
+		subtract_from_variable = { soclib_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = marlib_ban
+				check_variable = { marlib_seats = 0 }
+			}
+			check_variable = { randomvar2 > 0.502 }
+		}
+		subtract_from_variable = { marlib_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = centre_ban
+				check_variable = { centre_seats = 0 }
+			}
+			check_variable = { randomvar2 > 0.419 }
+		}
+		subtract_from_variable = { centre_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = cons_ban
+				check_variable = { cons_seats = 0 }
+			}
+			check_variable = { randomvar2 > 0.336 }
+		}
+		subtract_from_variable = { cons_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = aut_ban
+				check_variable = { aut_seats = 0 }
+			}
+			check_variable = { randomvar2 > 0.253 }
+		}
+		subtract_from_variable = { aut_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = mon_ban
+				check_variable = { mon_seats = 0 }
+			}
+				check_variable = { randomvar2 > 0.170 }
+		}
+		subtract_from_variable = { mon_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = nat_ban
+				check_variable = { nat_seats = 0 }
+			}
+			check_variable = { randomvar2 > 0.87 }
+		}
+		subtract_from_variable = { nat_seats = 1 }
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_country_flag = fas_ban
+				check_variable = { fas_seats = 0 }
+			}
+			check_variable = {
+				var = randomvar2
+				value = 0
+				compare = greater_than_or_equals
+			}
+		}
+		subtract_from_variable = { fas_seats = 1 }
+	}
+
+	set_coalition_seats = yes
+}

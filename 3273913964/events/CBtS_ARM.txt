@@ -1,0 +1,269 @@
+﻿###########################
+# Armenia Events
+###########################
+
+add_namespace = arm_internal
+add_namespace = arm_elections
+add_namespace = arm_external
+add_namespace = arm_civil_war #handles path changes and revolts. Other things go in internal
+add_namespace = arm_flavor
+add_namespace = arm_test
+add_namespace = arm_ai
+
+country_event = { #Intro, SOV declares war
+	id = arm_civil_war.1
+	title = arm_civil_war.1.t
+	desc = arm_civil_war.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Armenian_Republic
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			# RUS = {
+			# 	country_event = {
+			# 		id = rus_civil_war.39 #informed of thing
+			# 		days = 1
+			# 	}
+			# }
+			country_event = {
+				id = arm_civil_war.2 #Fascists Radicalize
+				days = 675
+			}
+		}
+	}
+	option = {
+		name = arm_civil_war.1.a
+		ai_chance = {
+			base = 100
+		}
+		hidden_effect = {
+			country_event = {
+				id = arm_internal.2
+				days = 52
+			}
+		}
+	}
+}
+country_event = { #Fascists/FarAuts radicalize
+	id = arm_civil_war.2
+	title = arm_civil_war.2.t
+	desc = arm_civil_war.2.d
+	picture = GFX_event_Garegin_Nzhdeh #Garegin_Nzhdeh
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = arm_internal.8 #Party Debate
+				days = 282
+			}
+		}
+	}
+	option = {
+		name = arm_civil_war.2.a
+		COALITION_add_nat = yes
+		COALITION_add_fas = yes
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.03
+		}
+		load_oob = ARM_2RCW_Militia
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Ethnic Tensions Escalate
+	id = arm_internal.1
+	title = arm_internal.1.t
+	desc = arm_internal.1.d
+	picture = GFX_event_Azerbaijanis_in_Armenia #Azerbaijanis_in_Armenia
+	is_triggered_only = yes
+	option = {
+		name = arm_internal.1.a
+		swap_ideas = {
+			remove_idea = ARM_ethnic_tensions2
+			add_idea = ARM_ethnic_tensions3
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.05
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Anti-Communist mobs
+	id = arm_internal.2
+	title = arm_internal.2.t
+	desc = arm_internal.2.d
+	picture = GFX_Events_Germany_Plebiscite_Results
+	is_triggered_only = yes
+	option = {
+		name = arm_internal.2.a
+		add_stability = -0.08
+		add_popularity = {
+			ideology = communism
+			popularity = -0.04
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.04
+		}
+		hidden_effect = {
+			country_event = {
+				id = arm_internal.5
+				days = 51
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Conservative Newspaper
+	id = arm_internal.3
+	title = arm_internal.3.t
+	desc = arm_internal.3.d
+	picture = GFX_event_Octobrists #Octobrists
+	is_triggered_only = yes
+	option = {
+		name = arm_internal.3.a
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.03
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Small Businesses
+	id = arm_internal.4
+	title = arm_internal.4.t
+	desc = arm_internal.4.d
+	picture = GFX_event_Small_Business #small_business
+	is_triggered_only = yes
+	option = {
+		name = arm_internal.4.a
+		add_stability = 0.02
+		add_political_power = 20
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Bolshevik Protest
+	id = arm_internal.5
+	title = arm_internal.5.t
+	desc = arm_internal.5.d
+	picture = GFX_Event_USSR_Protest_Riga
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = arm_internal.6 #cultural festival
+				days = 143
+			}
+		}
+	}
+	option = { #let them continue
+		name = arm_internal.5.a
+		add_stability = -0.03
+		add_war_support = -0.03
+		ai_chance = {
+			base = 5
+		}
+	}
+	option = { #shut it down
+		name = arm_internal.5.b
+		add_political_power = -30		
+		ai_chance = {
+			base = 95
+		}
+	}
+}
+country_event = { #Cultural Festival
+	id = arm_internal.6
+	title = arm_internal.6.t
+	desc = arm_internal.6.d
+	picture = GFX_event_Armenian_People #Armenian_People
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = arm_internal.7 #Party Debate
+				days = 350
+			}
+		}
+	}
+	option = { #
+		name = arm_internal.6.a
+		add_stability = 0.01
+		add_war_support = 0.01
+		add_political_power = 10
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #Party Debate
+	id = arm_internal.7
+	title = arm_internal.7.t
+	desc = arm_internal.7.d
+	picture = GFX_Event_USSR_Seventeenth_Party_Congress3
+	is_triggered_only = yes
+	option = { #side with left
+		name = arm_internal.7.a
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+	option = { #side with right
+		name = arm_internal.7.b
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.02
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+}
+country_event = { #Violent Fascist Rally
+	id = arm_internal.8
+	title = arm_internal.8.t
+	desc = arm_internal.8.d
+	picture = GFX_event_Fascist_Rally #Fascist_Rally
+	is_triggered_only = yes
+	option = { #
+		name = arm_internal.8.a
+		add_stability = -0.04
+		ai_chance = {
+			base = 50
+		}
+	}
+}

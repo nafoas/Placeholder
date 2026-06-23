@@ -1,0 +1,463 @@
+	shared_focus = {
+		id = SPR_Azana_government
+		icon = GFX_focus_manuel_azana
+		prerequisite = { focus = SPR_republican_constitution }
+		available = { has_country_flag = never }
+		cost = 9
+		x = 4
+		y = 1
+		completion_reward = {
+			effect_tooltip = {
+				remove_ideas_with_trait = hog
+				add_ideas = HoG_Manuel_Azana
+			}
+		}
+	}
+
+	shared_focus = {
+		id = SPR_republican_constitution
+		icon = GFX_focus_Spanish_Republicanism
+		available = { always = no }
+		relative_position_id = SPR_Azana_government
+		cost = 9
+		x = 0
+		y = -1
+	}
+
+	shared_focus = {
+		id = SPR_law_agrarian_reform
+		icon = GFX_focus_Agrarian_Reform
+		relative_position_id = SPR_Azana_government
+		prerequisite = { focus = SPR_Azana_government }
+		available = { has_country_flag = never }
+		cost = 9
+		x = -2
+		y = 1
+		completion_reward = {
+			effect_tooltip = {
+				swap_ideas = { remove_idea = SPR_pre_agrarian add_idea = SPR_pre_agrarian2 }
+			}
+		}
+	}
+
+	shared_focus = {
+		id = SPR_agrarian_reform_institute
+		icon = GFX_focus_University_of_Ljublijana
+		relative_position_id = SPR_Azana_government
+		prerequisite = { focus = SPR_law_agrarian_reform }
+		available = { has_country_flag = never }
+		cost = 9
+		x = -3
+		y = 2
+		completion_reward = {
+			effect_tooltip = {
+				swap_ideas = { remove_idea = SPR_pre_agrarian2 add_idea = SPR_agrarian_problem }
+			}
+		}
+	}
+
+	shared_focus = {
+		id = SPR_decreto_intensificacion
+		icon = GFX_focus_Deal_with_the_Housing_Crisis
+		relative_position_id = SPR_Azana_government
+		prerequisite = { focus = SPR_law_agrarian_reform }
+		available = { has_country_flag = never }
+		cost = 9
+		x = -1
+		y = 2
+		completion_reward = {
+			effect_tooltip = {
+				add_stability = 0.05
+				add_popularity = { ideology = authoritarian_socialism popularity = 0.05 }
+			}
+		}
+	}
+
+	shared_focus = {
+		id = SPR_nationalize_church_properties
+		icon = GFX_focus_Grab_Money
+		relative_position_id = SPR_Azana_government
+		prerequisite = { focus = SPR_Azana_government }
+		available = { has_country_flag = never }
+		cost = 9
+		x = 0
+		y = 1
+		completion_reward = {
+			effect_tooltip = {
+				remove_ideas = SPR_cath_influence
+			}
+		}
+	}
+
+	shared_focus = {
+		id = SPR_law_defense_republic
+		icon = GFX_focus_Defend_The_Republic
+		relative_position_id = SPR_Azana_government
+		prerequisite = { focus = SPR_Azana_government }
+		available = { has_country_flag = never }
+		cost = 9
+		x = 2
+		y = 1
+		completion_reward = {
+			effect_tooltip = {
+				add_stability = 0.1
+			}
+		}
+	}
+
+	shared_focus = {
+		id = SPR_crush_sanjurjada
+		icon = GFX_focus_General_Sanjurjo
+		relative_position_id = SPR_Azana_government
+		prerequisite = { focus = SPR_law_defense_republic }
+		available = { has_country_flag = never }
+		cost = 9
+		x = 1
+		y = 2
+		completion_reward = {
+			effect_tooltip = {
+				add_war_support = 0.1
+				add_political_power = 80
+			}
+		}
+	}
+
+	shared_focus = {
+		id = SPR_continue_military_reform
+		icon = GFX_focus_Army_Reform
+		relative_position_id = SPR_Azana_government
+		prerequisite = { focus = SPR_law_defense_republic }
+		available = { has_country_flag = never }
+		cost = 9
+		x = 3
+		y = 2
+		completion_reward = {
+			effect_tooltip = {
+				swap_ideas = { remove_idea = SPR_pre_military add_idea = SPR_inefficient_military }
+			}
+		}
+	}
+
+	shared_focus = {
+		id = SPR_labour_reform
+		icon = GFX_focus_National_Assurance_Service
+		relative_position_id = SPR_Azana_government
+		prerequisite = { focus = SPR_nationalize_church_properties }
+		available = { has_country_flag = never }
+		cost = 9
+		x = 0
+		y = 3
+		completion_reward = {
+			effect_tooltip = {
+				add_stability = 0.05
+			}
+		}
+	}
+
+	shared_focus = {
+		id = SPR_rustic_leases
+		icon = GFX_focus_bills_and_acts
+		cost = 13
+		relative_position_id = SPR_Azana_government
+		prerequisite = {
+			focus = SPR_decreto_intensificacion
+		}
+		prerequisite = {
+			focus = SPR_agrarian_reform_institute
+		}
+		available = {
+			has_government = social_democracy
+		}
+		completion_reward = {
+			hidden_effect = {
+				country_event = { id = spain.401 }
+			}
+		}
+		x = -2
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_appease
+		icon = GFX_focus_Parliament
+		cost = 9
+		relative_position_id = SPR_Azana_government
+		prerequisite = {
+			focus = SPR_continue_military_reform
+		}
+		prerequisite = {
+			focus = SPR_crush_sanjurjada
+		}
+		available = {
+			has_government = social_democracy
+		}
+		select_effect = {
+			hidden_effect = {
+				country_event = { days = 30 random_days = 6 id = spain.405 }
+			}
+		}
+		completion_reward = {
+			add_political_power = 50
+			add_stability = 0.05
+		}
+		x = 2
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_1933
+		icon = GFX_focus_election
+		cost = 10
+		relative_position_id = SPR_Azana_government
+		allow_branch = {
+			has_country_flag = SPR_1933_elections_occurred
+		}
+		prerequisite = {
+			# focus = SPR_laicism
+			focus = SPR_rustic_leases
+			focus = SPR_appease
+			focus = SPR_labour_reform
+		}
+		available = {
+			has_country_flag = SPR_1933_elections_occurred
+		}
+		bypass = {
+			hidden_trigger = {
+				date > 1933.11.19
+			}
+		}
+		completion_reward = {
+			custom_effect_tooltip = go_prr
+		}
+		x = 0
+		y = 4
+
+	}
+	shared_focus = {
+		id = SPR_chapaprieta
+		icon = GFX_focus_Modernized_Finances
+		cost = 8
+		relative_position_id = SPR_Azana_government
+		prerequisite = {
+			focus = SPR_1933
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = -2
+		y = 5
+
+	}
+	shared_focus = {
+		id = SPR_readjust
+		icon = GFX_focus_Price_Reductions
+		cost = 8
+		relative_position_id = SPR_Azana_government
+		prerequisite = {
+			focus = SPR_chapaprieta
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+		x = -3
+		y = 6
+
+	}
+	shared_focus = {
+		id = SPR_revise_labor
+		icon = GFX_Relief_Plans
+		cost = 8
+		relative_position_id = SPR_Azana_government
+		prerequisite = {
+			focus = SPR_chapaprieta
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_stability = -0.05
+		}
+		x = -1
+		y = 6
+
+	}
+	shared_focus = {
+		id = SPR_agrarian2
+		icon = GFX_focus_Agriculture
+		cost = 8
+		relative_position_id = SPR_Azana_government
+		prerequisite = {
+			focus = SPR_1933
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = SPR_agrarian_problem2
+				}
+				swap_ideas = { remove_idea = SPR_agrarian_problem2 add_idea = SPR_agrarian_problem3 }
+			}
+			if = {
+				limit = {
+					has_idea = SPR_agrarian_problem
+				}
+				swap_ideas = { remove_idea = SPR_agrarian_problem add_idea = SPR_agrarian_problem3 }
+			}
+		}
+		x = 2
+		y = 5
+
+	}
+	shared_focus = {
+		id = SPR_reopen
+		icon = GFX_focus_State_Theology
+		cost = 8
+		relative_position_id = SPR_Azana_government
+		prerequisite = {
+			focus = SPR_agrarian2
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		completion_reward = {
+			add_timed_idea = {
+			idea = SPR_schools_reopened
+			days = 100
+			}
+		}
+		x = 1
+		y = 6
+
+	}
+	shared_focus = {
+		id = SPR_gil_robles
+		icon = GFX_focus_Military_Intervention
+		cost = 8
+		relative_position_id = SPR_Azana_government
+		prerequisite = {
+			focus = SPR_agrarian2
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		completion_reward = {
+			army_experience = 30
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.2
+				uses = 1
+				category = land_doctrine
+			}
+		}
+		x = 3
+		y = 6
+
+	}
+	shared_focus = {
+		id = SPR_trusting
+		icon = GFX_focus_Business_Men
+		cost = 8
+		relative_position_id = SPR_Azana_government
+		prerequisite = {
+			focus = SPR_readjust
+		}
+		prerequisite = {
+			focus = SPR_revise_labor
+		}
+		completion_reward = {
+			add_stability = 0.1
+		}
+		x = -2
+		y = 7
+
+	}
+	shared_focus = {
+		id = SPR_please_ceda
+		icon = GFX_focus_Gil_Robles
+		cost = 8
+		relative_position_id = SPR_Azana_government
+		prerequisite = {
+			focus = SPR_reopen
+		}
+		prerequisite = {
+			focus = SPR_gil_robles
+		}
+		completion_reward = {
+			add_political_power = 200
+		}
+		x = 2
+		y = 7
+
+	}

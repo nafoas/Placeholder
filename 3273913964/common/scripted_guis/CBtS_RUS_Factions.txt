@@ -1,0 +1,848 @@
+scripted_gui = {
+	RUS_Faction_Button = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "faction_button_container"
+		visible = {
+            tag = RUS
+			has_global_flag = Second_Russian_Civil_War
+		}
+		effects = {
+			faction_button_click = {
+				if = {
+					limit = {
+						has_country_flag = RUS_show_factions
+					}
+					clr_country_flag = RUS_show_factions
+				}
+				else = {
+					set_country_flag = RUS_show_factions
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = RUS_show_socs
+							has_country_flag = RUS_show_dems
+							has_country_flag = RUS_show_konr
+							has_country_flag = RUS_show_mons
+							has_country_flag = RUS_show_nats
+						}
+					}
+					set_country_flag = RUS_show_konr
+				}
+			}
+		}
+		ai_enabled = {
+			tag = RUS
+			has_global_flag = Second_Russian_Civil_War
+		}
+		ai_test_interval = 240
+		ai_test_variance = 0
+		ai_check = {
+			tag = RUS
+			has_political_power > 39.99
+			OR = {
+				NOT = {
+					has_idea = RUS_faction_influence_block
+					has_idea = RUS_rally_block
+				}
+			}
+		}
+		ai_weights = {
+			faction_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = {
+							has_idea = RUS_faction_influence_block
+							has_idea = RUS_rally_block
+						}
+						NOT = {
+							has_country_flag = RUS_AI_Faction_Open
+						}
+						add = 100
+					}
+				}
+			}
+		}
+	}
+}
+#faction_panel_container
+scripted_gui = {
+	faction_container = {
+		context_type = player_context
+		window_name = "faction_panel_container"
+		visible = {
+			has_country_flag = RUS_show_factions
+		}
+		triggers = {
+			socialist_button_visible = {
+				has_variable = RUS_socialist_influence
+			}
+			socialist_text_box_visible = {
+				has_variable = RUS_socialist_influence
+			}
+			democrat_button_visible = {
+				has_variable = RUS_democrat_influence
+			}
+			democrat_text_box_visible = {
+				has_variable = RUS_democrat_influence
+			}
+			konr_button_visible = {
+				has_variable = RUS_vlasov_influence
+			}
+			konr_text_box_visible = {
+				has_variable = RUS_vlasov_influence
+			}
+			monarchist_button_visible = {
+				has_variable = RUS_monarchist_influence
+			}
+			monarchist_text_box_visible = {
+				has_variable = RUS_monarchist_influence
+			}
+			nationalist_button_visible = {
+				has_variable = RUS_nationalist_influence
+			}
+			nationalist_text_box_visible = {
+				has_variable = RUS_nationalist_influence
+			}
+			#vlasov
+			# vlasov_leader_frame_visible = {
+			# 	has_country_flag = RUS_show_konr
+			# }
+			RUS_vlasov_portrait_visible = {
+				has_country_flag = RUS_show_konr
+			}
+			# RUS_Vlasovist_Faction_Leader_bottom_visible = {
+			# 	has_country_flag = RUS_show_konr
+			# }
+			RUS_Vlasovist_Faction_Influence_visible = {
+				has_country_flag = RUS_show_konr
+			}
+			RUS_Vlasovist_Faction_Popularity_visible = {
+				has_country_flag = RUS_show_konr
+			}
+			#socialists
+			# socialist_leader_frame_visible = {
+			# 	has_country_flag = RUS_show_socs
+			# }
+			RUS_socialist_portrait_visible = {
+				has_country_flag = RUS_show_socs
+			}
+			RUS_Socialist_Faction_Influence_visible = {
+				has_country_flag = RUS_show_socs
+			}
+			RUS_Socialist_Faction_Popularity_visible = {
+				has_country_flag = RUS_show_socs
+			}
+			#democrats
+			democrat_leader_frame_visible = {
+				has_country_flag = RUS_show_dems
+			}
+			RUS_democrat_portrait_visible = {
+				has_country_flag = RUS_show_dems
+				NOT = {
+					has_country_flag = RUS_Milyukov_dead
+				}
+			}
+			RUS_democrat_portrait2_visible = {
+				has_country_flag = RUS_show_dems
+				has_country_flag = RUS_Milyukov_dead
+				NOT = {
+					has_country_flag = RUS_Struve_dead
+				}
+			}
+			RUS_democrat_portrait3_visible = {
+				has_country_flag = RUS_show_dems
+				has_country_flag = RUS_Milyukov_dead
+				has_country_flag = RUS_Struve_dead
+			}
+			RUS_Democrat_Faction_Influence_visible = {
+				has_country_flag = RUS_show_dems
+			}
+			RUS_Democrat_Faction_Popularity_visible = {
+				has_country_flag = RUS_show_dems
+			}
+			#monarchists
+			monarchist_leader_frame_visible = {
+				has_country_flag = RUS_show_mons
+			}
+			RUS_monarchist_portrait_visible = {
+				has_country_flag = RUS_show_mons
+				NOT = {
+					has_country_flag = RUS_Miller_dead
+				}
+			}
+			RUS_monarchist_portrait2_visible = {
+				has_country_flag = RUS_show_mons
+				has_country_flag = RUS_Miller_dead
+				NOT = {
+					has_country_flag = RUS_Abramov_dead
+				}
+			}
+			RUS_monarchist_portrait3_visible = {
+				has_country_flag = RUS_show_mons
+				has_country_flag = RUS_Miller_dead
+				has_country_flag = RUS_Abramov_dead
+			}
+			RUS_Monarchist_Faction_Influence_visible = {
+				has_country_flag = RUS_show_mons
+			}
+			RUS_Monarchist_Faction_Popularity_visible = {
+				has_country_flag = RUS_show_mons
+			}
+			#black hundredist
+			bhundred_leader_frame_visible = {
+				has_country_flag = RUS_show_nats
+			}
+			RUS_bhundred_portrait_visible = {
+				has_country_flag = RUS_show_nats
+			}
+			RUS_Bhundred_Faction_Influence_visible = {
+				has_country_flag = RUS_show_nats
+			}
+			RUS_Bhundred_Faction_Popularity_visible = {
+				has_country_flag = RUS_show_nats
+			}
+			Increase_Pop_button_click_enabled = {
+				has_political_power > 29.99
+				OR = {
+					AND = {
+						has_country_flag = RUS_show_socs
+						check_variable = {
+							RUS_socialist_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = RUS_show_dems
+						check_variable = {
+							RUS_democrat_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = RUS_show_konr
+						check_variable = {
+							RUS_vlasov_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = RUS_show_mons
+						check_variable = {
+							RUS_monarchist_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = RUS_show_nats
+						check_variable = {
+							RUS_nationalist_influence < 100
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = RUS_every_90_days
+					NOT = {
+						has_idea = RUS_faction_influence_block
+					}
+				}
+			}
+			Decrease_Pop_button_click_enabled = {
+				has_political_power > 29.99
+				OR = {
+					AND = {
+						has_country_flag = RUS_show_socs
+						check_variable = {
+							RUS_socialist_influence > 0
+						}
+					}
+					AND = {
+						has_country_flag = RUS_show_dems
+						check_variable = {
+							RUS_democrat_influence > 0
+						}
+					}
+					AND = {
+						has_country_flag = RUS_show_mons
+						check_variable = {
+							RUS_monarchist_influence > 0
+						}
+					}
+					AND = {
+						has_country_flag = RUS_show_nats
+						check_variable = {
+							RUS_nationalist_influence > 0
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = RUS_every_90_days
+					NOT = {
+						has_idea = RUS_faction_influence_block
+					}
+				}
+			}
+			Rally_button_click_enabled = {
+				NOT = {
+					has_idea = RUS_rally_block
+				}
+				has_political_power > 49.99
+			}
+		}
+		effects = {
+			faction_container_close_button_click = {
+				clr_country_flag = RUS_show_factions
+			}
+			socialist_button_click = {
+				clr_country_flag = RUS_show_dems
+				clr_country_flag = RUS_show_konr
+				clr_country_flag = RUS_show_mons
+				clr_country_flag = RUS_show_nats
+				set_country_flag = RUS_show_socs
+			}
+			democrat_button_click = {
+				clr_country_flag = RUS_show_socs
+				clr_country_flag = RUS_show_konr
+				clr_country_flag = RUS_show_mons
+				clr_country_flag = RUS_show_nats
+				set_country_flag = RUS_show_dems
+			}
+			konr_button_click = {
+				clr_country_flag = RUS_show_socs
+				clr_country_flag = RUS_show_dems
+				clr_country_flag = RUS_show_mons
+				clr_country_flag = RUS_show_nats
+				set_country_flag = RUS_show_konr
+			}
+			monarchist_button_click = {
+				clr_country_flag = RUS_show_socs
+				clr_country_flag = RUS_show_dems
+				clr_country_flag = RUS_show_konr
+				clr_country_flag = RUS_show_nats
+				set_country_flag = RUS_show_mons
+			}
+			nationalist_button_click = {
+				clr_country_flag = RUS_show_socs
+				clr_country_flag = RUS_show_dems
+				clr_country_flag = RUS_show_konr
+				clr_country_flag = RUS_show_mons
+				set_country_flag = RUS_show_nats
+			}
+			Increase_Pop_button_click = {
+				add_political_power = -30
+				set_variable = {
+					RUS_add_influence_value = 3
+				}
+				if = {
+					limit = {
+						has_country_flag = RUS_show_socs
+					}
+					RUS_add_influence_socialists = yes
+					add_popularity = {
+						ideology = authoritarian_socialism
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = socialism
+						popularity = 0.02
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = RUS_show_dems
+					}
+					RUS_add_influence_democrats = yes
+					add_popularity = {
+						ideology = socialism
+						popularity = 0.005
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = 0.01
+					}
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = 0.01
+					}
+					add_popularity = {
+						ideology = market_liberalism
+						popularity = 0.005
+					}
+					add_popularity = {
+						ideology = jacobin
+						popularity = 0.01
+					}
+					add_popularity = {
+						ideology = democratic
+						popularity = 0.005
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = RUS_show_konr
+					}
+					RUS_add_influence_vlasov = yes
+					add_popularity = {
+						ideology = neutrality
+						popularity = 0.03
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = RUS_show_mons
+					}
+					RUS_add_influence_monarchists = yes
+					add_popularity = {
+						ideology = monarchism
+						popularity = 0.03
+					}
+				}
+				else = {
+					RUS_add_influence_nationalists = yes
+					add_popularity = {
+						ideology = nationalism
+						popularity = 0.03
+					}
+				}
+				hidden_effect = {
+					add_timed_idea = {
+						idea = RUS_faction_influence_block
+						days = 90
+					}
+				}
+				RUS_Get_Soc_Pop = yes
+				RUS_Get_Dem_Pop = yes
+				set_country_flag = RUS_AI_Faction_Open
+			}
+			Decrease_Pop_button_click = {
+				add_political_power = -30
+				set_variable = {
+					RUS_add_influence_value = -3
+				}
+				if = {
+					limit = {
+						has_country_flag = RUS_show_socs
+					}
+					RUS_add_influence_socialists = yes
+					add_popularity = {
+						ideology = authoritarian_socialism
+						popularity = -0.02
+					}
+					add_popularity = {
+						ideology = socialism
+						popularity = -0.02
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = RUS_show_dems
+					}
+					RUS_add_influence_democrats = yes
+					add_popularity = {
+						ideology = socialism
+						popularity = -0.005
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = -0.01
+					}
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = -0.01
+					}
+					add_popularity = {
+						ideology = market_liberalism
+						popularity = -0.005
+					}
+					add_popularity = {
+						ideology = jacobin
+						popularity = -0.01
+					}
+					add_popularity = {
+						ideology = democratic
+						popularity = -0.005
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = RUS_show_konr
+					}
+					RUS_add_influence_vlasov = yes
+					add_popularity = {
+						ideology = neutrality
+						popularity = -0.03
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = RUS_show_mons
+					}
+					RUS_add_influence_monarchists = yes
+					add_popularity = {
+						ideology = monarchism
+						popularity = -0.03
+					}
+				}
+				else = {
+					RUS_add_influence_nationalists = yes
+					add_popularity = {
+						ideology = nationalism
+						popularity = -0.03
+					}
+				}
+				hidden_effect = {
+					add_timed_idea = {
+						idea = RUS_faction_influence_block
+						days = 90
+					}
+				}
+				RUS_Get_Soc_Pop = yes
+				RUS_Get_Dem_Pop = yes
+				set_country_flag = RUS_AI_Faction_Open
+			}
+			Rally_button_click = {
+				add_political_power = -50
+				RUS_Rally_Supporters = yes
+				add_timed_idea = {
+					idea = RUS_rally_block
+					days = 150
+				}
+				set_country_flag = RUS_AI_Faction_Open
+			}
+		}
+		ai_enabled = {
+			tag = RUS
+			has_global_flag = Second_Russian_Civil_War
+		}
+		ai_test_interval = 120
+		ai_test_variance = 0
+		ai_check = {
+			tag = RUS
+			has_political_power > 39.99
+			OR = {
+				NOT = {
+					has_idea = RUS_faction_influence_block
+					has_idea = RUS_rally_block
+				}
+			}
+		}
+		ai_weights = {
+			faction_container_close_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						has_country_flag = RUS_AI_Faction_Open
+						add = 100
+					}
+				}
+			}
+			konr_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RUS_AI_KONR_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RUS_vlasov_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = RUS_AI_KONR_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RUS_vlasov_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								neutrality > 0.15
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			democrat_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RUS_AI_Dem_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RUS_democrat_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = RUS_AI_Dem_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RUS_democrat_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									RUS_Dem_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			monarchist_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RUS_AI_Mon_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RUS_monarchist_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = RUS_AI_Mon_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RUS_monarchist_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								monarchism > 0.15
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			socialist_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RUS_AI_Soc_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RUS_socialist_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = RUS_AI_Soc_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RUS_socialist_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									RUS_Soc_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			nationalist_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RUS_AI_Nat_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RUS_nationalist_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = RUS_AI_Nat_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									RUS_nationalist_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								nationalism > 0.15
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			Increase_Pop_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RUS_show_konr
+								has_country_flag = RUS_AI_KONR_Personality
+								check_variable = {
+									RUS_vlasov_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = RUS_show_dems
+								has_country_flag = RUS_AI_Dem_Personality
+								check_variable = {
+									RUS_democrat_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = RUS_show_mons
+								has_country_flag = RUS_AI_Mon_Personality
+								check_variable = {
+									RUS_monarchist_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = RUS_show_socs
+								has_country_flag = RUS_AI_Soc_Personality
+								check_variable = {
+									RUS_monarchist_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = RUS_show_nats
+								has_country_flag = RUS_AI_Nat_Personality
+								check_variable = {
+									RUS_nationalist_influence < 100
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			Decrease_Pop_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RUS_show_dems
+								NOT = {
+									has_country_flag = RUS_AI_Dem_Personality
+								}
+								check_variable = {
+									RUS_democrat_influence > 30
+								}
+							}
+							AND = {
+								has_country_flag = RUS_show_mons
+								NOT = {
+									has_country_flag = RUS_AI_Mon_Personality
+								}
+								check_variable = {
+									RUS_monarchist_influence > 30
+								}
+							}
+							AND = {
+								has_country_flag = RUS_show_socs
+								NOT = {
+									has_country_flag = RUS_AI_Soc_Personality
+								}
+								check_variable = {
+									RUS_socialist_influence > 30
+								}
+							}
+							AND = {
+								has_country_flag = RUS_show_nats
+								NOT = {
+									has_country_flag = RUS_AI_Nat_Personality
+								}
+								check_variable = {
+									RUS_nationalist_influence > 30
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			Rally_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = RUS_show_konr
+								neutrality > 0.15
+							}
+							AND = {
+								has_country_flag = RUS_show_dems
+								check_variable = {
+									RUS_Dem_Pop > 0.15
+								}
+							}
+							AND = {
+								has_country_flag = RUS_show_mons
+								monarchism > 0.15
+							}
+							AND = {
+								has_country_flag = RUS_show_socs
+								check_variable = {
+									RUS_SocPop > 0.15
+								}
+							}
+							AND = {
+								has_country_flag = RUS_show_nats
+								nationalism > 0.15
+							}
+						}
+						add = 100
+					}
+				}
+			}
+		}
+	}
+}

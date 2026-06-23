@@ -1,0 +1,355 @@
+###Polish Decisions###
+
+POL_constitution_decisions = {
+	POL_explain_constitution_decisions = {
+	    icon = generic_accord
+		allowed = { tag = POL }
+		visible = {
+			NOT = { has_country_flag = POL_dont_show_me_this_again } 
+		}
+		available = { always = yes }
+		ai_will_do = { factor = 0 } #computer's don't need to know how decision works
+		cost = 0
+		complete_effect = {
+			country_event = {
+				id = pol_constitution.1 #Constitutional Reform Explanation
+			}		
+		}
+		days_re_enable = 1
+	}
+
+	POL_constitutional_committee_meeting = {
+		icon = generic_accord           
+		allowed = { tag = POL }
+		available = {
+			always = no
+		}
+		visible = {
+			tag = POL
+			NOT = {
+				has_country_flag = POL_constitutional_committee_meeting_held_flag
+			}
+		}          
+		activation = { 
+			tag = POL
+			NOT = {
+				has_country_flag = POL_constitutional_committee_meeting_held_flag
+			}
+		}
+		is_good = yes
+		selectable_mission = no
+		days_mission_timeout = 12
+		timeout_effect = {
+			set_country_flag = POL_constitutional_committee_meeting_held_flag
+			country_event = {
+
+				id = pol_constitution.2 #Meeting of the Constitutional Committee
+			}
+		}
+	}
+	POL_bbwr_constitutional_editoral_team_creation = { 
+		icon = generic_accord           
+		allowed = { tag = POL }
+		available = {
+			always = no
+		}
+		visible = {
+			tag = POL
+			has_country_flag = POL_bbwr_constitutional_editoral_team_creation_flag
+		}          
+		activation = { 
+			tag = POL
+			has_country_flag = POL_bbwr_constitutional_editoral_team_creation_flag 
+		}
+		is_good = yes
+		selectable_mission = no
+		days_mission_timeout = 74
+		timeout_effect = {
+			clr_country_flag = POL_bbwr_constitutional_editoral_team_creation_flag
+			set_country_flag = POL_bbwr_constitutional_editoral_team_work_flag
+			unlock_decision_tooltip = POL_bbwr_constitutional_editoral_team_work
+		}
+	}
+	POL_bbwr_constitutional_editoral_team_work = { 
+		icon = generic_accord           
+		allowed = { tag = POL }
+		available = {
+			always = no
+		}
+		visible = {
+			tag = POL
+			has_country_flag = POL_bbwr_constitutional_editoral_team_work_flag
+		}          
+		activation = { 
+			tag = POL
+			has_country_flag = POL_bbwr_constitutional_editoral_team_work_flag 
+		}
+		is_good = yes
+		selectable_mission = no
+		days_mission_timeout = 62
+		timeout_effect = {
+			clr_country_flag = POL_bbwr_constitutional_editoral_team_work_flag
+			country_event = {
+				id = pol_constitution.4 #Work of BBWR Constitutional Editorial Team 
+			}
+		}
+	}
+	POL_meetings_in_spala = { 
+		icon = generic_accord           
+		allowed = { tag = POL }
+		available = {
+			always = no
+		}
+		visible = {
+			tag = POL
+			has_country_flag = POL_meetings_in_spala_flag
+		}          
+		activation = { 
+			tag = POL
+			has_country_flag = POL_meetings_in_spala_flag 
+		}
+		is_good = yes
+		selectable_mission = no
+		days_mission_timeout = 54
+		timeout_effect = {
+			clr_country_flag = POL_meetings_in_spala_flag
+			country_event = {
+				id = pol_constitution.5 #Meetings in Spala
+			}
+		}
+	}
+	POL_bbwr_constitutional_group_work = { 
+		icon = generic_accord           
+		allowed = { tag = POL }
+		available = {
+			always = no
+		}
+		visible = {
+			tag = POL
+			has_country_flag = POL_bbwr_constitutional_group_work_flag
+		}          
+		activation = { 
+			tag = POL
+			has_country_flag = POL_bbwr_constitutional_group_work_flag 
+		}
+		is_good = yes
+		selectable_mission = no
+		days_mission_timeout = 32
+		timeout_effect = {
+			clr_country_flag = POL_bbwr_constitutional_group_work_flag 
+			country_event = {
+				id = pol_constitution.5 #Meetings in Spala
+			}
+		}
+	}
+}
+
+POL_administration_decisions = {
+	POL_explain_administration_decisions = {
+	    icon = generic_accord
+		allowed = { tag = POL }
+		visible = {
+			NOT = { has_country_flag = POL_dont_show_me_this_again } 
+		}
+		available = { always = yes }
+		ai_will_do = { factor = 0 } #computer's don't need to know how decision works
+		cost = 0
+		complete_effect = {}
+		days_re_enable = 1
+	}
+}
+
+POL_education_decisions = {
+	POL_explain_education_decisions = {
+	    icon = generic_accord
+		allowed = { tag = POL }
+		visible = {
+			NOT = { has_country_flag = POL_dont_show_me_this_again } 
+		}
+		available = { always = yes }
+		ai_will_do = { factor = 0 } #computer's don't need to know how decision works
+		cost = 0
+		complete_effect = {}
+		days_re_enable = 1
+	}
+}
+
+POL_economy_decisions = {
+	POL_explain_economy_decisions = {
+	    icon = generic_accord
+		allowed = { tag = POL }
+		visible = {
+			NOT = { has_country_flag = POL_dont_show_me_this_again } 
+		}
+		available = { always = yes }
+		ai_will_do = { factor = 0 } #computer's don't need to know how decision works
+		cost = 0
+		complete_effect = {}
+		days_re_enable = 1
+	}
+}
+
+POL_ship_purchase_orders = {
+
+	POL_order_orzel = { #Shadow decision for poland to watch in real time how ship construction advances
+		icon = GFX_decision_icon_submarine
+
+		allowed = {
+			original_tag = POL
+		}
+		visible = {
+			HOL = {
+				has_country_flag = HOL_POL_building_orzel
+			}
+		}
+		available = {
+			HOL = {
+				has_war = no
+				has_capitulated = no
+				controls_state = 997
+			}
+		}
+		cost = 0
+		days_remove = 519 #laid down 14 august 1936
+		fire_only_once = yes
+
+		modifier = {
+			civilian_factory_use = 1
+		}
+
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = POL }
+				NOT = { country_exists = HOL }
+				HOL = {
+					has_war = yes
+				}
+				NOT = {
+					HOL = {
+						controls_state = 997
+					}
+				}
+			}
+		}
+
+		#Success
+		remove_effect = {
+
+			if = {
+				limit = { has_dlc = "Man the Guns" }
+				effect_tooltip = {
+					# if = {
+					# 	limit = {
+					# 		NOT = { has_tech = basic_ship_hull_submarine }
+					# 	}
+					# 	set_technology = {
+					# 		basic_ship_hull_submarine = 1
+					# 	}
+					# }
+					# if = {
+					# 	limit = {
+					# 		NOT = { has_tech = improved_ship_torpedo_launcher }
+					# 	}
+					# 	set_technology = {
+					# 		improved_ship_torpedo_launcher = 1
+					# 	}
+					# }
+					create_equipment_variant = {
+						name = "Orzel Class"				
+						type = ship_hull_submarine_2
+						name_group = POL_SS_HISTORICAL
+						parent_version = 0
+						modules = {
+							fixed_ship_torpedo_slot = ship_torpedo_sub_2
+							fixed_ship_engine_slot = sub_ship_engine_2
+							rear_1_custom_slot = ship_torpedo_sub_2
+						}
+						allow_without_tech = yes
+					}
+					create_ship = { name = "ORP Orzeł" type = ship_hull_submarine_2 equipment_variant = "Orzel Class" creator = POL }
+				}
+			}
+			else = {
+				effect_tooltip = {
+					# if = {
+					# 	limit = {
+					# 		NOT = { has_tech = basic_submarine }
+					# 	}
+					# 	set_technology = {
+					# 		basic_submarine = 1
+					# 	}
+					# }
+					create_equipment_variant = {
+						name = "Orzel Class"
+						type = submarine_2
+						upgrades = {
+							sub_torpedo_upgrade = 2
+							sub_engine_upgrade = 2
+						}
+						allow_without_tech = yes
+					}
+					create_ship = { name = "ORP Orzeł" type = submarine_2 equipment_variant = "Orzel Class" creator = POL }
+				}
+			}
+		}
+	}
+
+	POL_order_sep = { #Shadow decision for poland to watch in real time how ship construction advances
+		icon = GFX_decision_icon_submarine
+
+		allowed = {
+			original_tag = POL
+		}
+		visible = {
+			HOL = {
+				has_country_flag = HOL_POL_building_sep
+			}
+		}
+		available = {
+			HOL = {
+				has_war = no
+				has_capitulated = no
+				controls_state = 997
+			}
+		}
+		cost = 0
+		days_remove = 711 #laid down November 1936
+		fire_only_once = yes
+
+		modifier = {
+			civilian_factory_use = 1
+		}
+
+		cancel_trigger = {
+			OR = {
+				NOT = { country_exists = POL }
+				NOT = { country_exists = HOL }
+				HOL = {
+					has_war = yes
+				}
+				NOT = {
+					HOL = {
+						controls_state = 997
+					}
+				}
+			}
+		}
+
+		#Success
+		remove_effect = {
+
+			if = {
+				limit = { has_dlc = "Man the Guns" }
+				effect_tooltip = {
+					create_ship = { name = "ORP Sęp" type = ship_hull_submarine_2 equipment_variant = "Orzel Class" creator = POL }
+				}
+			}
+			else = {
+				effect_tooltip = {
+					create_ship = { name = "ORP Sęp" type = submarine_2 equipment_variant = "Orzel Class" creator = POL }
+				}
+			}
+		}
+	}
+
+}

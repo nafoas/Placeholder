@@ -1,0 +1,386 @@
+
+shared_focus = {
+	id = USA_peace_at_last
+	icon = GFX_focus_Pacifist_State
+	cost = 3
+	completion_reward = {
+	    add_political_power = 50
+	}
+	x = 7
+    y = 0
+}
+
+shared_focus = {
+	id = USA_reconversion
+	icon = GFX_focus_Free_Trade
+	cost = 6
+	prerequisite = {
+		focus = USA_peace_at_last
+	}
+	completion_reward = {
+	    usa_lower_unrest = yes
+	}
+	x = -3
+    y = 1
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_prevent_unemployment
+	icon = GFX_focus_Union_Workers
+	cost = 6
+	prerequisite = {
+		focus = USA_reconversion
+	}
+	completion_reward = {
+	    add_stability = 0.05
+		add_political_power = 25
+		add_to_variable = { var = usa_president_popularity value = 3 }
+		USA_clamp_president_pop = yes
+	}
+	x = -6
+    y = 2
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_full_commitment
+	icon = GFX_focus_intervene_in_wage_market
+	cost = 6
+	prerequisite = {
+		focus = USA_prevent_unemployment
+	}
+	mutually_exclusive = {
+	    focus = USA_employment_act_limited
+	}
+	completion_reward = {
+	    usa_lower_unrest = yes
+		add_political_power = -50
+		add_to_variable = { var = usa_president_popularity value = 5 }
+		USA_clamp_president_pop = yes
+	}
+	x = -7
+    y = 3
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_employment_act_limited
+	icon = GFX_focus_Business_Men
+	cost = 6
+	prerequisite = {
+		focus = USA_prevent_unemployment
+	}
+	mutually_exclusive = {
+	    focus = USA_full_commitment
+	}
+	completion_reward = {
+	    USA_house_medium_support = yes
+		USA_senate_medium_support = yes
+		
+	}
+	x = -5
+    y = 3
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_fepc
+	icon = GFX_focus_Business_Bills
+	cost = 6
+	prerequisite = {
+		focus = USA_employment_act_limited
+		focus = USA_full_commitment
+	}
+	completion_reward = {
+	    country_event = { id = unitedstates.125 }
+	}
+	x = -6
+    y = 4
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_deal_strike_wave
+	icon = GFX_focus_Workers_on_Strike
+	cost = 6
+	prerequisite = {
+		focus = USA_reconversion
+	}
+	available = {
+	    has_idea = usa_strike_wave
+	}
+	completion_reward = {
+	    add_stability = 0.1
+	}
+	x = -1
+    y = 2
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_negotiate_unions
+	icon = GFX_focus_Rose_of_Democracy
+	cost = 6
+	prerequisite = {
+		focus = USA_deal_strike_wave
+	}
+	mutually_exclusive = {
+	    focus = USA_taft_hartley
+	}
+	completion_reward = {
+	    remove_ideas = usa_strike_wave
+		usa_lower_unrest = yes
+		add_timed_idea = {
+		    idea = usa_union_concessions
+			days = 600
+		}
+		add_to_variable = { var = usa_president_popularity value = 3 }
+		USA_clamp_president_pop = yes
+	}
+	x = 0
+    y = 3
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_amend_gi_bill
+	icon = GFX_focus_Social_Democracy
+	cost = 6
+	prerequisite = {
+		focus = USA_negotiate_unions
+	}
+	completion_reward = {
+	    usa_lower_unrest = yes
+		add_political_power = -50
+		add_popularity = {
+       	    ideology = jacobin
+		    popularity = -0.05
+        }
+        add_popularity = {
+       	    ideology = democratic
+		    popularity = -0.05
+        }
+	}
+	x = 1
+    y = 4
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_taft_hartley
+	icon = GFX_focus_Crush_Resistance
+	cost = 6
+	prerequisite = {
+		focus = USA_deal_strike_wave
+	}
+	mutually_exclusive = {
+	    focus = USA_negotiate_unions
+	}
+	completion_reward = {
+	    remove_ideas = usa_strike_wave
+		USA_congress_medium_support = yes
+	}
+	x = -2
+    y = 3
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_implement_gi_bill
+	icon = GFX_focus_USA_Soldiers
+	cost = 6
+	prerequisite = {
+		focus = USA_taft_hartley
+	}
+	completion_reward = {
+	    usa_lower_unrest = yes
+	}
+	x = -3
+    y = 4
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_war_brides_act
+	icon = GFX_focus_Womens_Rights
+	cost = 4
+	prerequisite = {
+		focus = USA_taft_hartley
+		focus = USA_negotiate_unions
+	}
+	completion_reward = {
+	    usa_lower_unrest = yes
+	}
+	x = -1
+    y = 4
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_handle_our_debt
+	icon = GFX_focus_Money_Bags
+	cost = 6
+	prerequisite = {
+		focus = USA_peace_at_last
+	}
+	completion_reward = {
+	    add_stability = 0.05
+	}
+	x = 4
+    y = 1
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_end_price_controls
+	icon = GFX_focus_bills_and_acts
+	cost = 6
+	prerequisite = {
+		focus = USA_handle_our_debt
+	}
+	mutually_exclusive = {
+	    focus = USA_extend_price_controls
+	}
+	completion_reward = {
+	    usa_increase_inflation = yes
+		usa_lower_unrest = yes
+	}
+	x = 3
+    y = 2
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_extend_price_controls
+	icon = GFX_focus_Control_the_Economy
+	cost = 6
+	prerequisite = {
+		focus = USA_handle_our_debt
+	}
+	mutually_exclusive = {
+	    focus = USA_end_price_controls
+	}
+	completion_reward = {
+	    usa_increase_unrest = yes
+	}
+	x = 5
+    y = 2
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_lift_economic_controls
+	icon = GFX_focus_Deregulation
+	cost = 6
+	available = {
+	    has_completed_focus = USA_fight_inflation
+	}
+	prerequisite = {
+		focus = USA_extend_price_controls
+	}
+	completion_reward = {
+	    usa_lower_unrest = yes
+		usa_lower_inflation = yes
+	}
+	x = 7
+    y = 3
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_maintain_federal_spending
+	icon = GFX_focus_Economic_Stimulus
+	cost = 6
+	mutually_exclusive = {
+	    focus = USA_spending_cuts
+	}
+	prerequisite = {
+		focus = USA_extend_price_controls
+		focus = USA_end_price_controls
+	}
+	completion_reward = {
+	    add_political_power = 150
+		usa_increase_inflation = yes
+	}
+	x = 3
+    y = 3
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_spending_cuts
+	icon = GFX_focus_Congress_Bills
+	cost = 6
+	prerequisite = {
+		focus = USA_extend_price_controls
+		focus = USA_end_price_controls
+	}
+	mutually_exclusive = {
+	    focus = USA_maintain_federal_spending
+	}
+	completion_reward = {
+	    usa_lower_inflation = yes
+		add_stability = -0.05
+		add_political_power = -100
+	}
+	x = 5
+    y = 3
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_maintain_war_taxes
+	icon = GFX_focus_Grab_Money
+	cost = 6
+	prerequisite = {
+		focus = USA_spending_cuts
+		focus = USA_maintain_federal_spending
+	}
+	mutually_exclusive = {
+	    focus = USA_lower_taxes_postwar
+	}
+	completion_reward = {
+	    usa_lower_inflation = yes
+		usa_increase_unrest = yes
+	}
+	x = 3
+    y = 4
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_lower_taxes_postwar
+	icon = GFX_focus_Rich_Focus
+	cost = 6
+	prerequisite = {
+		focus = USA_spending_cuts
+		focus = USA_maintain_federal_spending
+	}
+	mutually_exclusive = {
+	    focus = USA_maintain_war_taxes
+	}
+	completion_reward = {
+	    usa_increase_inflation = yes
+		usa_lower_unrest = yes
+	}
+	x = 5
+    y = 4
+    relative_position_id = USA_peace_at_last
+}
+
+shared_focus = {
+	id = USA_fight_inflation
+	icon = GFX_focus_conquering_the_inflation
+	cost = 6
+	prerequisite = {
+		focus = USA_lower_taxes_postwar
+		focus = USA_maintain_war_taxes
+	}
+	completion_reward = {
+	    usa_lower_inflation = yes
+	}
+	x = 4
+    y = 5
+    relative_position_id = USA_peace_at_last
+}

@@ -1,0 +1,402 @@
+
+SPC_political_decisions = {
+
+	SPC_form_uca = {
+		visible = {
+			tag = SPC
+			has_government = authoritarian_socialism
+		}
+		icon = GFX_decision_generic_political_discourse
+		available = {
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 75
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+			}
+		}
+	}
+
+	SPC_pceh = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = socialism
+			}
+		}
+		icon = GFX_decision_generic_construction
+		available = {
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 75
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_stability = 0.02
+			add_war_support = 0.03
+		}
+	}
+
+	SPC_lsoc = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = communism
+			}
+		}
+		icon = GFX_decision_generic_industry
+		available = {
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 75
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_stability = 0.05
+		}
+	}
+
+	SPC_expand_secret_police = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = communism
+			}
+			NOT = { has_country_flag = SPC_cnt_won }
+		}
+		icon = GFX_decision_generic_army_support
+		available = {
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 75
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_stability = 0.03
+			add_popularity = { ideology = authoritarian_socialism popularity = -0.03 }
+			add_popularity = { ideology = communism popularity = -0.03 }
+		}
+	}
+
+	SPC_lpte = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = socialism
+				has_government = communism
+			}
+		}
+		icon = GFX_decision_ger_mefo_bills
+		available = {
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 75
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_war_support = 0.05
+		}
+	}
+
+	SPC_purge_regionalist_parties = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = communism
+			}
+			NOT = { has_completed_focus = SPC_decentralize }
+		}
+		icon = GFX_decision_generic_ignite_civil_war
+		available = {
+			has_war = no
+		}
+		fire_only_once = yes
+		cost = 75
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			add_stability = 0.03
+			add_political_power = 130
+			add_war_support = -0.06
+		}
+	}
+
+}
+
+SPC_spanish_revolution_decisions = {
+
+	SPC_war_exhaustion_mission = {
+		icon = generic_prepare_civil_war
+		available = {
+			NOT = { has_war_with = SPR }
+		}
+		is_good = no
+		days_mission_timeout = 160
+
+		activation = {
+			always = no
+		}
+
+		complete_effect = {
+		}
+
+		timeout_effect = {
+			SPC_decrease_enthusiasm = yes
+			activate_mission = SPC_war_exhaustion_mission
+		}
+	}
+
+	SPC_empower_local_committees = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = communism
+				has_government = socialism
+			}
+			has_war_with = SPR
+		}
+		icon = generic_citizens
+		available = {
+			has_war_with = SPR
+		}
+		days_remove = 37
+		cost = 30
+		ai_will_do = {
+			factor = 0
+		}
+		remove_effect = {
+			SPC_decrease_authority = yes
+			add_days_mission_timeout = {
+				mission = SPC_war_exhaustion_mission
+				days = 50
+			}
+		}
+	}
+
+	SPC_disband_autonomous_councils = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = communism
+				has_government = socialism
+			}
+			has_war_with = SPR
+		}
+		icon = generic_ignite_civil_war
+		available = {
+			has_war_with = SPR
+		}
+		days_remove = 37
+		cost = 30
+		ai_will_do = {
+			factor = 0
+		}
+		remove_effect = {
+			SPC_increase_authority = yes
+			add_days_mission_timeout = {
+				mission = SPC_war_exhaustion_mission
+				days = -45
+			}
+		}
+	}
+
+	SPC_democratize_factory_management = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = communism
+				has_government = socialism
+			}
+			has_war_with = SPR
+		}
+		icon = generic_political_discourse
+		available = {
+			has_war_with = SPR
+		}
+		days_remove = 37
+		cost = 50
+		modifier = {
+			production_speed_buildings_factor = 0.2
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		remove_effect = {
+			SPC_decrease_authority = yes
+			add_days_mission_timeout = {
+				mission = SPC_war_exhaustion_mission
+				days = 90
+			}
+		}
+	}
+
+	SPC_centralize_factory_management = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = communism
+				has_government = socialism
+			}
+			has_war_with = SPR
+		}
+		icon = generic_construction
+		available = {
+			has_war_with = SPR
+		}
+		days_remove = 37
+		cost = 50
+		modifier = {
+			industrial_capacity_factory = 0.1
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		remove_effect = {
+			SPC_increase_authority = yes
+			add_days_mission_timeout = {
+				mission = SPC_war_exhaustion_mission
+				days = -45
+			}
+		}
+	}
+
+	SPC_fuel_class_war = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = communism
+				has_government = socialism
+			}
+			has_war_with = SPR
+		}
+		icon = generic_civil_support
+		available = {
+			has_war_with = SPR
+		}
+		days_remove = 37
+		cost = 15
+		modifier = {
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		remove_effect = {
+			SPC_decrease_authority = yes
+			add_stability = -0.05
+			add_days_mission_timeout = {
+				mission = SPC_war_exhaustion_mission
+				days = 100
+			}
+		}
+	}
+
+	SPC_urge_restraint = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = communism
+				has_government = socialism
+			}
+			has_war_with = SPR
+		}
+		icon = eng_propaganda_campaigns
+		available = {
+			has_war_with = SPR
+		}
+		days_remove = 37
+		cost = 15
+		ai_will_do = {
+			factor = 0
+		}
+		remove_effect = {
+			SPC_increase_authority = yes
+			add_days_mission_timeout = {
+				mission = SPC_war_exhaustion_mission
+				days = -30
+			}
+		}
+	}
+
+	SPC_invite_more_soviets = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = communism
+				has_government = socialism
+			}
+			has_war_with = SPR
+		}
+		icon = generic_army_support
+		available = {
+			has_war_with = SPR
+			has_idea = SPC_soviet_help
+		}
+		cost = 25
+		ai_will_do = {
+			factor = 0
+		}
+		days_remove = 30
+		fire_only_once = yes
+		remove_effect = {
+			swap_ideas = { remove_idea = SPC_soviet_help add_idea = SPC_soviet_help2 }
+		}
+	}
+
+	SPC_march_madrid = {
+		visible = {
+			tag = SPC
+			OR = {
+				has_government = authoritarian_socialism
+				has_government = communism
+				has_government = socialism
+			}
+			has_war_with = SPR
+		}
+		icon = generic_nationalism
+		available = {
+			has_war_with = SPR
+			controls_state = 41
+		}
+		cost = 10
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		complete_effect = {
+			SPC_increase_authority = yes
+			add_days_mission_timeout = {
+				mission = SPC_war_exhaustion_mission
+				days = 300
+			}
+		}
+	}
+
+}

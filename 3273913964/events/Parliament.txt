@@ -1,0 +1,1503 @@
+add_namespace = parliament
+
+# Fail to pass a law
+country_event = {
+	id = parliament.1
+	title = parliament.1.t
+	desc = parliament.1.d
+	picture = GFX_Event_Spain_Cortes
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.1.a
+		add_political_power = -30
+	}
+}
+
+# Opposition proposes railway liberalization
+# country_event = {
+# 	id = parliament.103
+# 	title = parliament.103.t
+# 	desc = parliament.103.d
+# 	picture = GFX_Event_Spain_Cortes
+
+# 	mean_time_to_happen = { days = 150 }
+# 	trigger = {
+# 		tag = SPR
+# 		date > 1933.2.1
+# 		date < 1933.11.19
+# 		NOT = { has_country_flag = parliament_closed }
+# 		NOT = { has_country_flag = law_passing }
+# 		NOT = {
+# 			has_government = jacobin
+# 			has_government = market_liberalism
+# 		}
+# 	}
+# 	fire_only_once = yes
+
+# 	option = { #We will fight the law
+# 		name = parliament.103.a
+# 		ai_chance = {
+# 			base = 100
+# 		}
+# 		set_variable = { supseat = SPR_lib_rep_seats }
+# 		activate_mission = SPR_op_lbr
+# 		set_country_flag = law_passing
+# 		set_country_flag = law_passing_lbr
+# 		set_country_flag = opposition_neg
+# 		if = {
+# 			limit = {
+# 				has_government = social_democracy
+# 			}
+# 			hidden_effect = {
+# 				country_event = { id = parliament.104 days = 13 }
+# 				country_event = { id = parliament.105 days = 6 }
+# 			}
+# 		}
+# 	}
+
+# 	option = { #It is good for the country - we'll support it
+# 		name = parliament.103.b
+# 		ai_chance = {
+# 			base = 0
+# 		}
+# 		set_variable = { supseat = SPR_lib_rep_seats }
+# 		if = {
+# 			limit = { has_government = social_democracy }
+# 			add_to_variable = { supseat = ar_ir_seats }
+# 		}
+# 		else = {
+# 			add_to_variable = { supseat = colseat }
+# 		}
+# 		activate_mission = SPR_op_lbr
+# 		set_country_flag = law_passing
+# 		set_country_flag = op_supports_law
+# 		set_country_flag = SPR_already_neg_libs
+# 		set_country_flag = law_passing_lbr
+# 	}
+# }
+
+# Right-wing bloc supports liberals
+country_event = {
+	id = parliament.104
+	title = parliament.104.t
+	desc = parliament.104.d
+	picture = GFX_Event_Spain_Cortes
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = parliament_closed }
+	}
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			country_event = { id = parliament.107 random_days = 25 }
+		}
+	}
+
+	option = {
+		name = parliament.104.a
+		add_political_power = -25
+		add_to_variable = { var = supseat value = SPR_rightist_seats }
+		add_to_variable = { var = supseat value = mon_seats }
+		add_to_variable = { var = supseat value = nat_seats }
+		add_to_variable = { var = supseat value = fas_seats }
+		set_country_flag = right_sup_opp
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = spr_op_cons
+					AND = {
+						is_in_array = {
+							array = coalition_party_list
+							value = 7
+						}
+						NOT = { has_country_flag = gathered_coalition }
+					}
+				}
+			}
+			add_to_variable = { var = supseat value = SPR_rightist_seats }
+			set_country_flag = cons_support_opp
+		}
+	}
+}
+
+# Centrists and Liberals agree to support the opposition's current law
+country_event = {
+	id = parliament.105
+	title = parliament.105.t
+	desc = parliament.105.d
+	picture = GFX_Event_Spain_Cortes
+
+	is_triggered_only = yes
+	trigger = {
+		tag = SPR
+		NOT = { has_country_flag = spr_op_soclibs }
+		NOT = { has_country_flag = soclibs_support_opp }
+		NOT = { has_country_flag = parliament_closed }
+		has_country_flag = law_passing
+		has_country_flag = opposition_neg
+		if = {
+			limit = {
+				is_in_array = {
+					array = coalition_party_list
+					value = 4
+				}
+			}
+			NOT = { has_country_flag = gathered_coalition }
+		}
+	}
+	fire_only_once = yes
+
+	option = {
+		name = parliament.105.a
+		add_to_variable = { var = supseat value = SPR_cen_seats }
+		set_country_flag = government_help
+		custom_effect_tooltip = government_help_tool
+	}
+}
+
+# Opposition proposes autonomy restrictions
+# country_event = {
+# 	id = parliament.106
+# 	title = parliament.106.t
+# 	desc = parliament.106.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 150 }
+# 	trigger = {
+# 		tag = SPR
+# 		date > 1933.2.1
+# 		NOT = { has_country_flag = parliament_closed }
+# 		NOT = { has_country_flag = law_passing }
+# 		NOT = {
+# 			OR = {
+# 				has_government = jacobin
+# 				has_government = market_liberalism
+# 			}
+# 		}
+# 		NOT = { has_country_flag = op_cen_done }
+# 	}
+
+# 	option = { #We will fight the law
+# 		name = parliament.103.a
+# 		set_variable = { supseat = marlib_seats }
+# 		add_to_variable = { var = supseat value = SPR_lib_rep_seats }
+# 		activate_mission = SPR_op_cen
+# 		set_country_flag = law_passing
+# 		set_country_flag = law_passing_cen
+# 		set_country_flag = opposition_neg
+# 		if = {
+# 			limit = {
+# 				has_government = social_democracy
+# 			}
+# 			hidden_effect = {
+# 				country_event = { id = parliament.104 days = 15 }
+# 			}
+# 		}
+# 	}
+
+# 	option = { #It is good for the country - we'll support it
+# 		name = parliament.103.b
+# 		if = {
+# 			limit = {
+# 				OR = {
+# 					has_government = democratic
+# 					has_government = neutrality
+# 				}
+# 			}
+# 			set_variable = { supseat = SPR_rightist_seats }
+# 		}
+# 		if = {
+# 			limit = { has_government = social_liberalism }
+# 			set_variable = { supseat = SPR_cen_seats }
+# 		}
+# 		if = {
+# 			limit = { has_government = social_democracy }
+# 			set_variable = { supseat = socdem_seats }
+# 		}
+# 		if = {
+# 			limit = { has_government = socialism }
+# 			set_variable = { supseat = socialist_seats }
+# 		}
+# 		add_to_variable = { var = supseat value = SPR_lib_rep_seats }
+# 		add_to_variable = { var = supseat value = marlib_seats }
+# 		activate_mission = SPR_op_cen
+# 		set_country_flag = law_passing
+# 		set_country_flag = op_supports_law
+# 		set_country_flag = SPR_already_neg_libs
+# 		set_country_flag = law_passing_cen
+# 	}
+# }
+
+# Far right abandons centrists
+country_event = {
+	id = parliament.107
+	title = parliament.107.t
+	desc = parliament.107.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+	trigger = {
+		tag = SPR
+		has_country_flag = right_sup_opp
+		has_country_flag = law_passing
+		has_country_flag = opposition_neg
+		NOT = { has_country_flag = parliament_closed }
+	}
+
+	option = {
+		name = parliament.107.a
+		subtract_from_variable = { var = supseat value = ceda_seats }
+		subtract_from_variable = { var = supseat value = agra_seats }
+		subtract_from_variable = { var = supseat value = mon_seats }
+		subtract_from_variable = { var = supseat value = nat_seats }
+		subtract_from_variable = { var = supseat value = fas_seats }
+	}
+}
+
+# Success
+country_event = {
+	id = parliament.100
+	title = parliament.100.t
+	desc = parliament.100.d
+	picture = GFX_Event_Spain_Cortes
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = parliament_closed }
+	}
+
+	option = {
+		name = parliament.100.a
+		custom_effect_tooltip = pass_other_tool
+	}
+}
+
+# Opposition Fails
+country_event = {
+	id = parliament.101
+	title = parliament.101.t
+	desc = parliament.101.d
+	picture = GFX_Event_Spain_Cortes
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = parliament_closed }
+	}
+
+	option = {
+		name = parliament.101.a
+		add_political_power = 25
+		custom_effect_tooltip = pass_other_tool
+	}
+}
+
+# Opposition Success
+country_event = {
+	id = parliament.102
+	title = parliament.102.t
+	desc = parliament.102.d
+	picture = GFX_Event_Spain_Cortes
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = parliament_closed }
+	}
+
+	option = {
+		name = parliament.102.a
+		add_political_power = -25
+		custom_effect_tooltip = pass_other_tool
+	}
+}
+
+
+# Opposition speaks against our initiative
+# country_event = {
+# 	id = parliament.200
+# 	title = parliament.200.t
+# 	desc = parliament.200.d
+# 	picture = GFX_Event_Spain_Cortes
+
+# 	mean_time_to_happen = { days = 230 }
+# 	trigger = {
+# 		tag = SPR
+# 		has_country_flag = law_passing
+# 		NOT = { has_country_flag = opposition_neg }
+# 		NOT = { has_country_flag = parliament_closed }
+# 	}
+
+# 	option = {
+# 		name = parliament.200.a
+# 		add_political_power = -5
+# 	}
+# }
+
+# Minister defends our initative
+# country_event = {
+# 	id = parliament.201
+# 	title = parliament.201.t
+# 	desc = parliament.201.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 230 }
+# 	trigger = {
+# 		tag = SPR
+# 		has_country_flag = law_passing
+# 		NOT = { has_country_flag = opposition_neg }
+# 		NOT = { has_country_flag = parliament_closed }
+# 	}
+
+# 	option = {
+# 		name = parliament.201.a
+# 		add_political_power = 5
+# 	}
+# }
+
+# Moderate Deputies join our bloc
+# country_event = {
+# 	id = parliament.202
+# 	title = parliament.202.t
+# 	desc = parliament.202.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 300 }
+# 	trigger = {
+# 	    tag = SPR
+# 		has_country_flag = law_passing
+# 		NOT = { has_country_flag = opposition_neg }
+# 		NOT = { has_country_flag = parliament_closed }
+# 	}
+
+# 	option = {
+# 		name = parliament.202.a
+# 		add_to_variable = { var = supseat value = 10 }
+# 	}
+# }
+
+# Division within the ruling party
+# country_event = {
+# 	id = parliament.203
+# 	title = parliament.203.t
+# 	desc = parliament.203.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 300 }
+# 	trigger = {
+# 		tag = SPR
+# 		has_country_flag = law_passing
+# 		NOT = { has_country_flag = opposition_neg }
+# 		NOT = { has_country_flag = parliament_closed }
+# 	}
+
+# 	option = {
+# 		name = parliament.203.a
+# 		subtract_from_variable = { var = supseat value = 10 }
+# 	}
+# }
+
+# TODO:Temporarily removed!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Opposition denounces political violence
+# country_event = {
+# 	id = parliament.204
+# 	title = parliament.204.t
+# 	desc = parliament.204.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 60 }
+# 	trigger = {
+# 		tag = SPR
+# 		has_country_flag = law_passing
+# 		NOT = { has_country_flag = opposition_neg }
+# 		has_idea = SPR_violence
+# 		NOT = { has_country_flag = parliament_closed }
+# 	}
+
+# 	option = {
+# 		name = parliament.204.a
+# 		subtract_from_variable = { var = supseat value = 10 }
+# 	}
+# }
+
+# TODO:Temporarily removed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# # Turbulent Parliamentary session
+# country_event = {
+# 	id = parliament.205
+# 	title = parliament.205.t
+# 	desc = parliament.205.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 60 }
+# 	trigger = {
+# 		tag = SPR
+# 		has_country_flag = law_passing
+# 		has_country_flag = opposition_neg
+# 		has_idea = SPR_violence
+# 		NOT = { has_country_flag = parliament_closed }
+# 	}
+
+# 	option = {
+# 		name = parliament.205.a
+# 		add_stability = -0.025
+# 	}
+# }
+
+# Parliament debates agrarian situation
+# country_event = {
+# 	id = parliament.206
+# 	title = parliament.206.t
+# 	desc = parliament.206.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 500 }
+# 	trigger = {
+# 	    tag = SPR
+# 		has_country_flag = law_passing
+# 		NOT = { has_country_flag = opposition_neg }
+# 		OR = { has_idea = SPR_agrarian_problem has_idea = SPR_agrarian_problem2 has_idea = SPR_agrarian_problem3 }
+# 		NOT = { has_country_flag = par_debate_agr }
+# 		NOT = { has_country_flag = parliament_closed }
+# 	}
+
+# 	option = { #We must protect the small owners from leftist expropiations!
+# 		name = parliament.206.a
+# 		trigger = { NOT = { has_government = social_democracy } }
+# 		add_war_support = 0.025
+# 		# add_popularity = { ideology = democratic popularity = 0.02 }
+# 		set_country_flag = { flag = par_debate_agr days = 365 }
+# 	}
+
+# 	option = { #We'll provide a moderate solution while sus señorias argue with each other!
+# 		name = parliament.206.b
+# 		# add_popularity = { ideology = social_liberalism popularity = 0.02 }
+# 		add_political_power = 10
+# 		set_country_flag = { flag = par_debate_agr days = 365 }
+# 	}
+
+# 	option = { #The right opposes reform so much that we might suspect they are just landowner puppets!
+# 		name = parliament.206.c
+# 		trigger = { has_government = social_democracy }
+# 		add_stability = 0.01
+# 		# add_popularity = { ideology = social_democracy popularity = 0.02 }
+# 		set_country_flag = { flag = par_debate_agr days = 365 }
+# 	}
+# }
+
+# Parliament debates decentralization
+# country_event = {
+# 	id = parliament.207
+# 	title = parliament.207.t
+# 	desc = parliament.207.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 500 }
+# 	trigger = {
+# 	    tag = SPR
+# 		has_country_flag = law_passing
+# 		NOT = { has_country_flag = opposition_neg }
+# 		NOT = { has_country_flag = parliament_closed }
+# 		NOT = {
+# 		    OR = {
+# 			    has_completed_focus = SPR_integral
+# 				AND = {
+# 				    has_country_flag = cen_passed1
+# 				}
+# 				date > 1939.1.1
+# 			}
+# 		}
+# 		NOT = { has_country_flag = par_debate_centr }
+# 	}
+
+# 	option = { #My parliamentary group and myself will never allow separatists to break our dear country!
+# 		name = parliament.207.a
+# 		trigger = { NOT = { has_government = social_democracy } }
+# 		add_war_support = 0.025
+# 		# add_popularity = { ideology = democratic popularity = 0.02 }
+# 		set_country_flag = { flag = par_debate_centr days = 365 }
+# 	}
+
+# 	option = { #As long as it is legal, decentralization must be a possibility.
+# 		name = parliament.207.b
+# 		# add_popularity = { ideology = market_liberalism popularity = 0.02 }
+# 		add_stability = 0.01
+# 		set_country_flag = { flag = par_debate_centr days = 365 }
+# 	}
+
+# 	option = { #The Constitution allows decentralization, and we shall continue it, even if the reactionaries protest!
+# 		name = parliament.207.c
+# 		trigger = { has_government = social_democracy }
+# 		add_political_power = 10
+# 		# add_popularity = { ideology = social_democracy popularity = 0.02 }
+# 		set_country_flag = { flag = par_debate_centr days = 365 }
+# 	}
+# }
+
+# Parliament debates religious policy
+# country_event = {
+# 	id = parliament.208
+# 	title = parliament.208.t
+# 	desc = parliament.208.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 500 }
+# 	trigger = {
+# 	    tag = SPR
+# 		has_country_flag = law_passing
+# 		NOT = { has_country_flag = opposition_neg }
+# 		NOT = { has_country_flag = parliament_closed }
+# 		NOT = {
+# 		    OR = {
+# 			    has_completed_focus = SPR_catholics
+# 				has_completed_focus = SPR_caritas
+# 				date > 1939.1.1
+# 			}
+# 		}
+# 		NOT = { has_country_flag = par_debate_rel }
+# 	}
+
+# 	option = { #The self-proclaimed defenders of democracy seem to like to prosecute the catholic majority of this country!
+# 		name = parliament.208.a
+# 		trigger = { NOT = { has_government = social_democracy } }
+# 		add_stability = 0.01
+# 		# add_popularity = { ideology = democratic popularity = 0.02 }
+# 		set_country_flag = { flag = par_debate_rel days = 365 }
+# 	}
+
+# 	option = { #We clearly need to be less harsh on the church, but secularism shall never perish!
+# 		name = parliament.208.b
+# 		# add_popularity = { ideology = market_liberalism popularity = 0.01 }
+# 		# add_popularity = { ideology = social_liberalism popularity = 0.015 }
+# 		add_war_support = 0.02
+# 		set_country_flag = { flag = par_debate_rel days = 365 }
+# 	}
+
+# 	option = { #Reactionaries still want to keep the people controlled under the Church, but it's too late for them!
+# 		name = parliament.208.c
+# 		trigger = { has_government = social_democracy }
+# 		add_political_power = 10
+# 		# add_popularity = { ideology = social_democracy popularity = 0.02 }
+# 		set_country_flag = { flag = par_debate_rel days = 365 }
+# 	}
+# }
+
+# Parliament debates corruption
+# country_event = {
+# 	id = parliament.209
+# 	title = parliament.209.t
+# 	desc = parliament.209.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 500 }
+# 	trigger = {
+# 	    tag = SPR
+# 		has_country_flag = law_passing
+# 		NOT = { has_country_flag = opposition_neg }
+# 		NOT = { has_country_flag = parliament_closed }
+# 		NOT = {
+# 		    OR = {
+# 			    has_completed_focus = SPR_catholics
+# 				has_completed_focus = SPR_caritas
+# 				date > 1939.1.1
+# 			}
+# 		}
+# 		NOT = { has_country_flag = par_debate_cor }
+# 	}
+
+# 	option = { #We have to crack down on corruption, or any of Sus Señorias oppose?
+# 		name = parliament.209.a
+# 		trigger = {
+# 		    NOT = {
+# 		        OR = {
+# 		            has_government = market_liberalism
+# 			        has_government = jacobin
+# 			    }
+# 	        }
+
+# 		}
+# 		add_war_support = 0.02
+# 		set_country_flag = { flag = par_debate_cor days = 365 }
+# 	}
+
+# 	option = { #The opposition is lying to bring down an honest, responsible government. And they are not clean either.
+# 		name = parliament.209.b
+# 		trigger = { NOT = { has_government = social_democracy } }
+# 		add_political_power = 15
+# 		set_country_flag = { flag = par_debate_cor days = 365 }
+# 	}
+
+# 	option = { #We have to be examples of honesty for the whole society, this behaviour is certainly disgraceful
+# 		name = parliament.209.c
+# 		trigger = { has_government = social_democracy }
+# 		add_stability = 0.01
+# 		set_country_flag = { flag = par_debate_cor days = 365 }
+# 	}
+# }
+
+# Parliament debates tax policy
+# country_event = {
+# 	id = parliament.210
+# 	title = parliament.210.t
+# 	desc = parliament.210.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 500 }
+# 	trigger = {
+# 	    tag = SPR
+# 		has_country_flag = law_passing
+# 		NOT = { has_country_flag = opposition_neg }
+# 		date < 1940.1.1
+# 		NOT = { has_country_flag = par_debate_tax }
+# 		NOT = { has_country_flag = parliament_closed }
+# 	}
+
+# 	option = { #The rich should certainly contribute more, but what Sus Señorias are proposing is a policy based on envy
+# 		name = parliament.210.a
+# 		trigger = {
+# 		    tag = SPR
+# 		}
+# 		add_stability = 0.01
+# 		set_country_flag = { flag = par_debate_tax days = 365 }
+# 	}
+
+# 	option = { #More taxes? Perhaps Sus Señorias should try to help the government to improve the economy and not proposing communist solutions!
+# 		name = parliament.210.b
+# 		trigger = { NOT = { has_government = social_democracy } }
+# 		add_political_power = 10
+# 		set_country_flag = { flag = par_debate_tax days = 365 }
+# 	}
+
+# 	option = { #Equality and wealth redistribution and the basis of our democracy. If Sus Señorias don't believe it, read the Constitution!
+# 		name = parliament.210.c
+# 		trigger = { has_government = social_democracy }
+# 		add_political_power = 15
+# 		set_country_flag = { flag = par_debate_tax days = 365 }
+# 	}
+# }
+
+# Parliament debates military funding
+# country_event = {
+# 	id = parliament.211
+# 	title = parliament.211.t
+# 	desc = parliament.211.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	mean_time_to_happen = { days = 500 }
+# 	trigger = {
+# 	    tag = SPR
+# 		has_country_flag = law_passing
+# 		NOT = { has_country_flag = opposition_neg }
+# 		threat > 0.1
+# 		NOT = { has_country_flag = parliament_closed }
+# 	}
+
+# 	option = { #I can't belive some deputies are refusing to allow our military to defend our country. They are completely irresponsible!"
+# 		name = parliament.211.a
+# 		trigger = { NOT = { has_government = social_democracy } }
+# 		add_stability = 0.01
+# 	}
+
+# 	option = { #We can't let the military get out of date, but a sudden increase in military funding is an alarmist and uneccesary move.
+# 		name = parliament.211.b
+# 		add_political_power = 10
+# 	}
+
+# 	option = { #We shall provide funds when the military stops planning coups to destroy our democracy!
+# 		name = parliament.211.c
+# 		trigger = { has_government = social_democracy }
+# 		add_political_power = 15
+# 	}
+# }
+
+# Left support for agrarian
+# country_event = {
+# 	id = parliament.2
+# 	title = parliament.2.t
+# 	desc = parliament.2.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.2.a
+# 		add_political_power = 5
+# 		add_to_variable = { var = supseat value = radsoc_seats }
+# 		add_to_variable = { var = supseat value = communist_seats }
+# 		add_to_variable = { var = supseat value = demsoc_seats }
+# 	}
+# }
+
+# SocLibs - Agrarian
+country_event = {
+	id = parliament.3
+	title = parliament.3.t
+	desc = parliament.3.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.3.a
+		add_political_power = -20
+		add_to_variable = { var = supseat value = SPR_cen_seats }
+	}
+	option = {
+		name = parliament.3.b
+	}
+}
+
+# Conservatives - Agrarian
+country_event = {
+	id = parliament.4
+	title = parliament.4.t
+	desc = parliament.4.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.4.a
+		add_political_power = -35
+		custom_effect_tooltip = wont_support_while
+		set_country_flag = { flag = cons_stop_agr days = 365 }
+		add_to_variable = { var = supseat value = SPR_rightist_seats }
+	}
+
+	option = {
+		name = parliament.4.b
+		set_country_flag = protectionism_promised
+		custom_effect_tooltip = protectionism_promised_tool
+		custom_effect_tooltip = wont_support_while
+		set_country_flag = { flag = cons_stop_agr days = 120 }
+		add_to_variable = { supseat = SPR_rightist_seats }
+	}
+}
+
+# Centrists
+country_event = {
+	id = parliament.5
+	title = parliament.5.t
+	desc = parliament.5.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.5.a
+		add_political_power = -35
+		custom_effect_tooltip = wont_support_while
+		set_country_flag = { flag = lib_stop_agr days = 150 }
+		add_to_variable = { var = support_seats value = SPR_lib_rep_seats }
+		add_to_variable = { var = support_seats value = marlib_seats }
+	}
+
+	option = {
+		name = parliament.5.b
+	}
+}
+
+# Socialists and Liberal support ile
+# country_event = {
+# 	id = parliament.6
+# 	title = parliament.6.t
+# 	desc = parliament.6.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.2.a
+# 		add_political_power = 5
+# 		add_to_variable = { var = supseat value = radsoc_seats }
+# 		add_to_variable = { var = supseat value = SPR_cen_seats }
+# 		add_to_variable = { var = supseat value = demsoc_seats }
+# 	}
+# }
+
+# Communists - ILE
+# country_event = {
+# 	id = parliament.7
+# 	title = parliament.7.t
+# 	desc = parliament.7.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.7.a
+# 		add_political_power = -40
+# 		add_to_variable = { var = supseat value = communist_seats }
+# 	}
+
+# 	option = {
+# 		name = parliament.7.b
+# 	}
+# }
+
+# Centrists - ILE
+# country_event = {
+# 	id = parliament.8
+# 	title = parliament.5.t
+# 	desc = parliament.8.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.8.a
+# 		custom_effect_tooltip = wont_support_while
+# 		set_country_flag = { flag = libs_stop_ile days = 200 }
+# 		add_to_variable = { var = supseat value = marlib_seats }
+# 		add_to_variable = { var = supseat value = SPR_lib_rep_seats }
+# 	}
+
+# 	option = {
+# 		name = parliament.8.b
+# 	}
+# }
+
+# Socialists support PEF
+# country_event = {
+# 	id = parliament.9
+# 	title = parliament.9.t
+# 	desc = parliament.9.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.9.a
+# 		add_political_power = 5
+# 		add_to_variable = { var = supseat value = radsoc_seats }
+# 		add_to_variable = { var = supseat value = demsoc_seats }
+# 	}
+# }
+
+# SocLibs - PEF
+# country_event = {
+# 	id = parliament.10
+# 	title = parliament.3.t
+# 	desc = parliament.10.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.10.a
+# 		add_political_power = -25
+# 		custom_effect_tooltip = wont_support_while
+# 		set_country_flag = { flag = soclibs_stop_pef days = 120 }
+# 		add_to_variable = { var = supseat value = SPR_cen_seats }
+# 	}
+
+# 	option = {
+# 		name = parliament.10.b
+# 	}
+# }
+
+# Centrists - PEF
+# country_event = {
+# 	id = parliament.11
+# 	title = parliament.5.t
+# 	desc = parliament.11.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.11.a
+# 		set_country_flag = funds_private
+# 		custom_effect_tooltip = funds_private_tool
+# 		custom_effect_tooltip = wont_support_while
+# 		set_country_flag = { flag = libs_stop_pef days = 120 }
+# 		add_to_variable = { var = supseat value = marlib_seats }
+# 		add_to_variable = { var = supseat value = SPR_lib_rep_seats }
+# 	}
+
+# 	option = {
+# 		name = parliament.11.b
+# 	}
+# }
+
+# Conservatives - PEF
+# country_event = {
+# 	id = parliament.12
+# 	title = parliament.4.t
+# 	desc = parliament.12.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.12.a
+# 		add_political_power = -35
+# 		custom_effect_tooltip = wont_support_while
+# 		set_country_flag = { flag = cons_stop_pef days = 150 }
+# 		add_to_variable = { var = supseat value = SPR_rightist_seats }
+# 	}
+
+# 	option = {
+# 		name = parliament.12.b
+# 	}
+# }
+
+# Authoritarians - PEF
+# country_event = {
+# 	id = parliament.13
+# 	title = parliament.13.t
+# 	desc = parliament.13.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.13.a
+# 		add_stability = -0.075
+# 		custom_effect_tooltip = wont_support_while
+# 		set_country_flag = { flag = auts_stop_pef days = 300 }
+# 		add_to_variable = { var = supseat value = SPR_rightist_seats }
+# 	}
+
+# 	option = {
+# 		name = parliament.13.b
+# 	}
+# }
+
+# Left support progressive taxation
+country_event = {
+	id = parliament.14
+	title = parliament.14.t
+	desc = parliament.14.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.2.a
+		add_political_power = 5
+		add_to_variable = { var = supseat value = radsoc_seats }
+		add_to_variable = { var = supseat value = communist_seats }
+		add_to_variable = { var = supseat value = demsoc_seats }
+	}
+}
+
+# SocLibs - Progressive Taxation
+country_event = {
+	id = parliament.15
+	title = parliament.3.t
+	desc = parliament.15.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.15.a
+		add_political_power = -100
+		add_to_variable = { var = supseat value = SPR_cen_seats }
+	}
+
+	option = {
+		name = parliament.15.b
+		add_stability = -0.075
+		add_to_variable = { var = supseat value = SPR_cen_seats }
+	}
+
+	option = {
+		name = parliament.15.c
+	}
+}
+
+# Left support anti clerical law
+country_event = {
+	id = parliament.16
+	title = parliament.16.t
+	desc = parliament.16.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.2.a
+		add_political_power = 5
+		add_to_variable = { var = supseat value = radsoc_seats }
+		add_to_variable = { var = supseat value = communist_seats }
+		add_to_variable = { var = supseat value = demsoc_seats }
+	}
+}
+
+# SocLibs - Anti Clericalism
+country_event = {
+	id = parliament.17
+	title = parliament.3.t
+	desc = parliament.17.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.17.a
+		# add_popularity = { ideology = social_democracy popularity = -0.075 }
+		add_to_variable = { var = supseat value = SPR_cen_seats }
+	}
+
+	option = {
+		name = parliament.17.b
+	}
+
+}
+
+# Right Supports Labour Revision
+country_event = {
+	id = parliament.18
+	title = parliament.18.t
+	desc = parliament.18.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.2.a
+		add_political_power = 5
+		add_to_variable = { var = supseat value = SPR_rightist_seats }
+		add_to_variable = { var = supseat value = fas_seats }
+		add_to_variable = { var = supseat value = mon_seats }
+		add_to_variable = { var = supseat value = nat_seats }
+	}
+}
+
+# SocLibs - Anti Labour
+country_event = {
+	id = parliament.19
+	title = parliament.3.t
+	desc = parliament.19.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.19.a
+		add_political_power = -50
+		set_country_flag = government_help
+		custom_effect_tooltip = government_help_tool
+		custom_effect_tooltip = wont_support_while
+		set_country_flag = { flag = soclibs_stop_alb days = 300 }
+		add_to_variable = { var = supseat value = SPR_cen_seats }
+	}
+
+	option = {
+		name = parliament.19.b
+	}
+}
+
+# Centrists - Anti Labour
+country_event = {
+	id = parliament.20
+	title = parliament.5.t
+	desc = parliament.20.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.20.a
+		add_political_power = -10
+		custom_effect_tooltip = wont_support_while
+		set_country_flag = { flag = libs_stop_alb days = 200 }
+		add_to_variable = { var = supseat value = marlib_seats }
+		add_to_variable = { var = supseat value = SPR_lib_rep_seats }
+	}
+
+	option = {
+		name = parliament.20.b
+	}
+}
+
+# Conservative Demands
+country_event = {
+	id = parliament.21
+	title = parliament.4.t
+	desc = parliament.21.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.21.a
+		add_political_power = -75
+		set_country_flag = protectionism_promised
+		custom_effect_tooltip = protectionism_promised_tool
+		add_to_variable = { supseat = SPR_rightist_seats }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+# Centrist Demands
+country_event = {
+	id = parliament.22
+	title = parliament.5.t
+	desc = parliament.22.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.21.a
+		add_political_power = -75
+		add_to_variable = { var = supseat value = marlib_seats }
+		add_to_variable = { var = supseat value = SPR_lib_rep_seats }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+# SocLib Demands
+country_event = {
+	id = parliament.23
+	title = parliament.3.t
+	desc = parliament.23.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.21.a
+		add_political_power = -75
+		set_country_flag = government_help
+		custom_effect_tooltip = government_help_tool
+		add_to_variable = { var = supseat value = SPR_cen_seats }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+# Republican Demands
+country_event = {
+	id = parliament.24
+	title = parliament.24.t
+	desc = parliament.24.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.21.a
+		add_political_power = -75
+		set_country_flag = public_spending
+		custom_effect_tooltip = public_spending_tool
+		add_to_variable = { var = supseat value = socdem_seats }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+# Rightist Demands
+country_event = {
+	id = parliament.25
+	title = parliament.25.t
+	desc = parliament.25.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.21.a
+		add_political_power = -75
+		set_country_flag = promised_church
+		custom_effect_tooltip = promised_church_tool
+		add_to_variable = { var = supseat value = SPR_rightist_seats }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+# Socialist Demands
+country_event = {
+	id = parliament.26
+	title = parliament.26.t
+	desc = parliament.26.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.21.a
+		add_political_power = -75
+		set_country_flag = promised_rights
+		custom_effect_tooltip = promised_rights_tool
+		add_to_variable = { var = supseat value = demsoc_seats }
+		add_to_variable = { var = supseat value = radsoc_seats }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+# Rightist Demands - Railway
+country_event = {
+	id = parliament.27
+	title = parliament.13.t
+	desc = parliament.27.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.21.a
+		add_political_power = -50
+		set_country_flag = promised_church
+		custom_effect_tooltip = promised_church_tool
+		add_to_variable = { var = supseat value = SPR_rightist_seats }
+		custom_effect_tooltip = wont_support_while
+		set_country_flag = { flag = auts_stop_lbr days = 150 }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+# SocLib - Railway
+country_event = {
+	id = parliament.28
+	title = parliament.3.t
+	desc = parliament.28.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.21.a
+		add_political_power = -70
+		add_to_variable = { var = supseat value = SPR_cen_seats }
+		custom_effect_tooltip = wont_support_while
+		set_country_flag = { flag = soclibs_stop_lbr days = 200 }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+# SocLib - Tax Cuts
+country_event = {
+	id = parliament.29
+	title = parliament.3.t
+	desc = parliament.29.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.21.a
+		set_country_flag = government_help
+		custom_effect_tooltip = government_help_tool
+		custom_effect_tooltip = wont_support_while
+		add_to_variable = { var = supseat value = SPR_cen_seats }
+		set_country_flag = { flag = soclibs_stop_tax days = 150 }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+# Conservatives - Tax Cuts
+country_event = {
+	id = parliament.30
+	title = parliament.4.t
+	desc = parliament.30.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.21.a
+		# add_popularity = { ideology = market_liberalism popularity = -0.05 }
+		# add_popularity = { ideology = jacobin popularity = -0.05 }
+		add_to_variable = { var = supseat value = SPR_rightist_seats }
+		custom_effect_tooltip = wont_support_while
+		set_country_flag = { flag = cons_stop_tax days = 200 }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+# Republicans - Tax Cuts
+country_event = {
+	id = parliament.31
+	title = parliament.24.t
+	desc = parliament.31.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.31.a
+		add_political_power = -80
+		custom_effect_tooltip = wont_support_while
+		add_to_variable = { var = supseat value = socdem_seats }
+		set_country_flag = { flag = reps_stop_tax days = 200 }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+# Far-right supports centralization
+# country_event = {
+# 	id = parliament.32
+# 	title = parliament.32.t
+# 	desc = parliament.32.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.32.a
+# 		add_political_power = 5
+# 		add_to_variable = { var = supseat value = SPR_rightist_seats }
+# 		add_to_variable = { var = supseat value = fas_seats }
+# 		add_to_variable = { var = supseat value = mon_seats }
+# 	}
+# }
+
+# Conservatives - Centralization
+# country_event = {
+# 	id = parliament.33
+# 	title = parliament.4.t
+# 	desc = parliament.33.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.21.a
+# 		add_political_power = -80
+# 		custom_effect_tooltip = wont_support_while
+# 		add_to_variable = { var = supseat value = SPR_rightist_seats }
+# 		set_country_flag = { flag = cons_stop_cen days = 200 }
+# 	}
+
+# 	option = {
+# 		name = parliament.21.b
+# 	}
+# }
+
+# Moderates support conciliation
+# country_event = {
+# 	id = parliament.34
+# 	title = parliament.34.t
+# 	desc = parliament.34.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.34.a
+# 	}
+# }
+
+# Republican Demands - Conciliation
+country_event = {
+	id = parliament.35
+	title = parliament.24.t
+	desc = parliament.35.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.21.a
+		add_political_power = -50
+		set_country_flag = public_spending
+		custom_effect_tooltip = public_spending_tool
+		custom_effect_tooltip = wont_support_while
+		add_to_variable = { var = supseat value = socdem_seats }
+		set_country_flag = { flag = reps_stop_con days = 200 }
+	}
+
+	option = {
+		name = parliament.21.b
+	}
+}
+
+
+# Far-right demands military spending
+# country_event = {
+# 	id = parliament.37
+# 	title = parliament.37.t
+# 	desc = parliament.37.d
+# 	picture = GFX_report_event_generic_parliament
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = parliament.21.a
+# 		set_country_flag = mil_spending
+# 		custom_effect_tooltip = mil_spending_tool
+# 		custom_effect_tooltip = wont_support_while
+# 		add_to_variable = { var = supseat value = fas_seats }
+# 		add_to_variable = { var = supseat value = mon_seats }
+# 		add_to_variable = { var = supseat value = nat_seats }
+# 	}
+
+# 	option = {
+# 		name = parliament.21.b
+# 	}
+# }
+
+# Far-right supports anti-agrarian
+country_event = {
+	id = parliament.38
+	title = parliament.38.t
+	desc = parliament.38.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.2.a
+		add_political_power = 5
+		add_to_variable = { var = supseat value = SPR_rightist_seats }
+		add_to_variable = { var = supseat value = fas_seats }
+		add_to_variable = { var = supseat value = mon_seats }
+		add_to_variable = { var = supseat value = nat_seats }
+	}
+}
+
+# Liberals - anti agrarian?
+country_event = {
+	id = parliament.39
+	title = parliament.39.t
+	desc = parliament.39.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = parliament.39.a
+		add_political_power = -35
+		add_to_variable = { var = supseat value = marlib_seats }
+		add_to_variable = { var = supseat value = SPR_lib_rep_seats }
+	}
+
+	option = {
+		name = parliament.39.b
+	}
+}

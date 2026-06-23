@@ -1,0 +1,2378 @@
+WGR_reichstag = {
+	WGR_parliament_explanation = {
+		allowed = { tag = WGR }
+		visible = {
+		}
+		available = { always = yes }
+		ai_will_do = { factor = 0 } # computers don't need to know how parliament works
+		cost = 0
+		complete_effect = { country_event = wgr_parliament.0 }
+		days_re_enable = 1
+	}
+	WGR_negotiate_with_Communists = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_communist_category = yes #voting on something a leninist would like
+			NOT = {
+				has_government = communism
+				has_negotiated_communists_90_days = yes
+				WGR_promised_communist_opposite = yes #checks to see if you promised the opposite things than what the leninists would want
+			}
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_com_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_communist_negotiate_event = yes
+		}
+	}
+	WGR_negotiate_with_RevSocs = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_revsoc_category = yes #voting on something a revsoc would be ok with
+			NOT = {
+				has_government = authoritarian_socialism
+				has_negotiated_revsocs_90_days = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_rso_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_revsoc_negotiate_event = yes
+		}
+	}
+	WGR_negotiate_with_DemSocs = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_demsoc_category = yes #voting on something the demsocs would like
+			NOT = {
+				has_government = socialism
+				has_negotiated_demsocs_90_days = yes
+				WGR_promised_demsoc_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { WGR_dso_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_demsoc_negotiate_event = yes
+		}
+	}
+	WGR_negotiate_with_SocDems = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_socdem_category = yes #voting on something the socdems can agree to.
+			NOT = {
+				has_government = social_democracy
+				has_negotiated_socdems_90_days = yes
+				WGR_promised_socdem_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_sde_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_soclib_negotiate_event = yes
+		}
+	}
+	WGR_negotiate_with_SocLibs = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_soclib_category = yes #voting on something the socdems can agree to.
+			NOT = {
+				has_government = social_liberalism
+				has_negotiated_soclibs_90_days = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_sli_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_soclib_negotiate_event = yes
+		}
+	}
+	WGR_negotiate_with_MarLibs = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_marlib_category = yes
+			NOT = {
+				has_government = market_liberalism
+				has_negotiated_marlibs_90_days = yes
+				WGR_promised_marlib_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_mli_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_marlib_negotiate_event = yes
+		}
+	}
+	WGR_negotiate_with_Centrists = { #libcons
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_libcon_category = yes
+			NOT = {
+				has_government = jacobin
+				has_negotiated_libcons_90_days = yes
+				WGR_promised_libcon_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_cen_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_libcon_negotiate_event = yes
+		}
+	}
+	WGR_negotiate_with_Conservatives = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_soccon_category = yes
+			NOT = {
+				has_government = democratic
+				has_negotiated_soccons_90_days = yes
+				WGR_promised_soccon_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_dem_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_soccon_negotiate_event = yes
+		}
+	}
+	WGR_negotiate_with_Authoritarians = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_aut_category = yes
+			NOT = {
+				has_government = neutrality
+				has_negotiated_aut_90_days = yes
+				WGR_promised_aut_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_neu_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_aut_negotiate_event = yes
+		}
+	}
+	WGR_negotiate_with_Monarchists = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_mon_category = yes
+			NOT = {
+				has_government = monarchism
+				has_negotiated_mon_90_days = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_mon_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_mon_negotiate_event = yes
+		}
+	}
+	WGR_negotiate_with_Nationalists = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_nat_category = yes
+			NOT = {
+				has_government = nationalism
+				has_negotiated_nat_90_days = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_nat_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_nat_negotiate_event = yes
+		}
+	}
+	WGR_negotiate_with_Nazis = {
+		available = {
+			WGR_not_negotiating = yes
+		}
+		visible = {
+			WGR_is_voting = yes
+			WGR_fas_category = yes
+			NOT = {
+				has_government = fascism
+				has_negotiated_fas_90_days = yes
+				WGR_promised_fas_opposite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				OR = {
+					check_variable = { GER_supseat > GER_seats_needed }
+					check_variable = { GER_fas_seats < 1 }
+				}
+				factor = 0
+			}
+		}
+		complete_effect = {
+			WGR_set_negotiating_flag = yes
+			WGR_trigger_fas_negotiate_event = yes
+		}
+	}
+	##SPD laws
+	WGR_free_meals_for_schools_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			WGR_SPD_in_coalition = yes
+			has_completed_focus = WGR_Free_Meals_for_Schoolchildren
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_add_small_welfare_spending = yes
+				add_popularity = { ideology = socialism popularity = 0.02 }
+				add_popularity = { ideology = social_democracy popularity = 0.02 }
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_add_small_welfare_spending = yes
+					add_popularity = { ideology = socialism popularity = 0.02 }
+					add_popularity = { ideology = social_democracy popularity = 0.02 }
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_expand_welfare_payments_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				WGR_SPD_in_coalition = yes
+				WGR_has_socialist_government = yes
+			}
+			OR = {
+				has_completed_focus = WGR_Expand_Welfare
+				has_completed_focus = WGR_SPD_Welfare_Budget
+			}
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        #fire_only_once = yes #Leave this for now
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_add_medium_welfare_spending = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		days_re_enable = 120
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_add_medium_welfare_spending = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_unemployment_pension_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			has_government = democratic
+			has_completed_focus = WGR_Zentrum_Unemployment_Pension
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_soclib_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_add_medium_welfare_spending = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		#days_re_enable = 120
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_add_medium_welfare_spending = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_retirement_pension_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			has_government = democratic
+			has_completed_focus = WGR_Zentrum_Retirement_Pension
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_soclib_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_add_medium_welfare_spending = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		#days_re_enable = 120
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_add_medium_welfare_spending = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_expand_welfare_payments_small_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				has_government = social_liberalism
+				has_government = democratic
+			}
+			NOT = {
+				has_completed_focus = WGR_Expand_Welfare
+				has_completed_focus = WGR_SPD_Welfare_Budget
+			}
+			OR = {
+				has_completed_focus = WGR_DStP_Expand_Welfare_Programs
+				has_completed_focus = WGR_Zentrum_Expand_Welfare_Programs
+			}
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        #fire_only_once = yes #Leave this for now
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_add_small_welfare_spending = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		days_re_enable = 120
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_add_small_welfare_spending = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_lower_small_business_tax_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				has_government = social_liberalism
+				has_government = democratic
+				has_government = jacobin
+			}
+			OR = {
+				has_completed_focus = WGR_steady_reform_lower_tax_on_small_buisnesses
+				has_completed_focus = WGR_austerity_tax_breaks_for_small_buisnesses
+			}
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        #fire_only_once = yes #Leave this for now
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_employment_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_soclib_agree = yes
+				WGR_marlib_agree = yes
+				WGR_libcon_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_lower_taxes_small_businesses = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		days_re_enable = 120
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_employment_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_lower_taxes_small_businesses = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_raise_tariffs_medium_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				WGR_DNVP_in_coalition = yes
+				AND = {
+					NOT = {
+						has_government = jacobin
+						has_completed_focus = WGR_steady_reform_further_intervention
+					}
+				}
+			}
+			OR = {
+				has_completed_focus = WGR_Protectionism
+				has_completed_focus = WGR_steady_reform_further_intervention
+				has_completed_focus = WGR_DNVP_Raise_Tariffs
+			}
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        #fire_only_once = yes #Leave this for now
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_employment_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_fascist_agree = yes
+				WGR_faraut_agree = yes
+				WGR_autdes_agree = yes
+				WGR_aut_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_raise_tariffs_medium = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		days_re_enable = 120
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_employment_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_raise_tariffs_medium = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_lower_taxes_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				WGR_DNVP_in_coalition = yes
+				MarLib_in_Coalition = yes
+				LibCon_in_Coalition = yes
+			}
+			OR = {
+				has_completed_focus = WGR_Lower_Taxes
+				has_completed_focus = WGR_Nationalists_Lower_Income_Tax
+				has_completed_focus = WGR_Nationalists_Lower_Property_Tax
+				has_completed_focus = WGR_privitisation_lower_taxes
+			}
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        #fire_only_once = yes #Leave this for now
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_austerity_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_marlib_agree = yes
+				WGR_libcon_agree = yes
+				WGR_faraut_agree = yes
+				WGR_autdes_agree = yes
+				WGR_aut_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_lower_taxes_small = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		days_re_enable = 120
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_austerity_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_lower_taxes_small = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_end_kamarilla_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			NOT = {
+				has_government = neutrality
+				has_government = monarchism
+				has_government = nationalism
+				has_government = fascism
+			}
+			has_completed_focus = WGR_Limit_President
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_progressive_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_marlib_agree = yes
+				WGR_libcon_agree = yes
+				WGR_soccon_agree = yes
+				WGR_fascist_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				add_political_power = 40
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_progressive_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					add_political_power = 40
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_banking_regulations_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				has_government = social_liberalism
+				WGR_has_socialist_government = yes
+			}
+			has_completed_focus = WGR_SPD_Banking_Regulations
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_progressive_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_fascist_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_add_banking_regulations = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_progressive_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_add_banking_regulations = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_encroach_land_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			WGR_has_socialist_government = yes
+			has_completed_focus = WGR_SPD_Encroach_Land
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_encroach_land_effect = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_encroach_land_effect = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_increase_education_spending_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				WGR_has_socialist_government = yes
+				has_government = social_liberalism
+				has_government = democratic
+				AND = {
+					has_government = jacobin
+					SocLib_in_Coalition = yes
+				}
+			}
+			OR = {
+				has_completed_focus = WGR_SPD_Education_Reform
+				has_completed_focus = WGR_SPD_University_Expansion
+				has_completed_focus = WGR_DStP_Expand_Primary_Schools
+				has_completed_focus = WGR_DVP_Expand_Education_Programs
+			}
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        #fire_only_once = yes #Leave this for now
+		days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_add_small_education_spending = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_add_small_education_spending = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_raise_taxes_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			WGR_has_socialist_government = yes
+			OR = {
+				has_completed_focus = WGR_SPD_Raise_Taxes
+				has_completed_focus = WGR_SPD_Income_Taxes1
+				has_completed_focus = WGR_SPD_Increase_Land_Taxes
+			}
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        #fire_only_once = yes #Leave this for now
+		days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_raise_taxes_small = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_raise_taxes_small = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_nationalize_mining_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			WGR_has_socialist_government = yes
+			has_completed_focus = WGR_SPD_Nationalize_Mining
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				#WGR_socdem_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_mining_nationalized = yes
+		    }
+			set_country_flag = WGR_voted_on_nationalization
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = { 
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					set_country_flag = WGR_performed_nationalization
+					WGR_mining_nationalized = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_nationalize_defense_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			WGR_has_socialist_government = yes
+			has_completed_focus = WGR_SPD_Nationalize_Military_Industries
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_defense_nationalized = yes
+		    }
+			set_country_flag = WGR_voted_on_nationalization
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					set_country_flag = WGR_performed_nationalization
+					WGR_defense_nationalized = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_break_up_conglomerates_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			WGR_has_socialist_government = yes
+			OR = {
+				has_completed_focus = WGR_SPD_Break_Up_Conglomerates
+				has_completed_focus = WGR_radical_reform_fair_competition_law
+			}
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_progressive_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_soclib_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_break_up_conglomerates = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_progressive_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_break_up_conglomerates = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_lower_retirement_age_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			WGR_has_socialist_government = yes
+			has_completed_focus = WGR_SPD_Lower_Retirement_Age
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_lower_retirement_age = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_lower_retirement_age = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_regulations_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			WGR_has_socialist_government = yes
+			has_completed_focus = WGR_SPD_Introduce_Regulations
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_progressive_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_soclib_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_regulations = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_progressive_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_regulations = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_worker_protection_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			WGR_has_socialist_government = yes
+			has_completed_focus = WGR_SPD_Improve_Worker_Protections
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_progressive_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_soclib_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_worker_protections = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_progressive_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_worker_protections = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_agro_subsidies_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				WGR_has_socialist_government = yes
+				has_government = social_liberalism
+				has_government = democratic
+				has_government = neutrality
+			}
+			NOT = {
+				LibCon_in_Coalition = yes
+			}
+			OR = {
+				has_completed_focus = WGR_SPD_Agricultural_Subsidies
+				has_completed_focus = WGR_DNVP_Agricultural_Subsidies
+			}
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_employment_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_soclib_agree = yes
+				WGR_soccon_agree = yes
+				WGR_aut_agree = yes
+				WGR_faraut_agree = yes
+				WGR_autdes_agree = yes
+				WGR_fascist_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_agro_subsidies = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_employment_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_agro_subsidies = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_contraceptives_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			WGR_has_socialist_government = yes
+			has_completed_focus = WGR_SPD_Expand_Womens_Rights
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_soclib_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_contraceptives = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_contraceptives = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_spd_redraw_provinces_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			WGR_has_socialist_government = yes
+			has_completed_focus = WGR_SPD_Redraw_Provinces
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_progressive_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_redraw_provinces_SPD = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_progressive_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_redraw_provinces_SPD = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_public_works_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				WGR_has_socialist_government = yes
+				has_government = social_liberalism
+			}
+			has_completed_focus = WGR_DStP_Invest_in_Infrastructure
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        #fire_only_once = yes #Leave this for now
+		days_re_enable = 175
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_add_medium_public_works = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_add_medium_public_works = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_empower_states_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			has_government = social_liberalism
+			has_completed_focus = WGR_DStP_Empower_State_Governments
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 175
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_progressive_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+			}
+            effect_tooltip = { #Effect of the law if approved
+				add_stability = 0.05
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_progressive_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					add_stability = 0.05
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_subsidize_businesses_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				has_government = social_liberalism
+				WGR_has_socialist_government = yes
+			}
+			OR = {
+				has_completed_focus = WGR_DStP_Small_Business
+				has_completed_focus = WGR_radical_reform_subsidize_small_buisness
+			}
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 175
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_progressive_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_add_spending = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_progressive_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_add_spending = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_lower_tariffs_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				has_government = jacobin
+				has_government = social_liberalism
+				has_government = market_liberalism
+			}
+			NOT = {
+				Aut_in_Coalition = yes
+			}
+			has_completed_focus = WGR_DVP_Lower_Tariffs
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        #fire_only_once = yes #Leave this for now
+		days_re_enable = 175
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_austerity_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_marlib_agree = yes
+				WGR_libcon_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_lower_tariffs_small = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_austerity_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_lower_tariffs_small = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_raise_tariffs_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			has_government = neutrality
+			NOT = {
+				LibCon_in_Coalition = yes
+			}
+			has_completed_focus = WGR_DNVP_Raise_Tariffs
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        #fire_only_once = yes #Leave this for now
+		days_re_enable = 175
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_employment_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_fascist_agree = yes
+				WGR_faraut_agree = yes
+				WGR_autdes_agree = yes
+				WGR_aut_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_raise_tariffs_small = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_employment_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_raise_tariffs_small = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_raise_defense_spending_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				has_government = neutrality
+				has_government = jacobin
+			}
+			has_completed_focus = WGR_DNVP_Raise_Tariffs
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        #fire_only_once = yes #Leave this for now
+		days_re_enable = 175
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_militarist_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_fascist_agree = yes
+				WGR_faraut_agree = yes
+				WGR_autdes_agree = yes
+				WGR_aut_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_add_small_defense_spending = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_militarist_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_add_small_defense_spending = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_less_regulations_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				has_government = neutrality
+				has_government = jacobin
+			}
+			has_completed_focus = WGR_Nationalists_Deregulation
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_austerity_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_libcon_agree = yes
+				WGR_marlib_agree = yes
+				WGR_aut_agree = yes
+				WGR_autdes_agree = yes
+				WGR_faraut_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_less_regulations = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_austerity_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_less_regulations = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_lower_corporate_taxes_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				has_government = neutrality
+				has_government = jacobin
+				WGR_DVP_in_coalition = yes
+				WGR_DNVP_in_coalition = yes
+			}
+			OR = {
+				has_completed_focus = WGR_Nationalists_Lower_Corporate_Taxes
+				has_completed_focus = WGR_privitisation_lower_corporate_tax
+			}
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_austerity_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_libcon_agree = yes
+				WGR_marlib_agree = yes
+				WGR_aut_agree = yes
+				WGR_autdes_agree = yes
+				WGR_faraut_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_lower_corporate_taxes = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_austerity_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_lower_corporate_taxes = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_decrease_welfare_spending_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				has_government = neutrality
+				has_government = jacobin
+			}
+			has_completed_focus = WGR_Nationalists_Decrease_Welfare_Payments
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_austerity_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_libcon_agree = yes
+				WGR_marlib_agree = yes
+				WGR_aut_agree = yes
+				WGR_autdes_agree = yes
+				WGR_faraut_agree = yes
+				WGR_fascist_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_lower_small_welfare_spending = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_austerity_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_lower_small_welfare_spending = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_minimum_wage_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			OR = {
+				has_government = socialism
+				has_government = social_democracy
+				has_government = social_liberalism
+				has_government = democratic
+			}
+			has_completed_focus = WGR_Zentrum_Minimum_Wage
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_welfare_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_soclib_agree = yes
+				WGR_soccon_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				WGR_increase_minimum_wage = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_welfare_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					WGR_increase_minimum_wage = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_green_belt_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			has_government = democratic
+			has_completed_focus = WGR_Zentrum_Green_Belts
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_progressive_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+				WGR_revsoc_agree = yes
+				WGR_demsoc_agree = yes
+				WGR_socdem_agree = yes
+				WGR_soclib_agree = yes
+				WGR_soccon_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				add_stability = 0.05
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_progressive_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					add_stability = 0.05
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_foreign_investors_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			has_government = democratic
+			has_completed_focus = WGR_Zentrum_Encourage_Foreign_Investors
+        }
+		ai_will_do = {
+			factor = 10
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            WGR_set_employment_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_libcon_agree = yes
+				WGR_marlib_agree = yes
+				WGR_soccon_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				add_political_power = 50
+				WGR_add_medium_public_works = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			WGR_clr_employment_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+					limit = {
+						WGR_law_passed = yes
+					}
+					WGR_add_medium_public_works = yes
+					add_political_power = 50
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_catholic_schools_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			has_government = democratic
+			has_completed_focus = WGR_Zentrum_Support_Catholic_Schools
+        }
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				check_variable = {
+					WGR_dem_seats < WGR_seats_needed
+				}
+				factor = 0
+			}
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            #WGR_set_catholic_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+			}
+            effect_tooltip = { #Effect of the law if approved
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.03
+				}
+				WGR_add_small_education_spending = yes
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			#WGR_set_catholic_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					add_popularity = {
+						ideology = democratic
+						popularity = 0.03
+					}
+					WGR_add_small_education_spending = yes
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+	WGR_dissolve_prussia_law = {
+        allowed = { tag = WGR } #Enter the tag here
+        available = {
+			WGR_is_not_voting = yes #NOT is voting
+		}
+        visible = {
+			WGR_is_not_voting = yes
+			has_government = democratic
+			has_completed_focus = WGR_Zentrum_Dissolve_Prussia
+        }
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				check_variable = {
+					WGR_dem_seats < WGR_seats_needed
+				}
+				factor = 0
+			}
+		}
+		cost = 30
+        fire_only_once = yes #Leave this for now
+		#days_re_enable = 120
+		complete_effect = {
+			WGR_reset_supseat = yes
+	        WGR_set_voting_flag = yes #Hides other laws
+            #WGR_set_catholic_law = yes #Determines category of the law, for negotiation events
+			WGR_set_government_seats = yes
+            hidden_effect = {
+				WGR_lenin_agree = yes
+			}
+            effect_tooltip = { #Effect of the law if approved
+				add_political_power = 70
+				add_stability = -0.07
+		    } 			
+        }
+		days_remove = 30 #Time to vote
+		remove_effect = { #Effect upon voting
+	        WGR_clear_voting_flag = yes #Shows other laws again
+			#WGR_set_catholic_law = yes
+			WGR_clr_negotiated_flags_if_necessary = yes
+			hidden_effect = {
+			    if = {
+				    limit = {
+						WGR_law_passed = yes
+					}
+					add_political_power = 70
+					add_stability = -0.07
+					WGR_fulfill_coalition_promises = yes
+					WGR_bounds_checking = yes
+				}
+				else = {
+				    WGR_vote_lost = yes
+				}
+				WGR_reset_supseat = yes
+            }			
+        }
+    }
+}

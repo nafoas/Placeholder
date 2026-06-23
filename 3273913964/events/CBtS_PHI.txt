@@ -1,0 +1,215 @@
+﻿add_namespace = phi_internal
+country_event = {
+	id = phi_internal.1
+	title = phi_internal.1.t
+	desc = phi_internal.1.d
+	picture = GFX_event_PHI_frank_murphy
+	is_triggered_only = yes
+	option = {
+		name = phi_internal.1.a
+		retire_character = PHI_theodore_roosevelt_jr
+		#Frank Murphy
+	}
+}
+
+country_event = { #Manuel L. Quezon heades a "Philippine Independence mission" to Washington, D.C.
+	id = phi_internal.5
+	title = phi_internal.5.t
+	desc = phi_internal.5.d
+	picture = GFX_event_PHI_manuel_quezon
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			activate_mission = USA_tydings_act
+		}
+	}
+	option = {
+		name = phi_internal.5.a
+		effect_tooltip = {
+			activate_mission = USA_tydings_act
+		}
+	}
+}
+
+country_event = {
+	id = phi_internal.2
+	title = phi_internal.2.t
+	desc = phi_internal.2.d
+	picture = GFX_event_PHI_republic_proclaimed
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			news_event = { id = usa_news.15 }
+			country_event = {
+				id = phi_internal.3
+				days = 177
+			}
+		}
+	}
+	option = {
+		name = phi_internal.2.a
+		add_stability = 0.05
+		add_political_power = 50
+		# add_war_support = 0.15
+		custom_effect_tooltip = phi_autonomy_dominion_tt
+		hidden_effect = {
+			USA = {
+				if = {
+					limit = {
+						has_dlc = "Together for Victory"
+					}
+					set_autonomy = {
+						target = PHI
+						autonomous_state = autonomy_dominion
+						end_wars = no
+						freedom_level = 0.5
+					}
+				}
+			}
+			PHI = {
+				set_politics = {
+					ruling_party = neutrality
+					last_election = "1897.3.2"
+					election_frequency = 72
+					elections_allowed = no
+				}
+				set_popularities = {
+					communism = 4
+					authoritarian_socialism = 2
+					socialism = 1
+					social_democracy = 12
+					social_liberalism = 2
+					market_liberalism = 0
+					jacobin = 18
+					democratic = 10
+					neutrality = 40
+					monarchism = 0
+					nationalism = 9
+					fascism = 2
+				}
+			}
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = PHI_Commonwealth
+		}
+	}
+}
+country_event = {
+	id = phi_internal.3
+	title = phi_internal.3.t
+	desc = phi_internal.3.d
+	picture = GFX_event_PHI_manuel_quezon
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = phi_internal.4
+				days = 153
+			}
+		}
+	}
+	option = {
+		name = phi_internal.3.a
+		add_political_power = 10
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.10
+		}
+	}
+}
+country_event = {
+	id = phi_internal.4
+	title = phi_internal.4.t
+	desc = phi_internal.4.d
+	picture = GFX_event_PHI_govenrment_inaguration
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			USA = {
+				country_event = { id = unitedstates.133 days = 7 }
+			}
+			country_event = {
+				id = phi_internal.6
+				days = 36
+			}
+		}
+	}
+	option = {
+		name = phi_internal.4.a
+		add_stability = 0.05
+		add_political_power = 50
+		set_politics = { ruling_party = jacobin elections_allowed = yes }
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.25
+		}
+	}
+}
+
+country_event = { #National Defense Act of 1935
+	#December 21, 1935
+	id = phi_internal.6
+	title = phi_internal.6.t
+	desc = phi_internal.6.d
+	picture = GFX_event_PHI_govenrment_inaguration
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			
+		}
+	}
+	option = {
+		name = phi_internal.6.a
+		swap_ideas = {
+			remove_idea = disarmed_nation
+			add_idea = volunteer_only
+		}
+	}
+}
+
+country_event = { #MacArthur arrives at the Philippines
+	id = phi_internal.7
+	title = phi_internal.7.t
+	desc = phi_internal.7.d
+	picture = GFX_event_USA_MacArthur_Chief
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = phi_internal.7.a
+	}
+}
+
+country_event = { #MacArthur promoted to Field Marshal in a ceremony at Malacañan Palace.
+	id = phi_internal.8
+	title = phi_internal.8.t
+	desc = phi_internal.8.d
+	picture = GFX_event_USA_MacArthur_field_marshal_ceremony
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = phi_internal.8.a
+		trigger = {
+			tag = PHI
+		}
+		add_field_marshal_role = {
+			character = USA_douglas_macarthur
+			traits = { offensive_doctrine career_officer media_personality }
+			skill = 3
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 3
+			legacy_id = 57
+		}
+	}
+	option = {
+		name = phi_internal.8.b
+		trigger = {
+			tag = USA
+		}
+	}
+}

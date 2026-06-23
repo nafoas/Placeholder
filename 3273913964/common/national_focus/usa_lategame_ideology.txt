@@ -1,0 +1,710 @@
+
+shared_focus = {
+	id = USA_state_of_union_adress
+	icon = GFX_focus_Better_Union
+	cost = 2
+	available = { date > 1945.1.20 }
+	completion_reward = {
+		add_political_power = 30
+	}
+	x = 24
+	y = 0
+}
+
+shared_focus = {
+	id = USA_sbr_lategame
+	icon = GFX_focus_Social_Democracy
+	cost = 1
+	prerequisite = {
+		focus = USA_state_of_union_adress
+	}
+	available = {
+		has_government = social_democracy
+	}
+	mutually_exclusive = {
+		focus = USA_a_conservative_program
+		focus = USA_a_republican_agenda
+		focus = USA_fair_deal
+	}
+	completion_reward = {
+	}
+	x = -6
+	y = 1
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_national_health_act
+	icon = GFX_focus_Medicine
+	cost = 8
+	prerequisite = {
+		focus = USA_sbr_lategame
+		focus = USA_fair_deal
+	}
+	available = {
+		OR = {
+			has_government = social_democracy
+			has_government = social_liberalism
+		}
+	}
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote_usa
+		custom_effect_tooltip = health_law
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			custom_effect_tooltip = health2_modifier
+		}
+		add_to_variable = { var = usa_president_popularity value = 10 }
+		USA_clamp_president_pop = yes
+	}
+	x = -5
+	y = 2
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_desegregate_schools
+	icon = GFX_focus_Education_Reform
+	cost = 7
+	prerequisite = {
+		focus = USA_sbr_lategame
+	}
+	available = {
+		has_government = social_democracy
+	}
+	completion_reward = {
+		add_stability = -0.05
+		add_to_variable = { var = usa_president_popularity value = 3 }
+		USA_clamp_president_pop = yes
+	}
+	x = -7
+	y = 2
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_support_gender_equality
+	icon = GFX_focus_Womens_Rights
+	cost = 3
+	prerequisite = {
+		focus = USA_national_health_act
+	}
+	available = {
+		OR = {
+			has_government = social_democracy
+			has_government = social_liberalism
+		}
+	}
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote_usa
+		custom_effect_tooltip = women_armed_act
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			set_rule = {
+				can_generate_female_aces = yes
+			}
+			add_political_power = 40
+			add_popularity = {
+				ideology = social_democracy
+				popularity = 0.04
+			}
+		}
+	}
+	x = -5
+	y = 3
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_civil_rights_act
+	icon = GFX_focus_Minority_rights
+	cost = 14.4
+	prerequisite = {
+		focus = USA_support_gender_equality
+	}
+	prerequisite = {
+		focus = USA_desegregate_schools
+	}
+	available = {
+		has_government = social_democracy
+	}
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote_usa
+		custom_effect_tooltip = civil_rights_act
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			remove_ideas = us_segregation
+			add_stability = -0.2
+			add_political_power = -150
+			add_popularity = {
+				ideology = social_democracy
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.02
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.02
+			}
+		}
+		USA_congress_large_opposition = yes
+	}
+	x = -6
+	y = 4
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_nationalize_railroads
+	icon = GFX_focus_Trains
+	cost = 8
+	prerequisite = {
+		focus = USA_desegregate_schools
+	}
+	available = {
+		has_government = social_democracy
+	}
+	completion_reward = {
+	}
+	x = -8
+	y = 3
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_publicly_owned_banks
+	icon = GFX_focus_Grab_Money
+	cost = 9
+	prerequisite = {
+		focus = USA_nationalize_railroads
+	}
+	available = {
+		has_government = social_democracy
+	}
+	completion_reward = {
+		USA_congress_large_opposition = yes
+		custom_effect_tooltip = have_to_vote_usa
+		custom_effect_tooltip = public_bank_act
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			custom_effect_tooltip = usa_public_bank_tooltip
+		}
+	}
+	x = -8
+	y = 4
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_fair_deal
+	icon = GFX_focus_Torch_of_Freedom
+	cost = 1
+	prerequisite = {
+		focus = USA_state_of_union_adress
+	}
+	available = {
+		has_government = social_liberalism
+	}
+	mutually_exclusive = {
+		focus = USA_a_conservative_program
+		focus = USA_a_republican_agenda
+		focus = USA_sbr_lategame
+	}
+	completion_reward = {
+
+	}
+	x = -2
+	y = 1
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_anti_communist_liberalism
+	icon = GFX_focus_Anti_Communist
+	cost = 4
+	prerequisite = {
+		focus = USA_fair_deal
+	}
+	available = {
+		has_government = social_liberalism
+	}
+	completion_reward = {
+		add_political_power = 10
+	}
+	x = -1
+	y = 2
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_tcel
+	icon = GFX_focus_Espionage
+	cost = 7
+	prerequisite = {
+		focus = USA_anti_communist_liberalism
+	}
+	available = {
+		has_government = social_liberalism
+	}
+	completion_reward = {
+		add_stability = -0.05
+		add_political_power = 50
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.02
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.02
+		}
+	}
+	x = -1
+	y = 3
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_fight_corruption
+	icon = GFX_focus_Investigate_Corruption
+	cost = 5
+	prerequisite = {
+		focus = USA_tcel
+	}
+	available = {
+		has_government = social_liberalism
+	}
+	completion_reward = {
+		add_to_variable = { var = usa_president_popularity value = 3 }
+		USA_clamp_president_pop = yes
+	}
+	x = -1
+	y = 4
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_desegregate_army
+	icon = GFX_focus_USA_Soldiers
+	cost = 7
+	prerequisite = {
+		focus = USA_fair_deal
+		focus = USA_sbr_lategame
+	}
+	bypass = {
+		has_country_flag = usa_army_desegregated
+	}
+	available = {
+		OR = {
+			has_government = social_democracy
+			has_government = social_liberalism
+		}
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = us_segregation add_idea = us_segregation2 }
+		add_political_power = -200
+		add_stability = -0.03
+		add_war_support = 0.03
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.03
+		}
+	}
+	x = -3
+	y = 2
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_brannan_plan
+	icon = GFX_focus_Agriculture
+	cost = 6
+	prerequisite = {
+		focus = USA_desegregate_army
+	}
+	available = {
+		OR = {
+			has_government = social_democracy
+			has_government = social_liberalism
+		}
+	}
+	completion_reward = {
+		add_ideas = usa_plan_brannan
+		add_to_variable = { var = usa_president_popularity value = 2 }
+		USA_clamp_president_pop = yes
+	}
+	x = -3
+	y = 3
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_another_housing_act
+	icon = GFX_focus_Build_Houses
+	cost = 6
+	prerequisite = {
+		focus = USA_brannan_plan
+	}
+	available = {
+		OR = {
+			has_government = social_democracy
+			has_government = social_liberalism
+		}
+	}
+	completion_reward = {
+		add_to_variable = { var = usa_president_popularity value = 2 }
+		USA_clamp_president_pop = yes
+		custom_effect_tooltip = have_to_vote_usa
+		custom_effect_tooltip = housing2_law
+		custom_effect_tooltip = will_vote
+	}
+	x = -3
+	y = 4
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_a_republican_agenda
+	icon = GFX_focus_Political_reform_1
+	cost = 1
+	prerequisite = {
+		focus = USA_state_of_union_adress
+	}
+	available = {
+		has_government = market_liberalism
+	}
+	mutually_exclusive = {
+		focus = USA_a_conservative_program
+		focus = USA_sbr_lategame
+		focus = USA_fair_deal
+	}
+	completion_reward = {
+
+	}
+	x = 2
+	y = 1
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_highway_expansion
+	icon = GFX_focus_Highways
+	cost = 9
+	prerequisite = {
+		focus = USA_a_republican_agenda
+	}
+	available = {
+		has_government = market_liberalism
+	}
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote_usa
+		custom_effect_tooltip = highway_ike_act
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			custom_effect_tooltip = highway_tooltip
+		}
+	}
+	x = 1
+	y = 2
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_denounce_racial_discrimination
+	icon = GFX_focus_Freedom_of_Speech
+	cost = 6
+	prerequisite = {
+		focus = USA_highway_expansion
+	}
+	available = {
+		has_government = market_liberalism
+	}
+	completion_reward = {
+		add_political_power = 50
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.05
+		}
+		custom_effect_tooltip = unlock_desegragation_armed
+		add_to_variable = { var = usa_president_popularity value = 2 }
+		USA_clamp_president_pop = yes
+	}
+	x = 1
+	y = 3
+	relative_position_id = USA_state_of_union_adress
+}
+
+# shared_focus = {
+# 	id = USA_equal_rights_amendment
+# 	icon = GFX_focus_Womens_Rights
+# 	cost = 8
+# 	prerequisite = {
+# 		focus = USA_denounce_racial_discrimination
+# 	}
+# 	available = {
+# 	 has_government = market_liberalism
+# 	}
+# 	completion_reward = {
+# 	 add_popularity = {
+#  	 ideology = market_liberalism
+# 		 popularity = 0.15
+#}
+# 		add_political_power = 35
+# 		add_to_variable = { var = usa_president_popularity value = 3 }
+#		USA_clamp_president_pop = yes
+# 	}
+# 	x = 1
+#  y = 4
+# 	relative_position_id = USA_state_of_union_adress
+# }
+
+shared_focus = {
+	id = USA_downsize_government
+	icon = GFX_focus_Freedom
+	cost = 8
+	prerequisite = {
+		focus = USA_a_republican_agenda
+		focus = USA_a_conservative_program
+	}
+	available = {
+		OR = {
+			has_government = market_liberalism
+			has_government = jacobin
+			has_government = democratic
+		}
+	}
+	completion_reward = {
+		add_ideas = usa_laissez_faire
+	}
+	x = 3
+	y = 2
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_lower_taxes_lategame
+	icon = GFX_focus_Extravagance
+	cost = 6
+	prerequisite = {
+		focus = USA_downsize_government
+	}
+	available = {
+		OR = {
+			has_government = market_liberalism
+			has_government = jacobin
+			has_government = democratic
+		}
+	}
+	completion_reward = {
+		add_to_variable = { var = usa_president_popularity value = 2 }
+		USA_clamp_president_pop = yes
+		add_political_power = -50
+	}
+	x = 3
+	y = 3
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_red_scare
+	icon = GFX_focus_Crush_Resistance
+	cost = 10
+	prerequisite = {
+		focus = USA_lower_taxes_lategame
+		focus = USA_denounce_racial_discrimination
+	}
+	available = {
+		OR = {
+			has_government = market_liberalism
+			has_government = jacobin
+			has_government = democratic
+		}
+	}
+	completion_reward = {
+		add_political_power = 100
+		add_popularity = {
+			ideology = communism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.02
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.02
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = -0.01
+		}
+	}
+	x = 2
+	y = 4
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_a_conservative_program
+	icon = GFX_focus_Congress_Bills
+	cost = 1
+	mutually_exclusive = {
+		focus = USA_sbr_lategame
+		focus = USA_a_republican_agenda
+		focus = USA_fair_deal
+	}
+	available = {
+		OR = {
+			has_government = jacobin
+			has_government = democratic
+		}
+	}
+	prerequisite = {
+		focus = USA_state_of_union_adress
+	}
+	completion_reward = {
+	}
+	x = 4
+	y = 1
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_increase_defense_budget
+	icon = GFX_focus_America_Fuck_Yeah
+	cost = 8
+	prerequisite = {
+		focus = USA_a_conservative_program
+	}
+	available = {
+		OR = {
+			has_government = jacobin
+			has_government = democratic
+		}
+	}
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote_usa
+		custom_effect_tooltip = nat_def_act
+		custom_effect_tooltip = will_vote
+	}
+	x = 5
+	y = 2
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_protect_states_rights
+	icon = GFX_focus_Parliament
+	cost = 9
+	prerequisite = {
+		focus = USA_increase_defense_budget
+	}
+	available = {
+		has_government = democratic
+	}
+	mutually_exclusive = { focus = USA_ignore_segregation_debate }
+	completion_reward = {
+		add_political_power = 50
+		add_stability = -0.15
+		add_to_variable = { var = usa_president_popularity value = -20 }
+		USA_clamp_president_pop = yes
+	}
+	x = 5
+	y = 3
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_ignore_segregation_debate
+	icon = GFX_focus_Party_Politics
+	cost = 4
+	prerequisite = {
+		focus = USA_increase_defense_budget
+	}
+	available = {
+		has_government = jacobin
+	}
+	mutually_exclusive = { focus = USA_protect_states_rights }
+	completion_reward = {
+		add_political_power = 10
+		add_stability = -0.10
+		add_to_variable = { var = usa_president_popularity value = -10 }
+		USA_clamp_president_pop = yes
+	}
+	x = 7
+	y = 3
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_appeal_national_unity
+	icon = GFX_focus_Desegregation
+	cost = 5
+	prerequisite = {
+		focus = USA_protect_states_rights
+		focus = USA_ignore_segregation_debate
+	}
+	available = {
+		OR = {
+			has_government = jacobin
+			has_government = democratic
+		}
+	}
+	completion_reward = {
+		add_political_power = 50
+		USA_congress_small_support = yes
+	}
+	x = 6
+	y = 4
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_business_friendly_policy
+	icon = GFX_focus_Fundraising
+	cost = 8
+	prerequisite = {
+		focus = USA_increase_defense_budget
+	}
+	available = {
+		OR = {
+			has_government = jacobin
+			has_government = democratic
+		}
+	}
+	completion_reward = {
+		custom_effect_tooltip = have_to_vote_usa
+		custom_effect_tooltip = low_taxes_act
+		custom_effect_tooltip = will_vote
+		effect_tooltip = {
+			custom_effect_tooltip = recovery_tax_tooltip
+		}
+	}
+	x = 9
+	y = 3
+	relative_position_id = USA_state_of_union_adress
+}
+
+shared_focus = {
+	id = USA_american_dream
+	icon = GFX_focus_usa_guarantee_the_american_dream
+	cost = 6
+	prerequisite = {
+		focus = USA_business_friendly_policy
+	}
+	available = {
+		OR = {
+			has_government = jacobin
+			has_government = democratic
+		}
+	}
+	completion_reward = {
+		add_to_variable = { var = usa_president_popularity value = 3 }
+		USA_clamp_president_pop = yes
+		add_political_power = 40
+	}
+	x = 9
+	y = 4
+	relative_position_id = USA_state_of_union_adress
+}

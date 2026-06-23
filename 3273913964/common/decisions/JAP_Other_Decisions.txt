@@ -1,0 +1,1028 @@
+JAP_2rcw_back_RFP_FER = {
+	JAP_2rcw_Send_Guns = {
+		icon = GFX_decision_generic_army_support
+		target_trigger = {
+			FROM = {
+				OR = {
+					tag = RFP
+					tag = FER
+				}
+			}
+		}
+		visible = {
+			FROM = {
+				exists = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		allowed = {
+			always = yes
+		}
+		available = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 35
+		#fire_only_once = yes
+		days_remove = 12
+		days_re_enable = 48
+		complete_effect = {
+		}
+		remove_effect = {
+			FROM = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 75
+					producer = JAP
+				}
+			}
+		}
+	}
+	JAP_2rcw_Send_Support = {
+		icon = GFX_decision_generic_support_equipment
+		target_trigger = {
+			FROM = {
+				OR = {
+					tag = RFP
+					tag = FER
+				}
+			}
+		}
+		visible = {
+			FROM = {
+				exists = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		allowed = {
+			always = yes
+		}
+		available = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 35
+		#fire_only_once = yes
+		days_remove = 14
+		days_re_enable = 48
+		complete_effect = {
+		}
+		remove_effect = {
+			FROM = {
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 50
+					producer = JAP
+				}
+			}
+		}
+	}
+	JAP_2rcw_artillery = {
+		icon = GFX_decision_generic_artillery
+		target_trigger = {
+			FROM = {
+				OR = {
+					tag = RFP
+					tag = FER
+				}
+			}
+		}
+		visible = {
+			FROM = {
+				exists = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		allowed = {
+			always = yes
+		}
+		available = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 30
+			modifier = {
+				FROM = {
+					tag = RFP
+				}
+				factor = 0.33
+			}
+		}
+		cost = 35
+		#fire_only_once = yes
+		modifier = {
+			industrial_capacity_factory = -0.025
+		}
+		days_remove = 18
+		days_re_enable = 50
+		complete_effect = {
+		}
+		remove_effect = {
+			FROM = {
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 18
+					producer = JAP
+				}
+			}
+		}
+	}
+}
+
+JAP_japanese_korea = {
+
+	JAP_increase_cotton_production = {
+
+		icon = GFX_decision_generic_industry
+
+		visible = {
+			date > 1933.1.1
+			has_country_flag = JAP_KOR_ugaki_kazushige
+			has_full_control_of_state = 883
+			883 = {
+				industrial_complex < 3
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+		}
+
+		cost = 20
+		days_remove = 60
+
+		fire_only_once = yes
+
+        remove_effect = {
+			883 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = JAP_KOR_Consciousness
+				value = 0.3
+			}
+			custom_effect_tooltip = JAP_KOR_Consciousness_Gain_0.3
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.3
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.3
+		}
+	}
+
+	JAP_establish_two_years_simplified_school = {
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			date > 1934.1.1
+			has_country_flag = JAP_KOR_ugaki_kazushige
+			custom_trigger_tooltip = {
+				tooltip = JAP_KOR_Literacy_less_then_10
+			}
+			custom_trigger_tooltip = {
+				tooltip = JAP_KOR_Consciousness_less_then_5
+			}
+			check_variable = {
+				JAP_KOR_Literacy < 10
+			}
+			check_variable = {
+				AP_KOR_Consciousness < 5
+			}
+		}
+
+		cost = 20
+		days_remove = 60
+
+		fire_only_once = yes
+
+		remove_effect = {
+			add_to_variable = {
+				var = JAP_KOR_Literacy
+				value = 2
+			}
+			custom_effect_tooltip = JAP_KOR_Literacy_Gain_2
+			add_to_variable = {
+				var = JAP_KOR_Consciousness
+				value = 0.3
+			}
+			custom_effect_tooltip = JAP_KOR_Consciousness_Gain_0.3
+		}
+	}
+
+	JAP_ordinance_of_agricultural_land = {
+
+		icon = GFX_decision_generic_barn
+
+		visible = {
+			date > 1934.4.1
+			has_country_flag = JAP_KOR_ugaki_kazushige
+			has_full_control_of_state = 883
+			has_full_control_of_state = 525
+		}
+
+		cost = 20
+		days_remove = 60
+
+		fire_only_once = yes
+
+		remove_effect = {
+			883 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			525 = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_to_variable = {
+				var = JAP_KOR_Consciousness
+				value = 0.3
+			}
+			custom_effect_tooltip = JAP_KOR_Consciousness_Gain_0.3
+		}
+	}
+
+	JAP_koseki_hogo_movement = {
+
+		icon = GFX_decision_generic_civil_support
+
+		visible = {
+			date > 1935.1.1
+			has_country_flag = JAP_KOR_ugaki_kazushige
+		}
+
+		cost = 20
+		days_remove = 30
+
+		fire_only_once = yes
+
+		remove_effect = {
+			add_to_variable = {
+				var = JAP_KOR_Consciousness
+				value = 0.3
+			}
+			custom_effect_tooltip = JAP_KOR_Consciousness_Gain_0.3
+		}
+	}
+
+	JAP_ministry_of_thought = {
+
+		icon = GFX_decision_hol_war_on_pacifism
+
+		visible = {
+			date > 1936.1.1
+			has_country_flag = JAP_KOR_ugaki_kazushige
+		}
+
+		cost = 20
+		days_remove = 30
+
+		fire_only_once = yes
+
+		remove_effect = {
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = -0.3
+			}
+			add_to_variable = {
+				var = JAP_KOR_Consciousness
+				value = -0.2
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Lose_0.3
+			custom_effect_tooltip = JAP_KOR_Consciousness_Lose_0.2
+		}
+	}
+
+	JAP_arrest_lee_jaeyu = {
+
+		icon = GFX_decision_oppression
+
+		visible = {
+			date > 1936.12.1
+			has_country_flag = JAP_KOR_minami_jiro
+		}
+
+		cost = 20
+		days_remove = 15
+
+		fire_only_once = yes
+
+		remove_effect = {
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = -0.2
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Lose_0.2
+		}
+	}
+
+	# JAP_flag_termination = {
+
+	# 	icon = GFX_decision_generic_ban_press
+
+	# 	visible = {
+	# 		date > 1936.8.25
+	# 	}
+
+	# 	cost = 20
+	# 	fire_only_once = yes
+
+	# 	complete_effect = {
+	# 		add_to_variable = {
+	# 			var = JAP_KOR_Literacy
+	# 			value = 1
+	# 		}
+	# 		add_to_variable = {
+	# 			var = JAP_KOR_Consciousness
+	# 			value = -0.2
+	# 		}
+	# 		add_to_variable = {
+	# 			var = JAP_KOR_Militancy
+	# 			value = 0.2
+	# 		}
+	# 		custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.2
+	# 		custom_effect_tooltip = JAP_KOR_Consciousness_Lose_0.2
+	# 		custom_effect_tooltip = JAP_KOR_Literacy_Gain_1
+	# 	}
+	# }
+
+	JAP_daegu_airfield = {
+
+		icon = GFX_decision_generic_construction
+
+		visible = {
+			date > 1937.1.1
+			has_country_flag = JAP_KOR_minami_jiro
+			has_full_control_of_state = 525
+			525 = {
+				air_base < 5
+			}
+		}
+
+		cost = 20
+		days_remove = 60
+
+		fire_only_once = yes
+
+		remove_effect = {
+			525 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	JAP_anti_con = {
+
+		icon = GFX_decision_generic_construction
+
+		visible = {
+			date > 1937.10.1
+			has_country_flag = JAP_KOR_minami_jiro
+			has_full_control_of_state = 886
+			886 = {
+				anti_air_building < 5
+			}
+		}
+
+		cost = 20
+		days_remove = 60
+
+		fire_only_once = yes
+
+		remove_effect = {
+			886 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	JAP_chosen_volunteers = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		visible = {
+			date > 1938.1.1
+			has_country_flag = JAP_KOR_minami_jiro
+			has_war = yes
+		}
+
+		cost = 20
+		days_remove = 30
+
+		fire_only_once = yes
+
+		remove_effect = {
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.2
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.2
+		}
+	}
+	
+	JAP_Sino_jap_war_tax = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		visible = {
+			date > 1938.1.1
+			has_country_flag = JAP_KOR_minami_jiro
+			has_war_with = CHI
+		}
+
+		cost = 20
+		days_remove = 180
+
+		fire_only_once = yes
+
+		modifier = {
+			consumer_goods_factor = -0.05
+		}
+		
+		complete_effect = {
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.2
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.2
+		}
+	}
+
+	JAP_chosen_education_reform = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		visible = {
+			date > 1938.4.1
+			has_country_flag = JAP_KOR_minami_jiro
+		}
+
+		cost = 20
+		fire_only_once = yes
+
+		complete_effect = {
+			add_to_variable = {
+				var = JAP_KOR_Literacy
+				value = 2
+			}
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.2
+			}
+			custom_effect_tooltip = JAP_KOR_Literacy_Gain_2
+			custom_effect_tooltip = JAP_KOR_Consciousness_Gain_0.2
+		}
+	}
+
+	JAP_chosen_anti_air = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		visible = {
+			date > 1938.7.1
+			has_country_flag = JAP_KOR_minami_jiro
+			has_war = yes
+			has_full_control_of_state = 527
+			has_full_control_of_state = 884
+			has_full_control_of_state = 881
+			has_full_control_of_state = 886
+			has_full_control_of_state = 883
+			has_full_control_of_state = 525
+		}
+
+		cost = 20
+		fire_only_once = yes
+
+		complete_effect = {
+			527 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			884 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			881 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			886 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			883 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			525 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.2
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.2
+		}
+	}
+
+	JAP_daegu_yeongcheon = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		visible = {
+			date > 1938.7.1
+			has_country_flag = JAP_KOR_minami_jiro
+			has_full_control_of_state = 525
+		}
+
+		cost = 20
+		fire_only_once = yes
+
+		complete_effect = {
+			525 = {
+				#TODO: add railways	
+			}
+		}
+	}
+
+	JAP_resource_requisition = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		visible = {
+			date > 1939.1.1
+			has_country_flag = JAP_KOR_minami_jiro
+			has_full_control_of_state = 527
+			has_full_control_of_state = 884
+			has_full_control_of_state = 881
+			has_full_control_of_state = 886
+			has_full_control_of_state = 883
+			has_full_control_of_state = 525
+		}
+		
+		cost = 20
+		fire_only_once = yes
+
+		complete_effect = {
+			JAP = {
+				add_resource = {
+    				type = steel
+    				amount = 2
+   					state = 527
+				}
+			
+				add_resource = {
+    				type = steel
+    				amount = 2
+   					state = 884
+				}
+			
+				add_resource = {
+    				type = steel
+    				amount = 3
+   					state = 881
+				}
+				add_resource = {
+    				type = steel
+    				amount = 5
+   					state = 886
+				}
+				add_resource = {
+    				type = steel
+    				amount = 4
+   					state = 883
+				}
+				add_resource = {
+    				type = steel
+    				amount = 3
+   					state = 525
+				}
+			}
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.2
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.2
+		}
+	}
+
+	JAP_Soshi_kaimei = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		visible = {
+			date > 1940.1.1
+			has_country_flag = JAP_KOR_minami_jiro
+		}
+
+		cost = 20
+		fire_only_once = yes
+
+		complete_effect = {
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.2
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.2
+			add_to_variable = {
+				var = JAP_KOR_Literacy
+				value = 2
+			}
+			custom_effect_tooltip = JAP_KOR_Literacy_Gain_2
+		}
+	}
+
+	JAP_wartime = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		visible = {
+			date > 1940.7.1
+			has_country_flag = JAP_KOR_minami_jiro
+			has_war = yes
+		}
+
+		cost = 20
+		fire_only_once = yes
+
+		complete_effect = {
+			# 525 = {
+			# 	add_extra_state_shared_building_slots = 1
+			# 	add_building_construction = {
+			# 		type = industrial_complex 
+			# 		level = 1
+			# 		instant_build = yes
+			# 	}
+			# }
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.2
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.2
+		}
+	}
+	JAP_Pyongwon_line = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		visible = {
+			date > 1941.4.1
+			has_country_flag = JAP_KOR_minami_jiro
+			has_full_control_of_state = 527
+			has_full_control_of_state = 881
+		}
+		cost = 20
+		fire_only_once = yes
+
+		complete_effect = {
+			527 = {
+				#TODO: build railways?
+			}
+			881 = {
+			}
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.2
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.2
+		}
+	}
+
+	JAP_resource_requisition_2 = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		visible = {
+			date > 1942.4.1
+			has_country_flag = JAP_KOR_minami_jiro
+			has_war = yes
+		}
+
+		cost = 20
+		fire_only_once = yes
+
+		complete_effect = {
+			884 = {
+				add_resource = {
+    				type = steel
+    				amount = 1
+				}
+			}
+			527 = {
+				add_resource = {
+    				type = steel
+    				amount = 1
+				}
+			}
+			881 = {
+				add_resource = {
+    				type = steel
+    				amount = 1
+				}
+			}
+			886 = {
+				add_resource = {
+    				type = steel
+    				amount = 1
+				}
+			}
+			883 = {
+				add_resource = {
+    				type = steel
+    				amount = 1
+				}
+			}
+			525 = {
+				add_resource = {
+    				type = steel
+    				amount = 1
+				}
+			}
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.3
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.3
+		}
+	}
+
+	JAP_Korea_Conscription = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		visible = {
+			date > 1943.4.1
+			has_country_flag = JAP_KOR_koiso_kuniaki
+			has_war = yes
+		}
+
+		cost = 20
+		fire_only_once = yes
+
+		complete_effect = {
+			# JAP = { add_manpower = 500000 }
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.2
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.2
+		}
+	}
+
+	JAP_Korea_National_Mobilization = {
+
+		icon = GFX_decision_eng_trade_unions_support
+		
+		visible = {
+			date > 1944.1.1
+			has_country_flag = JAP_KOR_koiso_kuniaki
+			has_war = yes
+		}
+
+		cost = 20
+		days_remove = 360
+
+		fire_only_once = yes
+
+		modifier = {
+			political_power_gain = -0.2
+			consumer_goods_factor = -0.1
+		}
+		
+		complete_effect = {
+			add_to_variable = {
+				var = JAP_KOR_Militancy
+				value = 0.5
+			}
+			custom_effect_tooltip = JAP_KOR_Militancy_Gain_0.5
+		}
+	}
+}
+
+JAP_debt_management = {
+	JAP_debt_monetization = {
+		icon = GFX_decision_category_generic_economy
+		visible = {
+			has_variable = JAP_Debt
+		}
+		cost = 15
+		days_remove = 30
+		days_re_enable = 60
+		modifier = { consumer_goods_factor = -0.05 }
+		remove_effect = {
+			add_to_variable = {
+				var = JAP_Debt
+				value = 0.5
+			}
+			custom_effect_tooltip = JAP_Debt_Gain_0.5
+		}
+	}
+}
+JAP_north_china = {
+	JAP_assassination = {
+		icon = GFX_decision_onmap_recruit_operative
+		visible = {
+			has_country_flag = North_China_Buffer_State_Strategy
+		}
+		fire_only_once = yes
+		cost = 20
+		days_remove = 14
+		remove_effect = {
+			hidden_effect = {
+				country_event = {
+					id = JAP_north_china.2
+					hours = 3
+				}
+				CHI = {
+					country_event = {
+						id = JAP_north_china.3
+						hours = 3
+					}
+				}
+			}
+		}
+	}
+	JAP_tada = {
+		icon = GFX_decision_eng_propaganda_campaigns
+		visible = {
+			has_country_flag = North_China_Buffer_State_Strategy
+		}
+		visible = {
+			has_country_flag = tada_speech
+		}
+		fire_only_once = yes
+		cost = 20
+		remove_effect = {
+			JAP = {
+				country_event = {
+					id = JAP_north_china.26
+					hours = 3
+				}
+			}
+			CHI = {
+				country_event = {
+					id = JAP_north_china.27
+					hours = 3
+				}
+			}
+		}
+	}
+}
+
+JAP_mongolia_tannu_tuva = {
+	JAP_mongolia = {
+		icon = GFX_decision_onmap_recruit_operative
+		visible = {
+			is_subject = no
+			MON = {
+				has_country_flag = MON_military_dictatorship_flag
+			}
+			MEN = {
+				is_subject_of = JAP
+			}
+		}
+		available = {
+			OR = {
+				MAN = {
+					is_subject_of = JAP
+					is_neighbor_of = MON
+				}
+				MEN = {
+					is_subject_of = JAP
+					is_neighbor_of = MON
+				}
+				is_neighbor_of = MON
+				
+			}
+			surrender_progress < 0.05
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		cost = 20
+		complete_effect = {
+			declare_war_on = {
+				target = MON
+				type = annex_everything
+			}
+			every_state = {
+				limit = {
+					is_owned_by = MON
+				}
+				add_claim_by = MEN
+			}		
+			hidden_effect = {
+				IF = {
+					limit = {
+						has_war_with = CHI
+					}
+					CHI = {
+						country_event = {
+							id = mongolia_external.3
+							days = 10
+						}
+					}
+				}
+				MON = {
+					country_event = {
+						id = mongolia_external.4
+						days = 2
+					}
+				}
+			}	
+		}
+	}
+	JAP_tuva = {
+		icon = GFX_decision_onmap_recruit_operative
+		visible = {
+			is_subject = no
+			MEN = {
+				is_subject_of = JAP
+			}
+			OR = {
+				MON = {
+					has_country_flag = MON_military_dictatorship_flag
+				}
+				MEN = {
+					is_neighbor_of = TAN
+				}
+			}
+		}
+		available = {
+			OR = {
+				MAN = {
+					is_subject_of = JAP
+					is_neighbor_of = TAN
+				}
+				MEN = {
+					is_subject_of = JAP
+					is_neighbor_of = TAN
+				}
+				is_neighbor_of = TAN
+				
+			}
+			surrender_progress < 0.05
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		fire_only_once = yes
+		cost = 20
+		complete_effect = {
+			declare_war_on = {
+				target = TAN
+				type = annex_everything
+			}
+			every_state = {
+				limit = {
+					is_owned_by = TAN
+				}
+				add_claim_by = MEN
+			}			
+		}
+	}
+
+}

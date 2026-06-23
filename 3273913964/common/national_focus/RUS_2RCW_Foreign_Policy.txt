@@ -1,0 +1,780 @@
+#12 focuses here
+#s_team337
+shared_focus = {
+	id = RUS_2RCW_Foreign_Start
+	icon = GFX_focus_Foreign_Diplomacy
+	#prerequisite = { focus = RUS_2RCW_Foreign_Start }
+	x = 28
+	y = 0
+	#relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = RUS_unrecognized
+			add_idea = RUS_partially_recognized
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_English_Equipment
+	icon = GFX_focus_Befriend_United_Kingdom
+	prerequisite = {
+		focus = RUS_2RCW_Foreign_Start
+	}
+	x = -2
+	y = 1
+	relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 1.86
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		NOT = {
+			ENG = {
+				OR = {
+					has_government = communism #also include stuff for George Lansbury
+					is_subject = yes
+				}
+			}
+			has_war_with = ENG
+		}
+		country_exists = ENG
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		ENG = {
+			country_event = {
+				id = rus_external.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_English_Industry
+	icon = GFX_focus_British_Farmers
+	prerequisite = {
+		focus = RUS_2RCW_English_Equipment
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_Polish_Trade
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_German_Factory
+	}
+	x = -2
+	y = 2
+	relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		NOT = {
+			ENG = {
+				OR = {
+					has_government = communism #also include stuff for George Lansbury
+					is_subject = yes
+				}
+			}
+			has_war_with = ENG
+		}
+		country_exists = ENG
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 3
+		}
+		if = {
+			limit = {
+				ENG = {
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+						AND = {
+							has_government = socialism
+							ROOT = {
+								has_variable = RUS_socialist_influence
+							}
+						}
+					}
+				}
+			}
+			RUS_add_influence_socialists = yes
+			custom_effect_tooltip = RUS_soc_gain_3_points
+		}
+		else_if = {
+			limit = {
+				ENG = {
+					OR = {
+						has_government = socialism
+						has_government = social_democracy
+						has_government = social_liberalism
+						has_government = market_liberalism
+						has_government = jacobin
+						has_government = democratic
+					}
+				}
+			}
+			RUS_add_influence_democrats = yes
+			custom_effect_tooltip = RUS_soclib_gain_3_points
+		}
+		else_if = {
+			limit = {
+				ENG = {
+					has_government = neutrality
+				}
+			}
+			RUS_add_influence_vlasov = yes
+			custom_effect_tooltip = RUS_vlasov_gain_3_points
+		}
+		else_if = {
+			limit = {
+				ENG = {
+					has_government = monarchism
+				}
+			}
+			RUS_add_influence_monarchists = yes
+			custom_effect_tooltip = RUS_mon_gain_3_points
+		}
+		else = {
+			RUS_add_influence_nationalists = yes
+			custom_effect_tooltip = RUS_nat_gain_3_points
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Polish_Pact
+	icon = GFX_focus_generic_polish_deal
+	prerequisite = {
+		focus = RUS_2RCW_Foreign_Start
+	}
+	x = 0
+	y = 1
+	relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		NOT = {
+			POL = {
+				OR = {
+					has_government = communism #also include stuff for George Lansbury
+					is_subject = yes
+				}
+			}
+			has_war_with = POL
+		}
+		country_exists = POL
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		POL = {
+			country_event = {
+				id = rus_external.4
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Polish_Trade
+	icon = GFX_focus_Free_Trade
+	prerequisite = {
+		focus = RUS_2RCW_Polish_Pact
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_English_Industry
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_German_Factory
+	}
+	x = 0
+	y = 2
+	relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		NOT = {
+			POL = {
+				OR = {
+					has_government = communism #also include stuff for George Lansbury
+					is_subject = yes
+				}
+			}
+			has_war_with = POL
+		}
+		country_exists = POL
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		POL = {
+			add_opinion_modifier = {
+				target = RUS
+				modifier = RUS_trade_modifier
+			}
+		}
+		add_opinion_modifier = {
+			target = POL
+			modifier = RUS_trade_modifier
+		}
+		set_variable = {
+			RUS_add_influence_value = 3
+		}
+		if = {
+			limit = {
+				POL = {
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+						AND = {
+							has_government = socialism
+							ROOT = {
+								has_variable = RUS_socialist_influence
+							}
+						}
+					}
+				}
+			}
+			RUS_add_influence_socialists = yes
+			custom_effect_tooltip = RUS_soc_gain_3_points
+		}
+		else_if = {
+			limit = {
+				POL = {
+					OR = {
+						has_government = socialism
+						has_government = social_democracy
+						has_government = social_liberalism
+						has_government = market_liberalism
+						has_government = jacobin
+						has_government = democratic
+					}
+				}
+			}
+			RUS_add_influence_democrats = yes
+			custom_effect_tooltip = RUS_soclib_gain_3_points
+		}
+		else_if = {
+			limit = {
+				POL = {
+					has_government = neutrality
+				}
+			}
+			RUS_add_influence_vlasov = yes
+			custom_effect_tooltip = RUS_vlasov_gain_3_points
+		}
+		else_if = {
+			limit = {
+				POL = {
+					has_government = monarchism
+				}
+			}
+			RUS_add_influence_monarchists = yes
+			custom_effect_tooltip = RUS_mon_gain_3_points
+		}
+		else = {
+			RUS_add_influence_nationalists = yes
+			custom_effect_tooltip = RUS_nat_gain_3_points
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_German_Guns
+	icon = GFX_focus_Befriend_Weimar_Germany
+	prerequisite = {
+		focus = RUS_2RCW_Foreign_Start
+	}
+	x = 2
+	y = 1
+	relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 1.86
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = { #add stuff for German Civil War
+			AND = {
+				NOT = {
+					DDR = {
+						OR = {
+							has_government = communism
+							is_subject = yes
+						}
+						has_war_with = POL
+					}
+					has_war_with = DDR
+					country_exists = WGR
+					country_exists = GER
+				}
+				country_exists = DDR
+			}
+			AND = {
+				NOT = {
+					WGR = {
+						OR = {
+							has_government = communism
+							is_subject = yes
+						}
+						has_war_with = POL
+					}
+					has_war_with = WGR
+					country_exists = GER
+				}
+				country_exists = WGR
+			}
+			AND = {
+				NOT = {
+					GER = {
+						OR = {
+							has_government = communism
+							is_subject = yes
+						}
+						has_war_with = POL
+					}
+					has_war_with = GER
+				}
+				country_exists = GER
+			}
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				country_exists = DDR
+				NOT = {
+					country_exists = GER
+					country_exists = WGR
+				}
+			}
+			DDR = {
+				country_event = {
+					id = rus_external.1
+				}
+			}
+			set_variable = {
+				get_germany = DDR
+			}
+		}
+		else_if = {
+			limit = {
+				country_exists = WGR
+				NOT = {
+					country_exists = GER
+				}
+			}
+			WGR = {
+				country_event = {
+					id = rus_external.1
+				}
+			}
+			set_variable = {
+				get_germany = WGR
+			}
+		}
+		else_if = {
+			limit = {
+				country_exists = GER
+			}
+			GER = {
+				country_event = {
+					id = rus_external.1
+				}
+			}
+			set_variable = {
+				get_germany = GER
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_German_Factory
+	icon = GFX_focus_Renewed_Arms
+	prerequisite = {
+		focus = RUS_2RCW_German_Guns
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_English_Industry
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_Polish_Trade
+	}
+	x = 2
+	y = 2
+	relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		NOT = {
+			any_country = {
+				tag = get_germany
+				OR = {
+					has_government = communism #also include stuff for George Lansbury
+					is_subject = yes
+				}
+			}
+			has_war_with = get_germany
+		}
+		country_exists = get_germany
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = ROOT
+				free_building_slots = {
+					building = arms_factory
+					size > 1
+					include_locked = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 3
+		}
+		if = {
+			limit = {
+				has_variable = get_germany
+			}
+			if = {
+				limit = {
+					any_country = {
+						tag = get_germany
+						OR = {
+							has_government = communism
+							has_government = authoritarian_socialism
+							AND = {
+								has_government = socialism
+								ROOT = {
+									has_variable = RUS_socialist_influence
+								}
+							}
+						}
+					}
+				}
+				RUS_add_influence_socialists = yes
+				custom_effect_tooltip = RUS_soc_gain_3_points
+			}
+			else_if = {
+				limit = {
+					any_country = {
+						tag = get_germany
+						OR = {
+							has_government = socialism
+							has_government = social_democracy
+							has_government = social_liberalism
+							has_government = market_liberalism
+							has_government = jacobin
+							has_government = democratic
+						}
+					}
+				}
+				RUS_add_influence_democrats = yes
+				custom_effect_tooltip = RUS_soclib_gain_3_points
+			}
+			else_if = {
+				limit = {
+					any_country = {
+						tag = get_germany
+						has_government = neutrality
+					}
+				}
+				RUS_add_influence_vlasov = yes
+				custom_effect_tooltip = RUS_vlasov_gain_3_points
+			}
+			else_if = {
+				limit = {
+					any_country = {
+						tag = get_germany
+						has_government = monarchism
+					}
+				}
+				RUS_add_influence_monarchists = yes
+				custom_effect_tooltip = RUS_mon_gain_3_points
+			}
+			else = {
+				RUS_add_influence_nationalists = yes
+				custom_effect_tooltip = RUS_nat_gain_3_points
+			}
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_France
+	icon = GFX_focus_French_Unity
+	prerequisite = {
+		focus = RUS_2RCW_English_Industry
+		focus = RUS_2RCW_Polish_Trade
+		focus = RUS_2RCW_German_Factory
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_Italy
+	}
+	x = -1
+	y = 3
+	relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		NOT = {
+			FRA = {
+				OR = {
+					has_government = communism
+					is_subject = yes
+				}
+			}
+			has_war_with = FRA
+		}
+		country_exists = FRA
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		FRA = {
+			add_opinion_modifier = {
+				target = RUS
+				modifier = RUS_20_opinion
+			}
+		}
+		add_opinion_modifier = {
+			target = FRA
+			modifier = RUS_20_opinion
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Italy
+	icon = GFX_focus_Italian_Soldiers
+	prerequisite = {
+		focus = RUS_2RCW_English_Industry
+		focus = RUS_2RCW_Polish_Trade
+		focus = RUS_2RCW_German_Factory
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_France
+	}
+	x = 1
+	y = 3
+	relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		NOT = {
+			ITA = {
+				OR = {
+					has_government = communism
+					is_subject = yes
+				}
+			}
+			has_war_with = ITA
+		}
+		country_exists = ITA
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		ITA = {
+			add_opinion_modifier = {
+				target = RUS
+				modifier = RUS_20_opinion
+			}
+		}
+		add_opinion_modifier = {
+			target = ITA
+			modifier = RUS_20_opinion
+		}
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Befriend_Finland
+	icon = GFX_focus_Finland_Officers
+	prerequisite = {
+		focus = RUS_2RCW_France
+		focus = RUS_2RCW_Italy
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_Attack_Finland
+	}
+	x = -1
+	y = 4
+	relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		NOT = {
+			FIN = {
+				OR = {
+					has_government = communism
+					is_subject = yes
+				}
+			}
+			has_war_with = FIN
+		}
+		country_exists = FIN
+		is_neighbor_of = FIN
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		FIN = {
+			add_opinion_modifier = {
+				target = RUS
+				modifier = RUS_20_opinion
+			}
+		}
+		add_opinion_modifier = {
+			target = FIN
+			modifier = RUS_20_opinion
+		}
+		set_variable = {
+			RUS_add_influence_value = -5
+		}
+		RUS_add_influence_nationalists = yes
+		custom_effect_tooltip = RUS_nat_lose_5_points
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_Attack_Finland
+	icon = GFX_focus_Return_of_the_Whites
+	prerequisite = {
+		focus = RUS_2RCW_France
+		focus = RUS_2RCW_Italy
+	}
+	mutually_exclusive = {
+		focus = RUS_2RCW_Befriend_Finland
+	}
+	x = 1
+	y = 4
+	relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 16
+		modifier = {
+			NOT = {
+				FIN = {
+					any_owned_state = {
+						is_core_of = SOV
+					}
+				}
+			}
+			factor = 0.1
+		}
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		NOT = {
+			FIN = {
+				OR = {
+					has_government = communism
+					is_subject = yes
+				}
+			}
+			has_war_with = FIN
+		}
+		country_exists = FIN
+		is_neighbor_of = FIN
+	}
+	bypass = {
+		has_war_with = FIN
+	}
+	completion_reward = {
+		create_wargoal = {
+			target = FIN
+			type = annex_everything
+		}
+		set_variable = {
+			RUS_add_influence_value = 5
+		}
+		RUS_add_influence_nationalists = yes
+		custom_effect_tooltip = RUS_nat_gain_5_points
+	}
+}
+shared_focus = {
+	id = RUS_2RCW_An_Active_Nation
+	icon = GFX_focus_Gunboat_Diplomacy
+	prerequisite = {
+		focus = RUS_2RCW_Attack_Finland
+		focus = RUS_2RCW_Befriend_Finland
+	}
+	x = 0
+	y = 5
+	relative_position_id = RUS_2RCW_Foreign_Start
+	cost = 1
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+	}
+	completion_reward = {
+		remove_ideas = RUS_partially_recognized
+	}
+}

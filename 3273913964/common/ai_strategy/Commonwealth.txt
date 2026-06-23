@@ -1,0 +1,578 @@
+RAJ_stick_to_your_own_sphere_of_influence = {
+	allowed = {
+		tag = RAJ
+	}
+	enable = {
+		always = yes
+	}
+	abort = {
+		ENG = {
+			surrender_progress > 0.1
+		}
+	}
+
+	ai_strategy = { 
+		type = dont_defend_ally_borders 
+		id = "FRA" 
+		value = 500 
+	}
+	ai_strategy = { 
+		type = dont_defend_ally_borders 
+		id = "BEL" 
+		value = 500 
+	}
+	ai_strategy = { 
+		type = dont_defend_ally_borders 
+		id = "HOL" 
+		value = 500 
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = india
+		value = 70
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = se_asia
+		value = 30
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = north_africa
+		value = 15
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = 15
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = northern_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = central_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_africa
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = east_indies
+		value = -800
+	}
+}
+
+# RAJ_Defend_Kuwait = {
+# 	allowed = {
+# 		tag = RAJ
+# 	}
+
+# 	enable = {
+# 		controls_state = 656
+# 		has_war_with = IRQ
+# 	}
+# 	abort_when_not_enabled = yes
+
+# 	# Kuwait
+# 	ai_strategy = {
+# 		type = theatre_distribution_demand_increase
+# 		id = 447
+# 		value = 6
+# 	}
+# }
+EGY_front_with_ITA = {
+	allowed = {
+		tag = EGY
+	}
+
+	enable = {
+		is_subject_of = ENG
+		controls_state = 447
+		OR = {
+			date > 1939.8.1
+			has_war_with = ITA
+		}
+	}
+	abort = {
+		OR = {
+			date > 1941.12.1
+			NOT = { is_subject_of = ENG }
+			NOT = { controls_state = 456 }
+		}	
+	}
+
+	ai_strategy = {
+		type = front_control
+
+		state_trigger = {
+			OR = {
+				state = 451
+				state = 452
+			}
+			FROM = { tag = ITA }
+		}
+
+		priority = 5
+		ordertype = front
+	}
+}
+
+CAN_buffer_in_britain_blitz = {
+	allowed = {
+		tag = CAN
+	}
+	enable = {
+		has_war_with = GER
+		OR = {
+			has_global_flag = Paris_has_fallen
+			FRA = { has_capitulated = yes }
+		}
+	}
+
+	abort = {
+		GER = { has_war_with = SOV }
+	}
+
+	ai_strategy = {
+		type = put_unit_buffers
+		states = {
+			127
+			126
+			129
+			125
+			747
+			130
+			338
+		}
+		ratio = 0.3
+		area = british_isles
+
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = yes
+	}
+}
+
+AST_buffer_north_africa = {
+	allowed = {
+		tag = AST
+	}
+	enable = {
+		has_war_with = ITA
+		date > 1940.5.1
+		ENG = { is_ai = yes }
+	}
+
+	abort = {
+		NOT = {
+			any_enemy_country = {
+				any_controlled_state = {
+					OR = {
+						region = 182
+						region = 126
+						region = 128
+						region = 218
+					}
+				}
+			}
+		}
+	}
+
+	ai_strategy = {
+		type = put_unit_buffers
+		states = {
+			447
+		}
+		ratio = 0.2
+		area = egypt_and_suez
+		area = north_africa
+
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = yes
+	}
+}
+
+SAF_buffer_north_africa = {
+	allowed = {
+		tag = SAF
+	}
+	enable = {
+		has_war_with = ITA
+		date > 1940.5.15
+	}
+
+	abort = {
+		NOT = {
+			any_enemy_country = {
+				any_controlled_state = {
+					OR = {
+						region = 182
+						region = 126
+						region = 128
+						region = 218
+					}
+				}
+			}
+		}
+	}
+
+	ai_strategy = {
+		type = put_unit_buffers
+		states = {
+			447
+		}
+		ratio = 0.2
+		area = egypt_and_suez
+		area = north_africa
+
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = yes
+	}
+}
+
+SAF_buffer_east_africa = {
+	allowed = {
+		tag = SAF
+	}
+	enable = {
+		has_war_with = ITA
+	}
+
+	abort = {
+		NOT = {
+			ITA = {
+				any_controlled_state = {
+					region = 17
+				}
+			}
+		}
+	}
+
+	ai_strategy = {
+		type = put_unit_buffers
+		states = {
+			547
+		}
+		ratio = 0.3
+		area = east_africa
+
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = yes
+	}
+}
+
+SAF_area_priorities = {
+	allowed = {
+		tag = SAF
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { 
+		type = dont_defend_ally_borders 
+		id = "FRA" 
+		value = 500 
+	}
+	ai_strategy = { 
+		type = dont_defend_ally_borders 
+		id = "BEL" 
+		value = 500 
+	}
+	ai_strategy = { 
+		type = dont_defend_ally_borders 
+		id = "HOL" 
+		value = 500 
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_africa
+		value = 80
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = east_africa
+		value = 30
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = north_africa
+		value = 20
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = -200
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = northern_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = central_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = asia
+		value = -800
+	}
+}
+
+AST_NZL_area_priorities_peace = {
+	allowed = {
+		OR = {
+			tag = AST
+			tag = NZL
+		}
+	}
+	enable = {
+		OR = {
+			has_war_with = ITA
+			has_war_with = TUR
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = 80
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = east_indies
+		value = 30
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = africa
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = northern_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = central_america
+		value = -800
+	}
+}
+
+AST_NZL_area_priorities_war = {
+	allowed = {
+		OR = {
+			tag = AST
+			tag = NZL
+		}
+	}
+	enable = {
+		OR = {
+			has_war_with = ITA
+			has_war_with = TUR
+		}
+	}
+
+	abort = {
+		has_war_with = JAP
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = 80
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = east_indies
+		value = 5
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = egypt_and_suez
+		value = 10
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = northern_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = central_america
+		value = -800
+	}
+}
+
+AST_NZL_area_priorities_war_JAP = {
+	allowed = {
+		OR = {
+			tag = AST
+			tag = NZL
+		}
+	}
+	enable = {
+		has_war_with = JAP
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = 90
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = east_indies
+		value = 30
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = pacific
+		value = 10
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = egypt_and_suez
+		value = 5
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = northern_america
+		value = -800
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = central_america
+		value = -800
+	}
+}

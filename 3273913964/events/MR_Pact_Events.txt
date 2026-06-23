@@ -1,0 +1,1533 @@
+add_namespace = mr_pact_event
+
+country_event = {
+	id = mr_pact_event.0
+	title = mr_pact_event.0.t
+	desc = mr_pact_event.0.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mr_pact_event.0.a
+	}
+}
+
+#Molotov-Ribbentrop pact - SOV
+country_event = {
+	id = mr_pact_event.1
+	title = mr_pact_event.1.t
+	desc = mr_pact_event.1.d
+	picture = GFX_Events_Germany_Molotov_Ribbentrop
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # yes
+		name = mr_pact_event.1.a
+		ai_chance = {
+			base = 90
+			modifier = {
+				factor = 0
+				SOV = {
+					has_wargoal_against = GER
+					NOT = {
+						is_in_faction_with = GER
+					}
+				}
+			}
+		}
+		custom_effect_tooltip = molotov_ribbentropSOV_pact_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Soviets Accept Molotov-Ribbentrop Pact"
+			set_global_flag = MR_pact_flag
+			
+			add_state_claim = 97
+			add_state_claim = 190
+			add_state_claim = 1158
+			add_state_claim = 95
+			add_state_claim = 749
+			add_state_claim = 926
+			add_state_claim = 1068
+			add_state_claim = 94
+			add_state_claim = 93
+			add_state_claim = 1066
+			add_state_claim = 1061
+			add_state_claim = 1067
+			add_state_claim = 91
+			add_state_claim = 89
+			add_state_claim = 1191
+			#Poland
+			749 = { set_state_flag = SOV_MR }
+			926 = { set_state_flag = SOV_MR }
+			95 = { set_state_flag = SOV_MR }
+			1068 = { set_state_flag = SOV_MR }
+			93 = { set_state_flag = SOV_MR }
+			91 = { set_state_flag = SOV_MR }
+			89 = { set_state_flag = SOV_MR }
+			1190 = { set_state_flag = SOV_MR }
+			915 = { set_state_flag = SOV_MR }
+			94 = { set_state_flag = SOV_MR }
+			1066 = { set_state_flag = SOV_MR }
+			1061 = { set_state_flag = SOV_MR }
+			1067 = { set_state_flag = SOV_MR }
+			97 = { set_state_flag = SOV_MR }
+			1191 = { set_state_flag = SOV_MR }
+			
+			GER = {
+				country_event = { id = mr_pact_event.2 }
+			}
+		}
+		add_opinion_modifier = { target = SOV modifier = MR_pact }# pact
+		# add_named_threat = { threat = 4 name = GER_molotov_ribbentrop_pact }
+		GER = {
+			diplomatic_relation = {
+				country = SOV
+				relation = non_aggression_pact
+				active = yes
+			}
+			add_opinion_modifier = { target = GER modifier = MR_pact }# pact
+		}	
+	}
+	
+	option = { # no way
+		name = mr_pact_event.1.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		log = "[GetDateText]: [Root.GetName]: Germans reject the MR Pact"
+		GER = {
+			add_opinion_modifier = { target = SOV modifier = refused_MR_pact }# no pact
+			country_event = { id = mr_pact_event.3 }
+		}
+	}
+}
+
+#Soviets sign the pact - GER
+country_event = {
+	id = mr_pact_event.2
+	title = mr_pact_event.2.t
+	desc = mr_pact_event.2.d
+	picture = GFX_report_event_molotov_signing_pact
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = mr_pact_event.2.a
+		effect_tooltip = {
+			diplomatic_relation = { country = SOV relation = non_aggression_pact }
+		}
+		custom_effect_tooltip = molotov_ribbentrop_pact_tt
+		hidden_effect = {
+			add_state_claim = 87
+			add_state_claim = 98
+			add_state_claim = 1064
+			add_state_claim = 1065
+			add_state_claim = 1070
+			if = {
+				limit = {
+					NOT = {
+						GER = { owns_state = 188 }
+					}
+				}
+				188 = { set_state_flag = GER_MR }
+			}
+			85 = { set_state_flag = GER_MR }
+			86 = { set_state_flag = GER_MR }
+			773 = { set_state_flag = GER_MR }
+			87 = { set_state_flag = GER_MR }
+			98 = { set_state_flag = GER_MR }
+			835 = { set_state_flag = GER_MR }
+			1065 = { set_state_flag = GER_MR }
+			1060 = { set_state_flag = GER_MR }
+			1070 = { set_state_flag = GER_MR }
+			1062 = { set_state_flag = GER_MR }
+			88 = { set_state_flag = GER_MR }
+			90 = { set_state_flag = GER_MR }
+			10 = { set_state_flag = GER_MR }
+			926 = { set_state_flag = GER_MR }
+		}
+	}
+}
+
+#Soviets reject the pact - GER
+country_event = {
+	id = mr_pact_event.3
+	title = mr_pact_event.3.t
+	desc = mr_pact_event.3.d
+	picture = GFX_report_event_german_speech #Soviet_German_Lublin
+	is_triggered_only = yes
+	option = {
+		name = mr_pact_event.3.a
+	}
+}
+
+country_event = { #German-Soviet Boundary and Friendship Treaty - GER
+	id = mr_pact_event.4
+	title = mr_pact_event.4.t
+	desc = mr_pact_event.4.d
+	picture = GFX_report_event_molotov_signing_pact
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: German-Soviet Boundary and Friendship Treaty"
+			if = {
+				limit = {
+					1069 = {
+						controller = {
+							OR = {
+								tag = GER
+								is_in_faction_with = GER
+								is_subject_of = GER
+							}
+						}
+					}
+					SLO = {
+						is_subject_of = GER
+					}
+				}
+				1069 = {
+					transfer_state_to = SLO
+				}
+			}
+			if = {
+				limit = {
+					1064 = {
+						controller = {
+							OR = {
+								tag = GER
+								is_in_faction_with = GER
+								is_subject_of = GER
+							}
+						}
+					}
+				}
+				1064 = {
+					transfer_state_to = GER
+					set_state_name = "Sudauen"
+				}
+				set_province_name = {
+					id = 3254
+					name = "Sudauen"
+				}
+			}
+
+			#TODO:
+			#Vilna Strip gets controlled by the soviets [Temporal until we make content for Germany adding Lithuania to its sphere of influence]
+			#Alt-hist: if Soviets get Lublin and germans control Wilno then soviets get wilno temprarily and then give it to Lithuania later. Then Germany makes Lithuania into her spehere of influence somehow (TBD)
+			#Irl: Soviets get Wilno and Lithuania (in spehere of infl.) in exchange of transfering Lublin voiv. and a part of Warsaw voiv. to Germany's sphere
+			96 = {
+				transfer_state_to = SOV
+			}
+
+			#Lublin and Siedlce management
+			if = {
+				limit = {
+					OR = {
+						92 = { #If USSR controls Lublin then it gets Lublin & siedlce states
+							controller = {
+								OR = {
+									tag = SOV
+									is_in_faction_with = SOV
+									is_subject_of = SOV
+								}
+							}
+						}
+						AND = { #if siedlce (1063) and warsaw (10) are both occupied by the USSR, siedlce & lublin go to USSR
+							1063 = { 
+								controller = {
+									OR = {
+										tag = SOV
+										is_in_faction_with = SOV
+										is_subject_of = SOV
+									}
+								}
+							}
+							10 = { 
+								controller = {
+									OR = {
+										tag = SOV
+										is_in_faction_with = SOV
+										is_subject_of = SOV
+									}
+								}
+							}
+						}
+					}
+				}
+				1063 = {
+					transfer_state_to = SOV
+				}
+				92 = {
+					transfer_state_to = SOV
+				}
+
+			}
+			else = { #If the above requirements are not met, then Germany gets siedlce & lublin like irl, and Lithuania gets transfered to Soviet spehere of influence
+				1063 = {
+					transfer_state_to = GER
+				}
+				92 = {
+					transfer_state_to = GER
+				}
+
+				set_province_name = {
+					id = 9494
+					name = "Zamosc"
+				}
+				set_province_name = {
+					id = 9452
+					name = "Cholm"
+				}
+				set_province_name = {
+					id = 11466
+					name = "Biala-Podlaska"
+				}
+	
+				SOV = {
+					set_country_flag = LIT_in_SOV_sphere_of_influence_MR # Important flag for Lithuania MR pact stuff
+				}
+				LIT = {
+					country_event = { #Soviets wish to open negotiations regarding Vilnius
+						id = mr_pact_event.28
+						days = 1
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.4.a
+		# clr_global_flag = MR_pact_flag
+		hidden_effect = {
+			every_state = {
+				limit = {
+					has_state_flag = SOV_MR
+					is_owned_by = POL
+				}
+				transfer_state_to = SOV
+			}
+	
+			SOV = {
+				country_event = {
+					id = mr_pact_event.5
+					hours = 6
+				}
+			}
+
+			### German Renamed States
+			1060 = {
+				set_state_name = "Neustadt"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 9263
+				name = "Gotenhafen"
+			}
+			85 = {
+				set_state_name = "Westpreussen"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 3295
+				name = "Thorn"
+			}
+			86 = {
+				set_state_name = "Posen"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 6558
+				name = "Posen"
+			}
+			set_province_name = {
+				id = 279
+				name = "Bromberg"
+			}
+			set_province_name = {
+				id = 17
+				name = "Gnesen"
+			}
+			set_province_name = {
+				id = 243
+				name = "Hohensalza"
+			}
+			set_province_name = {
+				id = 11558
+				name = "Ostrowo"
+			}
+			98 = {
+				set_state_name = "Zichenau"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 3230
+				name = "Plock" #Schröttersburg 1941-1945
+			}
+			set_province_name = {
+				id = 6321
+				name = "Mielau"
+			}
+			10 = {
+				set_state_name = "Warschau"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 3544
+				name = "Warschau"
+			}
+			87 = { #Litzmannstadt in 1940-1945
+				set_state_name = "Litzmannstadt"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 9508
+				name = "Litzmannstadt"
+			}
+			835 = {
+				set_state_name = "Kattowitz"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 6464
+				name = "Kattowitz"
+			}
+			90 = {
+				set_state_name = "Radom"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 3586
+				name = "Tschenstochau"
+			}
+			set_province_name = {
+				id = 11532
+				name = "Petrikau"
+			}
+			1065 = {
+				set_state_name = "Kalisch"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 9546
+				name = "Kalisch"
+			}
+			1070 = {
+				set_state_name = "Sosnowitz"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 13213
+				name = "Sosnowitz"
+			}
+			set_province_name = {
+				id = 13749
+				name = "Bielitz"
+			}
+			set_province_name = {
+				id = 9412
+				name = "Teschen"
+			}
+			88 = {
+				set_state_name = "Reichshof"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 442
+				name = "Tarnow"
+			}
+			set_province_name = {
+				id = 6499
+				name = "Reichshof"
+			}
+			1062 = {
+				set_state_name = "Krakau"
+				set_state_flag = Renamed_German_state
+			}
+			set_province_name = {
+				id = 9427
+				name = "Krakau"
+			}
+			set_province_name = {
+				id = 417
+				name = "Neu-Sandez"
+			}
+		}
+	}
+}
+country_event = { ##German-Soviet Boundary and Friendship Treaty - SOV
+	id = mr_pact_event.5
+	title = mr_pact_event.5.t
+	desc = mr_pact_event.5.d
+	picture = GFX_report_event_molotov_signing_pact
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			every_state = {
+				limit = {
+					has_state_flag = SOV_MR
+				}
+				clr_state_flag = SOV_MR
+			}
+			every_state = {
+				limit = {
+					has_state_flag = GER_MR
+				}
+				clr_state_flag = GER_MR
+			}
+			set_global_flag = GER_can_form_ggv
+		}
+	}
+
+	option = {
+		name = mr_pact_event.5.a
+		hidden_effect = {
+			white_peace = {
+				tag = POL
+				message = SOV_WHITEPEACE_POL_MR
+			}
+			clr_global_flag = SOV_invading_Poland_MR
+		}
+	}
+}
+
+#Since the soviet invasion of Poland doesnt always start on the irl date, 17 of september 1939, we will use distances between dates for events instead of calculating the amount of days until the exact historical date they happened at.
+
+# USSR recieves event about what they will do with the Baltic and Finland. They will send Ultimatums - 3 days after start of invasion (20 sept)
+country_event = {
+	id = mr_pact_event.18
+	title = mr_pact_event.18.t
+	desc = mr_pact_event.18.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+
+			#Estonian Ultimatum
+			if = {
+				limit = {
+					# has_country_flag = SOV_orzel_incident_happened
+					always = no #temporal
+				}
+				#estonian ultimatum
+			}
+			else = {
+				SOV = {
+					country_event = {
+						id = mr_pact_event.19
+						days = 4
+					}
+				}
+				EST = {
+					country_event = {
+						id = mr_pact_event.20
+						days = 4
+					}
+				}
+			}
+
+			#Latvian Ultimatum
+			LAT = {
+				country_event = {
+					id = mr_pact_event.23
+					days = 10 #30 of sept, so 10 days between 20 and 30
+				}
+			}
+
+
+			#On 26 September the Leningrad Military District was ordered to "start concentrating troops on the Estonian-Latvian border and to finish that operation on 29 September." 
+			#The order noted, "for the time of starting the attack a separate directive will be issued."
+			#On 24 September, warships of the Soviet Navy appeared off Estonian ports and Soviet bombers began threatening patrols over Tallinn and the nearby countryside. 
+			#The USSR then entered the airspace of all three Baltic states, flying massive intelligence gathering operations on 25 September.
+			if = {
+				limit = {
+					has_capitulated = no
+					NOT = { has_war_with = GER }
+					country_exists = EST
+					NOT = { has_war_with = EST }
+					NOT = { is_in_faction_with = EST }
+					NOT = {
+						EST = { is_puppet_of = GER }
+					}
+					NOT = {
+						EST = { is_in_faction_with = GER }
+					}
+					NOT = {
+						EST = { is_guaranteed_by = GER }
+					}
+				}
+				set_country_flag = SOV_prepare_invade_EST
+			}
+			if = {
+				limit = {
+					has_capitulated = no
+					NOT = { has_war_with = GER }
+					country_exists = LAT
+					NOT = { has_war_with = LAT }
+					NOT = { is_in_faction_with = LAT }
+					NOT = {
+						LAT = { is_puppet_of = GER }
+					}
+					NOT = {
+						LAT = { is_in_faction_with = GER }
+					}
+					NOT = {
+						LAT = { is_guaranteed_by = GER }
+					}
+				}
+				set_country_flag = SOV_prepare_invade_LAT
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.18.a
+	}
+}
+
+#here goes Orzeł incident
+
+#The Soviets questioned the neutrality of Estonia following the escape of a Polish submarine on 18 September.
+
+#On September 22, Estonian Foreign Minister Karl Selter personally arrived in Moscow with his wife to sign the trade agreement between Estonia and the USSR . 
+#On September 24, however, the government of the USSR unexpectedly submitted to the foreign minister a request to establish military bases on the territory of Estonia.
+# The escape of a Polish submarine a week earlier was given as a pretext . Moscow now accused Estonia of helping a country at war with the Soviet Union - of arresting Polish sailors and "helping them escape" -
+# and demanded that Estonia signed a pact of mutual assistance, threatening military force in case of refusal.
+#According to the agreement, the Estonian foreign minister was supposed to travel to Tallinn for a consultation first, but he and his staff were invited back to the consultation at midnight, where the draft of the aid pact was presented.
+
+#At noon on September 24, warships of the Soviet Union invaded Estonian territorial waters in the Loksa area, and one destroyer also fired some artillery shells in the direction of Eru Bay.
+
+country_event = { #Alt event for ultimatim to Estonia. In case Orzeł incident doesnt happen - SOV - 24 of September 1939
+	#Should be an event for the USSR informing about their Ultimatum to Estonia
+	id = mr_pact_event.19
+	title = mr_pact_event.19.t
+	desc = mr_pact_event.19.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			EST = {
+				country_event = {
+					id = mr_pact_event.20
+					days = 2
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.19.a
+	}
+}
+country_event = { #Event that informs Estonia of the situation and asks wether the Government should consent to sign it or not - EST - 26 of September 1939
+	##On September 25, Foreign Minister K. Selter flew to Tallinn via Riga and informed the state and military leadership about the situation.
+	#On September 26, a meeting of the government of the Republic of Estonia took place , where it was decided to accept the demands of the USSR, as it had become clear that Estonia had no hope for foreign aid.
+	#The representatives of Latvia and Finland were not even ready to meet, and Germany could not provide aid to the Soviet Union due to its allied relations. 
+	#Unlike the Soviet Union- Finland negotiations held at the same time, of which not even all the members of the Finnish government were aware, the Estonian government received unanimous consent to conclude the agreement from a joint meeting of the State Council and the State Council's Foreign and National Defense Committee. 
+	id = mr_pact_event.20
+	title = mr_pact_event.20.t
+	desc = mr_pact_event.20.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			EST = { #NOTE: When the option to reject the treaty is added, move this to the "Sign it" option
+				country_event = {
+					id = mr_pact_event.21
+					days = 2
+				}
+			}
+		}
+	}
+
+	#Sign it or not (The option to not sign it will be temp removed)
+
+	option = { #Sign it
+		name = mr_pact_event.20.a
+	}
+}
+
+country_event = { #Estonians are presented the final treaty articles. Soviet–Estonian Mutual Assistance Treaty
+	#On September 28, a pact of mutual assistance was signed between the USSR and Estonia in Moscow. 
+	#The chairman of the Council of People's Commissars of the USSR Vyacheslav Molotov and Stalin took part in the negotiations for the conclusion of the pact, on the one hand, and the Minister of Foreign Affairs of the Republic of Estonia , Karl Selter , the chairman of the State Council , Jüri Uluots , Ants Piip , and the Estonian ambassador in Moscow, August Rei , on the other. 
+	#Molotov and Selter signed in the last minutes of the day. A trade agreement and a confidential protocol to the pact specifying the size and location of garrisons were also signed. 
+
+	#Contents of the pact: 
+	#Military bases were created in Estonia for 25,000 soldiers of the Soviet Union (the initial wish was 35,000).
+	#The implementation of the pact was not to in any way infringe on the sovereign rights of the contracting parties, especially their economic system and national order.
+	#The Republic of Estonia allowed the Soviet Union to bring its military fleet to Saaremaa , Hiiumaa and the city of Paldiski . It was also allowed to support the fleet with other types of troops. The exact locations of other bases and airfields were mutually agreed upon outside of the bases agreement.
+	id = mr_pact_event.21
+	title = mr_pact_event.21.t
+	desc = mr_pact_event.21.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			EST = {
+				give_military_access = SOV
+				set_country_flag = EST_SOV_mutual_assistance_treaty
+			}
+			SOV = {
+				diplomatic_relation = {
+					country = EST
+					relation = docking_rights
+					active = yes
+				}
+				clr_country_flag = SOV_prepare_invade_EST #Stop preparing to invade EST
+				country_event = {
+					id = mr_pact_event.22
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.21.a
+		effect_tooltip = {
+			give_military_access = SOV
+			SOV = {
+				diplomatic_relation = {
+					country = EST
+					relation = docking_rights
+					active = yes
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Estonians signed the Soviet–Estonian Mutual Assistance Treaty - SOV
+	id = mr_pact_event.22
+	title = mr_pact_event.22.t
+	desc = mr_pact_event.22.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mr_pact_event.22.a
+		effect_tooltip = {
+			EST = {
+				give_military_access = SOV
+			}
+			diplomatic_relation = {
+				country = EST
+				relation = docking_rights
+				active = yes
+			}
+		}
+	}
+}
+
+#################### Soviet–Latvian Mutual Assistance Treaty
+
+country_event = { #Soviets request to sign a mutual assistance treaty - LAT - 30 sept 1939
+	id = mr_pact_event.23
+	title = mr_pact_event.23.t
+	desc = mr_pact_event.23.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			SOV = {
+				country_event = {
+					id = mr_pact_event.24
+					days = 2
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.23.a
+	}
+}
+country_event = { #Latvian delegation arrives at Moscow. Soviets give them an ultimatum - SOV - 2 oct 1939
+	#On october 2, V. Munters, together with the director of the Department of Contracts of the Ministry of Foreign Affairs A. Kampi, the USSR envoy to Latvia I. Zotova 
+	#and the Soviet trade representative V. Terentjeva, fly to Moscow, where negotiations with V. Molotov begin, in the presence of J. Stalin who announces:
+	#What was established in 1920 cannot remain forever. Already Peter the Great provided Russia with an outlet to the sea. We are now on the way out and in a position we cannot stay in for long.
+	#Munter was asked to sign a pact that would allow 50,000 Red Army soldiers into Latvia, the answer was to be given after 48 hours.
+	id = mr_pact_event.24
+	title = mr_pact_event.24.t
+	desc = mr_pact_event.24.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			LAT = {
+				country_event = {
+					id = mr_pact_event.25
+					days = 1
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.24.a
+	}
+}
+
+country_event = { #Latvian government is informed about the Soviet demands - LAT - 3 oct 1939
+	#On oct 2 Munter was asked to sign a pact that would allow 50,000 Red Army soldiers into Latvia, the answer was to be given after 48 hours.
+	#The next day (today), at an emergency meeting of the Cabinet of Ministers in Riga, Munter was granted the authority to sign the contract.
+	id = mr_pact_event.25
+	title = mr_pact_event.25.t
+	desc = mr_pact_event.25.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			SOV = {
+				country_event = {
+					id = mr_pact_event.26
+					hours = 2
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.25.a
+	}
+}
+
+country_event = { #Soviet-Latvian Mutual Assistance Treaty is signed - SOV - 5 oct 1939
+	#On October 5, V. Munters signed the Mutual Assistance Pact between the Republic of Latvia and the USSR and the Confidential Protocol on Soviet military bases in the territory of Latvia.
+	#NOTE: Include some of the Contents of the treaty in the loc https://lv-m-wikipedia-org.translate.goog/wiki/Savstarp%C4%93j%C4%81s_pal%C4%ABdz%C4%ABbas_pakts_starp_Latviju_un_PSRS?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=es&_x_tr_pto=wapp#Saturs
+	id = mr_pact_event.26 #Soviet version
+	title = mr_pact_event.26.t
+	desc = mr_pact_event.26.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			LAT = {
+				country_event = {
+					id = mr_pact_event.27
+				}
+				give_military_access = SOV
+				set_country_flag = LAT_SOV_mutual_assistance_treaty
+			}
+			SOV = {
+				diplomatic_relation = {
+					country = LAT
+					relation = docking_rights
+					active = yes
+				}
+				clr_country_flag = SOV_prepare_invade_LAT #Stop preparing to invade LAT
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.26.a
+		effect_tooltip = {
+			LAT = {
+				give_military_access = SOV
+				diplomatic_relation = {
+					country = SOV
+					relation = docking_rights
+					active = yes
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Soviet-Latvian Mutual Assistance Treaty is signed - LAT - 5 oct 1939
+	#On October 5, V. Munters signed the Mutual Assistance Pact between the Republic of Latvia and the USSR and the Confidential Protocol on Soviet military bases in the territory of Latvia.
+	#NOTE: Include some of the Contents of the treaty in the loc https://lv-m-wikipedia-org.translate.goog/wiki/Savstarp%C4%93j%C4%81s_pal%C4%ABdz%C4%ABbas_pakts_starp_Latviju_un_PSRS?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=es&_x_tr_pto=wapp#Saturs
+	id = mr_pact_event.27 #Latvian Version
+	title = mr_pact_event.27.t
+	desc = mr_pact_event.27.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mr_pact_event.27.a
+		effect_tooltip = {
+			give_military_access = SOV
+			SOV = {
+				diplomatic_relation = {
+					country = LAT
+					relation = docking_rights
+					active = yes
+				}
+			}
+		}
+	}
+}
+
+################### Soviet–Lithuanian Mutual Assistance Treaty
+
+country_event = { #Soviets wish to open negotiations regarding Vilnius - LIT - 29 Sept 1939
+	#Germany canceled planned talks with Lithuania and the Soviet Union informed Lithuania that it wished to open negotiations regarding future relationship between the two countries.
+	#The new Soviet–Lithuanian negotiations were supposed to formally resolve the status of the Vilnius Region.
+	id = mr_pact_event.28
+	title = mr_pact_event.28.t
+	desc = mr_pact_event.28.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			SOV = {
+				country_event = {
+					id = mr_pact_event.29
+					days = 4
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.28.a
+	}
+}
+
+country_event = { #Lith Minister of Foreign affairs arrives at moscow - SOV - 3 oct 1939
+	#He is presented with the ultimatum
+	#Lithuanian Minister of Foreign Affairs Juozas Urbšys arrived in Moscow on October 3. 
+	#During the meeting Joseph Stalin personally informed Urbšys about the Soviet–German secret protocols and showed maps of the spheres of influence.
+	#He demanded that Lithuania signed three separate treaties, according to which:
+		#military bases would be established and up to 50,000 Soviet soldiers would be stationed in Lithuania (the original mutual assistance pact);
+		#ithuanian territory west of the Šešupė River would be ceded to the Nazi Germany (as agreed between Germany and Soviet Union in the Boundary and Friendship Treaty);
+		#one portion of the Vilnius Region would be attached to Lithuania.
+	#The most shocking demand was to cede part of Lithuanian territory to Germany. Lithuanians decided to postpone any negotiations regarding territory transfer to Germany until Germans expressed clear demands.
+	id = mr_pact_event.29
+	title = mr_pact_event.29.t
+	desc = mr_pact_event.29.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			LIT = {
+				country_event = {
+					id = mr_pact_event.30
+					days = 2
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.29.a
+	}
+}
+
+country_event = { #Lit m. of foreign affairs returns to Lithuania, informs gov about pact conditions - LIT - 5 oct 1939
+	#Urbšys returned to Lithuania to consult the government.
+	#German officials confirmed that the secret protocols were real, and informed Lithuanians that transfer of the territory in Suvalkija was not an urgent matter.
+	#Lithuanians in principle agreed to sign the mutual assistance treaty, but were instructed to resist Soviet bases as much as possible.
+	#Alternatives included doubling the Lithuanian army, exchanging military missions, and building fortifications on the western border with Germany
+	id = mr_pact_event.30
+	title = mr_pact_event.30.t
+	desc = mr_pact_event.30.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			SOV = {
+				country_event = {
+					id = mr_pact_event.31
+					days = 2
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.30.a
+	}
+}
+
+country_event = { #Lithuanian delegation arrives at moscow, propose alternatives, then refuse to sign - SOV - 7 oct 1939
+	#On October 7, Lithuanian delegation, including General Stasys Raštikis and Deputy Prime Minister Kazys Bizauskas, returned to Moscow.
+	#Stalin refused the proposed alternatives, but agreed to reduce the number of Soviet troops to 20,000 – about the size of the entire Lithuanian army.
+	#Soviets wanted to sign the treaty right then to commemorate the 19th anniversary of Żeligowski's Mutiny and Lithuania's loss of Vilnius.
+	#Political rallies, organized in Vilnius demanding city's incorporation into the Byelorussian Soviet Socialist Republic, put additional pressure on Lithuanians and provided a sense of urgency.
+	#Urbšys refused to sign and the talks receded for the second time. 
+	id = mr_pact_event.31
+	title = mr_pact_event.31.t
+	desc = mr_pact_event.31.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			LIT = {
+				country_event = {
+					id = mr_pact_event.32
+					days = 1
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.31.a
+	}
+}
+
+country_event = { #Lithuanian delegation returns to LIT. Proposed alternatives failed, and foreign minister refused to sign. Gov argues wether to sign or not - LIT - 8 oct
+	#In Lithuania, President Antanas Smetona doubted that it was worth gaining Vilnius for such a price and debated whether the negotiations could be broken off.
+	#Bizauskas argued that refusing the treaty would not prevent the Soviet Union from implementing its plan. 
+	#The Soviet Union had already threatened Estonia with force in the case it refused their mutual assistance treaty and was gathering forces in Vilnius Region in the east and in Latvia in the north.
+	#In such light, the government decided to demand as much territory as possible
+	#Delegation will return to moscow on the 10th of oct
+	id = mr_pact_event.32
+	title = mr_pact_event.32.t
+	desc = mr_pact_event.32.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			SOV = {
+				country_event = {
+					id = mr_pact_event.33
+					days = 2
+				}
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.32.a
+	}
+}
+
+country_event = { #Lit delegation returns, Soviets give ultimatum to sign the treaty. Delegation Signs it - SOV - 10 Oct 1939
+	#when the lithuanian delegation returned to Moscow on the 10th, it found the atmosphere changed
+	#The Soviets were inflexible, refused further negotiations, and intimidated the delegation to sign the treaty.
+	#They presented a new draft, which combined the mutual assistance pact and transfer of Vilnius into one agreement
+	#The Lithuanian delegation had little choice but to sign the proposed treaty. 
+	#After signing the treaty, Stalin invited the Lithuanian delegation to celebrate and watch two movies with him.
+	#Urbšys informed the Lithuanian government about signing of the treaty only in the morning of October 11
+	id = mr_pact_event.33
+	title = mr_pact_event.33.t
+	desc = mr_pact_event.33.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			LIT = {
+				country_event = {
+					id = mr_pact_event.34
+					days = 1
+				}
+				give_military_access = SOV
+				set_country_flag = LIT_SOV_mutual_assistance_treaty
+			}
+		}
+	}
+
+	option = {
+		name = mr_pact_event.33.a
+		effect_tooltip = {
+			LIT = {
+				give_military_access = SOV
+			}
+			96 = { transfer_state_to = LIT }
+		}
+	}
+}
+country_event = { #Urbšys informs the Lithuanian government about signing of the treaty - LIT - 11 Oct 1939
+	id = mr_pact_event.34
+	title = mr_pact_event.34.t
+	desc = mr_pact_event.34.d
+	picture = x
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mr_pact_event.34.a
+		96 = {
+			transfer_state_to = LIT
+			add_core_of = LIT
+			set_state_name = "Vilnius"
+		}
+		set_province_name = {
+			id = 3320
+			name = "Vilnius"
+		}
+		set_capital = {
+			state = 96
+		}
+		effect_tooltip = {
+			give_military_access = SOV
+		}
+	}
+}
+
+country_event = { #TODO: German–Soviet military parade in Brest-Litovsk. 5 days after being taken by Germany (before the Border treaty)
+	id = mr_pact_event.6
+	title = mr_pact_event.6.t
+	desc = mr_pact_event.6.d
+	picture = GFX_Events_Soviet_German_Lublin
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = mr_pact_event.6.a
+	}
+}
+
+
+
+country_event = { #Germany declares on Poland, honor the pact? - SOV
+	id = mr_pact_event.7
+	title = mr_pact_event.7.t
+	desc = mr_pact_event.7.d
+	picture = GFX_Event_USSR_German_Soviet_Talks
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #we will, eventually...
+		name = mr_pact_event.7.a
+		hidden_effect = {
+			set_country_flag = SOV_invade_poland_soon
+			if = {
+				limit = {
+					NOT = {
+						has_war_with = POL
+						has_global_flag = SOV_invade_poland_MR_pact
+					}
+				}
+				country_event = {
+					id = mr_pact_event.8
+					days = 6
+					random_days = 3
+				}
+			}
+		}
+		activate_mission = SOV_invade_poland_MR_pact
+	}
+}
+
+#Germans pressure us - SOV
+country_event = {
+	id = mr_pact_event.8
+	title = mr_pact_event.8.t
+	desc = mr_pact_event.8.d
+	picture = GFX_Events_Germany_Beck_And_Fritsch
+	timeout_days = 7
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = {
+			has_war_with = POL
+			has_global_flag = SOV_invade_poland_MR_pact
+		}
+	}
+
+	#The red army is not ready yet. Plus we are busy fighting the Japanese in an undeclared war. hope you understand :)
+	# - Viacheslav Molotov, probably.
+	option = {
+		name = mr_pact_event.8.a
+		add_days_mission_timeout = {
+			mission = SOV_invade_poland_MR_pact
+			days = -10
+		}
+	}
+}
+
+#Mission to attack Poland runs out without being selected
+#If this fires for the AI that means that Germany is struggling with Poland
+country_event = {
+	id = mr_pact_event.9
+	title = mr_pact_event.9.t
+	desc = mr_pact_event.9.d
+	picture = GFX_event_Stalin_Shaposhnikov
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	#Send a letter to the soviet foreign minister: attack now or else we wont count on you
+	option = {
+		name = mr_pact_event.9.a
+		SOV = {
+			country_event = {
+				id = mr_pact_event.10
+				hours = 8
+			}
+		}
+	}
+}
+
+#Germans say its now or never. For Sov
+country_event = {
+	id = mr_pact_event.10
+	title = mr_pact_event.10.t
+	desc = mr_pact_event.10.d
+	picture = x
+
+	timeout_days = 8
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	#ok
+	option = {
+		name = mr_pact_event.10.a
+		ai_chance = {
+			base = 99
+		}
+		declare_war_on = {
+			target = POL
+			type = annex_everything
+		}
+		hidden_effect = {
+			clr_country_flag = SOV_invade_poland_soon
+			set_global_flag = SOV_invading_Poland_MR
+			FROM = {
+				country_event = {
+					id = mr_pact_event.11
+					hours = 4
+				}
+			}
+		}
+	}
+
+	#Give more excuses
+	option = {
+		name = mr_pact_event.10.b
+		ai_chance = {
+			base = 1
+			modifier = {
+				GER = {
+					controls_province = 3544
+				}
+
+				factor = 0
+			}
+
+			modifier = {
+				GER = {
+					any_core_state = {
+						NOT = { is_controlled_by = GER }
+					}
+				}
+				GER = { has_war_with = FRA }
+
+				add = 10
+
+			}
+
+			modifier = {
+				POL = {
+					has_war_with = GER
+					surrender_progress < 0.2
+				}
+				add = 10
+			}
+		}
+		hidden_effect = {
+			FROM = {
+				country_event = {
+					id = mr_pact_event.12
+					hours = 4
+				}
+			}
+		}
+	}
+}
+
+#Soviets finally honor the pact. Info event for GER
+country_event = {
+	id = mr_pact_event.11
+	title = mr_pact_event.11.t
+	desc = mr_pact_event.11.d
+	picture = GFX_report_event_soviet_german_soldier_handshake
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	#Good
+	option = {
+		name = mr_pact_event.11.a
+	}
+}
+
+#Soviets give more excuses, more land for us!. Event for Germany
+country_event = {
+	id = mr_pact_event.12
+	title = mr_pact_event.12.t
+	desc = mr_pact_event.12.d
+	picture = GFX_report_event_stalin_01
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mr_pact_event.12.a
+		hidden_effect = {
+			set_global_flag = SOV_get_no_land_in_POL
+		}
+	}
+}
+
+#Poland capitulated before the soviets activated the mission.
+#This means that the soviets didn't invade eastern Poland, which is now under german control
+country_event = {
+	id = mr_pact_event.13
+	title = mr_pact_event.13.t
+	desc = mr_pact_event.13.d
+	picture = GFX_event_Generic_occupation
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	#To hell with them!
+	option = {
+		name = mr_pact_event.13.a
+		ai_chance = {
+			base = 24
+		}
+		effect_tooltip = {
+			GER = {
+				diplomatic_relation = {
+					country = SOV
+					relation = non_aggression_pact
+					active = no
+				}
+				add_opinion_modifier = { target = SOV modifier = SOV_betrayed_MR }
+			}
+		}
+		SOV = {
+			country_event = {
+				id = mr_pact_event.17
+				hours = 4
+			}
+		}
+		hidden_effect = { set_global_flag = GER_can_form_ggv }
+	}
+
+	#The high command is right
+	option = {
+		name = mr_pact_event.13.b
+		#We will try to negiotiate with the soviets to mantain the MR pact. They will get less lands in eastern poland tho
+		custom_effect_tooltip = GER_soviets_dont_invade_negotiate_tt
+		ai_chance = {
+			base = 76
+		}
+		hidden_effect = {
+			SOV = {
+				country_event = {
+					id = mr_pact_event.14
+					days = 2
+				}
+			}
+		}
+	}
+}
+
+#Negotiation with the Soviets
+country_event = {
+	id = mr_pact_event.14
+	title = mr_pact_event.14.t
+	desc = mr_pact_event.14.d #rework
+	picture = GFX_event_generic_diplomacy
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	#Accept the offer
+	option = {
+		name = mr_pact_event.14.a
+		GER = {
+			country_event = {
+				id = mr_pact_event.15
+				days = 2
+			}
+		}
+	}
+
+	#No, fuck you
+	option = {
+		name = mr_pact_event.14.b
+		GER = {
+			country_event = {
+				id = mr_pact_event.16
+				days = 2
+			}
+		}
+	}
+}
+
+#The Soviets Accept
+country_event = {
+	id = mr_pact_event.15
+	title = mr_pact_event.15.t
+	desc = mr_pact_event.15.d
+	picture = GFX_report_event_molotov_ribentrop_handshake
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = mr_pact_event.15.a
+
+		hidden_effect = {
+			set_global_flag = GER_can_form_ggv
+			# clr_global_flag = MR_pact_flag
+			85 = { clr_state_flag = GER_MR }
+			86 = { clr_state_flag = GER_MR }
+			773 = { clr_state_flag = GER_MR }
+			87 = { clr_state_flag = GER_MR }
+			98 = { clr_state_flag = GER_MR }
+			835 = { clr_state_flag = GER_MR }
+			1065 = { clr_state_flag = GER_MR }
+			1060 = { clr_state_flag = GER_MR }
+			1070 = { clr_state_flag = GER_MR }
+			97 = { clr_state_flag = SOV_MR }
+			1191 = { clr_state_flag = SOV_MR }
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = BLR
+						is_core_of = UKR
+						is_core_of = EST
+						is_core_of = LAT
+						is_core_of = LIT
+						#is_core_of = FIN
+						is_core_of = MLD
+					}
+					NOT = {
+						is_owned_by = SOV
+					}
+				}
+				clr_state_flag = SOV_MR
+			}
+			set_global_flag = partition_of_poland_alt
+		}
+		SOV = {
+			transfer_state = 749
+			transfer_state = 95
+			transfer_state = 96
+			transfer_state = 926
+			transfer_state = 1068
+			transfer_state = 93
+			transfer_state = 91
+			transfer_state = 89
+		}
+	}
+}
+
+#Stalin says no
+country_event = {
+	id = mr_pact_event.16
+	title = mr_pact_event.16.t
+	desc = mr_pact_event.16.d
+	picture = GFX_report_event_stalin_01
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	#The negotiations where short
+	option = {
+		name = mr_pact_event.16.a
+		SOV = {
+			country_event = {
+				id = mr_pact_event.17
+				days = 3
+			}
+		}
+		hidden_effect = { set_global_flag = GER_can_form_ggv }
+	}
+}
+
+#Germans nullify the pact with us
+country_event = {
+	id = mr_pact_event.17
+	title = mr_pact_event.17.t
+	desc = mr_pact_event.17.d
+	picture = GFX_Events_Germany_Bormann_Hitler
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	timeout_days = 8
+
+	#Well, it didn't last long
+	option = {
+		name = mr_pact_event.17.a
+		GER = {
+			diplomatic_relation = {
+				country = SOV
+				relation = non_aggression_pact
+				active = no
+			}
+			add_opinion_modifier = { target = SOV modifier = SOV_betrayed_MR }
+		}
+
+		hidden_effect = {
+			clr_global_flag = MR_pact_flag
+			set_global_flag = all_of_poland_to_germans
+
+			85 = { clr_state_flag = GER_MR }
+			86 = { clr_state_flag = GER_MR }
+			773 = { clr_state_flag = GER_MR }
+			87 = { clr_state_flag = GER_MR }
+			98 = { clr_state_flag = GER_MR }
+			835 = { clr_state_flag = GER_MR }
+			1065 = { clr_state_flag = GER_MR }
+			1060 = { clr_state_flag = GER_MR }
+			1070 = { clr_state_flag = GER_MR }
+			97 = { clr_state_flag = SOV_MR }
+			1191 = { clr_state_flag = SOV_MR }
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = BLR
+						is_core_of = UKR
+						is_core_of = EST
+						is_core_of = LAT
+						is_core_of = LIT
+						#is_core_of = FIN
+						is_core_of = MLD
+					}
+					NOT = {
+						is_owned_by = SOV
+					}
+				}
+				clr_state_flag = SOV_MR
+			}
+		}
+	}
+}

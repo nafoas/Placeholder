@@ -1,0 +1,33 @@
+#WGR Parliament dynamic modifiers
+#By s_team
+##If it says "For this purpose", then the political power should reflect the upper bound of the ratio
+##If the ratio is 1:2, then at most it should be 0.1 pp to 0.05 stab, for example. You can have 0.01 stab, but not 0.07
+##See GER_WGR_scripted_effects for implementation of this checking
+
+WGR_Parliament_Welfare_Spending = { #represents welfare spending affected by parliament
+	icon = GFX_idea_Welfare_State
+	political_power_gain = WGR_welfare_spending #should always be negative, this is how much you're spending
+	stability_factor = WGR_welfare_stability # Positive means more stability, more welfare = happy people, 1:1 with political power
+	MONTHLY_POPULATION = WGR_welfare_population #Positive is more population, represents more healthcare spending 1:3 with political power for this purpose
+	research_speed_factor = WGR_welfare_research # negative is increased research speed, represents education funding 1:4 political power for this purpose
+}
+WGR_Parliament_Economic_Intervention = { #represents how the government takes in money and intervenes (or does not intervene) in the economy. will be capped at +/- 0.50 pp/day, except intake, which should be capped at + 1
+	icon = GFX_idea_Economic_Intervention
+	political_power_gain = WGR_economic_intake #Positive means more money, positive thus means you're taking in more, should always be positive
+	political_power_gain = WGR_economic_spending #negative means you're spending more, should always be negative
+	stability_factor = WGR_economic_stability #Positive means more stability, more government corrections = more stab, should be 1:5 with political power (+0.10 pp/ +2 stab). More taxes should decrease stability, though, -2*spending - intake
+	consumer_goods_factor = WGR_economic_consumer #Positive is more consumer goods, negative is less, should be 1:5 with pp for this purpose, combined effect of 2*spending + intake
+	trade_opinion_factor = WGR_economic_tariffs #positive represents more free trade, negative represents tariffs. Should be -1*1:5 with intake for this purpose
+	production_speed_buildings_factor = WGR_economic_building #Positive represents more stimulus, should be 1:4 with pp for this purpose, based on spending
+	industrial_capacity_factory = WGR_economic_industry #positive represents more subsidies/spending in industry, should be 1:4 with pp for this purpose, based on spending
+	industrial_capacity_dockyard = WGR_economic_industry #positive represents more subsidies/spending in industry, should be 1:4 with pp for this purpose, based on spending
+}
+
+WGR_Parliament_Defense_Spending = { #represents defense spending affected by parliament. capped at +/-0.30 pp
+	icon = GFX_idea_Defense_Spending
+	political_power_gain = WGR_defense_spending #should always be negative, how much you're spending
+	industrial_capacity_factory = WGR_defense_industry #Both should be 1:5 spending
+	industrial_capacity_dockyard = WGR_defense_industry #more simplistic, this is allowed for defense spending
+	production_speed_arms_factory_factor = WGR_defense_industry
+	stability_factor = WGR_defense_stability #1:2 with political power
+}

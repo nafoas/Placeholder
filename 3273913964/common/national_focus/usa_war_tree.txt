@@ -1,0 +1,4886 @@
+focus_tree = {
+	id = USA_focus_war_tree
+
+	country = {
+		factor = 0
+
+		modifier = {
+			add = 0
+			tag = USA
+		}
+
+	}
+	default = no
+	continuous_focus_position = { x = 80 y = 3000 }
+	shared_focus = USA_main_military_start
+
+	focus = {
+		id = USA_we_are_war
+		icon = GFX_focus_America_Fuck_Yeah
+		cost = 1
+		available = {
+			always = no
+		}
+		bypass = {
+			has_war = yes
+		}
+		x = 25
+		y = 0
+	}
+
+	focus = {
+		id = USA_strategic_planning_focus
+		icon = GFX_focus_Long_Planning
+		cost = 1
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_we_are_war
+		}
+		completion_reward = {
+			add_command_power = 100
+		}
+		x = 25
+		y = 1
+	}
+
+	focus = {
+		id = USA_create_jcs
+		icon = GFX_focus_USA_JCS
+		cost = 5
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_strategic_planning_focus
+		}
+		completion_reward = {
+			add_ideas = USA_jcs_1
+		}
+		x = 27
+		y = 2
+	}
+
+	focus = {
+		id = USA_appoint_cjcs
+		icon = GFX_focus_USA_Soldiers
+		cost = 4
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_create_jcs
+		}
+		completion_reward = {
+			effect_tooltip = {
+				swap_ideas = { remove_idea = USA_jcs_1 add_idea = USA_jcs_3 }
+			}
+			hidden_effect = {
+				if = {
+					limit = { has_idea = USA_jcs_1 }
+					swap_ideas = { remove_idea = USA_jcs_1 add_idea = USA_jcs_3 }
+				}
+				if = {
+					limit = { has_idea = USA_jcs_3 }
+					swap_ideas = { remove_idea = USA_jcs_2 add_idea = USA_jcs_4 }
+				}
+			}
+		}
+		x = 28
+		y = 3
+	}
+
+	focus = {
+		id = USA_jssc
+		icon = GFX_focus_Military_Attache
+		cost = 7
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_create_jcs
+		}
+		completion_reward = {
+			effect_tooltip = {
+				swap_ideas = { remove_idea = USA_jcs_1 add_idea = USA_jcs_2 }
+			}
+			hidden_effect = {
+				if = {
+					limit = { has_idea = USA_jcs_1 }
+					swap_ideas = { remove_idea = USA_jcs_1 add_idea = USA_jcs_2 }
+				}
+				if = {
+					limit = { has_idea = USA_jcs_3 }
+					swap_ideas = { remove_idea = USA_jcs_3 add_idea = USA_jcs_4 }
+				}
+			}
+		}
+		x = 26
+		y = 3
+	}
+
+	focus = {
+		id = USA_sideline_civilian_secretaries
+		icon = GFX_focus_Cut_state_workers_expenses
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_jssc
+		}
+		prerequisite = {
+			focus = USA_appoint_cjcs
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_jcs_4 add_idea = USA_jcs_5 }
+		}
+		x = 27
+		y = 4
+	}
+
+	focus = {
+		id = USA_create_oss
+		icon = GFX_focus_USA_OSS
+		cost = 8
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_strategic_planning_focus
+		}
+		completion_reward = {
+			set_country_flag = created_intelligence_service
+			add_ideas = william_joseph_donovan
+		}
+		x = 23
+		y = 2
+	}
+
+	focus = {
+		id = USA_navajo_code_talkers
+		icon = GFX_goal_generic_radar
+		cost = 8
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_create_oss
+		}
+		completion_reward = {
+			add_ideas = USA_navajo_talkers
+		}
+		x = 22
+		y = 3
+	}
+
+	focus = {
+		id = USA_foreign_infiltration
+		icon = GFX_focus_Espionage
+		cost = 9
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_create_oss
+		}
+		completion_reward = {
+			add_ideas = USA_infliltration
+		}
+		x = 24
+		y = 3
+	}
+
+	focus = {
+		id = USA_train_resistance_movements
+		icon = GFX_focus_Arm_Resistance
+		cost = 7
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_foreign_infiltration
+		}
+		prerequisite = {
+			focus = USA_navajo_code_talkers
+		}
+		completion_reward = {
+			add_ideas = usa_support_resistance_idea
+		}
+		x = 23
+		y = 4
+	}
+
+	focus = {
+		id = USA_op_dixie
+		icon = GFX_focus_Cooperatives
+		cost = 3
+		available = {
+			has_war = yes
+			PRC = {
+				has_war_with = JAP
+				NOT = { has_war_with = USA }
+			}
+			has_war_with = JAP
+		}
+		prerequisite = {
+			focus = USA_train_resistance_movements
+		}
+		completion_reward = {
+			PRC = { country_event = { id = usfor.95 days = 3 } }
+		}
+		x = 22
+		y = 5
+	}
+
+	focus = {
+		id = USA_coordinate_anti_german
+		icon = GFX_focus_popular_force
+		cost = 4
+		available = {
+			has_war = yes
+			has_war_with = GER
+		}
+		prerequisite = {
+			focus = USA_train_resistance_movements
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_controlled_by = GER
+					NOT = { is_core_of = GER }
+				}
+				add_resistance_target = {
+					amount = 20
+					tooltip = spirit_america_tt
+				}
+				add_resistance = 10
+			}
+		}
+		x = 24
+		y = 5
+	}
+
+	focus = {
+		id = USA_agreement_with_sicilian_mob
+		icon = GFX_focus_Shady_Deals
+		cost = 2
+		available = {
+			has_war = yes
+			any_country = {
+				controls_state = 115
+				has_war_with = USA
+			}
+		}
+		prerequisite = {
+			focus = USA_train_resistance_movements
+		}
+		completion_reward = {
+			add_stability = -0.05
+			add_political_power = -50
+			115 = {
+				add_province_modifier = {
+					static_modifiers = { usa_mob_agreement_modifier }
+					province = {
+						all_provinces = yes
+					}
+				}
+			}
+		}
+		x = 23
+		y = 6
+	}
+
+	focus = {
+		id = USA_the_homefront
+		icon = GFX_focus_usa_map
+		cost = 1
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_we_are_war
+		}
+		completion_reward = {
+			add_stability = 0.05
+		}
+		x = 8
+		y = 1
+	}
+
+	focus = {
+		id = USA_financing_war
+		icon = GFX_focus_raise_military_budget
+		cost = 7
+		available = {
+			has_war = yes
+			has_country_flag = USA_passed_wp_act
+		}
+		prerequisite = {
+			focus = USA_the_homefront
+		}
+		completion_reward = {
+			add_ideas = USA_finance_war
+		}
+		x = 10
+		y = 2
+	}
+
+	focus = {
+		id = USA_raise_taxes
+		icon = GFX_focus_Grab_Money
+		cost = 8
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_financing_war
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_finance_war add_idea = USA_finance_war1 }
+		}
+		x = 9
+		y = 3
+	}
+
+	focus = {
+		id = USA_expand_tax_base
+		icon = GFX_focus_Fundraising
+		cost = 9
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_raise_taxes
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_finance_war1 add_idea = USA_finance_war2 }
+		}
+		x = 9
+		y = 4
+	}
+
+	focus = {
+		id = USA_end_unemployment
+		icon = GFX_Unemployeds_Help
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_financing_war
+		}
+		prerequisite = {
+			focus = USA_war_prod_board
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		x = 6
+		y = 3
+	}
+
+	focus = {
+		id = USA_secure_union_support
+		icon = GFX_focus_capitalist_worker_alliance
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_end_unemployment
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.1
+		}
+		x = 5
+		y = 4
+	}
+
+	focus = {
+		id = USA_increase_agrarian_production
+		icon = GFX_focus_Agriculture
+		cost = 8
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_end_unemployment
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+		}
+		x = 7
+		y = 4
+	}
+
+	focus = {
+		id = USA_rationing
+		icon = GFX_focus_civilian_rations
+		cost = 8
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_increase_agrarian_production
+		}
+		completion_reward = {
+			add_ideas = USA_rations
+		}
+		x = 6
+		y = 5
+	}
+
+	focus = {
+		id = USA_driving_limits
+		icon = GFX_focus_American_Automobiles
+		cost = 7
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_rationing
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_rations add_idea = USA_rations2 }
+		}
+		x = 6
+		y = 6
+	}
+
+	focus = {
+		id = USA_bracero_program
+		icon = GFX_focus_Befriend_Mexico
+		cost = 4
+		available = {
+			has_war = yes
+			MEX = {
+			has_opinion = {
+				target = USA
+				value > 49
+			}
+			}
+		}
+		prerequisite = {
+			focus = USA_increase_agrarian_production
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+						is_in_home_area = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+						is_in_home_area = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+						is_in_home_area = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+						is_in_home_area = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			add_stability = 0.05
+		}
+		x = 8
+		y = 5
+	}
+
+	focus = {
+		id = USA_war_bonds
+		icon = GFX_focus_bills_and_acts
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_financing_war
+		}
+		completion_reward = {
+			add_ideas = USA_war_bonds_idea
+		}
+		x = 11
+		y = 3
+	}
+
+	focus = {
+		id = USA_promote_war_bonds
+		icon = GFX_goal_generic_propaganda
+		cost = 7
+		available = {
+			has_war = yes
+			has_war_support > 0.6
+		}
+		prerequisite = {
+			focus = USA_war_bonds
+		}
+		prerequisite = {
+			focus = USA_every_american_counts
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_war_bonds_idea add_idea = USA_war_bonds_idea2 }
+		}
+		x = 12
+		y = 4
+	}
+
+	focus = {
+		id = USA_ten_percent_club
+		icon = GFX_focus_Business_Bills
+		cost = 8
+		available = {
+			has_war = yes
+			has_war_support > 0.8
+		}
+		prerequisite = {
+			focus = USA_promote_war_bonds
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_war_bonds_idea2 add_idea = USA_war_bonds_idea3 }
+		}
+		x = 12
+		y = 5
+	}
+
+	focus = {
+		id = USA_war_prod_board
+		icon = GFX_focus_War_Production_Board
+		cost = 6
+		available = {
+			has_war = yes
+			has_country_flag = USA_passed_wp_act
+		}
+		prerequisite = {
+			focus = USA_the_homefront
+		}
+		completion_reward = {
+			add_ideas = USA_wpb
+		}
+		x = 3
+		y = 2
+	}
+
+	focus = {
+		id = USA_increase_military_production
+		icon = GFX_focus_Firearms
+		cost = 7
+		available = {
+			has_war = yes
+			has_completed_focus = USA_raise_taxes
+		}
+		prerequisite = {
+			focus = USA_war_prod_board
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_wpb add_idea = USA_wpb2 }
+		}
+		x = 4
+		y = 3
+	}
+
+	focus = {
+		id = USA_streamline_production_chain
+		icon = GFX_focus_Mechanization
+		cost = 9
+		available = {
+			has_war = yes
+			has_completed_focus = USA_expand_tax_base
+		}
+		prerequisite = {
+			focus = USA_increase_military_production
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_wpb2 add_idea = USA_wpb3 }
+		}
+		x = 4
+		y = 5
+	}
+
+	focus = {
+		id = USA_board_economic_warfare
+		icon = GFX_focus_escape_from_the_market_economy
+		cost = 5
+		available = {
+			has_war = yes
+			has_completed_focus = USA_raise_taxes
+		}
+		prerequisite = {
+			focus = USA_war_prod_board
+		}
+		completion_reward = {
+			add_ideas = USA_bew
+		}
+		x = 2
+		y = 3
+	}
+
+	focus = {
+		id = USA_rubber_survey_committee
+		icon = GFX_focus_Rubber_Expansion
+		cost = 8
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_board_economic_warfare
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_rubber_reserve_company
+				bonus = 1.0
+				uses = 2
+				technology = rubber_processing
+				technology = improved_rubber_processing
+				technology = advanced_rubber_processing
+				technology = modern_rubber_processing
+			}
+		}
+		x = 3
+		y = 4
+	}
+
+	focus = {
+		id = USA_domestic_chromium_prod
+		icon = GFX_focus_Chromium_mining
+		cost = 8
+		available = {
+			has_war = yes
+			controls_state = 385
+			controls_state = 463
+			has_completed_focus = USA_expand_tax_base
+		}
+		prerequisite = {
+			focus = USA_board_economic_warfare
+		}
+		completion_reward = {
+			385 = {
+				add_resource = {
+					type = chromium
+					amount = 15
+				}
+			}
+			463 = {
+				add_resource = {
+					type = chromium
+					amount = 20
+				}
+			}
+		}
+		x = 1
+		y = 4
+	}
+
+	focus = {
+		id = USA_petroleum_reserves
+		icon = GFX_focus_Oil_Industry
+		cost = 8
+		available = {
+			has_war = yes
+			has_completed_focus = USA_expand_tax_base
+		}
+		prerequisite = {
+			focus = USA_board_economic_warfare
+		}
+		completion_reward = {
+			375 = {
+				add_resource = {
+					type = oil
+					amount = 30
+				}
+			}
+		}
+		x = 2
+		y = 5
+	}
+
+	focus = {
+		id = USA_usace_projects
+		icon = GFX_focus_Aviation_industry
+		cost = 7
+		available = {
+			has_war = yes
+			has_completed_focus = USA_raise_taxes
+		}
+		prerequisite = {
+			focus = USA_war_prod_board
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				}
+
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				}
+		}
+		x = 0
+		y = 3
+	}
+
+	focus = {
+		id = USA_airbase_expansion
+		icon = GFX_focus_Airports
+		cost = 5
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_usace_projects
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = air_base
+				level = 1
+				instant_build = yes
+			}
+			}
+			random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = air_base
+				level = 1
+				instant_build = yes
+			}
+			}
+			random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = air_base
+				level = 1
+				instant_build = yes
+			}
+			}
+			random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = air_base
+					size > 0
+				}
+			}
+			add_building_construction = {
+				type = air_base
+				level = 1
+				instant_build = yes
+			}
+			}
+		}
+		x = 0
+		y = 5
+	}
+
+	focus = {
+		id = USA_tank_assembly_plants
+		icon = GFX_focus_army_tanks
+		cost = 8
+		available = {
+			has_war = yes
+			has_completed_focus = USA_expand_tax_base
+		}
+		prerequisite = {
+			focus = USA_airbase_expansion
+		}
+		completion_reward = {
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = detroit_arsenal
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+				}
+			add_ideas = USA_tank_assembly
+		}
+		x = 0
+		y = 6
+	}
+
+	focus = {
+		id = USA_create_owi
+		icon = GFX_focus_Freedom_of_Speech
+		cost = 8
+		available = {
+			has_war = yes
+			has_country_flag = USA_passed_wp_act
+		}
+		prerequisite = {
+			focus = USA_the_homefront
+		}
+		completion_reward = {
+			add_political_power = 50
+		}
+		x = 15
+		y = 2
+	}
+
+	focus = {
+		id = USA_oversee_hollywood
+		icon = GFX_focus_Movie_Industry
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_create_owi
+		}
+		completion_reward = {
+			add_war_support = 0.075
+			add_stability = 0.05
+			add_political_power = -50
+		}
+		x = 15
+		y = 3
+	}
+
+	focus = {
+		id = USA_scientist_haven
+		icon = GFX_focus_research
+		cost = 7
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_create_owi
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+		x = 17
+		y = 3
+	}
+
+	focus = {
+		id = USA_fight_pacifism
+		icon = GFX_focus_hol_war_on_pacifism
+		cost = 6
+		available = {
+			has_war = yes
+			has_idea = USA_pacifism1
+		}
+		prerequisite = {
+			focus = USA_create_owi
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_pacifism1 add_idea = USA_pacifism2 }
+		}
+		x = 19
+		y = 3
+	}
+
+	focus = {
+		id = USA_intensified_propaganda
+		icon = GFX_focus_American_Glory
+		cost = 10
+		available = {
+			has_war = yes
+		}
+		mutually_exclusive = { focus = USA_repress_pacifists }
+		prerequisite = {
+			focus = USA_fight_pacifism
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_pacifism2 add_idea = USA_pacifism3 }
+		}
+		x = 18
+		y = 4
+	}
+
+	focus = {
+		id = USA_your_country_needs_you
+		icon = GFX_focus_USA_Soldiers
+		cost = 13
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_intensified_propaganda
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_pacifism3 add_idea = USA_pacifism4 }
+			add_political_power = -50
+		}
+		x = 18
+		y = 5
+	}
+
+	focus = {
+		id = USA_repress_pacifists
+		icon = GFX_focus_Crush_Resistance
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		mutually_exclusive = { focus = USA_intensified_propaganda }
+		prerequisite = {
+			focus = USA_fight_pacifism
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = USA_pacifism2 add_idea = USA_pacifism3 }
+			add_stability = -0.075
+		}
+		x = 20
+		y = 4
+	}
+
+	focus = {
+		id = USA_war_security_act
+		icon = GFX_focus_Imprison_the_Opposition
+		cost = 3
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_repress_pacifists
+		}
+		completion_reward = {
+			custom_effect_tooltip = have_to_vote_usa
+			custom_effect_tooltip = war_sec_law
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				swap_ideas = { remove_idea = USA_pacifism3 add_idea = USA_pacifism4 }
+				add_stability = -0.05
+				add_political_power = -70
+			}
+		}
+		x = 20
+		y = 5
+	}
+
+	focus = {
+		id = USA_pacifism_destroyed
+		icon = GFX_focus_Recruitment
+		cost = 7
+		available = {
+			has_war = yes
+			has_idea = USA_pacifism4
+		}
+		prerequisite = {
+			focus = USA_war_security_act
+			focus = USA_your_country_needs_you
+		}
+		completion_reward = {
+			remove_ideas = USA_pacifism4
+		}
+		x = 19
+		y = 6
+	}
+
+	focus = {
+		id = USA_every_american_counts
+		icon = GFX_focus_Desegregation
+		cost = 7
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_create_owi
+		}
+		completion_reward = {
+			add_war_support = 0.075
+		}
+		x = 13
+		y = 3
+	}
+
+	focus = {
+		id = USA_air_bombing_drills
+		icon = GFX_focus_Prepare_the_Troops
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_every_american_counts
+		}
+		completion_reward = {
+			add_war_support = 0.05
+			add_political_power = 50
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = anti_air_building
+						size < 9
+						include_locked = no
+					}
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = anti_air_building
+						size < 9
+						include_locked = no
+					}
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = anti_air_building
+						size < 9
+						include_locked = no
+					}
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		x = 16
+		y = 4
+	}
+
+	focus = {
+		id = USA_women_workforce
+		icon = GFX_focus_Womens_Rights
+		cost = 7
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_every_american_counts
+		}
+		completion_reward = {
+			add_ideas = USA_women_war_effort
+		}
+		x = 14
+		y = 4
+	}
+
+	focus = {
+		id = USA_promote_nurses
+		icon = GFX_focus_Military_Hospital
+		cost = 7
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_women_workforce
+		}
+		completion_reward = {
+			if = {
+				limit = { NOT = { has_completed_focus = USA_we_can_do_it } }
+				swap_ideas = { remove_idea = USA_women_war_effort add_idea = USA_women_war_effort1 }
+			}
+			if = {
+				limit = { has_completed_focus = USA_we_can_do_it }
+				swap_ideas = { remove_idea = USA_women_war_effort2 add_idea = USA_women_war_effort12 }
+			}
+		}
+		x = 15
+		y = 5
+	}
+
+	focus = {
+		id = USA_we_can_do_it
+		icon = GFX_focus_We_Can_Do_It
+		cost = 9
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_women_workforce
+		}
+		completion_reward = {
+			if = {
+				limit = { NOT = { has_completed_focus = USA_promote_nurses } }
+				swap_ideas = { remove_idea = USA_women_war_effort add_idea = USA_women_war_effort2 }
+			}
+			if = {
+				limit = { has_completed_focus = USA_promote_nurses }
+				swap_ideas = { remove_idea = USA_women_war_effort1 add_idea = USA_women_war_effort12 }
+			}
+		}
+		x = 14
+		y = 6
+	}
+
+	focus = {
+		id = USA_the_war_abroad
+		icon = GFX_focus_Burning_Globe
+		cost = 1
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_we_are_war
+		}
+		completion_reward = {
+			add_war_support = 0.1
+		}
+		x = 45
+		y = 1
+	}
+
+	focus = {
+		id = USA_the_war_asia
+		icon = GFX_focus_usa_focus_on_asia
+		cost = 1
+		available = {
+			has_war = yes
+			has_war_with = JAP
+		}
+		prerequisite = {
+			focus = USA_the_war_abroad
+		}
+		completion_reward = {
+			add_political_power = 10
+		}
+		x = 34
+		y = 2
+	}
+
+	focus = {
+		id = USA_unrestricted_sub
+		icon = GFX_goal_generic_navy_submarine
+		cost = 8
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_the_war_asia
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_fleet_submarines
+				bonus = 1.0
+				uses = 1
+				category = ss_tech
+			}
+		}
+		x = 31
+		y = 3
+	}
+
+	focus = {
+		id = USA_improve_navy
+		icon = GFX_focus_admiralty
+		cost = 8
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_unrestricted_sub
+		}
+		completion_reward = {
+			 add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = naval_doctrine
+		}
+		}
+		x = 31
+		y = 4
+	}
+
+	focus = {
+		id = USA_usmc_expansion
+		icon = GFX_focus_US_Navy
+		cost = 8
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_improve_navy
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_expand_the_USMC
+				bonus = 1.0
+				uses = 1
+				technology = marines2
+				technology = marines3
+			}
+		}
+		x = 31
+		y = 5
+	}
+
+	focus = { #TODO: research if the US did this irl. If not remove
+		id = USA_fortify_hawaii
+		icon = GFX_focus_generic_coastal_fort
+		cost = 4
+		available = {
+			has_war = yes
+			629 = {
+				controller = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_the_war_asia
+		}
+		completion_reward = {
+			629 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = {
+						id = 7195
+					}
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					instant_build = yes
+					province = {
+						id = 7195
+					}
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 33
+		y = 3
+	}
+
+	focus = { #TODO: make a decision or event
+		id = USA_doolittle_raid
+		icon = GFX_focus_strategic_bomber
+		cost = 4
+		available = {
+			has_war = yes
+			has_war_with = JAP
+		}
+		prerequisite = {
+			focus = USA_the_war_asia
+		}
+		completion_reward = {
+			country_event = { id = usfor.75 }
+			JAP = { country_event = { id = usfor.76 } }
+		}
+		x = 35
+		y = 3
+	}
+
+	focus = {
+		id = USA_island_hopping
+		icon = GFX_focus_recruit_sailors
+		cost = 4
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_doolittle_raid
+		}
+		prerequisite = {
+			focus = USA_fortify_hawaii
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = USA_island_hop
+				days = 200
+			}
+		}
+		x = 34
+		y = 4
+	}
+
+	focus = {
+		id = USA_support_kmt
+		icon = GFX_focus_Institute_The_Special_Intendant_of_Government
+		cost = 7
+		available = {
+			has_war = yes
+			has_war_together_with = CHI
+			NOT = { has_war_with = CHI }
+		}
+		prerequisite = {
+			focus = USA_the_war_asia
+		}
+		prerequisite = {
+			focus = USA_our_allies
+		}
+		completion_reward = {
+			CHI = { country_event = { id = usfor.77 } }
+		}
+		x = 39
+		y = 3
+	}
+
+	focus = {
+		id = USA_china_air_task_force
+		icon = GFX_focus_ROCAF_Hawk
+		cost = 7
+		available = {
+			has_war = yes
+			has_war_together_with = CHI
+			NOT = { has_war_with = CHI }
+		}
+		prerequisite = {
+			focus = USA_support_kmt
+		}
+		completion_reward = {
+			CHI = { country_event = { id = usfor.78 } }
+		}
+		x = 39
+		y = 5
+	}
+
+	focus = {
+		id = USA_repeal_exclusion
+		icon = GFX_focus_Chinese_British_Reforms
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_support_kmt
+		}
+		completion_reward = {
+			add_political_power = 100
+			CHI = {
+				add_opinion_modifier = {
+				   target = USA
+					modifier = USA_repealed_acts
+				}
+			}
+		}
+		x = 40
+		y = 4
+	}
+
+	focus = {
+		id = USA_burma_campaign
+		icon = GFX_focus_Separate_Burma
+		cost = 2
+		available = {
+			has_war = yes
+			has_war_with = JAP
+			OR = {
+				divisions_in_state = {
+				   state = 994
+				   size > 3
+				}
+				divisions_in_state = {
+				   state = 995
+				   size > 3
+				}
+				divisions_in_state = {
+				   state = 992
+				   size > 3
+				}
+				divisions_in_state = {
+				   state = 991
+				   size > 3
+				}
+				divisions_in_state = {
+				   state = 806
+				   size > 3
+				}
+				divisions_in_state = {
+				   state = 805
+				   size > 3
+				}
+				divisions_in_state = {
+				   state = 640
+				   size > 3
+				}
+				divisions_in_state = {
+				   state = 288
+				   size > 3
+				}
+			}
+			JAP = {
+				OR = {
+					controls_state = 991
+					controls_state = 992
+					controls_state = 994
+					controls_state = 995
+					controls_state = 806
+					controls_state = 640
+					controls_state = 228
+					controls_state = 806
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_reinforce_indian_forces
+		}
+		prerequisite = {
+			focus = USA_china_air_task_force
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = USA_campaign_against_japan
+				days = 200
+			}
+		}
+		x = 40
+		y = 6
+	}
+
+	focus = { #TODO: wtf is this. Either rework or remove
+		id = USA_friendly_thai_government
+		icon = GFX_focus_Recruitment
+		cost = 3
+		available = {
+			has_war = yes
+			has_war_with = SIA
+			controls_state = 289
+			SIA = {
+				has_capitulated = yes
+				NOT = {
+					controls_state = 289
+					controls_state = 974
+					controls_state = 970
+					controls_state = 973
+					controls_state = 971
+					controls_state = 969
+					controls_state = 724
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_burma_campaign
+			focus = USA_indonesia_lib
+		}
+		completion_reward = {
+			every_country = {
+				limit = { has_war_with = SIA }
+				white_peace = SIA
+			}
+			SIA = {
+				leave_faction = yes
+				set_politics = {
+					ruling_party = democratic
+				}
+				set_war_support = 0.1
+				set_stability = 0.3
+				if = {
+					limit = {
+						289 = { is_controlled_by = USA }
+					}
+					set_state_controller = 289
+				}
+				if = {
+					limit = {
+						974 = { is_controlled_by = USA }
+					}
+					set_state_controller = 974
+				}
+				if = {
+					limit = {
+						970 = { is_controlled_by = USA }
+					}
+					set_state_controller = 970
+				}
+				if = {
+					limit = {
+						973 = { is_controlled_by = USA }
+					}
+					set_state_controller = 973
+				}
+				if = {
+					limit = {
+						971 = { is_controlled_by = USA }
+					}
+					set_state_controller = 971
+				}
+				if = {
+					limit = {
+						969 = { is_controlled_by = USA }
+					}
+					set_state_controller = 969
+				}
+				if = {
+					limit = {
+						724 = { is_controlled_by = USA }
+					}
+					set_state_controller = 724
+				}
+			}
+			add_to_faction = SIA
+		}
+		x = 38
+		y = 7
+	}
+
+	focus = {
+		id = USA_reach_out_ast
+		icon = GFX_focus_Befriend_Australia
+		cost = 2
+		available = {
+			has_war = yes
+			has_war_with = JAP
+		}
+		bypass = {
+			NOT = { has_war_together_with = AST }
+		}
+		prerequisite = {
+			focus = USA_the_war_asia
+		}
+		prerequisite = {
+			focus = USA_our_allies
+		}
+		completion_reward = {
+			AST = {
+				add_opinion_modifier = {
+				   target = USA
+					modifier = USA_china_help_opp
+				}
+				add_war_support = 0.05
+			}
+			add_opinion_modifier = {
+				target = AST
+				modifier = USA_china_help_opp
+			}
+		}
+		x = 37
+		y = 3
+	}
+
+	focus = { #TODO: remove this shit
+		id = USA_fortify_phil
+		icon = GFX_focus_Fortification_Effort
+		cost = 3
+		available = {
+			has_war = yes
+			any_controlled_state = {
+				is_core_of = PHI
+			}
+		}
+		bypass = {
+			NOT = { has_war_together_with = PHI }
+		}
+		prerequisite = {
+			focus = USA_reach_out_ast
+		}
+		mutually_exclusive = { focus = USA_new_guinea }
+		completion_reward = {
+			every_controlled_state = {
+				limit = {
+					is_core_of = PHI
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					instant_build = yes
+					province = {
+						all_provinces = yes #bruh
+					}
+				}
+			}
+		}
+		x = 38
+		y = 4
+	}
+
+	focus = { #TODO: either make this a decision or burn this fucking crap
+		id = USA_new_guinea
+		icon = GFX_goal_generic_amphibious_assault
+		cost = 3
+		available = {
+			has_war_with = JAP
+			OR = {
+				523 = {
+					controller = {
+						OR = {
+							is_in_faction_with = USA
+							tag = USA
+						}
+					}
+				}
+				669 = {
+					controller = {
+						OR = {
+							is_in_faction_with = USA
+							tag = USA
+						}
+					}
+				}
+			}
+		}
+		bypass = {
+			NOT = {
+				any_controlled_state = {
+					is_core_of = PHI
+				}
+				523 = {
+					controller = {
+						OR = {
+							is_in_faction_with = USA
+							tag = USA
+						}
+					}
+				}
+				669 = {
+					controller = {
+						OR = {
+							is_in_faction_with = USA
+							tag = USA
+						}
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_reach_out_ast
+		}
+		mutually_exclusive = { focus = USA_fortify_phil }
+		completion_reward = {
+			if = {
+				limit = {
+					523 = {
+						controller = {
+							OR = {
+								is_in_faction_with = USA
+								tag = USA
+							}
+						}
+					}
+				}
+				523 = {
+					add_building_construction = {
+						type = bunker
+						level = 1
+						instant_build = yes
+						province = {
+							all_provinces = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					669 = {
+						controller = {
+							OR = {
+								is_in_faction_with = USA
+								tag = USA
+							}
+						}
+					}
+				}
+				669 = {
+					add_building_construction = {
+						type = bunker
+						level = 1
+						instant_build = yes
+						province = {
+							all_provinces = yes
+						}
+					}
+				}
+			}
+		}
+		x = 36
+		y = 4
+	}
+
+	focus = {
+		id = USA_collaborate_dutch
+		icon = GFX_focus_Befriend_Netherlands
+		cost = 3
+		available = {
+			has_war = yes
+			has_war_together_with = HOL
+			HOL = { has_war_with = JAP }
+			any_state = {
+				is_controlled_by = HOL
+				is_core_of = INS
+			}
+		}
+		bypass = {
+			OR = {
+				NOT = {
+					HOL = {
+						has_war_with = JAP
+					}
+				}
+				NOT = {
+					any_state = {
+						is_controlled_by = HOL
+						is_core_of = INS
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_new_guinea
+			focus = USA_fortify_phil
+		}
+		completion_reward = {
+			HOL = {
+				country_event = { id = usfor.79 }
+				add_opinion_modifier = {
+				   target = USA
+					modifier = USA_military_coordination
+				}
+			}
+			add_opinion_modifier = {
+				target = HOL
+				modifier = USA_military_coordination
+			}
+		}
+		x = 37
+		y = 5
+	}
+
+	focus = { #TODO: rework this shit
+		id = USA_indonesia_lib
+		icon = GFX_focus_Into_the_Flames
+		cost = 2
+		available = {
+			has_war = yes
+			NOT = {
+				any_state = {
+					is_controlled_by = JAP
+					is_core_of = INS
+				}
+			}
+			any_state = {
+				is_controlled_by = USA
+				is_core_of = INS
+			}
+		}
+		bypass = {
+			NOT = {
+				any_state = {
+					is_controlled_by = JAP
+					is_core_of = INS
+				}
+			}
+			NOT = {
+				any_state = {
+					is_controlled_by = USA
+					is_core_of = INS
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_collaborate_dutch
+		}
+		completion_reward = {
+			HOL = {
+				if = {
+					limit = {
+						673 = { is_controlled_by = USA }
+					}
+					set_state_controller = 673
+				}
+				if = {
+					limit = {
+						980 = { is_controlled_by = USA }
+					}
+					set_state_controller = 980
+				}
+				if = {
+					limit = {
+						981 = { is_controlled_by = USA }
+					}
+					set_state_controller = 982
+				}
+				if = {
+					limit = {
+						983 = { is_controlled_by = USA }
+					}
+					set_state_controller = 983
+				}
+				if = {
+					limit = {
+						984 = { is_controlled_by = USA }
+					}
+					set_state_controller = 984
+				}
+				if = {
+					limit = {
+						985 = { is_controlled_by = USA }
+					}
+					set_state_controller = 985
+				}
+				if = {
+					limit = {
+						986 = { is_controlled_by = USA }
+					}
+					set_state_controller = 986
+				}
+				if = {
+					limit = {
+						987 = { is_controlled_by = USA }
+					}
+					set_state_controller = 987
+				}
+				if = {
+					limit = {
+						988 = { is_controlled_by = USA }
+					}
+					set_state_controller = 988
+				}
+				if = {
+					limit = {
+						990 = { is_controlled_by = USA }
+					}
+					set_state_controller = 990
+				}
+				if = {
+					limit = {
+						738 = { is_controlled_by = USA }
+					}
+					set_state_controller = 738
+				}
+				if = {
+					limit = {
+						667 = { is_controlled_by = USA }
+					}
+					set_state_controller = 667
+				}
+				if = {
+					limit = {
+						668 = { is_controlled_by = USA }
+					}
+					set_state_controller = 668
+				}
+				if = {
+					limit = {
+						669 = { is_controlled_by = USA }
+					}
+					set_state_controller = 669
+				}
+				if = {
+					limit = {
+						670 = { is_controlled_by = USA }
+					}
+					set_state_controller = 670
+				}
+				if = {
+					limit = {
+						671 = { is_controlled_by = USA }
+					}
+					set_state_controller = 671
+				}
+				if = {
+					limit = {
+						672 = { is_controlled_by = USA }
+					}
+					set_state_controller = 672
+				}
+				if = {
+					limit = {
+						334 = { is_controlled_by = USA }
+					}
+					set_state_controller = 334
+				}
+				if = {
+					limit = {
+						335 = { is_controlled_by = USA }
+					}
+					set_state_controller = 335
+				}
+			}
+			add_war_support = 0.05
+		}
+		x = 37
+		y = 6
+	}
+
+	focus = { #TODO: remove this shit
+		id = USA_solomon
+		icon = GFX_goal_generic_occupy_states_coastal
+		cost = 1
+		available = {
+			has_war_with = JAP
+			634 = {
+				controller = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+				}
+			}
+		}
+		bypass = {
+			737 = {
+				controller = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_new_guinea
+			focus = USA_fortify_phil
+		}
+		prerequisite = {
+			focus = USA_island_hopping
+		}
+		completion_reward = {
+		}
+		x = 35
+		y = 5
+	}
+
+	focus = { #TODO: remove this crap
+		id = USA_bismarck
+		icon = GFX_focus_Naval_Operations
+		cost = 1
+		available = {
+			has_war_with = JAP
+			737 = {
+				controller = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+				}
+			}
+		}
+		bypass = {
+			627 = {
+				controller = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_solomon
+		}
+		completion_reward = {
+		}
+		x = 35
+		y = 6
+	}
+
+	focus = { #TODO: rework this shit
+		id = USA_phi_liberation
+		icon = GFX_focus_Withdraw_Philippines
+		cost = 5
+		available = {
+			has_war = yes
+			controls_state = 327
+			controls_state = 623
+			controls_state = 624
+			controls_state = 625
+			controls_state = 626
+			controls_state = 627
+			controls_state = 628
+		}
+		prerequisite = {
+			focus = USA_bismarck
+			focus= USA_indonesia_lib
+		}
+		completion_reward = {
+			PHI = {
+				if = {
+					limit = {
+						327 = { is_controlled_by = USA }
+					}
+					set_state_controller = 327
+				}
+				if = {
+					limit = {
+						623 = { is_controlled_by = USA }
+					}
+					set_state_controller = 623
+				}
+				if = {
+					limit = {
+						624 = { is_controlled_by = USA }
+					}
+					set_state_controller = 624
+				}
+				if = {
+					limit = {
+						625 = { is_controlled_by = USA }
+					}
+					set_state_controller = 625
+				}
+				if = {
+					limit = {
+						626 = { is_controlled_by = USA }
+					}
+					set_state_controller = 626
+				}
+				if = {
+					limit = {
+						627 = { is_controlled_by = USA }
+					}
+					set_state_controller = 627
+				}
+				if = {
+					limit = {
+						628 = { is_controlled_by = USA }
+					}
+					set_state_controller = 628
+				}
+			}
+		}
+		x = 36
+		y = 7
+	}
+
+	focus = { #TODO: make this a decision or something. Delete focus
+		id = USA_marshall
+		icon = GFX_goal_generic_position_armies
+		cost = 1
+		available = {
+			has_war = yes
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 633
+			}
+		}
+		bypass = {
+			OR = {
+				684 = {
+					controller = {
+						OR = {
+							is_in_faction_with = USA
+							tag = USA
+						}
+					}
+				}
+				628 = {
+					controller = {
+						OR = {
+							is_in_faction_with = USA
+							tag = USA
+						}
+					}
+				}
+				646 = {
+					controller = {
+						OR = {
+							is_in_faction_with = USA
+							tag = USA
+						}
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_island_hopping
+		}
+		completion_reward = {
+			# 633 = {
+			# 	add_building_construction = { #TOO OP
+			# 		type = naval_base
+			# 		level = 1
+			# 		instant_build = yes
+			# 		province = {
+			# 			all_provinces = yes
+			# 			limit_to_coastal = yes
+			# 		}
+			# 	}
+			# 	add_building_construction = { #TOO OP
+			# 		type = air_base
+			# 		level = 1
+			# 		instant_build = yes
+			# 	}
+			# }
+		}
+		x = 33
+		y = 5
+	}
+
+	focus = {
+		id = USA_marianas
+		icon = GFX_goal_generic_more_territorial_claims
+		cost = 1
+		available = {
+			has_war = yes
+			684 = {
+				controller = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+				}
+			}
+		}
+		bypass = {
+			OR = {
+				645 = {
+					controller = {
+						OR = {
+							is_in_faction_with = USA
+							tag = USA
+						}
+					}
+				}
+				528 = {
+					controller = {
+						OR = {
+							is_in_faction_with = USA
+							tag = USA
+						}
+					}
+				}
+				628 = {
+					controller = {
+						OR = {
+							is_in_faction_with = USA
+							tag = USA
+						}
+					}
+				}
+				646 = {
+					controller = {
+						OR = {
+							is_in_faction_with = USA
+							tag = USA
+						}
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_marshall
+		}
+		completion_reward = {
+			684 = {
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 33
+		y = 6
+	}
+
+	focus = {
+		id = USA_iwo_jima
+		icon = GFX_focus_Secure_Iwo_Jima
+		cost = 1
+		available = {
+			has_war = yes
+			645 = {
+				controller = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+				}
+			}
+		}
+		bypass = {
+			526 = {
+				controller = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_marianas
+		}
+		completion_reward = {
+			645 = {
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 34
+		y = 7
+	}
+
+	focus = {
+		id = USA_okinawa
+		icon = GFX_focus_Secure_Okinawa
+		cost = 1
+		available = {
+			has_war = yes
+			526 = {
+				controller = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+				}
+			}
+		}
+		bypass = {
+			524 = {
+				controller = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_marianas
+		}
+		completion_reward = {
+			526 = {
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 32
+		y = 7
+	}
+
+	focus = {
+		id = USA_return_taiwan
+		icon = GFX_focus_Return_Taiwan
+		cost = 2
+		available = {
+			has_war = yes
+			controls_state = 524
+			has_completed_focus = USA_support_kmt
+			CHI = {
+				NOT = {
+					owns_state = 524
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_okinawa
+		}
+		completion_reward = {
+			custom_effect_tooltip = usa_temporary_taiwan
+			transfer_state = 524
+			CHI = {
+				country_event = { id = usfor.80 }
+			}
+		}
+		x = 29
+		y = 8
+	}
+
+	focus = {
+		id = USA_koa
+		icon = GFX_focus_Risky_Deal
+		cost = 3
+		available = {
+			has_war = yes
+			has_full_control_of_state = 525
+			has_full_control_of_state = 527
+		}
+		prerequisite = {
+			focus = USA_okinawa
+		}
+		completion_reward = {
+			puppet = KOR
+			KOR = {
+				transfer_state = 527
+				transfer_state = 525
+				create_country_leader = {
+					name = "John R. Hodge"
+					desc = "POLITICS_EARL_BROWDER_DESC"
+					picture = "gfx/leaders_cbts/leader_unknown.png"
+					expire = "1965.1.1"
+					ideology = military
+					traits = {
+					}
+				}
+				set_politics = {
+					ruling_party = neutrality
+					long_name = KOR_usa_occ_long
+					name = KOR_usa_occ
+				}
+				add_popularity = { ideology = neutrality popularity = 0.3 }
+				set_war_support = 0.3
+				set_stability = 0.4
+			}
+		}
+		x = 31
+		y = 8
+	}
+
+	focus = {
+		id = USA_transfer_manchuria
+		icon = GFX_focus_Manchurian_Mongolian_Lifeline
+		cost = 5
+		available = {
+			has_war = yes
+			has_full_control_of_state = 610
+			has_full_control_of_state = 714
+			has_full_control_of_state = 715
+			has_full_control_of_state = 716
+			has_full_control_of_state = 717
+			has_completed_focus = USA_support_kmt
+			NOT = { has_war_with = CHI }
+		}
+		prerequisite = {
+			focus = USA_koa
+		}
+		completion_reward = {
+			CHI = {
+			   country_event = { id = usfor.81 }
+				add_opinion_modifier = {
+				   target = USA
+					modifier = USA_manchuria_returned
+				}
+			}
+		}
+		x = 31
+		y = 9
+	}
+
+	focus = {
+		id = USA_prepare_final_offensive
+		icon = GFX_focus_Guerilla_Warfare
+		cost = 4
+		available = {
+			has_war = yes
+			has_war_with = JAP
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 526
+			}
+		}
+		prerequisite = {
+			focus = USA_okinawa
+			focus = USA_iwo_jima
+		}
+		completion_reward = {
+			add_war_support = 0.075
+			add_timed_idea = {
+				idea = USA_campaign_against_japan
+				days = 150
+			}
+		}
+		x = 33
+		y = 8
+	}
+
+	focus = {
+		id = USA_victory_asia
+		icon = GFX_focus_Victory_Pacific
+		cost = 1
+		available = {
+			has_war = yes
+			JAP = { has_capitulated = yes }
+			NOT = { has_war_with = JAP }
+		}
+		prerequisite = {
+			focus = USA_prepare_final_offensive
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+		}
+		x = 33
+		y = 9
+	}
+
+	focus = {
+		id = USA_the_war_europe
+		icon = GFX_focus_usa_focus_on_europe
+		cost = 1
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_the_war_abroad
+		}
+		completion_reward = {
+			add_political_power = 50
+		}
+		x = 57
+		y = 2
+	}
+
+	focus = {
+		id = USA_through_britain
+		icon = GFX_focus_Through_Britain
+		cost = 3
+		available = {
+			has_war = yes
+			NOT = {
+				any_country = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+					controls_state = 126
+				}
+			}
+			any_country = {
+				has_war_with = USA
+				any_state = {
+					is_controlled_by = PREV
+					is_core_of = ENG
+				}
+			}
+		}
+		bypass = {
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 126
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 127
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 121
+			}
+		}
+
+		prerequisite = {
+			focus = USA_the_war_europe
+		}
+		completion_reward = {
+			add_command_power = 30
+		}
+		x = 53
+		y = 3
+	}
+
+	focus = {
+		id = USA_victory_britain
+		icon = GFX_focus_Victory_Britain
+		cost = 1
+		available = {
+			always = no
+		}
+		bypass = {
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 126
+				controls_state = 127
+				controls_state = 121
+				controls_state = 126
+				controls_state = 122
+				controls_state = 123
+			}
+		}
+		prerequisite = {
+			focus = USA_through_britain
+		}
+		completion_reward = {
+		}
+		x = 53
+		y = 6
+	}
+
+	focus = {
+		id = USA_take_over_iceland
+		icon = GFX_focus_Iceland_Greenland
+		cost = 4
+		available = {
+			has_war = yes
+			OR = {
+				AND = {
+					ICE = {
+						exists = yes
+						NOT = { is_in_faction_with = GER }
+						NOT = { is_subject_of = GER }
+					}
+				}
+				ENG = { controls_state = 100 }
+			}
+		}
+		prerequisite = {
+			focus = USA_the_war_europe
+		}
+		completion_reward = {
+			100 = {
+				set_state_owner_to = USA
+			}
+		}
+		x = 51
+		y = 3
+	}
+
+	focus = { #TODO: remove
+		id = USA_north_atlantic_buildup
+		icon = GFX_focus_Surpass_British_Navy
+		cost = 0
+		available = {
+			has_war = yes
+			NOT = {
+				any_country = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+					controls_state = 126
+				}
+			}
+			any_country = {
+				has_war_with = USA
+				any_state = {
+					is_controlled_by = PREV
+					is_core_of = ENG
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_through_britain
+		}
+		completion_reward = {
+		}
+		x = 52
+		y = 4
+	}
+
+	focus = {
+		id = USA_activate_british_resistance
+		icon = GFX_focus_Civil_Unrest
+		cost = 8
+		available = {
+			has_war = yes
+			is_in_faction_with = ENG
+			NOT = {
+				any_country = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+					controls_state = 126
+				}
+			}
+			any_country = {
+				has_war_with = USA
+				any_state = {
+					is_controlled_by = PREV
+					is_core_of = ENG
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_through_britain
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = ENG
+					NOT = { is_controlled_by = ENG }
+				}
+				add_resistance_target = {
+					amount = 55
+					tooltip = spirit_america_tt
+				}
+				add_compliance = -20
+			}
+		}
+		x = 54
+		y = 4
+	}
+
+	focus = {
+		id = USA_british_militia
+		icon = GFX_focus_British_Soldiers
+		cost = 7
+		available = {
+			has_war = yes
+			is_in_faction_with = ENG
+			NOT = {
+				any_country = {
+					OR = {
+						is_in_faction_with = USA
+						tag = USA
+					}
+					controls_state = 126
+				}
+			}
+			any_country = {
+				has_war_with = USA
+				any_state = {
+					is_controlled_by = PREV
+					is_core_of = ENG
+				}
+			}
+			any_country = {
+				OR = {
+					tag = ENG
+					is_in_faction_with = ENG
+				}
+				any_state = {
+					is_controlled_by = THIS
+					is_core_of = ENG
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_activate_british_resistance
+		}
+		completion_reward = {
+			ENG = { country_event = { id = usfor.100 } }
+		}
+		x = 54
+		y = 5
+	}
+
+	focus = {
+		id = USA_through_africa
+		icon = GFX_focus_Through_Africa
+		cost = 1
+		available = {
+			has_war = yes
+			any_country = {
+				OR = {
+					has_war_with = USA
+					tag = VIC
+				}
+				OR = {
+					controls_state = 459
+					controls_state = 458
+					controls_state = 461
+				}
+			}
+		}
+		bypass = {
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 459
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 458
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 461
+			}
+		}
+		prerequisite = {
+			focus = USA_the_war_europe
+		}
+		completion_reward = {
+			add_command_power = 30
+		}
+		x = 57
+		y = 3
+	}
+
+	focus = {
+		id = USA_victory_africa
+		icon = GFX_focus_Victory_Africa
+		cost = 1
+		available = {
+			always = no
+		}
+		bypass = {
+			NOT = {
+			any_country = {
+				OR = {
+					has_war_with = USA
+					tag = VIC
+				}
+				OR = {
+					controls_state = 459
+					controls_state = 458
+					controls_state = 461
+				}
+			}
+			}
+		}
+		prerequisite = {
+			focus = USA_through_africa
+		}
+		completion_reward = {
+		}
+		x = 57
+		y = 6
+	}
+
+	focus = {
+		id = USA_improve_airborne
+		icon = GFX_focus_Paratroopers
+		cost = 6
+		available = {
+			has_war = yes
+			any_country = {
+				OR = {
+					has_war_with = USA
+					tag = VIC
+				}
+				OR = {
+					controls_state = 459
+					controls_state = 458
+					controls_state = 461
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_through_africa
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_armored_infantry
+				uses = 1
+				bonus = 1.0
+				technology = paratroopers2
+				technology = paratroopers3
+				technology = paratroopers4
+			}
+		}
+		x = 56
+		y = 4
+	}
+
+	focus = {
+		id = USA_keep_subs_away
+		icon = GFX_goal_generic_navy_anti_submarine
+		cost = 5
+		available = {
+			has_war = yes
+			any_country = {
+				OR = {
+					has_war_with = USA
+					tag = VIC
+				}
+				OR = {
+					controls_state = 459
+					controls_state = 458
+					controls_state = 461
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_improve_airborne
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_armored_infantry
+				uses = 1
+				bonus = 1.0
+				category = dd_tech
+			}
+		}
+		x = 56
+		y = 5
+	}
+
+	focus = {
+		id = USA_secret_contacts
+		icon = GFX_focus_Corporatism
+		cost = 8
+		available = {
+			has_war = yes
+			any_country = {
+				OR = {
+					tag = VIC
+				}
+				OR = {
+					controls_state = 459
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_through_africa
+		}
+		completion_reward = {
+			#Wait for La Resistance
+		}
+		x = 58
+		y = 4
+	}
+
+	focus = {
+		id = USA_prepare_algiers_coup
+		icon = GFX_focus_French_North_Africa
+		cost = 8
+		available = {
+			has_war = yes
+			is_faction_leader = yes
+			FRA = {
+				exists = yes
+				is_in_faction_with = USA
+			}
+			any_country = {
+				OR = {
+					tag = VIC
+				}
+				OR = {
+					controls_state = 459
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_secret_contacts
+		}
+		completion_reward = {
+			random_list = {
+				10 = {
+					country_event = { id = usfor.104 }
+				}
+				50 = {
+					country_event = { id = usfor.105 }
+				}
+				40 = {
+					country_event = { id = usfor.106 }
+				}
+			}
+		}
+		x = 58
+		y = 5
+	}
+
+	focus = {
+		id = USA_through_iberia
+		icon = GFX_focus_Through_Spain
+		cost = 1
+		available = {
+			has_war = yes
+			any_country = {
+				controls_state = 41
+				has_war_with = USA
+			}
+		}
+		bypass = {
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 41
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 165
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 752
+			}
+		}
+		prerequisite = {
+			focus = USA_the_war_europe
+		}
+		completion_reward = {
+			add_command_power = 30
+		}
+		x = 61
+		y = 3
+	}
+
+	focus = {
+		id = USA_victory_iberia
+		icon = GFX_focus_SPR_unified_map
+		cost = 1
+		available = {
+			always = no
+		}
+		prerequisite = {
+			focus = USA_through_iberia
+		}
+		bypass = {
+			NOT = {
+				any_country = {
+					has_war_with = USA
+					OR = {
+						controls_state = 41
+						controls_state = 165
+						controls_state = 752
+					}
+				}
+			}
+		}
+		completion_reward = {
+		}
+		x = 61
+		y = 6
+	}
+
+
+	focus = {
+		id = USA_canarian_lease
+		icon = GFX_goal_generic_build_navy
+		cost = 5
+		available = {
+			is_faction_leader = yes
+			has_war = yes
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 178
+			}
+		}
+		prerequisite = {
+			focus = USA_through_iberia
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					USA = { controls_state = 178 }
+				}
+				transfer_state = 178
+			}
+			if = {
+				limit = {
+					NOT = { USA = { controls_state = 178 } }
+				}
+				every_country = {
+					limit = {
+						controls_state = 178
+					}
+					country_event = { id = usfor.109 }
+				}
+			}
+		}
+		x = 60
+		y = 4
+	}
+
+	focus = {
+		id = USA_baleric_lease
+		icon = GFX_focus_Small_Navy
+		cost = 5
+		available = {
+			is_faction_leader = yes
+			has_war = yes
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 177
+			}
+		}
+		prerequisite = {
+			focus = USA_canarian_lease
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					USA = { controls_state = 177 }
+				}
+				transfer_state = 177
+			}
+			if = {
+				limit = {
+					NOT = { USA = { controls_state = 177 } }
+				}
+				every_country = {
+					limit = {
+						controls_state = 177
+					}
+					country_event = { id = usfor.112 }
+				}
+			}
+		}
+		x = 60
+		y = 5
+	}
+
+	focus = {
+		id = USA_restore_republican
+		icon = GFX_focus_Befriend_Republican_Spain
+		cost = 4
+		available = {
+			has_war = yes
+			SPR = {
+				exists = no
+			}
+			OR = {
+				controls_state = 169
+				controls_state = 173
+				controls_state = 167
+				controls_state = 165
+				controls_state = 171
+				controls_state = 826
+				controls_state = 752
+			}
+		}
+		prerequisite = {
+			focus = USA_through_iberia
+		}
+		completion_reward = {
+			country_event = { id = usfor.113 }
+		}
+		x = 62
+		y = 4
+	}
+
+	focus = {
+		id = USA_activate_spanish_resistance
+		icon = GFX_focus_support_republican_spain
+		cost = 8
+		available = {
+			has_war = yes
+			SPR = {
+				exists = yes
+				is_in_faction_with = USA
+			}
+		}
+		prerequisite = {
+			focus = USA_restore_republican
+		}
+		completion_reward = {
+			every_state = {
+			limit = {
+				is_core_of = SPR
+			}
+			create_unit = {
+				division = "name = \"Brigada Partisanos\" division_template = \"Brigada Popular\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = SPR
+			}
+			create_unit = {
+				division = "name = \"Brigada Partisanos\" division_template = \"Brigada Popular\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = SPR
+			}
+			create_unit = {
+				division = "name = \"Brigada Partisanos\" division_template = \"Brigada Popular\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = SPR
+			}
+			create_unit = {
+				division = "name = \"Brigada Partisanos\" division_template = \"Brigada Popular\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = SPR
+			}
+			create_unit = {
+				division = "name = \"Brigada Partisanos\" division_template = \"Brigada Popular\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+				owner = SPR
+			}
+			}
+		}
+		x = 62
+		y = 5
+	}
+
+	focus = {
+		id = USA_the_euro_fortress
+		icon = GFX_focus_Festung_Europa
+		cost = 3
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_victory_africa
+			focus = USA_victory_britain
+			focus = USA_victory_iberia
+		}
+		completion_reward = {
+			add_command_power = 50
+		}
+		x = 57
+		y = 7
+	}
+
+	focus = {
+		id = USA_liberate_scandinavia
+		icon = GFX_focus_Through_Scandinavia
+		cost = 1
+		available = {
+			has_war = yes
+			any_country = {
+				has_war_with = USA
+				OR = {
+					controls_state = 38
+					controls_state = 110
+				}
+			}
+		}
+		bypass = {
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 38
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 110
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 141
+			}
+		}
+		prerequisite = {
+			focus = USA_the_euro_fortress
+		}
+		completion_reward = {
+			add_command_power = 30
+		}
+		x = 59
+		y = 8
+	}
+
+	focus = {
+		id = USA_secure_swedish_resources
+		icon = GFX_focus_Free_Trade
+		cost = 5
+		available = {
+			has_war = yes
+			NOT = { has_war_with = SWE }
+		}
+		prerequisite = {
+			focus = USA_liberate_scandinavia
+		}
+		completion_reward = {
+			add_opinion_modifier = {
+				target = SWE
+				modifier = USA_economic_intervention
+			}
+		}
+		x = 60
+		y = 9
+	}
+
+	focus = {
+		id = USA_pressure_sweden
+		icon = GFX_focus_Befriend_Sweden
+		cost = 8
+		available = {
+			has_war = yes
+			any_country = {
+				is_neighbor_of = SWE
+				is_in_faction_with = USA
+			}
+			SWE = { has_war = no }
+			OR = {
+				divisions_in_state = {
+				   state = 143
+				   size > 8
+				}
+				divisions_in_state = {
+				   state = 110
+				   size > 8
+				}
+				divisions_in_state = {
+				   state = 144
+				   size > 8
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_secure_swedish_resources
+		}
+		completion_reward = {
+			SWE = { country_event = { id = usfor.96 } }
+		}
+		x = 60
+		y = 10
+	}
+
+	focus = {
+		id = USA_mountain_warfare
+		icon = GFX_focus_Mountain_Troops
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_liberate_scandinavia
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_armored_infantry
+				uses = 1
+				bonus = 1.0
+				category = mountaineers_tech
+			}
+		}
+		x = 58
+		y = 9
+	}
+
+	focus = {
+		id = USA_norwegian_resistance
+		icon = GFX_focus_Befriend_Norway
+		cost = 6
+		available = {
+			has_war = yes
+			is_in_faction_with = NOR
+		}
+		prerequisite = {
+			focus = USA_mountain_warfare
+		}
+		completion_reward = {
+			NOR = { country_event = { id = usfor.95 } }
+			if = {
+				limit = {
+					NOR = { has_capitulated = yes }
+				}
+				every_state = {
+				limit = {
+					is_core_of = NOR
+					NOT = { is_controlled_by = NOR }
+				}
+				add_resistance_target = {
+					amount = 55
+					tooltip = spirit_america_tt
+				}
+				add_compliance = -20
+				}
+			}
+		}
+		x = 58
+		y = 10
+	}
+
+	focus = {
+		id = USA_victory_scandinavia
+		icon = GFX_focus_Victory_Scandinavia
+		cost = 1
+		available = {
+			always = no
+		}
+		bypass = {
+			NOT = {
+				any_country = {
+					has_war_with = USA
+					OR =  {
+						controls_state = 138
+						controls_state = 141
+						controls_state = 110
+						controls_state = 142
+						controls_state = 143
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_liberate_scandinavia
+		}
+		completion_reward = {
+		}
+		x = 59
+		y = 11
+	}
+
+	focus = {
+		id = USA_liberate_balkans
+		icon = GFX_focus_Through_Balkans
+		cost = 1
+		available = {
+			has_war = yes
+			any_country = {
+				has_war_with = USA
+				OR = {
+					controls_state = 1019
+					controls_state = 731
+					controls_state = 48
+					controls_state = 107
+					controls_state = 109
+					controls_state = 46
+					controls_state = 44
+				}
+			}
+		}
+		bypass = {
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 731
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 48
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 46
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 109
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 107
+			}
+		}
+		prerequisite = {
+			focus = USA_the_euro_fortress
+		}
+		completion_reward = {
+			add_command_power = 30
+		}
+		x = 63
+		y = 8
+	}
+
+	focus = {
+		id = USA_victory_balkans
+		icon = GFX_focus_Victory_Balkans
+		cost = 1
+		available = {
+			always = no
+		}
+		bypass = {
+			NOT = {
+				any_country = {
+				has_war_with = USA
+				OR = {
+					controls_state = 1019
+					controls_state = 731
+					controls_state = 48
+					controls_state = 107
+					controls_state = 109
+					controls_state = 46
+					controls_state = 44
+				}
+			}
+			}
+		}
+		prerequisite = {
+			focus = USA_liberate_balkans
+		}
+		completion_reward = {
+		}
+		x = 63
+		y = 11
+	}
+
+	focus = {
+		id = USA_support_greek_partisans
+		icon = GFX_focus_Greece
+		cost = 6
+		available = {
+			has_war = yes
+			GRE = { is_in_faction_with = USA }
+			any_state = {
+				is_core_of = GRE
+				NOT = { is_controlled_by = GRE }
+			}
+		}
+		prerequisite = {
+			focus = USA_liberate_balkans
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = GRE
+					NOT = { is_controlled_by = GRE }
+				}
+				add_resistance_target = {
+					amount = 55
+					tooltip = spirit_america_tt
+				}
+				add_compliance = -20
+			}
+		}
+		x = 62
+		y = 9
+	}
+
+	focus = {
+		id = USA_yugoslavian_issue
+		icon = GFX_focus_gre_restore_monarchy
+		cost = 7
+		available = {
+			has_war = yes
+			if = {
+				limit = { CRO = { exists = yes has_war_with = USA } }
+				CRO = { has_capitulated = yes }
+			}
+			any_country = {
+				OR = {
+					tag = USA
+					is_in_faction_with = USA
+				}
+				controls_state = 107
+			}
+			any_country = {
+				OR = {
+					tag = USA
+					is_in_faction_with = USA
+				}
+				controls_state = 105
+			}
+			any_country = {
+				OR = {
+					tag = USA
+					is_in_faction_with = USA
+				}
+				controls_state = 109
+			}
+			any_country = {
+				OR = {
+					tag = USA
+					is_in_faction_with = USA
+				}
+				controls_state = 838
+			}
+			any_country = {
+				OR = {
+					tag = USA
+					is_in_faction_with = USA
+				}
+				controls_state = 909
+			}
+			any_country = {
+				OR = {
+					tag = USA
+					is_in_faction_with = USA
+				}
+				controls_state = 163
+			}
+		}
+		prerequisite = {
+			focus = USA_support_greek_partisans
+		}
+		completion_reward = {
+			country_event = { id = usfor.114 }
+		}
+		x = 62
+		y = 10
+	}
+
+	focus = {
+		id = USA_bulgarian_negotiations
+		icon = GFX_focus_talk_bulgaria
+		cost = 5
+		available = {
+			has_war = yes
+			is_neighbor_of = BUL
+			is_faction_leader = yes
+			BUL = {
+				OR = {
+					has_war_with = USA
+					AND = {
+						NOT = { has_war_with = USA }
+						is_in_faction = no
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_liberate_balkans
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					BUL = { NOT = { has_war_with = USA } }
+				}
+				BUL = { country_event = { id = usfor.96 } }
+			}
+			if = {
+				limit = {
+					BUL = { has_war_with = USA }
+				}
+				BUL = { country_event = { id = usfor.115 } }
+			}
+		}
+		x = 64
+		y = 9
+	}
+
+	focus = {
+		id = USA_romanian_negotiations
+		icon = GFX_focus_Alliance_with_Romania
+		cost = 5
+		available = {
+			has_war = yes
+			is_neighbor_of = ROM
+			is_faction_leader = yes
+			ROM = {
+				OR = {
+					has_war_with = USA
+					AND = {
+						NOT = { has_war_with = USA }
+						is_in_faction = no
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_bulgarian_negotiations
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					ROM = { NOT = { has_war_with = USA } }
+				}
+				ROM = { country_event = { id = usfor.96 } }
+			}
+			if = {
+				limit = {
+					ROM = { has_war_with = USA }
+				}
+				ROM = { country_event = { id = usfor.115 } }
+			}
+		}
+		x = 64
+		y = 10
+	}
+
+	focus = {
+		id = USA_liberate_italy
+		icon = GFX_focus_Through_Italy
+		cost = 1
+		available = {
+			has_war = yes
+			any_country = {
+				has_war_with = USA
+				OR = {
+					controls_state = 2
+					controls_state = 117
+					controls_state = 159
+				}
+			}
+		}
+		bypass = {
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 2
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 117
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 159
+			}
+		}
+		prerequisite = {
+			focus = USA_the_euro_fortress
+		}
+		completion_reward = {
+			add_command_power = 30
+		}
+		x = 55
+		y = 8
+	}
+
+	focus = {
+		id = USA_victory_italy
+		icon = GFX_focus_Victory_Italy
+		cost = 1
+		available = {
+			always = no
+		}
+		bypass = {
+			NOT = {
+				any_country = {
+					has_war_with = USA
+					OR =  {
+						controls_state = 2
+						controls_state = 117
+						controls_state = 159
+						controls_state = 115
+						controls_state = 158
+						controls_state = 160
+					}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_liberate_italy
+		}
+		completion_reward = {
+		}
+		x = 55
+		y = 11
+	}
+
+	focus = {
+		id = USA_clear_mediterranean
+		icon = GFX_focus_Mediterranean
+		cost = 7
+		available = {
+			has_war = yes
+			OR = {
+				has_war_with = ITA
+				has_war_with = SPN
+				has_war_with = GRE
+				has_war_with = FRA
+				has_war_with = RIT
+			}
+		}
+		prerequisite = {
+			focus = USA_liberate_italy
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = USA_clear_mediterranean
+				uses = 1
+				bonus = 0.5
+				category = cl_tech
+			}
+		}
+		x = 54
+		y = 9
+	}
+
+	focus = {
+		id = USA_support_eci
+		icon = GFX_focus_Italian_Soldiers
+		cost = 5
+		available = {
+			has_war = yes
+			RIT = {
+				is_in_faction_with = USA
+				has_war_with = ITA
+			}
+		}
+		prerequisite = {
+			focus = USA_liberate_italy
+		}
+		completion_reward = {
+			RIT = { country_event = { id = usfor.95 } }
+		}
+		x = 56
+		y = 9
+	}
+
+
+	focus = {
+		id = USA_liberate_france
+		icon = GFX_focus_Through_France
+		cost = 1
+		available = {
+			has_war = yes
+			any_country = {
+				has_war_with = USA
+				OR = {
+					controls_state = 16
+					controls_state = 15
+					controls_state = 29
+					controls_state = 21
+					controls_state = 19
+					controls_state = 14
+					controls_state = 20
+				}
+			}
+		}
+		bypass = {
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 16
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 21
+			}
+			any_country = {
+				OR = {
+					is_in_faction_with = USA
+					tag = USA
+				}
+				controls_state = 14
+			}
+		}
+		prerequisite = {
+			focus = USA_the_euro_fortress
+		}
+		completion_reward = {
+			add_command_power = 30
+		}
+		x = 51
+		y = 8
+	}
+
+	focus = {
+		id = USA_victory_france
+		icon = GFX_focus_Victory_France
+		cost = 1
+		available = {
+			always = no
+		}
+		bypass = {
+			NOT = {
+				any_country = {
+				has_war_with = USA
+				OR = {
+					controls_state = 16
+					controls_state = 15
+					controls_state = 29
+					controls_state = 21
+					controls_state = 19
+					controls_state = 14
+					controls_state = 20
+				}
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_liberate_france
+		}
+		completion_reward = {
+		}
+		x = 51
+		y = 11
+	}
+
+	focus = {
+		id = USA_clear_enemy_tanks
+		icon = GFX_focus_Anti-Tank
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_liberate_france
+		}
+		completion_reward = {
+			add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 2
+			bonus = 1.0
+			category = cat_anti_tank
+			}
+		}
+		x = 50
+		y = 9
+	}
+
+	focus = {
+		id = USA_amphibious_vehicles_dev
+		icon = GFX_focus_Mechanization
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_clear_enemy_tanks
+		}
+		completion_reward = {
+			add_tech_bonus = {
+			name = USA_fleet_submarines
+			bonus = 1.0
+			uses = 1
+			technology = amphibious_tank
+			technology = amphibious_tank_2
+			}
+		}
+		x = 50
+		y = 10
+	}
+
+	focus = {
+		id = USA_support_french_resistance
+		icon = GFX_focus_FrenchSoldiers
+		cost = 7
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_liberate_france
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = FRA
+					NOT = { is_controlled_by = FRA }
+				}
+				add_resistance_target = {
+					amount = 55
+					tooltip = spirit_america_tt
+				}
+				add_compliance = -20
+			}
+		}
+		x = 52
+		y = 9
+	}
+
+	focus = {
+		id = USA_paris_ours
+		icon = GFX_focus_Parade_Paris
+		cost = 3
+		available = {
+			has_war = yes
+			any_country = {
+				is_in_faction_with = USA
+				controls_state = 16
+			}
+			divisions_in_state = {
+				state = 16
+				size > 2
+			}
+		}
+		prerequisite = {
+			focus = USA_support_french_resistance
+		}
+		completion_reward = {
+			add_war_support = 0.075
+			add_political_power = 100
+		}
+		x = 52
+		y = 10
+	}
+
+	focus = {
+		id = USA_the_fascist_menace
+		icon = GFX_focus_Target_Fascism
+		cost = 4
+		available = {
+			has_war = yes
+			any_country = {
+				has_war_with = USA
+				is_major = yes
+				NOT = { tag = JAP }
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+				}
+			}
+		}
+		mutually_exclusive = { focus = USA_the_red_threat }
+		prerequisite = {
+			focus = USA_victory_france
+			focus = USA_victory_italy
+			focus = USA_victory_balkans
+			focus = USA_victory_scandinavia
+		}
+		completion_reward = {
+			add_war_support = 0.05
+		}
+		x = 55
+		y = 12
+	}
+
+	focus = {
+		id = USA_support_benelux_resistance
+		icon = GFX_focus_Benelux_Resistance
+		cost = 7
+		available = {
+			has_war = yes
+			OR = {
+				HOL = { has_capitulated = yes }
+				BEL = { has_capitulated = yes }
+				LUX = { has_capitulated = yes }
+			}
+			NOT = {
+				HOL = { has_war_with = USA }
+				BEL = { has_war_with = USA }
+				LUX = { has_war_with = USA }
+			}
+		}
+		prerequisite = {
+			focus = USA_the_fascist_menace
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = HOL
+					NOT = { is_controlled_by = HOL }
+				}
+				add_resistance_target = {
+					amount = 55
+					tooltip = spirit_america_tt
+				}
+				add_compliance = -20
+			}
+			every_state = {
+				limit = {
+					is_core_of = BEL
+					NOT = { is_controlled_by = BEL }
+				}
+				add_resistance_target = {
+					amount = 55
+					tooltip = spirit_america_tt
+				}
+				add_compliance = -20
+			}
+			every_state = {
+				limit = {
+					is_core_of = LUX
+					NOT = { is_controlled_by = LUX }
+				}
+				add_resistance_target = {
+					amount = 55
+					tooltip = spirit_america_tt
+				}
+				add_compliance = -20
+			}
+		}
+		x = 55
+		y = 13
+	}
+
+	focus = {
+		id = USA_mechanized_divisions
+		icon = GFX_focus_Mechanized_Divisions
+		cost = 5
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_the_fascist_menace
+		}
+		completion_reward = {
+			add_tech_bonus = {
+			name = USA_armored_infantry
+			uses = 1
+			bonus = 1.0
+			category = cat_mechanized_equipment
+			}
+		}
+		x = 53
+		y = 13
+	}
+
+	focus = {
+		id = USA_smash_fascism
+		icon = GFX_focus_Anti_Fascist
+		cost = 6
+		available = {
+			has_war = yes
+			any_country = {
+				has_war_with = USA
+				is_major = yes
+				NOT = { tag = JAP }
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_mechanized_divisions
+		}
+		prerequisite = {
+			focus = USA_support_benelux_resistance
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = USA_last_fight_liberty
+				days = 150
+			}
+		}
+		x = 54
+		y = 14
+	}
+
+	focus = {
+		id = USA_the_red_threat
+		icon = GFX_focus_Spear_the_Bear
+		cost = 4
+		available = {
+			has_war = yes
+			any_country = {
+				has_war_with = USA
+				is_major = yes
+				NOT = { tag = JAP }
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		mutually_exclusive = { focus = USA_the_fascist_menace }
+		prerequisite = {
+			focus = USA_victory_france
+			focus = USA_victory_italy
+			focus = USA_victory_balkans
+			focus = USA_victory_scandinavia
+		}
+		completion_reward = {
+			add_war_support = 0.05
+		}
+		x = 59
+		y = 12
+	}
+
+	focus = {
+		id = USA_contact_finns
+		icon = GFX_focus_Befriend_Finland
+		cost = 6
+		available = {
+			has_war = yes
+			FIN = {
+				NOT = { has_war_with = USA }
+				is_in_faction = no
+				is_puppet = no
+			}
+		}
+		prerequisite = {
+			focus = USA_the_red_threat
+		}
+		completion_reward = {
+			FIN = { country_event = { id = usfor.96 } }
+		}
+		x = 59
+		y = 13
+	}
+
+	focus = {
+		id = USA_contact_turks
+		icon = GFX_focus_Befriend_Turkey
+		cost = 6
+		available = {
+			has_war = yes
+			TUR = {
+				NOT = { has_war_with = USA }
+				is_in_faction = no
+				is_puppet = no
+			}
+		}
+		prerequisite = {
+			focus = USA_the_red_threat
+		}
+		completion_reward = {
+			TUR = { country_event = { id = usfor.96 } }
+		}
+		x = 61
+		y = 13
+	}
+
+	focus = {
+		id = USA_smash_communism
+		icon = GFX_focus_Anti_Communist
+		cost = 1
+		available = {
+			has_war = yes
+			any_country = {
+				has_war_with = USA
+				is_major = yes
+				NOT = { tag = JAP }
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_contact_turks
+		}
+		prerequisite = {
+			focus = USA_contact_finns
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = USA_last_fight_liberty
+				days = 150
+			}
+		}
+		x = 60
+		y = 14
+	}
+
+	focus = {
+		id = USA_victory_europe
+		icon = GFX_focus_Victory_Europe
+		cost = 1
+		available = {
+			has_war = yes
+			NOT = {
+				any_country = {
+					OR = {
+						tag = GER
+						tag = ITA
+						tag = RIT
+						tag = SOV
+						tag = FRA
+						tag = ENG
+					}
+					has_war_with = USA
+				}
+			}
+		}
+		prerequisite = {
+			focus = USA_the_fascist_menace
+			focus = USA_the_red_threat
+		}
+		completion_reward = {
+		}
+		x = 57
+		y = 13
+	}
+
+	focus = {
+		id = USA_our_allies
+		icon = GFX_focus_Foreign_Diplomacy
+		cost = 1
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_the_war_abroad
+		}
+		completion_reward = {
+			add_political_power = 50
+		}
+		x = 45
+		y = 2
+	}
+
+	focus = {
+		id = USA_ties_uk
+		icon = GFX_focus_Befriend_United_Kingdom
+		cost = 2
+		available = {
+			has_war = yes
+			is_in_faction_with = ENG
+		}
+		prerequisite = {
+			focus = USA_our_allies
+		}
+		completion_reward = {
+			add_opinion_modifier = {
+				target = ENG
+				modifier = USA_military_coordination
+			}
+			ENG = {
+				add_opinion_modifier = {
+					target = USA
+					modifier = USA_military_coordination
+				}
+			}
+		}
+		x = 45
+		y = 3
+	}
+
+	focus = {
+		id = USA_combined_chiefs
+		icon = GFX_focus_Flexible_chain_of_command
+		cost = 4
+		available = {
+			has_war = yes
+			is_in_faction_with = ENG
+			has_completed_focus = USA_create_jcs
+		}
+		prerequisite = {
+			focus = USA_ties_uk
+		}
+		completion_reward = {
+			ENG = { country_event = { id = usfor.84 days = 1 } }
+		}
+		x = 44
+		y = 4
+	}
+
+	focus = {
+		id = USA_technological_cooperation
+		icon = GFX_focus_research2
+		cost = 4
+		available = {
+			has_war = yes
+			is_in_faction_with = ENG
+		}
+		prerequisite = {
+			focus = USA_ties_uk
+		}
+		completion_reward = {
+			ENG = { country_event = { id = usfor.87 days = 1 } }
+		}
+		x = 46
+		y = 4
+	}
+
+	focus = {
+		id = USA_declaration_un
+		icon = GFX_focus_united_nations
+		cost = 5
+		available = {
+			has_war = yes
+			is_in_faction_with = ENG
+		}
+		prerequisite = {
+			focus = USA_ties_uk
+		}
+		completion_reward = {
+			country_event = { id = usfor.90 }
+		}
+		x = 45
+		y = 5
+	}
+
+	focus = {
+		id = USA_support_france_free
+		icon = GFX_focus_france_coa
+		cost = 4
+		available = {
+			has_war = yes
+			is_in_faction_with = FRA
+		}
+		prerequisite = {
+			focus = USA_declaration_un
+		}
+		completion_reward = {
+			FRA = { country_event = { id = usfor.95 } }
+		}
+		x = 44
+		y = 6
+	}
+
+	focus = {
+		id = USA_approach_dutch
+		icon = GFX_focus_Befriend_Netherlands
+		cost = 3
+		available = {
+			has_war = yes
+			is_in_faction_with = HOL
+		}
+		prerequisite = {
+			focus = USA_declaration_un
+		}
+		completion_reward = {
+			HOL = { country_event = { id = usfor.95 } }
+		}
+		x = 46
+		y = 6
+	}
+
+	focus = {
+		id = USA_southern_allies
+		icon = GFX_focus_Befriend_Mexico
+		cost = 3
+		available = {
+			has_war = yes
+			is_faction_leader = yes
+		}
+		prerequisite = {
+			focus = USA_declaration_un
+		}
+		completion_reward = {
+			MEX = { country_event = { id = usfor.96 } }
+		}
+		x = 48
+		y = 6
+	}
+
+	focus = {
+		id = USA_central_am_faction
+		icon = GFX_focus_Gunpoint_Diplomacy
+		cost = 3
+		available = {
+			has_war = yes
+			is_faction_leader = yes
+		}
+		prerequisite = {
+			focus = USA_southern_allies
+		}
+		completion_reward = {
+			every_country = {
+				limit = {
+					NOT = { has_war_with = USA }
+					OR = {
+						tag = HON
+						tag = GUA
+						tag = ELS
+						tag = NIC
+						tag = PAN
+						tag = COS
+					}
+				}
+				country_event = { id = usfor.96 }
+			}
+		}
+		x = 47
+		y = 7
+	}
+
+	focus = {
+		id = USA_south_am_faction
+		icon = GFX_focus_South_American_Relations
+		cost = 4
+		available = {
+			has_war = yes
+			is_faction_leader = yes
+		}
+		prerequisite = {
+			focus = USA_southern_allies
+		}
+		completion_reward = {
+			every_country = {
+				limit = {
+					NOT = { has_war_with = USA }
+					OR = {
+						tag = COL
+						tag = VEN
+						tag = ECU
+						tag = PRU
+						tag = BOL
+						tag = CHL
+						tag = ARG
+						tag = URG
+						tag = PAR
+						tag = BRA
+					}
+				}
+				country_event = { id = usfor.96 }
+			}
+		}
+		x = 49
+		y = 7
+	}
+
+	focus = {
+		id = USA_leadership_allies
+		icon = GFX_focus_Better_Union
+		cost = 8
+		available = {
+			has_war = yes
+			num_of_factories > 200
+			is_in_faction = yes
+			is_in_faction_with = ENG
+			is_faction_leader = no
+		}
+		prerequisite = {
+			focus = USA_declaration_un
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				ENG = { is_ai = no }
+			}
+		}
+		completion_reward = {
+			custom_effect_tooltip = take_over_allies_tooltip
+			set_faction_leader = yes
+		}
+		x = 45
+		y = 7
+	}
+
+	focus = {
+		id = USA_friends_in_canada
+		icon = GFX_focus_Befriend_Canada
+		cost = 3
+		available = {
+			has_war = yes
+			is_in_faction_with = CAN
+		}
+		prerequisite = {
+			focus = USA_declaration_un
+		}
+		completion_reward = {
+			CAN = { country_event = { id = usfor.97 } }
+		}
+		x = 42
+		y = 6
+	}
+
+	focus = {
+		id = USA_pjbd
+		icon = GFX_focus_Prepare_the_Troops
+		cost = 5
+		available = {
+			has_war = yes
+			NOT = { has_country_flag = canada_rejected_cooperation }
+		}
+		prerequisite = {
+			focus = USA_friends_in_canada
+		}
+		completion_reward = {
+			CAN = { add_ideas = USA_CAN_pjbd }
+			add_ideas = USA_CAN_pjbd
+		}
+		x = 43
+		y = 7
+	}
+
+	focus = {
+		id = USA_alaska_highway
+		icon = GFX_focus_Highways
+		cost = 6
+		available = {
+			has_war = yes
+			NOT = { has_country_flag = canada_rejected_cooperation }
+			controls_state = 463
+			controls_state = 386
+			CAN = {
+				controls_state = 471
+				controls_state = 473
+			}
+		}
+		prerequisite = {
+			focus = USA_friends_in_canada
+		}
+		completion_reward = {
+			#TODO:add highway modifiers
+		}
+		x = 41
+		y = 7
+	}
+
+	focus = {
+		id = USA_reinforce_indian_forces
+		icon = GFX_focus_British_Raj
+		cost = 5
+		available = {
+			has_war = yes
+			is_in_faction_with = RAJ
+			RAJ = { has_war_with = JAP }
+		}
+		prerequisite = {
+			focus = USA_ties_uk
+		}
+		completion_reward = {
+			RAJ = {
+				add_opinion_modifier = {
+				   target = USA
+					modifier = USA_china_help_opp
+				}
+				country_event = { id = usfor.83 days = 1 }
+			}
+			add_opinion_modifier = {
+				target = RAJ
+				modifier = USA_china_help_opp
+			}
+		}
+		x = 42
+		y = 4
+	}
+
+	focus = {
+		id = USA_unlikely_ally
+		icon = GFX_focus_Soviet_Relations
+		cost = 2
+		available = {
+			has_war = yes
+			NOT = { has_war_with = SOV }
+			NOT = { RUS = { exists = yes } }
+			any_country = {
+				is_major = yes
+				has_war_with = USA
+				has_war_with = SOV
+			}
+		}
+		prerequisite = {
+			focus = USA_our_allies
+		}
+		prerequisite = {
+			focus = USA_the_war_europe
+		}
+		completion_reward = {
+			add_political_power = 30
+		}
+		x = 49
+		y = 3
+	}
+
+	focus = {
+		id = USA_intensify_lend_lease
+		icon = GFX_Goal_Generic_Defend_Conveys
+		cost = 7
+		available = {
+			has_war = yes
+			NOT = { has_war_with = SOV }
+		}
+		prerequisite = {
+			focus = USA_unlikely_ally
+		}
+		completion_reward = {
+			#TODO
+			SOV = { country_event = { id = usfor.98 } }
+		}
+		x = 48
+		y = 4
+	}
+
+	focus = {
+		id = USA_arca
+		icon = GFX_goal_generic_propaganda
+		cost = 6
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_unlikely_ally
+		}
+		completion_reward = {
+			add_war_support = 0.05
+		}
+		x = 50
+		y = 4
+	}
+
+	focus = {
+		id = USA_coordinate_military_operations
+		icon = GFX_focus_Soviet_Army
+		cost = 8
+		available = {
+			has_war = yes
+			has_war_together_with = SOV
+			NOT = { has_war_with = SOV }
+			NOT = { is_in_faction_with = SOV }
+			SOV = {
+				surrender_progress > 0.6
+			}
+			is_faction_leader = yes
+		}
+		prerequisite = {
+			focus = USA_arca
+		}
+		prerequisite = {
+			focus = USA_intensify_lend_lease
+		}
+		mutually_exclusive = { focus = USA_stronger_separate }
+		completion_reward = {
+			SOV = { country_event = { id = usfor.99 } }
+		}
+		x = 50
+		y = 5
+	}
+
+	focus = {
+		id = USA_stronger_separate
+		icon = GFX_focus_Socialist_Destroy_Fascism
+		cost = 4
+		available = {
+			has_war = yes
+		}
+		prerequisite = {
+			focus = USA_arca
+		}
+		prerequisite = {
+			focus = USA_intensify_lend_lease
+		}
+		mutually_exclusive = { focus = USA_coordinate_military_operations }
+		completion_reward = {
+			add_political_power = 40
+		}
+		x = 48
+		y = 5
+	}
+
+}

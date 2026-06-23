@@ -1,0 +1,573 @@
+shared_focus = {
+		id = SAF_Wartime_Military_Start
+		icon = GFX_focus_SAF_Create_A_Seal
+		x = 45
+		y = 0
+		cost = 1
+		available = {
+			has_country_flag = SAF_WW2_Begun
+			}
+		completion_reward = {
+			add_political_power = 30
+			add_ideas = hc_jan_smuts
+		}
+	}
+	shared_focus = {
+		id = SAF_Expand_The_SAAF
+		icon = GFX_focus_Aerial_Fleet
+		prerequisite = { focus = SAF_Wartime_Military_Start }
+		x = -7
+		y = 1
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 3
+		available = {
+			}
+		completion_reward = {
+			air_experience = 15
+			add_ideas = coaf_Pierre_van_Ryneveld
+		}
+	}
+	shared_focus = {
+		id = SAF_Purchase_British_Fighters
+		icon = GFX_Buy_British_Planes
+		prerequisite = { focus = SAF_Expand_The_SAAF }
+		x = -8
+		y = 2
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 6
+		available = {
+			}
+		completion_reward = {
+			add_political_power = -20
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				add_equipment_to_stockpile = {
+					type = early_fighter_equipment
+					amount = 50
+					producer = ENG
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = small_plane_airframe_0
+					amount = 50
+					producer = ENG
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Purchase_Naval_Bombers
+		icon = GFX_focus_Naval_Bombers
+		prerequisite = { focus = SAF_Expand_The_SAAF }
+		x = -6
+		y = 2
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 6
+		available = {
+			}
+		completion_reward = {
+			add_political_power = -20
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				add_equipment_to_stockpile = {
+					type = nav_bomber_equipment_1
+					amount = 50
+					producer = ENG
+				}
+
+				else = {
+					add_equipment_to_stockpile = {
+						type = small_plane_naval_bomber_airframe_0
+						amount = 50
+						producer = ENG
+					}
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Supporting_Our_Troops
+		icon = GFX_focus_Close_Air_Support
+		prerequisite = {focus = SAF_Purchase_British_Fighters focus = SAF_Purchase_Naval_Bombers}
+		x = -8
+		y = 3
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 5
+		available = {
+			}
+		mutually_exclusive = { focus = SAF_Striking_Enemy_Heartlands }
+		completion_reward = {
+			add_tech_bonus = {
+				name = cas_bonus
+				uses = 1
+				bonus = 0.5
+				category = cas_bomber
+			}
+			add_tech_bonus = {
+				name = bomber_bonus
+				uses = 1
+				bonus = 0.5
+				category = tactical_bomber
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Striking_Enemy_Heartlands
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = {focus = SAF_Purchase_British_Fighters focus = SAF_Purchase_Naval_Bombers}
+		x = -6
+		y = 3
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 5
+		available = {
+			}
+		mutually_exclusive = { focus = SAF_Supporting_Our_Troops }
+		completion_reward = {
+			add_tech_bonus = {
+				name = bomber_bonus
+				uses = 2
+				bonus = 0.5
+				category = cat_strategic_bomber
+			}	
+		}
+	}
+	shared_focus = {
+		id = SAF_Developing_Air_Doctrines
+		icon = GFX_goal_generic_build_airforce
+		prerequisite = {focus = SAF_Supporting_Our_Troops focus = SAF_Striking_Enemy_Heartlands}
+		x = -7
+		y = 4
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 6
+		available = {
+			}
+		mutually_exclusive = { }
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_doctrine_bonus
+				uses = 2
+				bonus = 0.5
+				category = air_doctrine
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Reform_The_UDF
+		icon = GFX_focus_Army_Reform
+		prerequisite = { focus = SAF_Wartime_Military_Start }
+		x = 0
+		y = 1
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			army_experience = 15
+			add_ideas = army_jan_smuts
+		}
+	}
+	shared_focus = {
+		id = SAF_Promote_Maneuver_Warfare
+		icon = GFX_focus_Blitzkrieg_alt
+		prerequisite = { focus = SAF_Reform_The_UDF }
+		x = -3
+		y = 2
+		relative_position_id = SAF_Wartime_Military_Start
+		mutually_exclusive = { focus = SAF_Increase_Conscription }
+		cost = 7
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doctrine_bonus
+				uses = 1
+				bonus = 0.5
+				category = cat_mobile_warfare
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Improve_Armored_Equipment
+		icon = GFX_focus_army_tanks
+		prerequisite = { focus = SAF_Promote_Maneuver_Warfare }
+		x = -4
+		y = 3
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 6
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor_bonus
+				uses = 2
+				bonus = 0.5
+				category = armor
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Expand_Motorized_Units
+		icon = GFX_focus_Motorization_Effort
+		prerequisite = { focus = SAF_Promote_Maneuver_Warfare }
+		x = -2
+		y = 3
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				name = motorized_bonus
+				uses = 1
+				bonus = 0.5
+				category = motorized_equipment
+				category = cat_mechanized_equipment
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Improve_Special_Forces
+		icon = GFX_focus_Commando_Operations
+		prerequisite = { focus = SAF_Improve_Armored_Equipment }
+		prerequisite = { focus = SAF_Expand_Motorized_Units }
+		x = -3
+		y = 4
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				name = special_forces_bonus
+				uses = 1
+				bonus = 0.5
+				category = category_special_forces
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Increase_Conscription
+		icon = GFX_focus_Recruitment
+		prerequisite = { focus = SAF_Reform_The_UDF }
+		mutually_exclusive = { focus = SAF_Promote_Maneuver_Warfare }
+		x = 3
+		y = 2
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 7
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doctrine_bonus
+				uses = 1
+				bonus = 0.5
+				category = cat_grand_battle_plan
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Expand_Arms_Production
+		icon = GFX_focus_Guns_Shipment
+		prerequisite = { focus = SAF_Increase_Conscription }
+		x = 2
+		y = 3
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+			1156 = {
+					if = {
+						limit = {
+							free_building_slots = {
+								building = industrial_complex
+								size > 1
+								include_locked = yes
+							}
+						}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		}
+	}
+	shared_focus = {
+		id = SAF_The_Native_Question
+		icon = GFX_focus_Black_Service
+		prerequisite = { focus = SAF_Increase_Conscription }
+		x = 4
+		y = 3
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 6
+		available = {
+			}
+		completion_reward = {
+			country_event = saf_war.8
+		}
+	}
+	shared_focus = {
+		id = SAF_Expand_Garrison_Forces
+		icon = GFX_focus_Prepare_the_Troops
+		prerequisite = { focus = SAF_Expand_Arms_Production }
+		prerequisite = { focus = SAF_The_Native_Question }
+		x = 3
+		y = 4
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			add_manpower = 5000
+			add_stability = -0.03
+		}
+	}
+	shared_focus = {
+		id = SAF_Develop_Rieder_Rifle
+		icon = GFX_focus_Guns_Shipment
+		prerequisite = { focus = SAF_Increase_Conscription focus = SAF_Promote_Maneuver_Warfare }
+		x = 0
+		y = 3
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_bonus
+				uses = 2
+				bonus = 0.5
+				category = infantry_weapons
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Improve_Support_Equipment
+		icon = GFX_focus_Support_Equipment
+		prerequisite = { focus = SAF_Increase_Conscription focus = SAF_Promote_Maneuver_Warfare }
+		x = -1
+		y = 4
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				name = support_bonus
+				uses = 2
+				bonus = 0.5
+				category = support_tech
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Improve_Artillery_Designs
+		icon = GFX_goal_generic_artillery
+		prerequisite = { focus = SAF_Increase_Conscription focus = SAF_Promote_Maneuver_Warfare }
+		x = 1
+		y = 4
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				name = artillery_bonus
+				uses = 2
+				bonus = 0.5
+				category = artillery
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Motorize_Support_Units
+		icon = GFX_focus_Mechanized_Divisions
+		prerequisite = { focus = SAF_Improve_Special_Forces }
+		prerequisite = { focus = SAF_Improve_Support_Equipment }
+		x = -2
+		y = 5
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				name = motorized_bonus
+				bonus = 0.5
+				uses = 1
+				category = motorized_equipment
+				category = cat_mechanized_equipment
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Improve_Planning_Schools
+		icon = GFX_focus_Officers_Command
+		prerequisite = { focus = SAF_Expand_Garrison_Forces }
+		prerequisite = { focus = SAF_Improve_Artillery_Designs }
+		x = 2
+		y = 5
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			add_ideas = SAF_Improved_Planning
+		}
+	}
+	shared_focus = {
+		id = SAF_Develop_Anti_Tank
+		icon = GFX_focus_Anti-Tank
+		prerequisite = { focus = SAF_Develop_Rieder_Rifle }
+		prerequisite = { focus = SAF_Improve_Support_Equipment focus = SAF_Improve_Artillery_Designs }
+		x = 0
+		y = 5
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 4
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doctrine_bonus
+				uses = 1
+				bonus = 0.5
+				category = cat_anti_tank
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Doctrinal_Developments
+		icon = GFX_focus_Army_Reform
+		prerequisite = { focus = SAF_Develop_Anti_Tank }
+		prerequisite = { focus = SAF_Motorize_Support_Units focus = SAF_Improve_Planning_Schools }
+		x = 0
+		y = 6
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 6
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doctrine_bonus
+				uses = 2
+				bonus = 0.5
+				category = land_doctrine
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Defend_Our_Seas
+		icon = GFX_focus_admiralty
+		prerequisite = { focus = SAF_Wartime_Military_Start }
+		x = 7
+		y = 1
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 3
+		available = {
+			}
+		completion_reward = {
+			navy_experience = 15
+			add_ideas = con_Guy_Halifax
+		}
+	}
+	shared_focus = {
+		id = SAF_Expand_Dockyard_Facilities
+		icon = GFX_focus_Naval_Effort
+		prerequisite = { focus = SAF_Defend_Our_Seas }
+		x = 6
+		y = 2
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 5
+		available = {
+			}
+		completion_reward = {
+			681 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Protect_Shipping_Convoys
+		icon = GFX_Goal_Generic_Defend_Conveys
+		prerequisite = { focus = SAF_Defend_Our_Seas }
+		x = 8
+		y = 2
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 3.5
+		available = {
+			}
+		completion_reward = {
+			add_ideas = SAF_Protecting_Convoys
+		}
+	}
+	shared_focus = {
+		id = SAF_Hunt_Enemy_Submarines
+		icon = GFX_focus_Minelaying_Warfare
+		prerequisite = { focus = SAF_Expand_Dockyard_Facilities focus = SAF_Protect_Shipping_Convoys }
+		x = 6
+		y = 3
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 4
+		available = {
+			}
+		mutually_exclusive = { focus = SAF_Strike_From_Below }
+		completion_reward = {
+			add_tech_bonus = {
+				uses = 1
+				bonus = 0.5
+				name = dd_bonus
+				category = dd_tech
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Strike_From_Below
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus = SAF_Expand_Dockyard_Facilities focus = SAF_Protect_Shipping_Convoys }
+		x = 8
+		y = 3
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 4
+		available = {
+			}
+		mutually_exclusive = { focus = SAF_Hunt_Enemy_Submarines }
+		completion_reward = {
+			add_tech_bonus = {
+				name = submarine_bonus
+				uses = 1
+				bonus = 0.5
+				category = ss_tech
+			}
+		}
+	}
+	shared_focus = {
+		id = SAF_Designate_Naval_Strategists
+		icon = GFX_focus_naval_reform
+		prerequisite = { focus = SAF_Hunt_Enemy_Submarines focus = SAF_Strike_From_Below }
+		x = 7
+		y = 4
+		relative_position_id = SAF_Wartime_Military_Start
+		cost = 6
+		available = {
+			}
+		completion_reward = {
+			add_tech_bonus = {
+				uses = 2
+				bonus = 0.5
+				name = naval_doctrine_bonus
+				category = naval_doctrine
+			}
+		}
+	}

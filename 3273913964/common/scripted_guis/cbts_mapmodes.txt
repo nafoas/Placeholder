@@ -1,0 +1,115 @@
+scripted_gui = {
+	alliances_mapmode_window = {
+		context_type = selected_country_context
+
+		window_name = "alliances_mapmode_window"
+		parent_window_token = top_bar
+
+		mapmode = alliances_mapmode
+
+		visible = {
+			ROOT = {
+				is_ai = no
+				# var:ROOT.alliances_mapmode_target?ROOT.id = {
+				# 	set_temp_variable = { temp_target = THIS.id }
+				# }
+				set_temp_variable = { temp_target = PREV.id }
+			}
+		}
+
+		effects = {
+			button_click = {
+				# if = {
+				# 	limit = {
+				# 		has_country_flag = show_alliances_mapmode_list_window
+				# 	}
+				# 	clr_country_flag = show_alliances_mapmode_list_window
+				# }
+				# else = {
+				# 	set_country_flag = show_alliances_mapmode_list_window
+				# }
+				if = {
+					limit = {
+						tag = ROOT
+					}
+					ROOT = {
+						clear_variable = alliances_mapmode_target
+					}
+				}
+				else = {
+					ROOT = { set_variable = { alliances_mapmode_target = PREV.id } }
+				}
+				ROOT = {
+					force_update_map_mode = {
+						limit = {
+							tag = ROOT
+						}
+						mapmode = alliances_mapmode
+					}
+					# clr_country_flag = show_alliances_mapmode_list_window
+				}
+			}
+
+			button_right_click = {
+				ROOT = {
+					set_variable = { alliances_mapmode_target = THIS.id }
+					# clear_variable = alliances_mapmode_target
+					force_update_map_mode = {
+						limit = {
+							tag = ROOT
+						}
+						mapmode = alliances_mapmode
+					}
+				}
+			}
+		}
+	}
+
+	alliances_mapmode_list_window = {
+		context_type = player_context
+
+		window_name = "alliances_mapmode_list_window"
+		parent_window_name = "alliances_mapmode_window_instance"
+
+		mapmode = alliances_mapmode
+
+		visible = {
+			is_ai = no
+			has_country_flag = show_alliances_mapmode_list_window
+		}
+
+		effects = {
+			close_button_click = {
+				clr_country_flag = show_alliances_mapmode_list_window
+			}
+			entry_button_click = {
+				if = {
+					limit = {
+						tag = ROOT
+					}
+					clear_variable = alliances_mapmode_target
+				}
+				else = {
+					ROOT = { set_variable = { alliances_mapmode_target = PREV.id } }
+				}
+				ROOT = {
+					force_update_map_mode = {
+						limit = {
+							tag = ROOT
+						}
+						mapmode = alliances_mapmode
+					}
+					clr_country_flag = show_alliances_mapmode_list_window
+				}
+			}
+		}
+
+		dynamic_lists = {
+			alliances_mapmode_country_list_gridbox = {
+				array = global.countries
+				entry_container = "[This.GetAlliancesMapModeCountryListEntryContainer]"
+				change_scope = yes
+			}
+		}
+	}
+}

@@ -1,0 +1,1729 @@
+focus_tree = {
+	id = spain_rightwing_tree
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = SPA
+		}
+	}
+	continuous_focus_position = { x = 50 y = 2500 }
+	default = no
+	shared_focus = SPA_new_diplomacy
+	shared_focus = SPA_postwar_econ
+
+	focus = {
+		id = SPA_fascist_state
+		icon = GFX_focus_Falange_Espanola
+		cost = 10
+		x = 2
+		y = 0
+		available = {
+		has_country_flag = bypassed
+		}
+		bypass = {
+			has_country_flag = falange_wins
+		}
+	
+	}
+	focus = {
+		id = SPA_franco2
+		icon = GFX_focus_General_Franco
+		cost = 10
+		x = 7
+		y = 0
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+			hidden_trigger = {
+				OR = {
+					has_country_flag = franco_wins
+					has_country_flag = scr_franco_power
+				}
+			}
+		}
+	
+	}
+	focus = {
+		id = SPA_military_junta
+		icon = GFX_focus_Military_Government
+		cost = 10
+		x = 11
+		y = 0
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+			hidden_trigger = {
+				OR = {
+					has_country_flag = junta_wins
+					has_country_flag = SPR_rev_military_coup
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = SPA_reinforce
+		icon = GFX_focus_Subterfuge
+		cost = 10
+		prerequisite = {
+			focus = SPA_fascist_state
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPA_mnp1 add_idea = SPA_mnp2 }
+		}
+		x = 1
+		y = 1
+	
+	}
+	focus = {
+		id = SPA_cult
+		icon = GFX_focus_Jose_Antonio_Leads
+		cost = 10
+		prerequisite = {
+			focus = SPA_fascist_state
+		}
+		completion_reward = {
+			add_stability = 0.1
+		}
+		x = 3
+		y = 1
+	
+	}
+	focus = {
+		id = SPA_organize
+		icon = GFX_focus_Fascist_Treaties
+		cost = 10
+		prerequisite = {
+			focus = SPA_reinforce
+		}
+		prerequisite = {
+			focus = SPA_cult
+		}
+		completion_reward = {
+			country_event = { id = spa.12 }
+		}
+		x = 2
+		y = 2
+	
+	}
+	focus = {
+		id = SPA_revolution_fas
+		icon = GFX_goal_molotov_ribbentrop_pact
+		cost = 10
+		prerequisite = {
+			focus = SPA_organize
+		}
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+		has_country_flag = nat_rep
+		}
+		x = 1
+		y = 3
+	
+	}
+	focus = {
+		id = SPA_aristocracy
+		icon = GFX_focus_spa_unify_the_nationalist_front
+		cost = 10
+		prerequisite = {
+			focus = SPA_organize
+		}
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+		has_country_flag = sp_state
+		}
+		x = 3
+		y = 3
+	}
+	focus = {
+		id = SPA_reform_mnp
+		icon = GFX_focus_Fascist_Bills
+		cost = 10
+		prerequisite = {
+			focus = SPA_aristocracy
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPA_mnp2 add_idea = SPA_mnp4 }
+		}
+		x = 3
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_one_party
+		icon = GFX_focus_Swing_the_Sword
+		cost = 10
+		prerequisite = {
+			focus = SPA_fascist_state
+			focus = SPA_franco2
+		}
+		completion_reward = {
+			add_political_power = 100
+		}
+		x = 5
+		y = 1
+	
+	}
+	focus = {
+		id = SPA_sv
+		icon = GFX_focus_Dark_Arms
+		cost = 10
+		prerequisite = {
+			focus = SPA_one_party
+		}
+		completion_reward = {
+			add_ideas = SPA_sindicato
+		}
+		x = 5
+		y = 2
+	
+	}
+	focus = {
+		id = SPA_patriotic
+		icon = GFX_focus_BRA_religious_teaching
+		cost = 10
+		prerequisite = {
+			focus = SPA_sv
+		}
+		completion_reward = {
+			add_research_slot = 1
+			add_timed_idea = {
+				idea = SPA_inefficent_research
+				days = 730
+			}
+		}
+		x = 5
+		y = 3
+	
+	}
+	focus = {
+		id = SPA_spanish
+		icon = GFX_focus_Befriend_Nationalist_Spain
+		cost = 10
+		prerequisite = {
+			focus = SPA_patriotic
+		}
+		completion_reward = {
+		}
+		x = 5
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_caudillo
+		icon = GFX_goal_support_fascism
+		cost = 10
+		prerequisite = {
+			focus = SPA_franco2
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_popularity = { ideology = fascism popularity = 0.1 } 
+		}
+		x = 7
+		y = 1
+	
+	}
+	focus = {
+		id = SPA_deal_monarch
+		icon = GFX_goal_tfv_strengthen_commonwealth_ties
+		cost = 10
+		prerequisite = {
+			focus = SPA_caudillo
+		}
+		completion_reward = {
+			add_political_power = 200
+		}
+		x = 7
+		y = 2
+	
+	}
+	focus = {
+		id = SPA_destroy
+		icon = GFX_focus_Enlist_the_Police
+		cost = 10
+		prerequisite = {
+			focus = SPA_deal_monarch
+		}
+		completion_reward = {
+			add_stability = 0.1
+		}
+		x = 7
+		y = 3
+	
+	}
+	focus = {
+		id = SPA_maquis
+		icon = GFX_focus_Espionage
+		cost = 10
+		prerequisite = {
+			focus = SPA_destroy
+		}
+		completion_reward = {
+			remove_ideas = SPA_maquis_idea
+		}
+		x = 7
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_support_staff
+		icon = GFX_focus_Military_Attache
+		cost = 10
+		prerequisite = {
+			focus = SPA_reform_mnp
+			focus = SPA_maquis
+		}
+		completion_reward = {
+			add_stability = 0.02
+			army_experience = 30
+		}
+		x = 5
+		y = 5
+	
+	}
+	focus = {
+		id = SPA_minister
+		icon = GFX_focus_Generic_Political
+		cost = 10
+		prerequisite = {
+			focus = SPA_franco2
+			focus = SPA_military_junta
+		}
+		completion_reward = {
+			army_experience = 30
+		}
+		x = 9
+		y = 1
+	
+	}
+	focus = {
+		id = SPA_inflated
+		icon = GFX_focus_Fundraising
+		cost = 10
+		prerequisite = {
+			focus = SPA_minister
+		}
+		completion_reward = {
+			add_ideas = SPA_budget
+		}
+		x = 9
+		y = 2
+	
+	}
+	focus = {
+		id = SPA_authority
+		icon = GFX_focus_Crush_Resistance
+		cost = 10
+		prerequisite = {
+			focus = SPA_military_junta
+		}
+		completion_reward = {
+			add_stability = 0.1
+		}
+		x = 11
+		y = 1
+	
+	}
+	focus = {
+		id = SPA_civilian_question
+		icon = GFX_manage_administration
+		cost = 10
+		prerequisite = {
+			focus = SPA_authority
+		}
+		completion_reward = {
+			country_event = { id = spa.30 }
+		}
+		x = 11
+		y = 2
+	
+	}
+	focus = {
+		id = SPA_monarchy_name
+		icon = GFX_focus_generic_home_defense
+		cost = 10
+		prerequisite = {
+			focus = SPA_civilian_question
+		}
+		completion_reward = {
+			add_political_power = 50
+			swap_ideas = { remove_idea = SPA_social_dissatisfaction add_idea = SPA_social_dissatisfaction2 }
+			set_cosmetic_tag = SPM
+		}
+		x = 11
+		y = 3
+	
+	}
+	focus = {
+		id = SPA_public
+		icon = GFX_focus_Capitalist_Rule
+		cost = 10
+		prerequisite = {
+			focus = SPA_monarchy_name
+		}
+		completion_reward = {
+			#do something with this or remove focus
+		}
+		x = 12
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_radio
+		icon = GFX_focus_Radio
+		cost = 10
+		prerequisite = {
+			focus = SPA_public
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = radar_focus
+				bonus = 1.0
+				uses = 2
+				category = radar_tech
+			}
+			add_research_slot = 1
+			add_political_power = 50
+		}
+		x = 12
+		y = 5
+	
+	}
+	focus = {
+		id = SPA_destroy_falangism
+		icon = GFX_focus_The_Noose
+		cost = 10
+		prerequisite = {
+			focus = SPA_monarchy_name
+		}
+		completion_reward = {
+			add_popularity = { ideology = fascism popularity = -0.2 }
+			add_political_power = 50
+		}
+		x = 10
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_aristocratic
+		icon = GFX_focus_Nobility
+		cost = 10
+		prerequisite = {
+			focus = SPA_destroy_falangism
+		}
+		completion_reward = {
+			COALITION_add_mon = yes
+			add_war_support = 0.1
+		}
+		x = 8
+		y = 5
+	
+	}
+	focus = {
+		id = SPA_ugt
+		icon = GFX_focus_Workers_Support
+		cost = 10
+		prerequisite = {
+			focus = SPA_destroy_falangism
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPA_social_dissatisfaction2 add_idea = SPA_social_dissatisfaction3 }
+			add_popularity = { ideology = authoritarian_socialism popularity = 0.1 }
+			add_popularity = { ideology = socialism popularity = 0.05 }
+		}
+		x = 10
+		y = 5
+	
+	}
+
+	focus = {
+		id = SPA_purge_staff
+		icon = GFX_focus_Military_Purges
+		cost = 10
+		prerequisite = {
+			focus = SPA_revolution_fas
+		}
+		completion_reward = {
+			army_experience = -50
+			add_political_power = 100
+			country_event = { id = spa.35 }
+		}
+		x = 1
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_national_army
+		icon = GFX_focus_Oath_of_Loyalty
+		cost = 10
+		prerequisite = {
+			focus = SPA_purge_staff
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPA_mnp2 add_idea = SPA_mnp3 }
+			add_political_power = -50
+			add_war_support = 0.1
+			country_event = { id = spa.31 }
+		}
+		x = 1
+		y = 5
+	
+	}
+	focus = {
+		id = SPA_agrarian_reform
+		icon = GFX_focus_Agrarian_Reform
+		cost = 10
+		prerequisite = {
+			focus = SPA_national_army
+		}
+		completion_reward = {
+			169 = {
+				add_extra_state_shared_building_slots = 1			
+			}
+			170 = {
+				add_extra_state_shared_building_slots = 1			
+			}
+			173 = {
+				add_extra_state_shared_building_slots = 1			
+			}
+			add_stability = -0.1
+			country_event = { id = spa.32 }
+		}
+		x = 1
+		y = 6
+	
+	}
+	focus = {
+		id = SPA_remove_aristocracy
+		icon = GFX_goal_generic_political_pressure
+		cost = 10
+		prerequisite = {
+			focus = SPA_worker_estatute
+		}
+		completion_reward = {
+			add_popularity = { ideology = neutrality popularity = -0.2 }
+			add_popularity = { ideology = democratic popularity = -0.2 }
+			add_popularity = { ideology = monarchism popularity = -0.2 }
+			add_popularity = { ideology = nationalism popularity = -0.2 }
+			add_stability = 0.25
+			add_war_support = 0.3
+			country_event = { id = spa.34 }
+		}
+		x = 1
+		y = 8
+	
+	}
+	focus = {
+		id = SPA_worker_estatute
+		icon = GFX_goal_Degrade_Working_Conditions
+		cost = 10
+		prerequisite = {
+			focus = SPA_agrarian_reform
+		}
+		completion_reward = {
+			add_popularity = { ideology = fascism popularity = 0.25 }
+			add_stability = 0.1
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			country_event = { id = spa.33 }
+		}
+		x = 1
+		y = 7
+	
+	}
+	focus = {
+		id = SPA_catholic_spirit
+		icon = GFX_focus_Papal_Bull
+		cost = 10
+		prerequisite = {
+			focus = SPA_support_staff
+		}
+		completion_reward = {
+			add_ideas = SPA_national_cath
+		}
+		x = 5
+		y = 6
+	
+	}
+	focus = {
+		id = SPA_ley_cortes
+		icon = GFX_focus_generic_concessions
+		cost = 10
+		prerequisite = {
+			focus = SPA_catholic_spirit
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 200
+			country_event = { id = spa.43 }
+		}
+		x = 5
+		y = 7
+	
+	}
+	focus = {
+		id = SPA_united_spain
+		icon = GFX_goal_generic_national_unity
+		cost = 10
+		prerequisite = {
+			focus = SPA_ugt
+		}
+		prerequisite = {
+			focus = SPA_radio
+		}
+		completion_reward = {
+			remove_ideas = SPA_social_dissatisfaction3
+		}
+		x = 11
+		y = 6
+	
+	}
+	focus = {
+		id = SPA_elect
+		icon = GFX_focus_King_Status
+		cost = 10
+		prerequisite = {
+			focus = SPA_united_spain
+		}
+		mutually_exclusive = {
+			focus = SPA_elections_mil
+		}
+		completion_reward = {
+			add_stability = 0.1
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = despotism
+				traits = {
+					#
+				}
+			}
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = authoritarian
+				traits = {
+					#
+				}
+			}
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = national_conservatism
+				traits = {
+					#
+				}
+			}
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = national_liberalism
+				traits = {
+					#
+				}
+			}
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = market_liberal
+				traits = {
+					#
+				}
+			}
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = liberalism
+				traits = {
+					#
+				}
+			}
+		}
+		x = 10
+		y = 9
+	
+	}
+	focus = {
+		id = SPA_elections_mil
+		icon = GFX_focus_Give_Democracy
+		cost = 10
+		prerequisite = {
+			focus = SPA_united_spain
+		}
+		mutually_exclusive = {
+			focus = SPA_elect
+		}
+		completion_reward = {
+			add_war_support = 0.1
+			add_popularity = { ideology = democratic popularity = 0.35 } 
+			add_popularity = { ideology = market_liberalism popularity = 0.35 } 
+			set_party_name = {
+				ideology = democratic
+				long_name = SPA_pc_long
+				name = SPA_pc
+			}
+			set_party_name = {
+				ideology = market_liberalism
+				long_name = SPA_pl_long
+				name = SPA_pl
+			}
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = despotism
+				traits = {
+					#
+				}
+			}
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = authoritarian
+				traits = {
+					#
+				}
+			}
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = national_conservatism
+				traits = {
+					#
+				}
+			}
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = national_liberalism
+				traits = {
+					#
+				}
+			}
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = market_liberal
+				traits = {
+					#
+				}
+			}
+			create_country_leader = {
+				name = "S.C.M. Juan III de Borbón"
+				desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+				picture = "gfx/leaders_cbts/SPA/Portrait_Spain_Juan_Borbon.png"
+				expire = "1965.1.1"
+				ideology = liberalism
+				traits = {
+					#
+				}
+			}
+			country_event = { id = spa.27 days = 1 }
+		}
+		x = 12
+		y = 9
+	}
+
+	#####################################
+	### Monarchist and Auth Rep Trees ###
+	#####################################
+	focus = {
+		id = SPA_monarchy_restored
+		icon = GFX_focus_Crown_a_king
+		cost = 10
+		x = 17
+		y = 0
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+			has_country_flag = monarchy_wins
+		}
+	}
+	focus = {
+		id = SPA_auth_rep
+		icon = GFX_focus_Dissolve_Parliament
+		cost = 10
+		x = 26
+		y = 0
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+		has_country_flag = republic_wins
+		}
+	}
+	focus = {
+		id = SPA_javier_regency
+		icon = GFX_focus_carlism
+		cost = 10
+		prerequisite = {
+			focus = SPA_monarchy_restored
+		}
+		bypass = {
+			has_country_flag = carlism_wins
+		}
+		available = {
+			has_country_flag = carlism_wins
+		}
+		x = 16
+		y = 1
+	
+	}
+	focus = {
+		id = SPA_dios
+		icon = GFX_focus_inquisition
+		cost = 10
+		prerequisite = {
+			focus = SPA_javier_regency
+		}
+		completion_reward = {
+			country_event = { id = spa.49 }
+			add_ideas = SPA_catholic_nation
+		}
+		x = 15
+		y = 2
+	
+	}
+	focus = {
+		id = SPA_patria
+		icon = GFX_focus_Oath_of_Loyalty
+		cost = 10
+		prerequisite = {
+			focus = SPA_dios
+		}
+		completion_reward = {
+			country_event = { id = spa.50 }
+			add_popularity = { ideology = nationalism popularity = 0.1 }
+		}
+		x = 15
+		y = 3
+	
+	}
+	focus = {
+		id = SPA_rey
+		icon = GFX_focus_King_Status
+		cost = 10
+		prerequisite = {
+			focus = SPA_fueros
+		}
+		completion_reward = {
+			country_event = { id = spa.52 }
+			remove_ideas = SPA_dynastic_disputes
+		}
+		x = 15
+		y = 5
+	
+	}
+	
+	focus = {
+		id = SPA_car_juan
+		icon = GFX_focus_King_Juan_III
+		cost = 10
+		prerequisite = {
+			focus = SPA_rey
+		}
+		bypass = { has_country_flag = juan_elected }
+		available = { always = no }
+		completion_reward = {
+		}
+		x = 13
+		y = 6
+	
+	}
+	
+	focus = {
+		id = SPA_unite_monarchists
+		icon = GFX_focus_Rally
+		cost = 10
+		prerequisite = {
+			focus = SPA_car_juan
+		}
+		completion_reward = {
+			COALITION_add_mon = yes
+		}
+		x = 13
+		y = 7
+	
+	}
+	
+	focus = {
+		id = SPA_re_evaluate_laws
+		icon = GFX_focus_renounce_the_treaty_of_trianon
+		cost = 10
+		prerequisite = {
+			focus = SPA_unite_monarchists
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPA_catholic_nation add_idea = SPA_catholic_nation2 }
+			swap_ideas = { remove_idea = SPA_decentralized_realm add_idea = SPA_decentralized_realm2 }
+		}
+		x = 13
+		y = 8
+	
+	}
+	
+	focus = {
+		id = SPA_car_javier
+		icon = GFX_focus_King_Javier_I
+		cost = 10
+		prerequisite = {
+			focus = SPA_rey
+		}
+		bypass = { has_country_flag = javier_elected }
+		available = { always = no }
+		completion_reward = {
+		}
+		x = 15
+		y = 6
+	
+	}
+	
+	focus = {
+		id = SPA_reinforce_legitimacy
+		icon = GFX_focus_Generic_Political
+		cost = 10
+		prerequisite = {
+			focus = SPA_car_javier
+		}
+		completion_reward = {
+			add_popularity = { ideology = nationalism popularity = 0.15 }
+			add_popularity = { ideology = monarchism popularity = -0.15 }
+		}
+		x = 15
+		y = 7
+	
+	}
+	
+	focus = {
+		id = SPA_representative_cortes
+		icon = GFX_focus_Holy_Republic
+		cost = 10
+		prerequisite = {
+			focus = SPA_reinforce_legitimacy
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 200
+		}
+		x = 15
+		y = 8
+	
+	}
+	
+	focus = {
+		id = SPA_car_carlos
+		icon = GFX_focus_King_Carlos_VIII
+		cost = 10
+		prerequisite = {
+			focus = SPA_rey
+		}
+		bypass = { has_country_flag = habsburg_restored }
+		available = { always = no }
+		completion_reward = {
+		}
+		x = 17
+		y = 6
+	
+	}
+	
+	focus = {
+		id = SPA_restore_holy_inquisition
+		icon = GFX_focus_Judicial_System
+		cost = 10
+		prerequisite = {
+			focus = SPA_car_carlos
+		}
+		completion_reward = {
+			add_stability = -0.05
+			add_popularity = { ideology = nationalism popularity = 0.1 }
+		}
+		x = 17
+		y = 7
+	
+	}
+	
+	focus = {
+		id = SPA_empire_reborn
+		icon = GFX_focus_Cooperatives
+		cost = 10
+		prerequisite = {
+			focus = SPA_restore_holy_inquisition
+		}
+		completion_reward = {
+			add_popularity = { ideology = nationalism popularity = 0.1 }
+			add_ideas = SPA_social_monarchy
+			add_war_support = 0.1
+			add_political_power = -100
+		}
+		x = 17
+		y = 8
+	
+	}
+	
+	focus = {
+		id = SPA_fueros
+		icon = GFX_focus_hol_the_foundations_of_defense
+		cost = 10
+		prerequisite = {
+			focus = SPA_patria
+		}
+		completion_reward = {
+			country_event = { id = spa.51 }
+			add_ideas = SPA_decentralized_realm
+		}
+		x = 15
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_legitimists
+		icon = GFX_focus_alfonso
+		cost = 10
+		prerequisite = {
+			focus = SPA_monarchy_restored
+		}
+		available = {
+			has_country_flag = alfonso_wins
+		}
+		bypass = {
+			has_country_flag = alfonso_wins
+		}
+		x = 18
+		y = 1
+	
+	}
+	focus = {
+		id = SPA_paternalism
+		icon = GFX_focus_generic_self_management
+		cost = 10
+		prerequisite = {
+			focus = SPA_javier_regency
+			focus = SPA_legitimists
+		}
+		completion_reward = {
+			add_stability = 0.05
+		}
+		x = 17
+		y = 2
+	
+	}
+	focus = {
+		id = SPA_catholic_tu
+		icon = GFX_focus_Christian_Trade_Unions
+		cost = 10
+		prerequisite = {
+			focus = SPA_paternalism
+		}
+		completion_reward = {
+			add_ideas = SPA_catholic_unions
+		}
+		x = 17
+		y = 3
+	
+	}
+	focus = {
+		id = SPA_agrarian
+		icon = GFX_focus_Control_Agriculture
+		cost = 10
+		prerequisite = {
+			focus = SPA_catholic_tu
+		}
+		completion_reward = {
+			add_political_power = 75
+		}
+		x = 17
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_royal_univ
+		icon = GFX_focus_University_of_Zagreb
+		cost = 10
+		prerequisite = {
+			focus = SPA_agrarian
+		}
+		completion_reward = {
+		}
+		x = 17
+		y = 5
+	
+	}
+	focus = {
+		id = SPA_juan_iii
+		icon = GFX_focus_King_Juan_III
+		cost = 10
+		prerequisite = {
+			focus = SPA_legitimists
+		}
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+		has_country_flag = alfonso_dead
+		}
+		x = 19
+		y = 2
+	
+	}
+	focus = {
+		id = SPA_military_takeover
+		icon = GFX_focus_Fascist_Assembly
+		cost = 10
+		prerequisite = {
+			focus = SPA_juan_iii
+		}
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+			has_country_flag = juan_puppet
+		}
+		x = 19
+		y = 3
+	
+	}
+	focus = {
+		id = SPA_crush_left
+		icon = GFX_focus_Anti_Communist
+		cost = 10
+		prerequisite = {
+			focus = SPA_military_takeover
+		}
+		completion_reward = {
+			add_stability = -0.15
+			remove_ideas = SPA_democratic_agitation
+		}
+		x = 19
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_puppet_king
+		icon = GFX_focus_rom_handle_king
+		cost = 10
+		prerequisite = {
+			focus = SPA_crush_left
+		}
+		completion_reward = {
+			COALITION_add_aut = yes
+		}
+		x = 19
+		y = 5
+	
+	}
+	focus = {
+		id = SPA_king_jaime
+		icon = GFX_focus_King_Jaime_I
+		cost = 10
+		prerequisite = {
+			focus = SPA_juan_iii
+		}
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+		has_country_flag = jaime_king
+		}
+		x = 21
+		y = 3
+	
+	}
+	focus = {
+		id = SPA_agreement_army
+		icon = GFX_focus_generic_military_mission
+		cost = 10
+		prerequisite = {
+			focus = SPA_king_jaime
+		}
+		completion_reward = {
+			add_political_power = 100
+		}
+		x = 21
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_estatuto
+		icon = GFX_goal_generic_forceful_treaty
+		cost = 10
+		prerequisite = {
+			focus = SPA_agreement_army
+		}
+		completion_reward = {
+			add_popularity = { ideology = monarchism popularity = 0.1 }
+			remove_ideas = SPA_democratic_agitation
+			set_party_name = {
+			ideology = democratic
+			long_name = SPA_pc_long
+			name = SPA_pc
+			}
+			set_party_name = {
+			ideology = market_liberalism
+			long_name = SPA_pl_long
+			name = SPA_pl
+			}
+			country_event = { id = spa.23 }
+		}
+		x = 21
+		y = 5
+	
+	}
+	focus = {
+		id = SPA_authoritarian_monarchy
+		icon = GFX_focus_monarchism_ideology
+		cost = 10
+		prerequisite = {
+			focus = SPA_estatuto
+			focus = SPA_puppet_king
+		}
+		mutually_exclusive = { 
+			focus = SPA_partido_conservador	
+		}
+		available = { has_country_flag = authoritarian_mon }
+		completion_reward = {
+			add_popularity = { ideology = monarchism popularity = 0.1 }
+		}
+		x = 20
+		y = 6
+	
+	}
+	
+	focus = {
+		id = SPA_destroy_carlism
+		icon = GFX_focus_Destroy_Carlism
+		cost = 10
+		prerequisite = {
+			focus = SPA_authoritarian_monarchy
+		}
+		completion_reward = {
+			add_popularity = { ideology = nationalism popularity = -0.1 }
+			add_stability = -0.03
+		}
+		x = 19
+		y = 7
+	
+	}
+	
+	focus = {
+		id = SPA_catholic_kingdom
+		icon = GFX_focus_State_Theology
+		cost = 5
+		prerequisite = {
+			focus = SPA_destroy_carlism
+		}
+		completion_reward = {
+			add_popularity = { ideology = monarchism popularity = 0.01 }
+			add_stability = 0.05
+		}
+		x = 19
+		y = 8
+	
+	}
+	
+	focus = {
+		id = SPA_move_corporatism
+		icon = GFX_focus_Corporatism
+		cost = 10
+		prerequisite = {
+			focus = SPA_catholic_kingdom
+		}
+		prerequisite = {
+			focus = SPA_censitary_suffrage
+		}
+		completion_reward = {
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		x = 20
+		y = 9
+	
+	}
+	
+	focus = {
+		id = SPA_restore_senate
+		icon = GFX_focus_Parliament
+		cost = 3
+		prerequisite = {
+			focus = SPA_authoritarian_monarchy
+		}
+		completion_reward = {
+			add_ideas = SPA_authoritarian_mon
+		}
+		x = 21
+		y = 7
+	
+	}
+	
+	focus = {
+		id = SPA_censitary_suffrage
+		icon = GFX_focus_Business_Men
+		cost = 4
+		prerequisite = {
+			focus = SPA_restore_senate
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = SPA_authoritarian_mon add_idea = SPA_authoritarian_mon2 }
+		}
+		x = 21
+		y = 8
+	
+	}
+	focus = {
+		id = SPA_constitutional
+		icon = GFX_focus_Parliament
+		cost = 10
+		prerequisite = {
+			focus = SPA_juan_iii
+		}
+		available = {
+			has_country_flag = bypassed
+		}
+		bypass = {
+		has_country_flag = constitution
+		}
+		x = 23
+		y = 3
+	
+	}
+	focus = {
+		id = SPA_partido_conservador
+		icon = GFX_focus_Collaborate_with_Local_Elites
+		cost = 10
+		prerequisite = {
+			focus = SPA_estatuto
+			focus = SPA_new_ed_law
+		}
+		mutually_exclusive = { 
+			focus = SPA_partido_liberal
+			focus = SPA_authoritarian_monarchy		
+		}
+		available = { always = no }
+		bypass = { has_government = democratic }
+		completion_reward = {
+		}
+		x = 23
+		y = 6
+	
+	}
+	focus = {
+		id = SPA_calm_army
+		icon = GFX_focus_SPR_army
+		cost = 10
+		prerequisite = {
+			focus = SPA_partido_conservador
+		}
+		completion_reward = {
+			remove_ideas = SPA_unrest_military
+		}
+		x = 23
+		y = 7
+	
+	}
+	focus = {
+		id = SPA_continue_catholic_policies
+		icon = GFX_focus_Ties_with_Bishops
+		cost = 10
+		prerequisite = {
+			focus = SPA_calm_army
+		}
+		completion_reward = {
+			add_stability = 0.01
+			add_political_power = 30
+		}
+		x = 23
+		y = 8
+	
+	}
+	
+	focus = {
+		id = SPA_ley_prensa
+		icon = GFX_focus_Press_Barons
+		cost = 4
+		prerequisite = {
+			focus = SPA_new_ed_law
+		}
+		completion_reward = {
+			add_war_support = -0.25
+		}
+		x = 25
+		y = 7
+	
+	}
+	
+	focus = {
+		id = SPA_independent_judiciary
+		icon = GFX_focus_Judicial_System
+		cost = 10
+		prerequisite = {
+			focus = SPA_ley_prensa
+		}
+		completion_reward = {
+			add_stability = 0.1
+		}
+		x = 25
+		y = 8
+	
+	}
+	
+	focus = {
+		id = SPA_work_unions
+		icon = GFX_focus_Workers_Support
+		cost = 5
+		prerequisite = {
+			focus = SPA_independent_judiciary
+		}
+		completion_reward = {
+			add_political_power = 30
+		}
+		x = 25
+		y = 9
+	
+	}
+	
+	focus = {
+		id = SPA_partido_liberal
+		icon = GFX_focus_Social_Liberalism
+		cost = 10
+		prerequisite = {
+			focus = SPA_new_ed_law
+		}
+		mutually_exclusive = { focus = SPA_partido_conservador }
+		available = { always = no }
+		bypass = { has_government = market_liberalism }
+		completion_reward = {
+		}
+		x = 27
+		y = 6
+	
+	}
+	
+	focus = {
+		id = SPA_reduce_tariffs
+		icon = GFX_focus_Free_Trade
+		cost = 10
+		prerequisite = {
+			focus = SPA_partido_liberal
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_idea = free_trade }
+				}
+				add_ideas = free_trade
+			}
+			else = {
+				add_political_power = 50
+			}
+		}
+		x = 27
+		y = 7
+	
+	}
+	
+	focus = {
+		id = SPA_legacy_republic
+		icon = GFX_focus_Befriend_Republican_Spain
+		cost = 10
+		prerequisite = {
+			focus = SPA_reduce_tariffs
+		}
+		completion_reward = {
+			add_popularity = { ideology = social_democracy popularity = 0.1 }
+			add_popularity = { ideology = social_liberalism popularity = 0.1 }
+			COALITION_add_soclib = yes
+			COALITION_add_socdem = yes
+		}
+		x = 27
+		y = 8
+	
+	}
+	
+	focus = {
+		id = SPA_reestructure_army
+		icon = GFX_focus_Military_Purges
+		cost = 10
+		prerequisite = {
+			focus = SPA_legacy_republic
+		}
+		completion_reward = {
+			add_political_power = 90
+			add_war_support = -0.2
+			remove_ideas = SPA_unrest_military
+		}
+		x = 27
+		y = 9
+	
+	}
+	focus = {
+		id = SPA_strenghten_presi
+		icon = GFX_focus_president_focus
+		cost = 10
+		prerequisite = {
+			focus = SPA_auth_rep
+		}
+		completion_reward = {
+			remove_ideas = SPA_chaotic_administration
+			add_political_power = 50
+		}
+		x = 24
+		y = 1
+	
+	}
+	focus = {
+		id = SPA_anti_monarchism
+		icon = GFX_focus_Crush_the_Monarchy
+		cost = 10
+		prerequisite = {
+			focus = SPA_auth_rep
+		}
+		completion_reward = {
+			remove_ideas = SPA_monarchist_opposition
+			add_stability = -0.075
+		}
+		x = 26
+		y = 1
+	
+	}
+	focus = {
+		id = SPA_order
+		icon = GFX_focus_Crush_Resistance
+		cost = 10
+		prerequisite = {
+			focus = SPA_auth_rep
+		}
+		completion_reward = {
+			add_war_support = 0.1
+			add_stability = 0.05
+		}
+		x = 28
+		y = 1
+	
+	}
+	focus = {
+		id = SPA_draft_new_cons
+		icon = GFX_focus_German_Constitutionalism
+		cost = 10
+		prerequisite = {
+			focus = SPA_strenghten_presi
+		}
+		prerequisite = {
+			focus = SPA_anti_monarchism
+		}
+		prerequisite = {
+			focus = SPA_order
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = already_ceda
+					}
+				}
+				country_event = { id = spa.24 }
+			}
+			if = {
+				limit = {
+					has_country_flag = already_ceda
+				}
+				country_event = { id = spa.25 }
+			}
+		}
+		x = 26
+		y = 2
+	
+	}
+	focus = {
+		id = SPA_hold_elections
+		icon = GFX_focus_election
+		cost = 10
+		prerequisite = {
+			focus = SPA_draft_new_cons
+		}
+		bypass = { has_country_flag = spa_restored_democracy }
+		available = { always = no }
+		x = 25
+		y = 3
+	
+	}
+	focus = {
+		id = SPA_embrace_lib
+		icon = GFX_focus_Give_Liberty
+		cost = 10
+		prerequisite = {
+			focus = SPA_constitutional
+			focus = SPA_hold_elections
+		}
+		completion_reward = {
+			add_ideas = SPA_liberalism_return
+		}
+		x = 24
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_martial_law
+		icon = GFX_focus_generic_little_entente
+		cost = 10
+		prerequisite = {
+			focus = SPA_draft_new_cons
+		}
+		available = { has_idea = SPA_democratic_agitation }
+		completion_reward = {
+			remove_ideas = SPA_democratic_agitation
+		}
+		x = 27
+		y = 3
+	
+	}
+	focus = {
+		id = SPA_snp
+		icon = GFX_goal_generic_dangerous_deal
+		cost = 10
+		prerequisite = {
+			focus = SPA_martial_law
+		}
+		completion_reward = {
+			COALITION_add_fas = yes
+			COALITION_add_mon = yes
+			COALITION_add_con = yes
+			set_party_name = {
+				ideology = democratic
+				long_name = SPA_pne_long
+				name = SPA_pne
+			}
+			set_party_name = {
+				ideology = neutrality
+				long_name = SPA_pne_long
+				name = SPA_pne
+			}
+			set_party_name = {
+				ideology = monarchism
+				long_name = SPA_pne_long
+				name = SPA_pne
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = SPA_pne_long
+				name = SPA_pne
+			}
+		}
+		x = 27
+		y = 4
+	
+	}
+	focus = {
+		id = SPA_tutelage
+		icon = GFX_focus_Rigged_Elections
+		cost = 10
+		prerequisite = {
+			focus = SPA_snp
+		}
+		completion_reward = {
+			add_ideas = SPA_national_government
+			add_research_slot = 1
+		}
+		x = 27
+		y = 5
+	
+	}
+
+	focus = {
+		id = SPA_new_ed_law
+		icon = GFX_focus_BRA_goal_literacy_effort
+		cost = 10
+		prerequisite = {
+			focus = SPA_embrace_lib
+		}
+		completion_reward = {
+		}
+		x = 24
+		y = 5
+	
+	}	
+}

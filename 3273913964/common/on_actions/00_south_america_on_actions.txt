@@ -1,0 +1,423 @@
+on_actions = {
+	on_startup ={
+		effect = {
+			HON = {
+				country_lock_all_division_template = yes
+			}
+			ELS = {
+				country_lock_all_division_template = yes
+			}
+			GUA = {
+				country_lock_all_division_template = yes
+			}
+			DOM = {
+				country_lock_all_division_template = yes
+			}
+			HAI = {
+				country_lock_all_division_template = yes
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					VEN = { is_ai = yes }
+				}
+				VEN = {
+					country_lock_all_division_template = yes
+				}
+			}
+			VEN = {
+				country_event = {
+					id = south_america_internal.1
+					days = 1080
+				}
+			}
+			COL = {
+				country_lock_all_division_template = yes
+				country_event = {
+					id = south_america_internal.3
+					days = 583
+				}
+			}
+			PRU = {
+				country_lock_all_division_template = yes
+				country_event = {
+					id = south_america_internal.6
+					days = 119
+				}
+			}
+			#BOL = {
+			#	country_event = {
+			#		id = south_america_internal.8
+			#		days = 695
+			#	}
+			#}
+			if = {
+				limit = {
+					CHL = { is_ai = yes }
+				}
+				CHL = {
+					country_lock_all_division_template = yes
+				}
+			}
+			CHL = {
+				country_event = {
+					id = south_america_internal.13
+					days = 2183
+				}
+			}
+			if = {
+				limit = {
+					NIC = { is_ai = yes }
+				}
+				NIC = {
+					country_lock_all_division_template = yes
+				}
+			}
+			NIC = {
+				country_event = {
+					id = south_america_internal.16
+					days = 1461
+				}
+			}
+			COS = {
+				country_lock_all_division_template = yes
+				country_event = {
+					id = south_america_internal.17
+					days = 1223
+				}
+			}
+			HAI = {
+				country_lock_all_division_template = yes
+				country_event = {
+					id = south_america_internal.19
+					days = 3056
+				}
+			}
+			PAN = {
+				country_lock_all_division_template = yes
+				country_event = {
+					id = south_america_internal.20
+					days = 1369
+				}
+			}
+			CUB = {
+				country_lock_all_division_template = yes
+				country_event = {
+					id = south_america_internal.24
+					days = 223
+				}
+			}
+			PAR = {
+				country_event = {
+					id = south_america_internal.33
+					days = 1685
+				}
+			}
+			URG = {
+				country_lock_all_division_template = yes
+				country_event = {
+					id = south_america_internal.37
+					days = 89
+				}
+			}
+			ECU = {
+				country_lock_all_division_template = yes
+				country_event = {
+					id = south_america_internal.41
+					days = 291
+				}
+			}
+			if = {
+				limit = {
+					ARG = { is_ai = yes }
+				}
+				ARG = {
+					country_lock_all_division_template = yes
+				}
+			}
+			ARG = {
+				country_event = {
+					id = south_america_internal.50
+					days = 1876
+				}
+			}
+		}
+
+		#Chaco War stuff
+		effect = {
+			BOL = {activate_mission = BOL_loss_of_momentum_mission}
+			PAR = {activate_mission = PAR_hold_out_until_stalemate}
+			869 = {
+				add_dynamic_modifier = { modifier = Dry_chaco_region }
+				add_province_modifier = {
+					static_modifiers = { unplanned_chaco_offensive }
+					province = {
+						all_provinces = yes
+					}
+				}
+				remove_province_modifier = {
+					static_modifiers = { unplanned_chaco_offensive }
+					province = {id=10973}
+				}
+				add_province_modifier = {
+					static_modifiers = { chaco_no_infrastructure }
+					province = {id=13211}
+				}			
+			}
+			688 = {
+				add_dynamic_modifier = { modifier = Dry_chaco_region }
+				add_dynamic_modifier = { modifier = Enemy_occupied_water_wells scope = BOL }
+				add_province_modifier = {
+					static_modifiers = { unplanned_chaco_offensive }
+					province = {
+						all_provinces = yes
+					}
+				}
+				remove_province_modifier = {
+					static_modifiers = { unplanned_chaco_offensive }
+					province = {id=5165}
+				}
+				add_province_modifier = {
+					static_modifiers = { chaco_no_infrastructure }
+					province = {id=13245}
+				}
+				add_province_modifier = {
+					static_modifiers = { chaco_no_infrastructure }
+					province = {id=4226}
+				}
+			}
+			872 = {
+				add_province_modifier = {
+					static_modifiers = { unplanned_chaco_offensive }
+					province = {
+						all_provinces = yes
+					}
+				}
+				add_province_modifier = {
+					static_modifiers = { chaco_no_infrastructure }
+					province = {id=12916}
+				}
+				add_province_modifier = {
+					static_modifiers = { chaco_no_infrastructure }
+					province = {id=2160}
+				}
+			}
+
+			BOL = {
+				country_event = {
+					id = south_america_external.0
+					hours = 1
+				}
+			}
+
+			PAR = {
+				add_ideas = PAR_cautious_command
+				country_event = {
+					id = south_america_external.0
+					hours = 1
+				}
+			}
+		}
+	}
+
+	on_weekly_PAR = {
+		effect = {
+			if = {
+				limit = {
+					has_global_flag = SA_chaco_war_flag
+					ROOT = { controls_state = 688 }
+					OR = {
+						ROOT = {controls_province = 12979 }
+						ROOT = {controls_province = 10924 }
+						ROOT = {controls_province = 2226 }
+						ROOT = {controls_province = 8206 }
+					}
+				}
+				ROOT = { country_event = south_america_external.1 }
+				white_peace = BOL
+				869 = {
+					remove_province_modifier = {
+						static_modifiers = { unplanned_chaco_offensive }
+						province = {
+							all_provinces = yes
+						}
+					}
+					remove_province_modifier = {
+						static_modifiers = { chaco_no_infrastructure }
+						province = {
+							all_provinces = yes
+						}
+					}
+				}
+				688 = {
+					remove_province_modifier = {
+						static_modifiers = { unplanned_chaco_offensive }
+						province = {
+							all_provinces = yes
+						}
+					}
+					remove_province_modifier = {
+						static_modifiers = { chaco_no_infrastructure }
+						province = {
+							all_provinces = yes
+						}
+					}
+				}
+				872 = {
+					remove_province_modifier = {
+						static_modifiers = { unplanned_chaco_offensive }
+						province = {
+							all_provinces = yes
+						}
+					}
+					remove_province_modifier = {
+						static_modifiers = { chaco_no_infrastructure }
+						province = {
+							all_provinces = yes
+						}
+					}
+				}
+				set_victory_points = {
+					province = 13243
+					value = 0
+				}
+				set_victory_points = {
+					province = 4994
+					value = 0
+				}
+				set_victory_points = {
+					province = 4913
+					value = 0
+				}
+				set_victory_points = {
+					province = 7939
+					value = 1
+				}
+				set_province_name = { id = 7939 name = "La Esmeralda" }
+				set_victory_points = {
+					province = 13244
+					value = 0
+				}
+				set_victory_points = {
+					province = 10917
+					value = 0
+				}
+				set_victory_points = {
+					province = 2209
+					value = 2
+				}
+				add_victory_points = {
+					province = 10973
+					value = 1
+				}
+				set_province_name = { id = 10973 name = "Fuerte Olimpo" }
+			}
+			else_if = {
+				limit = {
+					has_global_flag = SA_chaco_war_flag
+					BOL = { controls_state = 688 }
+					OR = {
+						BOL = { controls_province = 11023 }
+						AND = {
+							BOL = {controls_province = 2209 }
+							BOL = {controls_province = 8713 }
+						}
+					}
+				}
+				BOL = { country_event = south_america_external.2 }
+				white_peace = BOL
+				869 = {
+					remove_province_modifier = {
+						static_modifiers = { unplanned_chaco_offensive }
+						province = {
+							all_provinces = yes
+						}
+					}
+					remove_province_modifier = {
+						static_modifiers = { chaco_no_infrastructure }
+						province = {
+							all_provinces = yes
+						}
+					}
+				}
+				688 = {
+					remove_province_modifier = {
+						static_modifiers = { unplanned_chaco_offensive }
+						province = {
+							all_provinces = yes
+						}
+					}
+					remove_province_modifier = {
+						static_modifiers = { chaco_no_infrastructure }
+						province = {
+							all_provinces = yes
+						}
+					}
+				}
+				872 = {
+					remove_province_modifier = {
+						static_modifiers = { unplanned_chaco_offensive }
+						province = {
+							all_provinces = yes
+						}
+					}
+					remove_province_modifier = {
+						static_modifiers = { chaco_no_infrastructure }
+						province = {
+							all_provinces = yes
+						}
+					}
+				}
+				set_victory_points = {
+					province = 13243
+					value = 0
+				}
+				set_victory_points = {
+					province = 4994
+					value = 0
+				}
+				set_victory_points = {
+					province = 4913
+					value = 0
+				}
+				set_victory_points = {
+					province = 7939
+					value = 1
+				}
+				set_province_name = { id = 7939 name = "La Esmeralda" }
+				set_victory_points = {
+					province = 13244
+					value = 0
+				}
+				set_victory_points = {
+					province = 10917
+					value = 0
+				}
+				set_victory_points = {
+					province = 2209
+					value = 2
+				}
+				add_victory_points = {
+					province = 10973
+					value = 1
+				}
+				set_province_name = { id = 10973 name = "Fuerte Olimpo" }
+			}
+
+			if = {
+				limit = {
+					has_global_flag = SA_chaco_war_flag
+					PAR = { controls_province = 13243 }
+					PAR = { controls_province = 4913 }
+				}
+				BOL = {
+					country_event = {
+						id = BOL_internal.1
+						hours = 1
+					}
+				}
+			}
+		}
+	}
+}

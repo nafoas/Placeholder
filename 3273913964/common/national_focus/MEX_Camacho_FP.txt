@@ -1,0 +1,594 @@
+	#Focus for Foreign Policy Camacho
+	shared_focus = {
+		id = MEX_foreign_policy_camacho
+		icon = GFX_focus_Political_reform_2
+		x = 31
+		y = 8
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			has_completed_focus = MEX_aunitedparty
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_political_power = -100
+		}
+	}
+
+	#Focus for American Policy
+	shared_focus = {
+		id = MEX_american_policy
+		icon = GFX_focus_Foreign_Diplomacy
+		x = 25
+		y = 9
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_foreign_policy_camacho }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_political_power = 20
+		}
+	}
+
+	#Focus for Restart the Reconciliation
+	shared_focus = {
+		id = MEX_restartthereconciliation
+		icon = GFX_focus_Befriend_USA
+		x = 24
+		y = 10
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_american_policy }
+		mutually_exclusive = { focus = MEX_southamerica }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			USA = { add_opinion_modifier = { target = MEX modifier = MEX_reconciliation  } }
+		}
+	}
+
+	#Focus for Men for Assitance
+	shared_focus = {
+		id = MEX_menforassitance
+		icon = GFX_focus_Recruitment_Drive
+		x = 24
+		y = 11
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_restartthereconciliation }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_war_support = 0.05
+		}
+	}
+
+	#Focus for Prepare for Military Cooperation
+	shared_focus = {
+		id = MEX_prepareformilitarycooperation
+		icon = GFX_focus_Prepare_the_Troops
+		x = 24
+		y = 12
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_menforassitance }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			USA = {
+				country_event = { days = 1 id = mex_foreign.26 }
+			}
+		}
+	}
+
+	# South American Cooperation
+	shared_focus = {
+		id = MEX_southamerica
+		icon = GFX_focus_South_American_Relations
+		x = 26
+		y = 10
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			NOT = { has_completed_focus = MEX_startinterventions }
+			has_country_flag = latin_american_alliance1
+		}
+		prerequisite = { focus = MEX_american_policy }
+		mutually_exclusive = { focus = MEX_restartthereconciliation }
+		# mutually_exclusive = { focus = MEX_restartthereconciliation_2 }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			BRA = { add_opinion_modifier = { target = MEX modifier = MEX_cooperation  } }
+			ARG = { add_opinion_modifier = { target = MEX modifier = MEX_cooperation  } }
+			COL = { add_opinion_modifier = { target = MEX modifier = MEX_cooperation  } }
+			CHL = { add_opinion_modifier = { target = MEX modifier = MEX_cooperation  } }
+			VEN = { add_opinion_modifier = { target = MEX modifier = MEX_cooperation  } }
+			ECU = { add_opinion_modifier = { target = MEX modifier = MEX_cooperation  } }
+			PRU = { add_opinion_modifier = { target = MEX modifier = MEX_cooperation  } }
+			BOL = { add_opinion_modifier = { target = MEX modifier = MEX_cooperation  } }
+			PAR = { add_opinion_modifier = { target = MEX modifier = MEX_cooperation  } }
+			URG = { add_opinion_modifier = { target = MEX modifier = MEX_cooperation  } }
+			set_country_flag = latin_american_alliance2
+		}
+	}
+
+	#Focus for Meet them all in Guadalajara
+	shared_focus = {
+		id = MEX_thecaribbean
+		icon = GFX_focus_Withdraw_Caribbean
+		x = 26
+		y = 11
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_southamerica }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			CUB = { add_opinion_modifier = { target = MEX modifier = MEX_coexistance  } }
+			HAI = { add_opinion_modifier = { target = MEX modifier = MEX_coexistance  } }
+			DOM = { add_opinion_modifier = { target = MEX modifier = MEX_coexistance  } }
+		}
+	}
+
+	#Focus for Sign the "Mutual Assistance Treaty"
+	shared_focus = {
+		id = MEX_centralamerica
+		icon = GFX_focus_WIP
+		x = 26
+		y = 12
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_thecaribbean }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			GUA = { add_opinion_modifier = { target = MEX modifier = MEX_friendship  } }
+			ELS = { add_opinion_modifier = { target = MEX modifier = MEX_friendship  } }
+			HON = { add_opinion_modifier = { target = MEX modifier = MEX_friendship  } }
+			NIC = { add_opinion_modifier = { target = MEX modifier = MEX_friendship  } }
+			COS = { add_opinion_modifier = { target = MEX modifier = MEX_friendship  } }
+			PAN = { add_opinion_modifier = { target = MEX modifier = MEX_friendship  } }
+		}
+	}
+
+	#Focus for Leader in American Diplomacy
+	shared_focus = {
+		id = MEX_leaderinamericandiplomacy
+		icon = GFX_focus_Befriend_Mexico
+		x = 25
+		y = 13
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = {
+			focus = MEX_prepareformilitarycooperation
+			focus = MEX_centralamerica
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_stability = 0.02
+		}
+	}
+
+	#Focus for The War in Europe
+	shared_focus = {
+		id = MEX_thewarineurope
+		icon = GFX_focus_Burning_Globe
+		x = 31
+		y = 9
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			ENG = { has_war_with = GER }
+		}
+		prerequisite = { focus = MEX_foreign_policy_camacho }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_political_power = 60
+		}
+	}
+
+	#Focus for Support the Allies
+	shared_focus = {
+		id = MEX_supporttheallies
+		icon = GFX_focus_Befriend_United_Kingdom
+		x = 31
+		y = 10
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_thewarineurope }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			ENG = { add_opinion_modifier = { target = MEX modifier = MEX_support  } }
+		}
+	}
+
+	#Focus for Denonuce Japan
+	shared_focus = {
+		id = MEX_denonucejapan
+		icon = GFX_focus_Sanction_Japan
+		x = 30
+		y = 11
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			JAP = { has_war_with = USA }
+		}
+		prerequisite = { focus = MEX_supporttheallies }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			JAP = { add_opinion_modifier = { target = MEX modifier = MEX_denouncing  } }
+		}
+	}
+
+	#Focus for Anti-Nazi Policy
+	shared_focus = {
+		id = MEX_antinazipolicy
+		icon = GFX_focus_MEX_Anti_Nazism
+		x = 32
+		y = 11
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			GER = { has_government = fascism }
+		}
+		prerequisite = { focus = MEX_supporttheallies }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			GER = { add_opinion_modifier = { target = MEX modifier = MEX_denouncing  } }
+		}
+	}
+
+	#Focus for Join the War
+	shared_focus = {
+		id = MEX_jointhewar
+		icon = GFX_focus_Into_the_Flames
+		x = 31
+		y = 12
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			GER = { has_war_with = ENG }
+			JAP = { has_war_with = USA }
+		}
+		prerequisite = {
+			focus = MEX_denonucejapan
+			focus = MEX_antinazipolicy
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_stability = -0.1
+			add_to_war = {
+				targeted_alliance = ENG
+				enemy = GER
+				hostility_reason = asked_to_join
+			}
+			add_to_war = {
+				targeted_alliance = USA
+				enemy = JAP
+				hostility_reason = asked_to_join
+			}
+		}
+	}
+
+	#Focus for Focus on the Pacific
+	shared_focus = {
+		id = MEX_focusonthepacific
+		icon = GFX_focus_usa_focus_on_asia
+		x = 28
+		y = 13
+		cost = 10
+		available_if_capitulated = yes
+		available = {has_war_with = JAP}
+		prerequisite = { focus = MEX_jointhewar }
+		mutually_exclusive = { focus = MEX_focusoneurope }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_ideas = MEX_focus_japan
+		}
+	}
+
+	#Focus for The Jaguar Warriors
+	shared_focus = {
+		id = MEX_thejaguarwarriors
+		icon = GFX_focus_WIP #GFX_focus_Jungle_Warfare
+		x = 26
+		y = 14
+		cost = 10
+		available_if_capitulated = yes
+		available = {has_war_with = JAP}
+		prerequisite = { focus = MEX_focusonthepacific }
+		mutually_exclusive = {
+			focus = MEX_theazteceagles
+		}
+		mutually_exclusive = {
+			focus = MEX_theaxolotlfleet
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward =  {
+			swap_ideas = { remove_idea = MEX_focus_japan add_idea = MEX_focus_japan1 }
+		}
+	}
+
+	#Focus for The Aztec Eagles
+	shared_focus = {
+		id = MEX_theazteceagles
+		icon = GFX_focus_Aerial_Offensive
+		x = 28
+		y = 14
+		cost = 10
+		available_if_capitulated = yes
+		available = {has_war_with = JAP}
+		prerequisite = { focus = MEX_focusonthepacific }
+		mutually_exclusive = {
+			focus = MEX_thejaguarwarriors
+		}
+		mutually_exclusive = {
+			focus = MEX_theaxolotlfleet
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward =  {
+			swap_ideas = { remove_idea = MEX_focus_japan add_idea = MEX_focus_japan2 }
+		}
+	}
+
+	#Focus for The Axolotl Fleet
+	shared_focus = {
+		id = MEX_theaxolotlfleet
+		icon = GFX_focus_Naval_Operations
+		x = 30
+		y = 14
+		cost = 10
+		available_if_capitulated = yes
+		available = {has_war_with = JAP}
+		prerequisite = { focus = MEX_focusonthepacific }
+		mutually_exclusive = {
+			focus = MEX_theazteceagles
+		}
+		mutually_exclusive = {
+			focus = MEX_thejaguarwarriors
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward =  {
+			swap_ideas = { remove_idea = MEX_focus_japan add_idea = MEX_focus_japan3 }
+		}
+	}
+
+	#Focus for Focus on Europe
+	shared_focus = {
+		id = MEX_focusoneurope
+		icon = GFX_focus_usa_focus_on_europe
+		x = 34
+		y = 13
+		cost = 10
+		available_if_capitulated = yes
+		available = {has_war_with = GER}
+		prerequisite = { focus = MEX_jointhewar }
+		mutually_exclusive = { focus = MEX_focusonthepacific }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_ideas = MEX_focus_germany
+		}
+	}
+
+	#Focus for The Feathered Serpents
+	shared_focus = {
+		id = MEX_thefeatheredserpents
+		icon = GFX_focus_Close_Air_Support
+		x = 33
+		y = 14
+		cost = 10
+		available_if_capitulated = yes
+		available = {has_war_with = GER}
+		prerequisite = { focus = MEX_focusoneurope }
+		mutually_exclusive = { focus = MEX_thenahuatldivision }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward =  {
+			swap_ideas = { remove_idea = MEX_focus_germany add_idea = MEX_focus_germany2 }
+		}
+	}
+
+	#Focus for The Nahuatl Division
+	shared_focus = {
+		id = MEX_thenahuatldivision
+		icon = GFX_focus_Commando_Operations
+		x = 35
+		y = 14
+		cost = 10
+		available_if_capitulated = yes
+		available = {has_war_with = GER}
+		prerequisite = { focus = MEX_focusoneurope }
+		mutually_exclusive = { focus = MEX_thefeatheredserpents }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward =  {
+			swap_ideas = { remove_idea = MEX_focus_germany add_idea = MEX_focus_germany1 }
+		}
+	}
+
+	#Focus for The Neutrality Question
+	shared_focus = {
+		id = MEX_theneutralityquestion
+		icon = GFX_goal_generic_neutrality_focus
+		x = 37
+		y = 9
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_foreign_policy_camacho }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = { add_political_power = 60 }
+	}
+
+	#Focus for Maintain Neutrality
+	shared_focus = {
+		id = MEX_maintainneutrality
+		icon = GFX_focus_Pacifist_State
+		x = 36
+		y = 10
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_theneutralityquestion }
+		mutually_exclusive = { focus = MEX_startinterventions }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_ideas = MEX_neutrality_idea
+		}
+	}
+	#Focus for Prepare for Defensive Warfare
+	shared_focus = {
+		id = MEX_preparefordefensivewarfare
+		icon = GFX_focus_Trench_Warfare
+		x = 36
+		y = 11
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_maintainneutrality }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			set_country_flag = neutrality_falg
+			swap_ideas = { remove_idea = MEX_neutrality_idea add_idea = MEX_neutrality_idea1 }
+		}
+	}
+
+	#Focus for Mexico A Giant Fortress
+	shared_focus = {
+		id = MEX_mexicoagiantfortress
+		icon = GFX_focus_Fortification_Effort
+		x = 36
+		y = 12
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_preparefordefensivewarfare }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = MEX_neutrality_idea1 add_idea = MEX_neutrality_idea2 }
+		}
+	}
+
+	#Focus for Start Interventions
+	shared_focus = {
+		id = MEX_startinterventions
+		icon = GFX_focus_Aggresion
+		x = 38
+		y = 10
+		cost = 10
+		available_if_capitulated = yes
+		available = {
+			NOT = { has_completed_focus = MEX_southamerica }
+			NOT = { has_completed_focus = MEX_searchforallies }
+		}
+		prerequisite = { focus = MEX_theneutralityquestion }
+		mutually_exclusive = { focus = MEX_maintainneutrality }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			set_country_flag = interventionism
+			add_stability = -0.2
+			add_war_support = -0.2
+		}
+	}
+
+	#Focus for Intervene in American Conflicts
+	shared_focus = {
+		id = MEX_interveneinamericanconflicts
+		icon = GFX_focus_Central_America_Intervention
+		x = 38
+		y = 11
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_startinterventions }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			GUA = { add_opinion_modifier = { target = MEX modifier = MEX_interventionist  } }
+			ELS = { add_opinion_modifier = { target = MEX modifier = MEX_interventionist  } }
+			HON = { add_opinion_modifier = { target = MEX modifier = MEX_interventionist  } }
+			NIC = { add_opinion_modifier = { target = MEX modifier = MEX_interventionist  } }
+			COS = { add_opinion_modifier = { target = MEX modifier = MEX_interventionist  } }
+			PAN = { add_opinion_modifier = { target = MEX modifier = MEX_interventionist  } }
+		}
+	}
+
+	#Focus for Look Beyond The Mainland
+	shared_focus = {
+		id = MEX_lookbeyondmainland
+		icon = GFX_focus_Caribbean_Intervention
+		x = 38
+		y = 12
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_interveneinamericanconflicts }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			CUB = { add_opinion_modifier = { target = MEX modifier = MEX_interventionist  } }
+			DOM = { add_opinion_modifier = { target = MEX modifier = MEX_interventionist  } }
+			HAI = { add_opinion_modifier = { target = MEX modifier = MEX_interventionist  } }
+		}
+	}
+
+	#Focus for A New Mexico
+	shared_focus = {
+		id = MEX_anewmexico
+		icon = GFX_focus_Befriend_Mexico
+		x = 37
+		y = 13
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = {
+			focus = MEX_mexicoagiantfortress
+			focus = MEX_lookbeyondmainland
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_stability = 0.03
+		}
+	}

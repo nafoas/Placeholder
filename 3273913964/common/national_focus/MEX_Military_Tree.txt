@@ -1,0 +1,543 @@
+#27 shared_focuses here
+#Fuegoto935
+	#shared_focus for Reform the Army
+	shared_focus = {
+		id = MEX_reformthearmy
+		icon = GFX_focus_Army_Reform
+		x = 32
+		y = 1
+		cost = 10 
+		available = {
+			has_completed_focus = MEX_thenewprm
+		}
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			army_experience = 10
+		}
+	}
+	
+	#shared_focus for Legacy of Zapata
+	shared_focus = {
+		id = MEX_legacyofzapata
+		icon = GFX_focus_Legacy_of_Zapata
+		x = 29
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+		focus = MEX_reformthearmy 
+		}
+		mutually_exclusive = { 
+			focus = MEX_legacyofobregon 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_outdated_military add_idea = mex_legacy_of_zapata }
+		}
+	}
+
+	#shared_focus for Legacy of Obregon
+	shared_focus = {
+		id = MEX_legacyofobregon
+		icon = GFX_focus_Legacy_of_Obregon
+		x = 35
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_reformthearmy }
+		mutually_exclusive = { 
+			focus = MEX_legacyofzapata 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_outdated_military add_idea = mex_legacy_of_obregon }
+		}
+	}
+	#shared_focus for Mass Assault
+	shared_focus = {
+		id = MEX_massassault
+		icon = GFX_focus_Human_Wave_Charges
+		x = 28
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_legacyofzapata }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			#add_tech_bonus = { bonus = 0.5 uses = 2 category = cat_mass_assault }
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = cat_mass_assault
+			}
+		}
+	}
+	
+	#shared_focus for Learn from the Revolution
+	shared_focus = {
+		id = MEX_learnfromtherevolution
+		icon = GFX_focus_Urban_Warfare
+		x = 28
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_massassault }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_legacy_of_zapata add_idea = mex_legacy_of_zapata1 }
+		}
+	}
+	
+	#shared_focus for Use our Officers
+	shared_focus = {
+		id = MEX_useourofficers
+		icon = GFX_focus_Flexible_chain_of_command
+		x = 28
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_learnfromtherevolution }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_legacy_of_zapata1 add_idea = mex_legacy_of_zapata2 }
+		}
+	}
+	
+	#shared_focus for Expand the Soldaderas
+	shared_focus = {
+		id = MEX_expandthesoldaderas
+		icon = GFX_focus_mex_soldaderas
+		x = 26
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_legacyofzapata }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_ideas = mex_soldaderas
+		}
+	}
+	#shared_focus for Mobilize the Reserves
+	shared_focus = {
+		id = MEX_moilizethereserves
+		icon = GFX_focus_Recruitment_Drive
+		x = 26
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_expandthesoldaderas }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_soldaderas add_idea = mex_mobilzed_reserves }
+		}
+	}
+
+	#shared_focus for Prepare the Guerrillas
+	shared_focus = {
+		id = MEX_preparetheguerrillas
+		icon = GFX_focus_Guerilla_Warfare
+		x = 26
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_moilizethereserves }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_mobilzed_reserves add_idea = mex_guerrilla_warfare }
+		}
+	}
+	#shared_focus for Grand Battle Plan
+	shared_focus = {
+		id = MEX_grandbattleplan
+		icon = GFX_focus_Long_Planning
+		x = 36
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_legacyofobregon }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			#add_tech_bonus = { bonus = 0.75 uses = 2 category = cat_grand_battle_plan }
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.75
+				uses = 2
+				category = cat_grand_battle_plan
+			}
+		}
+	}
+
+	#shared_focus for Trench Warfare
+	shared_focus = {
+		id = MEX_trenchwarfare
+		icon = GFX_focus_Trench_Warfare
+		x = 36
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_grandbattleplan }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_legacy_of_obregon add_idea = mex_legacy_of_obregon1 }
+		}
+	}
+
+	#shared_focus for Replace Our Officers
+	shared_focus = {
+		id = MEX_replaceourofficers
+		icon = GFX_focus_Military_Purges
+		x = 36
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_trenchwarfare }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_legacy_of_obregon1 add_idea = mex_legacy_of_obregon2 }
+		}
+	}
+	
+	#shared_focus for Training Programs
+	shared_focus = {
+		id = MEX_trainingprograms
+		icon = GFX_focus_Commando_Operations
+		x = 38
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_legacyofobregon }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_ideas = mex_training_programs
+		}
+	}
+
+	#shared_focus for Refrom the Soldaderas
+	shared_focus = {
+		id = MEX_refromthesoldaderas
+		icon = GFX_focus_Military_Hospital
+		x = 38
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_trainingprograms }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_training_programs add_idea = mex_reformed_soldaderas }
+		}
+	}
+
+	#shared_focus for A Mexican General Staff
+	shared_focus = {
+		id = MEX_amexicangeneralstaff
+		icon = GFX_focus_Officers_Command
+		x = 38
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_refromthesoldaderas }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			swap_ideas = { remove_idea = mex_reformed_soldaderas add_idea = mex_general_staff }
+		}
+	}
+	
+	#shared_focus for Support Brigades
+	shared_focus = {
+		id = MEX_supportbrigades
+		icon = GFX_focus_Supply_Troops
+		x = 34
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_legacyofzapata 
+			focus = MEX_legacyofobregon 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_tech_bonus = { bonus = 0.75 uses = 2 category = support_tech }
+		}
+	}
+
+	#shared_focus for Train the Sierras
+	shared_focus = {
+		id = MEX_trainthesierras
+		icon = GFX_focus_Mountain_Troops
+		x = 30
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_legacyofobregon 
+			focus = MEX_legacyofzapata 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_tech_bonus = { bonus = 0.5 uses = 2 category = mountaineers_tech  }
+		}
+	}
+
+	#shared_focus for New Rifles
+	shared_focus = {
+		id = MEX_newrifles
+		icon = GFX_focus_Renewed_Arms
+		x = 32
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_legacyofzapata 
+			focus = MEX_legacyofobregon 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_tech_bonus = { bonus = 1 uses = 1 category = infantry_weapons }
+		}
+	}
+	
+	#shared_focus for New Artillery Designs
+	shared_focus = {
+		id = MEX_newartillerydesigns
+		icon = GFX_goal_generic_artillery
+		x = 32
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_newrifles 
+		}
+		prerequisite = { 
+			focus = MEX_supportbrigades 
+		}
+		prerequisite = { 
+			focus = MEX_trainthesierras 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_tech_bonus = { bonus = 1 uses = 1 category = artillery }
+		}
+	}	
+	
+	#shared_focus for Tank Destroyers
+	shared_focus = {
+		id = MEX_tankdestroyers
+		icon = GFX_focus_Anti-Tank
+		x = 31
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_newartillerydesigns }
+		mutually_exclusive = { focus = MEX_airdefence }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_tech_bonus = { bonus = 0.5 uses = 2 category = cat_anti_tank }
+		}
+	}
+	
+	#shared_focus for Air Defence
+	shared_focus = {
+		id = MEX_airdefence
+		icon = GFX_Generic_Anti_Aircraft_Artillery
+		x = 33
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { focus = MEX_newartillerydesigns }
+		mutually_exclusive = { focus = MEX_tankdestroyers }
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_tech_bonus = { bonus = 0.5 uses = 2 category = cat_anti_air }
+		}
+	}
+	#shared_focus for A Fast Conqueror
+	shared_focus = {
+		id = MEX_afastconqueror
+		icon = GFX_focus_Light_Tanks
+		x = 30
+		y = 6
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_airdefence 
+			focus = MEX_tankdestroyers 
+		}
+		mutually_exclusive = { 
+			focus = MEX_amovingfortress 
+		}
+		mutually_exclusive = { 
+			focus = MEX_abalancedtank 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_tech_bonus = { bonus = 0.75 uses = 2 category = cat_light_armor }
+		}
+	}
+
+	#shared_focus for A Balanced Tank
+	shared_focus = {
+		id = MEX_abalancedtank
+		icon = GFX_focus_Medium_Tanks
+		x = 32
+		y = 6
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_airdefence 
+			focus = MEX_tankdestroyers 
+		}
+		mutually_exclusive = { 
+			focus = MEX_amovingfortress 
+		}
+		mutually_exclusive = { 
+			focus = MEX_afastconqueror 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_tech_bonus = { bonus = 0.75 uses = 2 category = cat_medium_armor }
+		}
+	}
+	#shared_focus for A Moving Fortress
+	shared_focus = {
+		id = MEX_amovingfortress
+		icon = GFX_focus_Heavy_Tanks
+		x = 34
+		y = 6
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_airdefence 
+			focus = MEX_tankdestroyers 
+		}
+		mutually_exclusive = { 
+			focus = MEX_afastconqueror 
+			focus = MEX_abalancedtank 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_tech_bonus = { bonus = 0.75 uses = 1 category = cat_heavy_armor }
+		}
+	}	
+	#shared_focus for A Professional Army
+	shared_focus = {
+		id = MEX_aprofessionalarmy
+		icon = GFX_focus_a_proud_army
+		x = 35
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_amexicangeneralstaff
+		}
+		prerequisite = { 
+			focus = MEX_replaceourofficers
+		}
+		prerequisite = { 
+			focus = MEX_afastconqueror
+			focus = MEX_abalancedtank
+			focus = MEX_amovingfortress
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		    remove_ideas = mex_legacy_of_obregon2
+			swap_ideas = { remove_idea = mex_general_staff add_idea = mex_legacy_of_obregon3 }
+		}
+	}
+
+	#shared_focus for A Big Army
+	shared_focus = {
+		id = MEX_abigarmy
+		icon = GFX_focus_a_necessary_force
+		x = 29
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_preparetheguerrillas
+		}
+		prerequisite = { 
+			focus = MEX_useourofficers
+		}
+		prerequisite = { 
+			focus = MEX_abalancedtank
+			focus = MEX_amovingfortress
+			focus = MEX_afastconqueror			
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+		    remove_ideas = mex_legacy_of_zapata2
+			swap_ideas = { remove_idea = mex_guerrilla_warfare add_idea = mex_legacy_of_zapata3 }
+		}
+	}
+	
+	#shared_focus for ¡Siempre Leales!
+	shared_focus = {
+		id = MEX_siempreleales
+		icon = GFX_focus_attack_mexico
+		x = 32
+		y = 8
+		cost = 10
+		available_if_capitulated = yes
+		prerequisite = { 
+			focus = MEX_abigarmy 
+			focus = MEX_aprofessionalarmy 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_war_support = 0.10
+		}
+ }

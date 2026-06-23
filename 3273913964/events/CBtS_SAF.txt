@@ -1,0 +1,1931 @@
+﻿###########################
+# South Africa Events
+###########################
+
+add_namespace = saf_election
+add_namespace = saf_coalition
+add_namespace = saf_flavor
+add_namespace = saf_westminster
+add_namespace = SAF_Volksraad
+add_namespace = saf_war
+
+
+###FLAVOR###
+country_event = {#SAF Starter
+	id = saf_flavor.1
+	title = saf_flavor.1.t
+	desc = saf_flavor.1.d
+	picture = GFX_event_SAF_Introduction_Early
+	is_triggered_only = yes
+	option = {
+		name = saf_flavor.1.a
+		ai_chance = {
+			factor = 100
+		}
+		country_event = {
+			id = saf_flavor.2
+			days = 1
+		}	
+	}
+}
+country_event = {#SAF Starter
+	id = saf_flavor.2
+	title = saf_flavor.2.t
+	desc = saf_flavor.2.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_flavor.2.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+country_event = {#Fagan Commission
+	id = saf_flavor.4
+	title = saf_flavor.4.t
+	desc = saf_flavor.4.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_flavor.4.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+
+###ELECTION###
+country_event = {#Election Placeholder
+	id = saf_election.1
+	title = saf_election.1.t
+	desc = saf_election.1.d
+	trigger = {
+		date > 1933.5.17 
+	}
+	fire_only_once = yes
+	option = {
+		name = saf_election.1.a
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = SAF_Coalition_Victory
+		set_country_flag = SAF_1933_Election
+		set_variable = {
+			SAF_com_seats = 0
+		}
+		set_variable = {
+			SAF_revsoc_seats = 0
+		}
+		set_variable = {
+			SAF_demsoc_seats = 2
+		}
+		set_variable = {
+			SAF_socdem_seats = 2
+		}
+		set_variable = {
+			SAF_soclib_seats = 8
+		}
+		set_variable = {
+			SAF_marlib_seats = 0
+		}
+		set_variable = {
+			SAF_libcon_seats = 53
+		}
+		set_variable = {
+			SAF_soccon_seats = 75
+		}
+		set_variable = {
+			SAF_aut_seats = 0
+		}
+		set_variable = {
+			SAF_mon_seats = 0
+		}
+		set_variable = {
+			SAF_faraut_seats = 8
+		}
+		set_variable = {
+			SAF_fas_seats = 0
+		}
+		SAF_get_coalition_seats = yes
+		mark_focus_tree_layout_dirty = yes
+	}
+	option = {
+		name = saf_election.1.b
+		ai_chance = {
+			factor = 0
+		}
+		set_country_flag = SAF_SAP_Victory
+		set_country_flag = SAF_1933_Election
+		set_variable = {
+			SAF_com_seats = 0
+		}
+		set_variable = {
+			SAF_revsoc_seats = 0
+		}
+		set_variable = {
+			SAF_demsoc_seats = 6
+		}
+		set_variable = {
+			SAF_socdem_seats = 4
+		}
+		set_variable = {
+			SAF_soclib_seats = 5
+		}
+		set_variable = {
+			SAF_marlib_seats = 0
+		}
+		set_variable = {
+			SAF_libcon_seats = 43
+		}
+		set_variable = {
+			SAF_soccon_seats = 62
+		}
+		set_variable = {
+			SAF_aut_seats = 0
+		}
+		set_variable = {
+			SAF_mon_seats = 0
+		}
+		set_variable = {
+			SAF_faraut_seats = 28
+		}
+		set_variable = {
+			SAF_fas_seats = 0
+		}
+		SAF_get_coalition_seats = yes
+		mark_focus_tree_layout_dirty = yes
+	}
+	option = {
+		name = saf_election.1.c
+		ai_chance = {
+			factor = 0
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = {
+	id = saf_election.2
+	title = saf_election.2.t
+	desc = saf_election.2.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.2.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 30
+		swap_ideas = {
+			remove_idea = SAF_Afrikaner_Dominance
+			add_idea = SAF_Anglo_Afrikaner_Coalition
+		}
+		add_ideas = SAF_coalition_3
+		COALITION_add_cen = yes
+		COALITION_add_soclib = yes
+		SAF_get_coalition_seats = yes
+	}
+}
+
+country_event = {
+	id = saf_election.3
+	title = saf_election.3.t
+	desc = saf_election.3.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.3.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -10
+		country_event = {
+			id = saf_election.4
+			days = 5
+		}
+	}
+}
+
+country_event = {
+	id = saf_election.4
+	title = saf_election.4.t
+	desc = saf_election.4.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.4.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -50
+		custom_effect_tooltip = SAF_Talks_Failed
+		hidden_effect = {
+			set_country_flag = SAF_Failed_Talks	
+			COALITION_clr_fas = yes
+			COALITION_clr_nat = yes
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.025
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = -0.025
+			}	
+		}
+	}
+}
+
+country_event = {
+	id = saf_election.5
+	title = saf_election.5.t
+	desc = saf_election.5.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.5.a
+		ai_chance = {
+			factor = 30
+		}
+		custom_effect_tooltip = 5_SAF_tt
+		country_event = {
+			id = saf_election.7
+			days = 10
+		}
+		hidden_effect = {
+			swap_ideas = {
+				remove_idea = SAF_int_Oswald_Pirow
+				add_idea = SAF_int_Jan_Smuts
+			}
+			swap_ideas = {
+				remove_idea = SAF_sec_DF_Malan
+				add_idea = SAF_sec_Jan_Hofmeyer
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = 0.03
+			}	
+		}
+	}
+	option = {
+		name = saf_election.5.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_5
+			}
+		}
+		custom_effect_tooltip = 2_SAF_tt
+		country_event = {
+			id = saf_election.7
+			days = 10
+		}
+		hidden_effect = {
+			set_country_flag = SAP_bias
+			swap_ideas = {
+				remove_idea = SAF_int_Oswald_Pirow
+				add_idea = SAF_int_Jan_Smuts
+			}
+			swap_ideas = {
+				remove_idea = SAF_sec_DF_Malan
+				add_idea = SAF_sec_Jan_Hofmeyer
+			}
+			swap_ideas = {
+				remove_idea = SAF_frn_JBM_Hertzog
+				add_idea = SAF_frn_Jan_Smuts
+			}
+			SAF_coalition_level_up = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = 0.03
+			}	
+		}
+		
+	}
+	option = {
+		name = saf_election.5.c
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_1
+			}
+		}
+		custom_effect_tooltip = 3_SAF_tt
+		country_event = {
+			id = saf_election.7
+			days = 10
+		}
+		hidden_effect = {
+			set_country_flag = NP_bias
+			swap_ideas = {
+				remove_idea = SAF_sec_DF_Malan
+				add_idea = SAF_sec_Jan_Hofmeyer
+			}
+			SAF_coalition_level_down = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = -0.03
+			}	
+		}
+	}
+}
+
+country_event = {
+	id = saf_election.6
+	title = saf_election.6.t
+	desc = saf_election.6.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.6.a
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_5
+			}
+		}
+		custom_effect_tooltip = 2_SAF_tt
+		country_event = {
+			id = saf_election.5
+			days = 10
+		}
+		hidden_effect = {
+			swap_ideas = {
+				remove_idea = SAF_hog_JBM_Hertzog
+				add_idea = SAF_hog_Jan_Smuts
+			}
+			SAF_coalition_level_up = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = 0.03
+			}	
+		}
+	}
+	option = {
+		name = saf_election.6.b
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_1
+			}
+		}
+		custom_effect_tooltip = 3_SAF_tt
+		country_event = {
+			id = saf_election.5
+			days = 10
+		}
+		hidden_effect = {
+			SAF_coalition_level_down = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = -0.03
+			}	
+		}
+		
+	}
+}
+country_event = {
+	id = saf_election.7
+	title = saf_election.7.t
+	desc = saf_election.7.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.7.a
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_5
+			}
+		}
+		custom_effect_tooltip = 2_SAF_tt
+		hidden_effect = {
+			add_ideas = army_jan_smuts
+			SAF_coalition_level_up = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.03
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = 0.03
+			}
+			set_country_flag = SAF_Smuts_Defense_Minister
+		}
+	}
+	option = {
+		name = saf_election.7.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_1
+			}
+		}
+		custom_effect_tooltip = 3_SAF_tt
+		hidden_effect = {
+			add_ideas = army_oswald_pirow
+			SAF_coalition_level_down = yes
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.03
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = -0.03
+			}
+			set_country_flag = SAF_Pirow_Defense_Minister
+		}
+		
+	}
+}
+country_event = {
+	id = saf_election.8
+	title = saf_election.8.t
+	desc = saf_election.8.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.8.a
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_5
+			}
+		}
+		custom_effect_tooltip = 3_SAF_tt
+		hidden_effect = {
+			set_country_flag = SAF_compromise
+		}
+	}
+	option = {
+		name = saf_election.8.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				has_idea = SAF_coalition_1
+			}
+		}
+		custom_effect_tooltip = 2_SAF_tt
+		hidden_effect = {
+			set_country_flag = SAF_emphasize
+		}
+		
+	}
+}
+country_event = {
+	id = saf_election.9
+	title = saf_election.9.t
+	desc = saf_election.9.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.9.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 40
+		custom_effect_tooltip = SAF_United_Party
+		hidden_effect = {
+			set_party_name = { ideology = jacobin long_name = SAF_United_Party_Long name = SAF_United_Party_Name }
+			set_party_name = { ideology = democratic long_name = SAF_United_Party_Long name = SAF_United_Party_Name }
+			set_party_name = { ideology = social_liberalism long_name = SAF_United_Party_Long name = SAF_United_Party_Name }
+			set_party_name = { ideology = social_democracy long_name = SAF_United_Party_Long name = SAF_United_Party_Name }
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = jacobin
+				popularity = 0.05
+			}	
+			country_event = {
+				id = saf_election.10
+				days = 1
+			}
+			set_country_flag = SAF_United_Party_Formed
+			SAF_coalition_clear_all = yes
+		}
+	}
+}
+
+country_event = {
+	id = saf_election.10
+	title = saf_election.10.t
+	desc = saf_election.10.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.10.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -20
+		custom_effect_tooltip = SAF_NP_Leaves
+		hidden_effect = {
+			set_party_name = { ideology = nationalism long_name = SAF_PNP_Long name = SAF_PNP_Name }
+			set_party_name = { ideology = fascism long_name = SAF_PNP_Long name = SAF_PNP_Name }
+			add_popularity = {
+				ideology = nationalism
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.025	
+			}
+			SAF_get_coalition_seats = yes
+			country_event = {
+				id = saf_election.14
+				days = 90
+			}
+			set_country_flag = SAF_United_Party_Formed
+		}
+	}
+}
+
+country_event = {
+	id = saf_election.11
+	title = saf_election.11.t
+	desc = saf_election.11.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.11.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -50
+		set_country_flag = SAF_Coalition_Collapse
+		COALITION_clr_nat = yes
+		COALITION_clr_con = yes
+		SAF_coalition_clear_all = yes
+		SAF_get_coalition_seats = yes
+	}
+	option = {
+		name = saf_election.11.b
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -50
+		set_country_flag = SAF_Coalition_Collapse
+		COALITION_clr_cen = yes
+		COALITION_clr_soclib = yes
+		SAF_coalition_clear_all = yes
+		SAF_get_coalition_seats = yes
+	}
+}
+
+country_event = {
+	id = saf_election.12
+	title = saf_election.12.t
+	desc = saf_election.12.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.12.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 30
+		set_country_flag = SAF_1938_Coalition_Victory
+		load_focus_tree = { tree = SAF_1938_United_Victory keep_completed = yes }
+		set_variable = {
+			SAF_com_seats = 0
+		}
+		set_variable = {
+			SAF_revsoc_seats = 0
+		}
+		set_variable = {
+			SAF_demsoc_seats = 1
+		}
+		set_variable = {
+			SAF_socdem_seats = 3
+		}
+		set_variable = {
+			SAF_soclib_seats = 15
+		}
+		set_variable = {
+			SAF_marlib_seats = 8
+		}
+		set_variable = {
+			SAF_libcon_seats = 58
+		}
+		set_variable = {
+			SAF_soccon_seats = 38
+		}
+		set_variable = {
+			SAF_aut_seats = 0
+		}
+		set_variable = {
+			SAF_mon_seats = 0
+		}
+		set_variable = {
+			SAF_faraut_seats = 27
+		}
+		set_variable = {
+			SAF_fas_seats = 0
+		}
+		SAF_get_coalition_seats = yes
+	}
+	option = {
+		name = saf_election.12.b
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 30
+		set_country_flag = SAF_1938_Coalition_Victory
+		load_focus_tree = { tree = SAF_1938_United_Victory keep_completed = yes }
+		set_variable = {
+			SAF_com_seats = 0
+		}
+		set_variable = {
+			SAF_revsoc_seats = 0
+		}
+		set_variable = {
+			SAF_demsoc_seats = 1
+		}
+		set_variable = {
+			SAF_socdem_seats = 3
+		}
+		set_variable = {
+			SAF_soclib_seats = 15
+		}
+		set_variable = {
+			SAF_marlib_seats = 8
+		}
+		set_variable = {
+			SAF_libcon_seats = 58
+		}
+		set_variable = {
+			SAF_soccon_seats = 38
+		}
+		set_variable = {
+			SAF_aut_seats = 0
+		}
+		set_variable = {
+			SAF_mon_seats = 0
+		}
+		set_variable = {
+			SAF_faraut_seats = 27
+		}
+		set_variable = {
+			SAF_fas_seats = 0
+		}
+		SAF_get_coalition_seats = yes
+	}
+}
+country_event = {
+	id = saf_election.13
+	title = saf_election.13.t
+	desc = saf_election.13.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.12.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 30
+		set_country_flag = SAF_1943_Coalition_Victory
+		set_variable = {
+			SAF_com_seats = 0
+		}
+		set_variable = {
+			SAF_revsoc_seats = 0
+		}
+		set_variable = {
+			SAF_demsoc_seats = 9
+		}
+		set_variable = {
+			SAF_socdem_seats = 0
+		}
+		set_variable = {
+			SAF_soclib_seats = 15
+		}
+		set_variable = {
+			SAF_marlib_seats = 7
+		}
+		set_variable = {
+			SAF_libcon_seats = 76
+		}
+		set_variable = {
+			SAF_soccon_seats = 16
+		}
+		set_variable = {
+			SAF_aut_seats = 0
+		}
+		set_variable = {
+			SAF_mon_seats = 0
+		}
+		set_variable = {
+			SAF_faraut_seats = 27
+		}
+		set_variable = {
+			SAF_fas_seats = 0
+		}
+		load_focus_tree = { tree = SAF_1943_United_Victory keep_completed = yes }
+		SAF_get_coalition_seats = yes
+	}
+	option = {
+		name = saf_election.12.b
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 30
+		set_country_flag = SAF_1943_Coalition_Victory
+		set_variable = {
+			SAF_com_seats = 0
+		}
+		set_variable = {
+			SAF_revsoc_seats = 0
+		}
+		set_variable = {
+			SAF_demsoc_seats = 0
+		}
+		set_variable = {
+			SAF_socdem_seats = 9
+		}
+		set_variable = {
+			SAF_soclib_seats = 13
+		}
+		set_variable = {
+			SAF_marlib_seats = 0
+		}
+		set_variable = {
+			SAF_libcon_seats = 76
+		}
+		set_variable = {
+			SAF_soccon_seats = 16
+		}
+		set_variable = {
+			SAF_aut_seats = 0
+		}
+		set_variable = {
+			SAF_mon_seats = 0
+		}
+		set_variable = {
+			SAF_faraut_seats = 27
+		}
+		set_variable = {
+			SAF_fas_seats = 0
+		}
+		load_focus_tree = { tree = SAF_1943_United_Victory keep_completed = yes }
+		SAF_get_coalition_seats = yes
+	}
+}
+country_event = {
+	id = saf_election.14
+	title = saf_election.14.t
+	desc = saf_election.14.d
+	is_triggered_only = yes
+	option = {
+		name = saf_election.10.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -20
+		custom_effect_tooltip = SAF_Stallard_Leaves
+		hidden_effect = {
+			add_popularity = {
+				ideology = market_liberalism
+				popularity = 0.03
+			}
+			SAF_get_coalition_seats = yes
+			set_party_name = { ideology = market_liberalism long_name = SAF_Dominionist_Long name = SAF_Dominionist_Name }
+		}
+	}
+}
+
+###WESTMINSTER/FOREIGN POLICY###
+country_event = {
+	id = saf_westminster.1
+	title = saf_westminster.1.t
+	desc = saf_westminster.1.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.1.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 20
+		hidden_effect = {
+			set_country_flag = SAF_Agree_To_Terms
+		}
+	}
+	option = {
+		name = saf_westminster.1.b
+		ai_chance = {
+			factor = 0
+		}
+		add_political_power = -20
+		hidden_effect = {
+			set_country_flag = SAF_Tried_For_More
+			ENG = {
+				country_event = {
+					id = saf_westminster.22
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.22
+	title = saf_westminster.22.t
+	desc = saf_westminster.22.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.22.a
+		ai_chance = {
+			factor = 60
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.23
+					days = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = saf_westminster.22.b
+		ai_chance = {
+			factor = 30
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.24
+					days = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = saf_westminster.22.c
+		ai_chance = {
+			factor = 10
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.25
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.23
+	title = saf_westminster.23.t
+	desc = saf_westminster.23.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.23.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			set_country_flag = SAF_Forced_To_Settle
+			set_country_flag = SAF_Agreed_To_Settle
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.24
+	title = saf_westminster.24.t
+	desc = saf_westminster.24.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.24.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			set_country_flag = SAF_Democratic_Only
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.25
+	title = saf_westminster.25.t
+	desc = saf_westminster.25.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.25.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			set_country_flag = SAF_Full_Diplomacy
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.2
+	title = saf_westminster.2.t
+	desc = saf_westminster.2.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.2.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			ZIM = {
+				country_event = {
+					id = saf_westminster.3
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.3
+	title = saf_westminster.3.t
+	desc = saf_westminster.3.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.3.a
+		ai_chance = {
+			factor = 80
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.4
+					days = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = saf_westminster.3.b
+		ai_chance = {
+			factor = 20
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.5
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.4
+	title = saf_westminster.4.t
+	desc = saf_westminster.4.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.4.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 30
+		add_ideas = SAF_Improved_Rhodesian_Trade
+		add_opinion_modifier = {
+			target = ZIM
+			modifier = SAF_trade_with_rhodesia
+		}
+		ZIM = {
+			add_opinion_modifier = {
+				target = SAF
+				modifier = SAF_trade_with_rhodesia
+			}
+		}	
+	}
+}
+country_event = {
+	id = saf_westminster.5
+	title = saf_westminster.5.t
+	desc = saf_westminster.5.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.5.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -30
+	}
+}
+#AMERICAN DIPLOMACY
+country_event = {
+	id = saf_westminster.6
+	title = saf_westminster.6.t
+	desc = saf_westminster.6.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.6.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			USA = {
+				country_event = {
+					id = saf_westminster.7
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.7
+	title = saf_westminster.7.t
+	desc = saf_westminster.7.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.7.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.8
+					days = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = saf_westminster.7.b
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.9
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.8
+	title = saf_westminster.8.t
+	desc = saf_westminster.8.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.8.a
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = SAF_Americans_Accept
+	}
+}
+country_event = {
+	id = saf_westminster.9
+	title = saf_westminster.9.t
+	desc = saf_westminster.9.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.9.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -30
+	}
+}
+country_event = {
+	id = saf_westminster.10
+	title = saf_westminster.10.t
+	desc = saf_westminster.10.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.10.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			FRA = {
+				country_event = {
+					id = saf_westminster.11
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.11
+	title = saf_westminster.11.t
+	desc = saf_westminster.11.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.11.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.12
+					days = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = saf_westminster.11.b
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.13
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.12
+	title = saf_westminster.12.t
+	desc = saf_westminster.12.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.12.a
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = SAF_French_Accept
+	}
+}
+country_event = {
+	id = saf_westminster.13
+	title = saf_westminster.13.t
+	desc = saf_westminster.13.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.13.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -30
+	}
+}
+country_event = {
+	id = saf_westminster.14
+	title = saf_westminster.14.t
+	desc = saf_westminster.14.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.14.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			GER = {
+				country_event = {
+					id = saf_westminster.15
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.15
+	title = saf_westminster.15.t
+	desc = saf_westminster.15.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.15.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.16
+					days = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = saf_westminster.15.b
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.17
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.16
+	title = saf_westminster.16.t
+	desc = saf_westminster.16.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.16.a
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = SAF_Germans_Accept
+	}
+}
+country_event = {
+	id = saf_westminster.17
+	title = saf_westminster.17.t
+	desc = saf_westminster.17.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.17.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -30
+	}
+}
+country_event = {
+	id = saf_westminster.18
+	title = saf_westminster.18.t
+	desc = saf_westminster.18.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.18.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			ITA = {
+				country_event = {
+					id = saf_westminster.19
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.19
+	title = saf_westminster.19.t
+	desc = saf_westminster.19.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.19.a
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.20
+					days = 1
+				}
+			}
+		}
+	}
+	option = {
+		name = saf_westminster.19.b
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			SAF = {
+				country_event = {
+					id = saf_westminster.21
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_westminster.20
+	title = saf_westminster.20.t
+	desc = saf_westminster.20.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.20.a
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = SAF_Italians_Accept
+	}
+}
+country_event = {
+	id = saf_westminster.21
+	title = saf_westminster.21.t
+	desc = saf_westminster.21.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	option = {
+		name = saf_westminster.21.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -30
+	}
+}
+
+###VOLKSRAAD###
+country_event = { #Communists agree
+id = SAF_Volksraad.1
+title = SAF_Volksraad.1.t
+desc = SAF_Volksraad.1.d
+picture = GFX_event_SAF_Introduction
+is_triggered_only = yes
+immediate = {
+	set_country_flag = SAF_negotiated_with_communists
+}
+option = {
+	name = SAF_Volksraad.1.a
+	ai_chance = {
+		factor = 100
+	}
+	add_to_variable = { var = SAF_supseat value = SAF_com_seats }
+}
+}
+country_event = { #RevSocs agree
+id = SAF_Volksraad.2
+title = SAF_Volksraad.2.t
+desc = SAF_Volksraad.2.d
+picture = GFX_event_SAF_Introduction
+is_triggered_only = yes
+immediate = {
+	set_country_flag = SAF_negotiated_with_revsocs
+}
+option = {
+	name = SAF_Volksraad.2.a
+	ai_chance = {
+		factor = 100
+	}
+	add_to_variable = { var = SAF_supseat value = SAF_revsoc_seats }
+}
+}
+country_event = { #DemSocs agree
+id = SAF_Volksraad.3
+title = SAF_Volksraad.3.t
+desc = SAF_Volksraad.3.d
+picture = GFX_event_SAF_Introduction
+is_triggered_only = yes
+immediate = {
+	set_country_flag = SAF_negotiated_with_demsocs
+}
+option = {
+	name = SAF_Volksraad.3.a
+	ai_chance = {
+		factor = 100
+	}
+	add_to_variable = { var = SAF_supseat value = SAF_demsoc_seats }
+}
+}
+country_event = { #SocDems agree
+id = SAF_Volksraad.4
+title = SAF_Volksraad.4.t
+desc = SAF_Volksraad.4.d
+picture = GFX_event_SAF_Introduction
+is_triggered_only = yes
+immediate = {
+	set_country_flag = SAF_negotiated_with_socdems
+}
+option = {
+	name = SAF_Volksraad.4.a
+	ai_chance = {
+		factor = 100
+	}
+	add_to_variable = { var = SAF_supseat value = SAF_socdem_seats }
+}
+}
+country_event = { #SocLibs agree
+id = SAF_Volksraad.5
+title = SAF_Volksraad.5.t
+desc = SAF_Volksraad.5.d
+picture = GFX_event_SAF_Introduction
+is_triggered_only = yes
+immediate = {
+	set_country_flag = SAF_negotiated_with_soclibs
+}
+option = {
+	name = SAF_Volksraad.5.a
+	ai_chance = {
+		factor = 100
+	}
+	add_to_variable = { var = SAF_supseat value = SAF_soclib_seats }
+}
+}
+country_event = { #MarLibs agree
+id = SAF_Volksraad.6
+title = SAF_Volksraad.6.t
+desc = SAF_Volksraad.6.d
+picture = GFX_event_SAF_Introduction
+is_triggered_only = yes
+immediate = {
+	set_country_flag = SAF_negotiated_with_marlibs
+}
+option = {
+	name = SAF_Volksraad.6.a
+	ai_chance = {
+		factor = 100
+	}
+	add_to_variable = { var = SAF_supseat value = SAF_soclib_seats }
+}
+}
+country_event = { #LibCons agree
+id = SAF_Volksraad.7
+title = SAF_Volksraad.7.t
+desc = SAF_Volksraad.7.d
+picture = GFX_event_SAF_Introduction
+is_triggered_only = yes
+immediate = {
+	set_country_flag = SAF_negotiated_with_libcons
+}
+option = {
+	name = SAF_Volksraad.7.a
+	ai_chance = {
+		factor = 100
+	}
+	add_to_variable = { var = SAF_supseat value = SAF_libcon_seats }
+}
+}
+country_event = { #Tories agree
+id = SAF_Volksraad.8
+title = SAF_Volksraad.8.t
+desc = SAF_Volksraad.8.d
+picture = GFX_event_SAF_Introduction
+is_triggered_only = yes
+immediate = {
+	set_country_flag = SAF_negotiated_with_tories
+}
+option = {
+	name = SAF_Volksraad.8.a
+	ai_chance = {
+		factor = 100
+	}
+	add_to_variable = { var = SAF_supseat value = SAF_soccon_seats }
+}
+}
+country_event = { #FarAuts agree
+id = SAF_Volksraad.9
+title = SAF_Volksraad.9.t
+desc = SAF_Volksraad.9.d
+picture = GFX_event_SAF_Introduction
+is_triggered_only = yes
+immediate = {
+	set_country_flag = SAF_negotiated_with_farauts
+}
+option = {
+	name = SAF_Volksraad.9.a
+	ai_chance = {
+		factor = 100
+	}
+	add_to_variable = { var = SAF_supseat value = SAF_faraut_seats }
+}
+}
+country_event = { #Fascist agree
+	id = SAF_Volksraad.10
+	title = SAF_Volksraad.10.t
+	desc = SAF_Volksraad.10.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = SAF_negotiated_with_fascists
+	}
+	option = {
+		name = SAF_Volksraad.10.a
+		ai_chance = {
+			factor = 100
+		}
+		add_to_variable = { var = SAF_supseat value = SAF_fas_seats }
+	}
+}
+country_event = { #Communists disagree
+	id = SAF_Volksraad.11
+	title = SAF_Volksraad.11.t
+	desc = SAF_Volksraad.11.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = SAF_communist_disagreement
+	}
+	option = {
+		name = SAF_Volksraad.11.a
+		ai_chance = {
+			factor = 100
+		}
+		subtract_from_variable = { var = SAF_supseat value = SAF_com_seats }
+	}
+}
+country_event = { #RevSocs disagree
+	id = SAF_Volksraad.12
+	title = SAF_Volksraad.12.t
+	desc = SAF_Volksraad.12.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = SAF_revsoc_disagreement
+	}
+	option = {
+		name = SAF_Volksraad.12.a
+		ai_chance = {
+			factor = 100
+		}
+		subtract_from_variable = { var = SAF_supseat value = SAF_revsoc_seats }
+	}
+}
+country_event = { #DemSocs disagree
+	id = SAF_Volksraad.13
+	title = SAF_Volksraad.13.t
+	desc = SAF_Volksraad.13.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = SAF_demsoc_disagreement
+	}
+	option = {
+		name = SAF_Volksraad.13.a
+		ai_chance = {
+			factor = 100
+		}
+		subtract_from_variable = { var = SAF_supseat value = SAF_demsoc_seats }
+	}
+}
+country_event = { #SocDems disagree
+	id = SAF_Volksraad.14
+	title = SAF_Volksraad.14.t
+	desc = SAF_Volksraad.14.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = SAF_socdem_disagreement
+	}
+	option = {
+		name = SAF_Volksraad.14.a
+		ai_chance = {
+			factor = 100
+		}
+		subtract_from_variable = { var = SAF_supseat value = SAF_socdem_seats }
+	}
+}
+country_event = { #SocLibs disagree
+	id = SAF_Volksraad.15
+	title = SAF_Volksraad.15.t
+	desc = SAF_Volksraad.15.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = SAF_soclib_disagreement
+	}
+	option = {
+		name = SAF_Volksraad.15.a
+		ai_chance = {
+			factor = 100
+		}
+		subtract_from_variable = { var = SAF_supseat value = SAF_soclib_seats }
+	}
+}
+country_event = { #MarLibs disagree
+	id = SAF_Volksraad.16
+	title = SAF_Volksraad.16.t
+	desc = SAF_Volksraad.16.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = SAF_marlib_disagreement
+	}
+	option = {
+		name = SAF_Volksraad.16.a
+		ai_chance = {
+			factor = 100
+		}
+		subtract_from_variable = { var = SAF_supseat value = SAF_soclib_seats }
+	}
+}
+country_event = { #LibCons disagree
+	id = SAF_Volksraad.17
+	title = SAF_Volksraad.7.t
+	desc = SAF_Volksraad.7.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = SAF_libcon_disagreement
+	}
+	option = {
+		name = SAF_Volksraad.7.a
+		ai_chance = {
+			factor = 100
+		}
+		subtract_from_variable = { var = SAF_supseat value = SAF_libcon_seats }
+	}
+}
+country_event = { #Smelters disagree
+	id = SAF_Volksraad.18
+	title = SAF_Volksraad.18.t
+	desc = SAF_Volksraad.18.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = SAF_smelter_disagreement
+	}
+	option = {
+		name = SAF_Volksraad.18.a
+		ai_chance = {
+			factor = 100
+		}
+		subtract_from_variable = { var = SAF_supseat value = SAF_soccon_seats }
+	}
+}
+country_event = { #FarAuts disagree
+	id = SAF_Volksraad.19
+	title = SAF_Volksraad.19.t
+	desc = SAF_Volksraad.19.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = SAF_faraut_disagreement
+	}
+	option = {
+		name = SAF_Volksraad.9.a
+		ai_chance = {
+			factor = 100
+		}
+		subtract_from_variable = { var = SAF_supseat value = SAF_faraut_seats }
+	}
+}
+country_event = { #Fascist agree
+	id = SAF_Volksraad.20
+	title = SAF_Volksraad.20.t
+	desc = SAF_Volksraad.20.d
+	picture = GFX_event_SAF_Introduction
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = SAF_fascist_disagreement
+	}
+	option = {
+		name = SAF_Volksraad.20.a
+		ai_chance = {
+			factor = 100
+		}
+		subtract_from_variable = { var = SAF_supseat value = SAF_fas_seats }
+	}
+}
+
+### WARTIME EVENTS ###
+country_event = {
+	id = saf_war.1
+	title = saf_war.1.t
+	desc = saf_war.1.d
+	is_triggered_only = yes
+	option = {
+		name = saf_war.1.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 50
+		add_stability = -.05
+		set_country_flag = SAF_War_Begun
+		load_focus_tree = { tree = SAF_Wartime_Main keep_completed = yes }
+	}
+}
+country_event = {
+	id = saf_war.2
+	title = saf_war.2.t
+	desc = saf_war.2.d
+	is_triggered_only = yes
+	option = {
+		name = saf_war.2.a
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 50
+		add_stability = -.1
+		COALITION_clr_con = yes
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.1
+		}	
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.1
+		}
+		set_politics = { ruling_party = jacobin }
+		set_country_flag = SAF_Smuts_New_Government
+		add_ideas = {
+			SAF_hog_Jan_Smuts
+			SAF_frn_Jan_Smuts
+			SAF_eco_Jan_Hofmeyer
+			SAF_sec_Harry_Lawrence
+			SAF_int_Jan_Smuts
+			
+		}
+	}
+}
+country_event = {
+	id = saf_war.3
+	title = saf_war.3.t
+	desc = saf_war.3.d
+	is_triggered_only = yes
+	option = {
+		name = saf_war.3.a
+		ai_chance = {
+			factor = 100
+		}
+		load_oob = "SAF_Kenyan_Defenses"
+	}
+	option = {
+		name = saf_war.3.b
+		ai_chance = {
+			factor = 0
+		}
+		SAF = {
+			load_oob = "SAF_Kenyan_Defenses"
+		}
+	}
+}
+country_event = {
+	id = saf_war.4
+	title = saf_war.4.t
+	desc = saf_war.4.d
+	is_triggered_only = yes
+	option = {
+		name = saf_war.4.a
+		ai_chance = {
+			factor = 40
+		}
+		add_stability = 0.05
+		SAF = {
+			country_event = {
+				id = saf_war.5
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = saf_war.4.b
+		ai_chance = {
+			factor = 60
+		}
+		add_stability = -0.05
+		set_country_flag = FRA_Agreement_South_Africa
+		SAF = {
+			country_event = {
+				id = saf_war.6
+				days = 1
+			}
+		}
+	}
+}
+country_event = {
+	id = saf_war.5
+	title = saf_war.5.t
+	desc = saf_war.5.d
+	is_triggered_only = yes
+	option = {
+		name = saf_war.5.a
+		ai_chance = {
+			factor = 100
+		}
+		add_stability = -0.02
+	}
+}
+country_event = {
+	id = saf_war.6
+	title = saf_war.6.t
+	desc = saf_war.6.d
+	is_triggered_only = yes
+	option = {
+		name = saf_war.6.a
+		ai_chance = {
+			factor = 100
+		}
+		add_stability = 0.02
+	}
+}
+country_event = {
+	id = saf_war.7
+	title = saf_war.7.t
+	desc = saf_war.7.d
+	is_triggered_only = yes
+	option = {
+		name = saf_war.7.a
+		trigger = {
+			FRA = {
+				is_in_faction_with = SAF
+			}
+		}	
+		ai_chance = {
+			factor = 100
+		}
+		FRA = {
+			add_legitimacy = 5
+		}
+		add_political_power = 25
+		543 = {
+			FRA = { transfer_state = PREV }
+		}
+	}
+	option = {
+		name = saf_war.7.b	
+		ai_chance = {
+			factor = 20
+		}
+		add_political_power = 50
+		543 = {
+			SAF = { transfer_state = PREV }
+		}
+	}
+}
+country_event = {
+	id = saf_war.8
+	title = saf_war.8.t
+	desc = saf_war.8.d
+	is_triggered_only = yes
+	option = {
+		name = saf_war.8.a
+		trigger = {
+			has_country_flag = SAF_Reserves_Formed
+		}	
+		ai_chance = {
+			factor = 100
+		}
+		swap_ideas = {
+			remove_idea = SAF_Racial_Segregation
+			add_idea = SAF_Slackened_Segregation_Reserve
+		}
+		add_political_power = -25
+	}
+	option = {
+		name = saf_war.8.b	
+		ai_chance = {
+			factor = 20
+		}
+		add_political_power = -25
+		add_stability = -0.05
+		swap_ideas = {
+			remove_idea = SAF_Racial_Segregation
+			add_idea = SAF_Slackened_Segregation
+		}
+	}
+	option = {
+		name = saf_war.8.c	
+		ai_chance = {
+			factor = 20
+		}
+		add_political_power = 25
+		add_stability = 0.05
+	}
+}

@@ -1,0 +1,296 @@
+    shared_focus = {
+		id = SPR_ceda
+		icon = GFX_focus_Gil_Robles_2
+		cost = 10
+		bypass = {
+		    OR = {
+			    has_government = neutrality
+			    has_government = democratic
+			}
+		}
+		available = { has_country_flag = never }
+		x = 4
+		y = 0
+
+	}
+	shared_focus = {
+		id = SPR_moderate_ceda
+		icon = GFX_focus_Befriend_Republican_Spain
+		cost = 10
+		available = { has_country_flag = never }
+		bypass = {
+		    has_government = democratic
+		}
+		prerequisite = {
+			focus = SPR_ceda
+		}
+		x = 1
+		y = 1
+
+	}
+	shared_focus = {
+		id = SPR_centre
+		icon = GFX_focus_Give_Democracy
+		cost = 8
+		prerequisite = {
+			focus = SPR_moderate_ceda
+		}
+		completion_reward = {
+		    add_war_support = 0.1
+			add_stability = 0.1
+		}
+		x = 0
+		y = 2
+
+	}
+	shared_focus = {
+		id = SPR_ban_extreme
+		icon = GFX_focus_Anti_Communist
+		cost = 9
+		prerequisite = {
+			focus = SPR_centre
+		}
+        completion_reward = {
+		    add_popularity = { ideology = fascism popularity = -0.1 }
+			add_popularity = { ideology = communism popularity = -0.1 }
+			add_popularity = { ideology = authoritarian_socialism popularity = -0.1 }
+			add_popularity = { ideology = socialism popularity = -0.1 }
+		}
+		x = 0
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_order_ceda
+		icon = GFX_focus_SPR_army
+		cost = 10
+		prerequisite = {
+			focus = SPR_ban_extreme
+		}
+		bypass = {
+		    NOT = { has_idea = SPR_violence }
+		}
+		completion_reward = {
+		    remove_ideas = SPR_violence
+		}
+		x = 0
+		y = 4
+
+	}
+	shared_focus = {
+		id = SPR_gimenez
+		icon = GFX_focus_Agrarian_Reform
+		cost = 10
+		prerequisite = {
+			focus = SPR_moderate_ceda
+		}
+		completion_reward = {
+		    remove_ideas = SPR_agrarian_problem
+			hidden_effect = {
+			    remove_ideas = SPR_agrarian_problem2
+			    remove_ideas = SPR_agrarian_problem3
+		    }
+		}
+		x = 2
+		y = 2
+
+	}
+	shared_focus = {
+		id = SPR_worker_rights_ceda
+		icon = GFX_focus_Negotiate_Strikes
+		cost = 7
+		prerequisite = {
+			focus = SPR_gimenez
+		}
+		completion_reward = {
+		    add_stability = 0.1
+			add_popularity = { ideology = communism popularity = -0.05 }
+			add_popularity = { ideology = socialism popularity = -0.05 }
+			add_popularity = { ideology = authoritarian_socialism popularity = -0.05 }
+		}
+		x = 2
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_catholic_unions
+		icon = GFX_focus_Christian_Trade_Unions
+		cost = 8
+		prerequisite = {
+			focus = SPR_worker_rights_ceda
+		}
+		completion_reward = {
+		    add_political_power = 100
+			add_popularity = { ideology = democratic popularity = 0.1 }
+		}
+		x = 2
+		y = 4
+
+	}
+	shared_focus = {
+		id = SPR_radical_ceda
+		icon = GFX_goal_support_fascism
+		cost = 10
+		available = { has_country_flag = never }
+		bypass = {
+		    has_government = neutrality
+		}
+		prerequisite = {
+			focus = SPR_ceda
+		}
+		x = 7
+		y = 1
+
+	}
+	shared_focus = {
+		id = SPR_catholic_schools
+		icon = GFX_focus_State_Theology
+		cost = 8
+		prerequisite = {
+			focus = SPR_moderate_ceda
+			focus = SPR_radical_ceda
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+		x = 4
+		y = 2
+
+	}
+	shared_focus = {
+		id = SPR_subsidy
+		icon = GFX_focus_For_Christ_and_Country
+		cost = 8
+		prerequisite = {
+			focus = SPR_catholic_schools
+		}
+		completion_reward = {
+		    add_ideas = SPR_church_subsidy
+		}
+		x = 4
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_caritas
+		icon = GFX_focus_Papal_Bull
+		cost = 8
+		prerequisite = {
+			focus = SPR_subsidy
+		}
+		completion_reward = {
+		    swap_ideas = { remove_idea = SPR_church_subsidy add_idea = SPR_catholic_welfare }
+		}
+		x = 4
+		y = 4
+
+	}
+	shared_focus = {
+		id = SPR_police_ex
+		icon = GFX_focus_Enlist_the_Police
+		cost = 10
+		prerequisite = {
+			focus = SPR_radical_ceda
+		}
+		completion_reward = {
+		    add_stability = 0.15
+		}
+		x = 6
+		y = 2
+
+	}
+	shared_focus = {
+		id = SPR_suspend_cons
+		icon = GFX_focus_Champagne_Repression
+		cost = 10
+		prerequisite = {
+			focus = SPR_radical_ceda
+		}
+		completion_reward = {
+		    add_war_support = 0.15
+		}
+		x = 8
+		y = 2
+
+	}
+	shared_focus = {
+		id = SPR_break
+		icon = GFX_focus_Anti_Communist
+		cost = 10
+		prerequisite = {
+			focus = SPR_police_ex
+		}
+		prerequisite = {
+			focus = SPR_suspend_cons
+		}
+		x = 7
+		y = 3
+
+	}
+	shared_focus = {
+		id = SPR_restore
+		icon = GFX_focus_German_Constitutionalism
+		cost = 10
+		prerequisite = {
+			focus = SPR_break
+		}
+		mutually_exclusive = {
+			focus = SPR_abolish
+		}
+		x = 6
+		y = 4
+
+	}
+	shared_focus = {
+		id = SPR_reform
+		icon = GFX_focus_Political_reform_2
+		cost = 10
+		prerequisite = {
+			focus = SPR_order_ceda
+		}
+		prerequisite = {
+			focus = SPR_catholic_unions
+		}
+		prerequisite = {
+			focus = SPR_caritas
+		}
+		completion_reward = {
+		    add_political_power = 100
+			add_stability = 0.1
+		}
+		x = 2
+		y = 5
+
+	}
+	shared_focus = {
+		id = SPR_abolish
+		icon = GFX_focus_renounce_the_treaty_of_trianon
+		cost = 10
+		prerequisite = {
+			focus = SPR_break
+		}
+		mutually_exclusive = {
+			focus = SPR_restore
+		}
+		x = 8
+		y = 4
+
+	}
+	shared_focus = {
+		id = SPR_third_rep
+		icon = GFX_focus_spanish_republic_shield
+		cost = 10
+		prerequisite = {
+			focus = SPR_reform
+		}
+		completion_reward = {
+		    add_war_support = 0.25
+		    add_popularity = { ideology = market_liberalism popularity = 0.1 }
+			add_popularity = { ideology = democratic popularity = 0.15 }
+			add_popularity = { ideology = social_liberalism popularity = 0.075 }
+			add_popularity = { ideology = social_democracy popularity = 0.05 }
+		}
+		x = 2
+		y = 6
+
+	}

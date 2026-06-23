@@ -1,0 +1,2063 @@
+﻿###########################
+# Russia Events
+# This only covers happenings within or caused by the RUS tag.
+# For USSR events, see events/CBtS_USSR.txt
+# For Fascist events, see events/CBtS_RFP.txt
+###########################
+
+add_namespace = rus_internal
+add_namespace = rus_external
+add_namespace = rus_civil_war #handles path changes and revolts. Other things go in internal
+add_namespace = rus_flavor
+add_namespace = rus_test
+add_namespace = rus_ai
+
+country_event = { #Rovs returns
+	id = rus_civil_war.1
+	title = rus_civil_war.1.t
+	desc = rus_civil_war.1.d
+	picture = GFX_event_ROVS
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.1.a
+		ai_chance = {
+			base = 100
+		}
+		#adds 30k manpower to the nation
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				infrastructure > 1
+			}
+			add_manpower = 10000
+		}
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				infrastructure > 1
+			}
+			add_manpower = 10000
+		}
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				infrastructure > 1
+			}
+			add_manpower = 10000
+		}
+		#adds 10k directly to pool
+		add_manpower = 10000
+		add_ideas = RUS_Exiles
+		COALITION_add_mon = yes
+		if = {
+			limit = {
+				NOT = {
+					has_variable = RUS_monarchist_influence
+				}
+			}
+			set_variable = { #sets up the influence
+				RUS_monarchist_influence = 0
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 10
+		}
+		RUS_add_influence_monarchists = yes
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.04
+		}
+		custom_effect_tooltip = RUS_mon_gain_10_points
+		if = {
+			limit = {
+				SOV = {
+					has_country_flag = SOV_miller_incapable
+				}
+			}
+			set_country_flag = SOV_miller_incapable
+			set_country_flag = RUS_miller_dead
+		}
+		if = {
+			limit = {
+				SOV = {
+					has_country_flag = SOV_abramov_incapable
+				}
+			}
+			set_country_flag = SOV_abramov_incapable
+			set_country_flag = RUS_abramov_dead
+		}
+		load_oob = "RUS_2rcw_ROVS_return"
+		generate_character = {
+			token_base = RUS_vladimir_vitovsky
+			name = "Vladimir Vitovsky"
+			portraits = {
+				army = {
+					large = "gfx/leaders_cbts/RUS/Portrait_Russia_Vladimir_Vitovsky.png"
+					small = "gfx/interface/ideas/idea_europe_generic_land_3.dds"
+				}
+			}
+			corps_commander = {
+				traits = {
+					homeland_connoisseur
+					war_hero
+					old_guard
+				}
+				skill = 3
+				attack_skill = 3
+				defense_skill = 4
+				planning_skill = 3
+				logistics_skill = 3
+			}
+		}
+		generate_character = {
+			token_base = RUS_mikhail_skurodumov
+			name = "Mikhail Skorodumov"
+			portraits = {
+				army = {
+					large = "gfx/leaders_cbts/RUS/Portrait_RUS_Mikhail_Skorodumov.png"
+					small = "gfx/interface/ideas/idea_europe_generic_land_3.dds"
+				}
+			}
+			corps_commander = {
+				traits = {
+					homeland_connoisseur
+					war_hero
+					old_guard
+				}
+				skill = 3
+				attack_skill = 3
+				defense_skill = 4
+				planning_skill = 3
+				logistics_skill = 3
+			}
+		}
+		generate_character = {
+			token_base = RUS_anatoli_rogozhin
+			name = "Anatoli Rogozhin"
+			portraits = {
+				army = {
+					large = "gfx/leaders_cbts/RUS/Portrait_RUS_Anatoli_Rogozhin.png"
+					small = "gfx/interface/ideas/idea_europe_generic_land_3.dds"
+				}
+			}
+			corps_commander = {
+				traits = {
+					politically_connected
+					old_guard
+				}
+				skill = 3
+				attack_skill = 3
+				defense_skill = 3
+				planning_skill = 3
+				logistics_skill = 3
+			}
+		}
+		generate_character = {
+			token_base = RUS_abram_dragomirov
+			name = "Abram Dragomirov"
+			portraits = {
+				army = {
+					large = "gfx/leaders_cbts/RUS/Portrait_RUS_Abram_Dragomirov.png"
+					small = "gfx/interface/ideas/idea_europe_generic_land_3.dds"
+				}
+			}
+			corps_commander = {
+				traits = {
+					homeland_connoisseur
+					cavalry_officer
+					cavalry_leader
+					old_guard
+				}
+				skill = 3
+				attack_skill = 4
+				defense_skill = 3
+				planning_skill = 3
+				logistics_skill = 3
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.2
+				days = 6
+			}
+			#random_list = {
+				#3 = {
+				#	clr_country_flag = RUS_AI_KONR_Personality
+				#	set_country_flag = RUS_AI_Mon_Personality
+				#}
+				#97 = {
+				#}
+			#}
+		}
+	}
+}
+country_event = { #Kadets return
+	id = rus_civil_war.2
+	title = rus_civil_war.2.t
+	desc = rus_civil_war.2.d
+	picture = GFX_event_Kadets #Kadets
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.2.a
+		ai_chance = {
+			base = 100
+		}
+		#adds 12k manpower to the nation
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+			}
+			add_manpower = 6000
+		}
+		random_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+			}
+			add_manpower = 6000
+		}
+		#adds 4k directly to pool
+		add_manpower = 4000
+		COALITION_add_soclib = yes
+		if = {
+			limit = {
+				NOT = {
+					has_variable = RUS_democrat_influence
+				}
+			}
+			set_variable = { #sets up the influence
+				RUS_democrat_influence = 0
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 16
+		}
+		RUS_add_influence_democrats = yes
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.04
+		}
+		custom_effect_tooltip = RUS_soclib_gain_16_points
+		RUS_Get_Dem_Pop = yes
+		hidden_effect = {
+			#random_list = {
+				#10 = {
+				#	clr_country_flag = RUS_AI_KONR_Personality
+				#	clr_country_flag = RUS_AI_Mon_Personality
+				#	set_country_flag = RUS_AI_Dem_Personality
+				#}
+				#83 = {
+				#}
+			#}
+			country_event = {
+				id = rus_civil_war.3
+				days = 4
+			}
+		}
+	}
+}
+country_event = { #Octobrists return
+	id = rus_civil_war.3
+	title = rus_civil_war.3.t
+	desc = rus_civil_war.3.d
+	picture = GFX_event_Octobrists
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.3.a
+		ai_chance = {
+			base = 100
+		}
+		#adds 4k directly to pool
+		add_manpower = 4000
+		COALITION_add_cen = yes
+		COALITION_add_con = yes
+		set_variable = {
+			RUS_add_influence_value = 6
+		}
+		RUS_add_influence_democrats = yes
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.01
+		}
+		custom_effect_tooltip = RUS_soclib_gain_6_points
+		set_country_flag = RUS_Octo_Return
+		RUS_Get_Dem_Pop = yes
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = SOV_stop_left_sr
+					}
+				}
+				country_event = {
+					id = rus_civil_war.4 #left srs
+					days = 10
+				}
+			}
+			else = {
+				country_event = {
+					id = rus_civil_war.5
+					days = 2
+				}
+			}
+		}
+	}
+}
+country_event = { #Left SRs
+	id = rus_civil_war.4
+	title = rus_civil_war.4.t
+	desc = rus_civil_war.4.d
+	picture = GFX_event_Left_SR #Maria_Spiridonova
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.4.a
+		ai_chance = {
+			base = 100
+		}
+		#adds 6k manpower directly to pool
+		add_manpower = 6000
+		COALITION_add_revsoc = yes
+		if = {
+			limit = {
+				NOT = {
+					has_variable = RUS_socialist_influence
+				}
+			}
+			set_variable = { #sets up the influence
+				RUS_socialist_influence = 0
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 7
+		}
+		RUS_add_influence_socialists = yes
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.03
+		}
+		custom_effect_tooltip = RUS_soc_gain_7_points
+		RUS_Get_Dem_Pop = yes
+		hidden_effect = {
+			#random_list = {
+				#2 = {
+				#	clr_country_flag = RUS_AI_KONR_Personality
+				#	clr_country_flag = RUS_AI_Mon_Personality
+				#	clr_country_flag = RUS_AI_Dem_Personality
+				#	set_country_flag = RUS_AI_Soc_Personality
+				#}
+				#98 = {
+				#}
+			#}
+			country_event = {
+				id = rus_civil_war.5
+				days = 2
+			}
+		}
+	}
+}
+country_event = { #Black Hundredists
+	id = rus_civil_war.5
+	title = rus_civil_war.5.t
+	desc = rus_civil_war.5.d
+	picture = GFX_event_Black_Hundredists
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.5.a
+		ai_chance = {
+			base = 100
+		}
+		#adds 1k manpower directly to pool
+		add_manpower = 1000
+		COALITION_add_nat = yes
+		if = {
+			limit = {
+				NOT = {
+					has_variable = RUS_nationalist_influence
+				}
+			}
+			set_variable = { #sets up the influence
+				RUS_nationalist_influence = 0
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 4
+		}
+		RUS_add_influence_nationalists = yes
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.01
+		}
+		custom_effect_tooltip = RUS_nat_gain_4_points
+		RUS_Get_Dem_Pop = yes
+		hidden_effect = {
+			#random_list = {
+				#1 = {
+				#	clr_country_flag = RUS_AI_KONR_Personality
+				#	clr_country_flag = RUS_AI_Mon_Personality
+				#	clr_country_flag = RUS_AI_Dem_Personality
+				#	clr_country_flag = RUS_AI_Soc_Personality
+				#	set_country_flag = RUS_AI_Nat_Personality
+				#}
+				#99 = {
+				#}
+			#}
+			country_event = {
+				id = rus_civil_war.6
+				days = 7
+			}
+		}
+	}
+}
+country_event = { #Trudoviks
+	id = rus_civil_war.6
+	title = rus_civil_war.6.t
+	desc = rus_civil_war.6.d
+	picture = GFX_event_Trudoviks
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.6.a
+		ai_chance = {
+			base = 100
+		}
+		#adds 4.5k manpower directly to pool
+		add_manpower = 4500
+		set_country_flag = RUS_Trud_Return
+		COALITION_add_socdem = yes
+		set_variable = {
+			RUS_add_influence_value = 6
+		}
+		RUS_add_influence_democrats = yes
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.04
+		}
+		custom_effect_tooltip = RUS_soclib_gain_6_points
+		RUS_Get_Dem_Pop = yes
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.7
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #NTS
+	id = rus_civil_war.7
+	title = rus_civil_war.7.t
+	desc = rus_civil_war.7.d
+	picture = GFX_Event_USSR_Vlasov_Soldiers
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.7.a
+		ai_chance = {
+			base = 100
+		}
+		#adds 2.5k manpower directly to pool
+		add_manpower = 2500
+		set_country_flag = RUS_NTS_Arrived
+		set_variable = {
+			RUS_add_influence_value = 3
+		}
+		RUS_add_influence_vlasov = yes
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.03
+		}
+		custom_effect_tooltip = RUS_vlasov_gain_3_points
+		hidden_effect = {
+			if = {
+				limit = {
+					SOV = {
+						NOT = {
+							has_country_flag = SOV_RightSRs_stopped
+						}
+					}
+				}
+				country_event = {
+					id = rus_civil_war.8 #Right sr
+					days = 4
+				}
+			}
+			else = {
+				country_event = {
+					id = rus_civil_war.9
+					days = 5
+				}
+			}
+		}
+	}
+}
+country_event = { #Right SR
+	id = rus_civil_war.8
+	title = rus_civil_war.8.t
+	desc = rus_civil_war.8.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Right_SRs
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.8.a
+		ai_chance = {
+			base = 100
+		}
+		#adds 6k manpower directly to pool
+		add_manpower = 6000
+		set_variable = {
+			RUS_add_influence_value = 7
+		}
+		if = {
+			limit = {
+				has_variable = RUS_socialist_influence
+			}
+			RUS_add_influence_socialists = yes
+			custom_effect_tooltip = RUS_soc_gain_7_points
+		}
+		else = {
+			RUS_add_influence_democrats = yes
+			custom_effect_tooltip = RUS_soclib_gain_7_points
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.05
+		}
+		COALITION_add_demsoc = yes
+		set_country_flag = RUS_PSR_Return
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.9 #RS
+				days = 3
+			}
+		}
+	}
+}
+country_event = { #RS
+	id = rus_civil_war.9
+	title = rus_civil_war.9.t
+	desc = rus_civil_war.9.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Black Hundredist
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.9.a
+		ai_chance = {
+			base = 100
+		}
+		#adds 3k manpower directly to pool
+		add_manpower = 3000
+		set_country_flag = RUS_Assembly_Arrived
+		set_variable = {
+			RUS_add_influence_value = 5
+		}
+		RUS_add_influence_monarchists = yes
+		custom_effect_tooltip = RUS_mon_gain_5_points
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.03
+		}
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.10 #Progs
+				days = 4
+			}
+		}
+	}
+}
+country_event = { #Progressive Party
+	id = rus_civil_war.10
+	title = rus_civil_war.10.t
+	desc = rus_civil_war.10.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #octobrists
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.10.a
+		ai_chance = {
+			base = 100
+		}
+		#adds 1k manpower directly to pool
+		add_manpower = 500
+		set_country_flag = RUS_Prog_Return
+		set_variable = {
+			RUS_add_influence_value = 2
+		}
+		RUS_add_influence_democrats = yes
+		COALITION_add_marlib = yes
+		custom_effect_tooltip = RUS_soclib_gain_2_points
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.01
+		}
+	}
+}
+country_event = { #Choose Leader
+	id = rus_civil_war.11
+	title = rus_civil_war.11.t
+	desc = rus_civil_war.11.d
+	picture = GFX_Event_USSR_Soviet_Deserters
+	is_triggered_only = yes
+	option = { #SocLib
+		name = rus_civil_war.11.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				has_country_flag = RUS_AI_KONR_Personality
+				factor = 0.6
+			}
+		}
+		hidden_effect = {
+			set_party_name = {
+				ideology = neutrality
+				name = RUS_neutrality_party
+				long_name = RUS_neutrality_party_long
+			}
+		}
+		set_politics = {
+			ruling_party = social_liberalism
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.05
+		}
+		set_variable = {
+			RUS_add_influence_value = 20
+		}
+		RUS_add_influence_democrats = yes
+		custom_effect_tooltip = RUS_soclib_gain_20_points
+		add_ideas = {
+			SOV_hog_Pavel_Milyukov
+			SOV_frn_Pavel_Milyukov
+			SOV_eco_Seymon_Yermolaev
+			SOV_sec_Sergei_Varun_Secret
+		}
+	}
+	option = { #LibCon
+		name = rus_civil_war.11.b
+		ai_chance = {
+			base = 37
+			modifier = {
+				has_country_flag = RUS_AI_KONR_Personality
+				factor = 0.6
+			}
+		}
+		hidden_effect = {
+			set_party_name = {
+				ideology = neutrality
+				name = RUS_neutrality_party
+				long_name = RUS_neutrality_party_long
+			}
+		}
+		set_politics = {
+			ruling_party = jacobin
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.05
+		}
+		set_variable = {
+			RUS_add_influence_value = 20
+		}
+		RUS_add_influence_democrats = yes
+		custom_effect_tooltip = RUS_soclib_gain_20_points
+		add_ideas = {
+			SOV_hog_Vladimir_Ryabushinsky
+			SOV_frn_Ivan_Papchinsky
+			SOV_eco_Lev_Gershelman
+			SOV_sec_Pavel_Smelov
+		}
+	}
+	option = { #Vlasov
+		name = rus_civil_war.11.c
+		ai_chance = {
+			base = 13
+			modifier = {
+				has_country_flag = RUS_AI_KONR_Personality
+				factor = 2.5
+			}
+		}
+		hidden_effect = {
+			set_party_name = {
+				ideology = neutrality
+				name = RUS_neutrality_party
+				long_name = RUS_neutrality_party_long
+			}
+		}
+		if = {
+			limit = {
+				has_character = SOV_andrei_vlasov
+			}
+			add_country_leader_role = {
+				character = "SOV_andrei_vlasov"
+				promote_leader = yes
+				country_leader = {
+					ideology = military
+					expire = "1953.3.1"
+					traits = { }
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				SOV = { has_character = SOV_andrei_vlasov }
+			}
+			if = {
+				limit = {
+					SOV = {
+						SOV_andrei_vlasov = { is_unit_leader = yes }
+					}
+				}
+				SOV = {
+					SOV_andrei_vlasov = {
+						remove_unit_leader_trait = hidden_sympathies
+						remove_unit_leader_trait = soviet_army_officer_war
+						remove_unit_leader_trait = soviet_army_officer_peace
+						add_unit_leader_trait = politically_connected
+					}
+				}
+			}
+			else = {
+				SOV = {
+					add_corps_commander_role = {
+						character = SOV_andrei_vlasov
+						traits = {
+							politically_connected
+							organizer
+							career_officer
+							infantry_officer
+							infantry_leader
+						}
+						skill = 3
+						attack_skill = 3
+						defense_skill = 2
+						planning_skill = 4
+						logistics_skill = 3
+						legacy_id = 412
+						
+					}
+				}
+			}
+			SOV = {
+				set_nationality = {
+					target_country = RUS
+					character = SOV_andrei_vlasov
+				}
+			}
+			RUS = {
+				add_country_leader_role = {
+					character = "SOV_andrei_vlasov"
+					promote_leader = yes
+					country_leader = {
+						ideology = military
+						expire = "1965.1.1.1"
+						desc = "POLITICS_ANDREI_VLASOV_DESC"
+						traits = { }
+					}
+				}
+			}
+		}
+		else = {
+			generate_character = {
+				token_base = SOV_andrei_vlasov
+				name = "Andrei Vlasov"
+				portraits = {
+					civilian = {
+						large = "gfx/leaders_cbts/SOV/Portrait_SOV_Andrei_Vlasov.png"
+					}
+					army = {
+						large = "gfx/leaders_cbts/SOV/Portrait_SOV_Andrei_Vlasov.png"
+						small="gfx/interface/ideas/idea_europe_generic_land_3.dds"
+					}
+				}
+				corps_commander = {
+					traits = {
+						politically_connected
+						organizer
+						career_officer
+						infantry_officer
+						infantry_leader
+					}
+					skill = 3
+					attack_skill = 3
+					defense_skill = 2
+					planning_skill = 4
+					logistics_skill = 3
+					legacy_id = 412
+				}
+			}
+			create_country_leader = {
+				name = "Andrei Vlasov"
+				desc = "POLITICS_ANDREI_VLASOV_DESC"
+				picture = "gfx/leaders_cbts/SOV/Portrait_SOV_Andrei_Vlasov.png"
+				expire = "1953.3.1"
+				ideology = military
+				traits = { }
+			}
+		}
+
+		set_politics = {
+			ruling_party = neutrality
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
+		set_variable = {
+			RUS_add_influence_value = 10
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_gain_10_points
+		add_ideas = {
+			SOV_hog_Andrei_Vlasov
+			SOV_frn_Ivan_Blagoveschchensky
+			SOV_eco_Georgy_Zhilenko
+			SOV_sec_Andrey_Neryanin
+		}
+	}
+}
+country_event = { #Complaints about Treatment
+	id = rus_civil_war.12
+	title = rus_civil_war.12.t
+	desc = rus_civil_war.12.d
+	picture = GFX_Event_USSR_Kolkhoz #
+	trigger = {
+		tag = RUS
+		has_global_flag = Russian_Civil_War
+		any_state = {
+			NOT = {
+				is_owned_by = ROOT
+			}
+			is_controlled_by = ROOT
+		}
+	}
+	mean_time_to_happen = {
+		days = 190
+	}
+	option = { #Do Nothing
+		name = rus_civil_war.12.a
+		ai_chance = {
+			base = 2
+		}
+		set_variable = {
+			RUS_add_influence_value = -4
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_lose_4_points
+	}
+	option = { #Try Soldiers
+		name = rus_civil_war.12.b
+		ai_chance = {
+			base = 18
+		}
+		add_political_power = -20
+		set_variable = {
+			RUS_add_influence_value = 2
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_gain_2_points
+		set_variable = {
+			RUS_add_influence_value = 2
+		}
+		RUS_add_influence_socialists = yes
+		custom_effect_tooltip = RUS_soc_gain_2_points
+	}
+	option = { #Pay Restitution
+		name = rus_civil_war.12.c
+		ai_chance = {
+			base = 30
+		}
+		add_political_power = -30
+		set_variable = {
+			RUS_add_influence_value = 3
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_gain_3_points
+		set_variable = {
+			RUS_add_influence_value = 2
+		}
+		RUS_add_influence_democrats = yes
+		custom_effect_tooltip = RUS_soclib_gain_2_points
+	}
+	option = { #Pay Restitution and Try Soldiers
+		name = rus_civil_war.12.e
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = -50
+		set_variable = {
+			RUS_add_influence_value = 4
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_gain_4_points
+	}
+}
+country_event = { #Collectivization Dispute
+	id = rus_civil_war.13
+	title = rus_civil_war.13.t
+	desc = rus_civil_war.13.d
+	picture = GFX_event_Kolkhoz_Money #Kolkhoz_Money
+	trigger = {
+		tag = RUS
+		has_idea = RUS_decollectivize
+	}
+	mean_time_to_happen = {
+		days = 220
+	}
+	option = { #Do nothing
+		name = rus_civil_war.13.a
+		ai_chance = {
+			base = 2
+		}
+		set_variable = {
+			RUS_add_influence_value = 5
+		}
+		RUS_add_influence_socialists = yes
+		custom_effect_tooltip = RUS_soc_gain_5_points
+		set_variable = {
+			RUS_add_influence_value = 2
+		}
+		RUS_add_influence_democrats = yes
+		custom_effect_tooltip = RUS_soclib_gain_2_points
+	}
+	option = { #Pay Restitution
+		name = rus_civil_war.13.b
+		ai_chance = {
+			base = 60
+		}
+		add_political_power = -20
+		set_variable = {
+			RUS_add_influence_value = 4
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_gain_4_points
+		set_variable = {
+			RUS_add_influence_value = 2
+		}
+		RUS_add_influence_democrats = yes
+		custom_effect_tooltip = RUS_soclib_gain_2_points
+	}
+	option = { #equitize
+		name = rus_civil_war.13.c
+		ai_chance = {
+			base = 38
+		}
+		add_political_power = -40
+		set_variable = {
+			RUS_add_influence_value = 5
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_gain_5_points
+	}
+}
+country_event = { #other military revolts
+	id = rus_civil_war.14
+	title = rus_civil_war.14.t
+	desc = rus_civil_war.14.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad
+	is_triggered_only = yes
+	option = { #Do nothing
+		name = rus_civil_war.14.a
+		ai_chance = {
+			base = 100
+		}
+		effect_tooltip = {
+			add_to_faction = FROM
+		}
+		set_variable = {
+			RUS_add_influence_value = 3
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_gain_3_points
+	}
+}
+country_event = { #Dybenkism
+	id = rus_civil_war.15
+	title = rus_civil_war.15.t
+	desc = rus_civil_war.15.d
+	picture = GFX_event_Pavel_Dybenko #Pavel_Dybenko
+	is_triggered_only = yes
+	option = { #Do nothing
+		name = rus_civil_war.15.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			RUS_add_influence_value = -6
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_lose_6_points
+	}
+}
+country_event = { #Districts allow political pluralities
+	id = rus_civil_war.16
+	title = rus_civil_war.16.t
+	desc = rus_civil_war.16.d
+	picture = GFX_event_Trudoviks
+	is_triggered_only = yes
+	option = { #Do nothing
+		name = rus_civil_war.16.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			RUS_add_influence_value = -2
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_lose_2_points
+	}
+}
+country_event = { #New Interior Minister
+	id = rus_civil_war.17
+	title = rus_civil_war.17.t
+	desc = rus_civil_war.17.d
+	picture = GFX_event_Duma_Offices
+	is_triggered_only = yes
+	option = { #Right SR
+		name = rus_civil_war.17.a
+		trigger = {
+			has_country_flag = RUS_PSR_Return
+		}
+		ai_chance = {
+			base = 30
+		}
+		remove_ideas_with_trait = secmin
+		add_ideas = SOV_sec_Sergei_Bondarev
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.03
+		}
+	}
+	option = { #Trudovik
+		name = rus_civil_war.17.b
+		ai_chance = {
+			base = 30
+		}
+		remove_ideas_with_trait = secmin
+		add_ideas = SOV_sec_Ivan_Bonch_Osmolovsky
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.03
+		}
+	}
+	option = { #Kadet
+		name = rus_civil_war.17.c
+		ai_chance = {
+			base = 20
+		}
+		remove_ideas_with_trait = secmin
+		add_ideas = SOV_sec_Vladimir_Zhernakov
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.03
+		}
+	}
+	option = { #Octobrist
+		name = rus_civil_war.17.e
+		ai_chance = {
+			base = 20
+		}
+		remove_ideas_with_trait = secmin
+		add_ideas = SOV_sec_Emmanuel_Bennigsen
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+	}
+}
+country_event = { #VLA bolsheviks attacked after offices occupied
+	id = rus_civil_war.18
+	title = rus_civil_war.18.t
+	desc = rus_civil_war.18.d
+	picture = GFX_Event_USSR_Trotsky_Kamanev_Zinoviev
+	is_triggered_only = yes
+	option = { #
+		name = rus_civil_war.18.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.05
+		}
+		hidden_effect = {
+			RUS = {
+				country_event = {
+					id = rus_civil_war.19
+					days = 3
+				}
+			}
+		}
+	}
+}
+country_event = { #RUS reaction to ^
+	id = rus_civil_war.19
+	title = rus_civil_war.19.t
+	desc = rus_civil_war.19.d
+	picture = GFX_Event_USSR_Trotsky_Kamanev_Zinoviev
+	is_triggered_only = yes
+	option = { #
+		name = rus_civil_war.19.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			RUS_add_influence_value = -3
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_lose_3_points
+	}
+}
+country_event = { #FER - Fascist Periodical 1
+	id = rus_civil_war.20
+	title = rus_civil_war.20.t
+	desc = rus_civil_war.20.d
+	picture = GFX_event_Vonsyatsky_Marching
+	is_triggered_only = yes
+	option = { #
+		name = rus_civil_war.20.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.21
+				days = 30
+			}
+		}
+	}
+}
+country_event = { #FER - Fascist Periodical 2
+	id = rus_civil_war.21
+	title = rus_civil_war.21.t
+	desc = rus_civil_war.21.d
+	picture = GFX_event_People_Reading_Newspapers
+	is_triggered_only = yes
+	option = { #
+		name = rus_civil_war.21.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.22
+				days = 30
+			}
+		}
+	}
+}
+country_event = { #FER - Fascist Periodical 3
+	id = rus_civil_war.22
+	title = rus_civil_war.22.t
+	desc = rus_civil_war.22.d
+	picture = GFX_event_Vonsyatsky_Marching
+	is_triggered_only = yes
+	option = { #
+		name = rus_civil_war.22.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+	}
+}
+country_event = { #MOS - Orthodox Periodical
+	id = rus_civil_war.23
+	title = rus_civil_war.23.t
+	desc = rus_civil_war.23.d
+	picture = GFX_event_Orthodox_Cathedral
+	is_triggered_only = yes
+	option = { #
+		name = rus_civil_war.23.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.002
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.002
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.002
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.002
+		}
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.24
+				days = 14
+			}
+		}
+	}
+}
+country_event = { #MOS - Orthodox Periodical 2
+	id = rus_civil_war.24
+	title = rus_civil_war.24.t
+	desc = rus_civil_war.24.d
+	picture = GFX_event_People_Reading_Newspapers
+	is_triggered_only = yes
+	option = { #
+		name = rus_civil_war.24.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.002
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.002
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.002
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.002
+		}
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.25
+				days = 14
+			}
+		}
+	}
+}
+country_event = { #SBR - Anarchist Periodical
+	id = rus_civil_war.25
+	title = rus_civil_war.25.t
+	desc = rus_civil_war.25.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Russian_Anarchists
+	is_triggered_only = yes
+	option = { #
+		name = rus_civil_war.25.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.01
+		}
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.26
+				days = 30
+			}
+		}
+	}
+}
+country_event = { #SBR - Anarchist Periodical 2
+	id = rus_civil_war.26
+	title = rus_civil_war.26.t
+	desc = rus_civil_war.26.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Russian_Anarchists
+	is_triggered_only = yes
+	option = { #
+		name = rus_civil_war.26.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.01
+		}
+		add_stability = -0.01
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.27
+				days = 30
+			}
+		}
+	}
+}
+country_event = { #SBR - Anarchist Periodical 3
+	id = rus_civil_war.27
+	title = rus_civil_war.27.t
+	desc = rus_civil_war.27.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Russian_Anarchists
+	is_triggered_only = yes
+	option = { #
+		name = rus_civil_war.27.a
+		ai_chance = {
+			base = 100
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.01
+		}
+		add_stability = -0.01
+	}
+}
+country_event = { #RUS - RFP Spawned in the East
+	id = rus_civil_war.28
+	title = rus_civil_war.28.t
+	desc = rus_civil_war.28.d
+	picture = GFX_event_Russian_Blackshirts
+	is_triggered_only = yes
+	option = { # accept help
+		name = rus_civil_war.28.a
+		ai_chance = {
+			base = 48
+		}
+		set_variable = {
+			RUS_add_influence_value = 7
+		}
+		RUS_add_influence_nationalists = yes
+		custom_effect_tooltip = RUS_nat_gain_7_points
+		every_country = {
+			limit = {
+				is_major = yes
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+					has_government = socialism
+					has_government = social_democracy
+				}
+			}
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = RUS_work_with_fascists
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.30 #blackshirt
+				days = 15
+			}
+		}
+	}
+	option = { # accept help, praise cossacks
+		name = rus_civil_war.28.b
+		ai_chance = {
+			base = 48
+		}
+		trigger = {
+			any_country = {
+				is_major = yes
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+					has_government = socialism
+					has_government = social_democracy
+				}
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		set_variable = {
+			RUS_add_influence_value = 7
+		}
+		RUS_add_influence_monarchists = yes
+		custom_effect_tooltip = RUS_mon_gain_7_points
+		hidden_effect = {
+			country_event = {
+				id = rus_civil_war.30 #blackshirt
+				days = 15
+			}
+			RFP = {
+				country_event = {
+					id = rus_civil_war.29 #gets the news
+					days = 5
+				}
+			}
+		}
+	}
+	option = { # denounce fascists
+		name = rus_civil_war.28.c
+		ai_chance = {
+			base = 4
+		}
+		trigger = {
+			any_country = {
+				is_major = yes
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+					has_government = socialism
+					has_government = social_democracy
+				}
+				NOT = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		add_political_power = -50
+		remove_from_faction = RFP
+		hidden_effect = {
+			RFP = {
+				country_event = {
+					id = rus_civil_war.31 #gets the news
+					days = 5
+				}
+			}
+		}
+	}
+}
+country_event = { #RFP - RUS exalts semyonov news
+	id = rus_civil_war.29
+	title = rus_civil_war.29.t
+	desc = rus_civil_war.29.d
+	picture = GFX_event_Grigory_Semynov
+	is_triggered_only = yes
+	option = { # accept help
+		name = rus_civil_war.29.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			RFP_add_influence_value = 12
+		}
+		RFP_add_influence_cossack = yes
+		custom_effect_tooltip = RFP_cossack_gain_12
+		add_opinion_modifier = {
+			target = FROM
+			modifier = RUS_exalted_semyonov
+		}
+	}
+}
+country_event = { #RUS - Blackshirts
+	id = rus_civil_war.30
+	title = rus_civil_war.30.t
+	desc = rus_civil_war.30.d
+	picture = GFX_event_Russian_Blackshirts
+	is_triggered_only = yes
+	option = { # accept help
+		name = rus_civil_war.30.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			RUS_add_influence_value = 4
+		}
+		COALITION_add_fas = yes
+		add_manpower = 25000
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.025
+		}
+		RUS_add_influence_nationalists = yes
+		custom_effect_tooltip = RUS_nat_gain_4_points
+		generate_character = {
+			token_base = RUS_boris_smyslovsky
+			name = "Boris Smyslovsky"
+			portraits = {
+				army = {
+					large = "gfx/leaders_cbts/RUS/Portrait_RUS_Boris_Smyslovsky.png"
+					small="gfx/interface/ideas/idea_europe_generic_land_3.dds"
+				}
+			}
+			corps_commander = {
+				traits = {
+					homeland_connoisseur
+				}
+				skill = 2
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 1
+			}
+		}
+	}
+}
+country_event = { #RFP - RUS denounced, declare legitimate government
+	id = rus_civil_war.31
+	title = rus_civil_war.31.t
+	desc = rus_civil_war.31.d
+	picture = GFX_event_Russian_Blackshirts
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.31.a
+		ai_chance = {
+			base = 100
+		}
+		drop_cosmetic_tag = yes
+		declare_war_on = {
+			target = RUS
+			type = annex_everything
+		}
+		add_war_support = -0.10
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.05
+		}
+		set_variable = {
+			RFP_add_influence_value = 5
+		}
+		RFP_add_influence_cossack = yes
+		custom_effect_tooltip = RFP_cossack_gain_5
+	}
+}
+country_event = { #RFP - Vonsyatsky Comes Back
+	id = rus_civil_war.32
+	title = rus_civil_war.32.t
+	desc = rus_civil_war.32.d
+	picture = GFX_event_Vonsyatsky_Marching
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.32.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			RFP_von_influence = 0
+		}
+		set_variable = {
+			RFP_add_influence_value = 5
+		}
+		RFP_add_influence_vonsyatsky = yes
+		add_ideas = SOV_sec_Anastasy_Vonsyatsky
+		custom_effect_tooltip = RFP_von_gain_5
+	}
+}
+country_event = { #RUS - Fascists make State Religion
+	id = rus_civil_war.33
+	title = rus_civil_war.33.t
+	desc = rus_civil_war.33.d
+	picture = GFX_event_Orthodox_Cathedral #Orthodox_Cathedral
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.33.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			RUS_add_influence_value = 5
+		}
+		RUS_add_influence_nationalists = yes
+		custom_effect_tooltip = RUS_nat_gain_5_points
+	}
+}
+country_event = { #RUS - Fascists claim legitimacy
+	id = rus_civil_war.34
+	title = rus_civil_war.34.t
+	desc = rus_civil_war.34.d
+	picture = GFX_event_Russian_Blackshirts
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.34.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			RUS_add_influence_value = -5
+		}
+		RUS_add_influence_nationalists = yes
+		custom_effect_tooltip = RUS_nat_lose_5_points
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.05
+		}
+	}
+}
+country_event = { #Vla Revolts - Fascists request annex
+	id = rus_civil_war.35
+	title = rus_civil_war.35.t
+	desc = rus_civil_war.35.d
+	picture = GFX_event_Russian_Blackshirts
+	is_triggered_only = yes
+	option = { #allow annexation
+		name = rus_civil_war.35.a
+		ai_chance = {
+			base = 55
+		}
+		#every_unit_leader = {
+		#	set_nationality = RFP
+		#}
+		RFP = {
+			country_event = {
+				id = rus_civil_war.36
+			}
+		}
+		RUS = {
+			country_event = {
+				id = rus_civil_war.38
+			}
+		}
+		custom_effect_tooltip = VLA_will_be_annexed
+	}
+	option = { #no
+		name = rus_civil_war.35.b
+		ai_chance = {
+			base = 45
+		}
+		RFP = {
+			country_event = {
+				id = rus_civil_war.37
+			}
+		}
+	}
+}
+country_event = { #RFP - annex vla revolt
+	id = rus_civil_war.36
+	title = rus_civil_war.36.t
+	desc = rus_civil_war.36.d
+	picture = GFX_event_Russian_Revolt #Vasily_Blyukher
+	is_triggered_only = yes
+	option = { #allow annexation
+		name = rus_civil_war.36.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = -0.10
+		change_tag_from = FROM
+		annex_country = {
+			target = FROM
+			transfer_troops = yes
+		}
+	}
+}
+country_event = { #RFP - vla revolt refuses
+	id = rus_civil_war.37
+	title = rus_civil_war.37.t
+	desc = rus_civil_war.37.d
+	picture = GFX_event_Pavel_Dybenko #Pavel_Dybenko
+	is_triggered_only = yes
+	option = { #allow annexation
+		name = rus_civil_war.37.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #RUS - RFP annexes somebody
+	id = rus_civil_war.38
+	title = rus_civil_war.38.t
+	desc = rus_civil_war.38.d
+	picture = GFX_event_Pavel_Dybenko #Pavel_Dybenko
+	is_triggered_only = yes
+	option = {
+		name = rus_civil_war.38.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+country_event = { #RUS - Separatist Revolt
+	id = rus_civil_war.39
+	title = rus_civil_war.39.t
+	desc = rus_civil_war.39.d
+	picture = GFX_event_Pavel_Dybenko #Pavel_Dybenko
+	is_triggered_only = yes
+
+	option = { #attack
+		name = rus_civil_war.39.a
+		ai_chance = {
+			base = 6
+			modifier = {
+				FROM = {
+					OR = {
+						tag = UKR
+						tag = BLR
+					}
+				}
+				factor = 14
+			}
+		}
+		declare_war_on = {
+			target = FROM
+			type = annex_everything
+		}
+		set_variable = {
+			RUS_add_influence_value = 4
+		}
+		RUS_add_influence_monarchists = yes
+		custom_effect_tooltip = RUS_mon_gain_4_points
+		set_variable = {
+			RUS_add_influence_value = 4
+		}
+		RUS_add_influence_nationalists = yes
+		custom_effect_tooltip = RUS_mon_gain_4_points
+		custom_effect_tooltip = RUS_nat_gain_4_points
+	}
+	option = { #leave alone
+		name = rus_civil_war.39.b
+		ai_chance = {
+			base = 84
+		}
+		set_variable = {
+			RUS_add_influence_value = 4
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_gain_4_points
+	}
+	option = { #Offer Cooperation
+		name = rus_civil_war.39.c
+		trigger = {
+			NOT = {
+				FROM = {
+					OR = {
+						tag = CHC
+						tag = DAG
+						tag = BLR
+						tag = UKR
+						tag = UZB
+						tag = AZR
+						tag = ARM
+						tag = GEO
+					}
+				}
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+		set_variable = {
+			RUS_add_influence_value = 4
+		}
+		RUS_add_influence_socialists = yes
+		custom_effect_tooltip = RUS_soc_gain_4_points
+		set_variable = {
+			RUS_add_influence_value = 4
+		}
+		RUS_add_influence_democrats = yes
+		custom_effect_tooltip = RUS_soclib_gain_4_points
+		FROM = {
+			if = {
+				limit = {
+					tag = UKR
+				}
+				country_event = {
+					id = ukr_civil_war.5
+					days = 1
+				}
+			}
+			else = {
+				country_event = {
+					id = rus_civil_war.40
+					days = 1
+				}
+			}
+		}
+	}
+}
+country_event = { #Separatist - RUS offers alliance
+	id = rus_civil_war.40
+	title = rus_civil_war.40.t
+	desc = rus_civil_war.40.d
+	picture = GFX_event_Russian_Revolt #Pavel_Dybenko
+	is_triggered_only = yes
+	option = { #Accept
+		name = rus_civil_war.40.a
+		ai_chance = {
+			base = 85
+			modifier = {
+				OR = {
+					has_government = communism
+					has_government = authoritarian_socialism
+				}
+				factor = 0.05
+			}
+		}
+		FROM = {
+			country_event = {
+				id = rus_civil_war.41
+			}
+			add_to_faction = ROOT
+		}
+	}
+	option = { #Refuse
+		name = rus_civil_war.39.b
+		ai_chance = {
+			base = 15
+		}
+		set_country_flag = Second_RCW_rejected_russian_alliance
+		FROM = {
+			country_event = {
+				id = rus_civil_war.42
+			}
+		}
+	}
+}
+country_event = { #RUS - separatists accept alliance
+	id = rus_civil_war.41
+	title = rus_civil_war.41.t
+	desc = rus_civil_war.41.d
+	picture = GFX_event_Russian_Revolt #Pavel_Dybenko
+	is_triggered_only = yes
+	option = { #Accept
+		name = rus_civil_war.41.a
+		ai_chance = {
+			base = 100
+		}
+		effect_tooltip = {
+			add_to_faction = FROM
+		}
+	}
+}
+country_event = { #RUS - separatists refuse alliance
+	id = rus_civil_war.42
+	title = rus_civil_war.42.t
+	desc = rus_civil_war.42.d
+	picture = GFX_event_Russian_Revolt #Pavel_Dybenko
+	is_triggered_only = yes
+	option = { #Accept
+		name = rus_civil_war.42.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+##Internal
+country_event = { #Experienced Guerillas
+	id = rus_internal.1
+	title = rus_internal.1.t
+	desc = rus_internal.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Soviet_Partisans
+	is_triggered_only = yes
+	option = {
+		name = rus_internal.1.a
+		ai_chance = {
+			base = 100
+		}
+		swap_ideas = {
+			remove_idea = RUS_inexperienced_guerillas
+			add_idea = RUS_guerillas
+		}
+	}
+}
+##External
+country_event = { #Russia asked for guns
+	id = rus_external.1
+	title = rus_external.1.t
+	desc = rus_external.1.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Lend_Lease_Truck
+	is_triggered_only = yes
+	option = {
+		name = rus_external.1.a
+		ai_chance = {
+			base = 98
+		}
+		RUS = {
+			effect_tooltip = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 2000
+					producer = RUS
+				}
+			}
+			country_event = {
+				id = rus_external.2
+				days = 3
+			}
+		}
+	}
+	option = {
+		name = rus_external.1.b
+		ai_chance = {
+			base = 2
+			modifier = {
+				NOT = {
+					has_war = yes
+				}
+				factor = 0
+			}
+		}
+		RUS = {
+			country_event = {
+				id = rus_external.3
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #FROM sends guns
+	id = rus_external.2
+	title = rus_external.2.t
+	desc = rus_external.2.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Lend_Lease_Truck
+	is_triggered_only = yes
+	option = {
+		name = rus_external.2.a
+		ai_chance = {
+			base = 100
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 2000
+			producer = RUS
+		}
+		set_variable = {
+			RUS_add_influence_value = 3
+		}
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						has_government = communism
+						has_government = authoritarian_socialism
+						AND = {
+							has_government = socialism
+							ROOT = {
+								has_variable = RUS_socialist_influence
+							}
+						}
+					}
+				}
+			}
+			RUS_add_influence_socialists = yes
+			custom_effect_tooltip = RUS_soc_gain_3_points
+		}
+		else_if = {
+			limit = {
+				FROM = {
+					OR = {
+						has_government = socialism
+						has_government = social_democracy
+						has_government = social_liberalism
+						has_government = market_liberalism
+						has_government = jacobin
+						has_government = democratic
+					}
+				}
+			}
+			RUS_add_influence_democrats = yes
+			custom_effect_tooltip = RUS_soclib_gain_3_points
+		}
+		else_if = {
+			limit = {
+				FROM = {
+					has_government = neutrality
+				}
+			}
+			RUS_add_influence_vlasov = yes
+			custom_effect_tooltip = RUS_vlasov_gain_3_points
+		}
+		else_if = {
+			limit = {
+				FROM = {
+					has_government = monarchism
+				}
+			}
+			RUS_add_influence_monarchists = yes
+			custom_effect_tooltip = RUS_mon_gain_3_points
+		}
+		else = {
+			RUS_add_influence_nationalists = yes
+			custom_effect_tooltip = RUS_nat_gain_3_points
+		}
+	}
+}
+country_event = { #FROM does not send guns
+	id = rus_external.3
+	title = rus_external.3.t
+	desc = rus_external.3.d
+	picture = GFX_Event_USSR_Battle_of_Stalingrad #Lend_Lease_Truck
+	is_triggered_only = yes
+	option = {
+		name = rus_external.3.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			RUS_add_influence_value = -3
+		}
+		RUS_add_influence_vlasov = yes
+		custom_effect_tooltip = RUS_vlasov_lose_3_points
+	}
+}
+country_event = { #Russia NAP
+	id = rus_external.4
+	title = rus_external.4.t
+	desc = rus_external.4.d
+	picture = GFX_Event_USSR_Vlasov_Soldiers
+	is_triggered_only = yes
+	option = {
+		name = rus_external.4.a
+		ai_chance = {
+			base = 99
+		}
+		diplomatic_relation = {
+			country = RUS
+			relation = non_aggression_pact
+			active = yes
+		}
+		FROM = {
+			country_event = {
+				id = rus_external.5
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = rus_external.4.b
+		ai_chance = {
+			base = 1
+			modifier = {
+				has_war_with = SOV
+				factor = 0
+			}
+		}
+		FROM = {
+			country_event = {
+				id = rus_external.6
+				days = 1
+			}
+		}
+	}
+}
+country_event = { #Russia NAP
+	id = rus_external.5
+	title = rus_external.5.t
+	desc = rus_external.5.d
+	picture = GFX_Event_USSR_Vlasov_Soldiers
+	is_triggered_only = yes
+	option = {
+		name = rus_external.5.a
+		ai_chance = {
+			base = 100
+		}
+		effect_tooltip = {
+			diplomatic_relation = {
+				country = POL
+				relation = non_aggression_pact
+				active = yes
+			}
+		}
+	}
+}
+country_event = { #Russia NAP
+	id = rus_external.6
+	title = rus_external.6.t
+	desc = rus_external.6.d
+	picture = GFX_Event_USSR_Vlasov_Soldiers
+	is_triggered_only = yes
+	option = {
+		name = rus_external.6.a
+		ai_chance = {
+			base = 100
+		}
+		set_variable = {
+			RUS_add_influence_value = 3
+		}
+		RUS_add_influence_nationalists = yes
+		custom_effect_tooltip = RUS_nat_gain_3_points
+	}
+}

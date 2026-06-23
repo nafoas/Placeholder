@@ -1,0 +1,66 @@
+BUL_political_actions = {
+
+	BUL_zveno_plot = {
+
+		icon = GFX_decision_generic_ignite_civil_war
+                                
+        allowed = {                       
+            tag = BUL                 
+        }
+
+        activation = { 
+                has_country_flag = zveno_plot                    
+        }
+
+        available = { 
+            AND = {                           
+                has_completed_focus = GEN_reform_command_structure #350 days
+                has_completed_focus = GEN_negotiate_opposition #140 days 490 total
+            }                   
+        }
+        
+        is_good = no                           
+        days_mission_timeout = 503 #1933.01.01-1934.05.19
+
+        timeout_effect = {                      
+	        add_political_power = -50
+            country_event = bul_internal.2              
+	    }
+		complete_effect = {                    
+		    add_political_power = 50
+            country_event = bul_internal.3 
+		}             
+    }
+
+    BUL_boris_plot = {
+
+        icon = GFX_decision_generic_ignite_civil_war
+                                
+        allowed = {                        
+            tag = BUL      
+        }
+
+        activation = {
+            has_country_flag = bul_zveno_coup_yes                     
+        }
+
+        available = { 
+            AND = {                           
+                has_completed_focus = GEN_reform_command_structure #350 days
+                has_completed_focus = GEN_RIGHT_POL_Improve_Secret_Police #224 days 
+            }                   
+        }
+        
+        is_good = no                           
+        days_mission_timeout = 7 #250 #1934.05.19-1935.01.22
+
+        timeout_effect = { #Boris Coup                     
+            add_political_power = -50
+            country_event = bul_internal.4              
+        }
+        complete_effect = { #Zveno successful                
+            add_political_power = 50
+            country_event = bul_internal.5 
+        }             
+    }
+}

@@ -1,0 +1,709 @@
+add_namespace = sichuan
+
+country_event = {
+	id = sichuan.1
+	title = sichuan.1.t
+	desc = sichuan.1.d
+	picture = GFX_report_event_chinese_army_training
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = sichuan.1.a
+		add_stability = 0.01
+		LWH = {
+			country_event = {
+				id = sichuan.2
+				hours = 6
+			}
+		}
+	}
+}
+
+country_event = {
+	id = sichuan.2
+	title = sichuan.2.t
+	desc = sichuan.2.d
+	picture = GFX_report_event_chinese_soldiers_running
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = sichuan.2.a
+		LXI = {
+			set_cosmetic_tag = SIC_Clique
+			dismantle_faction = yes
+			add_stability = 0.15
+			transfer_state = 1192
+			transfer_state = 1121
+			add_state_core = 1121
+		}
+		DXH = {
+			add_stability = 0.1
+			transfer_state = 605
+			add_state_core = 605
+			set_capital = {
+				state = 605
+				remember_old_capital = no
+			}
+		}
+		hidden_effect = {
+			white_peace = {
+				tag = LXI
+				message = TWO_LIU_WAR_END_LXI_LWH
+			}
+			# white_peace = {
+			# 	tag = DXH
+			# 	message = TWO_LIU_WAR_END_DXH_LWH
+			# }
+			white_peace = DXH
+			white_peace = TSY
+			remove_ideas = CHI_no_surrender_warlord
+			remove_ideas = SIC_low_morale_and_desertions
+			clr_global_flag = Two_Liu_war_flag
+			LXI = {
+				remove_ideas = CHI_no_surrender_warlord
+				remove_ideas = SIC_end_the_war_already
+				remove_ideas = Sichuan_war_idea
+			}
+			DXH = { remove_ideas = Sichuan_war_idea }
+			LWH = { remove_ideas = Sichuan_war_idea }
+		}
+		set_capital = {
+			state = 1124
+			remember_old_capital = no
+		}
+		# set_cosmetic_tag = LWH_chuanbian
+		#load_focus_tree = SIC_LWH_Xikang
+		# TODO
+		# load_oob = "xikang_army"
+	}
+}
+
+country_event = {
+	id = sichuan.3
+	title = sichuan.3.t
+	desc = sichuan.3.d
+	picture = GFX_report_event_generic_sign_treaty1
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		ai_chance = {
+			base = 100
+		}
+		name = sichuan.3.a
+		set_capital = {
+			state = 1117
+		}
+		add_political_power = 75
+	}
+	option = {
+		name = sichuan.3.b
+		set_capital = {
+			state = 605
+		}
+		add_political_power = 75
+	}
+}
+
+country_event = {
+	id = sichuan.4
+	title = sichuan.4.t
+	desc = sichuan.4.d
+	picture = GFX_report_event_generic_sign_treaty1
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		is_ai = yes
+	}
+	option = {
+		name = sichuan.4.a
+	}
+}
+
+country_event = {
+	id = sichuan.5
+	title = sichuan.5.t
+	desc = sichuan.5.d
+	picture = GFX_report_event_generic_sign_treaty1
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		is_ai = yes
+	}
+	option = {
+		name = sichuan.5.a
+		add_ideas = SIC_end_the_war_already
+	}
+}
+
+country_event = {
+	id = sichuan.6 # Liu Xiang dies
+	title = sichuan.6.t
+	desc = sichuan.6.d
+	picture = GFX_report_demertzis_funeral
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = sichuan.6.a
+		custom_effect_tooltip = SIC_death_of_Liu_Xiang_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Liu Xiang Dies"
+			retire_character = LXI_liu_xiang
+			LXI_wang_lingji = {
+				add_country_leader_role = {
+					country_leader = {
+						ideology = warlordism
+						expire = "1965.1.1.1"
+						traits = {
+						}
+					}
+					promote_leader = yes
+				}
+				promote_character = yes
+			}
+		}
+		
+		hidden_effect = {
+			CHI = {
+				country_event = {
+					id = sichuan.7
+					days = 3
+				}
+				country_event = {
+					id = sichuan.14
+					days = 60
+				}
+				country_event = {
+					id = sichuan.15
+					days = 605
+				}
+			}
+			LWH = {
+				country_event = {
+					id = sichuan.7
+					days = 2
+				}
+			}
+		}
+	}
+}
+
+country_event = { #The Death of Liu Xiang. For CHI and LWH
+	id = sichuan.7
+	title = sichuan.7.t
+	desc = {
+		text = sichuan.7.d.kmt
+		trigger = {
+			tag = CHI
+		}
+	}
+	desc = {
+		text = sichuan.7.d.lwh
+		trigger = {
+			tag = CHI
+		}
+	}
+	picture = GFX_report_demertzis_funeral
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = sichuan.7.kmt
+		trigger = { tag = CHI }
+	}
+	option = {
+		name = sichuan.7.lwh
+		trigger = { tag = LWH }
+		# LWH = {
+		# 	transfer_state = 1121
+		# 	# add_state_core = 1121
+		# 	if = {
+		# 		limit = {
+		# 			NOT = { controls_state = 1124 }
+		# 		}
+		# 		transfer_state = 1124
+		# 		# add_state_core = 1124
+		# 	}
+		# }
+
+		# start_border_war = {
+		# 	change_state_after_war = no
+		# 	combat_width = 80
+		# 	minimum_duration_in_days = 10
+		# 	attacker = {
+		# 		state = 1127
+		# 		num_provinces = 2
+		# 		on_win = sichuan.16
+		# 		modifier = 0.5
+		# 	}
+			
+		# 	defender = {
+		# 		state = 1121
+		# 		num_provinces = 2
+		# 	}
+		# }
+		
+		# if = {
+		# 	limit = {
+		# 		NOT = { controls_state = 1124 }
+		# 	}
+		# 	start_border_war = {
+		# 		change_state_after_war = no
+		# 		combat_width = 80
+		# 		minimum_duration_in_days = 7
+		# 		attacker = {
+		# 			state = 1127
+		# 			num_provinces = 1
+		# 			on_win = sichuan.17
+		# 			modifier = 0.5
+		# 		}
+				
+		# 		defender = {
+		# 			state = 1124
+		# 			num_provinces = 1
+		# 		}
+		# 	}
+		# }
+	}
+}
+
+country_event = {
+	id = sichuan.8 #LWH acept peace?
+	title = sichuan.8.t
+	desc = sichuan.8.d
+	picture = GFX_report_event_china_infiltration
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = sichuan.8.a
+		ai_chance = {
+			base = 90
+		}
+		LXI = {
+			country_event = {
+				id = sichuan.1
+				hours = 12
+			}
+		}
+	}
+	option = {
+		name = sichuan.8.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		set_country_flag = LWH_not_sued_for_peace
+		# add idea debuffs
+	}
+}
+
+country_event = { #LXI recieves word of Liu Wenhui attacking Deng. They break the truce
+	id = sichuan.9
+	title = sichuan.9.t
+	desc = {
+		text = sichuan.9.d.lxi
+		trigger = {
+			tag = LXI
+		}
+	}
+	desc = {
+		text = sichuan.9.d.lwh
+		trigger = {
+			tag = LWH
+		}
+	}
+	picture = GFX_report_event_chinese_army_training
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = sichuan.9.a
+		trigger = {
+			tag = LXI
+		}
+		custom_effect_tooltip = TLW_break_truce
+		declare_war_on = {
+			target = LWH
+			type = annex_everything
+		}
+		hidden_effect = {
+			country_event = {
+				id = sichuan.10
+				days = 16
+			}
+			LWH = {
+				country_event = {
+					id = sichuan.9
+					hours = 2
+				}
+			}
+		}
+	}
+	option = {
+		name = sichuan.9.b
+		trigger = {
+			tag = LWH
+		}
+	}
+}
+
+country_event = {
+	id = sichuan.10 # LXI and DXH create the Sichuan Protection Army
+	title = sichuan.10.t
+	desc = {
+		text = sichuan.10.d.lxi
+		trigger = {
+			tag = LXI
+		}
+	}
+	desc = {
+		text = sichuan.10.d.dxh
+		trigger = {
+			tag = LWH
+		}
+	}
+	picture = GFX_report_event_chinese_japanese_handshake
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = sichuan.10.a
+		trigger = {
+			tag = LXI
+		}
+		create_faction = Sichuan_Protection_Army
+		LXI = {
+			add_to_faction = DXH
+		}
+		hidden_effect = {
+			LCH = {
+				remove_state_core = 1122
+			}
+			LXI = {
+				annex_country = { #Temporal
+					target = LCH
+					transfer_troops = yes
+				}
+				add_state_core = 1122
+			}
+			LWH = {
+				country_event = {
+					id = sichuan.12
+					days = 15
+				}
+			}
+			TSY = {
+				country_event = {
+					id = sichuan.11
+					hours = 12
+				}
+			}
+		}
+	}
+	option = {
+		name = sichuan.10.b
+		trigger = {
+			tag = DXH
+		}
+		effect_tooltip = {
+			LXI = {
+				create_faction = Sichuan_Protection_Army
+				add_to_faction = DXH
+			}
+		}
+	}
+}
+
+country_event = {
+	id = sichuan.11 # TSY join the Sichuan Protection Army
+	title = sichuan.11.t
+	desc = sichuan.11.d
+	picture = GFX_report_event_chinese_japanese_handshake
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = sichuan.11.a
+		ai_chance = {
+			base = 70
+		}
+		LXI = {
+			add_to_faction = TSY
+		}
+	}
+	option = {
+		name = sichuan.11.b
+		ai_chance = {
+			base = 30
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+	}
+}
+
+country_event = {
+	id = sichuan.12 # Mass defections in the Army! LWH
+	title = sichuan.12.t
+	desc = sichuan.12.d
+	picture = GFX_report_event_chinese_soldiers_running
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = sichuan.12.a
+		custom_effect_tooltip = SIC_defections_tt
+		set_global_flag = Two_Liu_war_flag
+		hidden_effect = {
+			set_variable = { defections_counter = 0 }
+			set_variable = { defection_fraction_den = 6.4 }
+			country_event = {
+				id = sichuan.13
+			}
+		}
+	}
+}
+
+country_event = {
+	id = sichuan.13
+	title = sichuan.13.t
+	desc = sichuan.13.d
+	picture = GFX_report_event_chinese_soldiers_running
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = sichuan.13.a
+		add_to_variable = { defections_counter = 1 }
+		if = {
+			limit = {
+				check_variable = { defections_counter < 6 } #We want 5 iterations
+				has_global_flag = Two_Liu_war_flag
+			}
+			#the amount of units transfered is defined by a fraction. We want to subtract 1/6.4 of the original amount of divisions (19) each time (19 * 1/6.4 = 2.968 which is ~ 3 divisions each time)
+			#every time this runs the denominator will be lowered by 1 unit. So the fraction is 1/n-1 with n starting in 6. e: 1/6 then 1/5 then 1/4 and so on.
+			set_variable = { defection_fraction_num = 1 }
+			divide_variable = { defection_fraction_num = defection_fraction_den }
+			random_list = {
+				45 = {
+					transfer_units_fraction = {
+						target = LXI
+						size = 0
+						stockpile_ratio = 0
+						army_ratio = defection_fraction_num
+					}
+				}
+				45 = {
+					transfer_units_fraction = {
+						target = DXH
+						size = 0
+						stockpile_ratio = 0
+						army_ratio = defection_fraction_num
+					}
+				}
+				10 = {
+					transfer_units_fraction = {
+						target = EQG #This tag will probably never be released so its like deleting the divisions
+						size = 0
+						stockpile_ratio = 0
+						army_ratio = defection_fraction_num
+					}
+				}
+			}
+			subtract_from_variable = { defection_fraction_den = 1 }
+			country_event = {
+				id = sichuan.13
+				days = 30
+			}
+		}
+		else = {
+			clear_variable = defections_counter
+			clear_variable = defection_fraction_num
+			clear_variable = defection_fraction_den
+		}
+	}
+}
+
+country_event = { #China annexes parts of sichuan including Chongqing
+	id = sichuan.14
+	title = sichuan.14.t
+	desc = sichuan.14.d
+	picture = GFX_report_event_chinese_soldiers_running
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = sichuan.14.a
+		CHI = {
+			transfer_state = 1122
+			transfer_state = 1117
+			transfer_state = 1123
+			transfer_state = 1118
+			add_state_core = 1117
+			add_state_core = 1122
+			add_state_core = 1123
+			add_state_core = 1118
+		}
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: China annexes parts of Sichuan including Chongqing"
+			LWH = {
+				transfer_state = 1121
+				# add_state_core = 1121
+				if = {
+					limit = {
+						NOT = { controls_state = 1124 }
+					}
+					transfer_state = 1124
+					# add_state_core = 1124
+				}
+			}
+			LXI = {
+				LXI_wang_lingji = {
+					remove_country_leader_role = {
+						ideology = warlordism
+					}
+					add_unit_leader_trait = corrupt_leader
+					set_nationality = CHI
+				}
+				LXI_wang_zuanxu = {
+					add_country_leader_role = {
+						country_leader={
+							ideology=dang_guo_soccon
+							expire="1965.1.1.1"
+							id=-1
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader={
+							ideology=dang_guo_aut
+							expire="1965.1.1.1"
+							id=-1
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader={
+							ideology=warlordism
+							expire="1965.1.1.1"
+							id=-1
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader={
+							ideology=dang_guo_faraut
+							expire="1965.1.1.1"
+							id=-1
+						}
+						promote_leader = yes
+					}
+					add_country_leader_role = {
+						country_leader={
+							ideology=dang_guo_fascist
+							expire="1965.1.1.1"
+							id=-1
+						}
+						promote_leader = yes
+					}
+					
+					promote_character = {
+						ideology = dang_guo_soccon
+						ideology = dang_guo_aut
+						ideology = warlordism
+						ideology = dang_guo_faraut
+						ideology = dang_guo_fascist
+					}
+
+					add_unit_leader_trait = corrupt_leader
+				}
+				remove_state_core = 1117
+				remove_state_core = 1122
+				remove_state_core = 1123
+				# transfer_units_fraction = {
+				# 	target = CHI
+				# 	air_ratio = 1
+				# 	stockpile_ratio = 0.6
+				# 	army_ratio = 0.7
+				# 	keep_unit_leaders_trigger = {
+				# 		always = no
+				# 	}
+				# }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = sichuan.15 #China annexes Wang Zuangxu
+	title = sichuan.15.t
+	desc = sichuan.15.d
+	picture = GFX_report_event_chinese_soldiers_running
+	fire_only_once = yes
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = sichuan.15.a
+		CHI = {
+			annex_country = {
+				target = LXI
+				transfer_troops = no
+			}
+			add_state_core = 1192
+			transfer_state = 1119
+			add_state_core = 1119
+		}
+	}
+}
+
+# country_event = {
+# 	id = sichuan.16 #Border war, 1121 LWH wins
+# 	title = sichuan.16.t
+# 	desc = sichuan.16.d
+# 	picture = GFX_report_event_chinese_soldiers_running
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+# 	hidden = yes
+# 	option = {
+# 		name = sichuan.16.a
+# 		transfer_state = 1121
+# 		add_state_core = 1121
+# 	}
+# }
+# country_event = {
+# 	id = sichuan.17 #Border war, 1124 LWH wins
+# 	title = sichuan.17.t
+# 	desc = sichuan.17.d
+# 	picture = GFX_report_event_chinese_soldiers_running
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+# 	hidden = yes
+# 	option = {
+# 		name = sichuan.17.a
+# 		transfer_state = 1124
+# 		add_state_core = 1124
+# 	}
+# }
+
+country_event = {
+	id = sichuan.18 #if LWH capitulates to LXI or DXH
+	title = sichuan.1.t
+	desc = sichuan.1.d
+	picture = GFX_report_event_chinese_army_training
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = sichuan.18.a
+		
+	}
+}
+country_event = {
+	id = sichuan.19 #if LWH capitulates to LXI or DXH. for LWH
+	title = sichuan.2.t
+	desc = sichuan.2.d
+	picture = GFX_report_event_chinese_army_training
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+		name = sichuan.2.a
+	}
+}

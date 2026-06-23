@@ -1,0 +1,584 @@
+ARM_AZR_Escalation = {
+	ARM_AZR_attack_Nagorno_Karabakh = { #1079
+		icon = generic_prepare_civil_war
+		allowed = {
+			OR = {
+				tag = ARM
+				tag = AZR
+			}
+		}
+		state_target = yes
+		targets = { state = 1079 }
+		target_root_trigger = {
+			NOT = {
+				controls_state = 1079
+				has_global_flag = SC_conflict_ended_flag
+				ARM = { has_war_with = AZR }
+			}
+			if = {
+				limit = { tag = ARM }
+				has_full_control_of_state = 1077 #Zangezur
+				AZR = { controls_state = 1079 }
+			}
+			if = {
+				limit = { tag = AZR }
+				controls_state = 229
+				OR = {
+					AND = {
+						controls_province = 1610
+						controls_province = 11704
+					}
+					AND = {
+						controls_province = 11674
+						controls_province = 1539
+					}
+				}
+				ARM = {
+					controls_state = 1079
+				}
+			}
+		}
+		available = {
+			if = {
+				limit = {
+					tag = ARM
+				}
+				NOT = {
+					has_border_war_between = {
+						attacker = 1077
+						defender = 1079
+					}
+				}
+			}
+			if = {
+				limit = {
+					tag = AZR
+				}
+				NOT = {
+					has_border_war_between = {
+						attacker = 229
+						defender = 1079
+					}
+				}
+			}
+			NOT = { has_global_flag = ARM_AZR_planning_attack }
+		}
+		highlight_states = {
+			state = 1079
+		}
+		ai_will_do = {
+			factor = 200
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = command_power_15
+		days_remove = 7
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = ARM_AZR_planning_attack
+		}
+		remove_effect = {
+			ARM_AZR_add_10_escalation = yes
+			clr_global_flag = ARM_AZR_planning_attack
+			set_variable = {
+				global.SC_most_recent_attacker = THIS #most recent attacker
+			}
+			if = {
+				limit = {
+					check_variable = {
+						global.SC_Tension = 100
+					}
+				}
+				activate_mission = ARM_AZR_start_war
+			}
+
+			if = {
+				limit = {
+					tag = ARM
+					controls_state = 1077
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 1077
+						num_provinces = 3
+						on_win = azr_external.7 #offensive victory NG
+						on_lose = azr_external.8 #offensive loss
+					}
+					defender = {
+						state = 1079
+						num_provinces = 2
+						on_win = azr_external.9 #defensive victory
+						on_lose = azr_external.10 #defensive loss
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					tag = AZR
+					controls_state = 229
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 229
+						num_provinces = 4
+						on_win = azr_external.7 #offensive victory NG
+						on_lose = azr_external.8 #offensive loss
+					}
+					defender = {
+						state = 1079
+						num_provinces = 2
+						on_win = azr_external.9 #defensive victory
+						on_lose = azr_external.10 #defensive loss
+					}
+				}
+			}
+		}
+	}
+
+	ARM_AZR_attack_Zangezur = { #1077
+		icon = generic_prepare_civil_war
+		allowed = {
+			OR = {
+				tag = ARM
+				tag = AZR
+			}
+		}
+		state_target = yes
+		targets = { state = 1077 }
+		target_root_trigger = {
+			NOT = {
+				controls_state = 1077
+				has_global_flag = SC_conflict_ended_flag
+				ARM = { has_war_with = AZR }
+			}
+			if = {
+				limit = { tag = ARM }
+				OR = {
+					has_full_control_of_state = 1076
+					has_full_control_of_state = 230
+				}
+				AZR = { controls_state = 1077 }
+			}
+			if = {
+				limit = { tag = AZR }
+				OR = {
+					controls_state = 1079
+					controls_state = 1076
+				}
+				ARM = {
+					controls_state = 1077
+				}
+			}
+		}
+		available = {
+			if = {
+				limit = {
+					tag = ARM
+				}
+				NOT = {
+					has_border_war_between = {
+						attacker = 1076
+						defender = 1077
+					}
+					has_border_war_between = {
+						attacker = 230
+						defender = 1077
+					}
+				}
+			}
+			if = {
+				limit = {
+					tag = AZR
+				}
+				NOT = {
+					has_border_war_between = {
+						attacker = 1079
+						defender = 1077
+					}
+					has_border_war_between = {
+						attacker = 1076
+						defender = 1077
+					}
+				}
+			}
+			NOT = { has_global_flag = ARM_AZR_planning_attack }
+		}
+		highlight_states = {
+			state = 1077
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = command_power_15
+		days_remove = 7
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = ARM_AZR_planning_attack
+		}
+		remove_effect = {
+			ARM_AZR_add_10_escalation = yes
+			clr_global_flag = ARM_AZR_planning_attack
+			set_variable = {
+				global.SC_most_recent_attacker = THIS #most recent attacker
+			}
+			if = {
+				limit = {
+					check_variable = {
+						global.SC_Tension = 100
+					}
+				}
+				activate_mission = ARM_AZR_start_war
+			}
+
+			if = {
+				limit = {
+					tag = ARM
+				}
+				if = {
+					limit = { controls_state = 1076 }
+					start_border_war = {
+						change_state_after_war = no
+						minimum_duration_in_days = 14
+						attacker = {
+							state = 1076
+							num_provinces = 2
+							on_win = azr_external.11 #offensive victory ZG
+							on_lose = azr_external.8 #offensive loss
+						}
+						defender = {
+							state = 1077
+							num_provinces = 2
+							on_win = azr_external.9 #defensive victory
+							on_lose = azr_external.10 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 230 }
+					start_border_war = {
+						change_state_after_war = no
+						minimum_duration_in_days = 14
+						attacker = {
+							state = 230
+							num_provinces = 2
+							on_win = azr_external.11 #offensive victory ZG
+							on_lose = azr_external.8 #offensive loss
+						}
+						defender = {
+							state = 1077
+							num_provinces = 2
+							on_win = azr_external.9 #defensive victory
+							on_lose = azr_external.10 #defensive loss
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					tag = AZR
+				}
+				if = {
+					limit = { controls_state = 1079 }
+					start_border_war = {
+						change_state_after_war = no
+						minimum_duration_in_days = 14
+						attacker = {
+							state = 1079
+							num_provinces = 2
+							on_win = azr_external.11 #offensive victory NG
+							on_lose = azr_external.8 #offensive loss
+						}
+						defender = {
+							state = 1077
+							num_provinces = 2
+							on_win = azr_external.9 #defensive victory
+							on_lose = azr_external.10 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = { controls_state = 1076 }
+					start_border_war = {
+						change_state_after_war = no
+						minimum_duration_in_days = 14
+						attacker = {
+							state = 1076
+							num_provinces = 2
+							on_win = azr_external.11 #offensive victory NG
+							on_lose = azr_external.8 #offensive loss
+						}
+						defender = {
+							state = 1077
+							num_provinces = 2
+							on_win = azr_external.9 #defensive victory
+							on_lose = azr_external.10 #defensive loss
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ARM_AZR_attack_Nakhchievan = { #1076
+		icon = generic_prepare_civil_war
+		allowed = {
+			OR = {
+				tag = ARM
+				tag = AZR
+			}
+		}
+		state_target = yes
+		targets = { state = 1076 }
+		target_root_trigger = {
+			NOT = {
+				controls_state = 1076
+				has_global_flag = SC_conflict_ended_flag
+				ARM = { has_war_with = AZR }
+			}
+			if = {
+				limit = { tag = ARM }
+				OR = {
+					has_full_control_of_state = 1077
+					has_full_control_of_state = 230
+				}
+				AZR = { controls_state = 1076 }
+			}
+			if = {
+				limit = { tag = AZR }
+				controls_state = 1077
+				ARM = {
+					controls_state = 1076
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_border_war_between = {
+					attacker = 1077
+					defender = 1076
+				}
+				has_border_war_between = {
+					attacker = 230
+					defender = 1076
+				}
+			}
+
+			NOT = { has_global_flag = ARM_AZR_planning_attack }
+		}
+		highlight_states = {
+			state = 1076
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = ARM_AZR_planning_attack
+		}
+		remove_effect = {
+			ARM_AZR_add_10_escalation = yes
+			clr_global_flag = ARM_AZR_planning_attack
+			set_variable = {
+				global.SC_most_recent_attacker = THIS #most recent attacker
+			}
+			if = {
+				limit = {
+					check_variable = {
+						global.SC_Tension = 100
+					}
+				}
+				activate_mission = ARM_AZR_start_war
+			}
+			if = {
+				limit = {
+					tag = ARM
+				}
+				if = {
+					limit = {
+						controls_state = 1077
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 1077
+							num_provinces = 2
+							on_win = azr_external.12 #offensive victory NK
+							on_lose = azr_external.8 #offensive loss
+						}
+						defender = {
+							state = 1076
+							num_provinces = 2
+							on_win = azr_external.9 #defensive victory
+							on_lose = azr_external.10 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						controls_state = 230
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 230
+							num_provinces = 2
+							on_win = azr_external.12 #offensive victory NK
+							on_lose = azr_external.8 #offensive loss
+						}
+						defender = {
+							state = 1076
+							num_provinces = 2
+							on_win = azr_external.9 #defensive victory
+							on_lose = azr_external.10 #defensive loss
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					tag = AZR
+					controls_state = 1077
+				}
+				start_border_war = {
+					change_state_after_war = no
+					attacker = {
+						state = 1077
+						num_provinces = 2
+						on_win = azr_external.12 #offensive victory NK
+						on_lose = azr_external.8 #offensive loss
+					}
+					defender = {
+						state = 1076
+						num_provinces = 2
+						on_win = azr_external.9 #defensive victory
+						on_lose = azr_external.10 #defensive loss
+					}
+				}
+			}
+		}
+	}
+
+	ARM_AZR_start_war = {
+		icon = generic_ignite_civil_war
+		allowed = {
+			OR = {
+				tag = ARM
+				tag = AZR
+			}
+		}
+		priority = 9
+		available = {
+			if = {
+				limit = { tag = ARM }
+				NOT = { has_border_war_with = AZR }
+			}
+			if = {
+				limit = { tag = AZR }
+				NOT = { has_border_war_with = ARM }
+			}
+		}
+		activation = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 10
+		# fire_only_once = yes
+		timeout_effect = {
+			clear_variable = global.SC_Tension
+			if = {
+				limit = {
+					check_variable = {
+						global.SC_most_recent_attacker = ARM
+					}
+				}
+				ARM = {
+					declare_war_on = {
+						target = AZR
+						type = take_claimed_state
+					}
+				}
+			}
+			else = {
+				AZR = {
+					declare_war_on = {
+						target = ARM
+						type = take_claimed_state
+					}
+				}
+			}
+			clear_variable = global.SC_most_recent_attacker
+		}
+	}
+
+	ARM_AZR_end_conflict = {
+		icon = generic_nationalism
+		allowed = {
+			OR = {
+				tag = ARM
+				tag = AZR
+			}
+		}
+		priority = 10
+		visible = {
+			has_variable = global.SC_Tension
+		}
+		available = {
+			has_border_war = no
+			has_war = no
+			has_full_control_of_state = 1076
+			has_full_control_of_state = 1077
+			has_full_control_of_state = 1079
+		}
+		cost = 20
+		fire_only_once = yes
+		complete_effect = {
+			set_global_flag = SC_conflict_ended_flag
+			clear_variable = global.SC_Tension
+			custom_effect_tooltip = SC_conflict_ends
+			if = {
+				limit = {
+					tag = ARM
+				}
+				AZR = {
+					country_event = {
+						id = azr_external.13
+					}
+				}
+			}
+			else = {
+				ARM = {
+					country_event = {
+						id = azr_external.13
+					}
+				}
+			}
+		}
+	}
+}

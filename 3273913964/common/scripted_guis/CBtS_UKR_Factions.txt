@@ -1,0 +1,560 @@
+scripted_gui = {
+	UKR_Faction_Button = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "UKR_faction_button_container"
+		visible = {
+            tag = UKR
+			has_global_flag = Second_Russian_Civil_War
+		}
+		effects = {
+			faction_button_click = {
+				if = {
+					limit = {
+						has_country_flag = UKR_show_factions
+					}
+					clr_country_flag = UKR_show_factions
+				}
+				else = {
+					set_country_flag = UKR_show_factions
+					UKR_Get_USRP_Pop = yes
+					UKR_Get_OUN_Pop = yes
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = UKR_show_undo
+							has_country_flag = UKR_show_usrp
+							has_country_flag = UKR_show_oun
+						}
+					}
+					set_country_flag = UKR_show_undo
+				}
+			}
+		}
+		ai_enabled = {
+			tag = UKR
+			has_global_flag = Second_Russian_Civil_War
+		}
+		ai_test_interval = 240
+		ai_test_variance = 0
+		ai_check = {
+			tag = UKR
+			has_political_power > 39.99
+			OR = {
+				NOT = {
+					has_idea = RUS_faction_influence_block
+					has_idea = RUS_rally_block
+				}
+			}
+		}
+		ai_weights = {
+			faction_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = {
+							has_idea = RUS_faction_influence_block
+							has_idea = RUS_rally_block
+						}
+						NOT = {
+							has_country_flag = UKR_AI_Faction_Open
+						}
+						add = 100
+					}
+				}
+			}
+		}
+	}
+}
+#faction_panel_container
+scripted_gui = {
+	UKR_faction_container = {
+		window_name = "UKR_faction_panel_container"
+		# parent_window_token = politics_tab
+		context_type = player_context
+		visible = {
+			has_country_flag = UKR_show_factions
+		}
+		triggers = {
+			oun_button_visible = {
+				has_variable = UKR_oun_influence
+			}
+			undo_button_visible = {
+				has_variable = UKR_undo_influence
+			}
+			usrp_button_visible = {
+				has_variable = UKR_usrp_influence
+			}
+			#undo
+			UKR_UNDO_Faction_Title_visible = {
+				has_country_flag = UKR_show_undo
+			}
+			UKR_levytsky_portrait_visible = {
+				has_country_flag = UKR_show_undo
+			}
+			UKR_UNDO_Faction_Influence_visible = {
+				has_country_flag = UKR_show_undo
+			}
+			UKR_UNDO_Faction_Popularity_visible = {
+				has_country_flag = UKR_show_undo
+			}
+			#usrp
+			UKR_makukh_portrait_visible = {
+				has_country_flag = UKR_show_usrp
+			}
+			UKR_USRP_Faction_Influence_visible = {
+				has_country_flag = UKR_show_usrp
+			}
+			UKR_USRP_Faction_Popularity_visible = {
+				has_country_flag = UKR_show_usrp
+			}
+			#OUN
+			UKR_konovalets_portrait_visible = {
+				has_country_flag = UKR_show_oun
+				NOT = {
+					has_country_flag = UKR_Konovalets_incapable
+				}
+			}
+			UKR_melnyk_portrait_visible = {
+				has_country_flag = UKR_show_oun
+				has_country_flag = UKR_Konovalets_incapable
+			}
+			UKR_OUN_Faction_Influence_visible = {
+				has_country_flag = UKR_show_oun
+			}
+			UKR_OUN_Faction_Popularity_visible = {
+				has_country_flag = UKR_show_oun
+			}
+			UKR_Increase_Pop_button_click_enabled = {
+				has_political_power > 29.99
+				OR = {
+					AND = {
+						has_country_flag = UKR_show_oun
+						check_variable = {
+							UKR_oun_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = UKR_show_undo
+						check_variable = {
+							UKR_undo_influence < 100
+						}
+					}
+					AND = {
+						has_country_flag = UKR_show_usrp
+						check_variable = {
+							UKR_usrp_influence < 100
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = UKR_every_90_days
+					NOT = {
+						has_idea = RUS_faction_influence_block
+					}
+				}
+			}
+			UKR_Decrease_Pop_button_click_enabled = {
+				has_political_power > 29.99
+				OR = {
+					AND = {
+						has_country_flag = UKR_show_oun
+						check_variable = {
+							UKR_oun_influence > 0
+						}
+					}
+					AND = {
+						has_country_flag = UKR_show_usrp
+						check_variable = {
+							UKR_usrp_influence > 0
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = UKR_every_90_days
+					NOT = {
+						has_idea = RUS_faction_influence_block
+					}
+				}
+			}
+			UKR_Rally_button_click_enabled = {
+				NOT = {
+					has_idea = RUS_rally_block
+				}
+				has_political_power > 49.99
+			}
+		}
+		effects = {
+			UKR_faction_container_close_button_click = {
+				clr_country_flag = UKR_show_factions
+			}
+			oun_button_click = {
+				clr_country_flag = UKR_show_usrp
+				clr_country_flag = UKR_show_undo
+				set_country_flag = UKR_show_oun
+			}
+			usrp_button_click = {
+				clr_country_flag = UKR_show_oun
+				clr_country_flag = UKR_show_undo
+				set_country_flag = UKR_show_usrp
+			}
+			undo_button_click = {
+				clr_country_flag = UKR_show_oun
+				clr_country_flag = UKR_show_usrp
+				set_country_flag = UKR_show_undo
+			}
+			UKR_Increase_Pop_button_click = {
+				add_political_power = -30
+				set_variable = {
+					UKR_add_influence_value = 3
+				}
+				if = {
+					limit = {
+						has_country_flag = UKR_show_oun
+					}
+					UKR_add_influence_oun = yes
+					add_popularity = {
+						ideology = nationalism
+						popularity = 0.02
+					}
+					add_popularity = {
+						ideology = fascism
+						popularity = 0.02
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = UKR_show_usrp
+					}
+					UKR_add_influence_usrp = yes
+					add_popularity = {
+						ideology = socialism
+						popularity = 0.015
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = 0.015
+					}
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = 0.015
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = UKR_show_undo
+					}
+					UKR_add_influence_undo = yes
+					add_popularity = {
+						ideology = democratic
+						popularity = 0.03
+					}
+				}
+				hidden_effect = {
+					add_timed_idea = {
+						idea = RUS_faction_influence_block
+						days = 90
+					}
+				}
+				UKR_Get_USRP_Pop = yes
+				UKR_Get_OUN_Pop = yes
+				set_country_flag = UKR_AI_Faction_Open
+			}
+			UKR_Decrease_Pop_button_click = {
+				add_political_power = -30
+				set_variable = {
+					UKR_add_influence_value = -3
+				}
+				if = {
+					limit = {
+						has_country_flag = UKR_show_oun
+					}
+					UKR_add_influence_oun = yes
+					add_popularity = {
+						ideology = nationalism
+						popularity = -0.02
+					}
+					add_popularity = {
+						ideology = fascism
+						popularity = -0.02
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = UKR_show_usrp
+					}
+					UKR_add_influence_usrp = yes
+					add_popularity = {
+						ideology = socialism
+						popularity = -0.015
+					}
+					add_popularity = {
+						ideology = social_democracy
+						popularity = -0.015
+					}
+					add_popularity = {
+						ideology = social_liberalism
+						popularity = -0.015
+					}
+				}
+				else_if = {
+					limit = {
+						has_country_flag = UKR_show_undo
+					}
+					UKR_add_influence_undo = yes
+					add_popularity = {
+						ideology = democratic
+						popularity = -0.03
+					}
+				}
+				hidden_effect = {
+					add_timed_idea = {
+						idea = RUS_faction_influence_block
+						days = 90
+					}
+				}
+				UKR_Get_USRP_Pop = yes
+				UKR_Get_OUN_Pop = yes
+				set_country_flag = UKR_AI_Faction_Open
+			}
+			UKR_Rally_button_click = {
+				add_political_power = -50
+				UKR_Rally_Supporters = yes
+				add_timed_idea = {
+					idea = RUS_rally_block
+					days = 150
+				}
+				set_country_flag = UKR_AI_Faction_Open
+			}
+		}
+		ai_enabled = {
+			tag = UKR
+			has_global_flag = Second_Russian_Civil_War
+		}
+		ai_test_interval = 120
+		ai_test_variance = 0
+		ai_check = {
+			tag = UKR
+			has_political_power > 39.99
+			OR = {
+				NOT = {
+					has_idea = RUS_faction_influence_block
+					has_idea = RUS_rally_block
+				}
+			}
+		}
+		ai_weights = {
+			UKR_faction_container_close_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						has_country_flag = UKR_AI_Faction_Open
+						add = 100
+					}
+				}
+			}
+			undo_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = UKR_AI_UNDO_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									UKR_undo_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = UKR_AI_UNDO_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									UKR_undo_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									UKR_Rod_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			usrp_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = UKR_AI_Radical_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									UKR_usrp_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = UKR_AI_Radical_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									UKR_usrp_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									UKR_Rod_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			oun_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = UKR_AI_OUN_Personality
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									UKR_oun_influence < 100
+								}
+							}
+							AND = {
+								NOT = {
+									has_country_flag = UKR_AI_OUN_Personality
+								}
+								NOT = {
+									has_idea = RUS_faction_influence_block
+								}
+								check_variable = {
+									UKR_oun_influence > 30
+								}
+							}
+							AND = {
+								NOT = {
+									has_idea = RUS_rally_block
+								}
+								check_variable = {
+									UKR_Mon_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			UKR_Increase_Pop_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = UKR_show_undo
+								has_country_flag = UKR_AI_UNDO_Personality
+								check_variable = {
+									UKR_undo_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = UKR_show_usrp
+								has_country_flag = UKR_AI_Radical_Personality
+								check_variable = {
+									UKR_usrp_influence < 100
+								}
+							}
+							AND = {
+								has_country_flag = UKR_show_oun
+								has_country_flag = UKR_AI_OUN_Personality
+								check_variable = {
+									UKR_oun_influence < 100
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			UKR_Decrease_Pop_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = UKR_show_usrp
+								NOT = {
+									has_country_flag = UKR_AI_Radical_Personality
+								}
+								check_variable = {
+									UKR_usrp_influence > 30
+								}
+							}
+							AND = {
+								has_country_flag = UKR_show_oun
+								NOT = {
+									has_country_flag = UKR_AI_OUN_Personality
+								}
+								check_variable = {
+									UKR_oun_influence > 30
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+			UKR_Rally_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						OR = {
+							AND = {
+								has_country_flag = UKR_show_undo
+								check_variable = {
+									UKR_Rod_Pop > 0.15
+								}
+							}
+							AND = {
+								has_country_flag = UKR_show_usrp
+								check_variable = {
+									UKR_Rod_Pop > 0.15
+								}
+							}
+							AND = {
+								has_country_flag = UKR_show_oun
+								check_variable = {
+									UKR_Mon_Pop > 0.15
+								}
+							}
+						}
+						add = 100
+					}
+				}
+			}
+		}
+	}
+}

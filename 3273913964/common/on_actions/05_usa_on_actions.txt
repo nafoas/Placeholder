@@ -1,0 +1,201 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			USA = {
+				add_equipment_to_stockpile = {
+					type = motorized_equipment_1
+					producer = USA
+					amount = 250
+				}
+				USA_EC_initial_setup = yes
+				country_event = { id = unitedstates.0 }
+				country_event = { id = unitedstates.1 days = 184 }
+				country_event = { id = unitedstates.2 days = 62 }
+				country_event = { id = unitedstates.167 days = 62 }
+				country_event = { id = unitedstates.9 days = 4 }
+				country_event = { id = unitedstates.10 days = 22 }
+				country_event = { id = unitedstates.11 days = 45 }
+				country_event = { id = unitedstates.12 days = 47 }
+				country_event = { id = unitedstates.23 days = 137 }
+				country_event = { id = unitedstates.24 days = 170 }
+				country_event = { id = unitedstates.51 days = 417 } #It happened one night
+				country_event = { id = unitedstates.57 days = 833 } #Black Sunday Storm
+				country_event = { id = unitedstates.63 days = 975 } #Labor Day Hurricane
+				country_event = { id = unitedstates.64 days = 1230 random_days = 10 } #1936 Heat Wave
+				country_event = { id = unitedstates.87 days = 2095 }
+				country_event = { id = unitedstates.88 days = 2135 }
+				country_event = { id = unitedstates.116 days = 3555 }
+				country_event = { id = unitedstates.116 days = 3595 }
+				country_event = { id = unitedstates.108 days = 4215 }
+				country_event = { id = unitedstates.109 days = 4215 }
+				country_event = { id = unitedstates.110 days = 4215 }
+				country_event = { id = unitedstates.163 days = 730 random_days = 20 } #AI boost
+				country_event = { id = USA_flavour.34 days = 2224 }
+				country_event = { id = USA_flavour.37 days = 2224 }
+				country_event = { id = USA_flavour.38 days = 1439 }
+				country_event = { id = USA_flavour.39 days = 448 }
+				country_event = { id = USA_flavour.47 days = 610 }
+				country_event = { id = USA_flavour.50 days = 680 }
+				country_event = { id = USA_flavour.51 days = 372 }
+				country_event = { id = USA_flavour.52 days = 1692 }
+				country_event = { id = USA_flavour.54 days = 431 }
+				country_event = { id = USA_flavour.55 days = 510 }
+				country_event = { id = USA_flavour.59 days = 383 }
+				country_event = { id = USA_flavour.60 days = 217 }
+				country_event = { id = USA_flavour.61 days = 2109 }
+				country_event = { id = USA_flavour.62 days = 1663 }
+				
+				country_event = { id = unitedstates.195 days = 650 }
+				country_event = { id = unitedstates.196 days = 675 }
+				country_event = { id = unitedstates.197 days = 675 }
+				country_event = { id = unitedstates.207 days = 1040 }
+				country_event = { id = unitedstates.221 days = 1339 }
+				country_event = { id = unitedstates.162 days = 4072 } #Charles McNary dies
+
+				country_event = { id = phi_internal.5 days = 425 } #Quezon mission for independence
+				country_event = { id = unitedstates.144 days = 4484 } #Roosevelt death
+				country_event = { id = unitedstates.132 days = 1004 } #McArthur service as chief of staff ends
+
+				country_event = { id = unitedstates.21 days = 364 } #William H Woodin resigns
+
+				country_event = { id = unitedstates.62 days = 982 } #Huey Long Assasinated
+				country_event = { id = unitedstates.66 days = 1173 } #The Great St Patrick's day Flood
+				country_event = { id = unitedstates.65 days = 1276 } #Gone with the wind Novel published
+
+				
+				#CON events
+				USA_william_v_pratt = {
+					unit_leader_event = { id = unitedstates.158 days = 181 } #William V Pratt Retires
+				}
+				
+			}
+		}
+		effect = {
+			### US Presidential Elections
+			USA = {
+				country_event = { id = unitedstates.43 days = 630 } # 1934 Midterm Campaign
+				country_event = { id = unitedstates.67 days = 1255 } #1936 Republican National Convention
+				country_event = { id = unitedstates.69 days = 1402 } #1936 Presidential Election
+			}
+		}
+	}
+	
+	on_new_term_election = {
+		random_events = {
+			# 100 = unitedstates.69
+			# 100 = unitedstates.102
+			100 = unitedstates.114
+			100 = unitedstates.155
+			# 100 = unitedstates.223 #If roosevelt is assasinated
+		}
+	}
+
+	# on_war_relation_added = { #TODO: uncomment this when the on_war_relations_added crash is fixed
+	# 	effect = {
+	# 		if = {
+	# 			limit = {
+	# 				ROOT = { tag = GER }
+	# 				FROM = { tag = USA }
+	# 			}
+	# 			USA = { set_country_flag = USA_war_with_Germany }
+	# 		}
+	# 	}
+	# }
+
+	on_monthly_USA = {
+		effect = {
+			#President Popularity slowly drifts back towards 50
+			# log = "USA President Pop: [?USA.usa_president_popularity]"
+			if = {
+				limit = {
+					has_variable = usa_president_popularity
+					check_variable = { usa_president_popularity > 50 }
+				}
+				random_list = { #Added 50-50 chance for lower or higher value to spice things up and make them more nuanced
+					30 = {
+						subtract_from_variable = { usa_president_popularity = 0.5 }
+					}
+					40 = {
+						subtract_from_variable = { usa_president_popularity = 0.4 }
+					}
+					30 = {
+						subtract_from_variable = { usa_president_popularity = 0.3 }
+					}
+				}
+				# log = "USA President Pop after calculation: [?USA.usa_president_popularity]"
+			}
+		}
+	}
+
+	on_declare_war = {
+		effect = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							ROOT = { tag = USA }
+							FROM = { tag = JAP }
+						}
+						AND = {
+							ROOT = { tag = JAP }
+							FROM = { tag = USA }
+						}
+					}
+				}
+				USA = { set_country_flag = USA_war_with_Japan }
+			}
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							ROOT = { tag = USA }
+							FROM = { tag = GER }
+						}
+						AND = {
+							ROOT = { tag = GER }
+							FROM = { tag = USA }
+						}
+					}
+				}
+				USA = { set_country_flag = USA_war_with_Germany }
+			}
+		}
+	}
+
+	on_peace = {
+		effect = {
+			if = {
+				limit = {
+					THIS = { tag = USA }
+					USA = {
+						has_focus_tree = USA_focus_war_tree
+						is_in_faction = yes
+						has_war = no
+						if = {
+							limit = { has_country_flag = USA_war_with_Japan }
+							OR = {
+								GER = { exists = no }
+								GER = { is_subject = yes }
+								GER = { is_in_faction_with = USA }
+							}
+						}
+						if = {
+							limit = { has_country_flag = USA_war_with_Germany }
+							OR = {
+								GER = { exists = no }
+								GER = { is_subject = yes }
+								GER = { is_in_faction_with = USA }
+							}
+						}
+					}
+				}
+				USA = {
+					country_event = {
+						id = usfor.119
+						hours = 5
+					}
+				}
+			}
+		}
+	}
+}

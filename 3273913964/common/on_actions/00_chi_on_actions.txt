@@ -1,0 +1,137 @@
+on_actions = {
+	on_startup ={
+		effect = {
+			CHI = {
+				country_event = {
+					id = chi_civil_war.90
+					days = 325
+				}
+				country_event = {
+					id = chi_civil_war.100
+					days = 1024
+				}
+				country_event = {
+					id = chi_civil_war.101
+					days = 1294
+				}
+				country_event = {
+					id = chi_civil_war.102
+					days = 1454
+				}
+			}
+		}
+	}
+
+    on_capitulation = {
+        effect = {
+            if = {
+				limit = {
+					ROOT = {
+						tag = FUJ
+					}
+					FROM = {
+						tag = CHI
+					}
+				}
+				FUJ = {
+					remove_state_core = 595
+					remove_state_core = 1114
+					FUJ_li_jishen = {
+						remove_unit_leader_role = yes
+						remove_country_leader_role = {
+							ideology = social_nationalism
+						}
+					}
+					FUJ_cai_tingkai = {
+						remove_unit_leader_role = yes
+					}
+					FUJ_jiang_guangnai = {
+						remove_unit_leader_role = yes
+					}
+					set_nationality = {
+						target_country = CHI
+						character = FUJ_li_jishen
+					}
+					set_nationality = {
+						target_country = CHI
+						character = FUJ_cai_tingkai
+					}
+					set_nationality = {
+						target_country = CHI
+						character = FUJ_jiang_guangnai
+					}
+				}
+				CHI = {
+					annex_country = {
+						target = FUJ
+						transfer_troops = no
+					}
+				}
+				1106 = { set_demilitarized_zone = yes }
+				609 = { set_demilitarized_zone = yes }
+				847 = { set_demilitarized_zone = yes }
+				# CHI = {
+				# 	transfer_state = 595
+				# 	add_state_core = 595
+				# 	transfer_state = 1114
+				# 	add_state_core = 1114
+				# }
+			}
+        }
+    }
+    on_capitulation_immediate = {
+		effect = {
+			if = {
+				limit = {
+					ROOT = {
+						tag = HEB
+					}
+					FROM = {
+						OR = {
+							tag = JAP
+							is_subject_of = JAP
+						}
+					}
+				}
+				HEB = {
+					remove_country_leader_role = {
+						character = "CHI_song_zheyuan"
+						ideology = warlordism
+					}
+					set_nationality = {
+						target_country = CHI
+						character = CHI_song_zheyuan
+					}
+					transfer_units_fraction = {
+						target = CHI
+						size = 1.0
+						stockpile_ratio = 1.0
+						army_ratio = 1.0
+						navy_ratio = 0.0
+						air_ratio = 1.1
+					}
+				}
+				JAP = {
+					transfer_state = 923
+					transfer_state = 614
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						tag = SHD
+					}
+					FROM = {
+						OR = {
+							tag = JAP
+							is_subject_of = JAP
+						}
+					}
+				}
+				CHI = {
+					add_to_faction = SHD
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,356 @@
+#18 shared_focuses
+#Fuegoto935
+
+#shared_focus for Foreign Policy 1936-1940
+shared_focus = {
+	id = MEX_foreign_policy_cardenas
+	icon = GFX_focus_Befriend_Mexico
+	x = 32
+	y = 10
+	cost = 5
+	available = {
+		has_completed_focus = MEX_thenewprm
+	}
+	available_if_capitulated = yes
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_political_power = 100
+	}
+}
+
+#shared_focus for Spanish Civil War
+shared_focus = {
+	id = MEX_spanishcivilwar
+	icon = GFX_focus_Republican_Mission
+	x = 33
+	y = 11
+	cost = 10
+	available_if_capitulated = yes
+	available = {
+		scw_in_progress = yes
+	}
+	prerequisite = { focus = MEX_foreign_policy_cardenas }
+	mutually_exclusive = { focus = MEX_treatywiththesecondrepublic }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		SPR = { add_opinion_modifier = { target = MEX modifier = MEX_support  } }
+	}			
+}
+
+#shared_focus for Treaty with the Second Republic
+shared_focus = {
+	id = MEX_treatywiththesecondrepublic
+	icon = GFX_focus_Befriend_Republican_Spain
+	x = 31
+	y = 11
+	cost = 10
+	available_if_capitulated = yes
+	available = {
+		OR = {
+			scw_not_in_progress = yes
+			scr_not_in_progress = yes
+		}
+		SPR = {
+			exists = yes
+			not_has_autocratic_government = yes
+		}
+	}
+	prerequisite = { focus = MEX_foreign_policy_cardenas }
+	mutually_exclusive = { focus = MEX_spanishcivilwar }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		SPR = {
+			country_event = { id = mex_foreign.21 }
+		}
+	}
+}
+
+#shared_focus for Compensate Oil Companies
+shared_focus = {
+	id = MEX_compensateoilcompanies
+	icon = GFX_focus_Business_Bills
+	x = 30
+	y = 12
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_foreign_policy_cardenas }
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		has_idea = MEX_corporation_outrage
+	}
+	completion_reward = {
+		remove_ideas = MEX_corporation_outrage
+	}
+}
+
+#shared_focus for Find New Deals
+shared_focus = {
+	id = MEX_findnewdeals
+	icon = GFX_focus_escape_from_the_market_economy
+	x = 29
+	y = 13
+	cost = 10
+	available_if_capitulated = yes
+	available = {
+		has_idea = MEX_nationalization_fallout
+	}
+	prerequisite = { focus = MEX_compensateoilcompanies }
+	mutually_exclusive = { focus = MEX_solidifytradedeals }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = MEX_nationalization_fallout add_idea = MEX_new_deals }
+	}
+}
+
+#shared_focus for Compromise with the Old Ones
+shared_focus = {
+	id = MEX_compromisewiththeoldones
+	icon = GFX_focus_Business_Men
+	x = 29
+	y = 14
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_findnewdeals }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = { 
+		swap_ideas = { remove_idea = MEX_new_deals add_idea = MEX_remaining_fallout }
+	}
+}
+
+#shared_focus for Solidify Trade Deals
+shared_focus = {
+	id = MEX_solidifytradedeals
+	icon = GFX_focus_Money_Bags
+	x = 31
+	y = 13
+	cost = 10
+	available_if_capitulated = yes
+	available = {
+		has_idea = MEX_limited_outrage
+	}
+	prerequisite = { focus = MEX_compensateoilcompanies }
+	mutually_exclusive = { focus = MEX_findnewdeals }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = MEX_limited_outrage add_idea = MEX_deals_solidified }
+	}
+}
+
+#shared_focus for Open More Deals
+shared_focus = {
+	id = MEX_openmoredeals
+	icon = GFX_focus_Capitalist_Systems
+	x = 31
+	y = 14
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_solidifytradedeals }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		swap_ideas = { remove_idea = MEX_deals_solidified add_idea = MEX_american_outrage } 
+	}
+}
+
+#shared_focus for Compensate the Americans
+shared_focus = {
+	id = MEX_compensatetheamericans
+	icon = GFX_focus_Befriend_USA
+	x = 30
+	y = 15
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_openmoredeals 
+		focus = MEX_compromisewiththeoldones 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		remove_ideas = MEX_remaining_fallout
+		remove_ideas = MEX_american_outrage
+		add_ideas = MEX_foreign_limbo
+	}
+}
+
+#shared_focus for Trust Recovered
+shared_focus = {
+	id = MEX_trustrecovered
+	icon = GFX_focus_Free_Trade
+	x = 30
+	y = 16
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_compensatetheamericans }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		remove_ideas = MEX_lack_of_trust
+	}
+}
+
+#shared_focus for American Policy
+shared_focus = {
+	id = MEX_americanpolicy
+	icon = GFX_focus_focus_peace_talks
+	x = 34
+	y = 12
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_foreign_policy_cardenas }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_political_power = 100
+	}
+}
+#shared_focus for Friendly Policy
+shared_focus = {
+	id = MEX_friendlypolicy
+	icon = GFX_focus_Befriend_USA
+	x = 35
+	y = 13
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_americanpolicy }
+	mutually_exclusive = { focus = MEX_searchforallies }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = -0.05
+	}
+}
+
+#shared_focus for Maintain Distance
+shared_focus = {
+	id = MEX_maintaindistance
+	icon = GFX_focus_Shady_Deals
+	x = 35
+	y = 14
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_friendlypolicy }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		diplomatic_relation = { country = USA relation = non_aggression_pact }
+	}
+}
+#shared_focus for Search for Allies
+shared_focus = {
+	id = MEX_searchforallies
+	icon = GFX_focus_Common_Identity
+	x = 33
+	y = 13
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_americanpolicy }
+	mutually_exclusive = { focus = MEX_friendlypolicy }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = 0.05
+		set_country_flag = latin_american_alliance1
+	}
+}
+
+#shared_focus for Latin American Diplomacy
+shared_focus = {
+	id = MEX_latinamericandiplomacy
+	icon = GFX_focus_South_American_Relations
+	x = 33
+	y = 14
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_searchforallies }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_political_power = 50
+		set_country_flag = latin_american_cooperation
+	}
+}
+
+#shared_focus for A New Foreign Policy
+shared_focus = {
+	id = MEX_anewforeignpolicy
+	icon = GFX_focus_Foreign_Diplomacy
+	x = 34
+	y = 15
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_latinamericandiplomacy
+		focus = MEX_maintaindistance 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_ideas = free_trade
+	}
+}
+
+#shared_focus for A New México in the Americas
+shared_focus = {
+	id = MEX_anewmxicointheamericas
+	icon = GFX_focus_Befriend_Mexico
+	x = 34
+	y = 16
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { focus = MEX_anewforeignpolicy }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_stability = 0.05
+	}
+}
+
+#shared_focus for Mexico is back in Business
+shared_focus = {
+	id = MEX_mexicoisbackinbusiness
+	icon = GFX_focus_Mexico_Back_Bussiness
+	x = 32
+	y = 17
+	cost = 10
+	available_if_capitulated = yes
+	prerequisite = { 
+		focus = MEX_trustrecovered 
+	}
+	prerequisite = { 
+		focus = MEX_anewmxicointheamericas 
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		remove_ideas = MEX_foreign_limbo
+		add_stability = 0.05
+	}
+}
+
+

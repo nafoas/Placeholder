@@ -1,0 +1,1809 @@
+SAF_coalition_clear_all = {
+	remove_ideas = {
+		SAF_coalition_1
+		SAF_coalition_2
+		SAF_coalition_3
+		SAF_coalition_4
+		SAF_coalition_5
+	}
+}
+
+#Important to put HIGHEST first
+SAF_coalition_level_up = {
+	# level 5 not relevant. Cannot go above.
+	custom_effect_tooltip = SAF_coalition_up_tt
+	if = {
+		limit = { has_idea = SAF_coalition_5 }
+		remove_ideas = { SAF_coalition_5 }
+		country_event = {
+			id = saf_election.11
+		}
+	}
+	if = {
+		limit = { has_idea = SAF_coalition_4 }
+		swap_ideas = {
+			remove_idea = SAF_coalition_4
+			add_idea = SAF_coalition_5
+		}
+	}
+	else_if = {
+		limit = { has_idea = SAF_coalition_3 }
+		swap_ideas = {
+			remove_idea = SAF_coalition_3
+			add_idea = SAF_coalition_4
+		}
+	}
+	else_if = {
+		limit = { has_idea = SAF_coalition_2 }
+		swap_ideas = {
+			remove_idea = SAF_coalition_2
+			add_idea = SAF_coalition_3
+		}		
+	}
+	else_if = {
+		limit = { has_idea = SAF_coalition_1 }
+		swap_ideas = {
+			remove_idea = SAF_coalition_1
+			add_idea = SAF_coalition_2
+		}		
+	}
+	else_if = {
+		limit = { NOT = { has_idea = SAF_coalition_1 } }
+		add_ideas = SAF_coalition_1
+	}
+}
+
+#Important to put LOWEST first
+SAF_coalition_level_down = {
+custom_effect_tooltip = SAF_coalition_down_tt
+	if = {
+		limit = { has_idea = SAF_coalition_1 }
+		#Makes the tooltip clearer if player looks at the effect early in the game
+		effect_tooltip = {
+				remove_ideas = { SAF_coalition_1 }
+				country_event = {
+					id = saf_election.11
+				}
+		}
+		hidden_effect = { remove_ideas = SAF_coalition_1 }
+	}
+	if = {
+		limit = { has_idea = SAF_coalition_2 }
+		swap_ideas = {
+			remove_idea = SAF_coalition_2
+			add_idea = SAF_coalition_1
+		}
+	}
+	if = {
+		limit = { has_idea = SAF_coalition_3 }
+		swap_ideas = {
+			remove_idea = SAF_coalition_3
+			add_idea = SAF_coalition_2
+		}
+	}
+	if = {
+		limit = { has_idea = SAF_coalition_4 }
+		swap_ideas = {
+			remove_idea = SAF_coalition_4
+			add_idea = SAF_coalition_3
+		}
+	}
+	if = {
+		limit = { has_idea = SAF_coalition_5 }
+		swap_ideas = {
+			remove_idea = SAF_coalition_5
+			add_idea = SAF_coalition_4
+		}
+	}
+}
+
+SAF_depression_clear_all = {
+	remove_ideas = {
+		SAF_depression_1
+		SAF_depression_2
+		SAF_depression_3
+		SAF_depression_4
+		SAF_depression_5
+	}
+}
+
+#Important to put HIGHEST first
+SAF_depression_level_up = {
+	# level 5 not relevant. Cannot go above.
+	custom_effect_tooltip = SAF_depression_up_tt
+	if = {
+		limit = { has_idea = SAF_depression_5 }
+		swap_ideas = {
+			remove_idea = SAF_depression_5
+			add_idea = SAF_depression_5
+		}
+	}
+	if = {
+		limit = { has_idea = SAF_depression_4 }
+		swap_ideas = {
+			remove_idea = SAF_depression_4
+			add_idea = SAF_depression_5
+		}
+	}
+	else_if = {
+		limit = { has_idea = SAF_depression_3 }
+		swap_ideas = {
+			remove_idea = SAF_depression_3
+			add_idea = SAF_depression_4
+		}
+	}
+	else_if = {
+		limit = { has_idea = SAF_depression_2 }
+		swap_ideas = {
+			remove_idea = SAF_depression_2
+			add_idea = SAF_depression_3
+		}		
+	}
+	else_if = {
+		limit = { has_idea = SAF_depression_1 }
+		swap_ideas = {
+			remove_idea = SAF_depression_1
+			add_idea = SAF_depression_2
+		}		
+	}
+	else_if = {
+		limit = { NOT = { has_idea = SAF_depression_1 } }
+		add_ideas = SAF_depression_1
+	}
+}
+
+#Important to put LOWEST first
+SAF_depression_level_down = {
+custom_effect_tooltip = SAF_depression_down_tt
+	if = {
+		limit = { has_idea = SAF_depression_1 }
+		#Makes the tooltip clearer if player looks at the effect early in the game
+		effect_tooltip = {
+				remove_ideas = { SAF_depression_1 }
+		}
+		hidden_effect = { remove_ideas = SAF_depression_1 }
+	}
+	if = {
+		limit = { has_idea = SAF_depression_2 }
+		swap_ideas = {
+			remove_idea = SAF_depression_2
+			add_idea = SAF_depression_1
+		}
+	}
+	if = {
+		limit = { has_idea = SAF_depression_3 }
+		swap_ideas = {
+			remove_idea = SAF_depression_3
+			add_idea = SAF_depression_2
+		}
+	}
+	if = {
+		limit = { has_idea = SAF_depression_4 }
+		swap_ideas = {
+			remove_idea = SAF_depression_4
+			add_idea = SAF_depression_3
+		}
+	}
+	if = {
+		limit = { has_idea = SAF_depression_5 }
+		swap_ideas = {
+			remove_idea = SAF_depression_5
+			add_idea = SAF_depression_4
+		}
+	}
+}
+SAF_Set_Volksraad = {
+	custom_effect_tooltip = SAF_Reshuffle_Volksraad_tt
+	#Sets variable to check for discrepencies
+	set_variable = {
+		SAF_old_total_seats = SAF_total_seats
+	}
+	set_variable = {
+		SAF_com_seats = party_popularity@communism
+	}
+	set_variable = {
+		SAF_revsoc_seats = party_popularity@authoritarian_socialism
+	}
+	set_variable = {
+		SAF_demsoc_seats = party_popularity@socialism
+	}
+	set_variable = {
+		SAF_socdem_seats = party_popularity@social_democracy
+	}
+	set_variable = {
+		SAF_soclib_seats = party_popularity@social_liberalism
+	}
+	set_variable = {
+		SAF_marlib_seats = party_popularity@market_liberalism
+	}
+	set_variable = {
+		SAF_libcon_seats = party_popularity@jacobin
+	}
+	set_variable = {
+		SAF_soccon_seats = party_popularity@democratic
+	}
+	set_variable = {
+		SAF_aut_seats = party_popularity@neutrality
+	}
+	set_variable = {
+		SAF_autdes_seats = party_popularity@monarchism
+	}
+	set_variable = {
+		SAF_faraut_seats = party_popularity@nationalism
+	}
+	set_variable = {
+		SAF_fas_seats = party_popularity@fascism
+	}
+	#Gets seats
+	multiply_variable = {
+		SAF_com_seats = SAF_total_seats
+	}
+	multiply_variable = {
+		SAF_revsoc_seats = SAF_total_seats
+	}
+	multiply_variable = {
+		SAF_demsoc_seats = SAF_total_seats
+	}
+	multiply_variable = {
+		SAF_socdem_seats = SAF_total_seats
+	}
+	multiply_variable = {
+		SAF_soclib_seats = SAF_total_seats
+	}
+	multiply_variable = {
+		SAF_marlib_seats = SAF_total_seats
+	}
+	multiply_variable = {
+		SAF_libcon_seats = SAF_total_seats
+	}
+	multiply_variable = {
+		SAF_soccon_seats = SAF_total_seats
+	}
+	multiply_variable = {
+		SAF_aut_seats = SAF_total_seats
+	}
+	multiply_variable = {
+		SAF_autdes_seats = SAF_total_seats
+	}
+	multiply_variable = {
+		SAF_faraut_seats = SAF_total_seats
+	}
+	multiply_variable = {
+		SAF_fas_seats = SAF_total_seats
+	}
+	#rounds
+	round_variable = SAF_com_seats
+	round_variable = SAF_revsoc_seats
+	round_variable = SAF_demsoc_seats
+	round_variable = SAF_socdem_seats
+	round_variable = SAF_soclib_seats
+	round_variable = SAF_marlib_seats
+	round_variable = SAF_libcon_seats
+	round_variable = SAF_soccon_seats
+	round_variable = SAF_aut_seats
+	round_variable = SAF_autdes_seats
+	round_variable = SAF_faraut_seats
+	round_variable = SAF_fas_seats
+	#Gets new total seat value
+	set_variable = {
+		SAF_total_seats = 0
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_com_seats
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_revsoc_seats
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_demsoc_seats
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_socdem_seats
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_soclib_seats
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_marlib_seats
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_libcon_seats
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_soccon_seats
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_aut_seats
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_autdes_seats
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_faraut_seats
+	}
+	add_to_variable = {
+		SAF_total_seats = SAF_fas_seats
+	}
+	#gets discrepency
+	subtract_from_variable = {
+		SAF_old_total_seats = SAF_total_seats
+	}
+	#deals with discrepency, if needed
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					SAF_old_total_seats = 0
+				}
+			}
+		}
+		add_to_variable = {
+			SAF_total_seats = SAF_old_total_seats
+		}
+		if = {
+			limit = {
+				has_government = communism
+			}
+			add_to_variable = {
+				SAF_com_seats = SAF_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = authoritarian_socialism
+			}
+			add_to_variable = {
+				SAF_revsoc_seats = SAF_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = socialism
+			}
+			add_to_variable = {
+				SAF_demsoc_seats = SAF_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_democracy
+			}
+			add_to_variable = {
+				SAF_socdem_seats = SAF_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_liberalism
+			}
+			add_to_variable = {
+				SAF_soclib_seats = SAF_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = market_liberalism
+			}
+			add_to_variable = {
+				SAF_marlib_seats = SAF_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = jacobin
+			}
+			add_to_variable = {
+				SAF_libcon_seats = SAF_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = democratic
+			}
+			add_to_variable = {
+				SAF_soccon_seats = SAF_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = neutrality
+			}
+			add_to_variable = {
+				SAF_aut_seats = SAF_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = monarchism
+			}
+			add_to_variable = {
+				SAF_autdes_seats = SAF_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = nationalism
+			}
+			add_to_variable = {
+				SAF_faraut_seats = SAF_old_total_seats
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = fascism
+			}
+			add_to_variable = {
+				SAF_fas_seats = SAF_old_total_seats
+			}
+		}
+	}
+	#gets half
+	set_variable = {
+		SAF_seats_needed = SAF_total_seats
+	}
+	divide_variable = {
+		SAF_seats_needed = 2
+	}
+	round_variable = SAF_seats_needed
+	#Gets coalition
+	set_variable = {
+		SAF_coalition_seats = 0
+	}
+	SAF_get_coalition_seats = yes
+}
+SAF_vote_lost = {
+	country_event = { id = wgr_parliament.37 } #Event We Lost the Vote!
+}
+SAF_reset_supseat = {
+	set_variable = { SAF_supseat = 0 } #Supseats variable goes back to 0
+}
+SAF_set_voting_flag = {
+	set_country_flag = SAF_voting
+	custom_effect_tooltip = will_vote #Informs what will happen
+}
+SAF_clear_voting_flag = {
+	clr_country_flag = SAF_voting
+}
+SAF_get_coalition_seats = {
+	set_variable = {
+		SAF_coalition_seats = 0
+	}
+	if = {
+		limit = {
+			is_in_array = { #communist
+				array = coalition_party_list
+				value = 0
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_com_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #revolutionary socialist
+				array = coalition_party_list
+				value = 1
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_revsoc_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #democratic socialist
+				array = coalition_party_list
+				value = 2
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_demsoc_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocDem
+				array = coalition_party_list
+				value = 3
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_socdem_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #soclib
+				array = coalition_party_list
+				value = 4
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_soclib_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #marlib
+				array = coalition_party_list
+				value = 5
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_marlib_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #LibCon
+				array = coalition_party_list
+				value = 6
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_libcon_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #SocCon
+				array = coalition_party_list
+				value = 7
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_soccon_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #Aut
+				array = coalition_party_list
+				value = 9
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_aut_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #monarchist
+				array = coalition_party_list
+				value = 8
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_autdes_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #nationalist
+				array = coalition_party_list
+				value = 10
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_faraut_seats
+		}
+	}
+	if = {
+		limit = {
+			is_in_array = { #fascist
+				array = coalition_party_list
+				value = 11
+			}
+		}
+		add_to_variable = {
+			SAF_coalition_seats = SAF_fas_seats
+		}
+	}
+}
+SAF_set_voting_flag = {
+	set_country_flag = SAF_voting
+	custom_effect_tooltip = will_vote #Informs what will happen
+}
+SAF_clear_voting_flag = {
+	clr_country_flag = SAF_voting
+}
+SAF_reset_supseats = {
+	set_variable = {
+		SAF_supseat = 0
+	}
+}
+SAF_set_government_seats = {
+	SAF_set_len_seats_if_available = yes #Sets it if Leninists are in the government or coalition with you
+	SAF_set_revsoc_seats_if_available = yes
+	SAF_set_demsoc_seats_if_available = yes
+	SAF_set_socdem_seats_if_available = yes
+	SAF_set_soclib_seats_if_available = yes
+	SAF_set_marlib_seats_if_available = yes
+	SAF_set_libcon_seats_if_available = yes
+	SAF_set_soccon_seats_if_available = yes
+	SAF_set_aut_seats_if_available = yes
+	SAF_set_autdes_seats_if_available = yes
+	SAF_set_faraut_seats_if_available = yes
+	SAF_set_fascist_seats_if_available = yes
+}
+
+SAF_set_len_seats_if_available = {
+	if = {
+		limit = {
+			Leninist_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_com_seats
+		}
+		
+	}
+}
+SAF_set_revsoc_seats_if_available = {
+	if = {
+		limit = {
+			RevSoc_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_revsoc_seats
+		}
+		
+	}
+}
+SAF_set_demsoc_seats_if_available = {
+	if = {
+		limit = {
+			DemSoc_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_demsoc_seats
+		}
+		
+	}
+}
+SAF_set_socdem_seats_if_available = {
+	if = {
+		limit = {
+			SocDem_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_socdem_seats
+		}
+		
+	}
+}
+SAF_set_soclib_seats_if_available = {
+	if = {
+		limit = {
+			SocLib_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_soclib_seats
+		}
+		
+	}
+}
+SAF_set_marlib_seats_if_available = {
+	if = {
+		limit = {
+			MarLib_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_marlib_seats
+		}
+		
+	}
+}
+SAF_set_libcon_seats_if_available = {
+	if = {
+		limit = {
+			LibCon_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_libcon_seats
+		}
+		
+	}
+}
+SAF_set_soccon_seats_if_available = {
+	if = {
+		limit = {
+			SocCon_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_soccon_seats
+		}
+		
+	}
+}
+SAF_set_aut_seats_if_available = {
+	if = {
+		limit = {
+			Aut_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_aut_seats
+		}
+		
+	}
+}
+SAF_set_autdes_seats_if_available = {
+	if = {
+		limit = {
+			AutDes_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_autdes_seats
+		}
+		
+	}
+}
+SAF_set_faraut_seats_if_available = {
+	if = {
+		limit = {
+			FarAut_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_faraut_seats
+		}
+		
+	}
+}
+SAF_set_fascist_seats_if_available = {
+	if = {
+		limit = {
+			Fascist_in_Coalition = yes
+		}
+		add_to_variable = {
+			SAF_supseat = SAF_fas_seats
+		}
+		
+	}
+}
+
+SAF_lenin_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = communism
+				Leninist_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.1
+		}
+		set_country_flag = SAF_len_agreed #will be removed, used to signify that the len_negotiate_flag will be removed
+	}
+}
+SAF_revsoc_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = authoritarian_socialism
+				RevSoc_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.2
+		}
+		set_country_flag = SAF_revsoc_agreed
+	}
+}
+SAF_demsoc_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = socialism
+				DemSoc_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.3
+		}
+		set_country_flag = SAF_demsoc_agreed
+	}
+}
+SAF_socdem_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = social_democracy
+				SocDem_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.4
+		}
+		set_country_flag = SAF_socdem_agreed
+	}
+}
+SAF_soclib_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = social_liberalism
+				SocLib_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.5
+		}
+		set_country_flag = SAF_soclib_agreed
+	}
+}
+SAF_marlib_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = market_liberalism
+				MarLib_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.6
+		}
+		set_country_flag = SAF_marlib_agreed
+	}
+}
+SAF_libcon_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = jacobin
+				LibCon_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.7
+		}
+		set_country_flag = SAF_libcon_agreed
+	}
+}
+SAF_soccon_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = democratic
+				SocCon_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.8
+		}
+		set_country_flag = SAF_soccon_agreed
+	}
+}
+SAF_faraut_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = nationalism
+				FarAut_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.9
+		}
+		set_country_flag = SAF_faraut_agreed
+	}
+}
+SAF_fascist_agree = {
+	if = {
+		limit = {
+			NOT = {
+				has_government = fascism
+				Fascist_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.10
+		}
+		set_country_flag = SAF_fascist_agreed
+	}
+}
+
+#Disagree
+SAF_lenin_disagree = {
+	if = {
+		limit = {
+			OR = {
+				has_government = communism
+				Leninist_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.11
+		}
+		set_country_flag = SAF_len_disagreed #will be removed, used to signify that the len_negotiate_flag will be removed
+	}
+}
+SAF_revsoc_disagree = {
+	if = {
+		limit = {
+			OR = {
+				has_government = authoritarian_socialism
+				RevSoc_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.12
+		}
+		set_country_flag = SAF_revsoc_disagreed
+	}
+}
+SAF_demsoc_disagree = {
+	if = {
+		limit = {
+			OR = {
+				has_government = socialism
+				DemSoc_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.13
+		}
+		set_country_flag = SAF_demsoc_disagreed
+	}
+}
+SAF_socdem_disagree = {
+	if = {
+		limit = {
+			OR = {
+				has_government = social_democracy
+				SocDem_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.14
+		}
+		set_country_flag = SAF_socdem_disagreed
+	}
+}
+SAF_soclib_disagree = {
+	if = {
+		limit = {
+			OR = {
+				has_government = social_liberalism
+				SocLib_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.15
+		}
+		set_country_flag = SAF_soclib_disagreed
+	}
+}
+SAF_marlib_disagree = {
+	if = {
+		limit = {
+			OR = {
+				has_government = market_liberalism
+				MarLib_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.16
+		}
+		set_country_flag = SAF_marlib_disagreed
+	}
+}
+SAF_libcon_disagree = {
+	if = {
+		limit = {
+			OR = {
+				has_government = jacobin
+				LibCon_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.17
+		}
+		set_country_flag = SAF_libcon_disagreed
+	}
+}
+SAF_soccon_disagree = {
+	if = {
+		limit = {
+			OR = {
+				has_government = democratic
+				SocCon_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.18
+		}
+		set_country_flag = SAF_soccon_disagreed
+	}
+}
+SAF_faraut_disagree = {
+	if = {
+		limit = {
+			OR = {
+				has_government = nationalism
+				FarAut_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.19
+		}
+		set_country_flag = SAF_faraut_disagreed
+	}
+}
+SAF_fascist_disagree = {
+	if = {
+		limit = {
+			OR = {
+				has_government = fascism
+				Fascist_in_Coalition = yes
+			}
+		}
+		country_event = {
+			id = SAF_Volksraad.20
+		}
+		set_country_flag = SAF_fascist_disagreed
+	}
+}
+
+
+SAF_clr_negotiated_flags_if_necessary = {
+	SAF_clear_len_flags = yes
+	SAF_clear_revsoc_flags = yes
+	SAF_clear_demsoc_flags = yes
+	SAF_clear_socdem_flags = yes
+	SAF_clear_soclib_flags = yes
+	SAF_clear_marlib_flags = yes
+	SAF_clear_libcon_flags = yes
+	SAF_clear_soccon_flags = yes
+	SAF_clear_aut_flags = yes
+	SAF_clear_autdes_flags = yes
+	SAF_clear_faraut_flags = yes
+	SAF_clear_fascist_flags = yes
+}
+SAF_clear_len_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_len = yes
+		}
+		clr_country_flag = SAF_negotiated_with_communists
+	}
+}
+SAF_clear_revsoc_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_revsoc = yes
+		}
+		clr_country_flag = SAF_negotiated_with_revsocs
+	}
+}
+SAF_clear_demsoc_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_demsoc = yes
+		}
+		clr_country_flag = SAF_negotiated_with_demsocs
+	}
+}
+SAF_clear_socdem_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_socdem = yes
+		}
+		clr_country_flag = SAF_negotiated_with_socdems
+	}
+}
+SAF_clear_soclib_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_soclib = yes
+		}
+		clr_country_flag = SAF_negotiated_with_soclibs
+	}
+}
+SAF_clear_marlib_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_marlib = yes
+		}
+		clr_country_flag = SAF_negotiated_with_marlibs
+	}
+}
+SAF_clear_libcon_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_libcon = yes
+		}
+		clr_country_flag = SAF_negotiated_with_libcons
+	}
+}
+SAF_clear_soccon_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_soccon = yes
+		}
+		clr_country_flag = SAF_negotiated_with_tories
+	}
+}
+SAF_clear_aut_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_aut = yes
+		}
+		clr_country_flag = SAF_negotiated_with_tories
+	}
+}
+SAF_clear_autdes_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_autdes = yes
+		}
+		clr_country_flag = SAF_negotiated_with_tories
+	}
+}
+SAF_clear_faraut_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_faraut = yes
+		}
+		clr_country_flag = SAF_negotiated_with_faraut
+	}
+}
+SAF_clear_fascist_flags = {
+	if = {
+		limit = {
+			SAF_need_clear_fascist = yes
+		}
+		clr_country_flag = SAF_negotiated_with_fascists
+	}
+}
+add_1_percent_pop = {
+	if = {
+		limit = {
+			has_government = communism
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = authoritarian_socialism
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = socialism
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_democracy
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_liberalism
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = market_liberalism
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = jacobin
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = democratic
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = neutrality
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = monarchism
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = nationalism
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.01
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+	}
+}
+add_2_percent_pop = {
+	if = {
+		limit = {
+			has_government = communism
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = authoritarian_socialism
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = socialism
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_democracy
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_liberalism
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = market_liberalism
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = jacobin
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = democratic
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = neutrality
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = monarchism
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = nationalism
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.02
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.02
+		}
+	}
+}
+add_1_half_percent_pop = {
+	if = {
+		limit = {
+			Leninist_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			RevSoc_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			DemSoc_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			SocDem_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			SocLib_in_Coalition = yes
+			LibCon_in_Coalition = no
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			MarLib_in_Coalition = yes
+			
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			LibCon_in_Coalition = yes
+			SocCon_in_Coalition = no
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			SocCon_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			SocCon_in_Coalition = no
+			Aut_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			SocCon_in_Coalition = no
+			AutDes_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = 0.005
+		}
+	}
+	else_if = {
+		limit = {
+			FarAut_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = 0.005
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.005
+		}
+	}
+}
+lose_1_half_percent_pop = {
+	if = {
+		limit = {
+			Leninist_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.005
+		}
+	}
+	else_if = {
+		limit = {
+			RevSoc_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.005
+		}
+	}
+	else_if = {
+		limit = {
+			DemSoc_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.005
+		}
+	}
+	else_if = {
+		limit = {
+			SocDem_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = -0.005
+		}
+	}
+	else_if = {
+		limit = {
+			SocLib_in_Coalition = yes
+			LibCon_in_Coalition = no
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.005
+		}
+	}
+	else_if = {
+		limit = {
+			MarLib_in_Coalition = yes
+			
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = -0.005
+		}
+	}
+	else_if = {
+		limit = {
+			LibCon_in_Coalition = yes
+			SocCon_in_Coalition = no
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = -0.005
+		}
+	}
+	else_if = {
+		limit = {
+			SocCon_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.005
+		}
+	}
+	else_if = {
+		limit = {
+			SocCon_in_Coalition = no
+			Aut_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.005
+		}
+	}
+	else_if = {
+		limit = {
+			SocCon_in_Coalition = no
+			AutDes_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.005
+		}
+	}
+	else_if = {
+		limit = {
+			FarAut_in_Coalition = yes
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.005
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.005
+		}
+	}
+}
+lose_1_percent_pop = {
+	if = {
+		limit = {
+			has_government = communism
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = authoritarian_socialism
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = socialism
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_democracy
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_liberalism
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = market_liberalism
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = jacobin
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = democratic
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = neutrality
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = monarchism
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.01
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = nationalism
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.01
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.01
+		}
+	}
+}
+lose_2_percent_pop = {
+	if = {
+		limit = {
+			has_government = communism
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = authoritarian_socialism
+		}
+		add_popularity = {
+			ideology = authoritarian_socialism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = socialism
+		}
+		add_popularity = {
+			ideology = socialism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_democracy
+		}
+		add_popularity = {
+			ideology = social_democracy
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = social_liberalism
+		}
+		add_popularity = {
+			ideology = social_liberalism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = market_liberalism
+		}
+		add_popularity = {
+			ideology = market_liberalism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = jacobin
+		}
+		add_popularity = {
+			ideology = jacobin
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = democratic
+		}
+		add_popularity = {
+			ideology = democratic
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = neutrality
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = monarchism
+		}
+		add_popularity = {
+			ideology = monarchism
+			popularity = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			has_government = nationalism
+		}
+		add_popularity = {
+			ideology = nationalism
+			popularity = -0.02
+		}
+	}
+	else = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.02
+		}
+	}
+}

@@ -1,0 +1,1748 @@
+###########################
+## Popular Front Victory ##
+###########################
+# 25 focuses
+
+focus_tree = {
+	id = CBTS_France_popular_front
+	country = {
+		factor = 0
+		modifier = {
+			add = 0
+			tag = FRA
+		}
+	}
+	shared_focus = FRA_lessons_great_war
+	shared_focus = FRA_london_conference
+	shared_focus = FRA_marine_nationale
+	shared_focus = FRA_create_armee_air
+	default = no
+	continuous_focus_position = { x = 50 y = 1475 }
+
+	focus = {
+		id = FRA_popular_front
+		icon = GFX_focus_The_Popular_Front
+		x = 8
+		y = 0
+
+		cost = 1.2
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = FRA_reflationary_policies
+		icon = GFX_focus_Progressive_Taxation
+		prerequisite = { focus = FRA_popular_front }
+		relative_position_id = FRA_popular_front
+		x = -4
+		y = 1
+
+		cost = 5
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			remove_liquidity_ideas = yes
+			add_timed_idea = {
+				idea = FRA_reflation_achieved
+				days = 365
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_caisse_des_grand_traveaux
+		icon = GFX_focus_Build_Houses
+		prerequisite = { focus = FRA_reflationary_policies }
+		relative_position_id = FRA_popular_front
+		x = -8
+		y = 2
+
+		cost = 5
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		bypass = {
+			has_idea = FRA_caisse_grands_travaux1
+		}
+
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = FRA_caisse_grands_travaux
+				}
+				swap_ideas = {
+					add_idea = FRA_caisse_grands_travaux1
+					remove_idea = FRA_caisse_grands_travaux
+				}
+			}
+			else = {
+				add_ideas = {
+					FRA_caisse_grands_travaux
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_nationalize_bank_france
+		icon = GFX_focus_Nationalize_Bank_France
+		prerequisite = { focus = FRA_caisse_des_grand_traveaux }
+		mutually_exclusive = { focus = FRA_reform_bank_france }
+		relative_position_id = FRA_popular_front
+		x = -9
+		y = 3
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			add_ideas = FRA_nationalize_bank
+			set_temp_variable = { tempchange = -0.1 }
+			FRA_coalition_stability_change = yes
+		}
+	}
+
+	focus = {
+		id = FRA_create_sncf
+		icon = GFX_focus_Railways
+		prerequisite = { focus = FRA_nationalize_bank_france focus = FRA_reform_bank_france }
+		relative_position_id = FRA_popular_front
+		x = -9
+		y = 4
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = unlocks_idea_ind_comp_tt
+			show_ideas_tooltip = sncf
+		}
+	}
+
+	focus = {
+		id = FRA_reform_bank_france
+		icon = GFX_focus_Reform_Bank_France
+		prerequisite = { focus = FRA_caisse_des_grand_traveaux }
+		mutually_exclusive = { focus = FRA_nationalize_bank_france }
+		relative_position_id = FRA_popular_front
+		x = -7
+		y = 3
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			add_ideas = FRA_reform_bank
+		}
+	}
+
+	focus = {
+		id = FRA_negotiate_franc_value
+		icon = GFX_focus_Hidden_Pacts
+		prerequisite = { focus = FRA_reform_bank_france focus = FRA_nationalize_bank_france }
+		relative_position_id = FRA_popular_front
+		x = -7
+		y = 4
+
+		cost = 3
+
+		available = {
+			NOT = { has_country_flag = FRA_ENG_brokeup }
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			add_political_power = 200
+			set_temp_variable = { tempchange = 0.05 }
+			FRA_coalition_stability_change = yes
+		}
+
+		bypass = {
+			has_country_flag = FRA_ENG_brokeup
+		}
+	}
+
+	focus = {
+		id = FRA_establish_onib
+		icon = GFX_focus_Control_Agriculture
+		prerequisite = { focus = FRA_create_sncf }
+		prerequisite = { focus = FRA_negotiate_franc_value }
+		relative_position_id = FRA_popular_front
+		x = -8
+		y = 5
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			improve_agricultural_crisis = yes
+		}
+	}
+
+	focus = {
+		id = FRA_extend_mandatory_schooling
+		icon = GFX_focus_Education_Reform
+		prerequisite = { focus = FRA_reflationary_policies }
+		relative_position_id = FRA_popular_front
+		x = -5
+		y = 2
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = { NOT = { has_idea = FRA_education_reform_1 } }
+				add_ideas = FRA_education_reform_1
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = FRA_education_reform_1
+					add_idea = FRA_education_reform_2
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_popularize_museums
+		icon = GFX_focus_Generic_Political
+		prerequisite = { focus = FRA_reflationary_policies }
+		relative_position_id = FRA_popular_front
+		x = -3
+		y = 2
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = { NOT = { has_idea = FRA_education_reform_1 } }
+				add_ideas = FRA_education_reform_1
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = FRA_education_reform_1
+					add_idea = FRA_education_reform_2
+				}
+			}
+
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.05
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_create_cnrs
+		icon = GFX_focus_research
+		prerequisite = { focus = FRA_extend_mandatory_schooling }
+		prerequisite = { focus = FRA_popularize_museums }
+		relative_position_id = FRA_popular_front
+		x = -4
+		y = 3
+
+		cost = 5
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FRA_education_reform_2
+				add_idea = FRA_cnrs
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_national_admin_school
+		icon = GFX_focus_Economics_School
+		prerequisite = { focus = FRA_create_cnrs }
+		relative_position_id = FRA_popular_front
+		x = -5
+		y = 4
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			add_ideas = FRA_admin_school
+		}
+	}
+
+	focus = {
+		id = FRA_reform_intellectual_property
+		icon = GFX_focus_Brainpower
+		prerequisite = { focus = FRA_create_cnrs }
+		relative_position_id = FRA_popular_front
+		x = -3
+		y = 4
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 20
+		}
+	}
+
+	focus = {
+		id = FRA_matignon_agreement
+		icon = GFX_focus_Matignon_Agreements
+		prerequisite = { focus = FRA_reflationary_policies }
+		relative_position_id = FRA_popular_front
+		x = 0
+		y = 2
+
+		cost = 4
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			add_ideas = {
+				FRA_matignon_agreement
+			}
+			hidden_effect = {
+				country_event = {
+					id = france.13
+					days = 365
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_40_work_week
+		icon = GFX_focus_Reduce_work_hour
+		prerequisite = { focus = FRA_matignon_agreement }
+		relative_position_id = FRA_popular_front
+		x = -1
+		y = 3
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = FRA_matignon_agreement
+					add_idea = FRA_matignon_agreement_a
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_raise_wages
+		icon = GFX_focus_Tax_Incentives
+		prerequisite = { focus = FRA_40_work_week }
+		relative_position_id = FRA_popular_front
+		x = -1
+		y = 4
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = FRA_matignon_agreement_a
+					add_idea = FRA_matignon_agreement_ab
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_paid_leaves
+		icon = GFX_focus_Economic_Stimulus
+		prerequisite = { focus = FRA_matignon_agreement }
+		relative_position_id = FRA_popular_front
+		x = 1
+		y = 3
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = FRA_matignon_agreement
+					add_idea = FRA_matignon_agreement_c
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_unemployment_fund
+		icon = GFX_Unemployeds_Help
+		prerequisite = { focus = FRA_paid_leaves }
+		relative_position_id = FRA_popular_front
+		x = 1
+		y = 4
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = FRA_matignon_agreement_c
+					add_idea = FRA_matignon_agreement_cd
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_retirement_reforms
+		icon = GFX_focus_Pensions
+		prerequisite = { focus = FRA_unemployment_fund }
+		prerequisite = { focus = FRA_raise_wages }
+		relative_position_id = FRA_popular_front
+		x = 0
+		y = 5
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				swap_ideas = {
+					remove_idea = FRA_matignon_agreement_abcd
+					add_idea = FRA_matignon_agreement_ultimate
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_devaluate_franc
+		icon = GFX_focus_Devaluate_the_Franc
+		prerequisite = { focus = FRA_establish_onib }
+		prerequisite = { focus = FRA_retirement_reforms }
+		relative_position_id = FRA_popular_front
+		x = -4
+		y = 6
+
+		cost = 5
+
+		available = {
+			has_country_flag = retirement_reforms_passed
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			remove_ideas = FRA_reflation_achieved
+			add_ideas = FRA_Stable_Franc
+			disband_bloc_dor = yes
+		}
+	}
+
+	focus = {
+		id = FRA_establish_onii
+		icon = GFX_focus_Industrial_Council
+		prerequisite = { focus = FRA_devaluate_franc }
+		relative_position_id = FRA_devaluate_franc
+		x = -2
+		y = 1
+
+		cost = 5
+
+		available = {
+			has_government = socialism
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = { # pass as law
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				add_ideas = FRA_onii
+				set_temp_variable = { tempchange = -0.05 }
+				FRA_coalition_stability_change = yes
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_full_financial_powers
+		icon = GFX_focus_Control_the_Economy
+		prerequisite = { focus = FRA_devaluate_franc }
+		cancelable = no
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		mutually_exclusive = { focus = FRA_concessions_middle_class }
+		relative_position_id = FRA_devaluate_franc
+		x = 2
+		y = 1
+
+		cost = 7.2
+
+		available = {
+			has_government = socialism
+			NOT = {
+				has_country_flag = law_passing
+				has_country_flag = failed_pass_financial_powers
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		select_effect = {
+			activate_decision = FRA_army_reforms_act
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = FRA_trigger_debate_tt
+			custom_effect_tooltip = will_vote
+			custom_effect_tooltip = full_financial_powers_tt
+		}
+
+		cancel = {
+			has_country_flag = failed_pass_financial_powers
+		}
+	}
+
+	focus = {
+		id = FRA_concessions_middle_class
+		icon = GFX_focus_Consensus_with_Peasants
+		prerequisite = { focus = FRA_devaluate_franc }
+		mutually_exclusive = { focus = FRA_full_financial_powers }
+		relative_position_id = FRA_devaluate_franc
+		x = 0
+		y = 1
+
+		cost = 5
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			add_political_power = -300
+			set_temp_variable = { tempchange = 0.25 }
+			FRA_coalition_stability_change = yes
+		}
+
+		ai_will_do = {
+			base = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_empower_the_unions
+		icon = GFX_focus_Cooperatives
+		prerequisite = { focus = FRA_establish_onii }
+		prerequisite = { focus = FRA_full_financial_powers }
+		relative_position_id = FRA_devaluate_franc
+		x = 0
+		y = 2
+
+		available = {
+			has_country_flag = complete_financial_power
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		cost = 4
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FRA_onii
+				add_idea = FRA_unions_empowered
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = 0.035
+			}
+			add_popularity = {
+				ideology = authoritarian_socialism
+				popularity = 0.035
+			}
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.035
+			}
+			add_popularity = {
+				ideology = social_democracy
+				popularity = 0.035
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_womens_suffrage_2
+		icon = GFX_focus_Female_vote
+		prerequisite = { focus = FRA_empower_the_unions }
+		relative_position_id = FRA_devaluate_franc
+		x = -1
+		y = 3
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			add_stability = 0.05
+			add_popularity = {
+				ideology = social_liberalism
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = market_liberalism
+				popularity = -0.05
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_service_national_assurances
+		icon = GFX_focus_National_Assurance_Service
+		prerequisite = { focus = FRA_empower_the_unions }
+		relative_position_id = FRA_devaluate_franc
+		x = 1
+		y = 3
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = FRA_matignon_agreement_ultimate
+				add_idea = FRA_welfare_system
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_succesful_occupation_power
+		icon = GFX_focus_Party_Politics
+		prerequisite = { focus = FRA_womens_suffrage_2 }
+		prerequisite = { focus = FRA_service_national_assurances }
+		relative_position_id = FRA_devaluate_franc
+		x = 0
+		y = 4
+
+		cost = 5
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			add_popularity = {
+				ideology = socialism
+				popularity = 0.10
+			}
+			add_political_power = 300
+		}
+	}
+
+	focus = {
+		id = FRA_antifascist_occupation_power
+		icon = GFX_focus_Target_Fascism
+		prerequisite = { focus = FRA_popular_front }
+		relative_position_id = FRA_popular_front
+		x = 4
+		y = 1
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			set_temp_variable = { tempchange = 0.05 }
+			FRA_coalition_stability_change = yes
+			every_other_country = {
+				limit = { has_government = fascism }
+				add_opinion_modifier = {
+					target = PREV
+					modifier = anti_fascist_in_goverment
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_ban_the_leagues
+		icon = GFX_focus_Dissolve_Fascist_Leagues
+		prerequisite = { focus = FRA_antifascist_occupation_power }
+		relative_position_id = FRA_popular_front
+		x = 3
+		y = 2
+
+		cost = 4
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			set_temp_variable = { tempchange = 0.05 }
+			add_to_variable = { coalition_stability = tempchange }
+			custom_effect_tooltip = change_coalition_stability_tt
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = monarchism
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = nationalism
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.05
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_nationalize_war_industry
+		icon = GFX_focus_French_Industry
+		prerequisite = { focus = FRA_antifascist_occupation_power }
+		relative_position_id = FRA_popular_front
+		x = 5
+		y = 2
+
+		cost = 2
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = law_unlocked
+			custom_effect_tooltip = will_vote
+			effect_tooltip = {
+				add_ideas = FRA_nationalize_war_industry
+				unlock_decision_tooltip = FRA_reorganize_air_industry
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_underground_support_republicans
+		icon = GFX_focus_Guns_Shipment
+		prerequisite = { focus = FRA_nationalize_war_industry }
+		mutually_exclusive = { focus = FRA_enforce_neutrality_spain }
+		relative_position_id = FRA_popular_front
+		x = 4
+		y = 3
+
+		available = {
+			has_government = socialism
+			scw_in_progress = yes
+			SPR = {
+				exists = yes
+				OR = {
+					has_government = authoritarian_socialism
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		cost = 3
+
+		completion_reward = {
+			set_temp_variable = { tempchange = -0.05 }
+			FRA_coalition_stability_change = yes
+			send_equipment = {
+				equipment = infantry_equipment
+				amount = 800
+				target = SPR
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				is_historical_focus_on = no
+				ENG = {
+					is_ai = no
+					has_completed_focus = ENG_Support_Republicans
+				}
+				add = 1
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_enforce_neutrality_spain
+		icon = GFX_focus_Unite_Spain
+		prerequisite = { focus = FRA_nationalize_war_industry }
+		mutually_exclusive = { focus = FRA_underground_support_republicans }
+		relative_position_id = FRA_popular_front
+		x = 6
+		y = 3
+
+		available = {
+			scw_in_progress = yes
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		cost = 3
+
+		completion_reward = {
+			set_temp_variable = { tempchange = 0.08 }
+			FRA_coalition_stability_change = yes
+			add_war_support = -0.075
+			add_ai_strategy = {
+				type = send_volunteers_desire
+				id = SPR
+				value = -10
+			}
+			if = {
+				limit = {
+					country_exists = SPA
+				}
+				add_ai_strategy = {
+					type = send_volunteers_desire
+					id = SPA
+					value = -10
+				}
+			}
+			else_if = {
+				limit = {
+					country_exists = SPC
+				}
+				add_ai_strategy = {
+					type = send_volunteers_desire
+					id = SPC
+					value = -10
+				}
+			}
+		}
+
+		bypass = {
+			date > 1937.1.1
+			scw_in_progress = no
+		}
+	}
+
+	focus = {
+		id = FRA_open_support_republicans
+		icon = GFX_focus_support_republican_spain
+		prerequisite = { focus = FRA_underground_support_republicans }
+		cancel_if_invalid = yes
+		relative_position_id = FRA_popular_front
+		x = 3
+		y = 4
+
+		available = {
+			has_government = socialism
+			OR = {
+				NOT = {
+					has_country_flag = FRA_backdown
+				}
+				ENG = {
+					has_completed_focus = ENG_Support_Republicans
+				}
+				is_in_faction_with = SPR
+				has_war_together_with = SPR
+			}
+			scw_in_progress = yes
+			SPR = {
+				OR = {
+					has_government = authoritarian_socialism
+					has_government = socialism
+					has_government = social_democracy
+					has_government = social_liberalism
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		cost = 5
+
+		select_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = ENG_protested
+						has_country_flag = FRA_british_path
+						ENG = { has_completed_focus = ENG_Support_Republicans }
+						is_in_faction_with = SPR
+						has_war_together_with = SPR
+					}
+				}
+				set_country_flag = ENG_protested
+				ENG = {
+					country_event = {
+						id = france.42
+						days = 3
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = ENG_protested
+						has_country_flag = FRA_british_path
+						ENG = { has_completed_focus = ENG_Support_Republicans }
+						is_in_faction_with = SPR
+						has_war_together_with = SPR
+					}
+				}
+				custom_effect_tooltip = FRA_ENG_might_protest_tt
+			}
+			set_temp_variable = { tempchange = -0.15 }
+			FRA_coalition_stability_change = yes
+			add_war_support = 0.05
+			add_ideas = FRA_republican_scw_support
+			reverse_add_opinion_modifier = {
+				target = SPR
+				modifier = scw_intervention_pos
+			}
+			if = {
+				limit = {
+					country_exists = SPA
+				}
+				reverse_add_opinion_modifier = {
+					target = SPA
+					modifier = scw_intervention_neg
+				}
+			}
+			else_if = {
+				limit = {
+					country_exists = SPC
+				}
+				reverse_add_opinion_modifier = {
+					target = SPC
+					modifier = scw_intervention_neg
+				}
+			}
+
+			add_ai_strategy = {
+				type = send_volunteers_desire
+				id = SPR
+				value = 10
+			}
+			add_ai_strategy = {
+				type = send_volunteers_desire
+				id = SPA
+				value = -10
+			}
+			add_ai_strategy = {
+				type = send_volunteers_desire
+				id = SPC
+				value = -10
+			}
+		}
+
+		cancel = {
+			has_country_flag = FRA_backdown
+			NOT = {
+				ENG = {
+					has_completed_focus = ENG_Support_Republicans
+				}
+				is_in_faction_with = SPR
+				has_war_together_with = SPR
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				is_historical_focus_on = yes
+				ENG = {
+					is_ai = no
+					has_completed_focus = ENG_Support_Republicans
+				}
+				add = 1
+			}
+			modifier = {
+				OR = {
+					has_country_flag = ENG_protested
+					has_country_flag = FRA_british_path
+					has_completed_focus = ENG_Support_Republicans
+				}
+				add = 1
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_antifascist_diplomacy
+		icon = GFX_focus_Anti_Fascist
+		prerequisite = { focus = FRA_underground_support_republicans focus = FRA_enforce_neutrality_spain }
+		mutually_exclusive = { focus = FRA_peace_in_our_time }
+		relative_position_id = FRA_popular_front
+		x = 5
+		y = 4
+
+		cost = 4
+
+		available = {
+			has_government = socialism
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			set_temp_variable = { tempchange = -0.08 }
+			FRA_coalition_stability_change = yes
+			add_war_support = 0.10
+		}
+	}
+
+	focus = {
+		id = FRA_peace_in_our_time
+		icon = GFX_focus_Pacifist_State
+		prerequisite = { focus = FRA_underground_support_republicans focus = FRA_enforce_neutrality_spain }
+		mutually_exclusive = { focus = FRA_antifascist_diplomacy }
+		relative_position_id = FRA_popular_front
+		x = 7
+		y = 4
+
+		cost = 4
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			set_temp_variable = { tempchange = 0.05 }
+			FRA_coalition_stability_change = yes
+			add_war_support = -0.075
+		}
+	}
+
+	focus = {
+		id = FRA_oppose_german_rearmarment
+		icon = GFX_focus_Heavy_Strike
+		prerequisite = { focus = FRA_antifascist_diplomacy }
+		cancel_if_invalid = yes
+		relative_position_id = FRA_popular_front
+		x = 3
+		y = 5
+
+		cost = 4
+
+		available = {
+			has_government = socialism
+			OR = {
+				NOT = { has_country_flag = FRA_backdown }
+				ENG = { has_completed_focus = ENG_Anti_Fascist_Start }
+				has_war_with = GRM
+			}
+			GRM = {
+				exists = yes
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = monarchism
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		select_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = ENG_protested
+						has_country_flag = FRA_british_path
+						ENG = { has_completed_focus = ENG_Anti_Fascist_Start }
+						has_war_with = GRM
+					}
+				}
+				set_country_flag = ENG_protested
+				ENG = {
+					country_event = {
+						id = france.42
+						days = 3
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = ENG_protested
+						has_country_flag = FRA_british_path
+						has_war_with = GRM
+						ENG = { has_completed_focus = ENG_Anti_Fascist_Start }
+					}
+				}
+				custom_effect_tooltip = FRA_ENG_might_protest_tt
+			}
+			set_country_flag = FRA_oppose_germany
+			set_temp_variable = { tempchange = -0.05 }
+			FRA_coalition_stability_change = yes
+			add_political_power = 100
+			add_ai_strategy = {
+				type = contain
+				id = GRM
+				value = 50
+			}
+		}
+
+		cancel = {
+			has_country_flag = FRA_backdown
+			NOT = {
+				ENG = { has_completed_focus = ENG_Anti_Fascist_Start }
+				has_war_with = GRM
+			}
+		}
+
+		ai_will_do = {
+			base = 0
+			modifier = {
+				is_historical_focus_on = yes
+				ENG = {
+					is_ai = no
+					has_completed_focus = ENG_Anti_Fascist_Start
+				}
+				add = 1
+			}
+			modifier = {
+				OR = {
+					has_country_flag = ENG_protested
+					has_country_flag = FRA_british_path
+					has_completed_focus = ENG_Anti_Fascist_Start
+				}
+				add = 1
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_prepare_mobilization
+		icon = GFX_focus_Prepare_the_Troops
+		prerequisite = { focus = FRA_oppose_german_rearmarment }
+		relative_position_id = FRA_popular_front
+		x = 3
+		y = 6
+
+		cost = 4
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			MOVE_UP_WAR_ECONOMY = yes
+		}
+	}
+
+	focus = {
+		id = FRA_reaprochment_soviet_union
+		icon = GFX_focus_Soviet_Relations
+		prerequisite = { focus = FRA_antifascist_diplomacy focus = FRA_peace_in_our_time }
+		mutually_exclusive = { focus = FRA_guarante_british_support }
+		relative_position_id = FRA_popular_front
+		x = 5
+		y = 5
+
+		cost = 3
+
+		available = {
+			has_government = socialism
+			NOT = {
+				has_war_with = SOV
+				has_global_flag = Russian_Civil_War
+			}
+			country_exists = SOV
+			has_country_flag = popular_front_in_power
+		}
+
+		completion_reward = {
+			set_temp_variable = { tempchange = -0.15 }
+			FRA_coalition_stability_change = yes
+			SOV = {
+				country_event = france.39
+			}
+		}
+
+		bypass = {
+			OR = {
+				is_in_faction_with = SOV
+				AND = {
+					is_guaranteed_by = SOV
+					has_guaranteed = SOV
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_guarante_british_support
+		icon = GFX_focus_British_Bulldog
+		prerequisite = { focus = FRA_antifascist_diplomacy focus = FRA_peace_in_our_time }
+		mutually_exclusive = { focus = FRA_reaprochment_soviet_union }
+		available = { NOT = { has_country_flag = FRA_ENG_brokeup } }
+		relative_position_id = FRA_popular_front
+		x = 7
+		y = 5
+
+		cost = 3
+
+		available = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			set_temp_variable = { tempchange = 0.02 }
+			FRA_coalition_stability_change = yes
+			set_country_flag = FRA_british_path
+			add_opinion_modifier = {
+				target = ENG
+				modifier = guaranteed_support
+			}
+			add_ai_strategy = {
+				type = befriend
+				id = ENG
+				value = 5
+			}
+			add_ai_strategy = {
+				type = alliance
+				id = SOV
+				value = 50
+			}
+			hidden_effect = {
+				reverse_add_opinion_modifier = {
+					target = ENG
+					modifier = guaranteed_support
+				}
+				add_opinion_modifier = {
+					target = ENG
+					modifier = trade_guaranteed_support
+				}
+				reverse_add_opinion_modifier = {
+					target = ENG
+					modifier = trade_guaranteed_support
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_negociate_mutual_disarmament
+		icon = GFX_focus_Diplomatic_Balance
+		prerequisite = { focus = FRA_guarante_british_support }
+		relative_position_id = FRA_popular_front
+		x = 6
+		y = 6
+
+		available = {
+			OR = {
+				AND = {
+					country_exists = ITA
+					has_country_flag = ITA_rejected_deal
+				}
+				AND = {
+					country_exists = GRM
+					has_country_flag = GRM_rejected_deal
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		cost = 3
+
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = GRM_rejected_deal
+					}
+				}
+				GRM = {
+					country_event = {
+						id = france.51
+						days = 1
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = ITA_rejected_deal
+					}
+				}
+				ITA = {
+					country_event = {
+						id = france.51
+						days = 3
+					}
+				}
+			}
+			custom_effect_tooltip = diplo_effect_focus_plural_tt
+			effect_tooltip = {
+				add_ideas = mutual_disarmament
+				add_war_support = -0.05
+				add_political_power = 25
+				add_opinion_modifier = {
+					target = GRM
+					modifier = success_neg
+				}
+				add_opinion_modifier = {
+					target = ITA
+					modifier = success_neg
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_spanish_descalation
+		icon = GFX_focus_Befriend_Republican_Spain
+		prerequisite = { focus = FRA_guarante_british_support }
+		relative_position_id = FRA_popular_front
+		x = 8
+		y = 6
+
+		cost = 3
+
+		available = {
+			OR = {
+				AND = {
+					country_exists = ITA
+					has_country_flag = ITA_rejected_deal
+				}
+				AND = {
+					country_exists = GRM
+					has_country_flag = GRM_rejected_deal
+				}
+			}
+			scw_in_progress = yes
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = popular_front_in_power
+					}
+				}
+				has_country_flag = popular_front_in_power
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = GRM_rejected_deal
+					}
+				}
+				GRM = {
+					country_event = {
+						id = france.48
+						days = 1
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = ITA_rejected_deal
+					}
+				}
+				ITA = {
+					country_event = {
+						id = france.48
+						days = 3
+					}
+				}
+			}
+			custom_effect_tooltip = diplo_effect_focus_plural_tt
+			effect_tooltip = {
+				add_ideas = spanish_descalation
+				add_war_support = -0.05
+				add_political_power = 25
+				add_opinion_modifier = {
+					target = GRM
+					modifier = success_neg
+				}
+				add_opinion_modifier = {
+					target = ITA
+					modifier = success_neg
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+	}
+}

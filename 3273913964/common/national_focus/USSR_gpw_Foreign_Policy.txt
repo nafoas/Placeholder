@@ -1,0 +1,1853 @@
+#32 focuses here
+#s_team337
+shared_focus = {
+	id = SOV_GPW_Foreign_Policy
+	icon = GFX_focus_Foreign_Diplomacy
+	#prerequisite = { focus = SOV_GPW_Foreign_Policy }
+	x = 28
+	y = 0
+	#relative_position_id = SOV_GPW_Foreign_Policy
+	cost = 1.43
+	ai_will_do = {
+		factor = 500
+	}
+	available = {
+		has_defensive_war = yes
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = 10
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Anglo_Soviet_Agreement
+	icon = GFX_focus_Befriend_United_Kingdom
+	prerequisite = { focus = SOV_GPW_Foreign_Policy }
+	x = -8
+	y = 1
+	relative_position_id = SOV_GPW_Foreign_Policy
+	cost = 2.86
+	ai_will_do = {
+		factor = 1500
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = ENG
+		ENG = {
+			is_subject = no
+			has_capitulated = no
+		}
+		NOT = {
+			has_war_with = ENG
+		}
+	}
+	bypass = {
+		has_non_aggression_pact_with = ENG
+		has_war_together_with = ENG
+		NOT = { has_war_with = ENG }
+	}
+	completion_reward = {
+		ENG = {
+			country_event = {
+				id = sov_external.107
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Anglo_Soviet_Tech
+	icon = GFX_goal_generic_radar
+	prerequisite = { focus = SOV_GPW_Anglo_Soviet_Agreement }
+	x = -1
+	y = 1
+	relative_position_id = SOV_GPW_Anglo_Soviet_Agreement
+	cost = 4.29
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			NOT = {
+				has_tech = decimetric_radar
+			}
+			factor = 2
+		}
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = ENG
+		ENG = {
+			is_subject = no
+			has_capitulated = no
+		}
+		NOT = {
+			has_war_with = ENG
+		}
+		has_non_aggression_pact_with = ENG
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		ENG = {
+			country_event = {
+				id = sov_external.110
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Anglo_Soviet_Liscense_Weapons
+	icon = GFX_goal_generic_air_fighter
+	prerequisite = { focus = SOV_GPW_Anglo_Soviet_Agreement }
+	x = 1
+	y = 1
+	dynamic = yes
+	relative_position_id = SOV_GPW_Anglo_Soviet_Agreement
+	cost = 5
+	ai_will_do = {
+		factor = 350
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = ENG
+		ENG = {
+			is_subject = no
+			has_capitulated = no
+		}
+		NOT = {
+			has_war_with = ENG
+		}
+		has_non_aggression_pact_with = ENG
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		ENG = {
+			if = {
+				limit = {
+					has_dlc = "Death or Dishonor"
+				}
+				country_event = {
+					id = sov_external.113
+				}
+			}
+			else = {
+				country_event = {
+					id = sov_external.116
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_American_NAP
+	icon = GFX_focus_Befriend_USA
+	prerequisite = {
+		focus = SOV_GPW_Anglo_Soviet_Tech
+		focus = SOV_GPW_Anglo_Soviet_Liscense_Weapons
+	}
+	x = 0
+	y = 2
+	dynamic = yes
+	relative_position_id = SOV_GPW_Anglo_Soviet_Agreement
+	cost = 5
+	ai_will_do = {
+		factor = 700
+	}
+	available = {
+		has_defensive_war = yes
+		USA = {
+			is_subject = no
+			has_capitulated = no
+		}
+		NOT = {
+			has_war_with = USA
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		USA = {
+			country_event = {
+				id = sov_external.107
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Attack_Far_East
+	icon = GFX_focus_Antagonize_Japan
+	prerequisite = {
+		focus = SOV_GPW_Anglo_Soviet_Tech
+		focus = SOV_GPW_Anglo_Soviet_Liscense_Weapons
+	}
+	x = -2
+	y = 2
+	dynamic = yes
+	relative_position_id = SOV_GPW_Anglo_Soviet_Agreement
+	cost = 1.43
+	ai_will_do = {
+		factor = 0
+		modifier = {
+			all_country = {
+				OR = {
+					has_capitulated = yes
+					NOT = { has_war_with = SOV }
+					capital_scope = {
+						NOT = { is_on_continent = europe }
+					}
+				}
+			}
+			add = 700
+		}
+	}
+	available = {
+		NOT = {
+			OR = {
+				has_war_together_with = JAP
+				has_war_together_with = MAN
+			}
+		}
+		OR = {
+			country_exists = MAN
+			country_exists = JAP
+		}
+		NOT = {
+			MAN = { is_subject = no }
+			JAP = { is_subject = no }
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				JAP = {
+					is_subject = no
+					NOT = { has_war_with = SOV }
+					exists = yes
+				}
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = JAP
+			}
+		}
+		if = {
+			limit = {
+				MAN = {
+					OR = {
+						is_subject = no
+						is_subject_of = JAP
+					}
+					NOT = { has_war_with = SOV }
+					exists = yes
+				}
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = MAN
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Align_With_Germany
+	icon = GFX_focus_Befriend_Imperial_Germany
+	prerequisite = { focus = SOV_GPW_Foreign_Policy }
+	x = -4
+	y = 1
+	relative_position_id = SOV_GPW_Foreign_Policy
+	cost = 2.86
+	ai_will_do = {
+		factor = 1500
+	}
+	available = { #civil war
+		OR = {
+			GER = {
+				exists = yes
+				has_war_together_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+					country_exists = WGR
+					country_exists = DDR
+				}
+			}
+			WGR = {
+				exists = yes
+				has_war_together_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+					country_exists = DDR
+				}
+			}
+			DDR = {
+				exists = yes
+				has_war_together_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+				}
+			}
+		}
+	}
+	bypass = {
+		OR = {
+			GER = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = {has_war_with = ROOT }
+			}
+			WGR = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+			DDR = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				GER = {
+					exists = yes
+					NOT = {
+						has_war_with = ROOT
+						is_subject = yes
+						has_capitulated = yes
+						country_exists = WGR
+						country_exists = DDR
+					}
+				}
+			}
+			GER = {
+				country_event = {
+					id = sov_external.107
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				WGR = {
+					exists = yes
+					NOT = {
+						has_war_with = ROOT
+						is_subject = yes
+						has_capitulated = yes
+						country_exists = DDR
+					}
+				}
+			}
+			WGR = {
+				country_event = {
+					id = sov_external.107
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				DDR = {
+					exists = yes
+				}
+			}
+			DDR = {
+				country_event = {
+					id = sov_external.107
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Coord_with_Germany
+	icon = GFX_focus_Tanks_Across_the_Border
+	prerequisite = { focus = SOV_GPW_Align_With_Germany }
+	x = -1
+	y = 1
+	relative_position_id = SOV_GPW_Align_With_Germany
+	cost = 3
+	ai_will_do = {
+		factor = 473
+	}
+	available = { #civil war
+		OR = {
+			GER = {
+				exists = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+					country_exists = WGR
+					country_exists = DDR
+				}
+			}
+			WGR = {
+				exists = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+					country_exists = DDR
+				}
+			}
+			DDR = {
+				exists = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+				}
+			}
+		}
+	}
+	bypass = {
+		OR = {
+			GER = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+			WGR = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+			DDR = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				GER = {
+					exists = yes
+					NOT = {
+						has_war_with = ROOT
+						is_subject = yes
+						has_capitulated = yes
+						country_exists = WGR
+						country_exists = DDR
+					}
+				}
+			}
+			GER = {
+				country_event = {
+					id = sov_external.119
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				WGR = {
+					exists = yes
+					NOT = {
+						has_war_with = ROOT
+						is_subject = yes
+						has_capitulated = yes
+						country_exists = DDR
+					}
+				}
+			}
+			WGR = {
+				country_event = {
+					id = sov_external.119
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				DDR = {
+					exists = yes
+				}
+			}
+			DDR = {
+				country_event = {
+					id = sov_external.119
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Trade_with_Germany
+	icon = GFX_focus_Free_Trade
+	prerequisite = { focus = SOV_GPW_Align_With_Germany }
+	x = 1
+	y = 1
+	relative_position_id = SOV_GPW_Align_With_Germany
+	cost = 3.30
+	ai_will_do = {
+		factor = 270
+	}
+	available = { #civil war
+		OR = {
+			GER = {
+				exists = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+					country_exists = WGR
+					country_exists = DDR
+				}
+			}
+			WGR = {
+				exists = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+					country_exists = DDR
+				}
+			}
+			DDR = {
+				exists = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+				}
+			}
+		}
+	}
+	bypass = {
+		OR = {
+			GER = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+			WGR = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+			DDR = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				GER = {
+					exists = yes
+					NOT = {
+						has_war_with = ROOT
+						is_subject = yes
+						has_capitulated = yes
+						country_exists = WGR
+						country_exists = DDR
+					}
+				}
+			}
+			GER = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = SOV_trade2
+				}
+			}
+			add_opinion_modifier = {
+				target = GER
+				modifier = SOV_trade2
+			}
+		}
+		else_if = {
+			limit = {
+				WGR = {
+					exists = yes
+					NOT = {
+						has_war_with = ROOT
+						is_subject = yes
+						has_capitulated = yes
+						country_exists = DDR
+					}
+				}
+			}
+			WGR = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = SOV_trade2
+				}
+			}
+			add_opinion_modifier = {
+				target = GER
+				modifier = SOV_trade2
+			}
+		}
+		else_if = {
+			limit = {
+				DDR = {
+					exists = yes
+				}
+			}
+			DDR = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = SOV_trade2
+				}
+			}
+			add_opinion_modifier = {
+				target = GER
+				modifier = SOV_trade2
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_German_Tech
+	icon = GFX_focus_Brainpower
+	prerequisite = {
+		focus = SOV_GPW_Coord_with_Germany
+		focus = SOV_GPW_Trade_with_Germany
+	}
+	x = 0
+	y = 2
+	relative_position_id = SOV_GPW_Align_With_Germany
+	cost = 4
+	ai_will_do = {
+		factor = 800
+	}
+	available = { #civil war
+		OR = {
+			GER = {
+				exists = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+					country_exists = WGR
+					country_exists = DDR
+				}
+			}
+			WGR = {
+				exists = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+					country_exists = DDR
+				}
+			}
+			DDR = {
+				exists = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+				NOT = {
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					has_capitulated = yes
+				}
+			}
+		}
+	}
+	bypass = {
+		OR = {
+			GER = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+			WGR = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+			DDR = {
+				OR = {
+					has_war_together_with = ROOT
+					is_in_faction_with = ROOT
+				}
+				has_non_aggression_pact_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				GER = {
+					exists = yes
+					NOT = {
+						has_war_with = ROOT
+						is_subject = yes
+						has_capitulated = yes
+						country_exists = WGR
+						country_exists = DDR
+					}
+				}
+			}
+			GER = {
+				country_event = {
+					id = sov_external.122
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				WGR = {
+					exists = yes
+					NOT = {
+						has_war_with = ROOT
+						is_subject = yes
+						has_capitulated = yes
+						country_exists = DDR
+					}
+				}
+			}
+			WGR = {
+				country_event = {
+					id = sov_external.122
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				DDR = {
+					exists = yes
+				}
+			}
+			DDR = {
+				country_event = {
+					id = sov_external.122
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Secure_Iran
+	icon = GFX_focus_Invade_Persia
+	prerequisite = {
+		focus = SOV_GPW_Anglo_Soviet_Tech
+		focus = SOV_GPW_Anglo_Soviet_Liscense_Weapons
+		focus = SOV_GPW_Coord_with_Germany
+		focus = SOV_GPW_Trade_with_Germany
+	}
+	x = -2
+	y = 2
+	relative_position_id = SOV_GPW_Align_With_Germany
+	cost = 1
+	ai_will_do = {
+		factor = 30
+	}
+	available = { #civil war
+		PER = {
+			exists = yes
+			is_neighbor_of = ROOT
+			NOT = {
+				is_subject = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+			}
+		}
+	}
+	bypass = {
+		PER = {
+			OR = {
+				exists = no
+				is_subject_of = ROOT
+				has_war_together_with = ROOT
+				has_war_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		create_wargoal = {
+			target = PER
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Secure_Iraq
+	icon = GFX_focus_Heavy_Strike
+	prerequisite = {
+		focus = SOV_GPW_Secure_Iran
+	}
+	x = -2
+	y = 3
+	relative_position_id = SOV_GPW_Align_With_Germany
+	cost = 1.43
+	ai_will_do = {
+		factor = 30
+	}
+	available = {
+		IRQ = {
+			exists = yes
+			is_neighbor_of = ROOT
+			NOT = {
+				is_subject = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+			}
+		}
+	}
+	bypass = {
+		IRQ = {
+			OR = {
+				exists = no
+				is_subject_of = ROOT
+				has_war_together_with = ROOT
+				has_war_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		create_wargoal = {
+			target = IRQ
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Align_With_France
+	icon = GFX_focus_French_Unity
+	prerequisite = { focus = SOV_GPW_Foreign_Policy }
+	x = 0
+	y = 1
+	relative_position_id = SOV_GPW_Foreign_Policy
+	cost = 2.86
+	ai_will_do = {
+		factor = 1500
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = FRA
+		NOT = {
+			has_war_with = FRA
+		}
+		FRA = {
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_together_with = FRA
+			is_in_faction_with = FRA
+		}
+		has_non_aggression_pact_with = FRA
+		NOT = { has_war_with = FRA }
+	}
+	completion_reward = {
+		FRA = {
+			country_event = {
+				id = sov_external.107
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Coord_With_France
+	icon = GFX_focus_FrenchSoldiers
+	prerequisite = {
+		focus = SOV_GPW_Align_With_France
+	}
+	x = 1
+	y = 1
+	relative_position_id = SOV_GPW_Align_With_France
+	cost = 3
+	ai_will_do = {
+		factor = 370
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = FRA
+		has_non_aggression_pact_with = FRA
+		NOT = {
+			has_war_with = FRA
+		}
+		FRA = {
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		FRA = {
+			country_event = {
+				id = sov_external.119
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_French_Industrial_Grants
+	icon = GFX_focus_French_Industry
+	prerequisite = {
+		focus = SOV_GPW_Align_With_France
+	}
+	x = -1
+	y = 1
+	relative_position_id = SOV_GPW_Align_With_France
+	cost = 5
+	ai_will_do = {
+		factor = 400
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = FRA
+		has_non_aggression_pact_with = FRA
+		NOT = {
+			has_war_with = FRA
+		}
+		FRA = {
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		FRA = {
+			country_event = {
+				id = sov_external.125
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_French_Tank_Designs
+	icon = GFX_focus_army_tanks
+	prerequisite = {
+		focus = SOV_GPW_Coord_With_France
+		focus = SOV_GPW_French_Industrial_Grants
+	}
+	x = 0
+	y = 2
+	relative_position_id = SOV_GPW_Align_With_France
+	cost = 3.58
+	ai_will_do = {
+		factor = 800
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = FRA
+		has_non_aggression_pact_with = FRA
+		NOT = {
+			has_war_with = FRA
+		}
+		FRA = {
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		FRA = {
+			if = {
+				limit = {
+					has_dlc = "Death or Dishonor"
+				}
+				country_event = {
+					id = sov_external.128
+				}
+			}
+			else = {
+				country_event = {
+					id = sov_external.131
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Secure_Romania
+	icon = GFX_focus_Prepare_the_Troops
+	prerequisite = {
+		focus = SOV_GPW_Coord_with_Germany
+		focus = SOV_GPW_Trade_with_Germany
+		focus = SOV_GPW_Coord_With_France
+		focus = SOV_GPW_French_Industrial_Grants
+	}
+	x = 2
+	y = 2
+	relative_position_id = SOV_GPW_Align_With_Germany
+	cost = 1.43
+	ai_will_do = {
+		factor = 400
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0.1
+		}
+	}
+	available = {
+		ROM = {
+			exists = yes
+			is_neighbor_of = ROOT
+			NOT = {
+				is_subject = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+			}
+		}
+	}
+	bypass = {
+		ROM = {
+			OR = {
+				exists = no
+				is_subject_of = ROOT
+				has_war_together_with = ROOT
+				has_war_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		create_wargoal = {
+			target = ROM
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Secure_Bulgaria
+	icon = GFX_focus_Recruitment_Drive
+	prerequisite = {
+		focus = SOV_GPW_Secure_Romania
+	}
+	x = 1
+	y = 3
+	relative_position_id = SOV_GPW_Align_With_Germany
+	cost = 1.43
+	ai_will_do = {
+		factor = 400
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0.1
+		}
+	}
+	available = {
+		BUL = {
+			exists = yes
+			is_neighbor_of = ROOT
+			NOT = {
+				is_subject = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+			}
+		}
+	}
+	bypass = {
+		BUL = {
+			OR = {
+				exists = no
+				is_subject_of = ROOT
+				has_war_together_with = ROOT
+				has_war_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		create_wargoal = {
+			target = BUL
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Secure_YUG
+	icon = GFX_focus_yugoslavia_crown
+	prerequisite = {
+		focus = SOV_GPW_Secure_Romania
+	}
+	x = 3
+	y = 3
+	relative_position_id = SOV_GPW_Align_With_Germany
+	cost = 1.43
+	ai_will_do = {
+		factor = 400
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0.1
+		}
+	}
+	available = {
+		YUG = {
+			exists = yes
+			is_neighbor_of = ROOT
+			NOT = {
+				is_subject = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+			}
+		}
+	}
+	bypass = {
+		YUG = {
+			OR = {
+				exists = no
+				is_subject_of = ROOT
+				has_war_together_with = ROOT
+				has_war_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		create_wargoal = {
+			target = YUG
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Align_With_Italy
+	icon = GFX_focus_cbts_Befriend_Italy
+	prerequisite = { focus = SOV_GPW_Foreign_Policy }
+	x = 4
+	y = 1
+	relative_position_id = SOV_GPW_Foreign_Policy
+	cost = 2.86
+	ai_will_do = {
+		factor = 1500
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = ITA
+		NOT = {
+			has_war_with = ITA
+		}
+		ITA = {
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_together_with = ITA
+			is_in_faction_with = ITA
+		}
+		has_non_aggression_pact_with = ITA
+		NOT = { has_war_with = ITA }
+	}
+	completion_reward = {
+		ITA = {
+			country_event = {
+				id = sov_external.107
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_ITA_Docking
+	icon = GFX_focus_Naval_Operations
+	prerequisite = {
+		focus = SOV_GPW_Align_With_Italy
+	}
+	x = -1
+	y = 1
+	relative_position_id = SOV_GPW_Align_With_Italy
+	cost = 4
+	ai_will_do = {
+		factor = 470
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = ITA
+		has_non_aggression_pact_with = ITA
+		NOT = {
+			has_war_with = ITA
+		}
+		ITA = {
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_together_with = ITA
+			is_in_faction_with = ITA
+		}
+		NOT = { has_war_with = ITA }
+	}
+	completion_reward = {
+		ITA = {
+			country_event = {
+				id = sov_external.134
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_ITA_Trade
+	icon = GFX_focus_Export_Oil
+	prerequisite = {
+		focus = SOV_GPW_Align_With_Italy
+	}
+	x = 1
+	y = 1
+	relative_position_id = SOV_GPW_Align_With_Italy
+	cost = 3.58
+	ai_will_do = {
+		factor = 200
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = ITA
+		has_non_aggression_pact_with = ITA
+		NOT = {
+			has_war_with = ITA
+		}
+		ITA = {
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_together_with = ITA
+			is_in_faction_with = ITA
+		}
+		NOT = { has_war_with = ITA }
+	}
+	completion_reward = {
+		ITA = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = SOV_trade2
+			}
+		}
+		add_opinion_modifier = {
+			target = ITA
+			modifier = SOV_trade2
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_ITA_Milaccess
+	icon = GFX_focus_Italian_Soldiers
+	prerequisite = {
+		focus = SOV_GPW_ITA_Docking
+		focus = SOV_GPW_ITA_Trade
+	}
+	x = 0
+	y = 2
+	relative_position_id = SOV_GPW_Align_With_Italy
+	cost = 3
+	ai_will_do = {
+		factor = 600
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = ITA
+		has_non_aggression_pact_with = ITA
+		NOT = {
+			has_war_with = ITA
+		}
+		ITA = {
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_together_with = ITA
+			is_in_faction_with = ITA
+		}
+		NOT = { has_war_with = ITA }
+	}
+	completion_reward = {
+		ITA = {
+			country_event = {
+				id = sov_external.119
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Secure_Turkey
+	icon = GFX_focus_Demand_Armenia
+	prerequisite = {
+		focus = SOV_GPW_Coord_With_France
+		focus = SOV_GPW_French_Industrial_Grants
+		focus = SOV_GPW_ITA_Docking
+		focus = SOV_GPW_ITA_Trade
+	}
+	x = -2
+	y = 2
+	relative_position_id = SOV_GPW_Align_With_Italy
+	cost = 1.43
+	ai_will_do = {
+		factor = 120
+		modifier = {
+			date < 1946.1.1
+			factor = 0
+		}
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		TUR = {
+			exists = yes
+			is_neighbor_of = ROOT
+			NOT = {
+				is_subject = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+			}
+		}
+	}
+	bypass = {
+		TUR = {
+			OR = {
+				exists = no
+				is_subject_of = ROOT
+				has_war_together_with = ROOT
+				has_war_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		add_state_claim = 353
+		add_state_claim = 354
+		create_wargoal = {
+			target = TUR
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Secure_Greece
+	icon = GFX_focus_Military_Intervention
+	prerequisite = {
+		focus = SOV_GPW_Secure_Turkey
+	}
+	x = -2
+	y = 3
+	relative_position_id = SOV_GPW_Align_With_Italy
+	cost = 1.43
+	ai_will_do = {
+		factor = 120
+		modifier = {
+			date < 1946.1.1
+			factor = 0
+		}
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		GRE = {
+			exists = yes
+			is_neighbor_of = ROOT
+			NOT = {
+				is_subject = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+			}
+		}
+	}
+	bypass = {
+		GRE = {
+			OR = {
+				exists = no
+				is_subject_of = ROOT
+				has_war_together_with = ROOT
+				has_war_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		create_wargoal = {
+			target = GRE
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Align_With_Japan
+	icon = GFX_focus_Befriend_Japan
+	prerequisite = { focus = SOV_GPW_Foreign_Policy }
+	x = 8
+	y = 1
+	relative_position_id = SOV_GPW_Foreign_Policy
+	cost = 2.86
+	ai_will_do = {
+		factor = 1200
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = JAP
+		NOT = {
+			has_war_with = JAP
+		}
+		JAP = {
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_together_with = JAP
+			is_in_faction_with = JAP
+		}
+		has_non_aggression_pact_with = JAP
+		NOT = { has_war_with = JAP }
+	}
+	completion_reward = {
+		JAP = {
+			country_event = {
+				id = sov_external.107
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Japanese_Resources
+	icon = GFX_focus_Excavations
+	prerequisite = {
+		focus = SOV_GPW_Align_With_Japan
+	}
+	x = -1
+	y = 1
+	relative_position_id = SOV_GPW_Align_With_Japan
+	cost = 2.86
+	ai_will_do = {
+		factor = 220
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = JAP
+		NOT = {
+			has_war_with = JAP
+		}
+		has_non_aggression_pact_with = JAP
+		JAP = {
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_together_with = JAP
+			is_in_faction_with = JAP
+		}
+		has_non_aggression_pact_with = JAP
+		NOT = { has_war_with = JAP }
+	}
+	completion_reward = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = JAP
+					is_subject_of = JAP
+				}
+			}
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = SOV_trade2
+			}
+			ROOT = {
+				add_opinion_modifier = {
+					target = THIS
+					modifier = SOV_trade2
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Sakhalin_for_Wargoals
+	icon = GFX_focus_A_Deadly_Deal
+	prerequisite = {
+		focus = SOV_GPW_Align_With_Japan
+	}
+	x = 1
+	y = 1
+	relative_position_id = SOV_GPW_Align_With_Japan
+	cost = 4.29
+	ai_will_do = {
+		factor = 170
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = JAP
+		NOT = {
+			has_war_with = JAP
+		}
+		has_non_aggression_pact_with = JAP
+		JAP = {
+			owns_state = 537
+			controls_state = 537
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+		OR = {
+			AND = {
+				OR = {
+					has_war_together_with = JAP
+					is_in_faction_with = JAP
+				}
+				has_non_aggression_pact_with = JAP
+				NOT = { has_war_with = JAP }
+			}
+			AND = {
+				owns_state = 537
+				controls_state = 537
+			}
+		}
+	}
+	completion_reward = {
+		JAP = {
+			country_event = {
+				id = sov_external.137
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Invade_China
+	icon = GFX_focus_Sun_Tzu_War
+	prerequisite = {
+		focus = SOV_GPW_Sakhalin_for_Wargoals
+	}
+	x = 2
+	y = 2
+	relative_position_id = SOV_GPW_Align_With_Japan
+	cost = 5
+	ai_will_do = {
+		factor = 140
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = JAP
+		NOT = {
+			has_war_with = JAP
+		}
+		has_non_aggression_pact_with = JAP
+		JAP = {
+			is_subject = no
+			has_capitulated = no
+			any_country = {
+				OR = {
+					tag = CHI
+					tag = PRC
+					tag = SHX
+					tag = XSM
+					tag = KML
+					tag = SIK
+					tag = UTP
+					tag = GXC
+					tag = YUN
+					tag = MAN
+					tag = MEN
+					tag = GZC
+					tag = GDC
+				}
+				has_war_with = JAP
+			}
+		}
+		owns_state = 537
+	}
+	bypass = {
+		OR = {
+			AND = {
+				OR = {
+					has_war_together_with = JAP
+					is_in_faction_with = JAP
+				}
+				has_non_aggression_pact_with = JAP
+				NOT = { has_war_with = JAP }
+			}
+			AND = {
+				owns_state = 537
+				controls_state = 537
+			}
+		}
+	}
+	completion_reward = {
+		hidden_effect = {
+			every_country = {
+				limit = {
+					OR = {
+						tag = CHI
+						tag = SHX
+						tag = XSM
+						tag = KML
+						tag = SIK
+						tag = UTP
+						tag = MAN
+						tag = MEN
+					}
+					has_war_with = JAP
+				}
+				SOV = {
+					add_to_war = {
+						targeted_alliance = JAP
+						enemy = PREV
+					}
+				}
+			}
+		}
+		custom_effect_tooltip = SOV_invade_china_tt
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Coord_Jap
+	icon = GFX_focus_Cavalry
+	prerequisite = {
+		focus = SOV_GPW_Japanese_Resources
+		focus = SOV_GPW_Sakhalin_for_Wargoals
+	}
+	x = 0
+	y = 2
+	relative_position_id = SOV_GPW_Align_With_Japan
+	cost = 2
+	ai_will_do = {
+		factor = 280
+	}
+	available = {
+		has_defensive_war = yes
+		has_war_together_with = JAP
+		NOT = {
+			has_war_with = JAP
+		}
+		has_non_aggression_pact_with = JAP
+		JAP = {
+			is_subject = no
+			has_capitulated = no
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_together_with = JAP
+			is_in_faction_with = JAP
+		}
+		has_non_aggression_pact_with = JAP
+		NOT = { has_war_with = JAP }
+	}
+	completion_reward = {
+		JAP = {
+			country_event = {
+				id = sov_external.119
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Secure_Afg
+	icon = GFX_focus_Dig_Their_Own_Graves
+	prerequisite = {
+		focus = SOV_GPW_ITA_Docking
+		focus = SOV_GPW_ITA_Trade
+		focus = SOV_GPW_Japanese_Resources
+		focus = SOV_GPW_Sakhalin_for_Wargoals
+	}
+	x = 2
+	y = 2
+	relative_position_id = SOV_GPW_Align_With_Italy
+	cost = 1.43
+	ai_will_do = {
+		factor = 120
+		modifier = {
+			date < 1946.1.1
+			factor = 0
+		}
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		AFG = {
+			exists = yes
+			is_neighbor_of = ROOT
+			NOT = {
+				is_subject = yes
+				has_war_together_with = ROOT
+				has_non_aggression_pact_with = ROOT
+			}
+		}
+	}
+	bypass = {
+		AFG = {
+			OR = {
+				exists = no
+				is_subject_of = ROOT
+				has_war_together_with = ROOT
+				has_war_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		create_wargoal = {
+			target = AFG
+			type = annex_everything
+		}
+	}
+}
+shared_focus = {
+	id = SOV_GPW_Secure_India
+	icon = GFX_focus_India_Swaraj_Flag
+	prerequisite = {
+		focus = SOV_GPW_Secure_Afg
+	}
+	x = 2
+	y = 3
+	relative_position_id = SOV_GPW_Align_With_Italy
+	cost = 1.43
+	ai_will_do = {
+		factor = 120
+		modifier = {
+			date < 1946.1.1
+			factor = 0
+		}
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		OR = {
+			RAJ = {
+				exists = yes
+				is_neighbor_of = ROOT
+				NOT = {
+					is_subject = yes
+					has_war_together_with = ROOT
+					has_non_aggression_pact_with = ROOT
+				}
+			}
+			HND = {
+				exists = yes
+				is_neighbor_of = ROOT
+				NOT = {
+					is_subject = yes
+					has_war_together_with = ROOT
+					has_non_aggression_pact_with = ROOT
+				}
+			}
+		}
+	}
+	bypass = {
+		RAJ = {
+			OR = {
+				exists = no
+				is_subject_of = ROOT
+				has_war_together_with = ROOT
+				has_war_with = ROOT
+			}
+		}
+		HND = {
+			OR = {
+				exists = no
+				is_subject_of = ROOT
+				has_war_together_with = ROOT
+				has_war_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				country_exists = RAJ
+			}
+			create_wargoal = {
+				target = RAJ
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				country_exists = HND
+			}
+			create_wargoal = {
+				target = HND
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					country_exists = RAJ
+					country_exists = HND
+				}
+			}
+			custom_effect_tooltip = no_india_tt
+		}
+	}
+}

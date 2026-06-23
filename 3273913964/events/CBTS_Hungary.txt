@@ -1,0 +1,2420 @@
+###########################
+# Hungarian Events
+###########################
+
+add_namespace = CBTS_hungary
+add_namespace = hungarian_border_conflict
+
+#Bled Agreement	- Romania
+country_event = {
+	id = CBTS_hungary.1
+	title = CBTS_hungary.1.t
+	desc = CBTS_hungary.1.desc
+	picture = GFX_report_event_hungary_parliament
+
+	is_triggered_only = yes
+
+	option = {# allow
+		name = CBTS_hungary.1.a
+		ai_chance = {
+			factor = 80
+			modifier = {
+				threat < 0.4
+				OR = {
+					ROM = {
+						has_opinion = {
+    						target = HUN
+    						value < 20
+						}			
+					}
+					CZE = {
+						has_opinion = {
+    						target = HUN
+    						value < 20
+						}			
+					}
+					YUG = {
+						has_opinion = {
+    						target = HUN
+    						value < 20
+						}			
+					}				
+				}
+				factor = 10 
+			}
+		}
+			ROM = { country_event = { id = CBTS_hungary.2 days = 4 } }
+			YUG = { country_event = { id = CBTS_hungary.2 days = 4 } }
+			CZE = { country_event = { id = CBTS_hungary.2 days = 4 } }
+			HUN = { country_event = { id = CBTS_hungary.3 days = 3 } }
+	}
+
+	option = {# refuse
+		name = CBTS_hungary.1.b
+		ai_chance = {
+			factor = 30
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		HUN = { country_event = { id = CBTS_hungary.4 days = 3 } }
+	}
+}
+
+#Bled Agreement - Rumania agreed, Little Entente reacts.
+country_event = {
+	id = CBTS_hungary.2
+	title = CBTS_hungary.2.t
+	desc = CBTS_hungary.2.desc 
+	picture = GFX_report_event_journalists_speech
+	
+	is_triggered_only = yes
+
+	option = {# accept it
+		name = CBTS_hungary.2.a
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+#Bled Agreement - HUN permitted to rearm
+country_event = {
+	id = CBTS_hungary.3
+	title = CBTS_hungary.3.t
+	desc = CBTS_hungary.3.desc 
+	picture = GFX_report_event_vienna_award_hungary
+	
+	is_triggered_only = yes
+
+	option = {# 
+		name = CBTS_hungary.3.a
+		country_lock_all_division_template = no
+		if = {
+			limit = { has_idea = HUN_treaty_of_trianon }
+			remove_ideas = HUN_treaty_of_trianon
+			clear_variable = HUN_treaty_of_trianon_phase
+		}
+		if = {
+			limit = { has_idea = HUN_secret_rearmament_idea }
+			remove_ideas = HUN_secret_rearmament_idea
+		}
+		add_ideas = HUN_bled_agreement_idea
+		remove_ideas = HUN_treaty_of_trianon
+		hidden_effect = {
+			country_lock_all_division_template = no
+		}
+
+	}	
+}
+
+#Bled Agreement - Hungary is denied rearmament
+country_event = {
+	id = CBTS_hungary.4
+	title = CBTS_hungary.4.t
+	desc = CBTS_hungary.4.desc 
+	picture = GFX_report_event_hungarian_soldiers
+	
+	is_triggered_only = yes
+
+	option = {# accept
+		name = CBTS_hungary.4.a
+		ai_chance = {
+			factor = 10
+		}
+		add_stability = -0.1
+		add_war_support = 0.1
+		set_global_flag = HUN_denied_trianon
+	}
+	option = {# deny
+		name = CBTS_hungary.4.b
+		ai_chance = {
+			factor = 10
+		}
+		add_threat = 5
+		country_lock_all_division_template = no
+		if = {
+			limit = { has_idea = HUN_treaty_of_trianon }
+			remove_ideas = HUN_treaty_of_trianon
+			clear_variable = HUN_treaty_of_trianon_phase
+		}
+		ROM = {
+			create_wargoal = {
+    			type = puppet_wargoal_focus
+   				target = HUN
+			}
+		}
+	}
+}
+
+#Hungary Proposes to Purchase Airplanes
+country_event = {
+	id = CBTS_hungary.5
+	title = CBTS_hungary.5.t
+	desc = CBTS_hungary.5.desc 
+	picture = GFX_report_event_generic_bombers
+	
+	is_triggered_only = yes
+
+	option = {# accept
+		name = CBTS_hungary.5.a
+		ai_chance = {
+			factor = 90
+		}
+		add_political_power = 25
+		HUN = { country_event = { id = CBTS_hungary.20 days = 3 } }
+	}
+	option = {# deny
+		name = CBTS_hungary.5.b
+		ai_chance = {
+			factor = 10
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+			modifier = {
+				has_completed_focus = HUN_revise_the_national_work_plan
+				factor = 0
+			}
+		}
+		HUN = { country_event = { id = CBTS_hungary.21 days = 3 } }
+	}
+}
+
+#Hungary announces the Györ Program
+country_event = {
+	id = CBTS_hungary.6
+	title = CBTS_hungary.6.t
+	desc = CBTS_hungary.6.desc 
+	picture = GFX_report_event_generic_factory
+	
+	is_triggered_only = yes
+
+	option = {# accept
+		name = CBTS_hungary.6.a
+		ai_chance = {
+			factor = 95
+		}
+		hidden_effect = { set_global_flag = hun_gyor_program_idea }
+		custom_effect_tooltip = gyor_program_tt
+		unlock_decision_category_tooltip = HUN_gyor_program_decision
+		add_political_power = 50
+		add_timed_idea = {
+			idea = HUN_gyr_program
+			days = 365
+		}
+	}
+	option = {# deny
+		name = CBTS_hungary.6.b
+		ai_chance = {
+			factor = 5
+		}
+	}
+}
+
+#Hungary Renounces treaty of Trianon
+country_event = {
+	id = CBTS_hungary.7
+	title = CBTS_hungary.7.t
+	desc = CBTS_hungary.7.desc 
+	picture = GFX_report_event_hungary_southern_slovakia
+	
+	is_triggered_only = yes
+
+	option = {# accept
+		name = CBTS_hungary.7.a
+		ai_chance = {
+			factor = 100
+		}
+		add_stability = 0.07
+		add_war_support = 0.1
+		hidden_effect = {
+			country_lock_all_division_template = no
+		}
+		if = {
+			limit = { has_idea = HUN_treaty_of_trianon }
+			remove_ideas = HUN_treaty_of_trianon
+			clear_variable = HUN_treaty_of_trianon_phase
+		}
+		if = {
+			limit = { has_idea = HUN_bled_agreement_idea }
+			remove_ideas = HUN_bled_agreement_idea
+		}			
+	}
+}
+
+#Hungary Renounces treaty of Trianon - Rumania responds
+country_event = {
+	id = CBTS_hungary.8
+	title = CBTS_hungary.8.t
+	desc = CBTS_hungary.8.desc 
+	picture = GFX_report_event_hungary_refused
+	
+	is_triggered_only = yes
+
+	option = {# accept
+		name = CBTS_hungary.8.a
+		ai_chance = {
+			factor = 100
+		}
+		HUN = { country_event = CBTS_hungary.7 }
+
+	}
+}
+
+#### Conquest of Transcarpathia / Munich conference Events ####
+
+#Ragged Guards
+country_event = {
+	id = CBTS_hungary.9
+	title = CBTS_hungary.9.t
+	desc = CBTS_hungary.9.desc
+	picture = GFX_Event_Hungarians_Parade_Transylvania
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {					
+		name = CBTS_hungary.9.a
+		add_war_support = 0.05
+		division_template = {
+			name = "Rongyos Gárda"
+
+			division_names_group = HUN_Inf_01
+
+			regiments = {
+				infantry = { x = 0 y = 0 }
+				infantry = { x = 0 y = 1 }
+				infantry = { x = 0 y = 2 }
+				infantry = { x = 1 y = 0 }
+				infantry = { x = 1 y = 1 }
+				infantry = { x = 1 y = 2 }
+				cavalry = { x = 2 y = 0 }
+				cavalry = { x = 2 y = 1 }
+				cavalry = { x = 2 y = 2 }
+			}
+		}
+		random_owned_controlled_state = {
+			prioritize = { 834 }
+			limit = { ROOT = { has_full_control_of_state = PREV } }
+			create_unit = {
+				division = "name = \"Rongyos Gárda\" division_template = \"Rongyos Gárda\" start_experience_factor = 0.1" 
+				owner = HUN
+			}
+		}
+		custom_effect_tooltip = HUN_take_transcarpathia_tt
+		set_global_flag = HUN_take_transcarpathia
+		ai_chance = {
+			base = 100
+		}		
+	}
+}
+
+#Regaining Lost Territories I: Slovakia
+country_event = {
+	id = CBTS_hungary.10
+	title = CBTS_hungary.10.t
+	desc = CBTS_hungary.10.desc
+	picture = GFX_report_event_hungary_southern_slovakia
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {					
+		name = CBTS_hungary.10.a
+		ai_chance = {
+			base = 100
+		}		
+		activate_decision = HUN_escalate_incident_to_border_conflict_SLO 
+	}
+}
+#Karpatalja reclaimed
+country_event = {
+	id = CBTS_hungary.11
+	title = CBTS_hungary.11.t
+	desc = CBTS_hungary.11.desc
+	picture = GFX_report_event_bulgarian_soldiers
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {					
+		name = CBTS_hungary.11.a
+		ai_chance = {
+			base = 100
+		}	
+		73 = { set_state_name = "Kárpátalja" }
+		add_opinion_modifier = { target = GER modifier = GER_given_carp }
+		add_political_power = -20
+		HUN = {
+			transfer_state = 73
+			transfer_state = 1207
+		}	
+			add_doctrine_cost_reduction = {
+				name = transcarpathia
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		hidden_effect = {
+			news_event = { id = HUN_news.303 days = 1 }
+		}
+	}
+}
+
+#Karpatalja - Slovakia answers.
+country_event = {
+	id = CBTS_hungary.12
+	title = CBTS_hungary.12.t
+	desc = CBTS_hungary.12.desc
+	picture = GFX_report_event_hungarian_soldiers
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {					
+		name = CBTS_hungary.12.a
+		ai_chance = {
+			base = 100
+		}	
+		HUN = { country_event = CBTS_hungary.11 }
+	}
+}
+
+#########################################################
+
+#Demand Erdély - Romania answers
+country_event = {
+	id = CBTS_hungary.13
+	title = CBTS_hungary.13.t
+	desc = CBTS_hungary.13.desc
+	picture = GFX_report_event_hungary_parliament
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {	#Accept					
+		name = CBTS_hungary.13.a
+		ai_chance = {
+			base = 80
+		}	
+		HUN = { country_event = CBTS_hungary.14 }
+	}
+	option = {	#Deny			
+		name = CBTS_hungary.13.b
+		ai_chance = {
+			factor = 20
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+			modifier = {
+				has_army_manpower = { size > 300000 }
+				factor = 80
+			}
+		}	
+		HUN = { country_event = CBTS_hungary.15 }
+	}
+}
+#Demand Erdély - Success!
+country_event = {
+	id = CBTS_hungary.14
+	title = CBTS_hungary.14.t
+	desc = CBTS_hungary.14.desc
+	picture = GFX_Event_Hungarians_Occupied_Transylvania
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {	#Accept					
+		name = CBTS_hungary.14.a
+		ai_chance = {
+			base = 100
+		}	
+		HUN = {
+			transfer_state = 1048
+			transfer_state = 1054
+			transfer_state = 76
+			transfer_state = 1046
+		}
+		hidden_effect = {
+			news_event = { id = HUN_news.300 days = 1 }
+		}	
+	}
+}
+#Demand Erdély - Failed
+country_event = {
+	id = CBTS_hungary.15
+	title = CBTS_hungary.15.t
+	desc = CBTS_hungary.15.desc
+	picture = GFX_report_event_hungary_refused
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {	#Accept					
+		name = CBTS_hungary.15.a
+		ai_chance = {
+			base = 100
+		}	
+		HUN = {
+			create_wargoal = {
+    			type = take_state_focus
+    			generator = { 1048 1054 76 1046 }
+    			target = ROM
+			}			
+		}	
+	}
+}
+
+#Regaining Lost Territories III: Yugoslavia
+country_event = {
+	id = CBTS_hungary.16
+	title = CBTS_hungary.16.t
+	desc = CBTS_hungary.16.desc
+	picture = GFX_report_event_hungary_parliament
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {	#Accept					
+		name = CBTS_hungary.16.a
+		ai_chance = {
+			factor = 50
+			modifier = {
+				GER =  { check_variable = { var = ger_nation_influence value = 30 compare = greater_than_or_equals } }
+				factor = 90
+			}
+		}
+		if = {
+			limit = {
+		OR = {
+			any_country = {
+			NOT = {
+				tag = YUG
+			}
+			is_in_faction_with = GER
+			controls_state = 815
+			controls_state = 1031
+			controls_state = 45
+			}	
+		GER = {
+			controls_state = 815
+			controls_state = 1031
+			controls_state = 45
+			}			
+		}			
+			}
+		HUN = { country_event = CBTS_hungary.17 }
+		add_stability = 0.01		
+		}
+
+	}
+	option = {	#Deny					
+		name = CBTS_hungary.16.b
+		ai_chance = {
+			factor = 50
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		HUN = { country_event = CBTS_hungary.18 }		
+	}
+}
+
+#Demand Yugoslavian Territories - Success!
+country_event = {
+	id = CBTS_hungary.17
+	title = CBTS_hungary.17.t
+	desc = CBTS_hungary.17.desc
+	picture = GFX_report_event_bulgarian_soldiers
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {	#Accept					
+		name = CBTS_hungary.17.a
+		ai_chance = {
+			base = 100
+		}	
+		HUN = {
+			transfer_state = 815
+			transfer_state = 1031
+			transfer_state = 45
+		}	
+		hidden_effect = {
+			news_event = { id = HUN_news.306 days = 1 }
+		}
+	}
+}
+
+#Demand Yugoslavian Territories - Failed
+country_event = {
+	id = CBTS_hungary.18
+	title = CBTS_hungary.18.t
+	desc = CBTS_hungary.18.desc
+	picture = GFX_report_event_hungary_refused
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {	#Accept					
+		name = CBTS_hungary.18.a
+		ai_chance = {
+			base = 100
+		}		
+	}
+}
+
+
+
+#Germany supports transcarpathia claim
+country_event = {
+	id = CBTS_hungary.19
+	title = CBTS_hungary.19.t
+	desc = CBTS_hungary.19.desc
+	picture = GFX_Event_USSR_Soviet_Czech_Soldiers
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {	#Accept
+		name = CBTS_hungary.19.a
+		ai_chance = {
+			base = 100
+		}
+		transfer_state = 73
+	}
+}
+
+#Purchase Italian Planes - Success!
+country_event = {
+	id = CBTS_hungary.20
+	title = CBTS_hungary.20.t
+	desc = CBTS_hungary.20.desc
+	picture = GFX_report_event_hungary_parliament
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {	#Accept					
+		name = CBTS_hungary.20.a
+		ai_chance = {
+			base = 100
+		}	
+		custom_effect_tooltip = HUN_add_ita_influence_5_tt
+		if = {
+			limit = {
+				ITA = { check_variable = { var = ita_nation_influence value = 100 compare = less_than } }
+			}
+			ITA = { add_to_variable = { var = ita_nation_influence value = 5 } }
+		}
+		air_experience = 5
+		set_global_flag = HUN_ITA_plane_agreement_yes
+	
+	}
+}
+
+#Purchase Italian Planes - Failed
+country_event = {
+	id = CBTS_hungary.21
+	title = CBTS_hungary.21.t
+	desc = CBTS_hungary.21.desc
+	picture = GFX_report_event_hungary_parliament
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+
+	option = {	#Accept					
+		name = CBTS_hungary.21.a
+		ai_chance = {
+			base = 100
+		}	
+		add_political_power = -10	
+	}
+}
+
+#Hungary rearms since there are no one left to oppose
+country_event = {
+	id = CBTS_hungary.22
+	title = CBTS_hungary.22.t
+	desc = CBTS_hungary.22.desc 
+	picture = GFX_report_event_generic_military_parade
+	
+	mean_time_to_happen = { days = 2 }
+
+	trigger = {
+		#Trigger matches bypass trigger for normal rearm process
+		tag = HUN
+		has_idea = HUN_treaty_of_trianon
+		AND = {
+			ROM = {
+				OR = {
+					exists = no
+					is_puppet = yes
+				}
+			}
+			FRA = {
+				OR = {
+					exists = no
+					is_puppet = yes
+				}
+			}
+		}
+	}
+
+	option = {# Great
+		name = CBTS_hungary.22.a
+		country_lock_all_division_template = no
+		if = {
+			limit = { has_idea = HUN_treaty_of_trianon }
+			remove_ideas = HUN_treaty_of_trianon
+			clear_variable = HUN_treaty_of_trianon_phase
+		}
+	}
+}
+
+#Gyula Gömbös Dies
+country_event = {
+	id = CBTS_hungary.23
+	title = CBTS_hungary.23.t
+	desc = CBTS_hungary.23.desc 
+	picture = GFX_Event_Germany_German_Funeral
+
+	mean_time_to_happen = { days = 6 }
+
+	fire_only_once = yes
+
+	trigger = {
+		TAG = HUN
+		HUN = {
+			exists = yes
+			is_puppet = no
+			has_government = nationalism
+		}
+		date > 1936.10.1
+	}
+
+	option = {
+		name = CBTS_hungary.23.a
+		set_country_flag = purged_gyula_gombos_de_jakfa
+		add_stability = 0.03
+		custom_effect_tooltip = HUN_gombos_kalman_tt
+		hidden_effect = {
+			swap_ideas = {
+				remove_idea = HUN_gyula_gombos
+				add_idea = HUN_CBTS_kalman_daranyi
+			}		
+		}
+		set_country_flag = hun_kalman_elected	
+			set_country_flag = {
+    			flag = HUN_kalman_elected_timed
+    			days = 220
+			}
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+	}
+	option = {
+		name = CBTS_hungary.23.b
+		set_country_flag = purged_gyula_gombos_de_jakfa
+		custom_effect_tooltip = HUN_gombos_imredy_tt
+		hidden_effect = {
+			swap_ideas = {
+			remove_idea = HUN_gyula_gombos
+			add_idea = HUN_bela_imredy
+			}
+		}
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+	}
+}
+
+#Startup_event
+country_event = {
+	id = CBTS_hungary.24
+	title = CBTS_hungary.24.t
+	desc = CBTS_hungary.24.desc 
+	picture = GFX_report_event_hungary_southern_slovakia
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = CBTS_hungary.24.a
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+#Treaty of Eternal Friendship with Yugoslavia
+country_event = {
+	id = CBTS_hungary.25
+	title = CBTS_hungary.25.t
+	desc = CBTS_hungary.25.desc 
+	picture = GFX_report_event_por_salazar_franco2
+
+	mean_time_to_happen = { days = 12 }
+
+	fire_only_once = yes
+
+	trigger = {
+		NOT = { has_war_with = YUG }
+		YUG = {
+			exists = yes
+		}
+		original_tag = HUN
+		HUN = {
+			exists = yes
+			is_puppet = no
+			OR = {                    #Random Yugoslavian states near the Hungarian border. Only way I know to ensure we haven't had a war against them.
+				NOT = { 
+					controls_state = 45
+					controls_state = 109
+					controls_state = 909
+				}
+			}
+		}
+		date > 1940.12.1
+	}
+
+	option = {
+		name = CBTS_hungary.25.a
+			set_country_flag = HUN_YUG_non_aggression
+			diplomatic_relation = {
+    			country = YUG
+    			relation = non_aggression_pact
+    			active = yes
+			}
+		ai_chance = {
+			base = 100
+		}
+	}
+
+	option = {
+		name = CBTS_hungary.25.b
+		add_stability = -0.02
+	}
+}
+
+#Treaty of Eternal Friendship broken
+country_event = {
+	id = CBTS_hungary.26
+	title = CBTS_hungary.26.t
+	desc = CBTS_hungary.26.desc
+	picture = GFX_report_event_german_advisors_remain
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = HUN
+		has_war_with = YUG
+		has_country_flag = HUN_YUG_non_aggression
+	}
+
+	option = {
+		name = CBTS_hungary.26.a
+		add_stability = -0.03
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = HUN_teleki_kallay_tt
+		hidden_effect = {
+			set_country_flag = purged_pal_teleki
+			swap_ideas = {
+				remove_idea = HUN_pal_teleki
+				add_idea = HUN_miklos_kallay
+			}			
+		}
+	}
+}
+
+#Anti fascist Marches 
+country_event = {
+	id = CBTS_hungary.27
+	title = CBTS_hungary.27.t
+	desc = CBTS_hungary.27.desc
+	picture = GFX_report_event_fascist_militia
+
+	fire_only_once = yes
+
+	trigger = {
+		NOT = { has_government = fascism }
+		NOT = {	has_completed_focus = HUN_ban_far_right_organizations }
+		original_tag = HUN
+		fascism > 0.15
+		controls_state = 834
+	}
+
+	option = {					#People have the right to their own opinion	
+		name = CBTS_hungary.27.a
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+			add_stability = 0.01
+		add_popularity = {
+    		ideology = fascism
+    		popularity = 0.02
+			}
+		ai_chance = {
+			base = 100
+		}
+	}
+
+	option = {					#Fascism is the road to destruction					
+		name = CBTS_hungary.27.b
+		add_popularity = {
+    		ideology = fascism
+    		popularity = -0.02
+		}
+	}
+}
+
+#Anti fascist Marches 2
+country_event = {
+	id = CBTS_hungary.28
+	title = CBTS_hungary.27.t
+	desc = CBTS_hungary.27.desc
+	picture = GFX_report_event_worker_protests
+
+	fire_only_once = yes
+
+	trigger = {
+		NOT = { has_government = fascism }
+		NOT = {	has_completed_focus = HUN_ban_far_right_organizations }
+		original_tag = HUN
+		fascism > 0.22
+		controls_state = 834
+	}
+
+	option = {					#People have the right to their own opinion	
+		name = CBTS_hungary.27.a
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+			add_stability = 0.01
+		add_popularity = {
+    		ideology = fascism
+    		popularity = 0.02
+			}
+		ai_chance = {
+			base = 100
+		}
+	}
+
+	option = {					#Fascism is the road to destruction					
+		name = CBTS_hungary.27.b
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_2_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 0 compare = greater_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = -5 } }
+			}
+		add_popularity = {
+    		ideology = fascism
+    		popularity = -0.02
+		}
+	}
+}
+
+#Anti fascist Marches 3
+country_event = {
+	id = CBTS_hungary.29
+	title = CBTS_hungary.27.t
+	desc = CBTS_hungary.27.desc
+	picture = GFX_Event_Arrow_Cross_Officers
+
+	fire_only_once = yes
+
+	trigger = {
+		NOT = { has_government = fascism }
+		NOT = {	has_completed_focus = HUN_ban_far_right_organizations }
+		original_tag = HUN
+		fascism > 0.28
+		controls_state = 834
+	}
+
+	option = {					#People have the right to their own opinion	
+		name = CBTS_hungary.27.a
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+			add_stability = 0.01
+		add_popularity = {
+    		ideology = fascism
+    		popularity = 0.02
+			}
+		ai_chance = {
+			base = 100
+		}
+	}
+
+	option = {					#Fascism is the road to destruction					
+		name = CBTS_hungary.27.b
+		add_popularity = {
+    		ideology = fascism
+    		popularity = -0.02
+		}
+	}
+}
+
+#Anti fascist Marches 4
+country_event = {
+	id = CBTS_hungary.30
+	title = CBTS_hungary.27.t
+	desc = CBTS_hungary.27.desc
+	picture = GFX_report_event_gathering_protest
+
+	fire_only_once = yes
+
+	trigger = {
+		NOT = { has_government = fascism }
+		NOT = {	has_completed_focus = HUN_ban_far_right_organizations }
+		original_tag = HUN
+		fascism > 0.34
+		controls_state = 834
+	}
+
+	option = {					#People have the right to their own opinion	
+		name = CBTS_hungary.27.a
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+			add_stability = 0.01
+		add_popularity = {
+    		ideology = fascism
+    		popularity = 0.02
+			}
+		ai_chance = {
+			base = 100
+		}
+	}
+
+	option = {					#Fascism is the road to destruction					
+		name = CBTS_hungary.27.b
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_2_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 0 compare = greater_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = -5 } }
+			}
+		add_popularity = {
+    		ideology = fascism
+    		popularity = -0.02
+		}
+	}
+}
+
+#Anti fascist Marches 5
+country_event = {
+	id = CBTS_hungary.31
+	title = CBTS_hungary.27.t
+	desc = CBTS_hungary.27.desc
+	picture = GFX_Events_Germany_Czechs_Munich
+
+	fire_only_once = yes
+
+	trigger = {
+		NOT = { has_government = fascism }
+		NOT = {	has_completed_focus = HUN_ban_far_right_organizations }
+		original_tag = HUN
+		fascism > 0.38
+		controls_state = 834
+	}
+
+	option = {					#People have the right to their own opinion	
+		name = CBTS_hungary.27.a
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+			add_stability = 0.01
+		add_popularity = {
+    		ideology = fascism
+    		popularity = 0.02
+			}
+		ai_chance = {
+			base = 100
+		}
+	}
+
+	option = {					#Fascism is the road to destruction					
+		name = CBTS_hungary.27.b
+		add_popularity = {
+    		ideology = fascism
+    		popularity = -0.02
+		}
+	}
+}
+
+#Germany demands to place troops in Hungary (Fall Weiss)
+country_event = {
+	id = CBTS_hungary.32
+	title = CBTS_hungary.32.t
+	desc = CBTS_hungary.32.desc
+	picture = GFX_report_event_german_polish_border
+
+	fire_only_once = yes	
+
+	trigger = {
+		tag = HUN
+		controls_state = 73
+		has_war = no
+		NOT = {
+			is_in_faction_with = GER
+		}
+		GER = {
+			has_completed_focus = GER_annex_cze
+			has_completed_focus = GER_war_with_poland
+			has_war_with = POL
+		}
+	}
+
+	option = {					#Refuse
+		name = CBTS_hungary.32.a
+		custom_effect_tooltip = HUN_remove_influence_5_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 0 compare = greater_than } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = -5 } }
+			}
+		set_country_flag = HUN_refused
+		add_stability = 0.02
+		GER = {
+			add_opinion_modifier = {
+				target = HUN
+    			modifier = HUN_refuses
+			}		
+		}
+
+		ai_chance = {
+			base = 100
+		}		
+	}
+	option = {					#Accept
+		name = CBTS_hungary.32.b
+		custom_effect_tooltip = HUN_add_influence_10_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 95 compare = less_than } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = 10 } }
+			}
+		add_stability = -0.02
+		GER = { add_to_faction = HUN }
+		if = {
+			limit = {
+				GER = {
+				has_war_with = POL
+				}
+			}
+		HUN = {
+			add_to_war = {
+				targeted_alliance = GER
+				enemy = POL
+				}
+			}
+		}
+	}
+}
+
+#Germany demands to place troops in Hungary (Operation 25)
+country_event = {
+	id = CBTS_hungary.33
+	title = CBTS_hungary.33.t
+	desc = CBTS_hungary.33.desc
+	picture = GFX_report_event_hitler_handshake
+
+	fire_only_once = yes	
+
+	trigger = {
+		tag = HUN
+		has_country_flag = HUN_refused
+		has_war = no
+		NOT = {
+			is_in_faction_with = GER
+		}
+		GER = {
+			OR = {
+				has_war_with = YUG
+				has_wargoal_against	= YUG
+			}
+		}
+	}
+	option = {					#Refuse
+		name = CBTS_hungary.33.a
+		add_stability = -0.03
+		custom_effect_tooltip = HUN_remove_influence_50_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 30 compare = greater_than_or_equals } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = -50 } }
+			}
+		hidden_effect = {
+			set_country_flag = HUN_refused_operation_25
+		}
+		add_opinion_modifier = {
+			target = GER
+    		modifier = HUN_refuses
+		}	
+		GER = {
+			create_wargoal = {
+    			type = puppet_wargoal_focus
+    			target = HUN
+			}			
+		}
+	}
+	option = {					#Accept
+		name = CBTS_hungary.33.b
+		add_stability = 0.05
+		custom_effect_tooltip = HUN_add_influence_10_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 95 compare = less_than } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = 10 } }
+			}
+		GER = { add_to_faction = HUN }
+		if = {
+			limit = {
+				GER = {
+					has_war_with = POL
+				}
+			}
+		HUN = {
+			add_to_war = {
+				targeted_alliance = GER
+				enemy = YUG
+				}
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+
+#Growing Fascist Influence
+country_event = {
+	id = CBTS_hungary.34
+	title = CBTS_hungary.34.t
+	desc = CBTS_hungary.34.desc
+	picture = GFX_Event_Arrow_Cross_Officers
+
+	fire_only_once = yes	
+
+	trigger = {
+		original_tag = HUN
+		HUN = {
+			exists = yes
+			is_puppet = no
+			has_government = nationalism
+			fascism > 0.25
+			HUN = { check_variable = { var = hun_nation_influence value = 20 compare = greater_than } }
+		}		
+	}	
+	option = {	# 
+		name = CBTS_hungary.34.a
+		ai_chance = {
+			base = 100
+		}	
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+	}
+	option = {	# 
+		name = CBTS_hungary.34.b
+		ai_chance = {
+			base = 100
+		}	
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_2_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 0 compare = greater_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = -5 } }
+			}
+	}
+}
+
+#Kalman Daranyi Resigns
+country_event = {
+	id = CBTS_hungary.35
+	title = CBTS_hungary.35.t
+	desc = CBTS_hungary.35.desc
+	picture = GFX_Event_Arrow_Cross_Officers
+
+	mean_time_to_happen = { months = 1 }
+
+	fire_only_once = yes	
+
+	trigger = {
+		original_tag = HUN
+		has_country_flag = purged_gyula_gombos_de_jakfa
+		NOT = { has_global_flag = kalman_daranyi_purged }
+		has_country_flag = hun_kalman_elected
+		HUN = {
+			exists = yes
+			is_puppet = no
+			has_government = nationalism
+			fascism > 0.18
+		}		
+		GER = {
+			controls_state = 811
+		}
+	}	
+	option = {	# He would have led us to death.
+		name = CBTS_hungary.35.a
+		ai_chance = {
+			base = 100
+		}	
+		custom_effect_tooltip = HUN_kalman_imredy_tt
+		hidden_effect = {
+			set_global_flag = kalman_daranyi_purged
+			swap_ideas = {
+				remove_idea = HUN_CBTS_kalman_daranyi
+				add_idea = HUN_bela_imredy
+			}
+		}
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_2_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 0 compare = greater_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = -5 } }
+		}
+	}
+}
+
+#Bela Imredy Resigns
+country_event = {
+	id = CBTS_hungary.36
+	title = CBTS_hungary.36.t
+	desc = CBTS_hungary.36.desc
+	picture = GFX_Event_Arrow_Cross_Officers
+
+	fire_only_once = yes	
+
+	trigger = {
+		original_tag = HUN
+		has_global_flag = kalman_daranyi_purged
+		HUN = {
+			exists = yes
+			is_puppet = no
+			has_government = nationalism
+			fascism > 0.20
+		}		
+		date > 1939.2.16
+	}	
+	option = {	# How Ironic
+		name = CBTS_hungary.36.a
+		ai_chance = {
+			base = 100
+		}	
+		custom_effect_tooltip = HUN_imredy_teleki_tt
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_2_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 0 compare = greater_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = -5 } }
+		}
+		if = {
+			limit = {
+				has_idea = HUN_bela_imredy
+			}
+			hidden_effect = {
+				swap_ideas = {
+					remove_idea = HUN_bela_imredy
+					add_idea = HUN_pal_teleki
+				}
+			}
+		}
+	}
+}
+
+#Growing Discontent amongst Kalman Daranyi
+country_event = {
+	id = CBTS_hungary.37
+	title = CBTS_hungary.37.t
+	desc = CBTS_hungary.37.desc
+	picture = GFX_report_event_german_advisors_remain
+
+	mean_time_to_happen = { months = 5 }
+
+	fire_only_once = yes	
+
+	trigger = {
+		original_tag = HUN
+		NOT = { has_global_flag = kalman_daranyi_purged } 
+		has_country_flag = purged_gyula_gombos_de_jakfa
+		has_country_flag = hun_kalman_elected
+		has_completed_focus = HUN_trade_deal_with_germany
+		HUN = {
+			exists = yes
+			is_puppet = no
+			has_government = nationalism
+			fascism > 0.16
+		}		
+	}	
+	option = {	# We'll watch the situation closely
+		name = CBTS_hungary.37.a
+		ai_chance = {
+			base = 100
+		}	
+		add_stability = 0.01
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+	}
+	option = {	# We shouldn't upset the already fragile situation
+		name = CBTS_hungary.37.b
+		ai_chance = {
+			base = 0
+		}	
+		custom_effect_tooltip = HUN_kalman_imredy_tt
+		hidden_effect = {
+			set_global_flag = kalman_daranyi_purged
+			swap_ideas = {
+				remove_idea = HUN_CBTS_kalman_daranyi
+				add_idea = HUN_bela_imredy
+			}		
+		}
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_2_tt
+		if = {
+			limit = {
+				HUN = { 
+					check_variable = { var = hun_nation_influence value = 0 compare = greater_than }
+				}
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = -5 } }
+		}				
+	}
+}
+
+#Hungary asks to join Tripartite Pact
+country_event = {
+	id = CBTS_hungary.38
+	title = CBTS_hungary.38.t
+	desc = CBTS_hungary.38.desc
+	picture = GFX_report_event_fascist_speech
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+	
+	option = {	# An excellent idea!
+		name = CBTS_hungary.38.a
+		ai_chance = {
+			base = 100
+		}
+		ROOT = {
+			add_stability = 0.02
+			diplomatic_relation = {
+    			country = HUN
+   				relation = non_aggression_pact
+    			active = yes
+    		}
+			diplomatic_relation = {
+    			country = HUN
+   				relation = guarantee
+    			active = yes
+			}
+		}	
+		HUN = { country_event = CBTS_hungary.40 }
+	}
+	option = {	# We are stronger without them.
+		name = CBTS_hungary.38.b
+		ai_chance = {
+			base = 0
+		}
+		HUN = { country_event = CBTS_hungary.39 }	
+	}
+}
+
+#Tripartite Pact - Denied
+country_event = {
+	id = CBTS_hungary.39
+	title = CBTS_hungary.39.t
+	desc = CBTS_hungary.39.desc
+	picture = GFX_report_event_gathering_protest
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+	
+	option = {	# Alright
+		name = CBTS_hungary.39.a
+		ai_chance = {
+			base = 100
+		}	
+	}
+}
+
+#Tripartite Pact - Success!
+country_event = {
+	id = CBTS_hungary.40
+	title = CBTS_hungary.40.t
+	desc = CBTS_hungary.40.desc
+	picture = GFX_Events_Germany_Horthy_Hitler
+
+	fire_only_once = yes	
+
+	is_triggered_only = yes
+	
+	option = {	# Alright
+		name = CBTS_hungary.40.a
+		ai_chance = {
+			base = 100
+		}	
+		custom_effect_tooltip = HUN_add_influence_10_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 95 compare = less_than } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = 10 } }
+			}
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+		hidden_effect = {
+			set_country_flag = HUN_tripartite_pact_succeeded
+		}
+	}
+}
+
+#Second Vienna Award - Hungary Receives Land
+country_event = { 
+	id = CBTS_hungary.41
+	title = CBTS_hungary.41.t
+	desc = CBTS_hungary.41.desc
+	picture = GFX_Event_Hungarians_Occupied_Transylvania #Second_Vienna_Award
+
+	is_triggered_only = yes
+
+	option = {
+		name = CBTS_hungary.41.a
+		ai_chance = {
+			base = 100
+		}	
+		custom_effect_tooltip = HUN_add_influence_5_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 100 compare = less_than } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = 5 } }
+			}
+		transfer_state = 1054
+		transfer_state = 1048
+		transfer_state = 76
+		transfer_state = 1046
+		1054 = { 
+		    set_state_name = "Máramaros" 
+			add_claim_by = HUN
+		}
+		1048 = { 
+		    set_state_name = "Bihar"
+			add_claim_by = HUN
+		}
+		76 = { 
+		    set_state_name = "Észak-Erdély" 
+            add_claim_by = HUN			
+		}
+		1046 = { 
+		    set_state_name = "Székelyföld"
+			add_core_of = HUN
+		}
+		add_named_threat = { threat = 4 name = HUN_sva }
+		add_stability = 0.03
+		add_war_support = -0.03
+	}
+}
+
+#Romania is weakened, take Transylvania?
+country_event = { 
+	id = CBTS_hungary.42
+	title = CBTS_hungary.42.t
+	desc = CBTS_hungary.42.desc
+	picture = GFX_report_event_hungary_gains_transylvania 
+
+	fire_only_once = yes
+
+	mean_time_to_happen = { days = 7 }
+
+
+	trigger = {
+		original_tag = HUN
+		HUN = {
+			exists = yes
+			is_puppet = no
+			has_government = nationalism
+			NOT = {
+				controls_state = 76
+			}
+		GER = {
+			focus_progress = {
+				focus = GER_second_vienna_award
+				progress > 0
+				}
+			}
+		}
+		SOV = {
+			controls_state = 80
+			controls_state = 1051
+			controls_state = 78
+			controls_state = 1052
+		}
+	}
+
+	option = {	#We should press our demands
+		name = CBTS_hungary.42.a
+		ai_chance = {
+			base = 100
+		}	
+		ROM = { country_event = CBTS_hungary.43 }
+	}
+	option = {	#Let's not agitate them
+	name = CBTS_hungary.42.b
+		ai_chance = {
+			base = 0
+		}	
+		add_stability = -0.01
+	}
+}
+
+#Romania is weakened - Romania
+country_event = { 
+	id = CBTS_hungary.43
+	title = CBTS_hungary.43.t
+	desc = CBTS_hungary.43.desc
+	picture = GFX_Event_Hungarians_Occupied_Transylvania 
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {	#Let's not give them Transylvania
+	name = CBTS_hungary.43.a
+		ai_chance = {
+			base = 100
+		}	
+		add_stability = 0.03
+	}
+}
+
+#Mission to Germany Event
+country_event = { 
+	id = CBTS_hungary.44
+	title = CBTS_hungary.44.t
+	desc = CBTS_hungary.44.desc
+	picture = GFX_report_event_fascist_speech 
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {	#We shall see how this plays out.
+	name = CBTS_hungary.44.a
+		ai_chance = {
+			base = 100
+		}	
+	}
+}
+
+#Fascists Demonstrate
+country_event = { 
+	id = CBTS_hungary.45
+	title = CBTS_hungary.45.t
+	desc = CBTS_hungary.45.desc
+	picture = GFX_report_event_fascist_militia 
+
+	fire_only_once = yes
+
+	mean_time_to_happen = { days = 20 }
+
+	trigger = {
+		original_tag = HUN
+		has_completed_focus = HUN_reindustrialization
+	}
+
+	option = {	#We'll watch the situation closely
+	name = CBTS_hungary.45.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+		add_popularity = {
+    		ideology = fascism
+    		popularity = 0.01
+			}	
+	}
+}
+
+#Germany demands release of Ferenc Szalasi
+country_event = { 
+	id = CBTS_hungary.46
+	title = CBTS_hungary.46.t
+	desc = CBTS_hungary.46.desc
+	picture = GFX_report_event_vienna_award_negotiations 
+
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = HUN
+		GER = {
+			has_completed_focus = GER_second_vienna_award
+			check_variable = { var = ger_nation_influence value = 25 compare = greater_than_or_equals }
+		}
+		HUN = {
+			is_puppet = no
+			has_government = nationalism
+			controls_state = 76
+		}
+	}
+
+	option = {	#Very Well
+	name = CBTS_hungary.46.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = szalasi_freed_tt
+		custom_effect_tooltip = HUN_add_influence_5_tt
+		custom_effect_tooltip = HUN_anti_fascist_protest_events_tt
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+			}
+		if = { # Hidden Effect
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 100 compare = less_than } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = 5 } }
+			}	
+		}
+
+	option = {	#We shall not give in to German demands
+	name = CBTS_hungary.46.b
+		ai_chance = {
+			base = 100
+		}
+		GER = {
+			add_opinion_modifier = {
+				target = HUN
+    			modifier = HUN_refuses
+			}		
+		}
+	}
+}
+
+#Germany demands military access to Romania
+country_event = { 
+	id = CBTS_hungary.47
+	title = CBTS_hungary.47.t
+	desc = CBTS_hungary.47.desc
+	picture = GFX_report_event_vienna_award_negotiations 
+
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = HUN
+		GER = { check_variable = { var = ger_nation_influence value = 40 compare = greater_than_or_equals } }
+		ROM = { 
+			is_in_faction_with = GER 
+		}
+		HUN = {
+			is_puppet = no
+			has_government = nationalism
+			NOT = {
+				is_in_faction_with = GER
+			}
+		}
+	}
+
+	option = {	#Very Well
+	name = CBTS_hungary.46.a
+		ai_chance = {
+			base = 100
+		}
+		give_military_access = GER
+		give_military_access = ROM
+		custom_effect_tooltip = HUN_add_influence_5_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 100 compare = less_than } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = 5 } }
+			}	}
+
+	option = {	#We shall not give in to German demands
+	name = CBTS_hungary.46.b
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = HUN_remove_influence_5_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 0 compare = greater_than } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = -5 } }
+			}		GER = {
+			add_opinion_modifier = {
+				target = HUN
+    			modifier = HUN_refuses
+			}		
+		}
+	}
+}
+
+#Military Rearmament Program
+country_event = { 
+	id = CBTS_hungary.48
+	title = CBTS_hungary.48.t
+	desc = CBTS_hungary.48.desc
+	picture = GFX_report_event_hitler_handshake 
+
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = HUN
+		has_completed_focus = HUN_open_the_military_budget
+		GER = {
+			has_country_leader = {
+   				name = "Adolf Hitler"
+    			ruling_only = yes
+			}
+		}
+		GER = { check_variable = { var = ger_nation_influence value = 35 compare = greater_than_or_equals } }
+	}
+
+	option = {	#Very Well
+	name = CBTS_hungary.48.a
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = HUN_add_influence_5_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 100 compare = less_than } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = 5 } }
+			}
+		army_experience = 10
+			add_tech_bonus = {
+				name = HUN_rearmament_program
+				bonus = 0.5
+				uses = 2
+				category = infantry_weapons
+		}		
+	}
+	option = {	#Deny
+	name = CBTS_hungary.48.b
+		ai_chance = {
+			base = 100
+		}
+		custom_effect_tooltip = HUN_remove_influence_5_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 0 compare = greater_than } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = -5 } }
+		}		
+	}
+}
+
+#Hitler presses his demands (25 influence)
+country_event = { 
+	id = CBTS_hungary.49
+	title = CBTS_hungary.49.t
+	desc = CBTS_hungary.49.desc
+	picture = GFX_report_event_vienna_award_negotiations 
+
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = HUN
+		GER = { check_variable = { var = ger_nation_influence value = 25 compare = greater_than_or_equals } }
+	}
+
+	option = {	#Very Well
+	name = CBTS_hungary.49.a
+		ai_chance = {
+			base = 100
+		}
+		add_ideas = HUN_ger_25_influence
+	}
+}
+
+#Hitler presses his demands (50 influence)
+country_event = { 
+	id = CBTS_hungary.50
+	title = CBTS_hungary.49.t
+	desc = CBTS_hungary.50.desc
+	picture = GFX_report_event_vienna_award_negotiations 
+
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = HUN
+		GER = { check_variable = { var = ger_nation_influence value = 50 compare = greater_than_or_equals } }
+	}
+
+	option = {	#Very Well
+	name = CBTS_hungary.49.a
+		ai_chance = {
+			base = 100
+		}
+			swap_ideas = { 
+  				remove_idea = HUN_ger_25_influence 
+  				add_idea = HUN_ger_50_influence 
+		}
+	}
+}
+
+#Hitler presses his demands (75 influence)
+country_event = { 
+	id = CBTS_hungary.51
+	title = CBTS_hungary.49.t
+	desc = CBTS_hungary.51.desc
+	picture = GFX_report_event_vienna_award_negotiations 
+
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = HUN
+		GER = { check_variable = { var = ger_nation_influence value = 75 compare = greater_than_or_equals } }
+	}
+
+	option = {	#Very Well
+		name = CBTS_hungary.49.a
+		ai_chance = {
+			base = 100
+			}
+			swap_ideas = { 
+  				remove_idea = HUN_ger_50_influence 
+  				add_idea = HUN_ger_75_influence 
+		}
+	}
+}
+
+#Disposes Horthy and adds Ferenc Szalasi  (100 influence)
+country_event = { 
+	id = CBTS_hungary.52
+	title = CBTS_hungary.52.t 
+	desc = CBTS_hungary.52.desc
+	picture = GFX_report_event_ITA_operation_Achse 
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {	#Very Well
+		name = CBTS_hungary.52.a
+		ai_chance = {
+			base = 100
+		}
+		kill_country_leader = yes
+		set_politics = {							# Effects taken from ger_external.84!
+			ruling_party = fascism
+			elections_allowed = no
+		}
+		set_party_name = { ideology = fascism long_name = HUN_arrow_cross_party_long name = HUN_arrow_cross_party }
+		drop_cosmetic_tag = yes
+		set_cosmetic_tag = HUN_Arrow_Cross
+		if = {
+			limit = {
+				NOT = { is_subject = yes }
+				NOT = { is_subject_of = GER }
+				GER = {
+					has_country_leader = {
+   						name = "Adolf Hitler"
+    					ruling_only = yes
+					}				
+				}
+			}
+			GER = { country_event = { id = ger_external.85 days = 1 } }
+		}
+		set_country_flag = GER_arrow_cross_coup
+		add_stability = -0.20
+		if = {
+			limit = { fascism > 0.14 }
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.10
+			}
+		}		
+	}
+}
+
+# Coup in Hungary
+country_event = { 
+	id = CBTS_hungary.53
+	title = CBTS_hungary.53.t 
+	desc = CBTS_hungary.53.desc
+	picture = GFX_Event_Germany_Austria_Federal_Army_in_Vienna 
+
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = HUN
+		OR = {
+			GER = { 
+				has_country_leader = {
+   					name = "Adolf Hitler"
+    				ruling_only = yes
+				}			
+				check_variable = { var = ger_nation_influence value = 100 compare = greater_than_or_equals }
+				 }
+			HUN = { check_variable = { var = hun_nation_influence value = 70 compare = greater_than_or_equals } }
+		}
+		NOT = {
+			HUN = {
+				has_country_leader = {
+   					name = "Ferenc Szálasi"
+    				ruling_only = yes
+				}
+			}
+		}
+	}
+
+	option = {	# Mobilize the Gendarmerie
+		name = CBTS_hungary.53.a
+		ai_chance = {
+			base = 50
+			}
+			random_list = {
+				50 = { country_event = { hours = 6 id = CBTS_hungary.54 } } # Coup d'Etat Avoided
+				50 = { country_event = { hours = 6 id = CBTS_hungary.52 } } # Coup d'Etat Succesful
+			}
+	}
+	option = {	# Surrender to the rebels, avoid unnecessary blood spill
+		name = CBTS_hungary.53.b
+		ai_chance = {
+			base = 50
+			}
+		HUN = { country_event = CBTS_hungary.52 }
+	}
+}
+
+
+# Coup d'Etat Avoided
+country_event = { 
+	id = CBTS_hungary.54
+	title = CBTS_hungary.54.t 
+	desc = CBTS_hungary.54.desc
+	picture = GFX_Event_Arrow_Cross_Officers 
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	option = {	# Cowards.
+		name = CBTS_hungary.54.a
+		ai_chance = {
+			base = 100
+			}
+		custom_effect_tooltip = HUN_remove_influence_50_tt
+		if = {
+			limit = {
+				GER = { check_variable = { var = ger_nation_influence value = 50 compare = greater_than_or_equals } }
+			}
+			GER = { add_to_variable = { var = ger_nation_influence value = -50 } }
+			}
+	}
+}
+
+#Secret Rearmament Event
+country_event = {
+	id = CBTS_hungary.55
+	title = CBTS_hungary.55.t
+	desc = CBTS_hungary.55.desc
+	picture = GFX_Event_USSR_Soviet_Czech_Soldiers
+
+	fire_only_once = yes	
+
+	trigger = {
+		tag = HUN
+		has_completed_focus = HUN_secret_rearmament
+	}
+	
+	option = {	#Accept					
+		name = CBTS_hungary.55.a
+
+		add_command_power = 20
+        unlock_decision_category_tooltip = HUN_secret_rearmament_decision
+        set_country_flag = HUN_secret_rearmament_decisions
+
+		ai_chance = {
+			base = 100
+		}		
+	}
+}
+
+#Resume debt repayments to the League of Nations
+country_event = {
+	id = CBTS_hungary.56
+	title = CBTS_hungary.56.t
+	desc = CBTS_hungary.56.desc
+	picture = GFX_report_event_saf_coup
+
+	fire_only_once = yes	
+
+	trigger = {
+		original_tag = HUN
+		NOT = {
+			has_idea = HUN_effects_of_the_great_depression_5
+			has_idea = HUN_effects_of_the_great_depression_4
+			has_idea = HUN_effects_of_the_great_depression_3
+			has_idea = HUN_effects_of_the_great_depression_2
+			has_idea = HUN_effects_of_the_great_depression_1
+		}
+	}
+
+	mean_time_to_happen = { months = 1 }
+
+	option = {	#Accept					
+		name = CBTS_hungary.56.a
+		ai_chance = {
+			base = 100
+		}
+		swap_ideas = {
+			remove_idea = HUN_debt_to_the_lon_suspended
+			add_idea = HUN_debt_to_the_lon
+		}
+		custom_effect_tooltip = HUN_resume_lon_debt_tt      
+        hidden_effect = {
+        	set_country_flag = HUN_depression_is_gone       	 
+        }
+	}
+}
+
+#Ask for economic aid - Germany asked
+country_event = {
+	id = CBTS_hungary.57
+	title = CBTS_hungary.57.t
+	desc = CBTS_hungary.57.desc
+	picture = GFX_report_event_saf_coup
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	#YES - GERMANY
+	option = {
+		name = CBTS_hungary.57.a
+		ai_chance = {
+			base = 60
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 1000
+			}	
+			modifier = {
+				is_historical_focus_on = no
+				fascism > 0.40
+				factor = 90
+			}		
+		}
+		add_political_power = 5
+		HUN = {
+			set_country_flag = HUN_GER_trade_deal_win
+			unlock_decision_category_tooltip = HUN_reduce_the_effects_of_the_great_depression
+			country_event = { id = CBTS_hungary.59 days = 3 } 
+		}
+	}
+
+	#NO
+	option = {
+		name = CBTS_hungary.57.b
+		HUN = {
+			set_country_flag = HUN_GER_trade_deal_result
+	
+		}
+	}
+}
+
+#Ask for economic aid - Italy asked
+country_event = {
+	id = CBTS_hungary.58
+	title = CBTS_hungary.57.t
+	desc = CBTS_hungary.57.desc
+	picture = GFX_report_event_saf_coup
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	#YES - ITALY
+	option = {
+		name = CBTS_hungary.57.a
+		ai_chance = {
+			base = 60
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 1000
+			}	
+			modifier = {
+				is_historical_focus_on = no
+				fascism > 0.40
+				factor = 90
+			}		
+		}
+		add_political_power = 5
+		HUN = {
+			set_country_flag = HUN_ITA_trade_deal_win
+			unlock_decision_category_tooltip = HUN_italy_reduce_the_effects_of_the_great_depression
+			country_event = { id = CBTS_hungary.59 days = 3 } 
+
+		}
+	}
+
+	#NO
+	option = {
+		name = CBTS_hungary.57.b
+		HUN = {
+			set_country_flag = HUN_ITA_trade_deal_result
+	
+		}
+	}
+}
+
+#Ask for economic aid - Accepted
+country_event = {
+	id = CBTS_hungary.59
+	title = CBTS_hungary.59.t
+	desc = CBTS_hungary.59.desc
+	picture = GFX_report_event_saf_coup
+
+	fire_only_once = yes
+
+	is_triggered_only = yes
+
+	#Deal.
+	option = {
+		name = CBTS_hungary.59.a
+		ai_chance = {
+			base = 60		
+		}
+	}
+}
+
+#Daranyi allows for arrow cross members in parliament
+country_event = {
+	id = CBTS_hungary.60
+	title = CBTS_hungary.60.t
+	desc = CBTS_hungary.60.desc
+	picture = GFX_report_event_hungary_parliament
+
+	fire_only_once = yes
+
+	trigger = {
+		original_tag = HUN
+		has_idea = HUN_CBTS_kalman_daranyi
+		NOT = {
+			has_country_flag = HUN_kalman_elected_timed 
+		}
+		HUN =  { check_variable = { var = hun_nation_influence value = 20 compare = greater_than_or_equals } }
+	}
+
+	option = { #Oh well
+		name = CBTS_hungary.60.a
+		add_popularity = {
+    		ideology = fascism
+    		popularity = 0.02
+			}
+			custom_effect_tooltip = HUN_anti_fascist_protest_events_tt			
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 100 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 5 } }
+		}
+	}
+}
+
+#event to make sure you dont have crazy high fasicst support yet almost no influence
+country_event = {
+	id = CBTS_hungary.1000
+
+	fire_only_once = yes
+
+	hidden = yes
+
+	trigger = {
+		original_tag = HUN
+		fascism > 0.30
+		HUN = { check_variable = { var = hun_nation_influence value = 15 compare = less_than_or_equals } }
+
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				HUN = { check_variable = { var = hun_nation_influence value = 50 compare = less_than } }
+			}
+			HUN = { add_to_variable = { var = hun_nation_influence value = 10 } }
+			}
+	}
+}
+#Hungary wins
+country_event = {
+	id = hungarian_border_conflict.2
+	title = hungarian_border_conflict.2.t
+	desc = hungarian_border_conflict.2.desc
+	picture = GFX_report_event_bulgarian_soldiers
+
+	is_triggered_only = yes
+
+	option = {
+		name = hungarian_border_conflict.2.a
+		trigger = {
+			original_tag = HUN
+		}
+		HUN = {
+			transfer_state = 73
+		}
+	}
+	option = {
+		name = hungarian_border_conflict.2.b
+		trigger = {
+			original_tag = SLO
+		}
+		army_experience = 20
+	}
+}
+#Hungary loses
+country_event = {
+	id = hungarian_border_conflict.3
+	title = hungarian_border_conflict.3.t
+	desc = hungarian_border_conflict.3.desc
+	picture = GFX_report_event_bulgarian_soldiers
+
+	is_triggered_only = yes
+
+	option = {
+		name = hungarian_border_conflict.3.a
+		trigger = {
+			original_tag = HUN
+		}
+		army_experience = 25
+		HUN = {
+			transfer_state = 73
+		}
+	}
+	option = {
+		name = hungarian_border_conflict.3.b
+		trigger = {
+			original_tag = SLO
+		}
+	}
+}
+
+#stalemate
+country_event = {
+	id = hungarian_border_conflict.4
+	title = hungarian_border_conflict.2.t
+	desc = hungarian_border_conflict.2.desc
+	picture = GFX_report_event_bulgarian_soldiers
+
+	is_triggered_only = yes
+
+	option = {
+		name = hungarian_border_conflict.2.a
+		trigger = {
+			original_tag = HUN
+		}
+		army_experience = 50
+		HUN = {
+			transfer_state = 73
+		}
+	}
+	option = {
+		name = hungarian_border_conflict2.b
+		trigger = {
+			original_tag = SLO
+		}
+		army_experience = 50
+	}
+}
+
+#Hungary escalates
+country_event = {
+	id = hungarian_border_conflict.5
+	title = hungarian_border_conflict.5.t
+	desc = hungarian_border_conflict.5.desc
+	picture = GFX_report_event_bulgarian_soldiers
+
+	is_triggered_only = yes
+
+	option = {
+		name = hungarian_border_conflict.5.a
+		
+	}
+	
+}

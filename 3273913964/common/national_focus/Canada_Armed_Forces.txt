@@ -1,0 +1,724 @@
+
+#army
+shared_focus = {
+	id = CAN_Otter_commitee
+	icon = GFX_focus_CAN_Royal_Canadian_Army
+	x = 22
+	y = 0
+	cost = 3
+	available = {
+	}
+	completion_reward = {
+		army_experience = 35
+	}
+}
+shared_focus = {
+	id = CAN_Reorganize_RCAMC
+	icon = default
+	prerequisite = {
+		focus = CAN_Otter_commitee
+	}
+	x = 23
+	y = 1
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 0.75
+			uses = 1
+			category = hospital_tech
+		}
+	}
+}
+shared_focus = {
+	id = CAN_Reorganize_NPAM
+	icon = default
+	prerequisite = {
+		focus = CAN_Otter_commitee
+	}
+	x = 21
+	y = 1
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = land_doctrine
+		}
+	}
+}
+shared_focus = {
+	id = CAN_Motorize_artillery
+	icon = GFX_goal_generic_army_motorized
+	prerequisite = {
+		focus = CAN_Reorganize_NPAM
+	}
+	prerequisite = {
+		focus = CAN_Reorganize_RCAMC
+	}
+	x = 22
+	y = 2
+	cost = 7.2
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 1
+			category = artillery
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_fully_controlled_by = ROOT
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = CAN_Buy_Czech_guns
+	icon = GFX_goal_guns_czechs
+	prerequisite = {
+		focus = CAN_Motorize_artillery
+	}
+	x = 24
+	y = 3
+	cost = 4.4
+	available = {
+	}
+	completion_reward = {
+		add_political_power = -50
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 3000
+			producer = CZE
+		}
+	}
+}
+shared_focus = {
+	id = CAN_CMP_truck
+	icon = GFX_focus_CM_pattern_truck
+	prerequisite = {
+		focus = CAN_Motorize_artillery
+	}
+	x = 22
+	y = 3
+	cost = 7.2
+	available = {
+	}
+	completion_reward = {
+		add_ideas = {
+			#an idea called CM Pattern Truck
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 1
+			category = motorized_equipment
+		}
+	}
+}
+shared_focus = {
+	id = CAN_Royal_Regiment_Artillery
+	icon = default
+	prerequisite = {
+		focus = CAN_Motorize_artillery
+	}
+	x = 20
+	y = 3
+	cost = 7.2
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = land_doctrine
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 1
+			category = artillery
+		}
+	}
+}
+shared_focus = {
+	id = CAN_Walkie_talkie
+	icon = default
+	prerequisite = {
+		focus = CAN_Buy_Czech_guns
+	}
+	x = 24
+	y = 4
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 0.75
+			uses = 1
+			category = signal_company_tech
+		}
+	}
+}
+shared_focus = {
+	id = CAN_Canadian_Armored_Corps
+	icon = GFX_focus_Canadian_Armored_corps
+	prerequisite = {
+		focus = CAN_CMP_truck
+	}
+	x = 22
+	y = 4
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 0.6
+			uses = 1
+			category = cat_light_armor
+		}
+	}
+}
+shared_focus = {
+	id = CAN_Pacific_Coastal_Defenses
+	icon = default
+	prerequisite = {
+		focus = CAN_Royal_Regiment_Artillery
+	}
+	x = 20
+	y = 4
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		473 = {
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				instant_build = yes
+				province = {
+					all_provinces = yes
+					limit_to_coastal = yes
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = CAN_Permanent_active_militia #raises 2nd division in 12149 and 5th division in 7361 and unlocks desicions to rise 3rd in Ontario, but needs Mechanized troops too. and 4th that needs The Valentine to be rised
+	icon = GFX_focus_Canadian_Permanent_Armed_Militia
+	prerequisite = {
+		focus = CAN_Pacific_Coastal_Defenses
+	}
+	prerequisite = {
+		focus = CAN_Canadian_Armored_Corps
+	}
+	prerequisite = {
+		focus = CAN_Walkie_talkie
+	}
+	x = 22
+	y = 5
+	cost = 7.2
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+		1003 = {
+			create_unit = {
+				division = "name = \"2nd Canadian Division\" division_template = \"Infantry Division\" start_experience_factor = 0.1 start_equipment_factor = 1"
+				owner = CAN
+				prioritize_location = 12149
+			}
+		}
+		464 = {
+			create_unit = {
+				division = "name = \"5th Canadian Division\" division_template = \"Infantry Division\" start_experience_factor = 0.1 start_equipment_factor = 1"
+				owner = CAN
+				prioritize_location = 7361
+			}
+		}
+		unlock_decision_tooltip = {
+ 			decision = CAN_rise_3rd
+  			show_effect_tooltip = yes
+		}
+		unlock_decision_tooltip = {
+ 			decision = CAN_rise_4th
+  			show_effect_tooltip = yes
+		}
+	}
+}
+shared_focus = {
+	id = CAN_Red_deer_camp
+	icon = default
+	prerequisite = {
+		focus = CAN_Permanent_active_militia
+	}
+	x = 22
+	y = 6
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		army_experience = 5
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = land_doctrine
+		}
+	}
+}
+shared_focus = {
+	id = CAN_Rocky_Rangers
+	icon = GFX_focus_Mountain_Troops
+	prerequisite = {
+		focus = CAN_Red_deer_camp
+	}
+	x = 22
+	y = 7
+	cost = 7.2
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_The_Valentine
+	icon = default
+	prerequisite = {
+		focus = CAN_Red_deer_camp
+	}
+	x = 24
+	y = 7
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Mechanized_Troops
+	icon = GFX_focus_Mechanized_Divisions
+	prerequisite = {
+		focus = CAN_The_Valentine
+	}
+	x = 24
+	y = 8
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Parachute_division
+	icon = GFX_focus_Paratroopers
+	prerequisite = {
+		focus = CAN_Red_deer_camp
+	}
+	x = 20
+	y = 7
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_The_red_devils
+	icon = GFX_focus_Commando_Operations
+	prerequisite = {
+		focus = CAN_Parachute_division
+	}
+	x = 20
+	y = 8
+	cost = 5.8
+	available = {
+		is_in_faction_with = USA
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Royal_Canadian_Navy
+	icon = GFX_focus_CAN_RCN
+	prerequisite = {
+	}
+	x = 12
+	y = 0
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Expand_Halifax
+	icon = default
+	prerequisite = {
+		focus = CAN_Royal_Canadian_Navy
+	}
+	x = 12
+	y = 1
+	cost = 7.2
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Destroyers
+	icon = GFX_focus_Small_Navy
+	prerequisite = {
+		focus = CAN_Expand_Halifax
+	}
+	x = 11
+	y = 2
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Submarines
+	icon = default
+	prerequisite = {
+		focus = CAN_Expand_Halifax
+	}
+	x = 13
+	y = 2
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Light_Cruisers
+	icon = default
+	prerequisite = {
+		focus = CAN_Submarines
+		focus = CAN_Destroyers
+	}
+	x = 12
+	y = 3
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Burrad_dry_dock
+	icon = default
+	prerequisite = {
+		focus = CAN_Light_Cruisers
+	}
+	x = 10
+	y = 4
+	cost = 7.2
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Degauss_ships
+	icon = default
+	prerequisite = {
+	}
+	x = 6
+	y = 4
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Canada_Trade_fleet
+	icon = GFX_Goal_Generic_Defend_Conveys
+	prerequisite = {
+		focus = CAN_Light_Cruisers
+	}
+	x = 14
+	y = 4
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Request_carriers
+	icon = default
+	prerequisite = {
+		focus = CAN_Canada_Trade_fleet
+	}
+	prerequisite = {
+		focus = CAN_Burrad_dry_dock
+	}
+	x = 13
+	y = 5
+	cost = 5
+	available = {
+		is_in_faction_with = USA
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Request_Drednoughts
+	icon = default
+	prerequisite = {
+		focus = CAN_Burrad_dry_dock
+	}
+	prerequisite = {
+		focus = CAN_Degauss_ships
+	}
+	x = 11
+	y = 5
+	cost = 5
+	available = {
+		is_in_faction_with = USA
+	}
+	completion_reward = {	
+	}
+}
+shared_focus = {
+	id = CAN_Build_hevy_cruisers
+	icon = default
+	prerequisite = {
+		focus = CAN_Request_Drednoughts
+	}
+	x = 10
+	y = 6
+	cost = 7
+	available = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = CAN_Prepare_D_Day
+	icon = default
+	prerequisite = {
+		focus = CAN_Request_Drednoughts
+		focus = CAN_Request_carriers
+	}
+	x = 12
+	y = 6
+	cost = 6.5
+	available = {
+		is_in_faction_with = USA
+		is_in_faction_with = ENG
+		OR = {
+			has_war_with = GER
+			has_war_with = FRA
+			has_war_with = ITA
+		} 
+	}
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = CAN_Vickers_Canada
+	icon = default
+	prerequisite = {
+		focus = CAN_Request_carriers
+	}
+	x = 14
+	y = 6
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = CAN_United_Shipyards
+	icon = default
+	prerequisite = {
+		focus = CAN_Build_hevy_cruisers
+		focus = CAN_Vickers_Canada
+	}
+	x = 12
+	y = 7
+	cost = 7.2
+	available = {
+	}
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = CAN_Reorganize_RCAF
+	icon = GFX_focus_CAN_RCAF
+	prerequisite = {
+	}
+	x = 17
+	y = 2
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = CAN_Trans_Canada
+	icon = default
+	prerequisite = {
+		focus = CAN_Reorganize_RCAF
+	}
+	x = 17
+	y = 3
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = CAN_Expand_Camp_Borden
+	icon = default
+	prerequisite = {
+		focus = CAN_Trans_Canada
+	}
+	x = 17
+	y = 4
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = CAN_Build_Hurricane
+	icon = default
+	prerequisite = {
+		focus = CAN_Expand_Camp_Borden
+	}
+	x = 16
+	y = 5
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = CAN_Pacific_Coast_Radar_system
+	icon = default
+	prerequisite = {
+		focus = CAN_Expand_Camp_Borden
+		focus = CAN_Pacific_Coastal_Defenses
+	}
+	x = 18
+	y = 5
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		
+	}
+}
+
+shared_focus = {
+	id = CAN_Commonwealth_air_train_planning
+	icon = GFX_focus_Commonweath_air_training_plan
+	prerequisite = {
+		focus = CAN_Pacific_Coast_Radar_system
+	}
+	prerequisite = {
+		focus = CAN_Build_Hurricane
+	}
+	x = 17
+	y = 6
+	cost = 6.5
+	available = {
+	has_war = yes
+	is_in_faction_with = ENG
+	}
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = CAN_Corss_Country_mobilization
+	icon = GFX_goal_continuous_air_production
+	prerequisite = {
+		focus = CAN_Commonwealth_air_train_planning
+	}
+	x = 17
+	y = 7
+	cost = 6.5
+	available = {
+	}
+	completion_reward = {
+		
+	}
+}
+
+shared_focus = {
+	id = CAN_RCAF_woman_division
+	icon = GFX_focus_Womens_Rights
+	prerequisite = {
+		focus = CAN_Corss_Country_mobilization
+	}
+	x = 16
+	y = 8
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = CAN_Aerodrome_of_the_democracy
+	icon = GFX_focus_Aerodrome_of_the_democracy
+	prerequisite = {
+		focus = CAN_RCAF_woman_division
+	}
+	prerequisite = {
+		focus = CAN_Support_Aircraft_Companies
+	}
+	x = 17
+	y = 9
+	cost = 5.8
+	available = {
+	}
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = CAN_Support_Aircraft_Companies
+	icon = default
+	prerequisite = {
+		focus = CAN_Corss_Country_mobilization
+	}
+	x = 18
+	y = 8
+	cost = 5
+	available = {
+	}
+	completion_reward = {
+		
+	}
+}

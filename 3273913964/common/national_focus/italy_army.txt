@@ -1,0 +1,1086 @@
+#Italian Army Tree
+
+# Army xp and command power
+
+shared_focus = {
+	id = ITA_reorganize_the_command
+	icon = GFX_focus_Flexible_chain_of_command
+	x = 55
+	y = 0
+	cost = 2
+	ai_will_do = {
+		factor = 500
+	}
+	available = {
+
+	}
+	completion_reward = {
+		army_experience = 25
+		add_command_power = 50
+	}
+}
+
+# Pressure gazer
+
+shared_focus = {
+	id = ITA_pressure_gazzera
+	icon = GFX_focus_Pressure_Gazzera
+	prerequisite = {
+		focus = ITA_reorganize_the_command
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_reorganize_the_command
+	cost = 1
+	ai_will_do = {
+		factor = 500
+	}
+	available = {
+
+	}
+	completion_reward = {
+		add_political_power = -25
+	}
+}
+
+
+# Removes land doctrine malus
+shared_focus = {
+	id = ITA_three_year_plan
+	icon = GFX_focus_ITA_3_Year_Plan_Army
+	prerequisite = {
+		focus = ITA_pressure_gazzera
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_reorganize_the_command
+	cost = 5
+	ai_will_do = {
+		factor = 500
+	}
+	available = {
+
+	}
+	completion_reward = {
+		add_popularity = { ideology = neutrality popularity = -0.01 }
+		swap_ideas = {
+			remove_idea = ITA_disorganized_staff
+			add_idea = ITA_disorganized_staff_2
+		}
+	}
+}
+
+# Grants 1 year of research bonuses
+shared_focus = {
+	id = ITA_increase_army_spending
+	icon = GFX_focus_Fundraising
+	prerequisite = {
+		focus = ITA_three_year_plan
+	}
+	x = -1
+	y = 3
+	relative_position_id = ITA_reorganize_the_command
+	cost = 4
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+
+	}
+	completion_reward = {
+		add_timed_idea = {
+		idea = ITA_increase_army_spending
+			days = 365
+		}
+	}
+}
+
+#
+shared_focus = {
+	id = ITA_entrench_the_party
+	icon = GFX_focus_Partito_Nazionale_Fascista
+	prerequisite = {
+		focus = ITA_three_year_plan
+	}
+	x = 1
+	y = 3
+	relative_position_id = ITA_reorganize_the_command
+	cost = 4
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+
+	}
+	completion_reward = {
+  		add_political_power = 15
+		add_popularity = { ideology = fascism popularity = 0.01 }
+	}
+}
+
+# Gives infantry equipment cost reductions
+shared_focus = {
+	id = ITA_modernize_infantry_eq
+	icon = GFX_focus_Renewed_Arms
+	prerequisite = {
+		focus = ITA_increase_army_spending
+	}
+	prerequisite = {
+		focus = ITA_entrench_the_party
+	}
+	x = -2
+	y = 4
+	relative_position_id = ITA_reorganize_the_command
+	cost = 4
+	ai_will_do = {
+		factor = 200
+	}
+	available = {
+
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 0.50
+			uses = 1
+			category = infantry_weapons
+		}
+	}
+}
+
+# Gives arty equipment cost reductions
+shared_focus = {
+	id = ITA_modernize_arty_eq
+	icon = GFX_goal_generic_artillery
+	prerequisite = {
+		focus = ITA_increase_army_spending
+	}
+	prerequisite = {
+		focus = ITA_entrench_the_party
+	}
+	x = 2
+	y = 4
+	relative_position_id = ITA_reorganize_the_command
+	cost = 4
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+
+	}
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 0.50
+			uses = 1
+			category = artillery
+		}
+	}
+}
+
+# Spawns 2 units
+shared_focus = {
+	id = ITA_celere_division
+	icon = GFX_focus_Light_Tanks
+	prerequisite = {
+		focus = ITA_increase_army_spending
+	}
+	prerequisite = {
+		focus = ITA_entrench_the_party
+	}
+	x = 0
+	y = 4
+	relative_position_id = ITA_reorganize_the_command
+	cost = 4
+	ai_will_do = {
+		factor = 1000
+	}
+	available = {
+		controls_state = 2
+	}
+	completion_reward = {
+		custom_effect_tooltip = ITA_celere_division_tt
+		hidden_effect = {
+			division_template = {
+				name = "Divisione Celere" 		# Divisione Celere (Fast Division)
+				regiments = {
+					cavalry = { x = 0 y = 0 }
+					cavalry = { x = 0 y = 1 }
+					cavalry = { x = 1 y = 0 }
+					cavalry = { x = 1 y = 1 }
+					motorized = { x = 2 y = 0 }		# (elite) Bersaglieri Regiment
+					motorized = { x = 2 y = 1 }
+					light_armor = { x = 3 y = 0 }	# L3/35 Tankette Battaltion
+				}
+				priority = 2
+			}
+			## 6a Armata ##
+			# Corpo d'Armata Celere #
+			if = {
+				limit = {
+					controls_state = 160
+				}
+				160 = {
+					create_unit = {
+						division = "name = \"1. Divisione Celere 'Eugenio di Savoia'\" division_template = \"Divisione Celere\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+						owner = ITA
+						prioritize_location = 11584
+					}
+				}
+			}
+			else = {
+				random_controlled_state = {
+					limit = {
+						is_in_home_area = yes
+					}
+					create_unit = {
+						division = "name = \"1. Divisione Celere 'Emanuele Filiberto'\" division_template = \"Divisione Celere\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+						owner = ITA
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					controls_state = 160
+				}
+				160 = {
+					create_unit = {
+						division = "name = \"2. Divisione Celere\" division_template = \"Divisione Celere\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+						owner = ITA
+						prioritize_location = 11584
+					}
+				}
+			}
+			else = {
+				random_controlled_state = {
+					limit = {
+						is_in_home_area = yes
+					}
+					create_unit = {
+						division = "name = \"2. Divisione Celere\" division_template = \"Divisione Celere\" start_experience_factor = 0.5 start_equipment_factor = 1.0"
+						owner = ITA
+					}
+				}
+			}
+		}
+	}
+}
+
+# Reform officer corps
+shared_focus = {
+	id = ITA_reform_officer_corps
+	icon = GFX_focus_Officers_Command
+	prerequisite = {
+		focus = ITA_celere_division
+	}
+	prerequisite = {
+		focus = ITA_modernize_arty_eq
+	}
+	prerequisite = {
+		focus = ITA_modernize_infantry_eq
+	}
+	x = -1
+	y = 5
+	relative_position_id = ITA_reorganize_the_command
+	cost = 5
+	ai_will_do = {
+		factor = 300
+	}
+	available = {
+
+	}
+	completion_reward = {
+		add_command_power = 100
+		add_popularity = { ideology = neutrality popularity = 0.02 }
+	}
+}
+
+# Garrison template
+shared_focus = {
+	id = ITA_guardia_di_frontiera
+	icon = GFX_focus_Italian_Shield
+	prerequisite = {
+		focus = ITA_celere_division
+	}
+	prerequisite = {
+		focus = ITA_modernize_arty_eq
+	}
+	prerequisite = {
+		focus = ITA_modernize_infantry_eq
+	}
+	x = 1
+	y = 5
+	relative_position_id = ITA_reorganize_the_command
+	cost = 4
+	ai_will_do = {
+		factor = 30
+	}
+	available = {
+
+	}
+	completion_reward = {
+		custom_effect_tooltip = ITA_guardia_di_frontiera_tt
+		hidden_effect = {
+			division_template = {
+				name = "Guardia di Frontiera"
+				regiments = {
+					light_infantry = { x = 0 y = 0 }
+					light_infantry = { x = 0 y = 1 }
+					light_infantry = { x = 0 y = 2 }
+					light_infantry = { x = 0 y = 3 }
+					light_infantry = { x = 1 y = 0 }
+					light_infantry = { x = 1 y = 1 }
+					light_infantry = { x = 1 y = 2 }
+					light_infantry = { x = 1 y = 3 }
+				}
+				support = {
+					military_police = { x = 0 y = 0 }
+				}
+			}
+		}
+	}
+}
+
+# Army xp
+shared_focus = {
+	id = ITA_army_manuevers
+	icon = GFX_focus_The_Big_Push
+	prerequisite = {
+		focus = ITA_guardia_di_frontiera
+	}
+	prerequisite = {
+		focus = ITA_reform_officer_corps
+	}
+
+	x = 0
+	y = 6
+	relative_position_id = ITA_reorganize_the_command
+	cost = 3
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			factor = 20
+			has_idea = Federico_Baistrocchi
+		}
+	}
+	available = {
+	}
+	completion_reward = {
+		army_experience = 10
+		if = {
+			limit = {
+				has_idea = Federico_Baistrocchi
+			}
+			unlock_decision_tooltip = ITA_army_drills
+		}
+	}
+}
+
+# Doctrine research boosts
+shared_focus = {
+	id = ITA_reform_army_doctrine
+	icon = GFX_focus_Army_Reform
+	prerequisite = {
+		focus = ITA_army_manuevers
+	}
+
+	x = 0
+	y = 7
+	relative_position_id = ITA_reorganize_the_command
+	cost = 4
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			factor = 30
+			date > 1934.09.30
+		}
+	}
+	available = {
+
+	}
+	completion_reward = {
+		add_doctrine_cost_reduction = {
+			name = ITA_sky_city
+			cost_reduction = 0.25
+			uses = 2
+			category = land_doctrine
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_integrate_fascist_militias
+	icon = GFX_focus_Fascist_Militias
+	prerequisite = {
+		focus = ITA_reform_army_doctrine
+	}
+
+	x = -1
+	y = 8
+	relative_position_id = ITA_reorganize_the_command
+	cost = 2
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			factor = 30
+			date > 1934.09.30
+		}
+	}
+	available = {
+
+	}
+	completion_reward = {
+		unlock_decision_tooltip = ITA_fascist_militas_1
+	}
+}
+
+# Unlocks idea for speed and supply
+shared_focus = {
+	id = ITA_reform_logistics
+	icon = GFX_focus_Supply_Troops
+	prerequisite = {
+		focus = ITA_reform_army_doctrine
+	}
+
+
+	x = 1
+	y = 8
+	relative_position_id = ITA_reorganize_the_command
+	cost = 4
+	ai_will_do = {
+		factor = 300
+		modifier = {
+			factor = 30
+			date > 1934.09.30
+		}
+	}
+	available = {
+
+	}
+	completion_reward = {
+		add_ideas = ITA_reform_logistics_idea
+	}
+}
+
+# Unlocks idea for military factory production
+shared_focus = {
+	id = ITA_keep_baistrocchi
+	icon = GFX_focus_Baistrocchi_Remains
+	prerequisite = {
+		focus = ITA_reform_logistics
+	}
+	prerequisite = {
+		focus = ITA_integrate_fascist_militias
+	}
+
+	x = -4
+	y = 9
+	relative_position_id = ITA_reorganize_the_command
+	cost = 0
+	ai_will_do = {
+		base = 0
+	}
+	mutually_exclusive = {
+		focus = ITA_cave_to_badoglio
+	}
+	available = {
+		always = no
+	}
+	bypass = {
+		has_country_flag = ITA_bais_chosen
+	}
+	completion_reward = {
+	}
+}
+
+# Unlocks idea for military doctrine reform
+shared_focus = {
+	id = ITA_cave_to_badoglio
+	icon = GFX_focus_Baistrocchi_Removed
+	prerequisite = {
+		focus = ITA_reform_logistics
+	}
+	prerequisite = {
+		focus = ITA_integrate_fascist_militias
+	}
+
+	x = 4
+	y = 9
+	relative_position_id = ITA_reorganize_the_command
+	cost = 0
+	ai_will_do = {
+		base = 1500
+	}
+	mutually_exclusive = {
+		focus = ITA_keep_baistrocchi
+	}
+	available = {
+		always = no
+	}
+	bypass = {
+		has_country_flag = ITA_remove_baistrochi
+	}
+	completion_reward = {
+		effect_tooltip = {
+			remove_ideas = Federico_Baistrocchi
+			add_ideas = Alberto_Pariani
+		}
+	}
+}
+
+# 2nd 3 year army plan - research bonuses and removal of maluses
+shared_focus = {
+	id = ITA_second_plan
+	icon = GFX_focus_ITA_3_Year_Plan_Army
+	prerequisite = {
+		focus = ITA_keep_baistrocchi
+	}
+
+
+	x = -5
+	y = 10
+	relative_position_id = ITA_reorganize_the_command
+	cost = 7
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+	}
+	completion_reward = {
+		swap_ideas = {
+   			remove_idea = ITA_disorganized_staff_2
+			add_idea = ITA_disorganized_staff_3
+		}
+		add_doctrine_cost_reduction = {
+			name = ITA_sky_city
+			cost_reduction = 0.25
+			uses = 1
+			category = land_doctrine
+		}
+	}
+}
+
+# Neutrality in Spain
+shared_focus = {
+	id = ITA_neutrality_in_spain
+	icon = GFX_focus_Unite_Spain
+	prerequisite = {
+		focus = ITA_keep_baistrocchi
+	}
+
+	x = -3
+	y = 10
+	relative_position_id = ITA_reorganize_the_command
+	cost = 0.5
+	ai_will_do = {
+		factor = 15
+	}
+	available = {
+		OR = {
+			scw_in_progress = yes
+			AND = {
+				scr_in_progress = yes
+				hidden_trigger = {
+					has_country_flag = ITA_scr_neutrality
+				}
+			}
+		}
+	}
+	bypass = {
+		OR = {
+			AND = {
+				date > 1938.1.1
+				NOT = {
+					SPA = {
+						has_war_with = SPR
+					}
+				}
+			}
+		}
+	}
+	completion_reward = {
+		add_political_power = 25
+		add_stability = 0.01
+		add_opinion_modifier = {
+   			target = SPN
+			modifier = ITA_declaration_of_neutrality
+		}
+	}
+}
+
+# Infantry equipment tech
+shared_focus = {
+	id = ITA_infantry_equipment_focus
+	icon = GFX_focus_Trench_Warfare
+	prerequisite = {
+		focus = ITA_second_plan
+	}
+	prerequisite = {
+		focus = ITA_neutrality_in_spain
+	}
+
+
+	x = -4
+	y = 11
+	relative_position_id = ITA_reorganize_the_command
+	cost = 6
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		add_tech_bonus = {
+			name = ITA_infantry_equipment_focus
+			bonus = 0.5
+			uses = 1
+			category = infantry_weapons
+		}
+	}
+}
+
+# Increase industrial_production
+shared_focus = {
+	id = ITA_increase_industrial_production
+	icon = GFX_focus_Mechanized_Divisions
+	prerequisite = {
+		focus = ITA_second_plan
+	}
+
+
+
+	x = -6
+	y = 11
+	relative_position_id = ITA_reorganize_the_command
+	cost = 6
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		add_ideas = ITA_increase_industrial_production_idea
+	}
+}
+
+# Remove badoglio
+shared_focus = {
+	id = ITA_remove_badoglio
+	icon = GFX_focus_pietro_badoglio
+	prerequisite = {
+		focus = ITA_second_plan
+	}
+
+
+	x = -8
+	y = 11
+	relative_position_id = ITA_reorganize_the_command
+	cost = 4
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		ITA_pietro_badoglio = {
+			remove_unit_leader_role = yes
+		}
+		if = {
+			limit = { has_idea = Pietro_Badoglio_hog }
+			remove_ideas = Pietro_Badoglio_hog
+		}
+		add_political_power = -50
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.06
+		}
+	}
+}
+
+# Turn nerfs into buffs
+shared_focus = {
+	id = ITA_unified_general_staff
+	icon = GFX_focus_Fascist_Assembly
+	prerequisite = {
+		focus = ITA_remove_badoglio
+	}
+	prerequisite = {
+		focus = ITA_increase_industrial_production
+	}
+
+
+	x = -7
+	y = 12
+	relative_position_id = ITA_reorganize_the_command
+	cost = 7
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = ITA_disorganized_staff_3
+			add_idea = ITA_disorganized_staff_4
+	 	}
+	}
+}
+
+# Intervene in Spain
+shared_focus = {
+	id = ITA_intervene_in_spain
+	icon = GFX_focus_Befriend_Nationalist_Spain
+	prerequisite = {
+		focus = ITA_cave_to_badoglio
+	}
+
+	x = 3
+	y = 10
+	relative_position_id = ITA_reorganize_the_command
+	cost = 2
+	ai_will_do = {
+		base = 2000
+	}
+	available = {
+		OR = {
+			scw_in_progress = yes
+			AND = {
+				scr_in_progress = yes
+				hidden_trigger = {
+					has_country_flag = SPR_ITA_support
+				}
+			}
+		}
+		has_war = no
+	}
+	bypass = {
+		OR = {
+			AND = {
+				date > 1938.1.1
+				NOT = {
+					SPA = {
+						has_war_with = SPR
+					}
+				}
+			}
+			AND = {
+				date > 1938.1.1
+				NOT = {
+					SPR = {
+						has_war_with = SPC
+					}
+				}
+			}
+			
+			AND = {	
+				has_war = yes
+				date > 1940.1.1
+			}
+		}
+
+	}
+	completion_reward = {
+		add_war_support = 0.01
+		add_opinion_modifier = {
+   			target = SPN
+			modifier = ITA_supports_us
+		}
+	}
+}
+
+# Reforms training system
+shared_focus = {
+	id = ITA_reform_training_system
+	icon = GFX_focus_Oath_of_Loyalty
+	prerequisite = {
+		focus = ITA_cave_to_badoglio
+	}
+
+
+
+	x = 5
+	y = 10
+	relative_position_id = ITA_reorganize_the_command
+	cost = 6
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		swap_ideas = {
+   			remove_idea = ITA_reform_logistics_idea
+			add_idea = ITA_reform_logistics_idea_2
+		}
+	}
+}
+
+# Division Organisation Reform
+shared_focus = {
+	id = ITA_div_org_reform
+	icon = GFX_focus_Prepare_the_Troops
+	prerequisite = {
+		focus = ITA_cave_to_badoglio
+	}
+
+
+
+	x = 7
+	y = 10
+	relative_position_id = ITA_reorganize_the_command
+	cost = 7
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		add_ideas = ITA_div_org_reform_idea
+	}
+}
+
+# Expand divisions numbers
+shared_focus = {
+	id = ITA_more_divisions
+	icon = GFX_focus_Military_Intervention
+	prerequisite = {
+		focus = ITA_div_org_reform
+	}
+	prerequisite = {
+		focus = ITA_reform_training_system
+	}
+
+
+
+	x = 6
+	y = 11
+	relative_position_id = ITA_reorganize_the_command
+	cost = 6
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		add_manpower = 50000
+	}
+}
+
+# Officers Reform
+shared_focus = {
+	id = ITA_officers_reform_badoglio
+	icon = GFX_focus_Officers_Command
+	prerequisite = {
+		focus = ITA_div_org_reform
+	}
+	prerequisite = {
+		focus = ITA_reform_training_system
+	}
+
+	x = 7
+	y = 12
+	relative_position_id = ITA_reorganize_the_command
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		swap_ideas = {
+   			remove_idea = ITA_disorganized_staff_2
+			add_idea = ITA_disorganized_staff_badoglio
+		}
+
+	}
+}
+
+# TODO: what to do with this. maybe replace with another thing?
+shared_focus = {
+	id = ITA_extend_the_alpine_wall
+	icon = GFX_focus_Mountain_Defense
+	prerequisite = {
+		focus = ITA_neutrality_in_spain
+		focus = ITA_intervene_in_spain
+	}
+
+	x = 0
+	y = 11
+	relative_position_id = ITA_reorganize_the_command
+	cost = 9
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		# custom_effect_tooltip = ITA_extend_the_alpine_wall_tt
+	}
+}
+
+# Tank research
+shared_focus = {
+	id = ITA_tank_research
+	icon = GFX_focus_Heavy_Tanks
+	prerequisite = {
+		focus = ITA_intervene_in_spain
+	}
+
+
+
+
+	x = 4
+	y = 11
+	relative_position_id = ITA_reorganize_the_command
+	cost = 7
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 0.15
+			uses = 3
+			category = armor
+		}
+
+	}
+}
+
+# Get some units
+shared_focus = {
+	id = ITA_corazzate_brigade
+	icon = GFX_focus_Tankettes
+	prerequisite = {
+		focus = ITA_tank_research
+		focus = ITA_infantry_equipment_focus
+	}
+
+	x = 0
+	y = 12
+	relative_position_id = ITA_reorganize_the_command
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+		owns_state = 2
+		controls_state = 2
+	}
+
+	completion_reward = {
+		custom_effect_tooltip = ITA_corazzate_brigade_tt
+		hidden_effect = {
+
+			division_template = {
+				name = "Brigate Corazzate"
+				regiments = {
+					motorized = { x = 0 y = 0 }
+					motorized = { x = 0 y = 1 }
+					motorized = { x = 0 y = 2 }
+					light_armor = { x = 1 y = 0 }
+					light_armor = { x = 1 y = 1 }
+					light_armor = { x = 1 y = 2 }
+				}
+				support = {
+					military_police = { x = 0 y = 0 }
+				}
+			}
+			2 = {
+				create_unit = {
+					division = "name = \"1. Brigate Corazzate\" division_template = \"Brigate Corazzate\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+					owner = ITA
+				}
+				create_unit = {
+					division = "name = \"2. Brigate Corazzate\" division_template = \"Brigate Corazzate\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+					owner = ITA
+				}
+				create_unit = {
+					division = "name = \"3. Brigate Corazzate\" division_template = \"Brigate Corazzate\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
+					owner = ITA
+				}
+			}
+		}
+	}
+}
+
+# Get some units
+shared_focus = {
+	id = ITA_switch_to_medium_tanks
+	icon = GFX_focus_Medium_Tanks
+	prerequisite = {
+		focus = ITA_corazzate_brigade
+	}
+
+
+
+
+	x = -1
+	y = 13
+	relative_position_id = ITA_reorganize_the_command
+	cost = 5
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 1
+			category = cat_light_armor
+		}
+
+
+
+	}
+}
+
+# Idea for encryption SIM
+shared_focus = {
+	id = ITA_SIM
+	icon = GFX_focus_Subterfuge
+	prerequisite = {
+		focus = ITA_corazzate_brigade
+	}
+
+
+	x = 1
+	y = 13
+	relative_position_id = ITA_reorganize_the_command
+	cost = 8
+	ai_will_do = {
+		factor = 8
+	}
+	available = {
+
+	}
+
+	completion_reward = {
+		add_ideas = ITA_SIM
+
+
+	}
+}

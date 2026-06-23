@@ -1,0 +1,632 @@
+spain_rev_foreign_support = {
+
+	SPR_britain_fighters = {
+		allowed = {
+			tag = SPR
+		}
+		fire_only_once = yes
+		visible = {
+			has_country_flag = SPR_ENG_support
+		}
+		cosmetic_tag = ENG
+
+		available = {
+			NOT = {
+				has_war_with = ENG
+				has_country_flag = SPR_rev_buying_from_british
+			}
+		}
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 25
+		modifier = { civilian_factory_use = 1 }
+		#On Activation
+		complete_effect ={
+			set_country_flag = SPR_rev_buying_from_british
+			ENG = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = SPR_rev_buying_from_british
+			ENG = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				amount = 55
+				producer = ENG
+			}
+			ENG = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -1
+				}
+			}
+			clr_country_flag = SPR_rev_buying_from_british
+		}
+
+	}
+
+	SPR_britain_bombers = {
+		allowed = {
+			tag = SPR
+		}
+		fire_only_once = yes
+		visible = {
+			has_country_flag = SPR_ENG_support
+		}
+		cosmetic_tag = ENG
+
+		available = {
+			NOT = {
+				has_war_with = ENG
+				has_country_flag = SPR_rev_buying_from_british
+			}
+		}
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 35
+		modifier = { civilian_factory_use = 2 }
+		#On Activation
+		complete_effect ={
+			set_country_flag = SPR_rev_buying_from_british
+			ENG = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = SPR_rev_buying_from_british
+			ENG = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -2
+				}
+			}
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				add_equipment_to_stockpile = {
+					type = tac_bomber_equipment_1
+					amount = 36
+					producer = ENG
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = medium_plane_airframe_0
+					amount = 36
+					producer = ENG
+				}
+			}
+			ENG = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -2
+				}
+			}
+			clr_country_flag = SPR_rev_buying_from_british
+		}
+	}
+
+	SPR_britain_guns = {
+		allowed = {
+			tag = SPR
+		}
+		fire_only_once = no
+		visible = {
+			has_country_flag = SPR_ENG_support
+			has_variable = SPR_british_guns
+			check_variable = {
+				SPR_british_guns < 4
+			}
+		}
+		cosmetic_tag = ENG
+
+		available = {
+			NOT = {
+				has_war_with = ENG
+				has_country_flag = SPR_rev_buying_from_british
+			}
+		}
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 40
+		days_re_enable = 60
+		modifier = { civilian_factory_use = 2 }
+		#On Activation
+		complete_effect ={
+			set_country_flag = SPR_rev_buying_from_british
+			ENG = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = SPR_rev_buying_from_british
+			clear_variable = SPR_british_guns
+			ENG = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -2
+				}
+			}
+		}
+		remove_effect = {
+			add_to_variable = { SPR_british_guns = 1 }
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 400
+				producer = ENG
+			}
+			clr_country_flag = SPR_rev_buying_from_british
+		}
+	}
+
+	SPR_britain_tanks = {
+		allowed = {
+			tag = SPR
+		}
+		fire_only_once = yes
+		visible = {
+			has_country_flag = SPR_ENG_support
+		}
+		cosmetic_tag = ENG
+
+		available = {
+			NOT = {
+				has_war_with = ENG
+			}
+		}
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 35
+		modifier = { civilian_factory_use = 3 }
+		#On Activation
+		complete_effect ={
+			set_country_flag = SPR_rev_buying_from_british
+			ENG = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+		}
+		cancel_effect = {
+			clr_country_flag = SPR_rev_buying_from_british
+			ENG = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -3
+				}
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = light_tank_chassis
+				amount = 100
+				producer = ENG
+			}
+			ENG = {
+				add_offsite_building = {
+					type = industrial_complex
+					level = -3
+				}
+			}
+			clr_country_flag = SPR_rev_buying_from_british
+		}
+
+	}
+}
+
+USSR_support_reps = {
+
+	SOV_spr_guns = {
+		allowed = { tag = SOV }
+		visible = {
+			has_country_flag = spr_moscow_sent
+		}
+		icon = GFX_decision_generic_prepare_civil_war
+		cosmetic_tag = SPR
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1.1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			SPR = {
+				country_event = { id = scw.53 days = 1 }
+			}
+			set_country_flag = sixty_days_cooldown
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SOV_spr_arty = {
+		allowed = { tag = SOV }
+		visible = {
+			has_country_flag = spr_moscow_sent
+		}
+		icon = GFX_decision_generic_industry
+		cosmetic_tag = SPR
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 0.75 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			SPR = {
+				country_event = { id = scw.54 days = 1 }
+			}
+			set_country_flag = sixty_days_cooldown
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SOV_spr_tanks = {
+		allowed = { tag = SOV }
+		visible = {
+			has_country_flag = spr_moscow_sent
+		}
+		icon = GFX_decision_generic_tank
+		cosmetic_tag = SPR
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			SPR = {
+				country_event = { id = scw.55 days = 1 }
+			}
+			set_country_flag = sixty_days_cooldown
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SOV_spr_food = {
+		allowed = { tag = SOV }
+		visible = {
+			has_country_flag = spr_moscow_sent
+		}
+		icon = GFX_decision_generic_construction
+		cosmetic_tag = SPR
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1.1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			SPR = {
+				country_event = { id = scw.56 days = 1 }
+			}
+			set_country_flag = sixty_days_cooldown
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SOV_spr_adv = {
+		allowed = { tag = SOV }
+		visible = {
+			has_country_flag = spr_moscow_sent
+		}
+		icon = GFX_decision_generic_army_support
+		cosmetic_tag = SPR
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1.1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			SPR = {
+				country_event = { id = scw.57 days = 1 }
+			}
+			set_country_flag = sixty_days_cooldown
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SOV_spr_fight = {
+		allowed = { tag = SOV }
+		visible = {
+			has_country_flag = spr_moscow_sent
+		}
+		icon = GFX_decision_generic_air
+		cosmetic_tag = SPR
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1.1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			SPR = {
+				country_event = { id = scw.58 days = 1 }
+			}
+			set_country_flag = sixty_days_cooldown
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SOV_spr_bomb = {
+		allowed = { tag = SOV }
+		visible = {
+			has_country_flag = spr_moscow_sent
+		}
+		icon = GFX_decision_generic_air
+		cosmetic_tag = SPR
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1.1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			SPR = {
+				country_event = { id = scw.59 days = 1 }
+			}
+			set_country_flag = sixty_days_cooldown
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+}
+
+SPR_scw_french_sup = {
+
+	SPR_french_guns = {
+		allowed = { tag = SPR }
+		visible = {
+			has_country_flag = spr_western_aid_enabled
+		}
+		icon = GFX_decision_generic_prepare_civil_war
+		cosmetic_tag = FRA
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 1000
+				producer = FRA
+			}
+			set_country_flag = sixty_days_cooldown
+			custom_effect_tooltip = 3_lib_inf
+			add_to_variable = { var = ana_inf value = -2 }
+			add_to_variable = { var = com_inf value = -1 }
+			add_to_variable = { var = lib_inf value = 3 }
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SPR_french_art = {
+		allowed = { tag = SPR }
+		visible = {
+			has_country_flag = spr_western_aid_enabled
+		}
+		icon = GFX_decision_generic_industry
+		cosmetic_tag = FRA
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 450
+				producer = FRA
+			}
+			set_country_flag = sixty_days_cooldown
+			custom_effect_tooltip = 3_lib_inf
+			add_to_variable = { var = ana_inf value = -2 }
+			add_to_variable = { var = com_inf value = -1 }
+			add_to_variable = { var = lib_inf value = 3 }
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SPR_french_fight = {
+		allowed = { tag = SPR }
+		visible = {
+			has_country_flag = spr_western_aid_enabled
+		}
+		icon = GFX_decision_generic_air
+		cosmetic_tag = FRA
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = small_plane_airframe
+				amount = 125
+				producer = FRA
+			}
+			set_country_flag = sixty_days_cooldown
+			custom_effect_tooltip = 3_lib_inf
+			add_to_variable = { var = ana_inf value = -2 }
+			add_to_variable = { var = com_inf value = -1 }
+			add_to_variable = { var = lib_inf value = 3 }
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SPR_french_bomb = {
+		allowed = { tag = SPR }
+		visible = {
+			has_country_flag = spr_western_aid_enabled
+		}
+		icon = GFX_decision_generic_air
+		cosmetic_tag = FRA
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			if = {
+				limit = {
+					NOT = { has_dlc = "By Blood Alone" }
+				}
+				add_equipment_to_stockpile = {
+					type = tac_bomber_equipment_0
+					amount = 75
+					producer = FRA
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = medium_plane_airframe
+					amount = 75
+					producer = FRA
+				}
+			}
+			set_country_flag = sixty_days_cooldown
+			custom_effect_tooltip = 3_lib_inf
+			add_to_variable = { var = ana_inf value = -2 }
+			add_to_variable = { var = com_inf value = -1 }
+			add_to_variable = { var = lib_inf value = 3 }
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SPR_french_tanks = {
+		allowed = { tag = SPR }
+		icon = GFX_decision_generic_tank
+		visible = {
+			has_country_flag = spr_western_aid_enabled
+		}
+		cosmetic_tag = FRA
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			if = {
+			limit = {
+				NOT = { has_country_flag = spr_first_tank_shipment }
+			}
+			set_country_flag = spr_first_tank_shipment
+			load_oob = SPR_soviet_tanks
+		}
+		add_equipment_to_stockpile = {
+			type = light_tank_chassis
+			amount = 300
+			producer = FRA
+		}
+			set_country_flag = sixty_days_cooldown
+			custom_effect_tooltip = 3_lib_inf
+			add_to_variable = { var = ana_inf value = -2 }
+			add_to_variable = { var = com_inf value = -1 }
+			add_to_variable = { var = lib_inf value = 3 }
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SPR_french_food = {
+		allowed = { tag = SPR }
+		visible = {
+			has_country_flag = spr_western_aid_enabled
+		}
+		icon = GFX_decision_generic_construction
+		cosmetic_tag = FRA
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } }
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			add_stability = 0.03
+			set_country_flag = sixty_days_cooldown
+			custom_effect_tooltip = 3_lib_inf
+			add_to_variable = { var = ana_inf value = -2 }
+			add_to_variable = { var = com_inf value = -1 }
+			add_to_variable = { var = lib_inf value = 3 }
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+
+	SPR_call_french_volunteers = {
+		allowed = { tag = SPR }
+		visible = {
+			has_country_flag = spr_western_aid_enabled
+		}
+		icon = GFX_decision_generic_civil_support
+		cosmetic_tag = FRA
+
+		available = { NOT = { has_country_flag = sixty_days_cooldown } controls_state = 165 }
+		ai_will_do = { factor = 1 }
+		cost = 0
+		days_remove = 60
+		complete_effect = {
+			hidden_effect = { load_oob = SPR_french_volunteers_call }
+			custom_effect_tooltip = 3_lib_inf
+			add_to_variable = { var = ana_inf value = -2 }
+			add_to_variable = { var = com_inf value = -1 }
+			add_to_variable = { var = lib_inf value = 3 }
+			custom_effect_tooltip = spr_raise_french
+			set_country_flag = sixty_days_cooldown
+		}
+		remove_effect = {
+			clr_country_flag = sixty_days_cooldown
+		}
+
+	}
+}

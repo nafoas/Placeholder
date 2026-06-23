@@ -1,0 +1,4557 @@
+# focuses here
+#s_team337
+shared_focus = {
+	id = SOV_Stalinist_Italo_Soviet_Pact
+	icon = GFX_focus_cbts_Befriend_Italy
+	#prerequisite = {
+	#	focus = SOV_Stalinist_Join_LON
+	#}
+	x = 40
+	y = 8
+	#relative_position_id = SOV_Stalinist_Join_LON
+	cost = 4.29
+	ai_will_do = {
+		base = 2400
+		modifier = {
+			date < 1933.8.15
+			factor = 0
+		}
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		ITA = {
+			country_event = {
+				id = sov_external.86
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Join_LON
+	icon = GFX_focus_League_of_Nations
+	prerequisite = {
+		focus = SOV_Stalinist_Italo_Soviet_Pact
+	}
+	x = 0
+	y = 1
+	relative_position_id = SOV_Stalinist_Italo_Soviet_Pact
+	cost = 4.29
+	ai_will_do = {
+		base = 2400
+		modifier = {
+			date < 1934.8.1
+			factor = 0
+		}
+	}
+	available = {
+		date > 1934.6.1
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = 30
+		hidden_effect = {
+			news_event = {
+				id = cbts_news.5
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Collective_Security
+	icon = GFX_focus_European_Relations
+	prerequisite = {
+		focus = SOV_Stalinist_Join_LON
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Realpolitik
+	}
+	x = 0
+	y = 1
+	relative_position_id = SOV_Stalinist_Join_LON
+	cost = 5
+	ai_will_do = {
+		base = 400
+		modifier = {
+			has_idea_with_trait = collective_security_believer
+			add = 200
+		}
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		ENG = {
+			if = {
+				limit = {
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						is_subject = yes
+					}
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+		FRA = {
+			if = {
+				limit = {
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						is_subject = yes
+					}
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+		GER = {
+			if = {
+				limit = {
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						is_subject = yes
+						country_exists = DDR
+						country_exists = WGR
+					}
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+		WGR = {
+			if = {
+				limit = {
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						is_subject = yes
+						country_exists = DDR
+					}
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+		DDR = {
+			if = {
+				limit = {
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						is_subject = yes
+					}
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+		CHI = {
+			if = {
+				limit = {
+					NOT = {
+						has_government = fascism
+						has_government = monarchism
+						is_subject = yes
+					}
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_French_Summit #TODO:come back when more french stuff is done
+	icon = GFX_focus_French_Glory
+	prerequisite = {
+		focus = SOV_Stalinist_Collective_Security
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_German_Summit
+	}
+	x = 3
+	y = 1
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 5
+	ai_will_do = {
+		base = 10
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		FRA = {
+			has_autocratic_government = no
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_with = FRA
+			is_in_faction_with = FRA
+			FRA = { exists = no }
+			FRA = { is_subject = yes }
+			AND = {
+				FRA = {
+					has_autocratic_government = yes
+				}
+				OR = {
+					AND = {
+						country_exists = GER
+						GER = { is_subject = no }
+					}
+					AND = {
+						country_exists = WGR
+						WGR = { is_subject = no }
+						has_autocratic_government = yes
+					}
+					AND = {
+						country_exists = DDR
+						DDR = { is_subject = no }
+					}
+				}
+			}
+		}
+	}
+	completion_reward = {
+		FRA = {
+			country_event = {
+				id = sov_external.1
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Non_Aggression_France #should be removed by molotov ribbentrop
+	icon = GFX_focus_focus_peace_talks
+	prerequisite = {
+		focus = SOV_Stalinist_French_Summit
+	}
+	x = 3
+	y = 2
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 5.72
+	ai_will_do = {
+		base = 600
+		modifier = {
+			date < 1935.4.1
+			factor = 0
+		}
+	}
+	available = {
+		NOT = { has_global_flag = MR_pact_flag }
+		FRA = {
+			has_autocratic_government = no
+		}
+		has_country_flag = SOV_french_summit_yes
+	}
+	bypass = {
+		OR = {
+			FRA = {
+				OR = {
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					exists = no
+					has_autocratic_government = yes
+				}
+			}
+			has_country_flag = SOV_french_summit_no
+		}
+	}
+	completion_reward = {
+		FRA = {
+			country_event = {
+				id = sov_external.7
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_German_Summit
+	icon = GFX_focus_Befriend_Imperial_Germany
+	prerequisite = {
+		focus = SOV_Stalinist_Collective_Security
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_French_Summit
+	}
+	x = 1
+	y = 1
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 5
+	ai_will_do = {
+		base = 50
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			GER = { has_government = fascism }
+			factor = 0
+		}
+	}
+	available = { #civil war
+		GCW_is_ongoing = no
+		GRM = {
+			exists = yes
+			NOT = {
+				has_war_with = SOV
+				is_in_faction_with = SOV
+				is_subject = yes
+				has_autocratic_government = yes
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				GER = {
+					exists = yes
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						country_exists = WGR
+						country_exists = DDR
+					}
+				}
+			}
+			GER = {
+				country_event = {
+					id = sov_external.4
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				WGR = {
+					exists = yes
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						country_exists = DDR
+					}
+				}
+			}
+			WGR = {
+				country_event = {
+					id = sov_external.4
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				DDR = {
+					exists = yes
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+				}
+			}
+			DDR = {
+				country_event = {
+					id = sov_external.4
+				}
+			}
+		}
+
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Non_Aggression_Germany
+	icon = GFX_focus_Risky_Deal
+	prerequisite = {
+		focus = SOV_Stalinist_German_Summit
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Czech_NAP
+	}
+	x = 1
+	y = 2
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 5.72
+	ai_will_do = {
+		base = 600
+		modifier = {
+			date < 1935.6.1
+			factor = 0
+		}
+	}
+	available = {
+		GCW_is_ongoing = no
+		NOT = { has_war_with = GRM }
+		GRM = {
+			exists = yes
+			NOT = {
+				is_in_faction_with = SOV
+				is_subject = yes
+				has_autocratic_government = yes
+			}
+		}
+		has_country_flag = SOV_german_summit_yes
+	}
+	bypass = {
+		AND = {
+			GER = {
+				OR = {
+					exists = no
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					has_autocratic_government = yes
+				}
+			}
+			WGR = {
+				OR = {
+					exists = no
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					has_autocratic_government = yes
+				}
+			}
+			DDR = {
+				OR = {
+					exists = no
+					has_war_with = ROOT
+					is_in_faction_with = ROOT
+					is_subject = yes
+					has_autocratic_government = yes
+				}
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				GER = {
+					has_opinion_modifier = SOV_summit_yes
+					exists = yes
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						country_exists = WGR
+						country_exists = DDR
+					}
+				}
+			}
+			GER = {
+				country_event = {
+					id = sov_external.10
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				WGR = {
+					has_opinion_modifier = SOV_summit_yes
+					exists = yes
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+						country_exists = DDR
+					}
+				}
+			}
+			WGR = {
+				country_event = {
+					id = sov_external.10
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				DDR = {
+					has_opinion_modifier = SOV_summit_yes
+					exists = yes
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+				}
+			}
+			DDR = {
+				country_event = {
+					id = sov_external.10
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Trade_Policy
+	icon = GFX_focus_soviet_trade
+	prerequisite = {
+		focus = SOV_Stalinist_Non_Aggression_France
+		focus = SOV_Stalinist_Non_Aggression_Germany
+	}
+	x = 2
+	y = 3
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 2
+	ai_will_do = {
+		base = 230
+	}
+	available = {
+		OR = {
+			has_country_flag = SOV_french_assistance_yes
+			has_country_flag = SOV_german_assistance_yes
+		}
+	}
+	bypass = {
+		OR = {
+			has_country_flag = SOV_french_assistance_no
+			has_country_flag = SOV_german_assistance_no
+		}
+	}
+	completion_reward = {
+		custom_effect_tooltip = SOV_decrease_trade_other_power
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = SOV_french_assistance_yes
+				}
+				GRM = {
+					add_opinion_modifier = {
+						target = SOV
+						modifier = SOV_trade_other_power
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = SOV_german_assistance_yes
+				}
+				FRA = {
+					add_opinion_modifier = {
+						target = SOV
+						modifier = SOV_trade_other_power
+					}
+				}
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Denounce_Nationalist_Spain
+	icon = GFX_focus_Swing_the_Sword
+	prerequisite = {
+		focus = SOV_Stalinist_Trade_Policy
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Friend_Spain
+	}
+	x = 3
+	y = 4
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 2.86
+	ai_will_do = {
+		base = 500
+	}
+	available = {
+		country_exists = SPN
+		SPN = {
+			NOT = {
+				has_war_with = SPR
+				has_war_with = SPC
+			}
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		SPN = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_denoucned
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Friend_Spain
+	icon = GFX_focus_Befriend_Republican_Spain
+	prerequisite = {
+		focus = SOV_Stalinist_Trade_Policy
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Denounce_Nationalist_Spain
+	}
+	x = 1
+	y = 4
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 2.86
+	ai_will_do = {
+		base = 500
+	}
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = SOV_befriend_spr_tooltip
+			scw_in_progress = no
+			scr_in_progress = no
+			if = {
+				limit = {
+					SPC = {
+						exists = yes
+						NOT = {
+							is_subject_of = SOV
+							is_in_faction_with = SOV
+							has_war_with = SOV
+						}
+					}
+				}
+				SPC = {
+					OR = {
+						has_government = socialism
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					SPR = {
+						exists = yes
+						NOT = {
+							is_subject_of = SOV
+							is_in_faction_with = SOV
+							has_war_with = SOV
+						}
+					}
+				}
+				SPR = {
+					OR = {
+						has_government = socialism
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					SPA = {
+						exists = yes
+						NOT = {
+							is_subject_of = SOV
+							is_in_faction_with = SOV
+							has_war_with = SOV
+						}
+					}
+				}
+				SPA = {
+					OR = {
+						has_government = socialism
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+			}
+			else = {
+				always = no
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				country_exists = SPC
+			}
+			SPC = {
+				add_opinion_modifier = {
+					target = SOV
+					modifier = small_increase
+				}
+			}
+			add_opinion_modifier = {
+				target = SPC
+				modifier = small_increase
+			}
+		}
+		else_if = {
+			limit = {
+				country_exists = SPR
+			}
+			SPC = {
+				add_opinion_modifier = {
+					target = SOV
+					modifier = small_increase
+				}
+			}
+			add_opinion_modifier = {
+				target = SPR
+				modifier = small_increase
+			}
+		}
+		else_if = {
+			limit = {
+				country_exists = SPA
+			}
+			SPC = {
+				add_opinion_modifier = {
+					target = SOV
+					modifier = small_increase
+				}
+			}
+			add_opinion_modifier = {
+				target = SPA
+				modifier = small_increase
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Popular_Front
+	icon = GFX_focus_Workers_Support
+	prerequisite = {
+		focus = SOV_Stalinist_Collective_Security
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Third_Period
+	}
+	x = -1
+	y = 1
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 3.86
+	ai_will_do = {
+		base = 600
+		modifier = {
+			date < 1935.6.1
+			factor = 0.2
+		}
+		modifier = {
+			GER = { has_government = fascism }
+			factor = 2
+		}
+	}
+	available = {
+		OR = {
+			count_triggers = {
+				amount = 2
+				GER = {
+					has_government = fascism
+				}
+				ITA = {
+					has_government = fascism
+				}
+				FRA = {
+					has_government = fascism
+				}
+				ENG = {
+					has_government = fascism
+				}
+			}
+			count_triggers = {
+				amount = 4
+				GER = {
+					has_government = fascism
+				}
+				ITA = {
+					has_government = fascism
+				}
+				FRA = {
+					has_government = fascism
+				}
+				ENG = {
+					has_government = fascism
+				}
+				YUG = {
+					has_government = fascism
+				}
+				POL = {
+					has_government = fascism
+				}
+				ROM = {
+					has_government = fascism
+				}
+			}
+		}
+	}
+	completion_reward = {
+		custom_effect_tooltip = popfront_tt
+		hidden_effect = {
+			every_country = {
+				limit = {
+					exists = yes
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+					OR = {
+						AND = {
+							tag = GER
+							NOT = {
+								GER = { has_country_flag = GER_Hitler_Communists_Banned }
+							}
+						}
+						tag = WGR
+						tag = ITA
+						tag = FRA
+						tag = SPA
+						tag = SPR
+					}
+				}
+				country_event = {
+					id = sov_external.140
+				}
+			}
+		}
+		set_global_flag = USSR_Popular_Front
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Third_Period
+	icon = GFX_focus_Communism
+	prerequisite = {
+		focus = SOV_Stalinist_Collective_Security
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Popular_Front
+	}
+	x = -3
+	y = 1
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 1
+	ai_will_do = {
+		base = 300
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			date < 1935.8.1
+			factor = 0
+		}
+		modifier = {
+			GER = { has_government = fascism }
+			factor = 0.5
+		}
+		modifier = {
+			count_triggers = {
+				amount = 2
+				GER = {
+					has_government = fascism
+				}
+				ITA = {
+					has_government = fascism
+				}
+				FRA = {
+					has_government = fascism
+				}
+				ENG = {
+					has_government = fascism
+				}
+			}
+			factor = 0
+		}
+	}
+	available = {
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = 30
+		set_global_flag = USSR_Third_Period
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Czech_NAP
+	icon = GFX_focus_Czechslovakia
+	prerequisite = {
+		focus = SOV_Stalinist_Popular_Front
+		focus = SOV_Stalinist_Third_Period
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Non_Aggression_Germany
+	}
+	dynamic = yes
+	x = -1
+	y = 2
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 5
+	ai_will_do = {
+		base = 800
+		modifier = {
+			NOT = {
+				has_global_flag = GER_annexed_austria
+			}
+			factor = 0.325
+		}
+	}
+	available = {
+		CZE = {
+			exists = yes
+			NOT = {
+				is_subject = yes
+				has_war_with = SOV
+				has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+			}
+		}
+	}
+	bypass = {
+		CZE = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = SOV
+				has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+			}
+		}
+	}
+	completion_reward = {
+		CZE = {
+			country_event = {
+				id = sov_external.13
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Czech_Guns
+	icon = GFX_focus_Gun_Czechs
+	prerequisite = {
+		focus = SOV_Stalinist_Czech_NAP
+	}
+	x = -1
+	y = 3
+	dynamic = yes
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 5.15
+	ai_will_do = {
+		base = 450
+		modifier = {
+			CZE = {
+				has_war_with = GER
+			}
+			factor = 2
+		}
+	}
+	available = {
+		CZE = {
+			exists = yes
+			NOT = {
+				is_subject = yes
+				has_war_with = SOV
+				has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+			}
+			OR = {
+				has_defensive_war_with = GER
+				has_defensive_war_with = WGR
+				has_defensive_war_with = DDR
+				has_defensive_war_with = POL
+			}
+		}
+	}
+	bypass = {
+		CZE = {
+			OR = {
+				exists = no
+				is_subject = yes
+				has_war_with = SOV
+				has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+			}
+		}
+	}
+	completion_reward = {
+		CZE = {
+			country_event = {
+				id = sov_external.16
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Denounce_Imperialism
+	icon = GFX_focus_The_Noose
+	prerequisite = {
+		focus = SOV_Stalinist_Popular_Front
+		focus = SOV_Stalinist_Third_Period
+	}
+	x = -3
+	y = 2
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 2.86
+	ai_will_do = {
+		base = 250
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_war_support = 0.02
+		every_country = {
+			limit = {
+				OR = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = monarchism
+				}
+				NOT = {
+					tag = ITA
+					tag = CHI
+				}
+			}
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_denoucned
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Denounce_Sudeten
+	icon = GFX_focus_Anti_Fascist
+	prerequisite = {
+		focus = SOV_Stalinist_Denounce_Imperialism
+		focus = SOV_Stalinist_Czech_NAP
+	}
+	x = -3
+	y = 3
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 2
+	ai_will_do = {
+		base = 800
+	}
+	available = {
+		has_global_flag = GER_annexed_sudeten
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_war_support = 0.025
+		every_country = {
+			limit = {
+				OR = {
+					tag = ENG
+					tag = FRA
+				}
+			}
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_denoucned
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik
+	icon = GFX_focus_Burning_Globe
+	prerequisite = {
+		focus = SOV_Stalinist_Join_LON
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Collective_Security
+	}
+	x = -8
+	y = 1
+	relative_position_id = SOV_Stalinist_Join_LON
+	cost = 5
+	ai_will_do = {
+		base = 0
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		NOT = {
+			has_idea = SOV_frn_Maxim_Litvinov
+		}
+		OR = {
+			GER = {
+				exists = yes
+				NOT = {
+					has_war_with = SOV
+					is_subject = yes
+					is_in_faction = yes
+				}
+				OR = {
+					has_government = monarchism
+					has_government = neutrality
+					has_government = nationalism
+					has_government = fascism
+				}
+			}
+			ITA = {
+				exists = yes
+				NOT = {
+					has_war_with = SOV
+					is_subject = yes
+					is_in_faction = yes
+				}
+				OR = {
+					has_government = monarchism
+					has_government = neutrality
+					has_government = nationalism
+					has_government = fascism
+				}
+			}
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = {
+					has_idea = SOV_frn_Vyasheslav_Molotov
+				}
+			}
+			remove_ideas_with_trait = frnmin
+			add_ideas = SOV_frn_Vyasheslav_Molotov
+		}
+		ENG = {
+			if = {
+				limit = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+					NOT = { is_subject = yes }
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+		FRA = {
+			if = {
+				limit = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+					NOT = { is_subject = yes }
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+		ITA = {
+			if = {
+				limit = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+					NOT = { is_subject = yes }
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+		GER = {
+			if = {
+				limit = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+					NOT = {
+						is_subject = yes
+						country_exists = WGR
+						country_exists = DDR
+					}
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+		WGR = {
+			if = {
+				limit = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+					NOT = {
+						is_subject = yes
+						country_exists = DDR
+					}
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+		DDR = {
+			if = {
+				limit = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+					NOT = {
+						is_subject = yes
+					}
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+		JAP = {
+			if = {
+				limit = {
+					OR = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+					NOT = { is_subject = yes }
+					exists = yes
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_collective_security
+				}
+			}
+		}
+
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik_GER_Peaceful_Coexistance
+	icon = GFX_focus_Pacifist_State
+	prerequisite = {
+		focus = SOV_Stalinist_Realpolitik
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Realpolitik_ITA_denounce_capitalism
+	}
+	x = 1
+	y = 1
+	relative_position_id = SOV_Stalinist_Realpolitik
+	cost = 5
+	ai_will_do = {
+		base = 100
+		modifier = {
+			date > 1936.1.1
+			factor = 3
+		}
+	}
+	available = {
+		GER = {
+			exists = yes
+			NOT = {
+				has_war_with = SOV
+				is_subject = yes
+				is_in_faction = yes
+			}
+			OR = {
+				has_government = monarchism
+				has_government = neutrality
+				has_government = nationalism
+				has_government = fascism
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		GER = {
+			country_event = {
+				id = sov_external.4
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik_ITA_denounce_capitalism
+	icon = GFX_focus_Anti_Democracy
+	prerequisite = {
+		focus = SOV_Stalinist_Realpolitik
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Realpolitik_GER_Peaceful_Coexistance
+	}
+	x = -1
+	y = 1
+	relative_position_id = SOV_Stalinist_Realpolitik
+	cost = 5
+	ai_will_do = {
+		base = 400
+		modifier = {
+			date < 1934.9.1
+			factor = 0.3
+		}
+	}
+	available = {
+		ITA = {
+			exists = yes
+			NOT = {
+				has_war_with = SOV
+				is_in_faction = yes
+				is_subject = yes
+			}
+			OR = {
+				has_government = monarchism
+				has_government = neutrality
+				has_government = nationalism
+				has_government = fascism
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		ITA = {
+			country_event = {
+				id = sov_external.19
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik_Tank_Research
+	icon = GFX_focus_army_tanks
+	prerequisite = {
+		focus = SOV_Stalinist_Realpolitik_GER_Peaceful_Coexistance
+		focus = SOV_Stalinist_Realpolitik_ITA_denounce_capitalism
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Realpolitik_Navy_Research
+	}
+	dynamic = yes
+	x = -1
+	y = 2
+	relative_position_id = SOV_Stalinist_Realpolitik
+	cost = 4.29
+	ai_will_do = {
+		base = 300
+	}
+	available = {
+		OR = {
+			AND = {
+				has_country_flag = SOV_german_summit_yes
+				NOT = { has_war_with = GER }
+			}
+			AND = {
+				has_country_flag = SOV_italy_assistance_yes
+				NOT = { has_war_with = ITA }
+			}
+		}
+	}
+	bypass = {
+		AND = {
+			OR = {
+				has_country_flag = SOV_german_summit_no
+				has_war_with = GER
+			}
+			OR = {
+				has_country_flag = SOV_italy_assistance_no
+				has_war_with = ITA
+			}
+		}
+	}
+	completion_reward = {
+		set_country_flag = SOV_tank_agreement
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = SOV_german_summit_yes
+					has_country_flag = SOV_italy_assistance_yes
+					has_country_flag = SOV_french_summit_yes
+				}
+			}
+			custom_effect_tooltip = SOV_need_to_align_first
+		}
+		else_if = {
+			limit = {
+				has_country_flag = SOV_german_summit_yes
+			}
+			GER = {
+				country_event = sov_external.22
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = SOV_italy_assistance_yes
+			}
+			ITA = {
+				country_event = sov_external.22
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik_Navy_Research
+	icon = GFX_focus_naval_reform
+	prerequisite = {
+		focus = SOV_Stalinist_Realpolitik_GER_Peaceful_Coexistance
+		focus = SOV_Stalinist_Realpolitik_ITA_denounce_capitalism
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Realpolitik_Tank_Research
+	}
+	dynamic = yes
+	x = 1
+	y = 2
+	relative_position_id = SOV_Stalinist_Realpolitik
+	cost = 4.29
+	ai_will_do = {
+		base = 300
+	}
+	available = {
+		OR = {
+			AND = {
+				has_country_flag = SOV_german_summit_yes
+				NOT = { has_war_with = GER }
+			}
+			AND = {
+				has_country_flag = SOV_italy_assistance_yes
+				NOT = { has_war_with = ITA }
+			}
+		}
+	}
+	bypass = {
+		AND = {
+			OR = {
+				has_country_flag = SOV_german_summit_no
+				has_war_with = GER
+			}
+			OR = {
+				has_country_flag = SOV_italy_assistance_no
+				has_war_with = ITA
+			}
+		}
+	}
+	completion_reward = {
+		set_country_flag = SOV_navy_agreement
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = SOV_german_summit_yes
+					has_country_flag = SOV_italy_assistance_yes
+				}
+			}
+			custom_effect_tooltip = SOV_need_to_align_first
+		}
+		else_if = {
+			limit = {
+				has_country_flag = SOV_german_summit_yes
+			}
+			GER = {
+				country_event = sov_external.25
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = SOV_italy_assistance_yes
+			}
+			ITA = {
+				country_event = sov_external.25
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik_NAP
+	icon = GFX_focus_POL_complete_april_constitution
+	prerequisite = {
+		focus = SOV_Stalinist_Realpolitik_Tank_Research
+		focus = SOV_Stalinist_Realpolitik_Navy_Research
+	}
+	dynamic = yes
+	x = 0
+	y = 3
+	relative_position_id = SOV_Stalinist_Realpolitik
+	cost = 5.72
+	ai_will_do = {
+		base = 500
+		modifier = {
+			date < 1935.7.5
+			factor = 0
+		}
+	}
+	available = {
+		has_country_flag = SOV_tech_yes
+		OR = {
+			AND = {
+				NOT = { has_war_with = GER }
+				has_country_flag = SOV_german_summit_yes
+			}
+			AND = {
+				NOT = { has_war_with = ITA }
+				has_country_flag = SOV_italy_assistance_yes
+			}
+		}
+	}
+	bypass = {
+		OR = {
+			AND = {
+				OR = {
+					has_country_flag = SOV_german_summit_no
+					has_war_with = GER
+				}
+				OR = {
+					has_country_flag = SOV_italy_assistance_no
+					has_war_with = ITA
+				}
+			}
+			has_country_flag = SOV_tech_no
+		}
+	}
+	completion_reward = {
+		set_country_flag = SOV_navy_agreement
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = SOV_german_summit_yes
+					has_country_flag = SOV_italy_assistance_yes
+				}
+			}
+			custom_effect_tooltip = SOV_need_to_align_first
+		}
+		else_if = {
+			limit = {
+				has_country_flag = SOV_german_summit_yes
+			}
+			GER = {
+				country_event = sov_external.10
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = SOV_italy_assistance_yes
+			}
+			ITA = {
+				country_event = sov_external.26
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik_Hungary
+	icon = GFX_focus_Alliance_with_Hungary
+	prerequisite = {
+		focus = SOV_Stalinist_Realpolitik_NAP
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Realpolitik_Yugoslavia
+	}
+	dynamic = yes
+	x = -1
+	y = 4
+	relative_position_id = SOV_Stalinist_Realpolitik
+	cost = 2
+	ai_will_do = {
+		base = 80
+		modifier = {
+			date > 1939.1.1
+			factor = 3
+		}
+	}
+	available = {
+		HUN = {
+			OR = {
+				has_government = fascism
+				has_government = nationalism
+				has_government = neutrality
+				has_government = monarchism
+			}
+			NOT = {
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+		HUN = {
+			OR = {
+				NOT = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = neutrality
+					has_government = monarchism
+				}
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	completion_reward = {
+		HUN = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_befriend
+			}
+		}
+		add_opinion_modifier = {
+			target = HUN
+			modifier = SOV_befriend
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik_Hungary_Arms
+	icon = GFX_focus_Befriend_Hungary
+	prerequisite = {
+		focus = SOV_Stalinist_Realpolitik_Hungary
+	}
+	dynamic = yes
+	x = -3
+	y = 5
+	relative_position_id = SOV_Stalinist_Realpolitik
+	cost = 2
+	ai_will_do = {
+		base = 180
+	}
+	available = {
+		HUN = {
+			OR = {
+				has_government = fascism
+				has_government = nationalism
+				has_government = neutrality
+				has_government = monarchism
+			}
+			NOT = {
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+		HUN = {
+			OR = {
+				NOT = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = neutrality
+					has_government = monarchism
+				}
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	completion_reward = {
+		HUN = {
+			country_event = {
+				id = sov_external.16
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik_Yugoslavia
+	icon = GFX_focus_Protect_Yugoslavia
+	prerequisite = {
+		focus = SOV_Stalinist_Realpolitik_NAP
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Realpolitik_Hungary
+	}
+	dynamic = yes
+	x = 1
+	y = 4
+	relative_position_id = SOV_Stalinist_Realpolitik
+	cost = 2
+	ai_will_do = {
+		base = 240
+		modifier = {
+			date < 1937.1.1
+			factor = 0.167
+		}
+	}
+	available = {
+		YUG = {
+			OR = {
+				has_government = fascism
+				has_government = nationalism
+				has_government = neutrality
+				has_government = monarchism
+			}
+			NOT = {
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+		YUG = {
+			OR = {
+				NOT = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = neutrality
+					has_government = monarchism
+				}
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	completion_reward = {
+		YUG = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_befriend
+			}
+		}
+		add_opinion_modifier = {
+			target = YUG
+			modifier = SOV_befriend
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik_Yugoslavia_Advisors
+	icon = GFX_focus_Military_Attache
+	prerequisite = {
+		focus = SOV_Stalinist_Realpolitik_Yugoslavia
+	}
+	dynamic = yes
+	x = 3
+	y = 5
+	relative_position_id = SOV_Stalinist_Realpolitik
+	cost = 3.58
+	ai_will_do = {
+		base = 220
+	}
+	available = {
+		YUG = {
+			OR = {
+				has_government = fascism
+				has_government = nationalism
+				has_government = neutrality
+				has_government = monarchism
+			}
+			NOT = {
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+		YUG = {
+			OR = {
+				NOT = {
+					has_government = fascism
+					has_government = nationalism
+					has_government = neutrality
+					has_government = monarchism
+				}
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	completion_reward = {
+		YUG = {
+			country_event = {
+				id = sov_external.32
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik_Devils_Fronts
+	icon = GFX_focus_Revolution
+	prerequisite = {
+		focus = SOV_Stalinist_Realpolitik_Hungary
+		focus = SOV_Stalinist_Realpolitik_Yugoslavia
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Realpolitik_End_Support
+	}
+	dynamic = yes
+	x = -1
+	y = 5
+	relative_position_id = SOV_Stalinist_Realpolitik
+	cost = 2
+	ai_will_do = {
+		base = 400
+		modifier = {
+			date < 1936.6.1
+			factor = 0.3
+		}
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		custom_effect_tooltip = devfront_tt
+		hidden_effect = {
+			every_country = {
+				limit = {
+					exists = yes
+					OR = {
+						tag = GER
+						tag = WGR
+					}
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+				country_event = {
+					id = sov_external.141 #accepts
+				}
+			}
+			every_country = {
+				limit = {
+					exists = yes
+					OR = {
+						tag = FRA
+						tag = ITA
+						tag = SPA
+						tag = SPC
+					}
+					NOT = {
+						has_government = communism
+						has_government = authoritarian_socialism
+					}
+				}
+				country_event = {
+					id = sov_external.142 #no
+				}
+			}
+		}
+		set_global_flag = USSR_Devils_Fronts
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Realpolitik_End_Support
+	icon = GFX_focus_Risky_Deal
+	prerequisite = {
+		focus = SOV_Stalinist_Realpolitik_Hungary
+		focus = SOV_Stalinist_Realpolitik_Yugoslavia
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Realpolitik_Devils_Fronts
+	}
+	dynamic = yes
+	x = 1
+	y = 5
+	relative_position_id = SOV_Stalinist_Realpolitik
+	cost = 2
+	ai_will_do = {
+		base = 60
+		modifier = {
+			date < 1936.6.1
+			factor = 0.3
+		}
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = SOV_german_summit_yes
+					has_country_flag = SOV_italy_assistance_yes
+					has_country_flag = SOV_french_summit_yes
+				}
+			}
+			custom_effect_tooltip = SOV_need_to_align_first
+		}
+		else_if = {
+			limit = {
+				has_country_flag = SOV_german_summit_yes
+			}
+			GER = {
+				country_event = sov_external.144
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = SOV_italy_assistance_yes
+			}
+			ITA = {
+				country_event = sov_external.144
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = SOV_french_summit_yes
+			}
+			FRA = {
+				country_event = sov_external.144
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Europe_Future
+	icon = GFX_focus_Communist_Discourse
+	prerequisite = {
+		focus = SOV_Stalinist_Trade_Policy
+		focus = SOV_Stalinist_Czech_Guns
+		focus = SOV_Stalinist_Denounce_Sudeten
+		focus = SOV_Stalinist_Realpolitik_Devils_Fronts
+		focus = SOV_Stalinist_Realpolitik_End_Support
+	}
+	dynamic = yes
+	x = -2
+	y = 6
+	relative_position_id = SOV_Stalinist_Collective_Security
+	cost = 0
+	ai_will_do = {
+		base = 1600
+	}
+	available = {
+		OR = {
+			has_country_flag = SOV_did_purge
+			has_country_flag = SOV_surrogate
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+	}
+}
+shared_focus = { #TODO: Should be Reworked into a path were the talks with FRA and ENG to form an alliance are successful
+	id = SOV_Stalinist_CS_Phase_2
+	icon = GFX_focus_capitalist_worker_alliance
+	prerequisite = {
+		focus = SOV_Stalinist_Europe_Future
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Neutrality
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Support_The_Nationalists
+	}
+	dynamic = yes
+	x = 0
+	y = 1
+	relative_position_id = SOV_Stalinist_Europe_Future
+	cost = 1.43
+	ai_will_do = {
+		base = 100
+		modifier = {
+			OR = {
+				GCW_is_ongoing = yes
+				AND = {
+					only_one_germany_exists = yes
+					DDR_exists = yes
+					NOT = {
+						DDR = { has_war_with = SOV }
+					}
+					DDR = { has_far_left_government = yes }
+				}
+			}
+			factor = 100
+		}
+		modifier = {
+		    OR = {
+			    has_game_rule = { rule = SOV_foreign_policy_rule option = SOV_FORPOL_MOLOTOV }
+				has_game_rule = { rule = SOV_foreign_policy_rule option = SOV_FORPOL_NONE }
+			}
+			factor = 0
+		}
+		modifier = {
+			NOT = {
+				GCW_is_ongoing = yes
+				AND = {
+					only_one_germany_exists = yes
+					DDR_exists = yes
+					NOT = {
+						DDR = { has_war_with = SOV }
+					}
+					DDR = { has_far_left_government = yes }
+				}
+			}
+			NOT = {
+				has_global_flag = GCW_happened_flag
+				country_exists = GER
+				GER = { has_country_flag = GER_hitler_in_power }
+			}
+			factor = 0
+		}
+	}
+	available = {
+		OR = {
+			has_country_flag = SOV_french_assistance_yes
+			has_country_flag = SOV_german_assistance_yes
+			has_country_flag = SOV_italy_assistance_no
+			has_country_flag = SOV_france_nap_no
+			has_country_flag = SOV_italy_nap_no
+			AND = {
+				has_guaranteed = FRA
+				is_guaranteed_by = FRA
+			}
+			AND = {
+				has_completed_focus = SOV_Stalinist_Collective_Security
+				has_completed_focus = SOV_Stalinist_Popular_Front
+			}
+			AND = {
+				has_completed_focus = SOV_Stalinist_Realpolitik_GER_Peaceful_Coexistance
+				has_country_flag = SOV_german_summit_no
+			}
+			AND = {
+				has_completed_focus = SOV_Stalinist_Realpolitik_ITA_denounce_capitalism
+				has_country_flag = SOV_italy_assistance_no
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				GER = {
+					has_opinion_modifier = SOV_summit_yes
+					NOT = { has_government = neutrality }
+				}
+			}
+			remove_opinion_modifier = {
+				target = GER
+				modifier = SOV_summit_yes
+			}
+			GER = {
+				remove_opinion_modifier = {
+					target = SOV
+					modifier = SOV_summit_yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				GER = {
+					has_non_aggression_pact_with = SOV
+					NOT = { has_government = neutrality }
+				}
+			}
+			diplomatic_relation = {
+				country = GER
+				relation = non_aggression_pact
+				active = no
+			}
+			GER = {
+				diplomatic_relation = {
+					country = SOV
+					relation = non_aggression_pact
+					active = no
+				}
+			}
+		}
+		if = {
+			limit = {
+				ITA = {
+					has_opinion_modifier = SOV_denoucned
+				}
+			}
+			remove_opinion_modifier = {
+				target = ITA
+				modifier = SOV_denoucned
+			}
+			ITA = {
+				remove_opinion_modifier = {
+					target = SOV
+					modifier = SOV_denoucned
+				}
+			}
+		}
+		if = {
+			limit = {
+				ITA = {
+					has_non_aggression_pact_with = SOV
+					OR = {
+						has_government = nationalism
+						has_government = monarchism
+						has_government = fascism
+					}
+				}
+			}
+			diplomatic_relation = {
+				country = ITA
+				relation = non_aggression_pact
+				active = no
+			}
+			ITA = {
+				diplomatic_relation = {
+					country = SOV
+					relation = non_aggression_pact
+					active = no
+				}
+			}
+		}
+		if = {
+			limit = {
+				FRA = {
+					has_opinion_modifier = SOV_summit_yes
+					OR = {
+						has_government = nationalism
+						has_government = monarchism
+						has_government = fascism
+					}
+				}
+			}
+			remove_opinion_modifier = {
+				target = FRA
+				modifier = SOV_summit_yes
+			}
+			FRA = {
+				remove_opinion_modifier = {
+					target = SOV
+					modifier = SOV_summit_yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				FRA = {
+					has_non_aggression_pact_with = SOV
+					OR = {
+						has_government = nationalism
+						has_government = monarchism
+						has_government = fascism
+					}
+				}
+			}
+			diplomatic_relation = {
+				country = FRA
+				relation = non_aggression_pact
+				active = no
+			}
+			FRA = {
+				diplomatic_relation = {
+					country = SOV
+					relation = non_aggression_pact
+					active = no
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_idea = SOV_frn_Maxim_Litvinov
+				}
+			}
+			remove_ideas_with_trait = frnmin
+			add_ideas = SOV_frn_Maxim_Litvinov
+		}
+		else = {
+			add_political_power = 25
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Anti_German
+	icon = GFX_focus_POL_reassert_silesian_claims
+	prerequisite = {
+		focus = SOV_Stalinist_CS_Phase_2
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Anti_British
+	}
+	dynamic = yes
+	x = -1
+	y = 1
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 2.15
+	ai_will_do = {
+		base = 100
+		modifier = {
+			has_war_with = GER
+			add = 100
+		}
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		country_exists = GER
+		only_one_germany_exists = yes
+		GER = {
+			NOT = { is_puppet_of = SOV }
+			OR = {
+				has_country_flag = GER_hitler_in_power
+				has_country_flag = GER_DNVP_in_power
+				has_country_flag = GER_DNVP_Restoration
+				has_country_flag = GER_Himmler_Coup
+				has_far_right_government = yes
+			}
+		}
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		GER = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_anti_diplomacy
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Anti_British
+	icon = GFX_focus_ger_break_anglo_french_colonial_hegemony
+	prerequisite = {
+		focus = SOV_Stalinist_CS_Phase_2
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Anti_German
+	}
+	dynamic = yes
+	x = 1
+	y = 1
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 2.15
+	ai_will_do = {
+		base = 100
+		modifier = {
+			has_war_with = ENG
+			add = 100
+		}
+		modifier = {
+			has_war_with = JAP
+			factor = 0
+		}
+	}
+	available = {
+		OR = {
+			AND = {
+				only_one_germany_exists = yes
+				DDR_exists = yes
+				NOT = {
+					DDR = { has_war_with = SOV }
+				}
+				DDR = { has_far_left_government = yes }
+			}
+			AND = {
+				NOT = { has_global_flag = GCW_happened_flag }
+				country_exists = WGR
+				only_one_germany_exists = yes
+				WGR = { has_far_left_government = no }
+			}
+			AND = {
+				only_one_germany_exists = yes
+				OR = {
+					NOT = {
+						country_exists = GER
+						country_exists = GRM
+					}
+					GER = {is_subject = yes }
+				}
+			}
+		}
+		ENG = {
+			exists = yes
+			has_far_left_government = no
+			NOT = {
+				is_in_faction_with = SOV
+				has_war_together_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		ENG = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_anti_diplomacy
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Work_With_Britain
+	icon = GFX_focus_Befriend_United_Kingdom
+	prerequisite = {
+		focus = SOV_Stalinist_Anti_German
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Work_With_France
+	}
+	dynamic = yes
+	x = -2
+	y = 2
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 4
+	ai_will_do = {
+		base = 250
+	}
+	available = {
+		ENG = {
+			exists = yes
+			NOT = {
+				has_war_with = SOV
+				has_government = fascism
+				is_in_faction_with = GER
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		ENG = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_interest
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Yalta_Naval_Treaty
+	icon = GFX_Focus_British_Navy
+	prerequisite = {
+		focus = SOV_Stalinist_Work_With_Britain
+	}
+	dynamic = yes
+	x = -2
+	y = 3
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 4.29
+	ai_will_do = {
+		base = 350
+	}
+	available = {
+		ENG = {
+			exists = yes
+			NOT = {
+				has_war_with = SOV
+				has_government = monarchism
+				has_government = neutrality
+				has_government = nationalism
+				has_government = fascism
+				has_war_together_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		ENG = {
+			country_event = {
+				id = sov_external.74
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Defensive_pact_UK
+	icon = GFX_focus_British_Fortifications
+	prerequisite = {
+		focus = SOV_Stalinist_Yalta_Naval_Treaty
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_International_Air_Training
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_International_Army_Training
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_German_Alliance
+	}
+	dynamic = yes
+	x = -3
+	y = 4
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 5
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		ENG = {
+			exists = yes
+			NOT = {
+				has_war_with = SOV
+				has_government = monarchism
+				has_government = neutrality
+				has_government = nationalism
+				has_government = fascism
+				has_war_together_with = SOV
+				is_subject = yes
+			}
+		}
+		has_country_flag = SOV_yalta_yes
+	}
+	bypass = {
+	}
+	completion_reward = {
+		ENG = {
+			country_event = {
+				id = sov_external.77
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Work_With_France
+	icon = GFX_focus_france_coa
+	prerequisite = {
+		focus = SOV_Stalinist_Anti_German
+		#focus = SOV_Stalinist_Anti_British
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Work_With_Britain
+	}
+	dynamic = yes
+	x = 0
+	y = 2
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 4
+	ai_will_do = {
+		base = 600
+	}
+	available = {
+		FRA = {
+			exists = yes
+			NOT = {
+				has_war_with = SOV
+				has_government = monarchism
+				has_government = neutrality
+				has_government = nationalism
+				has_government = fascism
+				is_subject = yes
+			}
+			OR = {
+				FRA = { NOT = { is_in_faction_with = GER } }
+				NOT = { has_completed_focus = SOV_Stalinist_Anti_German }
+			}
+			OR = {
+				FRA = { NOT = { is_in_faction_with = ENG } }
+				NOT = { has_completed_focus = SOV_Stalinist_Anti_British }
+			}
+		}
+		NOT = {
+			has_country_flag = SOV_french_summit_no
+		}
+	}
+	bypass = {
+		OR = {
+			has_non_aggression_pact_with = FRA
+			has_guaranteed = FRA
+			is_guaranteed_by = FRA
+			is_in_faction_with = FRA
+		}
+		FRA = {
+			NOT = {
+				has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+			}
+		}
+	}
+	completion_reward = {
+		FRA = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_interest
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Mutual_Defensive_Pact_France
+	icon = GFX_focus_FrenchSoldiers
+	prerequisite = {
+		focus = SOV_Stalinist_Work_With_France
+	}
+	dynamic = yes
+	x = 0
+	y = 3
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 5
+	ai_will_do = {
+		base = 800
+	}
+	available = {
+		FRA = {
+			exists = yes
+			NOT = {
+				has_war_with = SOV
+				has_government = monarchism
+				has_government = neutrality
+				has_government = nationalism
+				has_government = fascism
+				is_subject = yes
+			}
+			OR = {
+				FRA = { NOT = { is_in_faction_with = GER } }
+				NOT = { has_completed_focus = SOV_Stalinist_Anti_German }
+			}
+			OR = {
+				FRA = { NOT = { is_in_faction_with = ENG } }
+				NOT = { has_completed_focus = SOV_Stalinist_Anti_British }
+			}
+		}
+	}
+	bypass = {
+		OR = {
+			has_non_aggression_pact_with = FRA
+			has_guaranteed = FRA
+			is_guaranteed_by = FRA
+			is_in_faction_with = FRA
+			has_country_flag = SOV_french_assistance_yes
+		}
+		FRA = {
+			NOT = {
+				has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+			}
+		}
+	}
+	completion_reward = {
+		FRA = {
+			country_event = {
+				id = sov_external.8
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_International_Air_Training
+	icon = GFX_goal_generic_build_airforce
+	prerequisite = {
+		focus = SOV_Stalinist_Yalta_Naval_Treaty
+		focus = SOV_Stalinist_Mutual_Defensive_Pact_France
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Defensive_pact_UK
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_International_Army_Training
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_German_Alliance
+	}
+	dynamic = yes
+	x = -1
+	y = 4
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 5
+	ai_will_do = {
+		base = 200
+	}
+	available = {
+		OR = {
+			AND = {
+				ENG = {
+					exists = yes
+					NOT = {
+						has_war_with = SOV
+						has_government = monarchism
+						has_government = neutrality
+						has_government = nationalism
+						has_government = fascism
+						is_subject = yes
+					}
+				}
+				has_country_flag = SOV_yalta_yes
+			}
+			AND = {
+				FRA = {
+					exists = yes
+					NOT = {
+						has_war_with = SOV
+						has_government = monarchism
+						has_government = neutrality
+						has_government = nationalism
+						has_government = fascism
+						is_subject = yes
+					}
+				}
+				has_country_flag = SOV_french_assistance_no
+			}
+		}
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_completed_focus = SOV_Stalinist_Yalta_Naval_Treaty
+			}
+			ENG = {
+				country_event = {
+					id = sov_external.83
+				}
+			}
+		}		
+		else_if = {
+			limit = {
+				has_completed_focus = SOV_Stalinist_Mutual_Defensive_Pact_France
+			}
+			FRA = {
+				country_event = {
+					id = sov_external.83
+				}
+			}
+		}		
+		else = {
+			custom_effect_tooltip = SOV_need_to_align_first
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_International_Army_Training
+	icon = GFX_focus_SOV_organization_centralization_discipline
+	prerequisite = {
+		focus = SOV_Stalinist_Mutual_Defensive_Pact_France
+		focus = SOV_Stalinist_Potsdam_Concordat
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Defensive_pact_UK
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_International_Air_Training
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_German_Alliance
+	}
+	dynamic = yes
+	x = 1
+	y = 4
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 5
+	ai_will_do = {
+		base = 250
+	}
+	available = {
+		AND = {
+			OR = {
+				GER = {
+					exists = yes
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = ROOT
+						is_subject = yes
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+				}
+				WGR = {
+					exists = yes
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = ROOT
+						is_subject = yes
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+				}
+				DDR = {
+					exists = yes
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = ROOT
+						is_subject = yes
+						has_government = fascism
+						has_government = nationalism
+						has_government = monarchism
+					}
+				}
+				FRA = {
+					exists = yes
+					NOT = {
+						has_war_with = SOV
+						has_government = monarchism
+						has_government = neutrality
+						has_government = nationalism
+						has_government = fascism
+						is_subject = yes
+					}
+				}
+				OR = {
+					AND = {
+						has_completed_focus = SOV_Stalinist_Mutual_Defensive_Pact_France
+						has_country_flag = SOV_french_assistance_no
+					}
+					AND = {
+						has_completed_focus = SOV_Stalinist_Potsdam_Concordat
+						has_country_flag = SOV_german_assistance_no
+					}
+				}
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_completed_focus = SOV_Stalinist_Potsdam_Concordat
+			}
+			if = {
+				limit = {
+					has_non_aggression_pact_with = GER
+				}
+				GER = {
+					country_event = {
+						id = sov_external.83
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_non_aggression_pact_with = WGR
+				}
+				WGR = {
+					country_event = {
+						id = sov_external.83
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_non_aggression_pact_with = DDR
+				}
+				DDR = {
+					country_event = {
+						id = sov_external.83
+					}
+				}
+			}
+		}		
+		else_if = {
+			limit = {
+				has_completed_focus = SOV_Stalinist_Mutual_Defensive_Pact_France
+			}
+			FRA = {
+				country_event = {
+					id = sov_external.83
+				}
+			}
+		}		
+		else = {
+			custom_effect_tooltip = SOV_need_to_align_first
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_French_Alliance
+	icon = GFX_focus_French_Modern_Army
+	prerequisite = {
+		focus = SOV_Stalinist_Mutual_Defensive_Pact_France
+	}
+	dynamic = yes
+	x = 0
+	y = 5
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 3.58
+	ai_will_do = {
+		base = 50
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+	}
+	available = {
+		FRA = {
+			exists = yes
+			is_in_faction = no
+			NOT = {
+				has_war_with = SOV
+				has_government = monarchism
+				has_government = neutrality
+				has_government = nationalism
+				has_government = fascism
+				is_subject = yes
+			}
+			has_war_together_with = SOV
+		}
+	}
+	bypass = {
+		is_in_faction_with = FRA
+	}
+	completion_reward = {
+		FRA = {
+			country_event = {
+				id = sov_external.80
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Work_With_Germany
+	icon = GFX_focus_A_Free_Germany
+	prerequisite = {
+		focus = SOV_Stalinist_Anti_British
+	}
+	dynamic = yes
+	x = 2
+	y = 2
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 4
+	ai_will_do = {
+		base = 500
+	}
+	available = {
+		hidden_trigger = {
+			GRM = {
+				exists = yes
+				NOT = {
+					has_war_with = SOV
+					has_autocratic_government = yes
+					has_war_together_with = SOV
+					is_subject = yes
+				}
+				OR = {
+					GRM = { NOT = { is_in_faction_with = FRA } }
+					NOT = { has_completed_focus = SOV_Stalinist_Anti_German }
+				}
+				OR = {
+					GRM = { NOT = { is_in_faction_with = ENG } }
+					NOT = { has_completed_focus = SOV_Stalinist_Anti_British }
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = GER_must_be_not_hostile_tt
+			always = yes
+		}
+	}
+	bypass = {
+		OR = {
+			has_non_aggression_pact_with = GRM
+			has_guaranteed = GRM
+			is_guaranteed_by = GRM
+			is_in_faction_with = GRM
+		}
+		GRM = {
+			has_autocratic_government = no
+		}
+	}
+	completion_reward = {
+		GRM = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_interest
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Potsdam_Concordat
+	icon = GFX_focus_generic_treaty
+	prerequisite = {
+		focus = SOV_Stalinist_Work_With_Germany
+	}
+	dynamic = yes
+	x = 2
+	y = 3
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 5.72
+	ai_will_do = {
+		base = 450
+	}
+	available = {
+		GRM = {
+			exists = yes
+			NOT = {
+				has_war_with = ROOT
+				is_in_faction_with = ROOT
+				is_subject = yes
+				has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+			}
+		}
+	}
+	bypass = {
+		GRM = {
+			OR = {
+				has_war_with = ROOT
+				is_in_faction_with = ROOT
+				has_non_aggression_pact_with = ROOT
+			}
+		}
+	}
+	completion_reward = {
+		GRM = {
+			country_event = {
+				id = sov_external.10
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_German_Alliance
+	icon = GFX_focus_Befriend_Weimar_Germany
+	prerequisite = {
+		focus = SOV_Stalinist_Potsdam_Concordat
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Defensive_pact_UK
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_International_Air_Training
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_International_Army_Training
+	}
+	dynamic = yes
+	x = 3
+	y = 4
+	relative_position_id = SOV_Stalinist_CS_Phase_2
+	cost = 5
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		GRM = {
+			exists = yes
+			has_non_aggression_pact_with = ROOT
+			NOT = {
+				has_war_with = ROOT
+				is_in_faction_with = ROOT
+				is_subject = yes
+				has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+			}
+		}
+	}
+	bypass = {
+		GRM = {
+			is_in_faction_with = ROOT
+		}
+	}
+	completion_reward = {
+		GRM = {
+			country_event = {
+				id = sov_external.80
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Neutrality
+	icon = GFX_goal_generic_neutrality_focus
+	prerequisite = {
+		focus = SOV_Stalinist_Europe_Future
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_CS_Phase_2
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Support_The_Nationalists
+	}
+	dynamic = yes
+	x = 6
+	y = 1
+	relative_position_id = SOV_Stalinist_Europe_Future
+	cost = 1.43
+	ai_will_do = {
+		base = 100
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			has_war_with = JAP
+			factor = 0.5
+		}
+		modifier = {
+		    OR = {
+			    has_game_rule = { rule = SOV_foreign_policy_rule option = SOV_FORPOL_MOLOTOV }
+				has_game_rule = { rule = SOV_foreign_policy_rule option = SOV_FORPOL_LITVINOV }
+			}
+			factor = 0
+		}
+	}
+	available = {
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				NOT = {
+					has_idea = SOV_frn_Yevgeny_Rubinin
+				}
+			}
+			remove_ideas_with_trait = frnmin
+			add_ideas = SOV_frn_Yevgeny_Rubinin
+		}
+		else = {
+			add_political_power = 25
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Attack_For_Motherland
+	icon = GFX_focus_SOV_builder_of_the_red_army
+	prerequisite = {
+		focus = SOV_Stalinist_Neutrality
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Defend_For_Motherland
+	}
+	dynamic = yes
+	x = -2
+	y = 1
+	relative_position_id = SOV_Stalinist_Neutrality
+	cost = 3
+	ai_will_do = {
+		base = 100
+	}
+	available = {
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		add_ideas = SOV_neutrality_attack
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Minsk_Forts
+	icon = GFX_focus_Prepare_the_Troops
+	prerequisite = {
+		focus = SOV_Stalinist_Attack_For_Motherland
+	}
+	dynamic = yes
+	x = -2
+	y = 2
+	relative_position_id = SOV_Stalinist_Neutrality
+	cost = 5.72
+	ai_will_do = {
+		base = 250
+	}
+	available = {
+		controls_state = 206
+	}
+	bypass = {
+		NOT = {
+			owns_state = 206
+		}
+	}
+	completion_reward = {
+		206 = {
+			add_building_construction = {
+				type = bunker
+				level = 2
+				province = 11370
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 2
+				province = 3267
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 2
+				province = 11216
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Defend_For_Motherland
+	icon = GFX_focus_Trench_Warfare
+	prerequisite = {
+		focus = SOV_Stalinist_Neutrality
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Attack_For_Motherland
+	}
+	dynamic = yes
+	x = 2
+	y = 1
+	relative_position_id = SOV_Stalinist_Neutrality
+	cost = 3
+	ai_will_do = {
+		base = 300
+	}
+	available = {
+	}
+	bypass = {
+
+	}
+	completion_reward = {
+		add_ideas = SOV_neutrality_defend
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Moscow_Forts
+	icon = GFX_focus_The_Last_Stand
+	prerequisite = {
+		focus = SOV_Stalinist_Defend_For_Motherland
+	}
+	dynamic = yes
+	x = 2
+	y = 2
+	relative_position_id = SOV_Stalinist_Neutrality
+	cost = 5.72
+	ai_will_do = {
+		base = 250
+	}
+	available = {
+		controls_state = 219
+	}
+	bypass = {
+		NOT = {
+			owns_state = 219
+		}
+	}
+	completion_reward = {
+		219 = {
+			add_building_construction = {
+				type = bunker
+				level = 3
+				province = 6830
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 3
+				province = 6414
+				instant_build = yes
+			}
+
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Zaporozhe_Forts
+	icon = GFX_focus_generic_black_sea_focus
+	prerequisite = {
+		focus = SOV_Stalinist_Attack_For_Motherland
+		focus = SOV_Stalinist_Defend_For_Motherland
+	}
+	dynamic = yes
+	x = 0
+	y = 2
+	relative_position_id = SOV_Stalinist_Neutrality
+	cost = 2.85
+	ai_will_do = {
+		base = 275
+	}
+	available = {
+		controls_state = 200
+	}
+	bypass = {
+		NOT = {
+			owns_state = 200
+		}
+	}
+	completion_reward = {
+		200 = {
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 11405
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 6596
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 11700
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Kiev_Forts
+	icon = GFX_focus_Military_Intervention
+	prerequisite = {
+		focus = SOV_Stalinist_Minsk_Forts
+	}
+	prerequisite = {
+		focus = SOV_Stalinist_Zaporozhe_Forts
+	}
+	dynamic = yes
+	x = -1
+	y = 3
+	relative_position_id = SOV_Stalinist_Neutrality
+	cost = 5
+	ai_will_do = {
+		base = 220
+	}
+	available = {
+		controls_state = 202
+	}
+	bypass = {
+		NOT = {
+			owns_state = 202
+		}
+	}
+	completion_reward = {
+		202 = {
+			add_building_construction = {
+				type = bunker
+				level = 2
+				province = 3543
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 2
+				province = 504
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 2
+				province = 3494
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Stalingrad_Forts
+	icon = GFX_focus_The_Iron_Premier
+	prerequisite = {
+		focus = SOV_Stalinist_Zaporozhe_Forts
+	}
+	prerequisite = {
+		focus = SOV_Stalinist_Moscow_Forts
+	}
+	dynamic = yes
+	x = 1
+	y = 3
+	relative_position_id = SOV_Stalinist_Neutrality
+	cost = 4.29
+	ai_will_do = {
+		base = 200
+	}
+	available = {
+		controls_state = 217
+	}
+	bypass = {
+		NOT = {
+			owns_state = 217
+		}
+	}
+	completion_reward = {
+		217 = {
+			add_building_construction = {
+				type = bunker
+				level = 2
+				province = 3529
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 2
+				province = 498
+				instant_build = yes
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Partisans
+	icon = GFX_focus_Guerilla_Warfare
+	prerequisite = {
+		focus = SOV_Stalinist_Kiev_Forts
+		focus = SOV_Stalinist_Stalingrad_Forts
+	}
+	dynamic = yes
+	x = 0
+	y = 4
+	relative_position_id = SOV_Stalinist_Neutrality
+	cost = 6
+	ai_will_do = {
+		base = 500
+	}
+	available = {
+		surrender_progress > 0.3
+	}
+	bypass = {
+	}
+	completion_reward = {
+		add_ideas = SOV_partisans_arise
+	}
+}
+shared_focus = { #TODO: Should be reworked to a path where SOV stablishes secret negotiations with the Nazis (Historical); talks with Fra & ENG fail like irl
+	id = SOV_Stalinist_Support_The_Nationalists
+	icon = GFX_focus_Fascist_Treaties
+	prerequisite = {
+		focus = SOV_Stalinist_Europe_Future
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_CS_Phase_2
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Neutrality
+	}
+	dynamic = yes
+	x = -6
+	y = 1
+	relative_position_id = SOV_Stalinist_Europe_Future
+	cost = 1.43
+	ai_will_do = {
+		base = 300
+		modifier = {
+		    OR = {
+			    has_game_rule = { rule = SOV_foreign_policy_rule option = SOV_FORPOL_NONE }
+				has_game_rule = { rule = SOV_foreign_policy_rule option = SOV_FORPOL_LITVINOV }
+			}
+			factor = 0
+		}
+	}
+	available = {
+		OR = {
+			AND = {
+				has_completed_focus = SOV_Stalinist_Realpolitik
+				OR = {
+					has_country_flag = SOV_french_assistance_yes
+					has_country_flag = SOV_german_assistance_yes
+					has_country_flag = SOV_italy_assistance_yes
+				}
+			}
+			has_country_flag = SOV_france_nap_yes
+			has_country_flag = SOV_italy_nap_yes
+			has_completed_focus = SOV_Stalinist_Denounce_Sudeten
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				GER = {
+					has_opinion_modifier = SOV_summit_yes
+					OR = {
+						has_government = nationalism
+						has_government = monarchism
+						has_government = fascism
+					}
+				}
+			}
+			remove_opinion_modifier = {
+				target = GER
+				modifier = SOV_summit_yes
+			}
+			GER = {
+				remove_opinion_modifier = {
+					target = GER
+					modifier = SOV_summit_yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				GER = {
+					has_non_aggression_pact_with = SOV
+					NOT = {
+						has_government = neutrality
+						has_government = nationalism
+						has_government = monarchism
+						has_government = fascism
+					}
+				}
+			}
+			diplomatic_relation = {
+				country = GER
+				relation = non_aggression_pact
+				active = no
+			}
+			GER = {
+				diplomatic_relation = {
+					country = SOV
+					relation = non_aggression_pact
+					active = no
+				}
+			}
+		}
+		if = {
+			limit = {
+				WGR = {
+					has_opinion_modifier = SOV_summit_yes
+					OR = {
+						has_government = nationalism
+						has_government = monarchism
+						has_government = fascism
+					}
+				}
+			}
+			remove_opinion_modifier = {
+				target = WGR
+				modifier = SOV_summit_yes
+			}
+			WGR = {
+				remove_opinion_modifier = {
+					target = WGR
+					modifier = SOV_summit_yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				WGR = {
+					has_non_aggression_pact_with = SOV
+					NOT = {
+						has_government = neutrality
+						has_government = nationalism
+						has_government = monarchism
+						has_government = fascism
+					}
+				}
+			}
+			diplomatic_relation = {
+				country = WGR
+				relation = non_aggression_pact
+				active = no
+			}
+			WGR = {
+				diplomatic_relation = {
+					country = SOV
+					relation = non_aggression_pact
+					active = no
+				}
+			}
+		}
+		if = {
+			limit = {
+				CZE = {
+					has_opinion_modifier = SOV_summit_yes
+					OR = {
+						has_government = nationalism
+						has_government = monarchism
+						has_government = fascism
+					}
+				}
+			}
+			remove_opinion_modifier = {
+				target = CZE
+				modifier = SOV_summit_yes
+			}
+			CZE = {
+				remove_opinion_modifier = {
+					target = CZE
+					modifier = SOV_summit_yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				CZE = {
+					has_non_aggression_pact_with = SOV
+					NOT = {
+						has_government = neutrality
+						has_government = nationalism
+						has_government = monarchism
+						has_government = fascism
+					}
+				}
+			}
+			diplomatic_relation = {
+				country = CZE
+				relation = non_aggression_pact
+				active = no
+			}
+			CZE = {
+				diplomatic_relation = {
+					country = SOV
+					relation = non_aggression_pact
+					active = no
+				}
+			}
+		}
+		if = {
+			limit = {
+				FRA = {
+					has_opinion_modifier = SOV_summit_yes
+					OR = {
+						has_government = nationalism
+						has_government = monarchism
+						has_government = fascism
+					}
+				}
+			}
+			remove_opinion_modifier = {
+				target = FRA
+				modifier = SOV_summit_yes
+			}
+			FRA = {
+				remove_opinion_modifier = {
+					target = SOV
+					modifier = SOV_summit_yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				FRA = {
+					OR = {
+						is_guaranteed_by = SOV
+						has_guaranteed = SOV
+					}
+					NOT = {
+						has_government = neutrality
+						has_government = nationalism
+						has_government = monarchism
+						has_government = fascism
+					}
+				}
+			}
+			diplomatic_relation = {
+				country = FRA
+				relation = guarantee
+				active = no
+			}
+			FRA = {
+				diplomatic_relation = {
+					country = SOV
+					relation = guarantee
+					active = no
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_idea = SOV_frn_Vyasheslav_Molotov
+				}
+			}
+			remove_ideas_with_trait = frnmin
+			add_ideas = SOV_frn_Vyasheslav_Molotov
+		}
+		else = {
+			add_political_power = 25
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Meet_With_Italians
+	icon = GFX_focus_befriend_italy
+	prerequisite = {
+		focus = SOV_Stalinist_Support_The_Nationalists
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Meet_With_Germans
+	}
+	dynamic = yes
+	x = -2
+	y = 1
+	relative_position_id = SOV_Stalinist_Support_The_Nationalists
+	cost = 2.15
+	ai_will_do = {
+		base = 0
+		modifier = {
+			is_historical_focus_on = yes
+			factor = 0
+		}
+		modifier = {
+			OR = {
+				GER = { exists = no }
+				GER = { is_subject = yes }
+			}
+			add = 300
+		}
+	}
+	available = {
+		NOT = {
+			has_country_flag = SOV_italy_nap_no
+		}
+		ITA = {
+			exists = yes
+			OR = {
+				has_government = fascism
+				has_government = nationalism
+				has_government = neutrality
+				has_government = monarchism
+			}
+			NOT = {
+				is_in_faction_with = SOV
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+		has_country_flag = SOV_italy_nap_yes
+	}
+	completion_reward = {
+		ITA = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_interest
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Rhodes_Plan
+	icon = GFX_goal_generic_position_armies
+	prerequisite = {
+		focus = SOV_Stalinist_Meet_With_Italians
+	}
+	dynamic = yes
+	x = -2
+	y = 2
+	relative_position_id = SOV_Stalinist_Support_The_Nationalists
+	cost = 3.57
+	ai_will_do = {
+		base = 270
+	}
+	available = {
+		ITA = {
+			exists = yes
+			OR = {
+				has_government = fascism
+				has_government = nationalism
+				has_government = neutrality
+				has_government = monarchism
+			}
+			NOT = {
+				is_in_faction_with = SOV
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+		OR = {
+			ITA = {
+				OR = {
+					is_in_faction = yes
+					has_war_with = SOV
+					is_subject = yes
+					NOT = {
+						has_government = fascism
+						has_government = nationalism
+						has_government = neutrality
+						has_government = monarchism
+					}
+				}
+			}
+			TUR = {
+				OR = {
+					is_in_faction = yes
+					is_in_faction = yes
+					has_war_with = SOV
+					is_subject = yes
+				}
+			}
+		}				
+	}
+	completion_reward = {
+		ITA = {
+			country_event = {
+				id = sov_external.35
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Turkish_Alliance
+	icon = GFX_focus_Befriend_Turkey
+	prerequisite = {
+		focus = SOV_Stalinist_Rhodes_Plan
+	}
+	dynamic = yes
+	x = -3
+	y = 3
+	relative_position_id = SOV_Stalinist_Support_The_Nationalists
+	cost = 3.57
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		has_country_flag = SOV_rhodes_yes
+		TUR = {
+			exists = yes
+			NOT = {
+				is_in_faction_with = SOV
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		TUR = {
+			country_event = {
+				id = sov_external.38
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_RP2_Trade
+	icon = GFX_goal_generic_positive_trade_relations
+	prerequisite = {
+		focus = SOV_Stalinist_Rhodes_Plan
+		focus = SOV_provide_resources_to_germany
+	}
+	dynamic = yes
+	x = -1
+	y = 3
+	relative_position_id = SOV_Stalinist_Support_The_Nationalists
+	cost = 5
+	ai_will_do = {
+		base = 250
+	}
+	available = {
+		OR = {
+			has_country_flag = SOV_rhodes_no
+			NOT = { has_completed_focus = SOV_Stalinist_Meet_With_Italians }
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				has_completed_focus = SOV_Stalinist_Meet_With_Italians
+			}
+			ITA = {
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_trade2
+				}
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = SOV_trade2
+			}
+		}
+		else_if = {
+			limit = {
+				has_completed_focus = SOV_Stalinist_Meet_With_Germans
+			}
+			GER = {
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_trade2
+				}
+			}
+			add_opinion_modifier = {
+				target = GER
+				modifier = SOV_trade2
+			}
+		}
+		else = {
+			custom_effect_tooltip = SOV_need_to_align_first
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Italian_Alliance
+	icon = GFX_focus_Italian_Soldiers
+	prerequisite = {
+		focus = SOV_Stalinist_Turkish_Alliance
+	}
+	dynamic = yes
+	x = -3
+	y = 4
+	relative_position_id = SOV_Stalinist_Support_The_Nationalists
+	cost = 1
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		has_country_flag = SOV_rhodes_yes
+		is_in_faction_with = TUR
+		ITA = {
+			exists = yes
+			NOT = {
+				is_in_faction_with = SOV
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+	}
+	completion_reward = {
+		ITA = {
+			country_event = {
+				id = sov_external.41
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Meet_With_Germans
+	icon = GFX_focus_Befriend_Imperial_Germany
+	prerequisite = {
+		focus = SOV_Stalinist_Support_The_Nationalists
+	}
+	mutually_exclusive = {
+		focus = SOV_Stalinist_Meet_With_Italians
+	}
+	dynamic = yes
+	x = 0
+	y = 1
+	relative_position_id = SOV_Stalinist_Support_The_Nationalists
+	cost = 2.15
+	ai_will_do = {
+		base = 200
+	}
+	available = {
+		NOT = {
+			has_country_flag = SOV_german_assistance_no
+		}
+		only_one_germany_exists = yes
+		GER = {
+			exists = yes
+			has_autocratic_government = yes
+			NOT = {
+				is_in_faction_with = SOV
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	bypass = {
+		has_country_flag = SOV_german_assistance_yes
+		has_completed_focus = SOV_Stalinist_Realpolitik_GER_Peaceful_Coexistance
+	}
+	completion_reward = {
+		GER = {
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_interest
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_provide_resources_to_germany
+	icon = GFX_focus_Export_Oil
+	prerequisite = {
+		focus = SOV_Stalinist_Meet_With_Germans
+	}
+	dynamic = yes
+	x = 0
+	y = 2
+	relative_position_id = SOV_Stalinist_Support_The_Nationalists
+	cost = 2
+	ai_will_do = {
+		base = 8000
+		modifier = {
+			has_war_with = GER
+			factor = 0
+		}
+	}
+	available = {
+		has_global_flag = MR_pact_flag
+		GER = {
+			exists = yes
+			NOT = {
+				has_capitulated = yes
+				is_in_faction_with = SOV
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+	}
+	completion_reward = {
+		add_ideas = SOV_secret_exports_to_germany
+		add_offsite_building = { type = industrial_complex level = 3 }
+		add_opinion_modifier = {
+			target = GER
+			modifier = SOV_export_oil_germany
+		}
+		GER = {
+			add_ideas = GER_secret_soviet_exports
+			add_opinion_modifier = {
+				target = SOV
+				modifier = SOV_export_oil_germany
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Alliance_With_Germany
+	icon = GFX_focus_Risky_Deal
+	prerequisite = {
+		focus = SOV_Stalinist_RP2_Trade
+	}
+	dynamic = yes
+	x = 0
+	y = 4
+	relative_position_id = SOV_Stalinist_Support_The_Nationalists
+	cost = 2
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		GER = {
+			exists = yes
+			OR = {
+				has_far_right_government = yes
+			}
+			NOT = {
+				is_in_faction = yes
+				has_war_with = SOV
+				is_subject = yes
+			}
+		}
+		has_global_flag = MR_pact_flag
+	}
+	completion_reward = {
+		GER = {
+			country_event = {
+				id = sov_external.56
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Stalinist_Expansion
+	icon = GFX_focus_Gunpoint_Diplomacy
+	prerequisite = {
+		focus = SOV_Stalinist_Join_LON
+	}
+	x = 9
+	y = 1
+	relative_position_id = SOV_Stalinist_Join_LON
+	cost = 1.43
+	ai_will_do = {
+		base = 800
+	}
+	available = {
+		date > 1938.3.1
+	}
+	completion_reward = {
+		POL = {
+			if = {
+				limit = {
+					exists = yes
+					NOT = {
+						is_subject_of = SOV
+						has_war_with = SOV
+						has_war_together_with = SOV
+					}
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_expansion
+				}
+			}
+		}
+		LIT = {
+			if = {
+				limit = {
+					exists = yes
+					NOT = {
+						is_subject_of = SOV
+						has_war_with = SOV
+						has_war_together_with = SOV
+					}
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_expansion
+				}
+			}
+		}
+		LAT = {
+			if = {
+				limit = {
+					exists = yes
+					NOT = {
+						is_subject_of = SOV
+						has_war_with = SOV
+						has_war_together_with = SOV
+					}
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_expansion
+				}
+			}
+		}
+		EST = {
+			if = {
+				limit = {
+					exists = yes
+					NOT = {
+						is_subject_of = SOV
+						has_war_with = SOV
+						has_war_together_with = SOV
+					}
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_expansion
+				}
+			}
+		}
+		FIN = {
+			if = {
+				limit = {
+					exists = yes
+					NOT = {
+						is_subject_of = SOV
+						has_war_with = SOV
+						has_war_together_with = SOV
+					}
+				}
+				add_opinion_modifier = {
+					target = SOV
+					modifier = SOV_expansion
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = SOV_MR_Pact_Focus
+	icon = GFX_focus_POL_beck_ribbentrop
+	prerequisite = {
+		focus = SOV_Stalinist_Expansion
+	}
+	x = 0
+	y = 1
+	relative_position_id = SOV_Stalinist_Expansion
+	cost = 2.86
+	ai_will_do = {
+		base = 340
+	}
+	available = {
+		always = no
+	}
+	bypass = {
+		OR = {
+			has_global_flag = MR_pact_flag
+			GER = { exists = no }
+		}
+	}
+	completion_reward = {
+	}
+}
+
+shared_focus = {
+	id = SOV_Ultimatum_to_Finland
+	icon = GFX_focus_Claims_on_Finland
+	prerequisite = {
+		focus = SOV_MR_Pact_Focus
+	}
+	x = -1
+	y = 2
+	relative_position_id = SOV_Stalinist_Expansion
+	cost = 2.15
+	ai_will_do = {
+		base = 8
+		modifier = {
+			date < 1939.11.1
+			factor = 0
+		}
+		modifier = {
+			date > 1939.11.1
+			factor = 100
+		}
+	}
+	available = {
+		OR = {
+			has_country_flag = SOV_did_purge
+			has_country_flag = SOV_surrogate
+		}
+		OR = {
+			AND = {
+				has_global_flag = MR_pact_flag
+				OR = {
+					POL = { has_capitulated = yes }
+					POL = { exists = no }
+					POL = { is_subject = yes }
+				}
+			}
+			AND = {
+				date > 1940.3.1
+				has_war = no
+			}
+		}
+		FIN = {
+			exists = yes
+			NOT = {
+				has_war_with = SOV
+				has_war_together_with = SOV
+				is_subject = yes
+			}
+			has_full_control_of_state = 146
+			has_full_control_of_state = 147
+			has_full_control_of_state = 722
+			has_full_control_of_state = 830
+			has_full_control_of_state = 832
+		}
+		has_full_control_of_state = 828
+	}
+	bypass = {
+		FIN = {
+			OR = {
+				exists = no
+				has_war_with = SOV
+				is_subject = yes
+				is_in_faction_with = SOV
+				NOT = {
+					has_full_control_of_state = 146
+					has_full_control_of_state = 147
+					has_full_control_of_state = 722
+					has_full_control_of_state = 830
+					has_full_control_of_state = 832
+				}
+			}
+		}
+	}
+	completion_reward = {
+		FIN = {
+			country_event = {
+				id = sov_external.92
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Fortify_Finnish_Bases
+	icon = GFX_focus_Fortification_Effort
+	prerequisite = {
+		focus = SOV_Ultimatum_to_Finland
+	}
+	x = -1
+	y = 3
+	relative_position_id = SOV_Stalinist_Expansion
+	cost = 5
+	ai_will_do = {
+		base = 400
+	}
+	available = {
+		OR = {
+			has_country_flag = SOV_did_purge
+			has_country_flag = SOV_surrogate
+		}
+		owns_state = 830
+		controls_state = 830
+	}
+	bypass = {
+	}
+	completion_reward = {
+		830 = {
+			add_building_construction = {
+				type = naval_base
+				level = 1
+				instant_build = yes
+				province = 11211
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Invade_Poland
+	icon = GFX_focus_Invade_Poland
+	prerequisite = {
+		focus = SOV_MR_Pact_Focus
+	}
+	x = -3
+	y = 2
+	relative_position_id = SOV_Stalinist_Expansion
+	cost = 1
+	ai_will_do = {
+		base = 500
+		modifier = {
+			date < 1940.1.1
+			factor = 0.1
+		}
+	}
+	available = {
+		country_exists = POL
+		NOT = { has_global_flag = MR_pact_flag }
+		POL = { is_subject = no }
+		NOT = {
+			GER = {
+				has_war_with = POL
+			}
+			WGR = {
+				has_war_with = POL
+			}
+		}
+		date > 1939.10.12
+	}
+	bypass = {
+		has_global_flag = SOV_invading_Poland_MR
+		has_war_with = POL
+	}
+	will_lead_to_war_with = POL
+	completion_reward = {
+		declare_war_on = {
+			target = POL
+			type = take_claimed_state
+		}
+	}
+}
+
+shared_focus = {
+	id = SOV_Demand_Bessarabia
+	icon = GFX_focus_Claim_Bessarabia
+	prerequisite = {
+		focus = SOV_MR_Pact_Focus
+	}
+	x = 3
+	y = 2
+	relative_position_id = SOV_Stalinist_Expansion
+	cost = 1.43
+	ai_will_do = {
+		base = 400
+		modifier = {
+			date < 1940.6.1
+			factor = 0
+		}
+	}
+	available = {
+		OR = {
+			has_completed_focus = SOV_Invade_Poland
+			has_global_flag = partition_of_poland_alt
+		}
+		NOT = { has_war_with = GER }
+		ROM = {
+			exists = yes
+			NOT = {
+				has_war_with = SOV
+				has_war_together_with = SOV
+				is_subject = yes
+			}
+		}
+		OR = {
+			has_country_flag = SOV_did_purge
+			has_country_flag = SOV_surrogate
+		}
+	}
+	bypass = {
+		OR = {
+			has_war_with = GER
+			ROM = {
+				OR = {
+					exists = no
+					has_war_with = SOV
+					is_in_faction_with = SOV
+					NOT = {
+						AND = {
+							owns_state = 80
+							controls_state = 80
+						}
+						AND = {
+							owns_state = 1051
+							controls_state = 1051
+						}
+						AND = {
+							owns_state = 78
+							controls_state = 78
+						}
+						AND = {
+							owns_state = 1052
+							controls_state = 1052
+						}
+					}
+				}
+			}
+		}
+	}
+	completion_reward = {
+		ROM = {
+			country_event = {
+				id = sov_external.95
+			}
+		}
+	}
+}
+shared_focus = {
+	id = SOV_Bases_in_the_Baltic
+	icon = GFX_focus_Military_Intervention
+	prerequisite = {
+		focus = SOV_MR_Pact_Focus
+	}
+	x = 1
+	y = 2
+	relative_position_id = SOV_Stalinist_Expansion
+	cost = 2.43
+	ai_will_do = {
+		base = 0
+	}
+	available = {
+		always = no
+		# OR = {
+		# 	EST = {
+		# 		exists = yes
+		# 		NOT = {
+		# 			has_war_with = SOV
+		# 			has_war_together_with = SOV
+		# 			is_subject = yes
+		# 		}
+		# 	}
+		# 	LIT = {
+		# 		SOV = { has_country_flag = LIT_in_SOV_sphere_of_influence_MR }
+		# 		exists = yes
+		# 		NOT = {
+		# 			has_war_with = SOV
+		# 			has_war_together_with = SOV
+		# 			is_subject = yes
+		# 		}
+		# 	}
+		# 	LAT = {
+		# 		exists = yes
+		# 		NOT = {
+		# 			has_war_with = SOV
+		# 			has_war_together_with = SOV
+		# 			is_subject = yes
+		# 		}
+		# 	}
+		# }
+	}
+	bypass = {
+		EST = {
+			OR = {
+				has_country_flag = EST_SOV_mutual_assistance_treaty
+				exists = no
+				has_war_with = SOV
+				is_subject = yes
+				is_in_faction_with = SOV
+			}
+		}
+		LAT = {
+			OR = {
+				has_country_flag = LAT_SOV_mutual_assistance_treaty
+				exists = no
+				has_war_with = SOV
+				is_subject = yes
+				is_in_faction_with = SOV
+			}
+		}
+		if = {
+			limit = {
+				SOV = { has_country_flag = LIT_in_SOV_sphere_of_influence_MR }
+			}
+			LIT = {
+				OR = {
+					has_country_flag = LIT_SOV_mutual_assistance_treaty
+					exists = no
+					has_war_with = SOV
+					is_subject = yes
+					is_in_faction_with = SOV
+				}
+			}
+		}
+	}
+	completion_reward = {
+	}
+}
+shared_focus = {
+	id = SOV_Occupy_Baltic
+	icon = GFX_focus_Occupy_Baltics
+	prerequisite = {
+		focus = SOV_Bases_in_the_Baltic
+	}
+	prerequisite = {
+		focus = SOV_Ultimatum_to_Finland
+	}
+	x = 1
+	y = 3
+	relative_position_id = SOV_Stalinist_Expansion
+	cost = 1.43
+	ai_will_do = {
+		base = 1200
+		modifier = {
+			date < 1940.5.1
+			factor = 0
+		}
+	}
+	available = {
+		has_global_flag = MR_pact_flag
+		OR = {
+			EST = {
+				exists = yes
+				has_country_flag = EST_SOV_mutual_assistance_treaty
+				NOT = {
+					has_war_with = SOV
+					has_war_together_with = SOV
+					is_subject = yes
+				}
+			}
+			LIT = {
+				SOV = { has_country_flag = LIT_in_SOV_sphere_of_influence_MR }
+				exists = yes
+				NOT = {
+					has_war_with = SOV
+					has_war_together_with = SOV
+					is_subject = yes
+				}
+			}
+			LAT = {
+				exists = yes
+				NOT = {
+					has_war_with = SOV
+					has_war_together_with = SOV
+					is_subject = yes
+				}
+			}
+		}
+	}
+	bypass = {
+		AND = {
+			EST = {
+				OR = {
+					exists = no
+					has_war_with = SOV
+					is_subject = yes
+					is_in_faction_with = SOV
+				}
+			}
+			LAT = {
+				OR = {
+					exists = no
+					has_war_with = SOV
+					is_subject = yes
+					is_in_faction_with = SOV
+				}
+			}
+			LIT = {
+				OR = {
+					exists = no
+					has_war_with = SOV
+					is_subject = yes
+					is_in_faction_with = SOV
+				}
+			}
+		}
+	}
+	completion_reward = {
+		if = {
+			limit = {
+				EST = {
+					exists = yes
+					NOT = {
+						has_war_with = SOV
+						has_war_together_with = SOV
+						is_subject = yes
+					}
+				}
+			}
+			EST = {
+				country_event = {
+					id = sov_external.101
+				}
+			}
+		}
+		if = {
+			limit = {
+				LAT = {
+					exists = yes
+					NOT = {
+						has_war_with = SOV
+						has_war_together_with = SOV
+						is_subject = yes
+					}
+				}
+			}
+			LAT = {
+				country_event = {
+					id = sov_external.101
+				}
+			}
+		}
+		if = {
+			limit = {
+				SOV = { has_country_flag = LIT_in_SOV_sphere_of_influence_MR }
+				LIT = {
+					exists = yes
+					NOT = {
+						has_war_with = SOV
+						has_war_together_with = SOV
+						is_subject = yes
+					}
+					OR = {
+						country_exists = LAT
+						190 = {
+							is_fully_controlled_by = SOV
+						}
+					}
+				}
+			}
+			LIT = {
+				country_event = {
+					id = sov_external.101
+				}
+			}
+		}
+	}
+}

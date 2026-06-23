@@ -1,0 +1,120 @@
+BOSPHORUS_strait_trigger = {
+	OR = {
+		if = { #Treaty of Lausanne
+			limit = {
+				NOT = { has_global_flag = montreux_convention_flag }
+				341 = {
+					controller = { 
+						NOT = {
+							tag = SOV
+							tag = RUS
+							tag = ITA
+							tag = GER
+							is_puppet_of = SOV
+							is_puppet_of = RUS
+							is_puppet_of = GER
+							is_puppet_of = ITA
+						}
+					}
+				}
+			}
+			#Before Montreux Convention, everyone treated as "Friend" as long as the controller of the Bosphorus is not at war with them
+			NOT = { has_war_with = TUR }
+			hidden_trigger = {
+				NOT = { tag = SOV } #Because the SOV AI is fucking retarded and keeps moving the black sea fleet to the baltic or pacific
+			}
+		}
+
+		else_if = { #Montreux Convention
+			limit = {
+				has_global_flag = montreux_convention_flag
+				TUR = { controls_state = 341 }
+			}
+			NOT = { has_war_with = TUR }
+			custom_trigger_tooltip = {
+				tooltip = is_a_black_sea_nation_tt
+				ROOT = {
+					OR = {
+						original_tag = BUL
+						original_tag = CRI
+						original_tag = UKR
+						original_tag = ROM
+						original_tag = GEO
+					}
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = controls_the_bosphorus_tt
+			ROOT = { #So the controller can cross their own strait
+				controls_state = 341
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = is_ally_with_bosphorus_controller_tt
+			341 = {
+				controller = {
+					OR = {
+						is_in_faction_with = ROOT
+						ROOT = { is_subject_of = GER }
+					}
+				}
+			}
+		}
+	}
+}
+
+DARDANELLES_strait_trigger = {
+	OR = {
+		if = { #Treaty of Lausanne
+			#Before Montreux Convention, everyone treated as "Friend" as long as the controller of the Dardanelles is not at war with them and they control The Dardanelles provinces
+			limit = {
+				NOT = { has_global_flag = montreux_convention_flag }
+				TUR = { controls_state = 931 }
+			}
+			NOT = { has_war_with = TUR }
+			NOT = { tag = SOV } #Because the SOV AI is fucking retarded and keeps moving the black sea fleet to the baltic or pacific
+		}
+
+		else_if = { #Montreux Convention
+			limit = {
+				has_global_flag = montreux_convention_flag
+				TUR = { controls_state = 931 }
+			}
+			AND = {
+				NOT = { has_war_with = TUR }
+			}
+			NOT = { tag = SOV } #Because the SOV AI is fucking retarded and keeps moving the black sea fleet to the baltic or pacific
+			custom_trigger_tooltip = {
+				tooltip = is_a_black_sea_nation_tt
+				ROOT = {
+					OR = {
+						original_tag = BUL
+						original_tag = CRI
+						original_tag = UKR
+						original_tag = ROM
+						original_tag = GEO
+					}
+				}
+			}
+		}
+
+		custom_trigger_tooltip = {
+			tooltip = controls_the_dardanelles_tt
+			ROOT = { #So the controller can cross their own strait
+				controls_state = 931
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = is_ally_with_dardanelles_controller_tt
+			931 = { #This so countries allied to the controller of the dardanelles can cross them. 
+				controller = {
+					OR = {
+						is_in_faction_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+			}
+		}		
+	}
+}

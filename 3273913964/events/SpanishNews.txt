@@ -1,0 +1,370 @@
+add_namespace = spa_news
+
+# Spanish election of 1933 - The right always wins
+news_event = {
+	id = spa_news.1
+	title = spa_news.1.t
+	desc = spa_news.1.d
+	picture = GFX_event_news_spanish_election
+	is_triggered_only = yes
+	major = yes
+	trigger = {
+		NOT = { tag = SPR }
+	}
+	option = {
+		name = spa_news.1.a
+	}
+}
+
+# Revolution in Asturias of 1934
+news_event = {
+	id = spa_news.2
+	title = spa_news.2.t
+	desc = spa_news.2.d
+	picture = GFX_event_news_asturian_revolt
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = spa_news.2.a
+	}
+}
+
+# Election of 1936 - PF Victory
+news_event = {
+	id = spa_news.3
+	title = spa_news.3.t
+	desc = spa_news.3.d
+	picture = GFX_event_news_frente_popular
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = spa_news.3.a
+	}
+}
+
+# Election of 1936 - CEDA Victory
+news_event = {
+	id = spa_news.4
+	title = spa_news.4.t
+	desc = spa_news.4.d
+	picture = GFX_event_news_ceda_wins
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = spa_news.4.a
+	}
+}
+
+#Guerra de Independencia
+# news_event = {
+# 	id = spa_news.5
+# 	title = spa_news.5.t
+# 	desc = spa_news.5.d
+# 	picture = GFX_event_news_spanish_revolt
+# 	is_triggered_only = yes
+# 	major = yes
+# 	option = {
+# 	    trigger = {
+# 		    tag = SPR
+# 		}
+# 		name = spa_news.5.a
+# 	}
+# 	option = {
+# 	    trigger = {
+# 		    NOT = { tag = SPR }
+# 			NOT = { has_war_with = SPR }
+# 		}
+# 		name = spa_news.5.b
+# 	}
+# 	option = {
+# 	    trigger = {
+# 		    NOT = { tag = SPR }
+# 			has_war_with = SPR
+# 		}
+# 		name = spa_news.5.c
+# 	}
+# }
+
+# Spanish Civil War
+news_event = {
+	id = spa_news.6
+	title = spa_news.6.t
+	desc = spa_news.6.d
+	picture = GFX_news_event_spr_spanish_civil_war
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					has_global_flag = CBTS_Music_Mod_Active
+				}
+				SPR = {
+					scoped_play_song = "a_las_barricadas"
+				}
+				SPA = {
+					scoped_play_song = "marcha_real"
+				}
+				if = {
+					limit = {
+						ITA = {
+							has_government = fascism
+							exists = yes
+						}
+					}
+					ITA = {
+						scoped_play_song = "arriba_espana"
+					}
+				}
+				if = {
+					limit = {
+						is_ai = no
+						OR = {
+							tag = USA
+							tag = MEX
+							tag = FRA
+							tag = ENG
+							tag = HOL
+							tag = BEL
+							tag = SOV
+							tag = DEN
+							tag = NOR
+							tag = SWE
+							tag = FIN
+							tag = CZE
+							tag = YUG
+							tag = IRE
+							tag = SWI
+							tag = POL
+							tag = DDR
+							tag = CAN
+							tag = ARG
+						}
+						not_has_autocratic_government = yes
+					}
+					scoped_play_song = "a_las_barricadas"
+				}
+				if = {
+					limit = {
+						is_ai = no
+						OR = {
+							tag = POR
+							tag = GER
+							tag = HUN
+						}
+						has_autocratic_government = yes
+					}
+					scoped_play_song = "marcha_real"
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = {
+			NOT = {
+				tag = SPR
+				tag = SPA
+			}
+		}
+		name = spa_news.6.a
+	}
+
+	option = {
+		trigger = {
+			OR = {
+				tag = SPR
+				tag = SPA
+			}
+		}
+		name = spa_news.6.b
+	}
+}
+
+# Spanish Revolution
+news_event = {
+	id = spa_news.7
+	title = spa_news.7.t
+	desc = spa_news.7.d
+	picture = GFX_event_news_alternate_scw
+	is_triggered_only = yes
+	fire_only_once = yes
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					has_global_flag = CBTS_Music_Mod_Active
+				}
+				SPC = {
+					scoped_play_song = "hijos_del_pueblo"
+				}
+				if = {
+					limit = {
+						is_ai = no
+						OR = {
+							tag = USA
+							tag = MEX
+							tag = FRA
+							tag = ENG
+							tag = HOL
+							tag = BEL
+							tag = SOV
+							tag = DEN
+							tag = NOR
+							tag = SWE
+							tag = FIN
+							tag = CZE
+							tag = YUG
+							tag = IRE
+							tag = SWI
+							tag = POL
+							tag = DDR
+							tag = CAN
+							tag = ARG
+						}
+						not_has_autocratic_government = yes
+					}
+					scoped_play_song = "frente_popular"
+				}
+			}
+		}
+	}
+
+	option = {
+		trigger = {
+			NOT = {
+				tag = SPR
+				tag = SPC
+			}
+		}
+		name = spa_news.7.a
+	}
+
+	option = {
+		trigger = {
+			OR = {
+				tag = SPR
+				tag = SPC
+			}
+		}
+		name = spa_news.7.b
+	}
+}
+
+# Catalan Independence
+news_event = {
+	id = spa_news.8
+	title = spa_news.8.t
+	desc = spa_news.8.desc
+	picture = GFX_event_news_catalonia_revolts
+	is_triggered_only = yes
+	fire_only_once = yes
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					has_global_flag = CBTS_Music_Mod_Active
+					is_ai = no
+					OR = {
+						tag = CAT
+						tag = USA
+						tag = FRA
+						tag = ENG
+						tag = HOL
+						tag = BEL
+						tag = DEN
+						tag = NOR
+						tag = SWE
+						tag = FIN
+						tag = CZE
+						tag = YUG
+						tag = IRE
+						tag = SWI
+					}
+				}
+				scoped_play_song = "els_segadors"
+			}
+		}
+	}
+
+	option = {
+		trigger = {
+			NOT = {
+				tag = SPR
+				tag = SPC
+				tag = CAT
+			}
+		}
+		name = spa_news.8.a
+	}
+
+	option = {
+		trigger = {
+			tag = SPR
+		}
+		name = spa_news.8.b
+	}
+
+	option = {
+		trigger = {
+			tag = CAT
+		}
+		name = spa_news.8.c
+	}
+	option = {
+		trigger = {
+			tag = SPC
+		}
+		name = spa_news.8.d
+	}
+}
+
+# Tangiers Occupation
+news_event = {
+	id = spa_news.9
+	title = spa_news.9.t
+	desc = spa_news.9.d
+	picture = GFX_event_news_tangiers_occupied
+	is_triggered_only = yes
+	fire_only_once = yes
+	major = yes
+
+	option = {
+		trigger = {
+			NOT = {
+				tag = SPN
+				has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+				has_government = neutrality
+			}
+		}
+		name = spa_news.9.a
+	}
+
+	option = {
+		trigger = {
+			tag = SPN
+		}
+		name = spa_news.9.b
+	}
+
+	option = {
+		trigger = {
+			NOT = { tag = SPN }
+			OR = {
+				has_government = fascism
+				has_government = nationalism
+				has_government = monarchism
+				has_government = neutrality
+			}
+		}
+		name = spa_news.9.c
+	}
+
+}

@@ -1,0 +1,1117 @@
+Mountain_Republic_Escalation = {
+	NC_attack_Kizlyar = { #831
+		icon = infiltrate_state
+		allowed = {
+			OR = {
+				tag = DAG
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 831 }
+		target_root_trigger = {
+			has_country_flag = is_in_NC_conflict
+			is_subject = no
+			NOT = {
+				controls_state = 831
+				has_global_flag = SC_conflict_ended_flag
+			}
+			OR = {
+				has_full_control_of_state = 232
+				has_full_control_of_state = 235
+				has_full_control_of_state = 236
+				has_full_control_of_state = 1080
+			}
+		}
+		target_trigger = {
+			FROM = {
+				controller = {
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = ROOT
+					}
+				}
+				OR = {
+					is_claimed_by = ROOT
+					is_core_of = ROOT
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_border_war_between = {
+					attacker = 1080
+					defender = 831
+				}
+				has_border_war_between = {
+					attacker = 232
+					defender = 831
+				}
+				has_border_war_between = {
+					attacker = 235
+					defender = 831
+				}
+				has_border_war_between = {
+					attacker = 236
+					defender = 831
+				}
+				has_global_flag = NC_planning_attack
+			}
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		highlight_states = {
+			state = 831
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = NC_planning_attack
+		}
+		remove_effect = {
+			DAG_add_2_escalation = yes
+			clr_global_flag = NC_planning_attack
+			set_variable = {
+				global.NC_most_recent_attacker = THIS #most recent attacker
+			}
+			set_country_flag = NC_duplication_check # so that events don't run too much
+			831 = {
+				controller = {
+					if = {
+						limit = {
+							NOT = { has_country_flag = is_in_NC_conflict }
+						}
+						set_country_flag = is_in_NC_conflict
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_full_control_of_state = 232
+				}
+				start_border_war = {
+					change_state_after_war = no
+					attacker = {
+						state = 232
+						num_provinces = 2
+						on_win = dag_external.10 #offensive victory Kizlyar
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 831
+						num_provinces = 2
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_full_control_of_state = 235
+				}
+				start_border_war = {
+					change_state_after_war = no
+					attacker = {
+						state = 235
+						num_provinces = 2
+						on_win = dag_external.10 #offensive victory Kizlyar
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 831
+						num_provinces = 2
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_full_control_of_state = 236
+				}
+				start_border_war = {
+					change_state_after_war = no
+					attacker = {
+						state = 236
+						num_provinces = 1
+						on_win = dag_external.10 #offensive victory Kizlyar
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 831
+						num_provinces = 2
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_full_control_of_state = 1080
+				}
+				start_border_war = {
+					change_state_after_war = no
+					attacker = {
+						state = 1080
+						num_provinces = 2
+						on_win = dag_external.10 #offensive victory Kizlyar
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 831
+						num_provinces = 2
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+		}
+	}
+
+	NC_attack_NOssetia = { #772
+		icon = infiltrate_state
+		allowed = {
+			OR = {
+				tag = DAG
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 772 }
+		target_root_trigger = {
+			has_country_flag = is_in_NC_conflict
+			is_subject = no
+			NOT = {
+				controls_state = 772
+				has_global_flag = SC_conflict_ended_flag
+			}
+			OR = {
+				has_full_control_of_state = 1080
+				has_full_control_of_state = 933
+			}
+		}
+		target_trigger = {
+			FROM = {
+				controller = {
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = ROOT
+					}
+				}
+				OR = {
+					is_claimed_by = ROOT
+					is_core_of = ROOT
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_border_war_between = {
+					attacker = 1080
+					defender = 772
+				}
+				has_border_war_between = {
+					attacker = 933
+					defender = 772
+				}
+				has_global_flag = NC_planning_attack
+			}
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		highlight_states = {
+			state = 772
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = NC_planning_attack
+		}
+		remove_effect = {
+			DAG_add_2_escalation = yes
+			clr_global_flag = NC_planning_attack
+			set_variable = {
+				global.NC_most_recent_attacker = THIS #most recent attacker
+			}
+			set_country_flag = NC_duplication_check # so that events don't run too much
+			772 = {
+				controller = {
+					if = {
+						limit = {
+							NOT = { has_country_flag = is_in_NC_conflict }
+						}
+						set_country_flag = is_in_NC_conflict
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_full_control_of_state = 1080
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 1080
+						num_provinces = 3
+						on_win = dag_external.14 #offensive victory
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 772
+						num_provinces = 2
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_full_control_of_state = 933
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 933
+						num_provinces = 3
+						on_win = dag_external.14 #offensive victory
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 772
+						num_provinces = 3
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+		}
+	}
+
+	NC_attack_SOssetia = { #1074
+		icon = infiltrate_state
+		allowed = {
+			OR = {
+				tag = DAG
+				tag = SOV
+				tag = RUS
+				tag = RFP
+				tag = GEO
+			}
+		}
+		state_target = yes
+		targets = { state = 1074 }
+		target_root_trigger = {
+			has_country_flag = is_in_NC_conflict
+			is_subject = no
+			NOT = {
+				controls_state = 1074
+				has_global_flag = SC_conflict_ended_flag
+			}
+			OR = {
+				has_full_control_of_state = 772
+				has_full_control_of_state = 231
+				has_full_control_of_state = 1075
+			}
+		}
+		target_trigger = {
+			FROM = {
+				controller = {
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = ROOT
+					}
+				}
+				OR = {
+					is_claimed_by = ROOT
+					is_core_of = ROOT
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_border_war_between = {
+					attacker = 772
+					defender = 1074
+				}
+				has_border_war_between = {
+					attacker = 231
+					defender = 1074
+				}
+				has_border_war_between = {
+					attacker = 1075
+					defender = 1074
+				}
+				has_global_flag = NC_planning_attack
+			}
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		highlight_states = {
+			state = 1074
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 25
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = NC_planning_attack
+		}
+		remove_effect = {
+			DAG_add_2_escalation = yes
+			clr_global_flag = NC_planning_attack
+			set_variable = {
+				global.NC_most_recent_attacker = THIS #most recent attacker
+			}
+			set_country_flag = NC_duplication_check # so that events don't run too much
+			1074 = {
+				controller = {
+					if = {
+						limit = {
+							NOT = { has_country_flag = is_in_NC_conflict }
+						}
+						set_country_flag = is_in_NC_conflict
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_full_control_of_state = 231
+				}
+				start_border_war = {
+					change_state_after_war = no
+					attacker = {
+						state = 231
+						num_provinces = 4
+						on_win = dag_external.17 #offensive victory
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 1074
+						num_provinces = 1
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_full_control_of_state = 1075
+				}
+				start_border_war = {
+					change_state_after_war = no
+					attacker = {
+						state = 231
+						num_provinces = 1
+						on_win = dag_external.17 #offensive victory
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 1074
+						num_provinces = 1
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_full_control_of_state = 722
+				}
+				start_border_war = {
+					change_state_after_war = no
+					attacker = {
+						state = 722
+						num_provinces = 1
+						on_win = dag_external.17 #offensive victory
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 1074
+						num_provinces = 1
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+		}
+	}
+
+	NC_attack_Kab_Bal = { #933
+		icon = infiltrate_state
+		allowed = {
+			OR = {
+				tag = DAG
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 933 }
+		target_root_trigger = {
+			has_country_flag = is_in_NC_conflict
+			is_subject = no
+			NOT = {
+				controls_state = 933
+				has_global_flag = SC_conflict_ended_flag
+			}
+			OR = {
+				has_full_control_of_state = 1080
+				has_full_control_of_state = 772
+				has_full_control_of_state = 235
+			}
+		}
+		target_trigger = {
+			FROM = {
+				controller = {
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = ROOT
+					}
+				}
+				OR = {
+					is_claimed_by = ROOT
+					is_core_of = ROOT
+				}
+			}
+		}
+		available = {
+			NOT = {
+				has_border_war_between = {
+					attacker = 235
+					defender = 933
+				}
+				has_border_war_between = {
+					attacker = 772
+					defender = 933
+				}
+				has_border_war_between = {
+					attacker = 1080
+					defender = 933
+				}
+				has_global_flag = NC_planning_attack
+			}
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		highlight_states = {
+			state = 933
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = NC_planning_attack
+		}
+		remove_effect = {
+			DAG_add_2_escalation = yes
+			clr_global_flag = NC_planning_attack
+			set_variable = {
+				global.NC_most_recent_attacker = THIS #most recent attacker
+			}
+			set_country_flag = NC_duplication_check # so that events don't run too much
+			933 = {
+				controller = {
+					if = {
+						limit = {
+							NOT = { has_country_flag = is_in_NC_conflict }
+						}
+						set_country_flag = is_in_NC_conflict
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					has_full_control_of_state = 235
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 235
+						num_provinces = 4
+						on_win = dag_external.15 #offensive victory
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 933
+						num_provinces = 4
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_full_control_of_state = 772
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 772
+						num_provinces = 3
+						on_win = dag_external.15 #offensive victory
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 933
+						num_provinces = 3
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_full_control_of_state = 1080
+				}
+				start_border_war = {
+					change_state_after_war = no
+					minimum_duration_in_days = 14
+					attacker = {
+						state = 1080
+						num_provinces = 1
+						on_win = dag_external.15 #offensive victory
+						on_lose = dag_external.11 #offensive loss
+					}
+					defender = {
+						state = 933
+						num_provinces = 1
+						on_win = dag_external.12 #defensive victory
+						on_lose = dag_external.11 #defensive loss
+					}
+				}
+			}
+		}
+	}
+
+	NC_attack_Chechnya = { #1080
+		icon = infiltrate_state
+		allowed = {
+			OR = {
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 1080 }
+		target_root_trigger = {
+			has_country_flag = is_in_NC_conflict
+			is_subject = no
+			NOT = {
+				controls_state = 1080
+				has_global_flag = SC_conflict_ended_flag
+			}
+			check_variable = {
+				global.NC_tension > 33
+			}
+			OR = {
+				has_full_control_of_state = 235
+				has_full_control_of_state = 831
+				has_full_control_of_state = 933
+				has_full_control_of_state = 232
+			}
+		}
+		target_trigger = {
+			FROM = {
+				controller = {
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = ROOT
+					}
+				}
+				OR = {
+					is_claimed_by = ROOT
+					is_core_of = ROOT
+				}
+			}
+		}
+		available = {
+			# has_border_war = no
+			NOT = {
+				has_global_flag = NC_planning_attack
+			}
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		highlight_states = {
+			state = 1080
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 25
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = NC_planning_attack
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					CHC = {
+						exists = yes
+						controls_state = 1080
+					}
+				}
+				declare_war_on = {
+					target = CHC
+					type = annex_everything
+				}
+				clear_variable = global.NC_tension
+				clr_country_flag = NC_duplication_check
+				clr_country_flag = is_in_NC_conflict
+				every_other_country = {
+					limit = { has_country_flag = is_in_NC_conflict }
+					clr_country_flag = is_in_NC_conflict
+				}
+			}
+			else_if = {
+				limit = {
+					DAG = {
+						exists = yes
+						controls_state = 1080
+					}
+				}
+				declare_war_on = {
+					target = DAG
+					type = annex_everything
+				}
+				clear_variable = global.NC_tension
+				clr_country_flag = NC_duplication_check
+				clr_country_flag = is_in_NC_conflict
+				every_other_country = {
+					limit = { has_country_flag = is_in_NC_conflict }
+					clr_country_flag = is_in_NC_conflict
+				}
+			}
+			else = {
+				DAG_add_2_escalation = yes
+				clr_global_flag = NC_planning_attack
+				set_variable = {
+					global.NC_most_recent_attacker = THIS #most recent attacker
+				}
+				set_country_flag = NC_duplication_check # so that events don't run too much
+				1080 = {
+					controller = {
+						if = {
+							limit = {
+								NOT = { has_country_flag = is_in_NC_conflict }
+							}
+							set_country_flag = is_in_NC_conflict
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_full_control_of_state = 232
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 232
+							num_provinces = 3
+							on_win = dag_external.13 #offensive victory Chechnya
+							on_lose = dag_external.11 #offensive loss
+						}
+						defender = {
+							state = 1080
+							num_provinces = 5
+							on_win = dag_external.12 #defensive victory
+							on_lose = dag_external.11 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						has_full_control_of_state = 831
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 831
+							num_provinces = 2
+							on_win = dag_external.13 #offensive victory Chechnya
+							on_lose = dag_external.11 #offensive loss
+						}
+						defender = {
+							state = 1080
+							num_provinces = 2
+							on_win = dag_external.12 #defensive victory
+							on_lose = dag_external.11 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						has_full_control_of_state = 235
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 235
+							num_provinces = 1
+							on_win = dag_external.13 #offensive victory Chechnya
+							on_lose = dag_external.11 #offensive loss
+						}
+						defender = {
+							state = 1080
+							num_provinces = 2
+							on_win = dag_external.12 #defensive victory
+							on_lose = dag_external.11 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						has_full_control_of_state = 933
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 933
+							num_provinces = 1
+							on_win = dag_external.13 #offensive victory Chechnya
+							on_lose = dag_external.11 #offensive loss
+						}
+						defender = {
+							state = 1080
+							num_provinces = 1
+							on_win = dag_external.12 #defensive victory
+							on_lose = dag_external.11 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						has_full_control_of_state = 772
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 772
+							num_provinces = 1
+							on_win = dag_external.13 #offensive victory Chechnya
+							on_lose = dag_external.11 #offensive loss
+						}
+						defender = {
+							state = 1080
+							num_provinces = 3
+							on_win = dag_external.12 #defensive victory
+							on_lose = dag_external.11 #defensive loss
+						}
+					}
+				}
+			}
+		}
+	}
+
+	NC_attack_Dagestan = { #232, this will end the war
+		icon = infiltrate_state
+		allowed = {
+			OR = {
+				tag = SOV
+				tag = RUS
+				tag = RFP
+			}
+		}
+		state_target = yes
+		targets = { state = 232 }
+		target_root_trigger = {
+			has_country_flag = is_in_NC_conflict
+			is_subject = no
+			NOT = {
+				controls_state = 232
+				has_global_flag = SC_conflict_ended_flag
+			}
+			check_variable = {
+				global.NC_tension > 33
+			}
+			OR = {
+				has_full_control_of_state = 831
+				has_full_control_of_state = 1080
+				has_full_control_of_state = 229
+			}
+		}
+		target_trigger = {
+			FROM = {
+				controller = {
+					NOT = {
+						has_war_with = ROOT
+						is_in_faction_with = ROOT
+					}
+				}
+				OR = {
+					is_claimed_by = ROOT
+					is_core_of = ROOT
+				}
+			}
+		}
+		available = {
+			# has_border_war = no
+			NOT = {
+				has_global_flag = NC_planning_attack
+			}
+		}
+		ai_will_do = {
+			factor = 100 
+		}
+		custom_cost_trigger = {
+			command_power > 14.99
+		}
+		highlight_states = {
+			state = 556
+		}
+		custom_cost_text = command_power_15
+		days_remove = 5
+		days_re_enable = 50
+		on_map_mode = map_and_decisions_view
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+			set_global_flag = NC_planning_attack
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					DAG = {
+						exists = yes
+						controls_state = 232
+					}
+				}
+				declare_war_on = {
+					target = DAG
+					type = annex_everything
+				}
+				clear_variable = global.NC_tension
+				clr_country_flag = NC_duplication_check
+				clr_country_flag = is_in_NC_conflict
+				every_other_country = {
+					limit = { has_country_flag = is_in_NC_conflict }
+					clr_country_flag = is_in_NC_conflict
+				}
+			}
+			else = {
+				DAG_add_2_escalation = yes
+				clr_global_flag = NC_planning_attack
+				set_variable = {
+					global.NC_most_recent_attacker = THIS #most recent attacker
+				}
+				set_country_flag = NC_duplication_check # so that events don't run too much
+				232 = {
+					controller = {
+						if = {
+							limit = {
+								NOT = { has_country_flag = is_in_NC_conflict }
+							}
+							set_country_flag = is_in_NC_conflict
+						}
+					}
+				}
+				
+				if = {
+					limit = {
+						has_full_control_of_state = 1080
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 1080
+							num_provinces = 5
+							on_win = dag_external.19 #End the Conflict
+							on_lose = dag_external.11 #offensive loss
+						}
+						defender = {
+							state = 232
+							num_provinces = 3
+							on_win = dag_external.12 #defensive victory
+							on_lose = dag_external.21 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						has_full_control_of_state = 831
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 831
+							num_provinces = 2
+							on_win = dag_external.19 #End the Conflict
+							on_lose = dag_external.11 #offensive loss
+						}
+						defender = {
+							state = 232
+							num_provinces = 2
+							on_win = dag_external.12 #defensive victory
+							on_lose = dag_external.21 #defensive loss
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						has_full_control_of_state = 229
+					}
+					start_border_war = {
+						change_state_after_war = no
+						attacker = {
+							state = 229
+							num_provinces = 3
+							on_win = dag_external.19 #End the Conflict
+							on_lose = dag_external.11 #offensive loss
+						}
+						defender = {
+							state = 232
+							num_provinces = 2
+							on_win = dag_external.12 #defensive victory
+							on_lose = dag_external.21 #defensive loss
+						}
+					}
+				}
+			}
+		}
+	}
+
+	DAG_end_conflict = {
+		icon = generic_nationalism
+		allowed = {
+			tag = DAG
+		}
+		visible = {
+			has_country_flag = is_in_NC_conflict
+			is_subject = no
+		}
+		available = {
+			has_border_war = no
+			OR = {
+				NOT = {
+					has_country_flag = DAG_CHC_Union
+				}
+				AND = {
+					has_full_control_of_state = 1080
+					has_full_control_of_state = 233
+					has_full_control_of_state = 1074
+					has_full_control_of_state = 1074
+				}
+			}
+			has_full_control_of_state = 232
+			has_full_control_of_state = 831
+		}
+		cost = 50
+		days_remove = 20
+		fire_only_once = yes
+		complete_effect = {
+		}
+		remove_effect = {
+			set_global_flag = NC_conflict_ended_flag
+			clear_variable = global.NC_Tension
+			custom_effect_tooltip = NC_conflict_ends
+			clr_country_flag = is_in_NC_conflict
+			every_other_country = {
+				limit = {
+					has_country_flag = is_in_NC_conflict
+				}
+				country_event = {
+					id = dag_external.22
+				}
+			}
+		}
+	}
+
+	DAG_war = {
+		icon = ignite_civil_war
+		allowed = {
+			OR = {
+				tag = DAG
+				tag = SOV
+				tag = RUS
+				tag = RFP
+				tag = GEO
+			}
+		}
+		available = {
+			NOT = { has_country_flag = NC_conflict_ended }
+		}
+		activation = {
+			has_variable = global.NC_Tension
+			check_variable = {
+				global.NC_Tension > 99
+			}
+		}
+		is_good = no
+		days_mission_timeout = 30
+		fire_only_once = yes
+		timeout_effect = {
+			if = {
+				limit = {
+					tag = DAG
+				}
+				clr_country_flag = is_in_NC_conflict
+				every_other_country = {
+					limit = {
+						has_country_flag = is_in_NC_conflict
+						NOT = { has_war_with = DAG }
+					}
+					clr_country_flag = is_in_NC_conflict
+					declare_war_on = {
+						target = DAG
+						type = annex_everything
+					}
+				}
+			}
+			else = {
+				custom_effect_tooltip = DAG_war_tt
+			}
+		}
+	}
+}

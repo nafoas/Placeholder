@@ -1,0 +1,725 @@
+###########################
+# Danish Events
+###########################
+
+add_namespace = denmark
+
+country_event = { #INTRO
+	id = denmark.1
+	title = denmark.1.t
+	desc = denmark.1.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = denmark.1.a
+		country_event = { id = denmark.2 }
+		set_country_flag = kanslergade_begin
+	}
+}
+country_event = { #DECISION
+	id = denmark.2
+	title = denmark.2.t
+	desc = denmark.2.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		ai_chance = {
+			base = 30
+		}
+		name = denmark.2.a
+		hidden_effect = {
+			country_event = { id = denmark.3 hours = 5 }
+		}
+	}
+	option = {
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		name = denmark.2.b
+		hidden_effect = {
+			country_event = { id = denmark.4 hours = 5 }
+		}
+	}
+}
+country_event = { #SUCCESs
+	id = denmark.3
+	title = denmark.3.t
+	desc = denmark.3.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = kanslergade_success
+		}
+	}
+
+	option = {
+		name = denmark.3.a
+	}
+}
+country_event = { #FAILURE
+	id = denmark.4
+	title = denmark.4.t
+	desc = denmark.4.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { days = 63 id = denmark.5 }
+			set_country_flag = kanslergade_nope
+		}
+	}
+
+	option = {
+		name = denmark.4.a
+	}
+}
+country_event = { #LOCKOUT
+	id = denmark.5
+	title = denmark.5.t
+	desc = denmark.5.d
+	picture = GFX_report_event_communist_leader
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { days = 23 id = denmark.6 }
+			country_event = { days = 47 id = denmark.7 }
+			set_country_flag = DEN_lockout_oh_no
+		}
+	}
+
+	option = {
+		name = denmark.5.a		
+		# country_event = { days = 83 id = denmark.8 }
+	}
+}
+country_event = { #WORKER DEMOSTRATION
+	id = denmark.6
+	title = denmark.6.t
+	desc = denmark.6.d
+	picture = GFX_report_event_worker_protests
+	is_triggered_only = yes
+	option = {
+		name = denmark.6.a
+	}
+}
+country_event = { #NAZI RALLIES
+	id = denmark.7
+	title = denmark.7.t
+	desc = denmark.7.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	option = {
+		name = denmark.7.a
+	}
+}
+# country_event = { #CONSERVATIVE OFFER
+# 	id = denmark.8
+# 	title = denmark.8.t
+# 	desc = denmark.8.d
+# 	picture = GFX_report_event_finnish_letter
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+# 	option = {
+# 		ai_chance = {
+# 			factor = 30
+# 		}
+# 		name = denmark.8.a
+# 		set_country_flag = conservative_offer
+# 	}
+# 	option = {
+# 		ai_chance = {
+# 			factor = 40
+# 		}
+# 		name = denmark.8.b
+# 		country_event = { days = 79 id = denmark.9 }
+# 	}
+# }
+
+country_event = { # 1935 Folketing elections
+	id = denmark.9
+	title = denmark.9.t
+	desc = denmark.9.d
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = denmark.10 days = 1024 } #1939 elections
+		}
+	}
+
+	option = {
+		name = denmark.9.a
+		set_popularities = {
+			communism = 1.65
+			authoritarian_socialism = 0
+			socialism = 0
+			social_democracy = 46.1
+			social_liberalism = 9.2
+			market_liberalism = 3.3
+			jacobin = 17.75
+			democratic = 17.8
+			neutrality = 0
+			monarchism = 0
+			nationalism = 3.2
+			fascism = 1
+		}
+		set_politics = {
+			ruling_party = social_democracy
+			last_election = "1935.10.22"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		COALITION_RESET = yes
+		COALITION_add_soclib = yes
+		set_party_name = {
+			ideology = neutrality
+			long_name = DEN_DS_party_long
+			name = DEN_DS_party
+		}
+	}
+}
+
+country_event = { # 1939 Folketing elections
+	id = denmark.10
+	title = denmark.10.t
+	desc = denmark.10.d
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			country_event = { id = denmark.11 days = 1450 } #1943 elections
+		}
+	}
+
+	option = {
+		name = denmark.10.a
+		set_popularities = {
+			communism = 2.41
+			authoritarian_socialism = 0
+			socialism = 0
+			social_democracy = 42.92
+			social_liberalism = 9.51
+			market_liberalism = 2.9
+			jacobin = 18.2
+			democratic = 18.76
+			neutrality = 0.5
+			monarchism = 0
+			nationalism = 3
+			fascism = 1.8
+		}
+		set_politics = {
+			ruling_party = social_democracy
+			last_election = "1939.04.03"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		# Stauning IV Cabinet
+		COALITION_RESET = yes
+		COALITION_add_soclib = yes
+		set_party_name = {
+			ideology = nationalism
+			long_name = DEN_Farmers_party_long
+			name = DEN_Farmers_party
+		}
+	}
+}
+
+country_event = { # 1943 Folketing elections
+	id = denmark.11
+	title = denmark.11.t
+	desc = denmark.11.d
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		DEN = { has_capitulated = no }
+	}
+
+	option = {
+		name = denmark.11.a
+		set_popularities = {
+			communism = 0
+			authoritarian_socialism = 0
+			socialism = 0
+			social_democracy = 44.49
+			social_liberalism = 8.7
+			market_liberalism = 1.56
+			jacobin = 18.74
+			democratic = 21
+			neutrality = 2.16
+			monarchism = 0
+			nationalism = 1.2
+			fascism = 2.15
+		}
+		set_politics = {
+			ruling_party = social_liberalism
+			last_election = "1943.03.23"
+			election_frequency = 48
+			elections_allowed = no
+		}
+		# Unity government
+		# Scavenius Cabinet
+		COALITION_RESET = yes
+		COALITION_add_socdem = yes
+		COALITION_add_cen = yes
+		COALITION_add_con = yes
+		hidden_effect = {
+			remove_ideas_with_trait = hog
+			add_ideas = DEN_erik_scavenius
+			remove_ideas_with_trait = frnmin
+			add_ideas = DEN_erikscavenius_frn
+			#Finance Minister: Kristian Hansen Kofoed
+			#Interior Minister: Jørgen Jørgensen
+		}
+	}
+}
+
+
+country_event = { # 1945 Folketing elections
+	id = denmark.13
+	title = denmark.13.t
+	desc = denmark.13.d
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		DEN = {
+			has_capitulated = no
+			is_subject = no
+		}
+	}
+
+	option = {
+		name = denmark.13.a
+		set_popularities = {
+			communism = 12.46
+			authoritarian_socialism = 0
+			socialism = 0
+			social_democracy = 32.8
+			social_liberalism = 8.1
+			market_liberalism = 1.9
+			jacobin = 23.4
+			democratic = 18.24
+			neutrality = 3.1
+			monarchism = 0
+			nationalism = 0
+			fascism = 0
+		}
+		set_politics = {
+			ruling_party = jacobin
+			election_frequency = 48
+			elections_allowed = no
+		}
+		# Knud Kristensen
+		COALITION_RESET = yes
+		remove_ideas_with_trait = hog
+		add_ideas = DEN_knud_kristensen
+		hidden_effect = {
+			# Foreign Minister: Gustav Rasmussen
+			remove_ideas_with_trait = ecomin
+			add_ideas = DEN_thorkil_kristensen
+			remove_ideas_with_trait = secmin
+			add_ideas = DEN_ejnar_martin_kjaer
+		}
+	}
+}
+
+country_event = { #NAZIS DISSOLVE MONARCHY
+	id = denmark.12
+	title = denmark.12.t
+	desc = denmark.12.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		ai_chance = {
+			factor = 60
+		}
+		name = denmark.12.a
+		retire_character = DEN_christian_x
+	}
+	option = {
+		ai_chance = {
+			factor = 40
+		}
+		name = denmark.12.b
+	}
+}
+
+###########################
+# Danish Events: Occupation
+###########################
+
+add_namespace = den
+
+country_event = { #Denmark Surrenders
+	id = den.1
+	title = den.1.t
+	desc = den.1.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	immediate = {
+		hidden_effect = {
+			log = "[GetDateText]: Denmark Surrenders"
+			DEN = {
+				set_autonomy = {
+					target = ICE
+					autonomy_state = autonomy_free
+					end_wars = yes
+				}
+			}
+			ICE = { country_event = { id = iceland.1 days = 1 } }
+			101 = { add_core_of = GRN }
+			1151 = { add_core_of = GRN }
+			release = GRN
+			GRN = {
+				inherit_technology = DEN
+				add_ideas = neutrality_idea
+			}
+			GER = { country_event = { id = den.2 } }
+			ENG = { country_event = { days = 2 id = den.4 } }
+			USA = { country_event = { days = 360 id = den.6 } }
+			#TODO: Make News event
+		}
+	}
+	option = {
+		name = den.1.a
+	}
+}
+
+country_event = { #The Danes capitulate
+	id = den.2
+	title = den.2.t
+	desc = den.2.d #TODO: rewrite
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = den.2.a
+		if = {
+			limit = {
+				has_dlc = "Together for Victory"
+			}
+			set_autonomy = {
+				target = DEN
+				autonomy_state = autonomy_occupied
+				end_wars = yes
+			}
+		}
+		else = {
+			puppet = DEN
+			DEN = { set_cosmetic_tag = DEN_GER }
+		}
+		hidden_effect = {
+			DEN = {
+				every_owned_state = {
+					limit = {
+						NOT = { is_controlled_by = DEN }
+					}
+					set_state_controller_to = DEN
+				}
+				set_politics = {
+					ruling_party = social_democracy
+					elections_allowed = yes
+				}
+				set_popularities = { #1939 election results
+					communism = 2.4
+					authoritarian_socialism = 0
+					socialism = 0
+					social_democracy = 42.9
+					social_liberalism = 9.5
+					market_liberalism = 2.9
+					jacobin = 18.2
+					democratic = 18.8
+					neutrality = 0.5
+					monarchism = 0
+					nationalism = 3
+					fascism = 1.8
+				}
+				COALITION_RESET = yes
+				# Unity government
+				# Stauning V Cabinet
+				COALITION_add_soclib = yes
+				COALITION_add_cen = yes
+				COALITION_add_con = yes
+				if = {
+					limit = { is_in_faction = yes }
+					leave_faction = yes
+				}
+				if = {
+					limit = { has_war = yes }
+					every_country = {
+						limit = {
+							has_war_with = DEN
+						}
+						white_peace = {
+							tag = DEN
+						}
+					}
+				}
+			}
+		}
+		DEN = {
+			remove_ideas = neutrality_idea
+			add_ideas = DEN_german_occupation
+			add_ideas = DEN_danish_neutrality
+			country_lock_all_division_template = yes
+		}
+	}
+}
+
+country_event = { #Empty Event
+	id = den.3
+	title = den.3.t
+	desc = den.3.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = den.3.a
+	}
+}
+
+country_event = { #Operation Valentine. Invasion of the Faroe Islands
+	id = den.4
+	title = den.4.t
+	desc = den.4.d
+	picture = GFX_event_Faroe_Islands_Map
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			337 = { is_controlled_by = GER }
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			ENG = { country_event = { days = 2 hours = 4 id = den.12 } }
+		}
+	}
+
+	option = {
+		name = den.4.a
+	}
+}
+
+country_event = { #UK occupies Faroes
+	id = den.12
+	title = den.12.t
+	desc = den.12.d
+	picture = GFX_event_British_occupation_of_Faroe
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			DEN = { country_event = { hours = 12 id = den.5 } }
+			ENG = {
+				transfer_state = 337
+				337 = { add_compliance = 90 }
+				#Remove Danish core?
+			}
+		}
+	}
+
+	option = {
+		name = den.12.a
+		effect_tooltip = {
+			transfer_state = 337
+		}
+		337 = {
+			add_building_construction = {
+				type = air_base
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+country_event = { #UK seized Faroes. For Denmark
+	id = den.5
+	title = den.5.t
+	desc = den.5.d
+	picture = GFX_event_British_occupation_of_Faroe
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = den.5.a
+		add_political_power = -30
+	}
+}
+
+country_event = { #Seize Greenland?
+	id = den.6
+	title = den.6.t
+	desc = den.6.d
+	picture = GFX_report_event_generic_military_parade
+	trigger = {
+		DEN = {
+			has_war = no
+			is_subject_of = GER
+		}
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		ai_chance = {
+			factor = 100
+		}
+		name = den.6.a
+		transfer_state = 101
+		101 = {
+			add_compliance = 90
+		}
+		transfer_state = 1151
+		1151 = {
+			add_compliance = 90
+		}
+		DEN = { country_event = { days = 1 id = den.7 } }
+	}
+	option = {
+		ai_chance = {
+			factor = 0
+		}
+		name = den.6.b
+	}
+}
+
+country_event = { #Seized Greenland
+	id = den.7
+	title = den.7.t
+	desc = den.7.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		ai_chance = {
+			factor = 100
+		}
+		name = den.7.a
+		add_political_power = -50
+	}
+}
+
+country_event = { #Seize Iceland to the US
+	id = den.8
+	title = den.8.t
+	desc = den.8.d
+	picture = GFX_report_event_generic_military_parade
+	trigger = {
+		owns_state = 100
+		controls_state = 100
+		DEN = {
+			has_war = no
+			is_subject_of = GER
+		}
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		ai_chance = {
+			factor = 100
+		}
+		name = den.8.a
+		USA = { country_event = { days = 1 id = den.9 } }
+	}
+	option = {
+		ai_chance = {
+			factor = 0
+		}
+		name = den.8.b
+	}
+}
+
+country_event = { #Seize Iceland?
+	id = den.9
+	title = den.9.t
+	desc = den.9.d
+	picture = GFX_report_event_generic_military_parade
+	trigger = {
+		DEN = {
+			has_war = no
+			is_subject_of = GER
+		}
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		ai_chance = {
+			factor = 100
+		}
+		name = den.9.a
+		transfer_state = 100
+	}
+	option = {
+		ai_chance = {
+			factor = 0
+		}
+		name = den.9.b
+	}
+}
+
+country_event = { #Liberation of Denmark upon German capitulation
+	# Historically 5 May 1945
+	id = den.11
+	title = den.11.t
+	desc = den.11.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			DEN = {
+				country_event = { id = denmark.13 days = 178 } #1945 elections
+			}
+		}
+	}
+
+	option = {
+		name = den.11.a
+		effect_tooltip = {
+			GER = {
+				set_autonomy = {
+					target = DEN
+					autonomy_state = autonomy_free
+					end_wars = yes
+				}
+			}
+			leave_faction = yes
+		}
+		transfer_state = 337
+		transfer_state = 101
+		transfer_state = 1151
+		#TODO: 1946 Faroese independence referendum. https://en.wikipedia.org/wiki/1946_Faroese_independence_referendum
+	}
+}

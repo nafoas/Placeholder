@@ -1,0 +1,366 @@
+#10 focuses here
+#s_team337
+shared_focus = {
+	id = UKR_2RCW_Foreign_Start
+	icon = GFX_focus_Burning_Globe
+	#prerequisite = { focus = UKR_2RCW_Foreign_Start }
+	x = 10
+	y = 0
+	#relative_position_id = UKR_2RCW_Foreign_Start
+	cost = 2.86
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = RUS_unrecognized
+			add_idea = RUS_partially_recognized
+		}
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Foreign_Loans
+	icon = GFX_focus_Economic_Stimulus
+	prerequisite = {
+		focus = UKR_2RCW_Foreign_Start
+	}
+	x = 0
+	y = 1
+	relative_position_id = UKR_2RCW_Foreign_Start
+	cost = 4.29
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		add_political_power = 60
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_German_Allies
+	icon = GFX_focus_Iron_Cross_Germany
+	prerequisite = {
+		focus = UKR_2RCW_Foreign_Loans
+	}
+	x = -2
+	y = 2
+	relative_position_id = UKR_2RCW_Foreign_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			is_in_faction_with = GER
+			is_in_faction_with = WGR
+			is_in_faction_with = DDR
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		set_variable = {
+			UKR_add_influence_value = 10
+		}
+		UKR_add_influence_oun = yes
+		custom_effect_tooltip = UKR_oun_gain_10
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Polish_Allies
+	icon = GFX_goal_Culture_Projects
+	prerequisite = {
+		focus = UKR_2RCW_Foreign_Loans
+	}
+	x = 0
+	y = 2
+	relative_position_id = UKR_2RCW_Foreign_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		is_in_faction_with = POL
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		set_variable = {
+			UKR_add_influence_value = 5
+		}
+		UKR_add_influence_undo = yes
+		custom_effect_tooltip = UKR_undo_gain_5
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Industry
+	icon = GFX_goal_pol666
+	prerequisite = {
+		focus = UKR_2RCW_German_Allies
+		focus = UKR_2RCW_Polish_Allies
+	}
+	mutually_exclusive = {
+		focus = UKR_2RCW_Ukrainians_Abroad
+	}
+	x = -1
+	y = 3
+	relative_position_id = UKR_2RCW_Foreign_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			AND = {
+				has_completed_focus = UKR_2RCW_Polish_Allies
+				is_in_faction_with = POL
+			}
+			AND = {
+				has_completed_focus = UKR_2RCW_German_Allies
+				OR = {
+					is_in_faction_with = GER
+					is_in_faction_with = DDR
+					is_in_faction_with = WGR
+				}
+			}
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+					OR = {
+						tag = POL
+						tag = WGR
+						tag = GER
+						tag = DDR
+					}
+					is_in_faction_with = ROOT
+				}
+				country_event = {
+					id = ukr_civil_war.14
+				}
+			}
+		}
+		custom_effect_tooltip = UKR_gib_industry
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Foreign_Guns
+	icon = GFX_focus_Buy_Foreign_Weapons
+	prerequisite = {
+		focus = UKR_2RCW_Industry
+	}
+	dynamic = yes
+	x = -1
+	y = 4
+	relative_position_id = UKR_2RCW_Foreign_Start
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		OR = {
+			AND = {
+				has_completed_focus = UKR_2RCW_Polish_Allies
+				is_in_faction_with = POL
+			}
+			AND = {
+				has_completed_focus = UKR_2RCW_German_Allies
+				OR = {
+					is_in_faction_with = GER
+					is_in_faction_with = DDR
+					is_in_faction_with = WGR
+				}
+			}
+		}
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+					OR = {
+						tag = POL
+						tag = WGR
+						tag = GER
+						tag = DDR
+					}
+					is_in_faction_with = ROOT
+				}
+				country_event = {
+					id = ukr_civil_war.17
+				}
+			}
+		}
+		custom_effect_tooltip = UKR_gib_guns
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Russian_Allies
+	icon = GFX_focus_Return_of_the_Whites
+	prerequisite = {
+		focus = UKR_2RCW_Foreign_Loans
+	}
+	x = 2
+	y = 2
+	relative_position_id = UKR_2RCW_Foreign_Start
+	cost = 3.58
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+		is_in_faction_with = RUS
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		set_variable = {
+			UKR_add_influence_value = 5
+		}
+		UKR_add_influence_usrp = yes
+		custom_effect_tooltip = UKR_radicals_gain_5
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Ukrainians_Abroad
+	icon = GFX_goal_generic_propaganda
+	prerequisite = {
+		focus = UKR_2RCW_Polish_Allies
+		focus = UKR_2RCW_Russian_Allies
+	}
+	mutually_exclusive = {
+		focus = UKR_2RCW_Industry
+	}
+	x = 1
+	y = 3
+	relative_position_id = UKR_2RCW_Foreign_Start
+	cost = 3.15
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		set_variable = {
+			UKR_add_influence_value = -5
+		}
+		UKR_add_influence_oun = yes
+		custom_effect_tooltip = UKR_oun_lose_5
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Trade
+	icon = GFX_focus_Free_Trade
+	prerequisite = {
+		focus = UKR_2RCW_Ukrainians_Abroad
+	}
+	x = 1
+	y = 4
+	relative_position_id = UKR_2RCW_Foreign_Start
+	dynamic = yes
+	cost = 3.15
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						tag = RUS
+						tag = POL
+					}
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = UKR_trade
+				}
+				UKR = {
+					add_opinion_modifier = {
+						target = PREV
+						modifier = UKR_trade
+					}
+				}
+			}
+		}
+		custom_effect_tooltip = UKR_gib_trade
+	}
+}
+shared_focus = {
+	id = UKR_2RCW_Foreign_Officers
+	icon = GFX_focus_Military_Attache
+	prerequisite = {
+		focus = UKR_2RCW_Foreign_Guns
+		focus = UKR_2RCW_Trade
+	}
+	x = 0
+	y = 5
+	relative_position_id = UKR_2RCW_Foreign_Start
+	dynamic = yes
+	cost = 5
+	ai_will_do = {
+		factor = 16
+	}
+	available = {
+		has_global_flag = Russian_Civil_War
+	}
+	bypass = {
+		
+	}
+	completion_reward = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+					is_in_faction_with = ROOT
+					OR = {
+						tag = GER
+						tag = WGR
+						tag = DDR
+						tag = RUS
+						tag = POL
+					}
+				}
+				country_event = {
+					id = ukr_civil_war.20
+				}
+			}
+		}
+		custom_effect_tooltip = UKR_gib_officers
+	}
+}
