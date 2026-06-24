@@ -51,6 +51,24 @@ long-standing no-op (already inert on 1.14). Decide whether these templates were
 
 ---
 
+## D4 — Duplicate province building blocks in 3 state history files (Jump 2 / 1.16)  [LOW]
+1.16 added a check that *reports* (error.log/`-debug`) duplicate province building blocks; it does
+not block loading and does not change runtime behavior (the later block silently overrides the
+earlier, exactly as on 1.14/1.15). These are **pre-existing** (present on the 1.14 baseline). For a
+faithful port they were left as-is, because merging changes game state vs. baseline (re-adds
+currently-dropped buildings). Owner decides whether to apply the dedup merges:
+- `history/states/327-Philippines.txt` prov 10265 → `10265 = { bunker = 1  coastal_bunker = 4  naval_base = 4 }` (re-adds a silently-dropped bunker + coastal_bunker; verify intended naval_base level)
+- `history/states/466-Quebec.txt` prov 13384 → `13384 = { naval_base = 1 }` (drop pure duplicate; no value change)
+- `history/states/695-Curacao.txt` prov 153 → `153 = { naval_base = 1  coastal_bunker = 2 }` (re-adds a silently-dropped naval_base)
+Confirm against a 1.16+ `-debug` `error.log` grep over `history/states/`.
+
+## D5 — Minor pre-existing authoring artifacts (FYI; not version breakage)  [LOW]
+- `common/script_enums.txt:1` — a `small_plane` token appears glued onto the enum name (latent
+  authoring artifact; non-load-breaking, pre-existing). Owner may want to clean it up.
+- `common/bop/*.txt` (all 7) are empty stubs — harmless/additive, no action needed.
+
+---
+
 ## End-of-port step (critical, do not skip)
 Run **1.19 with `-debug`**, load the mod, and play a few in-game hours; send me `error.log`. I'll do
 a final cleanup pass against **real engine errors** — this catches any low-profile stale token
