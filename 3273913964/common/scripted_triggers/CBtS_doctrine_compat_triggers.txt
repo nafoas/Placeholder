@@ -1,0 +1,54 @@
+# ============================================================================
+# 1.16 -> 1.17 port compatibility: doctrine-completion scripted triggers
+# ============================================================================
+# 1.17 (No Compromise, No Surrender) reworked the doctrine system and removed the
+# vanilla scripted triggers ai_has_completed_army/naval/air_doctrine (they lived in
+# vanilla's common/scripted_triggers/_special_forces_scripted_triggers.txt and tested
+# old doctrine techs that no longer exist). The mod's own special_forces_doctrine.txt
+# (a full override of vanilla's) still references all three in its ai_will_do blocks,
+# so on 1.17+ they error as "Unknown trigger-type", which aborts those AI-weight blocks.
+#
+# These are AI-research-weighting helpers only (used inside ai_will_do { modifier { ... } }).
+# Re-declaring them here resolves the references and preserves the mod's intent:
+#  - army : the mod keeps an OLD-format (non-grand) land doctrine tree, so test its real
+#           terminal land-doctrine techs (the same approach vanilla used, with techs that
+#           still exist in this mod: werwolf_guerillas / modern_blitzkrieg / the 4 branch
+#           keystones). This stays fully functional.
+#  - naval/air : the mod does NOT override naval/air doctrines, so it inherits vanilla
+#           1.17's NEW grand-doctrine system; the old naval/air doctrine techs are gone.
+#           Use the engine-native 1.17 trigger has_any_grand_doctrine = <folder>, which
+#           checks whether the AI has taken any grand doctrine in that folder -- the modern
+#           equivalent of "has completed an air/naval doctrine".
+#
+# Sources:
+#  - hoi4.paradoxwikis.com/Patch_1.17 (doctrine system rework)
+#  - hoi4.paradoxwikis.com/Doctrine_modding (has_any_grand_doctrine: "checks if a certain
+#    folder has any assigned grand doctrine")
+#  - Kaiserreich/Kaiserreich-HOI4 common/scripted_triggers/_doctrine_scripted_triggers.txt
+#    (has_any_grand_doctrine = land / naval / air pattern on a confirmed 1.17+ mod)
+#  - Vanilla pre-1.17 definition pattern (is_ai = yes + OR { has_tech = werwolf_guerillas
+#    has_tech = modern_blitzkrieg ... }) carried by dozens of current mods.
+
+ai_has_completed_army_doctrine = {
+	is_ai = yes
+	OR = {
+		has_tech = werwolf_guerillas
+		has_tech = modern_blitzkrieg
+		has_tech = masterful_blitz
+		has_tech = shock_and_awe
+		has_tech = defence_in_depth
+		has_tech = human_wave_offensive
+		has_tech = deep_operations
+		has_tech = large_front_offensive
+	}
+}
+
+ai_has_completed_naval_doctrine = {
+	is_ai = yes
+	has_any_grand_doctrine = naval
+}
+
+ai_has_completed_air_doctrine = {
+	is_ai = yes
+	has_any_grand_doctrine = air
+}
