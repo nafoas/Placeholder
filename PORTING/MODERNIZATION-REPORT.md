@@ -36,3 +36,37 @@ hoi4.paradoxwikis.com/Map_modding ; hoi4.paradoxwikis.com/Modifiers ; hoi4.parad
   role of the old `terrain_penalty_reduction`); only relevant if the owner decides to adopt it.
   NOTE: do NOT treat as a drop-in rename of `terrain_penalty_reduction` — different effect (see
   jump-1.14-to-1.15/UNCERTAINTIES.md U1).
+
+---
+
+## 1.16 (Graveyard of Empires)
+
+Additions surfaced while researching the 1.15→1.16 jump (all are NEW capabilities; none is required
+for the mod to load on 1.16 — the only load-bearing change this jump was the `supported_version`
+bump). The mod uses none of these today. Sources: hoi4.paradoxwikis.com/Patch_1.16 ;
+hoi4.paradoxwikis.com/Patch_1.16.X ; National-focus-modding / AI-modding wiki pages.
+
+- `bypass_effect = { ... }` (national focuses) — an **effect** block that runs when a focus is
+  bypassed (manually or auto-bypassed). Distinct from the existing `bypass = { ... }` **trigger**.
+  Lets a focus do something on bypass instead of nothing; the mod has many `bypass` triggers that
+  currently grant no on-bypass effect.
+- `load_focus_tree` gains a `copy_completed_from = TAG` parameter — copy completed focuses from an
+  existing country when swapping a focus tree (smoother tree swaps; the mod swaps trees in several
+  scripted_effects).
+- `front_role_override` for division templates — customise which **front type** a template gets
+  assigned to (finer AI/auto-front control). Pure addition to the front-assignment system; does NOT
+  change the `common/ai_templates/` role schema (so it does not move the deferred AI-template
+  migration target — see DECISIONS-NEEDED D1).
+- (1.16.1) `count` field for all `any_object` triggers — true if at least `count` children match;
+  supports scoped variables. Collapses some "N-of" checks the mod currently expresses the long way.
+- Graveyard of Empires content systems (Afghanistan Quami/Nufus national spirits & focus tree,
+  British Raj "martial tribes" recruitment / Agrarian Society rework, Iran/Iraq/Kurdistan trees,
+  new subjects) — large new **content**, only relevant if the mod ever wants to integrate or react
+  to those nations' new mechanics.
+
+NOTE (scoped OUT of this jump — belongs to 1.17): the State/Province **building-limit rework**
+(nested `level_cap = { state_max / province_max / shares_slots }`, per-state-type and per-island
+limits) and **Strategic Locations** (e.g. Natural Harbor → +2 naval-base limit in a province) were
+introduced in **Patch 1.17**, not 1.16. The mod's `common/buildings/00_buildings.txt` (which
+overrides vanilla building defs with the flat `max_level` schema) should be re-evaluated against
+that rework in the 1.16→1.17 jump (see jump-1.15-to-1.16/UNCERTAINTIES.md U3).
