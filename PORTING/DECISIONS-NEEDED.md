@@ -82,6 +82,18 @@ folders in its own `common/technology_tags/00_technology.txt`, references old do
 `land_doctrine.txt` "no longer exists in its original form"; modder consensus + 1.17.X CTD fixes indicate
 **old custom doctrines + the new doctrine tree view crash**.
 
+**Severity — UPDATED by the Jump-3 audit (DOWNGRADED): DEGRADED-BUT-RUNNABLE, not un-loadable →
+safe to DEFER to the 1.19 endgame, gated on one quick `-debug` doctrine-tab check.** Old-format
+doctrine folders + technologies still parse on 1.17–1.19 (proven by live mods
+`kasanakisara/new-aor` @1.17.* and `East-Showdown` @1.19.* shipping near-identical `land_doctrine.txt`;
+the mod's `00_technology.txt` doctrine-folder override is structurally identical to current working
+mods and deletes nothing vanilla grand doctrines need). What IS broken: the doctrine SUBSYSTEM is
+non-functional (mod ships no `common/doctrines/` grand/subdoctrine data and no doctrine GUI) and **56**
+doctrine `has_tech` refs degrade (32 land/SF → mod-defined techs; 24 air/naval → vanilla doctrine names
+1.17 reworked, already silent no-ops). Only residual unknown: whether opening the doctrine TAB CTDs vs.
+vanilla's new GUI — evidence leans MEDIUM-HIGH that it does NOT (the engine ships a
+`has_any_grand_doctrine` trigger, implying "no grand doctrine" is a supported, non-crashing state).
+_Original (now-superseded) escalation assessment follows._
 **Severity:** **load-bearing / assessed crash-class** (the exact failure mode — load-error vs.
 silent-degrade vs. CTD-only-on-opening-the-doctrine-tab — could not be pinned from available sources; that
 gap is why it is escalated, not patched). This is the first true BLOCKER of the port. Unlike D1, the
