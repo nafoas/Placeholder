@@ -69,6 +69,45 @@ Confirm against a 1.16+ `-debug` `error.log` grep over `history/states/`.
 
 ---
 
+## D6 — 1.17 doctrine rework vs. the mod's old-format doctrines  ⚠️ BLOCKER / HIGH PRIORITY (Jump 3 / 1.17)
+**Facts (verified by read + grep + research):** 1.17 (No Compromise, No Surrender) **replaced the
+Army/Navy/Air doctrine trees with a new Grand-Doctrine + Subdoctrine + Mastery system** and a new
+doctrine GUI. The mod ships **old-format** land + special-forces doctrine trees that override vanilla
+(`common/technologies/land_doctrine.txt`, `special_forces_doctrine.txt`), declares old-style doctrine
+folders in its own `common/technology_tags/00_technology.txt`, references old doctrine technologies via
+`has_tech = …` in **43 places across 6 files** (`common/ideas/{army,navy,air}_spirits.txt`,
+`common/ai_strategy/doctrines.txt`, `common/scripted_triggers/00_scripted_triggers.txt`,
+`common/national_focus/GER_Hitler_Military.txt`), uses **vanilla's new** doctrine GUI (it ships no
+`countrydoctrinetreeview.gui`), and uses **none** of the new doctrine tokens. Vanilla's old
+`land_doctrine.txt` "no longer exists in its original form"; modder consensus + 1.17.X CTD fixes indicate
+**old custom doctrines + the new doctrine tree view crash**.
+
+**Severity:** **load-bearing / assessed crash-class** (the exact failure mode — load-error vs.
+silent-degrade vs. CTD-only-on-opening-the-doctrine-tab — could not be pinned from available sources; that
+gap is why it is escalated, not patched). This is the first true BLOCKER of the port. Unlike D1, the
+faithful fix is not a deletion — the 43 `has_tech` references and three doctrine-bonus spirit files depend
+on the doctrine techs, so any path requires real rework.
+
+**Options:**
+- **(A) Migrate** the mod's land + special-forces doctrines to the new Grand/Sub/Mastery schema, adapt/ship
+  the doctrine GUI, and convert the 43 `has_tech = <doctrine>` refs to `has_doctrine` / `has_mastery_level`.
+  Faithful to the mod's doctrine intent; **large interpretive rework** — best done **together with the D1
+  `ai_templates` migration at the 1.19 endgame**.
+- **(B) Delete** the mod's `land_doctrine.txt` + `special_forces_doctrine.txt` overrides and the
+  doctrine-folder overrides in `00_technology.txt` → inherit vanilla 1.17 doctrines; the 43 `has_tech` refs
+  still must be reworked to the new triggers (else they silently no-op). Cleaner/correct doctrines, loses
+  the mod's custom doctrine tuning.
+- **(C) Defer** (like D1) to the 1.19 endgame — **only** if `-debug` confirms it does NOT hard-crash on
+  load / on opening the doctrine tab.
+
+**Required immediate step (disambiguates + picks A/B/C):** run **1.17 with `-debug`**, load the mod, open
+the **Army / Navy / Air doctrine tabs**, and grep `error.log` for doctrine / `has_mastery_level` / `unknown`
+/ CTD. This is the single highest-leverage action for this jump. **Default taken: ESCALATE — no mod edit
+made** (faithful-port mandate forbids guessing a load-bearing rework). See
+jump-1.16-to-1.17/{dossier.md #1, UNCERTAINTIES.md U1, changes.md}.
+
+---
+
 ## End-of-port step (critical, do not skip)
 Run **1.19 with `-debug`**, load the mod, and play a few in-game hours; send me `error.log`. I'll do
 a final cleanup pass against **real engine errors** — this catches any low-profile stale token

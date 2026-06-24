@@ -70,3 +70,47 @@ limits) and **Strategic Locations** (e.g. Natural Harbor → +2 naval-base limit
 introduced in **Patch 1.17**, not 1.16. The mod's `common/buildings/00_buildings.txt` (which
 overrides vanilla building defs with the flat `max_level` schema) should be re-evaluated against
 that rework in the 1.16→1.17 jump (see jump-1.15-to-1.16/UNCERTAINTIES.md U3).
+
+---
+
+## 1.17 (No Compromise, No Surrender)
+
+Additions surfaced while researching the 1.16→1.17 jump (all are NEW capabilities; none is required
+for the mod to LOAD on 1.17 except where escalated — the only load-bearing edit this jump was the
+`supported_version` bump). The mod uses none of these today. Sources: hoi4.paradoxwikis.com/Patch_1.17 ;
+/Patch_1.17.X ; /No_Compromise,_No_Surrender ; Building / State / Technology / Doctrine / Land-doctrine /
+Naval-doctrine / Air-doctrine / Special-forces-doctrine / MIO modding pages (via WebSearch backend +
+GitHub mirror) ; GitHub code search over 1.17+ mods.
+
+- **Doctrine system rework (Grand Doctrines + Subdoctrines + Mastery)** — 1.17 replaced the Army/Navy/Air
+  doctrine trees with a new system (mutually-exclusive grand doctrines, shared subdoctrine tracks, a
+  practical-XP **Mastery** system with milestones, and a new doctrine GUI). New script surface: triggers
+  `has_doctrine` / `has_mastery_level` / `has_completed_track` / `has_any_grand_doctrine` (1.17.5);
+  effects `set_grand_doctrine` / `set_sub_doctrine` / `add_mastery` / `add_mastery_bonus`; grand-doctrine
+  layout props `max_track_columns` / `max_track_rows`. **This is the one 1.17 system that genuinely breaks
+  this mod (it ships old-format doctrines) and is therefore NOT a free modernization item — it is escalated
+  as a BLOCKER / owner decision (DECISIONS-NEEDED D6, jump UNCERTAINTIES U1).** Listed here too because
+  adopting the new schema is also the modernization path.
+- **Building-limit rework** — nested `level_cap = { state_max / province_max / shares_slots / group_by /
+  exclusive_with }`, per-state-type and per-island building limits, and **Strategic Locations** (provinces
+  with bonus building limits, e.g. Natural Harbor → +2 naval base in that province). Plus two new
+  infrastructure-scaling buildings (energy-consumption reduction / local-resource-gain efficiency,
+  mutually exclusive in a state). The mod's `common/buildings/00_buildings.txt` overrides vanilla building
+  defs with the flat `max_level` schema (still valid on 1.17), so it does NOT inherit any of these unless
+  migrated to `level_cap`. Owner/modernization choice. (jump UNCERTAINTIES U3.)
+- **Naval / carrier rework** — Carrier Stances (split carrier planes between taskforce defense and air
+  missions); carriers intercept land-based naval strikes; Fleet Home Base reintroduced (with 'Automatic'
+  selection); naval-invasion caps now per simultaneous-plan (planning time no longer scales with division
+  count); shore bombardment can critically hit forts; coastal-defense ships can minelay. Pure gameplay/AI;
+  only relevant if the owner wants to react to/rebalance for them. (The Medium-Battery **tech line** was
+  removed — vanilla content; the mod's self-contained ship modules are unaffected.)
+- **MIO** — Naval-Aircraft MIO archetypes now correctly apply Naval Attack/Targeting/Sub-&-Surface-Detection
+  bonuses; generic infantry-tank/assault-gun MIO bonuses rebalanced. Bugfix/balance only — no format change.
+- New **modifiers**: `army_experience_from_volunteers`, `spotting_chance_against`, `naval_hit_chance_against`,
+  `amphibious_invasion_against`, `annex_subject_cost_factor`, `energy_gain_factor`.
+- New **trigger**: `has_resources_in_collection` (true if a country has the resources in a given collection).
+- **GUI / script**: `fade_delay` on `containerWindowType` (initial delay before a window fades in);
+  scripted-effect **buttons** in the focus-tree inlay window; Raid Types can use a **range factor** modifier
+  (multiplies effective range of eligible units); `language = X` now usable with or without the `l_` prefix.
+- NCNS **content** (Philippines focus tree + the 23 new subdoctrines as playable content) — large new
+  content, only relevant if the mod ever integrates it.
