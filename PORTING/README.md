@@ -72,8 +72,9 @@ Hearts of Iron IV **1.14** to the current **1.19**.
 | Phase | State |
 |---|---|
 | Import 1.14 baseline | ✅ committed + pushed (`5074c94`) |
-| Jump 1 (1.14→1.15) research | 🔄 in progress |
-| Jump 1 update / review | ⬜ |
-| Jumps 2–5 | ⬜ |
-| Final 1.19 self-review | ⬜ |
+| Jump 1 (1.14→1.15) | ✅ ported + audited + pushed (`48b973e`) — 1 edit (descriptor bump) |
+| Jump 2 (1.15→1.16) | 🔄 starting |
+| Jumps 3–5 | ⬜ |
+| AI-template migration | ⬜ deferred to 1.19 endgame — owner decision, see `DECISIONS-NEEDED.md` D1 |
+| Final 1.19 self-review + owner `-debug` error.log pass | ⬜ |
 </content>
