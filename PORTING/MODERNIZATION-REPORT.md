@@ -163,3 +163,68 @@ xpgained.co.uk patch-note mirrors ; GitHub code search over 1.18 mods.
 NOTE (deferred decisions, unchanged by 1.18): **1.18 made no AI-template / division-designer schema change** (D1
 target unchanged) and **no doctrine-system change** (D6 target unchanged — 1.18's naval change is the submarine
 *detection* formula, not the naval *doctrine*). Both subsystems remain untouched per HARD RULES 1 & 2.
+
+---
+
+## 1.19 (Thunder at our Gates)
+
+Additions surfaced while researching the 1.18→1.19 jump. **Unlike Jumps 1–4, this jump required a real
+load-bearing fix beyond the descriptor bump:** 1.19 *removed* the effect `add_temporary_buff_to_units`, which the
+mod used in 4 army-leader abilities, so those were migrated to the new `unit_modifiers` block (see
+jump-1.18-to-1.19/changes.md — this is a port FIX, not a modernization item). Everything **below** is a NEW
+capability / system / content addition (NOT applied during the faithful port; the mod uses none of the new
+tokens). 1.19 (Thunder at our Gates) is a content **expansion**: Army HQs, Ship Captains, a Special-Forces
+rework, Regimental Support, and new focus-tree content. Where 1.19 touched a subsystem the mod overrides, the mod
+is insulated (so it does **not** inherit the addition — that non-adoption is the modernization opportunity).
+Sources: hoi4.paradoxwikis.com/Patch_1.19 ; /Patch_1.19.X ; /Thunder_at_our_Gates ; /Decision_modding ;
+/Character_modding ; patched.gg + xpgained.co.uk 1.19 mirrors ; soren.com / PCGamesN / HappyGamer 1.19 summaries ;
+GitHub code search over confirmed-`1.19.*` mods (all via WebSearch backend / raw GitHub reads — live wiki/forum
+JS-walled).
+
+- **Army HQs** — deploy generals into the field as Army HQs that buff the troops of the order they are assigned
+  to; **11 unique HQ support companies** + **5 new commander abilities** unlocked through them. Large new
+  command-layer system; the mod ships its own abilities (`common/abilities/*`) and would need to add the HQ
+  companies + abilities to adopt it. (Note: vanilla's Army-HQ abilities use the new `unit_modifiers` block — the
+  same construct the mod's abilities now use post-port.)
+- **Ship Captains** — naval-vessel commanders that can be granted medals and promoted to Admirals; 8 Historical
+  Ship Captains per bookmark for majors. Works **within the existing `navy_leader` framework** (no new character
+  type required) + the new `ship_modifiers`-on-medals field. The mod `replace_path`s `common/characters`, so it
+  would add captains/medals to its own character set to adopt it.
+- **Special-Forces rework** — a new **fourth doctrine page** giving SF specialism (Mountaineers/Marines/
+  Paratroopers retained) + a **Dispersed Operations** subdoctrine (immediate reductions to enemy air-superiority
+  bonuses, for fighting under heavy red air). Designed to "better befit strategic capability over detailed stat
+  modification." **This overlaps the deferred D6 doctrine migration** — when D6 is done at the endgame, the mod's
+  special-forces doctrine should target this new fourth SF doctrine page (using the 1.19 subdoctrine properties
+  below). The mod ships old-format `special_forces_doctrine.txt` (untouched per HARD RULE 2).
+- **Regimental Support** — a new division-designer **row** with **12** new support companies unlocked through
+  techs, synergising with the doctrine system. New designer content; the mod does not ship these (and would add
+  them to its own `common/units` + tech to adopt).
+- **Subdoctrine system extensions** (modding) — subdoctrines can now be **assignable to multiple doctrine track
+  types**; new **`allow_in_multiple_tracks`** property; new **`xor`** property (mutually-exclusive subdoctrines).
+  Doctrine-system additions (D6 space); useful when migrating the mod's doctrines at the endgame.
+- **`unlock_subunit`** (new effect) — unlock a specific subunit for a country (e.g. gate a unit type behind an
+  event/focus). The mod gates content via tech/focus today; this is a cleaner per-subunit unlock.
+- **`captured_army_leader`** (new **raid target type**) — raids can target a captured army leader. Relevant only
+  if the mod expands its raids/operations.
+- **`ship_modifiers` on medals** + **`officer_xp` field on unit medals** (new) — richer medal effects (naval
+  modifiers from medals; officer-XP from unit medals). The mod ships small medals files; additive.
+- **`casualty_trickleback` as a general modifier** (new) — 1.19 registers `casualty_trickleback` (which the mod
+  already uses as an equipment/tech **bonus stat**) as a general **modifier** too; the mod could now apply it via
+  ideas/spirits/traits, not just equipment bonuses.
+- **`is_leader_visible`** (new trigger) — test whether a leader is visible; additive scripting convenience.
+- **Decision `war_with_on_remove/timeout/complete` → scoped variables** — these decision auto-war fields now
+  also accept a `var:…` target (e.g. a dynamically-chosen enemy), in addition to the literal `TAG` the mod uses
+  today (8 active in `GER.txt`). Lets the mod's auto-war decisions pick targets dynamically. (For `FROM`-target
+  decisions, the alternatives `war_with_target_on_*` exist.)
+- **New CONTENT** — Australia focus tree + a **Democratic Election** system; Siam + Dutch East-Indies focus
+  trees; naval balance. Large new content, only relevant if the mod integrates or reacts to those nations'
+  mechanics.
+
+NOTE (deferred decisions, status after 1.19): **1.19 made no AI-template / division-designer *role-schema*
+change** — its designer change is the additive Regimental-Support row + Army-HQ companies, not the
+`ai_templates` role schema — so the **D1** target is unchanged (still the post-1.15 singular-`role` schema).
+**D6** is now the only subsystem whose migration *target* moved: 1.19's Special-Forces rework adds a fourth SF
+doctrine page + subdoctrine `xor`/`allow_in_multiple_tracks`/multi-track assignment on top of the 1.17 Grand/Sub/
+Mastery schema, so the eventual D6 migration should target **1.17 schema + 1.19 SF-doctrine features**. Both
+subsystems remain **untouched** per HARD RULES 1 & 2 (the SF-doctrine change removes/renames no token the mod's
+old-format doctrines use, so D6 stays the safe-to-defer, degraded-but-runnable posture).
