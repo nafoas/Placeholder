@@ -114,3 +114,52 @@ GitHub mirror) ; GitHub code search over 1.17+ mods.
   (multiplies effective range of eligible units); `language = X` now usable with or without the `l_` prefix.
 - NCNS **content** (Philippines focus tree + the 23 new subdoctrines as playable content) — large new
   content, only relevant if the mod ever integrates it.
+
+---
+
+## 1.18 (Peace for Our Time)
+
+Additions surfaced while researching the 1.17→1.18 jump (all are NEW capabilities / content / balance; **none
+is required for the mod to LOAD on 1.18** — the only load-bearing edit this jump was the `supported_version`
+bump). 1.18 is a **free update**: a war-score/peace rebalance, a submarine-detection formula overhaul, GER/ITA/UK
+AI overhauls, and new Train + Helicopter MIO content. The mod uses none of the new tokens, and where 1.18 touched
+a subsystem the mod overrides, the mod is insulated (so it does not *inherit* the improvement — that non-adoption
+is the modernization opportunity). Sources: hoi4.paradoxwikis.com/Patch_1.18 ; /Patch_1.18.X ; /Peace_For_Our_Time ;
+Equipment / MIO / Modifiers / Defines modding pages (via WebSearch backend + GitHub raw mirror) ; patched.gg /
+xpgained.co.uk patch-note mirrors ; GitHub code search over 1.18 mods.
+
+- **Submarine-detection overhaul** — 1.18 reformulated submarine detection via **new defines**
+  `SUBMARINE_BASE_STEALTH_VALUE`, `SUBMARINE_REVEAL_DETECTION_MULTIPLIER` (tuned 0.1→0.075→0.065),
+  `SUBMARINE_REVEAL_TORPEDO_FIRING_DETECTION_MULTIPLIER` (1→1.1). The **equipment stats are unchanged**
+  (`sub_detection`/`sub_visibility`/`surface_detection`/`sub_attack` still valid), so the mod's ship hulls/modules
+  keep working and the mod **inherits** the new formula automatically. The mod does not override these defines
+  today; if the owner wants to preserve a specific pre-1.18 sub-warfare feel, set the three defines in
+  `common/defines/cbts_defines.lua`. Pure tuning — not a port fix.
+- **Train MIOs + Helicopter MIOs** — new vanilla MIO content (Train → ENG/FRA/BEL/USA/SOV/ITA/JAP/GER; Helicopter
+  → BEL/USA/JAP/GER) plus their equipment lines. MIO **schema is unchanged** (no new required field). The mod
+  `replace_path`s the MIO `organizations` folder, so it does **not** gain these; adopting them (porting the new
+  organizations + equipment into the mod's own MIO set) is the modernization path.
+- **War-score / peace-conference rebalance** — faction war-score contribution `0.125 → 0.1`; war score from sunk
+  ships **halved** (sunk-IC contribution) to align with land combat. Internal balance values; no peace scripting
+  token changed. The mod ships its own `common/peace_conference/*` and sets its own peace defines
+  (`PEACE_SCORE_PER_PASS` etc., different keys), so it is unaffected by load but the owner may wish to re-balance
+  the mod's peace tuning against 1.18's new war-score weights.
+- **AI overhaul (Germany / Italy / UK)** — better MEFO management + Barbarossa commitment + "Service By
+  Requirement" conscription + Berlin-Moscow-axis fallback (GER); North-Africa defense/screening + African airforce
+  (ITA); Egypt defense + convoy-escort efficiency + Tripoli/Iraq offensives (UK). The mod `replace_path`s
+  `ai_strategy`/`ai_focuses`/`ai_strategy_plans`/`ai_equipment`, so it **overrides vanilla AI** and does not inherit
+  these; porting the desirable improvements into the mod's own AI files is the modernization path (overlaps the
+  deferred D1 `ai_templates` work for division design, which 1.18 did **not** change).
+- **`pp_spend_priority` extended to advisors** — the AI-strategy token `pp_spend_priority` can now also **target
+  advisors** (not just spend categories). The mod uses it widely in the category form (`id = admiral|relation|…`);
+  it could now also weight specific advisors. Additive.
+- **Stability-check validation** — 1.18 updated error-checking for stability checks to verify the normalized range
+  based on defines. Internal validation; no action.
+- **Naval OOB / carrier balance** — Japan 1936/1939 naval OOB corrections (Hatsuharu/Minekaze DDs, Takao CAs, IJN
+  Yugao); tuned carrier/naval-strike defines (`NAVAL_STRIKE_CARRIER_MULTIPLIER` 10→12,
+  `CARRIER_COMBAT_DAMAGE_STATS_MULTIPLIER` 0.35→0.5). Pure balance/content; only relevant if the owner rebalances
+  for it.
+
+NOTE (deferred decisions, unchanged by 1.18): **1.18 made no AI-template / division-designer schema change** (D1
+target unchanged) and **no doctrine-system change** (D6 target unchanged — 1.18's naval change is the submarine
+*detection* formula, not the naval *doctrine*). Both subsystems remain untouched per HARD RULES 1 & 2.
