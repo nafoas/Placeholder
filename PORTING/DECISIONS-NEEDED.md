@@ -66,6 +66,10 @@ Confirm against a 1.16+ `-debug` `error.log` grep over `history/states/`.
 - `common/script_enums.txt:1` — a `small_plane` token appears glued onto the enum name (latent
   authoring artifact; non-load-breaking, pre-existing). Owner may want to clean it up.
 - `common/bop/*.txt` (all 7) are empty stubs — harmless/additive, no action needed.
+- `common/script_enums.txt` `script_enum_equipment_bonus_type` omits `helicopter_equipment` (the mod's
+  same-filename enum override). Pre-existing (helicopters arrived in 1.15; the mod ships a
+  helicopter-free equipment set and doesn't replace `common/units/equipment`); per the enum's own design
+  this is a **startup log-reminder, not a load abort**. One-line add only if the end `-debug` `error.log` flags it.
 
 ---
 
